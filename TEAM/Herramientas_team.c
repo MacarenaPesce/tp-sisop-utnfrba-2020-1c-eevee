@@ -71,7 +71,7 @@ void obtener_el_retardo_de_ciclo_de_cpu(){
 }
 
 void obtener_el_algoritmo_de_planificacion(){
-	algoritmo_planificacion = config_get_string_value(config, KEY_CONFIG_ALGORITMO_PLANIFICACION);
+	algoritmo_planificacion = strdup(config_get_string_value(config, KEY_CONFIG_ALGORITMO_PLANIFICACION));
 	logger(escribir_loguear,l_debug,"El algoritmo de planificacion es: %s",algoritmo_planificacion);
 }
 
@@ -86,17 +86,17 @@ void obtener_la_estimacion_inicial(){
 }
 
 void obtener_la_ip_del_broker(){
-	ip_broker = config_get_string_value(config, KEY_CONFIG_IP_BROKER);
+	ip_broker = strdup(config_get_string_value(config, KEY_CONFIG_IP_BROKER));
 	logger(escribir_loguear,l_debug,"La ip del broker es: %s",ip_broker);
 }
 
 void obtener_el_puerto_del_broker(){
-	puerto_broker = config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER);
+	puerto_broker = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER));
 	logger(escribir_loguear,l_debug,"El puerto del broker es: %s",puerto_broker);
 }
 
 void obtener_el_log_file(){
-	log_file = config_get_string_value(config, KEY_CONFIG_LOG_FILE);
+	log_file = strdup(config_get_string_value(config, KEY_CONFIG_LOG_FILE));
 	logger(escribir_loguear,l_debug,"El log file es: %s",log_file);
 }
 

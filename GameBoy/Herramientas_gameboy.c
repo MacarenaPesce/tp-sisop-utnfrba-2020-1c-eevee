@@ -38,32 +38,32 @@ void obtener_valor_config(char* key, t_config* file, void(*obtener)(void)){
 }
 
 void obtener_la_ip_del_broker(){
-	ip_broker = config_get_string_value(config, KEY_CONFIG_IP_BROKER);
+	ip_broker = strdup(config_get_string_value(config, KEY_CONFIG_IP_BROKER));
 	logger(escribir_loguear,l_debug,"La ip del broker es: %s",ip_broker);
 }
 
 void obtener_la_ip_de_team(){
-	ip_team = config_get_string_value(config, KEY_CONFIG_IP_TEAM);
+	ip_team = strdup(config_get_string_value(config, KEY_CONFIG_IP_TEAM));
 	logger(escribir_loguear,l_debug,"La ip de team es: %s",ip_team);
 }
 
 void obtener_la_ip_de_gamecard(){
-	ip_gamecard = config_get_string_value(config, KEY_CONFIG_IP_GAMECARD);
+	ip_gamecard = strdup(config_get_string_value(config, KEY_CONFIG_IP_GAMECARD));
 	logger(escribir_loguear,l_debug,"La ip del gamecard es: %s",ip_gamecard);
 }
 
 void obtener_el_puerto_del_broker(){
-	puerto_broker = config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER);
+	puerto_broker = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER));
 	logger(escribir_loguear,l_debug,"El puerto del broker es: %s",puerto_broker);
 }
 
 void obtener_el_puerto_de_team(){
-	puerto_team = config_get_string_value(config, KEY_CONFIG_PUERTO_TEAM);
+	puerto_team = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_TEAM));
 	logger(escribir_loguear,l_debug,"El puerto de team es: %s",puerto_team);
 }
 
 void obtener_el_puerto_de_gamecard(){
-	puerto_gamecard = config_get_string_value(config, KEY_CONFIG_PUERTO_GAMECARD);
+	puerto_gamecard = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_GAMECARD));
 	logger(escribir_loguear,l_debug,"El puerto del gamecard es: %s",puerto_gamecard);
 }
 
