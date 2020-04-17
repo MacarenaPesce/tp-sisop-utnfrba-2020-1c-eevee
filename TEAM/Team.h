@@ -11,4 +11,8 @@
 #include "Contexto_team.h"
 #include "Herramientas_team.h"
 
+void recibir_mensaje_de_texto(int, int);
+void iniciar_servidor(void);
+void esperar_cliente(int);
+
 #endif /* TEAM_H_ */

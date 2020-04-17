@@ -17,7 +17,7 @@ char* algoritmo_planificacion;
 int quantum;
 char* ip_broker;
 int estimacion_inicial;
-int puerto_broker;
+char* puerto_broker;
 char* log_file;
 
 t_log* team_logger;

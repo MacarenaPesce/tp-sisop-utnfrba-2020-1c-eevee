@@ -91,8 +91,8 @@ void obtener_la_ip_del_broker(){
 }
 
 void obtener_el_puerto_del_broker(){
-	puerto_broker = config_get_int_value(config, KEY_CONFIG_PUERTO_BROKER);
-	logger(escribir_loguear,l_debug,"El puerto del broker es: %d",puerto_broker);
+	puerto_broker = config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER);
+	logger(escribir_loguear,l_debug,"El puerto del broker es: %s",puerto_broker);
 }
 
 void obtener_el_log_file(){
@@ -145,57 +145,4 @@ void terminar_team_correctamente(){
 	logger(escribir_loguear,l_info,"Chau!");
 	log_destroy(team_logger);
 	exit(EXIT_SUCCESS);
-}
-
-/**************FUNCIONES PARA EL LOG*********************/
-void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer, char* log_colors[8], char* msj_salida){
-
-	if ((tipo_esc == escribir) || (tipo_esc == escribir_loguear)) {
-		console_buffer = string_from_format("%s%s%s", log_colors[tipo_log], msj_salida, log_colors[0]);
-		printf("%s", console_buffer);
-		printf("%s","\n");
-		fflush(stdout);
-		free(console_buffer);
-	}
-}
-
-void definir_nivel_y_loguear(int tipo_esc, int tipo_log, char* msj_salida) {
-	if ((tipo_esc == loguear) || (tipo_esc == escribir_loguear)) {
-		if (tipo_log == l_info) {
-			log_info(logger, msj_salida);
-		} else if (tipo_log == l_warning) {
-			log_warning(logger, msj_salida);
-		} else if (tipo_log == l_error) {
-			log_error(logger, msj_salida);
-		} else if (tipo_log == l_debug) {
-			log_debug(logger, msj_salida);
-		} else if (tipo_log == l_trace) {
-			log_trace(logger, msj_salida);
-		}
-	}
-}
-
-void logger(int tipo_esc, int tipo_log, const char* mensaje, ...){
-
-	//Colores (reset,vacio,vacio,cian,verde,vacio,amarillo,rojo)
-	char *log_colors[8] = {"\x1b[0m","","","\x1b[36m", "\x1b[32m", "", "\x1b[33m", "\x1b[31m" };
-	char *console_buffer=NULL;
-	char *msj_salida = malloc(sizeof(char) * 256);
-
-	//Captura los argumenas en una lista
-	va_list args;
-	va_start(args, mensaje);
-
-	//Arma el mensaje formateado con sus argumenas en msj_salida.
-	vsprintf(msj_salida, mensaje, args);
-
-	escribir_en_pantalla(tipo_esc, tipo_log, console_buffer, log_colors,
-			msj_salida);
-
-	definir_nivel_y_loguear(tipo_esc, tipo_log, msj_salida);
-
-	va_end(args);
-	free(msj_salida);
-
-	return;
 }

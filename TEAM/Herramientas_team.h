@@ -27,9 +27,5 @@ void obtener_el_log_file();
 void configurar_signals(void);
 void capturar_signal(int signo);
 void terminar_team_correctamente();
-void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer, char* log_colors[8], char* msj_salida);
-void definir_nivel_y_loguear(int tipo_esc, int tipo_log, char* msj_salida);
-void logger(int tipo_esc, int tipo_log, const char* mensaje, ...);
-
 
 #endif /* HERRAMIENTAS_TEAM_H_ */
