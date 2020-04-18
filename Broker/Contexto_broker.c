@@ -1,11 +1,11 @@
 /*
- * Contexto_team.c
+ * Contexto_broker.c
  *
  *  Created on: 11 abr. 2020
  *      Author: utnso
  */
 
-#include "Contexto_team.h"
+#include "Contexto_broker.h"
 
 /* Global variables*/
 char** posiciones_entrenadores;
@@ -20,5 +20,5 @@ int estimacion_inicial;
 char* puerto_broker;
 char* log_file;
 
-t_log* team_logger;
+t_log* broker_logger;
 t_config* config;

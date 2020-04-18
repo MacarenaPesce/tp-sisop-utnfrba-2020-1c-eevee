@@ -5,8 +5,8 @@
  *      Author: utnso
  */
 
-#ifndef CONTEXTO_TEAM_H_
-#define CONTEXTO_TEAM_H_
+#ifndef CONTEXTO_BROKER_H_
+#define CONTEXTO_BROKER_H_
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -56,7 +56,7 @@ extern int estimacion_inicial;
 extern char* puerto_broker;
 extern char* log_file;
 
-extern t_log* team_logger;
+extern t_log* broker_logger;
 extern t_config* config;
 
-#endif /* CONTEXTO_TEAM_H_ */
+#endif

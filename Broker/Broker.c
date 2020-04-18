@@ -1,11 +1,11 @@
 /*
- * Team.c
+ * Broker.c
  *
  *  Created on: 11 abr. 2020
  *      Author: utnso
  */
 
-#include "Team.h"
+#include "Broker.h"
 
 void recibir_mensaje_de_texto(int cliente, int tamanio){
 	logger(escribir_loguear,l_info,"Voy a recibir un mensaje de texto");

@@ -16,7 +16,7 @@ void inicializar_archivo_de_configuracion(){
 	config = config_create("broker.config");
 	if(config == NULL){
 		logger(escribir_loguear,l_error,"El archivo de configuracion no existe. Fijate en la carpeta Debug.");
-		terminar_team_correctamente();
+		terminar_broker_correctamente();
 	}else{
 		logger(escribir_loguear,l_info,"Cargando el archivo de configuracion...");
 		obtener_valor_config(KEY_CONFIG_POSICIONES_ENTRENADORES, config, obtener_las_posiciones_de_entrenadores);
@@ -127,7 +127,7 @@ void capturar_signal(int signo){
     if(signo == SIGINT)
     {
     	logger(escribir_loguear, l_warning,"\n TEAM DEJA DE FUNCIONAR, CHAU");
-    	terminar_team_correctamente();
+    	terminar_broker_correctamente();
 
     }
     else if(signo == SIGPIPE)
@@ -141,8 +141,8 @@ void capturar_signal(int signo){
 
 }
 
-void terminar_team_correctamente(){
+void terminar_broker_correctamente(){
 	logger(escribir_loguear,l_info,"Chau!");
-	log_destroy(team_logger);
+	log_destroy(broker_logger);
 	exit(EXIT_SUCCESS);
 }
