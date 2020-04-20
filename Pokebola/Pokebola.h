@@ -68,6 +68,16 @@ typedef struct stru_mensaje_char{
 } t_mensaje_char;
 typedef t_mensaje_char* tp_mensaje_char;
 
+typedef struct stru_new_pokemon{
+	char * pokemon;
+	int posx;
+	int posy;
+	int cantidad;
+} t_new_pokemon;
+typedef t_new_pokemon* tp_new_pokemon;
+
+
+
 /**************************************************************************************/
 void cerrar_conexion(int);
 int enviar_mensaje(int sock, void *mensaje, int tamanio);
