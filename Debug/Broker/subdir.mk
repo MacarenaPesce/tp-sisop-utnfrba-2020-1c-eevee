@@ -4,26 +4,26 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Contexto_team.c \
-../Herramientas_team.c \
-../Team.c 
+../Broker/Broker.c \
+../Broker/Contexto_broker.c \
+../Broker/Herramientas_broker.c 
 
 OBJS += \
-./Contexto_team.o \
-./Herramientas_team.o \
-./Team.o 
+./Broker/Broker.o \
+./Broker/Contexto_broker.o \
+./Broker/Herramientas_broker.o 
 
 C_DEPS += \
-./Contexto_team.d \
-./Herramientas_team.d \
-./Team.d 
+./Broker/Broker.d \
+./Broker/Contexto_broker.d \
+./Broker/Herramientas_broker.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-%.o: ../%.c
+Broker/%.o: ../Broker/%.c
 	@echo 'Building file: $<'
-	@echo 'Invoking: GCC C Compiler'
-	gcc -I"/home/utnso/workspace/tp-2020-1c-eevee/Pokebola" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
