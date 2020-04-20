@@ -8,6 +8,10 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include TEAM/subdir.mk
+-include Pokebola/subdir.mk
+-include GameBoy/subdir.mk
+-include Broker/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -22,25 +26,21 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: TEAM
-
-dependents:
-	-cd /home/utnso/workspace/tp-2020-1c-eevee/Pokebola/Debug && $(MAKE) all
+all: tp-2020-1c-eevee
 
 # Tool invocations
-TEAM: $(OBJS) $(USER_OBJS) /home/utnso/workspace/tp-2020-1c-eevee/Pokebola/Debug/libPokebola.so
+tp-2020-1c-eevee: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
-	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/workspace/tp-2020-1c-eevee/Pokebola/Debug" -o "TEAM" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Invoking: Cross GCC Linker'
+	gcc  -o "tp-2020-1c-eevee" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) TEAM
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) tp-2020-1c-eevee
 	-@echo ' '
 
 .PHONY: all clean dependents
-/home/utnso/workspace/tp-2020-1c-eevee/Pokebola/Debug/libPokebola.so:
 
 -include ../makefile.targets
