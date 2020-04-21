@@ -84,6 +84,7 @@ void team_appeared_pokemon(char* pokemon, char* posx, char* posy){
 	server_team = conectar_a_server(ip_team, puerto_team);
 	enviar_appeared_pokemon(pokemon, atoi(posx), atoi(posy), server_team);
 	logger(escribir_loguear,l_info,"\nYa lo envie");
+	terminar_gameboy_correctamente();
 }
 
 void chequear_que_los_argumentos_son_validos_para_team(char * parametro1, char * parametro2, char * parametro3){
