@@ -14,6 +14,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include<netdb.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -47,6 +48,7 @@ enum PROCESOS{
 
 enum MENSAJES{
 	CHAR_MESSAGE,
+	APPEARED_POKEMON
 };
 
 typedef struct{
@@ -68,17 +70,17 @@ typedef struct stru_mensaje_char{
 } t_mensaje_char;
 typedef t_mensaje_char* tp_mensaje_char;
 
-typedef struct stru_new_pokemon{
+typedef struct stru_appeared_pokemon{
 	char * pokemon;
 	int posx;
 	int posy;
-	int cantidad;
-} t_new_pokemon;
-typedef t_new_pokemon* tp_new_pokemon;
+} t_appeared_pokemon;
+typedef t_appeared_pokemon* tp_appeared_pokemon;
 
 
 
 /**************************************************************************************/
+int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
 int enviar_mensaje(int sock, void *mensaje, int tamanio);
 int recibir_mensaje(int sock, void *mensaje, int tamanio);
@@ -93,6 +95,11 @@ void agregar_int_a_paquete(t_paquete*, int);
 void eliminar_paquete(t_paquete*);
 void enviar_mensaje_char(char*, int);
 tp_mensaje_char recibir_mensaje_char(int, int);
+
+void enviar_appeared_pokemon(char*, int, int, int);
+tp_appeared_pokemon recibir_appeared_pokemon(int, int);
+
+/**************************************************************************************/
 void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer,char* log_colors[8], char* msj_salida);
 void definir_nivel_y_loguear(int, int, char*);
 void logger(int, int, const char*, ...);

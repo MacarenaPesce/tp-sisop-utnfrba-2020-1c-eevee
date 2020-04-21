@@ -26,6 +26,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <Pokebola.h>
+#include <readline/readline.h>
 
 
 /* Keys config file*/
@@ -43,8 +44,15 @@ extern char* puerto_broker;
 extern char* puerto_team;
 extern char* puerto_gamecard;
 
+extern int server_broker;
+extern int server_team;
+extern int server_gamecard;
+
 extern t_log* gameboy_logger;
 extern t_config* config;
 
+//Enumeracion de los comandos de la consola
+enum comandos { broker, team, gamecard, suscriptor};
+enum tipo_mensaje { new_pokemon, appeared_pokemon, catch_pokemon, caught_pokemon, get_pokemon};
 
 #endif /* CONTEXTO_GAMEBOY_H_ */

@@ -7,6 +7,37 @@
 
 #include "Pokebola.h"
 
+int conectar_a_server(char* ip, char* puerto){
+	struct addrinfo hints;
+	struct addrinfo *server_info;
+
+	memset(&hints, 0, sizeof(hints));
+	hints.ai_family = AF_UNSPEC;	 // Permite que la maquina se encargue de verificar si usamos IPv4 o IPv6
+	hints.ai_socktype = SOCK_STREAM;  // Indica que usaremos el protocolo TCP
+	hints.ai_flags = AI_PASSIVE;
+
+	getaddrinfo(ip, puerto, &hints, &server_info); // Carga en server_info los datos de la conexion
+
+	int new_socket = socket(server_info->ai_family, server_info->ai_socktype, server_info->ai_protocol);
+	if(new_socket < 0){
+		return -1;
+	}
+
+	int activado = 1;
+	setsockopt(new_socket, SOL_SOCKET, SO_REUSEADDR, &activado, sizeof(activado));
+
+	int res_connect = connect(new_socket, server_info->ai_addr, server_info->ai_addrlen);
+	if(res_connect < 0){
+		freeaddrinfo(server_info);
+		close(new_socket);
+		return -1;
+	}
+
+	freeaddrinfo(server_info);
+	return new_socket;
+
+}
+
 void cerrar_conexion(int sock){
 	close(sock);
 }
@@ -134,6 +165,38 @@ tp_mensaje_char recibir_mensaje_char(int paquete_size, int socket){
 	memcpy(mensaje_char, buffer+desplazamiento, tamanio_mensaje_char);
 	tp_mensaje_char contenido=malloc(sizeof(t_mensaje_char));
 	contenido->mensaje=mensaje_char;
+	free(buffer);
+	return contenido;
+}
+
+void enviar_appeared_pokemon(char* pokemon, int posx, int posy, int socket){
+	t_paquete* paquete = crear_paquete(APPEARED_POKEMON);
+	agregar_string_a_paquete(paquete, pokemon, strlen(pokemon)+1);
+	agregar_int_a_paquete(paquete, posx);
+	agregar_int_a_paquete(paquete, posy);
+	enviar_paquete(paquete, socket);
+	eliminar_paquete(paquete);
+}
+
+tp_appeared_pokemon recibir_appeared_pokemon(int paquete_size, int socket){
+	void * buffer = malloc(paquete_size);
+	recibir_mensaje(socket, buffer, paquete_size);
+	int tamanio_pokemon;
+	int posx;
+	int posy;
+	int desplazamiento = 0;
+	memcpy(&tamanio_pokemon, buffer + desplazamiento, sizeof(int));
+	desplazamiento+=sizeof(int);
+	char* pokemon=malloc(tamanio_pokemon);
+	memcpy(pokemon, buffer+desplazamiento, tamanio_pokemon);
+	desplazamiento+=tamanio_pokemon;
+	memcpy(&posx, buffer + desplazamiento, sizeof(int));
+	desplazamiento=tamanio_pokemon+sizeof(int)+sizeof(int);
+	memcpy(&posy, buffer + desplazamiento, sizeof(int));
+	tp_appeared_pokemon contenido = malloc(sizeof(t_appeared_pokemon));
+	contenido->pokemon=pokemon;
+	contenido->posx=posx;
+	contenido->posy=posy;
 	free(buffer);
 	return contenido;
 }
