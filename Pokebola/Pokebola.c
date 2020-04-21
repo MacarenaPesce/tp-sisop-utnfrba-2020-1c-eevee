@@ -178,6 +178,7 @@ void enviar_appeared_pokemon(char* pokemon, int posx, int posy, int socket){
 	eliminar_paquete(paquete);
 }
 
+
 tp_appeared_pokemon recibir_appeared_pokemon(int paquete_size, int socket){
 	void * buffer = malloc(paquete_size);
 	recibir_mensaje(socket, buffer, paquete_size);
@@ -201,6 +202,49 @@ tp_appeared_pokemon recibir_appeared_pokemon(int paquete_size, int socket){
 	return contenido;
 }
 
+
+void enviar_new_pokemon(char* pokemon, int posx, int posy,int cantidad,int server_gamecard){
+
+	t_paquete* paquete = crear_paquete(NEW_POKEMON);
+		agregar_string_a_paquete(paquete, pokemon, strlen(pokemon)+1);
+		agregar_int_a_paquete(paquete, posx);
+		agregar_int_a_paquete(paquete, posy);
+		agregar_int_a_paquete(paquete, cantidad);
+		enviar_paquete(paquete, socket);
+		eliminar_paquete(paquete);
+};
+
+tp_new_pokemon recibir_new_pokemon(int paquete_size, int socket){
+	void * buffer = malloc(paquete_size);
+	recibir_mensaje(socket, buffer, paquete_size);
+	int tamanio_pokemon;
+	int posx;
+	int posy;
+	int cantidad;
+	int desplazamiento = 0;
+	//copiar en el primer parametro lo que hay en el segundo y el tamaño es el tercero
+	memcpy(&tamanio_pokemon, buffer + desplazamiento, sizeof(int));
+	//me corro bytes
+	desplazamiento+=sizeof(int);
+	//reservo memo
+	char* pokemon=malloc(tamanio_pokemon);
+	//copio en 1, lo que hay en 2, cant en bytes 3
+	memcpy(pokemon, buffer+desplazamiento, tamanio_pokemon);
+	//me corro esas pos
+	desplazamiento+=tamanio_pokemon;
+	//copio en 1, lo que indica2, cant bytes de 3
+	memcpy(&posx, buffer + desplazamiento, sizeof(int));
+	desplazamiento+=sizeof(int);
+	memcpy(&posy, buffer + desplazamiento, sizeof(int));
+	desplazamiento+=sizeof(int);
+	tp_new_pokemon contenido = malloc(sizeof(t_new_pokemon));;
+	contenido->pos_en_mapa_poke->pokemon=pokemon;
+	contenido->pos_en_mapa_poke->posx=posx;
+	contenido->pos_en_mapa_poke->posy=posy;
+	contenido->cantidad_en_la_pos=cantidad;
+	free(buffer);
+	return contenido;
+}
 
 /**************FUNCIONES PARA EL LOG*********************/
 void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer, char* log_colors[8], char* msj_salida){

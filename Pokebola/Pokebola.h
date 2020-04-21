@@ -48,7 +48,10 @@ enum PROCESOS{
 
 enum MENSAJES{
 	CHAR_MESSAGE,
-	APPEARED_POKEMON
+	APPEARED_POKEMON,
+	NEW_POKEMON,
+	CATCH_POKEMON,
+	GET_POKEMON
 };
 
 typedef struct{
@@ -75,10 +78,15 @@ typedef struct stru_appeared_pokemon{
 	int posx;
 	int posy;
 } t_appeared_pokemon;
+
 typedef t_appeared_pokemon* tp_appeared_pokemon;
 
+typedef struct st_new_pokemon{
+	t_appeared_pokemon* pos_en_mapa_poke;
+	int cantidad_en_la_pos;
+} t_new_pokemon;
 
-
+typedef t_new_pokemon* tp_new_pokemon;
 /**************************************************************************************/
 int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
