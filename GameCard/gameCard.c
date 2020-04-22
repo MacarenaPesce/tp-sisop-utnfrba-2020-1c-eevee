@@ -106,7 +106,7 @@ void esperar_cliente(int socket_servidor){
 		recibir_mensaje_de_texto(socket_cliente, header.tamanio);
 	}
 	if(header.tipo_de_mensaje == NEW_POKEMON){
-		recibir_new_pokemon_desde_gamebo(socket_cliente, header.tamanio);
+		recibir_new_pokemon_desde_gameboy(socket_cliente, header.tamanio);
 
 
 }
