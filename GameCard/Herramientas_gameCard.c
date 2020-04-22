@@ -8,17 +8,19 @@
 #include "Herramientas_gameCard.h"
 
 void inicializar_logger(){
-	team_logger = log_create("team.log", "Team", 1, LOG_LEVEL_DEBUG);
-	logger(escribir_loguear,l_info,"Hi, bienvenido a Team");
+	gameCard_logger = log_create("gameCard.log", "gameCard", 1, LOG_LEVEL_DEBUG);
+	logger(escribir_loguear,l_info,"Hi, bienvenido a GameCard!");
 }
 
 void inicializar_archivo_de_configuracion(){
-	config = config_create("team.config");
+	config = config_create("gameCard.config");
 	if(config == NULL){
 		logger(escribir_loguear,l_error,"El archivo de configuracion no existe. Fijate en la carpeta Debug.");
 		terminar_team_correctamente();
 	}else{
 		logger(escribir_loguear,l_info,"Cargando el archivo de configuracion...");
+
+		/* tengo que adapatarlo a mi modulo
 		obtener_valor_config(KEY_CONFIG_POSICIONES_ENTRENADORES, config, obtener_las_posiciones_de_entrenadores);
 		obtener_valor_config(KEY_CONFIG_POKEMON_ENTRENADORES, config, obtener_los_pokemon_de_entrenadores);
 		obtener_valor_config(KEY_CONFIG_OBJETIVOS_ENTRENADORES, config, obtener_los_objetivos_de_entrenadores);
@@ -34,6 +36,7 @@ void inicializar_archivo_de_configuracion(){
 
 		logger(escribir_loguear,l_info,"\nArchivo de configuracion cargado correctamente :)");
 		config_destroy(config);
+		*/
 
 	}
 

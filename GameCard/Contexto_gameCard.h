@@ -29,34 +29,24 @@
 
 
 /* Keys config file*/
-#define KEY_CONFIG_POSICIONES_ENTRENADORES "POSICIONES_ENTRENADORES"
-#define KEY_CONFIG_POKEMON_ENTRENADORES "POKEMON_ENTRENADORES"
-#define KEY_CONFIG_OBJETIVOS_ENTRENADORES "OBJETIVOS_ENTRENADORES"
-#define KEY_CONFIG_TIEMPO_RECONEXION "TIEMPO_RECONEXION"
-#define KEY_CONFIG_RETARDO_CICLO_CPU "RETARDO_CICLO_CPU"
-#define KEY_CONFIG_ALGORITMO_PLANIFICACION "ALGORITMO_PLANIFICACION"
-#define KEY_CONFIG_QUANTUM "QUANTUM"
-#define KEY_CONFIG_ESTIMACION_INICIAL "ESTIMACION_INICIAL"
-#define KEY_CONFIG_IP_BROKER "IP_BROKER"
-#define KEY_CONFIG_PUERTO_BROKER "PUERTO_BROKER"
-#define KEY_CONFIG_LOG_FILE "LOG_FILE"
+#define KEY_TIEMPO_DE_REINTENTO_CONEXION "TIEMPO_DE_REINTENTO_CONEXION"
+#define KEY_TIEMPO_DE_REINTENTO_OPERACION "TIEMPO_DE_REINTENTO_OPERACION"
+#define KEY_PUNTO_MONTAJE_TALLGRASS "PUNTO_MONTAJE_TALLGRASS"
+#define KEY_IP_BROKER "IP_BROKER"
+#define KEY_PUERTO_BROKER "PUERTO BROKER"
 
 #define IP "127.0.0.2"
 #define PUERTO "5002"
+/* adaptar a mi modulo*/
 
-extern char** posiciones_entrenadores;
-extern char** pokemon_entrenadores;
-extern char** objetivos_entrenadores;
-extern int tiempo_reconexion;
-extern int retardo_ciclo_cpu;
-extern char* algoritmo_planificacion;
-extern int quantum;
+extern int tiempo_reintento_conexion;
+extern int tiempo_reintento_conexion;
+extern char* punto_montaje_fs;
 extern char* ip_broker;
-extern int estimacion_inicial;
 extern char* puerto_broker;
 extern char* log_file;
 
-extern t_log* team_logger;
+extern t_log* gameCard_logger;
 extern t_config* config;
 
 #endif /* CONTEXTO_GAMECARD_H_ */

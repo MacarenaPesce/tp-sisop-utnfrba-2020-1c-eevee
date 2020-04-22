@@ -19,11 +19,11 @@ void recibir_mensaje_de_texto(int cliente, int tamanio){
 void recibir_new_pokemon_desde_gameboy(int cliente, int tamanio){
 	logger(escribir_loguear,l_info,"Voy a recibir un pokemon,sus coordenadas en el mapa y su cantidad en dicha posicion:");
 	tp_new_pokemon contenido_del_paquete = recibir_new_pokemon(tamanio, cliente);
-	logger(escribir_loguear,l_info,"Me llego este pokemon: %s", contenido_del_paquete->pos_en_mapa_pokemon->pokemon);
-	logger(escribir_loguear,l_info,"La coordenada X en el mapa es: %d", contenido_del_paquete->pos_en_mapa_pokemon->posx);
-	logger(escribir_loguear,l_info,"La coordenada Y en el mapa es: %d", contenido_del_paquete->pos_en_mapa_pokemon->posy);
-	logger(escribir_loguear,l_info,"Y la cantidad en dicha posicion es: %d", contenido_del_paquete->pos_en_mapa_pokemon->posy);
-	free(contenido_del_paquete->pos_en_mapa_pokemon->pokemon);
+	logger(escribir_loguear,l_info,"Me llego este pokemon: %s", contenido_del_paquete->pos_en_mapa_poke->pokemon);
+	logger(escribir_loguear,l_info,"La coordenada X en el mapa es: %d", contenido_del_paquete->pos_en_mapa_poke->posx);
+	logger(escribir_loguear,l_info,"La coordenada Y en el mapa es: %d", contenido_del_paquete->pos_en_mapa_poke->posy);
+	logger(escribir_loguear,l_info,"Y la cantidad en dicha posicion es: %d", contenido_del_paquete->pos_en_mapa_poke->posy);
+	free(contenido_del_paquete->pos_en_mapa_poke->pokemon);
 	free(contenido_del_paquete);
 }
 
