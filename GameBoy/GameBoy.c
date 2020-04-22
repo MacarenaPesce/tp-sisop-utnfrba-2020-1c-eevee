@@ -144,21 +144,20 @@ void gamecard_new_pokemon(char * pokemon, char * posx, char * posy, char * canti
 
 	logger(escribir_loguear,l_info,"\n yo game boy le envio a gamecard la posicion y cantidad del pokemon a crear en el mapa %s :",pokemon);
 	server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
-	enviar_new_pokemon(pokemon, atoi(posx), atoi(posy),atioi(cantidad),server_gamecard);
+	enviar_new_pokemon(pokemon, atoi(posx), atoi(posy),atoi(cantidad),server_gamecard);
 	logger(escribir_loguear,l_info,"\nYa lo envie");
 	terminar_gameboy_correctamente();
 }
 	/*
 	 *aca se envia el mensaje de new pokemon a gamecard con sus respectivos argumentos
 	 */
-}
 
 void validar_parametros_new_pokemon_gamecard(char* pokemon,char* posx,char* posy,char* cantidad){
 
 	if (pokemon==NULL || posx==NULL || posy==NULL || cantidad==NULL){
 		mostrar_mensaje_de_error();
 		//liberar recursos
-		terminar_game_boy_correctamente();
+		terminar_gameboy_correctamente();
 		}
 
 

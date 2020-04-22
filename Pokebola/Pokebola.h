@@ -87,6 +87,7 @@ typedef struct st_new_pokemon{
 } t_new_pokemon;
 
 typedef t_new_pokemon* tp_new_pokemon;
+
 /**************************************************************************************/
 int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
@@ -107,6 +108,9 @@ tp_mensaje_char recibir_mensaje_char(int, int);
 void enviar_appeared_pokemon(char*, int, int, int);
 tp_appeared_pokemon recibir_appeared_pokemon(int, int);
 
+
+void enviar_new_pokemon(char*, int, int,int,int);
+tp_new_pokemon recibir_new_pokemon(int paquete_size, int socket);
 /**************************************************************************************/
 void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer,char* log_colors[8], char* msj_salida);
 void definir_nivel_y_loguear(int, int, char*);

@@ -1,24 +1,16 @@
-/*
- * Contexto_team.c
- *
- *  Created on: 11 abr. 2020
- *      Author: utnso
- */
+/*adaptación de team a game card
+ * nuevamente Tamara Gracias!*/
 
 #include "Contexto_gameCard.h"
 
 /* Global variables*/
-char** posiciones_entrenadores;
-char** pokemon_entrenadores;
-char** objetivos_entrenadores;
-int tiempo_reconexion;
-int retardo_ciclo_cpu;
-char* algoritmo_planificacion;
-int quantum;
+// lo numerico int
+int tiempo_reintento_conexion;
+int tiempo_reintento_operacion;
+//lo que es string
+char* punto_montaje_fs;
 char* ip_broker;
-int estimacion_inicial;
 char* puerto_broker;
-char* log_file;
 
-t_log* team_logger;
-t_config* config;
+t_log* gameCard_logger;
+t_config* config_game_card;

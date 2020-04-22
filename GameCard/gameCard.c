@@ -64,11 +64,13 @@ void esperar_cliente(int socket_servidor){
 	int socket_cliente = accept(socket_servidor, (void*) &dir_cliente, &tam_direccion);
 	logger(escribir_loguear,l_trace,"\nSe aceptó un nuevo cliente");
 
-	//PARA HACER QUE EL SERVIDOR SEA MULTIHILO, A PARTIR DE aca tendriamos que crear un hilo por cliente, y hacer que derive las operaciones
+	//PARA HACER QUE EL SERVIDOR SEA MULTIHILO, A PARTIR DE aca tendriamos que
+	//crear un hilo por cliente, y hacer que derive las operaciones
 	//o sea:
 	//pthread_create(&thread,NULL,(void*)serve_client,&socket_cliente);
 	//pthread_detach(thread);
-	//y cerrar el corchete. Luego la funcion que recibe el pthread_create usa lo siguiente:
+	//y cerrar el corchete. Luego la funcion que recibe el pthread_create
+	//usa lo siguiente:
 
 	/*
 	 * void serve_client(int* socket){
@@ -98,17 +100,22 @@ void esperar_cliente(int socket_servidor){
 	 */
 
 
-	//Por ahora queda en un loop esperando que le lleguen cosas, no es multihilo, eso esta claro.
-	//Todavia queda definir si team y gamecard seran servers multihilo o no. Necesitamos definirlo urgente, porque meter el select
-	//despues es una fiaca. Tambien tenemos que ver si el mensaje lo ingresamos por consola o no. Ahora a team le llega algo hardcodeado.
+	//Por ahora queda en un loop esperando que le lleguen cosas, no es multihilo,
+	//eso esta claro.
+	//Todavia queda definir si team y gamecard seran servers multihilo o no. --> si lo son
+	//Necesitamos definirlo urgente, porque meter el select --> select no
+	//despues es una fiaca.
+	//Tambien tenemos que ver si el mensaje lo ingresamos por consola o no.
+	//-->hay que cambiarlo después solo por archivo de configuracion
+	//Ahora a team le llega algo hardcodeado.
+
 	t_header header = recibir_header(socket_cliente);
 	if(header.tipo_de_mensaje == CHAR_MESSAGE){
 		recibir_mensaje_de_texto(socket_cliente, header.tamanio);
 	}
 	if(header.tipo_de_mensaje == NEW_POKEMON){
 		recibir_new_pokemon_desde_gameboy(socket_cliente, header.tamanio);
-
-
+	}
 }
 
 

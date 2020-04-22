@@ -237,6 +237,7 @@ tp_new_pokemon recibir_new_pokemon(int paquete_size, int socket){
 	desplazamiento+=sizeof(int);
 	memcpy(&posy, buffer + desplazamiento, sizeof(int));
 	desplazamiento+=sizeof(int);
+	memcpy(&cantidad,buffer+desplazamiento,sizeof(int));
 	tp_new_pokemon contenido = malloc(sizeof(t_new_pokemon));;
 	contenido->pos_en_mapa_poke->pokemon=pokemon;
 	contenido->pos_en_mapa_poke->posx=posx;
