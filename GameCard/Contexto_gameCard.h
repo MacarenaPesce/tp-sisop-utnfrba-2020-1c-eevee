@@ -35,9 +35,8 @@
 #define KEY_IP_BROKER "IP_BROKER"
 #define KEY_PUERTO_BROKER "PUERTO_BROKER"
 
-#define IP "127.0.0.2"
-#define PUERTO "5002"
-/* adaptar a mi modulo*/
+#define IP "127.0.0.3"
+#define PUERTO "5001"
 
 extern int tiempo_reintento_conexion;
 extern int tiempo_reintento_operacion;

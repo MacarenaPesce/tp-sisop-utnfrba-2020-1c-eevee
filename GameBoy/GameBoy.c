@@ -141,17 +141,12 @@ void consola_team(char * parametro1, char * parametro2, char * parametro3, char 
 void gamecard_new_pokemon(char * pokemon, char * posx, char * posy, char * cantidad){
 
 	validar_parametros_new_pokemon_gamecard(pokemon,posx,posy,cantidad);
- printf("yo quiero ver que llega pokemon: %s ,que llega posx: %s , que llega posy:%s,que llega cantidad: %s",pokemon,posx,posy,cantidad);
-	logger(escribir_loguear,l_info,"\n soy game boy y envio a gamecard la posicion en x: %s y la posicion en y:%s con la cantidad: %s del pokemon:%s a crear en el mapa",posx,posy,cantidad,pokemon);
-	printf("mostrame i p y puerto game card %s,%s",ip_gamecard,puerto_gamecard);
+	logger(escribir_loguear,l_info,"\n Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, con la cantidad %s del pokemon %s a crear en el mapa",posx,posy,cantidad,pokemon);
 	server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
 	enviar_new_pokemon(pokemon, atoi(posx), atoi(posy),atoi(cantidad),server_gamecard);
 	logger(escribir_loguear,l_info,"\nYa lo envie");
 	terminar_gameboy_correctamente();
 }
-	/*
-	 *aca se envia el mensaje de new pokemon a gamecard con sus respectivos argumentos
-	 */
 
 void validar_parametros_new_pokemon_gamecard(char* pokemon,char* posx,char* posy,char* cantidad){
 
@@ -170,10 +165,7 @@ void validar_parametros_new_pokemon_gamecard(char* pokemon,char* posx,char* posy
 	if (cantidad==NULL){
 		mostrar_mensaje_de_error();
 		terminar_gameboy_correctamente();
-
-		}
-
-
+	}
 
 }
 
@@ -294,15 +286,5 @@ int main(int argc, char **argv){
 	inicializar_archivo_de_configuracion();
 	configurar_signals();
 
-
 	ver_que_me_llego_por_argumento(argv[1],argv[2], argv[3], argv[4], argv[5], argv[6]);
-
-	printf("venite primer argumento %s:",argv[0]);
-	printf("venite primer argumento %s:",argv[1]);
-	printf("venite primer argumento %s:",argv[2]);
-	printf("venite primer argumento %s:",argv[2]);
-	printf("venite primer argumento %s:",argv[4]);
-	printf("venite primer argumento %s:",argv[5]);
-
-
 }

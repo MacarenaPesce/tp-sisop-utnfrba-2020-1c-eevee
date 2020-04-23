@@ -17,13 +17,13 @@ void recibir_mensaje_de_texto(int cliente, int tamanio){
 
 
 void recibir_new_pokemon_desde_gameboy(int cliente, int tamanio){
-	logger(escribir_loguear,l_info,"Voy a recibir un pokemon,sus coordenadas en el mapa y su cantidad en dicha posicion:");
+	logger(escribir_loguear,l_info,"Voy a recibir un pokemon, sus coordenadas x e y en el mapa y su cantidad en dicha posicion:");
 	tp_new_pokemon contenido_del_paquete = recibir_new_pokemon(tamanio, cliente);
-	logger(escribir_loguear,l_info,"Me llego este pokemon: %s", contenido_del_paquete->pos_en_mapa_poke->pokemon);
-	logger(escribir_loguear,l_info,"La coordenada X en el mapa es: %d", contenido_del_paquete->pos_en_mapa_poke->posx);
-	logger(escribir_loguear,l_info,"La coordenada Y en el mapa es: %d", contenido_del_paquete->pos_en_mapa_poke->posy);
-	logger(escribir_loguear,l_info,"Y la cantidad en dicha posicion es: %d", contenido_del_paquete->pos_en_mapa_poke->posy);
-	free(contenido_del_paquete->pos_en_mapa_poke->pokemon);
+	logger(escribir_loguear,l_info,"Me llego este pokemon: %s", contenido_del_paquete->pokemon);
+	logger(escribir_loguear,l_info,"La coordenada X en el mapa es: %d", contenido_del_paquete->posx);
+	logger(escribir_loguear,l_info,"La coordenada Y en el mapa es: %d", contenido_del_paquete->posy);
+	logger(escribir_loguear,l_info,"Y la cantidad en dicha posicion es: %d", contenido_del_paquete->cantidad);
+	free(contenido_del_paquete->pokemon);
 	free(contenido_del_paquete);
 }
 
@@ -99,15 +99,6 @@ void esperar_cliente(int socket_servidor){
 		NOSOTROS LO TENEMOS QUE ACOPLAR A NUESTRO PROTOCOLO!!
 	 */
 
-
-	//Por ahora queda en un loop esperando que le lleguen cosas, no es multihilo,
-	//eso esta claro.
-	//Todavia queda definir si team y gamecard seran servers multihilo o no. --> si lo son
-	//Necesitamos definirlo urgente, porque meter el select --> select no
-	//despues es una fiaca.
-	//Tambien tenemos que ver si el mensaje lo ingresamos por consola o no.
-	//-->hay que cambiarlo después solo por archivo de configuracion
-	//Ahora a team le llega algo hardcodeado.
 
 	t_header header = recibir_header(socket_cliente);
 	if(header.tipo_de_mensaje == CHAR_MESSAGE){

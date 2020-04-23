@@ -203,15 +203,14 @@ tp_appeared_pokemon recibir_appeared_pokemon(int paquete_size, int socket){
 }
 
 
-void enviar_new_pokemon(char* pokemon, int posx, int posy,int cantidad,int server_gamecard){
-
+void enviar_new_pokemon(char* pokemon, int posx, int posy, int cantidad, int socket){
 	t_paquete* paquete = crear_paquete(NEW_POKEMON);
-		agregar_string_a_paquete(paquete, pokemon, strlen(pokemon)+1);
-		agregar_int_a_paquete(paquete, posx);
-		agregar_int_a_paquete(paquete, posy);
-		agregar_int_a_paquete(paquete, cantidad);
-		enviar_paquete(paquete, socket);
-		eliminar_paquete(paquete);
+	agregar_string_a_paquete(paquete, pokemon, strlen(pokemon)+1);
+	agregar_int_a_paquete(paquete, posx);
+	agregar_int_a_paquete(paquete, posy);
+	agregar_int_a_paquete(paquete, cantidad);
+	enviar_paquete(paquete, socket);
+	eliminar_paquete(paquete);
 };
 
 tp_new_pokemon recibir_new_pokemon(int paquete_size, int socket){
@@ -228,21 +227,19 @@ tp_new_pokemon recibir_new_pokemon(int paquete_size, int socket){
 	desplazamiento+=sizeof(int);
 	//reservo memo
 	char* pokemon=malloc(tamanio_pokemon);
-	//copio en 1, lo que hay en 2, cant en bytes 3
 	memcpy(pokemon, buffer+desplazamiento, tamanio_pokemon);
 	//me corro esas pos
 	desplazamiento+=tamanio_pokemon;
-	//copio en 1, lo que indica2, cant bytes de 3
 	memcpy(&posx, buffer + desplazamiento, sizeof(int));
-	desplazamiento+=sizeof(int);
+	desplazamiento=tamanio_pokemon+sizeof(int)+sizeof(int);
 	memcpy(&posy, buffer + desplazamiento, sizeof(int));
-	desplazamiento+=sizeof(int);
+	desplazamiento=tamanio_pokemon+sizeof(int)+sizeof(int)+sizeof(int);
 	memcpy(&cantidad,buffer+desplazamiento,sizeof(int));
 	tp_new_pokemon contenido = malloc(sizeof(t_new_pokemon));;
-	contenido->pos_en_mapa_poke->pokemon=pokemon;
-	contenido->pos_en_mapa_poke->posx=posx;
-	contenido->pos_en_mapa_poke->posy=posy;
-	contenido->cantidad_en_la_pos=cantidad;
+	contenido->pokemon=pokemon;
+	contenido->posx=posx;
+	contenido->posy=posy;
+	contenido->cantidad=cantidad;
 	free(buffer);
 	return contenido;
 }

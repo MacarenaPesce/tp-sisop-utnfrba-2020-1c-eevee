@@ -26,6 +26,6 @@ void obtener_el_puerto_del_broker();
 void obtener_el_log_file();
 void configurar_signals(void);
 void capturar_signal(int signo);
-void terminar_game_card();
+void terminar_team_correctamente();
 
 #endif /* HERRAMIENTAS_TEAM_H_ */

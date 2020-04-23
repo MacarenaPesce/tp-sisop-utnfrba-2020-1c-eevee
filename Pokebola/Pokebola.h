@@ -81,9 +81,11 @@ typedef struct stru_appeared_pokemon{
 
 typedef t_appeared_pokemon* tp_appeared_pokemon;
 
-typedef struct st_new_pokemon{
-	t_appeared_pokemon* pos_en_mapa_poke;
-	int cantidad_en_la_pos;
+typedef struct stru_new_pokemon{
+	char * pokemon;
+	int posx;
+	int posy;
+	int cantidad;
 } t_new_pokemon;
 
 typedef t_new_pokemon* tp_new_pokemon;

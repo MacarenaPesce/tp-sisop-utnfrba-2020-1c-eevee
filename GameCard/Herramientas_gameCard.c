@@ -89,7 +89,7 @@ void capturar_signal(int signo){
 
     if(signo == SIGINT)
     {
-    	logger(escribir_loguear, l_warning,"\n TEAM DEJA DE FUNCIONAR, CHAU");
+    	logger(escribir_loguear, l_warning,"\n GAMECARD DEJA DE FUNCIONAR, CHAU");
     	terminar_game_card();
 
     }
