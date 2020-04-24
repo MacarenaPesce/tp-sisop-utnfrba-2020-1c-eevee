@@ -244,6 +244,17 @@ tp_new_pokemon recibir_new_pokemon(int paquete_size, int socket){
 	return contenido;
 }
 
+
+void enviar_catch_pokemon(char* pokemon, int posx, int posy,int server_gamecard){
+	t_paquete* paquete = crear_paquete(NEW_POKEMON);
+	agregar_string_a_paquete(paquete, pokemon, strlen(pokemon)+1);
+	agregar_int_a_paquete(paquete, posx);
+	agregar_int_a_paquete(paquete, posy);
+	enviar_paquete(paquete, socket);
+	eliminar_paquete(paquete);
+}
+
+
 /**************FUNCIONES PARA EL LOG*********************/
 void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer, char* log_colors[8], char* msj_salida){
 

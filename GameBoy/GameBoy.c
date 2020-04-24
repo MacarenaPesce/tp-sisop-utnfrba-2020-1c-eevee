@@ -79,7 +79,6 @@ void mostrar_mensaje_de_error(){
 
 void team_appeared_pokemon(char* pokemon, char* posx, char* posy){
 	chequear_que_los_argumentos_son_validos_para_team(pokemon, posx, posy);
-
 	logger(escribir_loguear,l_info,"\nLe voy a mandar a team las coordenadas del pokemon %s",pokemon);
 	server_team = conectar_a_server(ip_team, puerto_team);
 	enviar_appeared_pokemon(pokemon, atoi(posx), atoi(posy), server_team);
@@ -170,10 +169,36 @@ void validar_parametros_new_pokemon_gamecard(char* pokemon,char* posx,char* posy
 }
 
 void gamecard_catch_pokemon(char * pokemon, char* posx, char* posy){
+
+	validar_parametros_catch_pokemon_gamecard(pokemon,posx,posy);
+		logger(escribir_loguear,l_info,"\n Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, del pokemon %s a crear en el mapa",posx,posy,pokemon);
+		server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
+		enviar_catch_pokemon(pokemon, atoi(posx), atoi(posy),server_gamecard);
+		logger(escribir_loguear,l_info,"\nYa lo envie");
+		terminar_gameboy_correctamente();
+
+
 	/*
 	 *aca se envia el mensaje de catch pokemon a gamecard con sus respectivos argumentos
 	 */
 }
+
+validar_parametros_catch_pokemon_gamecard(char* pokemon,char* posx,char* posy){
+
+	if (pokemon==NULL){
+			mostrar_mensaje_de_error();
+			terminar_gameboy_correctamente();
+		}
+		if (posx==NULL) {
+			mostrar_mensaje_de_error();
+			terminar_gameboy_correctamente();
+		}
+		if (posy==NULL) {
+			mostrar_mensaje_de_error();
+			terminar_gameboy_correctamente();
+		}
+}
+
 
 void gamecard_get_pokemon(char * pokemon){
 	/*
