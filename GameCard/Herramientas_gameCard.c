@@ -63,7 +63,7 @@ void obtener_puerto_broker(){
 }
 
 
-void configurar_signals(void){
+void configurar_signals_gc(void){
 	struct sigaction signal_struct;
 	signal_struct.sa_handler = capturar_signal;
 	signal_struct.sa_flags = 0;

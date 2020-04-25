@@ -16,6 +16,6 @@ void obtener_punto_montaje_tallgrass();
 void obtener_ip_broker();
 void obtener_puerto_broker();
 void capturar_signal(int);
-void configurar_signal();
+void configurar_signal_gc();
 
 #endif /* HERRAMIENTAS_GAMECARD_H_ */
