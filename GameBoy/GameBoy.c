@@ -81,7 +81,7 @@ void team_appeared_pokemon(char* pokemon, char* posx, char* posy){
 	chequear_que_los_argumentos_son_validos_para_team(pokemon, posx, posy);
 	logger(escribir_loguear,l_info,"\nLe voy a mandar a team las coordenadas del pokemon %s",pokemon);
 	server_team = conectar_a_server(ip_team, puerto_team);
-	enviar_appeared_pokemon(pokemon, atoi(posx), atoi(posy), server_team);
+	enviar_appeared_pokemon_team(pokemon, atoi(posx), atoi(posy), server_team);
 	logger(escribir_loguear,l_info,"\nYa lo envie");
 	terminar_gameboy_correctamente();
 }
@@ -140,7 +140,8 @@ void consola_team(char * parametro1, char * parametro2, char * parametro3, char 
 void gamecard_new_pokemon(char * pokemon, char * posx, char * posy, char * cantidad){
 
 	validar_parametros_new_pokemon_gamecard(pokemon,posx,posy,cantidad);
-	logger(escribir_loguear,l_info,"\n Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, con la cantidad %s del pokemon %s a crear en el mapa",posx,posy,cantidad,pokemon);
+	logger(escribir_loguear,l_info,"\n Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, con la cantidad %s del pokemon %s a crear en el mapa",
+			posx,posy,cantidad,pokemon);
 	server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
 	enviar_new_pokemon(pokemon, atoi(posx), atoi(posy),atoi(cantidad),server_gamecard);
 	logger(escribir_loguear,l_info,"\nYa lo envie");
@@ -149,19 +150,19 @@ void gamecard_new_pokemon(char * pokemon, char * posx, char * posy, char * canti
 
 void validar_parametros_new_pokemon_gamecard(char* pokemon,char* posx,char* posy,char* cantidad){
 
-	if (pokemon==NULL){
+	if(pokemon==NULL){
 		mostrar_mensaje_de_error();
 		terminar_gameboy_correctamente();
 	}
-	if (posx==NULL) {
+	if(posx==NULL){
 		mostrar_mensaje_de_error();
 		terminar_gameboy_correctamente();
 	}
-	if (posy==NULL) {
+	if(posy==NULL){
 		mostrar_mensaje_de_error();
 		terminar_gameboy_correctamente();
 	}
-	if (cantidad==NULL){
+	if(cantidad==NULL){
 		mostrar_mensaje_de_error();
 		terminar_gameboy_correctamente();
 	}
@@ -171,39 +172,41 @@ void validar_parametros_new_pokemon_gamecard(char* pokemon,char* posx,char* posy
 void gamecard_catch_pokemon(char * pokemon, char* posx, char* posy){
 
 	validar_parametros_catch_pokemon_gamecard(pokemon,posx,posy);
-		logger(escribir_loguear,l_info,"\n Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, del pokemon %s a crear en el mapa",posx,posy,pokemon);
-		server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
-		enviar_catch_pokemon(pokemon, atoi(posx), atoi(posy),server_gamecard);
-		logger(escribir_loguear,l_info,"\nYa lo envie");
-		terminar_gameboy_correctamente();
-
-
-	/*
-	 *aca se envia el mensaje de catch pokemon a gamecard con sus respectivos argumentos
-	 */
+	logger(escribir_loguear,l_info,"\n Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, del pokemon %s a crear en el mapa",posx,posy,pokemon);
+	server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
+	enviar_catch_pokemon(pokemon, atoi(posx), atoi(posy),server_gamecard);
+	logger(escribir_loguear,l_info,"\nYa lo envie");
+	terminar_gameboy_correctamente();
 }
 
-validar_parametros_catch_pokemon_gamecard(char* pokemon,char* posx,char* posy){
+void validar_parametros_catch_pokemon_gamecard(char* pokemon,char* posx,char* posy){
 
-	if (pokemon==NULL){
-			mostrar_mensaje_de_error();
-			terminar_gameboy_correctamente();
-		}
-		if (posx==NULL) {
-			mostrar_mensaje_de_error();
-			terminar_gameboy_correctamente();
-		}
-		if (posy==NULL) {
-			mostrar_mensaje_de_error();
-			terminar_gameboy_correctamente();
-		}
+	if(pokemon==NULL){
+		mostrar_mensaje_de_error();
+		terminar_gameboy_correctamente();
+	}
+	if(posx==NULL){
+		mostrar_mensaje_de_error();
+		terminar_gameboy_correctamente();
+	}
+	if(posy==NULL){
+		mostrar_mensaje_de_error();
+		terminar_gameboy_correctamente();
+	}
 }
 
 
 void gamecard_get_pokemon(char * pokemon){
-	/*
-	 *aca se envia el mensaje de get pokemon a gamecard con el pokemon
-	 */
+	if(pokemon==NULL){
+		mostrar_mensaje_de_error();
+		terminar_gameboy_correctamente();
+	}else{
+		logger(escribir_loguear,l_info,"\n Envio a gamecard el pokemon %s", pokemon);
+		server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
+		enviar_get_pokemon(pokemon, server_gamecard);
+		logger(escribir_loguear,l_info,"\nYa lo envie");
+		terminar_gameboy_correctamente();
+	}
 }
 
 void consola_gamecard(char * parametro1, char * parametro2, char * parametro3, char * parametro4, char * parametro5){
@@ -243,9 +246,63 @@ void consola_gamecard(char * parametro1, char * parametro2, char * parametro3, c
 }
 
 void consola_suscriptor(char* cola_de_mensajes, char* tiempo){
+
 	/*
-	 * hacer que haga de suscriptor
+	 * HAY QUE PROBAR ESTO!!!!!!!!!
 	 */
+
+	server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
+	int key = -1;
+
+	if(!strcmp(cola_de_mensajes, "COLA_NEW_POKEMON"))
+		key = new_pokemon;
+	if(!strcmp(cola_de_mensajes, "COLA_APPEARED_POKEMON"))
+		key = appeared_pokemon;
+	if(!strcmp(cola_de_mensajes, "COLA_CATCH_POKEMON"))
+		key = catch_pokemon;
+	if(!strcmp(cola_de_mensajes, "COLA_CAUGHT_POKEMON"))
+		key = caught_pokemon;
+	if(!strcmp(cola_de_mensajes, "COLA_GET_POKEMON"))
+		key = get_pokemon;
+	if(!strcmp(cola_de_mensajes, "COLA_LOCALIZED_POKEMON"))
+		key = localized_pokemon;
+
+	switch(key){
+		case new_pokemon:
+			enviar_modo_suscriptor(COLA_NEW_POKEMON, atoi(tiempo), server_broker);
+			break;
+		case appeared_pokemon:
+			enviar_modo_suscriptor(COLA_APPEARED_POKEMON, atoi(tiempo), server_broker);
+			break;
+		case catch_pokemon:
+			enviar_modo_suscriptor(COLA_CATCH_POKEMON, atoi(tiempo), server_broker);
+			break;
+		case caught_pokemon:
+			enviar_modo_suscriptor(COLA_CAUGHT_POKEMON, atoi(tiempo), server_broker);
+			break;
+		case get_pokemon:
+			enviar_modo_suscriptor(COLA_GET_POKEMON, atoi(tiempo), server_broker);
+			break;
+		case localized_pokemon:
+			enviar_modo_suscriptor(COLA_LOCALIZED_POKEMON, atoi(tiempo), server_broker);
+			break;
+
+		default:
+			break;
+	}
+
+	logger(escribir_loguear,l_info,"\nYa lo envie");
+	terminar_gameboy_correctamente();
+
+}
+
+void consola_modo_suscriptor(char* parametro1, char* parametro2){
+	if(parametro2==NULL){
+		mostrar_mensaje_de_error();
+	}else{
+		consola_suscriptor(parametro1,parametro2);
+	}
+	terminar_gameboy_correctamente();
 }
 
 void consola_derivar_comando(char* parametro0, char* parametro1, char* parametro2, char* parametro3, char* parametro4, char* parametro5){
@@ -266,7 +323,7 @@ void consola_derivar_comando(char* parametro0, char* parametro1, char* parametro
 			consola_gamecard(parametro1,parametro2,parametro3,parametro4,parametro5);
 			break;
 		case suscriptor:
-			consola_suscriptor(parametro1,parametro2);
+			consola_modo_suscriptor(parametro1, parametro2);
 			break;
 		default:
 			mostrar_mensaje_de_error();

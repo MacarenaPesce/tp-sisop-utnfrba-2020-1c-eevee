@@ -13,6 +13,7 @@
 
 /**************MODO SUSCRIPTOR**********************************/
 void consola_suscriptor(char*, char*);
+void consola_modo_suscriptor(char*, char*);
 
 /**************COMUNICACION CON BROKER**********************************/
 void broker_new_pokemon(char*, char*, char*, char*);
@@ -32,10 +33,8 @@ void gamecard_new_pokemon(char*, char*, char*, char*);
 void gamecard_catch_pokemon(char*, char*, char*);
 void gamecard_get_pokemon(char*);
 void consola_gamecard(char*, char*, char*, char*, char*);
-
-//auxiliares
-void validar_parametros_new_pokemon_gamecard(char*,char*,char*,char*);
-void enviar_new_pokemon(char*, int, int,int,int);
+void validar_parametros_new_pokemon_gamecard(char*, char*, char*, char*);
+void validar_parametros_catch_pokemon_gamecard(char*, char*, char*);
 
 /*****************PARA QUE FUNCIONE GAMEBOY*******************************/
 void consola_derivar_comando(char*, char*, char*, char*, char*, char*);

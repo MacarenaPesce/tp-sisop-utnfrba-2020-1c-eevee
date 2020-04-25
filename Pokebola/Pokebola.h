@@ -43,15 +43,31 @@ enum PROCESOS{
 	TEAM,
 	GAMEBOY,
 	GAMECARD
+};
 
+enum COLA_DE_MENSAJES{
+	COLA_APPEARED_POKEMON,
+	COLA_NEW_POKEMON,
+	COLA_CATCH_POKEMON,
+	COLA_GET_POKEMON,
+	COLA_CAUGHT_POKEMON,
+	COLA_LOCALIZED_POKEMON
 };
 
 enum MENSAJES{
 	CHAR_MESSAGE,
 	APPEARED_POKEMON,
+	APPEARED_POKEMON_TEAM,
 	NEW_POKEMON,
 	CATCH_POKEMON,
-	GET_POKEMON
+	GET_POKEMON,
+	CAUGHT_POKEMON,
+	SUSCRIPTOR
+};
+
+enum STATUS_CAUGHT{
+	OK,
+	FAIL
 };
 
 typedef struct{
@@ -75,20 +91,62 @@ typedef t_mensaje_char* tp_mensaje_char;
 
 typedef struct stru_appeared_pokemon{
 	char * pokemon;
-	int posx;
-	int posy;
+	uint32_t posx;
+	uint32_t posy;
+	uint32_t id_mensaje;
 } t_appeared_pokemon;
-
 typedef t_appeared_pokemon* tp_appeared_pokemon;
+
+
+/*
+ * ACLARACION, APPEARED POKEMON PARA TEAM NO TIENE ID_MENSAJE
+ * ENTONCES HAGO UNA ESTRUCTURA A PARTE
+ */
+
+typedef struct stru_appeared_pokemon_team{
+	char * pokemon;
+	uint32_t posx;
+	uint32_t posy;
+} t_appeared_pokemon_team;
+typedef t_appeared_pokemon_team* tp_appeared_pokemon_team;
+
+
+typedef struct stru_catch_pokemon{
+	char * pokemon;
+	uint32_t posx;
+	uint32_t posy;
+} t_catch_pokemon;
+typedef t_catch_pokemon* tp_catch_pokemon;
+
+typedef struct stru_caught_pokemon{
+	uint32_t id_mensaje;
+	uint32_t status; //OK o FAIL
+} t_caught_pokemon;
+typedef t_caught_pokemon* tp_caught_pokemon;
 
 typedef struct stru_new_pokemon{
 	char * pokemon;
-	int posx;
-	int posy;
-	int cantidad;
+	uint32_t posx;
+	uint32_t posy;
+	uint32_t cantidad;
 } t_new_pokemon;
-
 typedef t_new_pokemon* tp_new_pokemon;
+
+typedef struct stru_get_pokemon{
+	char * pokemon;
+} t_get_pokemon;
+typedef t_get_pokemon* tp_get_pokemon;
+
+typedef struct stru_modo_suscriptor{
+	uint32_t cola_de_mensajes;
+	uint32_t tiempo;
+} t_modo_suscriptor;
+typedef t_modo_suscriptor* tp_modo_suscriptor;
+
+/*
+ * HAY VARIAS COSAS QUE SE PUEDEN REUTILIZAR PARA NO DUPLICAR CODIGO
+ * PERO ESTA HECHO DE ESTA MANERA PARA RESPETAR EL PROTOCOLO
+ */
 
 /**************************************************************************************/
 int conectar_a_server(char*, char*);
@@ -103,20 +161,37 @@ void enviar_paquete(t_paquete*, int);
 void* serializar_paquete(t_paquete*, int);
 void agregar_string_a_paquete(t_paquete*, void*, int);
 void agregar_int_a_paquete(t_paquete*, int);
+void agregar_uint32_t_a_paquete(t_paquete*, uint32_t);
 void eliminar_paquete(t_paquete*);
+
 void enviar_mensaje_char(char*, int);
 tp_mensaje_char recibir_mensaje_char(int, int);
 
-void enviar_appeared_pokemon(char*, int, int, int);
-tp_appeared_pokemon recibir_appeared_pokemon(int, int);
+void enviar_appeared_pokemon(char*, uint32_t, uint32_t, uint32_t, int);
+tp_appeared_pokemon recibir_appeared_pokemon(int paquete_size, int);
 
+void enviar_new_pokemon(char*, uint32_t, uint32_t, uint32_t, int);
+tp_new_pokemon recibir_new_pokemon(int, int);
 
-void enviar_new_pokemon(char*, int, int,int,int);
-tp_new_pokemon recibir_new_pokemon(int paquete_size, int socket);
+void enviar_catch_pokemon(char*, uint32_t, uint32_t, int);
+tp_catch_pokemon recibir_catch_pokemon(int, int);
+
+void enviar_appeared_pokemon_team(char*, uint32_t, uint32_t, int);
+tp_appeared_pokemon_team recibir_appeared_pokemon_team(int, int);
+
+void enviar_get_pokemon(char*, int);
+tp_get_pokemon recibir_get_pokemon(int, int);
+
+void enviar_caught_pokemon(uint32_t, uint32_t, int);
+tp_caught_pokemon recibir_caught_pokemon(int, int);
+
+void enviar_modo_suscriptor(uint32_t, uint32_t, int);
+tp_modo_suscriptor recibir_modo_suscriptor(int, int);
+
 /**************************************************************************************/
 void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer,char* log_colors[8], char* msj_salida);
 void definir_nivel_y_loguear(int, int, char*);
 void logger(int, int, const char*, ...);
-void agregar_uint32_t_a_paquete(t_paquete*, uint32_t);
+
 
 #endif /* POKEBOLA_H_ */

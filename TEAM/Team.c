@@ -17,7 +17,7 @@ void recibir_mensaje_de_texto(int cliente, int tamanio){
 
 void recibir_appeared_pokemon_desde_gameboy(int cliente, int tamanio){
 	logger(escribir_loguear,l_info,"Voy a recibir un pokemon y coordenadas");
-	tp_appeared_pokemon contenido_del_paquete = recibir_appeared_pokemon(tamanio, cliente);
+	tp_appeared_pokemon_team contenido_del_paquete = recibir_appeared_pokemon_team(tamanio, cliente);
 	logger(escribir_loguear,l_info,"Me llego este pokemon: %s", contenido_del_paquete->pokemon);
 	logger(escribir_loguear,l_info,"La coordenada X es: %d", contenido_del_paquete->posx);
 	logger(escribir_loguear,l_info,"La coordenada Y es: %d", contenido_del_paquete->posy);
@@ -103,7 +103,7 @@ void esperar_cliente(int socket_servidor){
 	if(header.tipo_de_mensaje == CHAR_MESSAGE){
 		recibir_mensaje_de_texto(socket_cliente, header.tamanio);
 	}
-	if(header.tipo_de_mensaje == APPEARED_POKEMON){
+	if(header.tipo_de_mensaje == APPEARED_POKEMON_TEAM){
 		recibir_appeared_pokemon_desde_gameboy(socket_cliente, header.tamanio);
 	}
 

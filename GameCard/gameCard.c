@@ -1,17 +1,17 @@
 #include "gameCard.h"
 
-void recibir_mensaje_de_texto(int cliente, int tamanio){
-	logger(escribir_loguear,l_info,"Voy a recibir un mensaje de texto");
-	tp_mensaje_char contenido_del_paquete = recibir_mensaje_char(tamanio, cliente);
-	logger(escribir_loguear,l_info,"Esto es lo que recibi: %s", contenido_del_paquete->mensaje);
-	free(contenido_del_paquete->mensaje);
+void recibir_get_pokemon_desde_gameboy(int cliente, int tamanio){
+	logger(escribir_loguear,l_info,"Voy a recibir un pokemon");
+	tp_get_pokemon contenido_del_paquete = recibir_get_pokemon(tamanio, cliente);
+	logger(escribir_loguear,l_info,"Recibi este pokemon: %s", contenido_del_paquete->pokemon);
+	free(contenido_del_paquete->pokemon);
 	free(contenido_del_paquete);
 }
 
 
 void recibir_catch_pokemon_desde_gameboy(int cliente, int tamanio){
 	logger(escribir_loguear,l_info,"Voy a recibir un pokemon y coordenadas");
-	tp_appeared_pokemon contenido_del_paquete = recibir_appeared_pokemon(tamanio, cliente);
+	tp_catch_pokemon contenido_del_paquete = recibir_appeared_pokemon(tamanio, cliente);
 	logger(escribir_loguear,l_info,"Me llego este pokemon: %s", contenido_del_paquete->pokemon);
 	logger(escribir_loguear,l_info,"La coordenada X es: %d", contenido_del_paquete->posx);
 	logger(escribir_loguear,l_info,"La coordenada Y es: %d", contenido_del_paquete->posy);
@@ -88,19 +88,19 @@ void esperar_cliente(int socket_servidor){
 		NOSOTROS LO TENEMOS QUE ACOPLAR A NUESTRO PROTOCOLO!!
 	 */
 	t_header header = recibir_header(socket_cliente);
-	if(header.tipo_de_mensaje == CHAR_MESSAGE){
-		recibir_mensaje_de_texto(socket_cliente, header.tamanio);
+	if(header.tipo_de_mensaje == GET_POKEMON){
+		recibir_get_pokemon_desde_gameboy(socket_cliente, header.tamanio);
 	}
 
 	if(header.tipo_de_mensaje == CATCH_POKEMON){
-			recibir_catch_pokemon_desde_gameboy(socket_cliente, header.tamanio);
-		}
-
-		if(header.tipo_de_mensaje == NEW_POKEMON){
-			recibir_new_pokemon_desde_gameboy(socket_cliente, header.tamanio);
-		}
-
+		recibir_catch_pokemon_desde_gameboy(socket_cliente, header.tamanio);
 	}
+
+	if(header.tipo_de_mensaje == NEW_POKEMON){
+		recibir_new_pokemon_desde_gameboy(socket_cliente, header.tamanio);
+	}
+
+}
 
 int main(){
 

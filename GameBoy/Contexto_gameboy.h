@@ -53,6 +53,6 @@ extern t_config* config;
 
 //Enumeracion de los comandos de la consola
 enum comandos { broker, team, gamecard, suscriptor};
-enum tipo_mensaje { new_pokemon, appeared_pokemon, catch_pokemon, caught_pokemon, get_pokemon};
+enum tipo_mensaje { new_pokemon, appeared_pokemon, catch_pokemon, caught_pokemon, get_pokemon, localized_pokemon};
 
 #endif /* CONTEXTO_GAMEBOY_H_ */
