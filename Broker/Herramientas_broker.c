@@ -8,7 +8,7 @@
 #include "Herramientas_broker.h"
 
 void inicializar_logger(){
-	team_logger = log_create("broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
+	broker_logger = log_create("broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
 	logger(escribir_loguear,l_info,"Hi, bienvenido a Broker ");
 }
 
