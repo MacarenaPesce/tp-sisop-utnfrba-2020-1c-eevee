@@ -8,19 +8,19 @@
 #include "Team.h"
 
 void recibir_mensaje_de_texto(int cliente, int tamanio){
-	logger(escribir_loguear,l_info,"Voy a recibir un mensaje de texto");
+	log_info(team_logger,"Voy a recibir un mensaje de texto");
 	tp_mensaje_char contenido_del_paquete = recibir_mensaje_char(tamanio, cliente);
-	logger(escribir_loguear,l_info,"Esto es lo que recibi: %s", contenido_del_paquete->mensaje);
+	log_info(team_logger,"Esto es lo que recibi: %s", contenido_del_paquete->mensaje);
 	free(contenido_del_paquete->mensaje);
 	free(contenido_del_paquete);
 }
 
 void recibir_appeared_pokemon_desde_gameboy(int cliente, int tamanio){
-	logger(escribir_loguear,l_info,"Voy a recibir un pokemon y coordenadas");
+	log_info(team_logger,"Voy a recibir un pokemon y coordenadas");
 	tp_appeared_pokemon_team contenido_del_paquete = recibir_appeared_pokemon_team(tamanio, cliente);
-	logger(escribir_loguear,l_info,"Me llego este pokemon: %s", contenido_del_paquete->pokemon);
-	logger(escribir_loguear,l_info,"La coordenada X es: %d", contenido_del_paquete->posx);
-	logger(escribir_loguear,l_info,"La coordenada Y es: %d", contenido_del_paquete->posy);
+	log_info(team_logger,"Me llego este pokemon: %s", contenido_del_paquete->pokemon);
+	log_info(team_logger,"La coordenada X es: %d", contenido_del_paquete->posx);
+	log_info(team_logger,"La coordenada Y es: %d", contenido_del_paquete->posy);
 	free(contenido_del_paquete->pokemon);
 	free(contenido_del_paquete);
 }
@@ -60,7 +60,7 @@ void esperar_cliente(int socket_servidor){
 	struct sockaddr_in dir_cliente;
 	int tam_direccion = sizeof(struct sockaddr_in);
 	int socket_cliente = accept(socket_servidor, (void*) &dir_cliente, &tam_direccion);
-	logger(escribir_loguear,l_trace,"\nSe aceptó un nuevo cliente");
+	log_info(team_logger,"\nSe aceptó un nuevo cliente");
 
 	//PARA HACER QUE EL SERVIDOR SEA MULTIHILO, A PARTIR DE aca tendriamos que crear un hilo por cliente, y hacer que derive las operaciones
 	//o sea:
