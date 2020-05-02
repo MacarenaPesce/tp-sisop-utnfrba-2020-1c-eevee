@@ -13,10 +13,10 @@
 #include <string.h>
 
 void* AsignarMemoriaInicial(int tamaño_en_bytes);
-void* AsignarBloqueMemoria(int tamaño_en_bytes);
-void LiberarBloqueMemoria(void* bloque_memoria_inicial,void* bloque_a_vaciar,int tamanio_bloqua_a_vaciar);
-void* EncontrarBloqueMemoria(void* bloque_memoria_inicial, int tamanio_en_bytes);
-void LiberarMemoriaInicial(void* bloque_memoria_inicial)
+void* AsignarBloqueMemoria(void* bloque_memoria_inicial, int tamanio_en_bytes);
+void  LiberarBloqueMemoria(void* bloque_memoria_inicial,void* bloque_a_vaciar,int tamanio_bloqua_a_vaciar);
+void* EncontrarBloqueMemoria(char* bloque_memoria_inicial, int tamanio_en_bytes);
+void  LiberarMemoriaInicial(void* bloque_memoria_inicial, int tamanio_en_bytes)
 
 
 #endif /* MEMORIA_BROKER_H_ */
