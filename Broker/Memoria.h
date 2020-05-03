@@ -12,19 +12,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <commons/list.h>
+#include <commons/collections/list.h>
 
-void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria);
-void  LiberarMemoriaInicial(void* bloque_memoria_inicial);
-
-void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes);
-void  LiberarBloqueMemoria(t_bloque_memoria *bloque);
-
-struct t_bloque_memoria{
+typedef struct{
     int tamanio;
     bool esta_vacio;
     float* payload;
-};
+}t_bloque_memoria;
 
+void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria);
+void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
+
+void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes);
+void  LiberarBloqueMemoria(t_bloque_memoria *bloque);
 
 #endif /* MEMORIA_BROKER_H_ */
