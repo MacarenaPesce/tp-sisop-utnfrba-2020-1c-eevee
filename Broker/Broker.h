@@ -10,7 +10,7 @@
 
 #include "Contexto_broker.h"
 #include "Herramientas_broker.h"
-#include "memoria.h"
+//#include "memoria.h"
 
 int espacio_total;
 int espacio_vacio;
