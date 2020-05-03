@@ -1,5 +1,5 @@
-#ifndef HERRAMIENTAS_TEAM_H_
-#define HERRAMIENTAS_TEAM_H_
+#ifndef HERRAMIENTAS_BROKER_H_
+#define HERRAMIENTAS_BROKER_H_
 
 #include "Contexto_broker.h"
 
@@ -27,7 +27,7 @@ void terminar_broker_correctamente();
 
 
 
-#endif /* HERRAMIENTAS_TEAM_H_ */
+#endif /* HERRAMIENTAS_BROKER_H_ */
 
 
 
