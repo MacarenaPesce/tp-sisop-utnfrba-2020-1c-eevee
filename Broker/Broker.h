@@ -1,10 +1,3 @@
-/*
- * Broker.h
- *
- *  Created on: 11 abr. 2020
- *      Author: utnso
- */
-
 #ifndef BROKER_H_
 #define BROKER_H_
 

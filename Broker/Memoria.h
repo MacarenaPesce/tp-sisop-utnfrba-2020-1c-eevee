@@ -1,10 +1,3 @@
-/*
- * Herramientas_broker.h
- *
- *  Created on: 11 abr. 2020
- *      Author: utnso
- */
-
 #ifndef MEMORIA_BROKER_H_
 #define MEMORIA_BROKER_H_
 

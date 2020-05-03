@@ -1,10 +1,3 @@
-/*
- * Herramientas_broker.c
- *
- *  Created on: 11 abr. 2020
- *      Author: utnso
- */
-
 #include "Herramientas_broker.h"
 
 void inicializar_logger(){
