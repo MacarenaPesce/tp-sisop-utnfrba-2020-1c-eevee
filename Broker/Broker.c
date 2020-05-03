@@ -105,4 +105,9 @@ int main(){
 
 	iniciar_servidor();
 
+	/* TODO: Obtener este valor desde la config */
+	int tamanio_memoria_inicial = 8000;
+
+	primer_bloque = AsignarMemoriaInicial(tamanio_memoria_inicial,lista_memoria);
+
 }
