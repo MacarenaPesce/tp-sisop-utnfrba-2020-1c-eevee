@@ -1,7 +1,7 @@
 #ifndef HERRAMIENTAS_BROKER_H_
 #define HERRAMIENTAS_BROKER_H_
 
-#include "Contexto_broker.h"
+#include "includes.h"
 
 void inicializar_logger();
 void inicializar_archivo_de_configuracion();

@@ -1,11 +1,7 @@
 #ifndef MEMORIA_BROKER_H_
 #define MEMORIA_BROKER_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <commons/collections/list.h>
+#include "includes.h"
 
 //--------------- ADMINISTRACION DE MEMORIA-------------------
 

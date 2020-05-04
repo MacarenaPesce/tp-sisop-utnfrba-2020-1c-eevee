@@ -1,25 +1,7 @@
 #ifndef CONTEXTO_BROKER_H_
 #define CONTEXTO_BROKER_H_
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
-#include <string.h>
-#include<sys/socket.h>
-#include<commons/log.h>
-#include<signal.h>
-#include<stdarg.h>
-#include<unistd.h>
-#include<netdb.h>
-#include<commons/log.h>
-#include<commons/collections/list.h>
-#include<commons/config.h>
-#include <commons/bitarray.h>
-#include<string.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <Pokebola.h>
-
+#include "includes.h"
 
 /* Keys config file*/
 #define KEY_CONFIG_TAMANIO_MEMORIA "TAMANIO_MEMORIA"
@@ -35,16 +17,14 @@
 #define IP "127.0.0.2"
 #define PUERTO "5002"
 
-extern char** posiciones_entrenadores;
-extern char** pokemon_entrenadores;
-extern char** objetivos_entrenadores;
-extern int tiempo_reconexion;
-extern int retardo_ciclo_cpu;
-extern char* algoritmo_planificacion;
-extern int quantum;
+extern int tamanio_memoria;
+extern int tamanio_minimo_particion;
+extern char* algoritmo_memoria;
+extern char* algoritmo_reemplazo;
+extern char* algoritmo_particion_libre;
 extern char* ip_broker;
-extern int estimacion_inicial;
-extern char* puerto_broker;
+extern int frecuencia_compactacion;
+extern int puerto_broker;
 extern char* log_file;
 
 extern t_log* broker_logger;

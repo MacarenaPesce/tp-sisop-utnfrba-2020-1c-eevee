@@ -1,4 +1,4 @@
-#include "Memoria.h"
+#include "includes.h"
 
 //--------------- ADMINISTRACION DE MEMORIA-------------------
 
@@ -136,7 +136,7 @@ int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
 
 //------------------------FIN ELIMINAR UNA PARTICION-----------------------
 
-
+/*
 uint32_t muse_alloc_mem(int programId, uint32_t tam) {
     // ajusta la memoria solicitada como múltiplo entero del tamaño de la página
     int cantPaginas = tam / MEMORIA.tamPagina + !!(tam % MEMORIA.tamPagina);
@@ -187,3 +187,5 @@ uint32_t muse_alloc_mem(int programId, uint32_t tam) {
     }
     //return b ? b->data : 0; //si retorna 0 es segmentation fault
 }
+
+*/
