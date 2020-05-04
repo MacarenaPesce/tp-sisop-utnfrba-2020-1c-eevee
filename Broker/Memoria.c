@@ -31,9 +31,9 @@ void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
     return;
 }
 
-void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes, char* algoritmo_planificacion){
+void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes){
     
-    if( )
+
 
 }
 
@@ -91,9 +91,48 @@ int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
 
 }
 
+//----------------------------ALGORITMOS DE MEMORIA-------------------------
+void* algoritmo_memoria(){
+
+    if (algoritmo_memoria == "BD"){
+        buddy_system();
+    }
+    else{
+        particiones_dinamicas();
+    }
+
+    return ;
+}
+
+//---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
+void particiones_dinamicas(){
+
+}
+//-------------------------FIN DE PARTICIONES DINAMICAS-------------------------
+
+
+
+//------------------------------BUDDY SYSTEM----------------------------------
+void buddy_system(){
+
+}
+//----------------------------FIN BUDDY SYSTEM----------------------------------
+
+
+//---------------------------FIN DE ALGORITMOS DE MEMORIA-----------------------
+
+
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
 
+void algoritmo_eleccion(){
+    
+}
+
 //------------------------------FIRST FIT------------------------------------
+
+void algoritmo_first(){
+
+}
 
 /*
     Recorrer la memoria o la lista?
@@ -108,12 +147,11 @@ int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
 
 //----------------------------FIN FIRST FIT----------------------------------
 
-
-
-
 //------------------------------BEST FIT-------------------------------------
 
+void algoritmo_best(){
 
+}
 //----------------------------FIN DE BEST FIT---------------------------------
 
 //------------------------------FIN DE ELECCION DE PARTICION------------------
