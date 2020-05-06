@@ -33,7 +33,7 @@ void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
 
 void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes){
     
-
+    algoritmo_memoria(lista_memoria, tamanio_en_bytes);
 
 }
 
@@ -107,6 +107,8 @@ void* algoritmo_memoria(){
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
 void particiones_dinamicas(){
 
+
+
 }
 //-------------------------FIN DE PARTICIONES DINAMICAS-------------------------
 
@@ -122,46 +124,14 @@ void buddy_system(){
 //---------------------------FIN DE ALGORITMOS DE MEMORIA-----------------------
 
 
-//-----------------------------ELECCION DE PARTICION LIBRE--------------------
-
-void algoritmo_eleccion(){
-    
-}
-
-//------------------------------FIRST FIT------------------------------------
-
-void algoritmo_first(){
-
-}
-
-/*
-    Recorrer la memoria o la lista?
-    Buscar la primer particion libre --- buscarParticion()
-    fijarme si entra --- la ocupo o sigo buscando
-    si no entra, hago una compactacion
-    vuelvo a fijarme si entra, si no entra borro algo ---- que se borra?
-
-
-
-*/
-
-//----------------------------FIN FIRST FIT----------------------------------
-
-//------------------------------BEST FIT-------------------------------------
-
-void algoritmo_best(){
-
-}
-//----------------------------FIN DE BEST FIT---------------------------------
-
-//------------------------------FIN DE ELECCION DE PARTICION------------------
-
-
-
 
 
 //----------------------------ELIMINAR UNA PARTICION-----------------------
 
+void* algoritmo_reemplazo(){
+
+    return;
+}
 //------------------------------FIFO--------------------------------
 
 
@@ -173,6 +143,59 @@ void algoritmo_best(){
 //--------------------------FIN DE LRU--------------------------------
 
 //------------------------FIN ELIMINAR UNA PARTICION-----------------------
+
+
+
+
+
+//-----------------------------ELECCION DE PARTICION LIBRE--------------------
+
+void* algoritmo_particion_libre(){
+    
+    return;
+
+}
+
+//------------------------------FIRST FIT------------------------------------
+
+void* algoritmo_first(){
+
+    return;
+
+}
+
+/*
+    Recorrer la memoria o la lista?
+    Buscar la primer particion libre --- buscarParticion()
+    fijarme si entra --- la ocupo o sigo buscando
+    si no entra, hago una compactacion
+    vuelvo a fijarme si entra, si no entra borro algo ---- que se borra?
+*/
+
+//----------------------------FIN FIRST FIT----------------------------------
+
+//------------------------------BEST FIT-------------------------------------
+
+void* algoritmo_best(){
+
+
+    return;
+
+}
+//----------------------------FIN DE BEST FIT---------------------------------
+
+//------------------------------FIN DE ELECCION DE PARTICION------------------
+
+
+
+
+
+//----------------------------DUMP DE LA MEMORIA--------------------------
+
+
+
+//-----------------------------FIN DEL DUMP--------------------------------
+
 
 /*
 uint32_t muse_alloc_mem(int programId, uint32_t tam) {
