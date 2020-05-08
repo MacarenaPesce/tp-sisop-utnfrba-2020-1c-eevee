@@ -1,6 +1,7 @@
 #include "includes.h"
 
 //--------------- ADMINISTRACION DE MEMORIA-------------------
+// ---
 
 void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
     
