@@ -7,5 +7,6 @@ Broker : Broker.c Contexto_broker.c Herramientas_broker.c Memoria.c
 	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/Broker" ./Debug/Memoria.o  ./Debug/Contexto_broker.o ./Debug/Herramientas_broker.o ./Debug/Broker.o   -lPokebola -lcommons
 
 clean :
-	rm ./Dist/*
+	rm ./Dist/Broker
+	rm ./Dist/broker.log
 	rm ./Debug/*
