@@ -54,15 +54,10 @@ enum COLA_DE_MENSAJES{
 	COLA_LOCALIZED_POKEMON
 };
 
-enum MENSAJES{
-	CHAR_MESSAGE,
-	APPEARED_POKEMON,
-	APPEARED_POKEMON_TEAM,
-	NEW_POKEMON,
-	CATCH_POKEMON,
-	GET_POKEMON,
-	CAUGHT_POKEMON,
-	SUSCRIPTOR
+enum OPERACIONES{
+	ENVIAR_MENSAJE,
+	SUSCRIPTOR_GLOBAL,
+	SUSCRIPTOR_TEMPORAL
 };
 
 enum STATUS_CAUGHT{
@@ -70,24 +65,27 @@ enum STATUS_CAUGHT{
 	FAIL
 };
 
-typedef struct{
-	int tamanio;
-	enum MENSAJES tipo_de_mensaje;
-}__attribute__((packed)) t_header;
+typedef struct{	
 
-typedef struct{
-	void* stream;
-} t_buffer;
+	uint32_t id_mensaje __attribute__((packed));
 
-typedef struct{
-	t_header header;
-	t_buffer* buffer;
-} t_paquete;
+	uint32_t id_correlacional __attribute__((packed));
 
-typedef struct stru_mensaje_char{
-	char * mensaje;
-} t_mensaje_char;
-typedef t_mensaje_char* tp_mensaje_char;
+	uint32_t tamanio_payload __attribute__((packed));
+
+	enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));	 
+
+	enum OPERACIONES operacion __attribute__((packed));
+
+	void* mensaje;
+
+} t_packed;
+
+typedef struct t_payload{
+	uint32_t tamanio __attribute__((packed));
+	void*    buffer;
+} t_payload;
+
 
 typedef struct stru_appeared_pokemon{
 	char * pokemon;
@@ -143,13 +141,19 @@ typedef struct stru_modo_suscriptor{
 } t_modo_suscriptor;
 typedef t_modo_suscriptor* tp_modo_suscriptor;
 
+
+
+
+t_packed* recibir_paquete(int sock);
+void _agregar_string_a_paquete(t_packed* paquete, char* string_value, int size);
+
 /*
  * HAY VARIAS COSAS QUE SE PUEDEN REUTILIZAR PARA NO DUPLICAR CODIGO
  * PERO ESTA HECHO DE ESTA MANERA PARA RESPETAR EL PROTOCOLO
  */
 
 /**************************************************************************************/
-int conectar_a_server(char*, char*);
+/*int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
 int enviar_mensaje(int sock, void *mensaje, int tamanio);
 int recibir_mensaje(int sock, void *mensaje, int tamanio);
@@ -157,7 +161,6 @@ int enviar_header(int, enum MENSAJES tipo_de_mensaje,int);
 t_header recibir_header(int);
 t_paquete* crear_paquete(enum MENSAJES tipo_de_mensaje);
 void crear_buffer(t_paquete*);
-void enviar_paquete(t_paquete*, int);
 void* serializar_paquete(t_paquete*, int);
 void agregar_string_a_paquete(t_paquete*, void*, int);
 void agregar_int_a_paquete(t_paquete*, int);
@@ -189,9 +192,7 @@ void enviar_modo_suscriptor(uint32_t, uint32_t, int);
 tp_modo_suscriptor recibir_modo_suscriptor(int, int);
 
 /**************************************************************************************/
-void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer,char* log_colors[8], char* msj_salida);
-void definir_nivel_y_loguear(int, int, char*);
-void logger(int, int, const char*, ...);
+
 
 
 #endif /* POKEBOLA_H_ */

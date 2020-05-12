@@ -6,7 +6,12 @@ Broker : Broker.c Contexto_broker.c Herramientas_broker.c Memoria.c
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Broker.d" -MT"./Broker.o" -o "./Debug/Broker.o" "./Broker.c"
 	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/Broker" ./Debug/Memoria.o  ./Debug/Contexto_broker.o ./Debug/Herramientas_broker.o ./Debug/Broker.o   -lPokebola -lcommons
 
+Cliente : Cliente.c
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/utnso/tp-2020-1c-eevee/Pokebola/Debug
+	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Cliente.d" -MT"./Cliente.o" -o "./Debug/Cliente.o" "./Cliente.c"
+	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/Cliente"  ./Debug/Cliente.o   -lPokebola -lcommons
+
+
 clean :
-	rm ./Dist/Broker
-	rm ./Dist/broker.log
+	rm ./Dist/*
 	rm ./Debug/*

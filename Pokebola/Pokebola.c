@@ -7,6 +7,10 @@
 
 #include "Pokebola.h"
 
+
+/* REFACTORED */ 
+
+//Networking
 int conectar_a_server(char* ip, char* puerto){
 	struct addrinfo hints;
 	struct addrinfo *server_info;
@@ -42,16 +46,6 @@ void cerrar_conexion(int sock){
 	close(sock);
 }
 
-int enviar_mensaje(int sock, void *mensaje, int tamanio){
-	int bytes_enviados;
-	bytes_enviados = send(sock, mensaje, tamanio, 0);
-	if (bytes_enviados <= 0) {
-		perror("Error en el send");
-		return -1;
-	}
-	return bytes_enviados;
-}
-
 int recibir_mensaje(int sock, void *mensaje, int tamanio){
 	int bytes_recibidos;
 	if((bytes_recibidos = recv(sock, mensaje, tamanio, 0)) < 0) {
@@ -61,113 +55,148 @@ int recibir_mensaje(int sock, void *mensaje, int tamanio){
 	return bytes_recibidos;
 }
 
-int enviar_header(int sock, enum MENSAJES tipo_de_mensaje,int size){
-	t_header header;
-	header.tamanio = size;
-	header.tipo_de_mensaje = tipo_de_mensaje;
-	return enviar_mensaje(sock, &header, sizeof(header));
+int enviar_paquete(int sock, void *mensaje, int tamanio){
 
-}
+	int bytes_enviados;
 
-t_header recibir_header(int sock){
-	int resultado = -1;
-	t_header header;
+	bytes_enviados = send(sock, mensaje, tamanio, 0);
 
-	resultado = recibir_mensaje(sock, &header, sizeof(header));
-
-	if(resultado < 0){
-		perror("Error al recibir la cabecera.\n");
-	}else if (resultado == 0){
-		header.tamanio = -1;
+	if (bytes_enviados <= 0) {
+		perror("Error en el send");
+		return -1;
 	}
-	return header;
 
+	return bytes_enviados;
 }
 
-t_paquete* crear_paquete(enum MENSAJES tipo_de_mensaje){
-	t_paquete* paquete = malloc(sizeof(t_paquete));
-	paquete->header.tipo_de_mensaje = tipo_de_mensaje;
-	crear_buffer(paquete);
+t_packed* recibir_paquete(int sock){
+
+	t_packed* paquete;	
+	paquete = (t_packed*)malloc(sizeof(t_packed));
+
+	recibir_mensaje(sock, paquete,sizeof(t_packed));
+
+	paquete->mensaje = (void*)malloc(paquete->tamanio_payload);
+	recibir_mensaje(sock, paquete->mensaje, paquete->tamanio_payload);
+	
+	char* mensaje;
+	mensaje = (char*)malloc(paquete->tamanio_payload);
+	memcpy(mensaje,paquete->mensaje,paquete->tamanio_payload);
+	printf("tamanio %d",paquete->tamanio_payload);
+	printf("mensaje: %s",mensaje);
+
 	return paquete;
 }
 
-void crear_buffer(t_paquete* paquete){
-	paquete->buffer = malloc(sizeof(t_buffer));
-	paquete->header.tamanio = 0;
-	paquete->buffer->stream = NULL;
+//Serializacion
+int enviar_mensaje(int sock,
+				   enum COLA_DE_MENSAJES cola_de_mensajes,
+				   enum OPERACIONES operacion,
+				   uint32_t id_correlacional,
+				   uint32_t tamanio_payload,
+				   uint32_t id_mensaje,
+				   void* mensaje){
+
+	t_packed *paquete;
+	paquete = (t_packed*)malloc(sizeof(t_packed));
+	
+	paquete->tamanio_payload  = tamanio_payload;	
+	paquete->operacion 		  = operacion;
+	paquete->cola_de_mensajes = cola_de_mensajes;
+	paquete->id_correlacional = id_correlacional;
+	paquete->id_mensaje		  = id_mensaje;
+
+	
+	char* mensaje_char;
+	mensaje_char = (char*)malloc(tamanio_payload);
+	memcpy(mensaje_char,mensaje,tamanio_payload);
+	printf("mensaje: %s \n",mensaje_char);
+
+	printf("tamanio %d \n",paquete->tamanio_payload);
+	printf("operacion %d \n",paquete->operacion);
+	printf("cola_de_mensajes %d \n",paquete->cola_de_mensajes);
+	printf("id_correlacional %d \n",paquete->id_correlacional);
+	printf("id_mensaje %d \n",paquete->id_mensaje);
+
+	paquete->mensaje = (void*)malloc(tamanio_payload);
+	memcpy(paquete->mensaje,mensaje,paquete->tamanio_payload);
+
+	return enviar_paquete(sock, paquete, sizeof(paquete));
+
 }
 
-void enviar_paquete(t_paquete* paquete, int socket_client){
-	int bytes = paquete->header.tamanio + sizeof(t_header);
-	void* a_enviar = serializar_paquete(paquete, bytes);
-	enviar_mensaje(socket_client, a_enviar, bytes);
-	free(a_enviar);
-}
-
-void* serializar_paquete(t_paquete* paquete, int bytes){
-	void * mem_serializada = malloc(bytes);
-	int desplazamiento = 0;
-
-	memcpy(mem_serializada + desplazamiento, &(paquete->header), sizeof(t_header));
-	desplazamiento+= sizeof(t_header);
-	memcpy(mem_serializada + desplazamiento, paquete->buffer->stream, paquete->header.tamanio);
-	desplazamiento+= paquete->header.tamanio;
-
-	return mem_serializada;
-}
-
-void agregar_string_a_paquete(t_paquete* paquete, void* string_value, int size){
-	paquete->buffer->stream = realloc(paquete->buffer->stream, paquete->header.tamanio + size + sizeof(int));
-
-	memcpy(paquete->buffer->stream + paquete->header.tamanio, &size, sizeof(int));
-	memcpy(paquete->buffer->stream + paquete->header.tamanio + sizeof(int), string_value, size);
-
-	paquete->header.tamanio += size + sizeof(int);
-}
-
-void agregar_int_a_paquete(t_paquete* paquete, int value){
-	paquete->buffer->stream = realloc(paquete->buffer->stream, paquete->header.tamanio + sizeof(int));
-
-	memcpy(paquete->buffer->stream + paquete->header.tamanio, &value, sizeof(int));
-
-	paquete->header.tamanio += sizeof(int);
-}
-
-void agregar_uint32_t_a_paquete(t_paquete* paquete, uint32_t valor_int){
-	paquete->buffer->stream = realloc(paquete->buffer->stream, paquete->header.tamanio + sizeof(uint32_t));
-
-	memcpy(paquete->buffer->stream + paquete->header.tamanio, &valor_int, sizeof(uint32_t));
-
-	paquete->header.tamanio += sizeof(uint32_t);
-}
-
-void eliminar_paquete(t_paquete* paquete){
-	free(paquete->buffer->stream);
-	free(paquete->buffer);
+void eliminar_mensaje(t_packed* paquete){
+	free(paquete->mensaje);
 	free(paquete);
 }
 
-void enviar_mensaje_char(char* mensaje, int socket){
-	t_paquete* paquete = crear_paquete(CHAR_MESSAGE);
-	agregar_string_a_paquete(paquete, mensaje, strlen(mensaje)+1);
-	enviar_paquete(paquete, socket);
-	eliminar_paquete(paquete);
+void _agregar_string_a_paquete(t_packed* paquete, char* string_value, int size){
+
+	paquete->mensaje = realloc(paquete->mensaje, paquete->tamanio_payload + size + sizeof(char));
+	int tamaniomensaje = sizeof(paquete->mensaje);
+	memcpy(paquete->mensaje + paquete->tamanio_payload + sizeof(char), string_value, size);
+	printf("size %s",paquete->mensaje); 
+
+	paquete->tamanio_payload += size + sizeof(char);
 }
 
-tp_mensaje_char recibir_mensaje_char(int paquete_size, int socket){
-	void * buffer = malloc(paquete_size);
-	recibir_mensaje(socket, buffer, paquete_size);
-	uint32_t tamanio_mensaje_char;
-	int desplazamiento = 0;
-	memcpy(&tamanio_mensaje_char, buffer + desplazamiento, sizeof(uint32_t));
-	desplazamiento+=sizeof(uint32_t);
-	char* mensaje_char=malloc(tamanio_mensaje_char);
-	memcpy(mensaje_char, buffer+desplazamiento, tamanio_mensaje_char);
-	tp_mensaje_char contenido=malloc(sizeof(t_mensaje_char));
-	contenido->mensaje=mensaje_char;
-	free(buffer);
-	return contenido;
+void _agregar_int_a_paquete(t_packed* paquete, int value){
+	
+	paquete->mensaje = realloc(paquete->mensaje, paquete->tamanio_payload + sizeof(int));
+
+	memcpy(paquete->mensaje + paquete->tamanio_payload, &value, sizeof(int));
+
+	paquete->tamanio_payload += sizeof(int);
 }
+
+void _agregar_uint32_t_a_paquete(t_packed* paquete, uint32_t valor_int){
+	paquete->mensaje = realloc(paquete->mensaje, paquete->tamanio_payload + sizeof(uint32_t));
+
+	memcpy(paquete->mensaje + paquete->tamanio_payload, &valor_int, sizeof(uint32_t));
+
+	paquete->tamanio_payload += sizeof(uint32_t);
+}
+
+//Implementaciones
+void enviar_mensaje_char(int socket, char* mensaje){
+	t_packed* paquete;
+	paquete = (t_packed*)malloc(sizeof(t_packed)+strlen(mensaje)+1);	
+
+	enum OPERACIONES operacion;
+	operacion = ENVIAR_MENSAJE;
+	
+	paquete->operacion = operacion;
+	paquete->tamanio_payload = 0;
+	paquete->mensaje = (void*)malloc(0);	
+
+	_agregar_string_a_paquete(paquete, mensaje, strlen(mensaje)+1);
+
+	char* mensaje_char;
+	mensaje_char = (char*)malloc(paquete->tamanio_payload);
+	memcpy(mensaje_char,paquete->mensaje,paquete->tamanio_payload);
+	printf("mensaje: %s \n",mensaje_char);
+
+	enviar_mensaje(socket,-1, paquete->operacion,-1,paquete->tamanio_payload,-1,paquete->mensaje);
+	eliminar_mensaje(paquete);
+}
+
+t_packed* recibir_mensaje_char(int paquete_size, int socket){
+
+	t_packed* paquete;
+
+	paquete = (t_packed*)malloc(sizeof(t_packed)+ paquete_size);
+
+	paquete->mensaje = malloc(paquete_size);
+
+	recibir_mensaje(socket, paquete->mensaje, paquete_size);
+
+	return paquete;
+}
+
+
+/* OLD */
+
+/*
 
 void enviar_appeared_pokemon(char* pokemon, uint32_t posx, uint32_t posy, uint32_t id_mensaje, int socket){
 	t_paquete* paquete = crear_paquete(APPEARED_POKEMON);
@@ -400,7 +429,8 @@ void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer, char
 }
 
 void definir_nivel_y_loguear(int tipo_esc, int tipo_log, char* msj_salida) {
-	if ((tipo_esc == loguear) || (tipo_esc == escribir_loguear)) {
+	
+	/*if ((tipo_esc == loguear) || (tipo_esc == escribir_loguear)) {
 		if (tipo_log == l_info) {
 			log_info(logger, msj_salida);
 		} else if (tipo_log == l_warning) {
@@ -412,7 +442,7 @@ void definir_nivel_y_loguear(int tipo_esc, int tipo_log, char* msj_salida) {
 		} else if (tipo_log == l_trace) {
 			log_trace(logger, msj_salida);
 		}
-	}
+	}*/
 }
 
 void logger(int tipo_esc, int tipo_log, const char* mensaje, ...){
