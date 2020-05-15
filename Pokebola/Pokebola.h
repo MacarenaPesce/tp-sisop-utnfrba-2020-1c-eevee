@@ -88,10 +88,10 @@ typedef struct t_payload{
 
 
 typedef struct stru_appeared_pokemon{
+	uint32_t posx __attribute__((packed));
+	uint32_t posy __attribute__((packed));
+	uint32_t tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
-	uint32_t posx;
-	uint32_t posy;
-	uint32_t id_mensaje;
 } t_appeared_pokemon;
 typedef t_appeared_pokemon* tp_appeared_pokemon;
 

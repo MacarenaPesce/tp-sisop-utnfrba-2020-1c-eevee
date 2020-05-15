@@ -7,6 +7,6 @@ int main(){
 
 	int socket =  conectar_a_server("127.0.0.1","6009");
 
-	enviar_mensaje_char(socket, "holasssssssssssss");
+	enviar_appeared_pokemon(socket, -1, -1, "pikachu",10,20);
 
 }
