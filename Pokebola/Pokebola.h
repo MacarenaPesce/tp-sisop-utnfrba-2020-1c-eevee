@@ -65,6 +65,11 @@ enum STATUS_CAUGHT{
 	FAIL
 };
 
+typedef struct{
+	uint32_t posx __attribute__((packed));
+	uint32_t posy __attribute__((packed));
+} t_coordenadas;
+
 typedef struct{	
 
 	uint32_t id_mensaje __attribute__((packed));
@@ -82,8 +87,7 @@ typedef struct{
 } t_packed;
 
 typedef struct{
-	uint32_t posx __attribute__((packed));
-	uint32_t posy __attribute__((packed));
+	t_coordenadas coordenadas;
 	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_appeared_pokemon;
@@ -95,8 +99,7 @@ typedef struct{
 } t_caught_pokemon;
 
 typedef struct{
-	uint32_t posx __attribute__((packed));
-	uint32_t posy __attribute__((packed));
+	t_coordenadas coordenadas;
 	uint32_t cantidad __attribute__((packed));
 	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
@@ -106,6 +109,13 @@ typedef struct{
 	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_get_pokemon;
+
+typedef struct{
+	uint32_t cantidad_coordenadas __attribute__((packed));
+	uint32_t _tamanio_string_pokemon __attribute__((packed));
+	char * pokemon;
+	t_list lista_coordenadas;
+} t_localized_pokemon;
 
 typedef struct stru_modo_suscriptor{
 	uint32_t cola_de_mensajes;
