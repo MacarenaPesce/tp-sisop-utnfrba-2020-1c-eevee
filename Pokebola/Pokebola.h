@@ -141,11 +141,8 @@ typedef struct stru_modo_suscriptor{
 } t_modo_suscriptor;
 typedef t_modo_suscriptor* tp_modo_suscriptor;
 
-
-
-
-t_packed* recibir_paquete(int sock);
-void _agregar_string_a_paquete(t_packed* paquete, char* string_value, int size);
+t_packed* recibir_mensaje(int sock);
+void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
 
 /*
  * HAY VARIAS COSAS QUE SE PUEDEN REUTILIZAR PARA NO DUPLICAR CODIGO

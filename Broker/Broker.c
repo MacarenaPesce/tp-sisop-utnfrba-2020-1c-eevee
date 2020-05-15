@@ -44,7 +44,7 @@ void esperar_cliente(int socket_servidor){
 	//Todavia queda definir si team y gamecard seran servers multihilo o no. Necesitamos definirlo urgente, porque meter el select
 	//despues es una fiaca. Tambien tenemos que ver si el mensaje lo ingresamos por consola o no. Ahora a team le llega algo hardcodeado.
 	t_packed* paquete;
-	paquete = recibir_paquete(socket_cliente);
+	paquete = recibir_mensaje(socket_cliente);
 
 	logger(escribir_loguear,paquete->tamanio_payload);
 }

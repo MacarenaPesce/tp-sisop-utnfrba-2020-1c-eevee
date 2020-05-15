@@ -10,7 +10,7 @@
 
 /* REFACTORED */ 
 
-//Networking
+//Conexion
 int conectar_a_server(char* ip, char* puerto){
 	struct addrinfo hints;
 	struct addrinfo *server_info;
@@ -46,7 +46,8 @@ void cerrar_conexion(int sock){
 	close(sock);
 }
 
-int recibir_mensaje(int sock, void *mensaje, int tamanio){
+//Envio y recepcion
+int recibir_paquete(int sock, void *mensaje, int tamanio){
 	int bytes_recibidos;
 	if((bytes_recibidos = recv(sock, mensaje, tamanio, 0)) < 0) {
 		perror("Error en el recv.\n");
@@ -55,11 +56,11 @@ int recibir_mensaje(int sock, void *mensaje, int tamanio){
 	return bytes_recibidos;
 }
 
-int enviar_paquete(int sock, void *mensaje, int tamanio){
+int enviar_paquete(int sock, void *paquete, int tamanio){
 
 	int bytes_enviados;
 
-	bytes_enviados = send(sock, mensaje, tamanio, 0);
+	bytes_enviados = send(sock, paquete, tamanio, 0);
 
 	if (bytes_enviados <= 0) {
 		perror("Error en el send");
@@ -69,26 +70,27 @@ int enviar_paquete(int sock, void *mensaje, int tamanio){
 	return bytes_enviados;
 }
 
-t_packed* recibir_paquete(int sock){
+t_packed* recibir_mensaje(int sock){
 
 	t_packed* paquete;	
 	paquete = (t_packed*)malloc(sizeof(t_packed));
 
-	recibir_mensaje(sock, paquete,sizeof(t_packed));
+	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
 
 	paquete->mensaje = (void*)malloc(paquete->tamanio_payload);
-	recibir_mensaje(sock, paquete->mensaje, paquete->tamanio_payload);
-	
-	char* mensaje;
-	mensaje = (char*)malloc(paquete->tamanio_payload);
-	memcpy(mensaje,paquete->mensaje,paquete->tamanio_payload);
-	printf("tamanio %d",paquete->tamanio_payload);
-	printf("mensaje: %s",mensaje);
+	recibir_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+
+/* 	printf("mensaje: %s \n",paquete->mensaje);
+	printf("tamanio %d \n",paquete->tamanio_payload);
+	printf("operacion %d \n",paquete->operacion);
+	printf("cola_de_mensajes %d \n",paquete->cola_de_mensajes);
+	printf("id_correlacional %d \n",paquete->id_correlacional);
+	printf("id_mensaje %d \n",paquete->id_mensaje); */
 
 	return paquete;
 }
 
-//Serializacion
+//Manejo de mensaje
 int enviar_mensaje(int sock,
 				   enum COLA_DE_MENSAJES cola_de_mensajes,
 				   enum OPERACIONES operacion,
@@ -96,7 +98,7 @@ int enviar_mensaje(int sock,
 				   uint32_t tamanio_payload,
 				   uint32_t id_mensaje,
 				   void* mensaje){
-
+	
 	t_packed *paquete;
 	paquete = (t_packed*)malloc(sizeof(t_packed));
 	
@@ -105,23 +107,20 @@ int enviar_mensaje(int sock,
 	paquete->cola_de_mensajes = cola_de_mensajes;
 	paquete->id_correlacional = id_correlacional;
 	paquete->id_mensaje		  = id_mensaje;
+	int tamanio_struct = sizeof(paquete->tamanio_payload) +
+						 sizeof(paquete->operacion) +
+						 sizeof(paquete->cola_de_mensajes) +
+						 sizeof(paquete->id_correlacional) +
+						 sizeof(paquete->id_mensaje);
+								
 
-	
-	char* mensaje_char;
-	mensaje_char = (char*)malloc(tamanio_payload);
-	memcpy(mensaje_char,mensaje,tamanio_payload);
-	printf("mensaje: %s \n",mensaje_char);
-
-	printf("tamanio %d \n",paquete->tamanio_payload);
-	printf("operacion %d \n",paquete->operacion);
-	printf("cola_de_mensajes %d \n",paquete->cola_de_mensajes);
-	printf("id_correlacional %d \n",paquete->id_correlacional);
-	printf("id_mensaje %d \n",paquete->id_mensaje);
-
-	paquete->mensaje = (void*)malloc(tamanio_payload);
+	paquete->mensaje = (void*)malloc(paquete->tamanio_payload);
 	memcpy(paquete->mensaje,mensaje,paquete->tamanio_payload);
 
-	return enviar_paquete(sock, paquete, sizeof(paquete));
+	int envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
+	int envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+
+	return envio_header+envio_payload;
 
 }
 
@@ -130,31 +129,33 @@ void eliminar_mensaje(t_packed* paquete){
 	free(paquete);
 }
 
-void _agregar_string_a_paquete(t_packed* paquete, char* string_value, int size){
+//Serializacion
+void _agregar_dato_a_paquete(t_packed *paquete, char *value, int size){
 
-	paquete->mensaje = realloc(paquete->mensaje, paquete->tamanio_payload + size + sizeof(char));
-	int tamaniomensaje = sizeof(paquete->mensaje);
-	memcpy(paquete->mensaje + paquete->tamanio_payload + sizeof(char), string_value, size);
-	printf("size %s",paquete->mensaje); 
-
-	paquete->tamanio_payload += size + sizeof(char);
-}
-
-void _agregar_int_a_paquete(t_packed* paquete, int value){
+	paquete->mensaje = realloc(paquete->mensaje, paquete->tamanio_payload + size );
 	
-	paquete->mensaje = realloc(paquete->mensaje, paquete->tamanio_payload + sizeof(int));
+	memcpy(paquete->mensaje + paquete->tamanio_payload, value, size);
 
-	memcpy(paquete->mensaje + paquete->tamanio_payload, &value, sizeof(int));
+	paquete->tamanio_payload += size;
 
-	paquete->tamanio_payload += sizeof(int);
 }
 
-void _agregar_uint32_t_a_paquete(t_packed* paquete, uint32_t valor_int){
-	paquete->mensaje = realloc(paquete->mensaje, paquete->tamanio_payload + sizeof(uint32_t));
+void _agregar_string_a_paquete(t_packed* paquete, char* string){
 
-	memcpy(paquete->mensaje + paquete->tamanio_payload, &valor_int, sizeof(uint32_t));
+	_agregar_dato_a_paquete(paquete, string, strlen(string));
 
-	paquete->tamanio_payload += sizeof(uint32_t);
+}
+
+void _agregar_uint32_t_a_paquete(t_packed* paquete, uint32_t value){
+
+	_agregar_dato_a_paquete(paquete, value, sizeof(uint32_t));
+
+}
+
+void _agregar_int_t_a_paquete(t_packed* paquete, int value){
+
+	_agregar_dato_a_paquete(paquete, value, sizeof(int));
+
 }
 
 //Implementaciones
@@ -169,28 +170,14 @@ void enviar_mensaje_char(int socket, char* mensaje){
 	paquete->tamanio_payload = 0;
 	paquete->mensaje = (void*)malloc(0);	
 
-	_agregar_string_a_paquete(paquete, mensaje, strlen(mensaje)+1);
+	_agregar_string_a_paquete(paquete, mensaje);
 
 	char* mensaje_char;
 	mensaje_char = (char*)malloc(paquete->tamanio_payload);
 	memcpy(mensaje_char,paquete->mensaje,paquete->tamanio_payload);
-	printf("mensaje: %s \n",mensaje_char);
 
 	enviar_mensaje(socket,-1, paquete->operacion,-1,paquete->tamanio_payload,-1,paquete->mensaje);
 	eliminar_mensaje(paquete);
-}
-
-t_packed* recibir_mensaje_char(int paquete_size, int socket){
-
-	t_packed* paquete;
-
-	paquete = (t_packed*)malloc(sizeof(t_packed)+ paquete_size);
-
-	paquete->mensaje = malloc(paquete_size);
-
-	recibir_mensaje(socket, paquete->mensaje, paquete_size);
-
-	return paquete;
 }
 
 
