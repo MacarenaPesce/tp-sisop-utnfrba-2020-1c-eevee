@@ -74,27 +74,34 @@ t_packed* recibir_mensaje(int sock){
 
 	t_packed* paquete;	
 	paquete = (t_packed*)malloc(sizeof(t_packed));
+	void* mensaje;
 
 	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
 
-	paquete->mensaje = (void*)malloc(paquete->tamanio_payload);
-	recibir_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+	mensaje = (void*)malloc(paquete->tamanio_payload);
+	recibir_paquete(sock, mensaje, paquete->tamanio_payload);
 
-	t_appeared_pokemon* ap_pkm;
-	ap_pkm = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
-	ap_pkm->pokemon = (char*)malloc(0);
-	ap_pkm->posx = 0;
-	ap_pkm->posy = 0;
-	ap_pkm->tamanio_string_pokemon = 0;
+	if(paquete->operacion == ENVIAR_MENSAJE){
+		switch(paquete->cola_de_mensajes){
 
-	memcpy(ap_pkm,paquete->mensaje,sizeof(t_appeared_pokemon)-sizeof(ap_pkm->pokemon));
-	memcpy(ap_pkm->pokemon,paquete->mensaje+sizeof(t_appeared_pokemon)-sizeof(ap_pkm->pokemon),ap_pkm->tamanio_string_pokemon);
+			case -1:
+				recibir_mensaje_string(mensaje,paquete);
+				break;
 
-	printf("\n\nInformacion del mensaje: \npokemon %s \n", ap_pkm->pokemon);
-	printf("posx %d \n", ap_pkm->posx);
-	printf("posy %d \n", ap_pkm->posy);
-	printf("tamanio %d \n\n", ap_pkm->tamanio_string_pokemon);
+			case COLA_APPEARED_POKEMON:
+				recibir_appeared_pokemon(mensaje,paquete);
+				break;
 
+			case COLA_CATCH_POKEMON:
+				recibir_appeared_pokemon(mensaje,paquete);
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	printf("mensaje: %s \n",paquete->mensaje);
 	printf("Informacion del paquete: \n");
 	printf("id_mensaje %d \n",paquete->id_mensaje); 
 	printf("id_correlacional %d \n",paquete->id_correlacional);
@@ -105,6 +112,7 @@ t_packed* recibir_mensaje(int sock){
 
 	return paquete;
 }
+
 
 //Manejo de mensaje
 int enviar_mensaje(int sock,
@@ -149,7 +157,7 @@ void _agregar_dato_a_paquete(t_packed *paquete, void *value, int size){
 
 void _agregar_string_a_paquete(t_packed* paquete, char* string){
 
-	_agregar_dato_a_paquete(paquete, string, strlen(string));
+	_agregar_dato_a_paquete(paquete, string, strlen(string)+1);
 
 }
 
@@ -166,8 +174,8 @@ void _agregar_int_t_a_paquete(t_packed* paquete, int value){
 
 }
 
-//Implementaciones
-void enviar_mensaje_char(int socket, char* mensaje){
+//Implementaciones Envio
+void enviar_mensaje_string(int socket, char* mensaje){
 	t_packed* paquete;
 	paquete = crear_paquete(ENVIAR_MENSAJE);
 
@@ -192,40 +200,46 @@ void enviar_appeared_pokemon(int socket,
 		
 	_agregar_uint32_t_a_paquete(paquete, posx);
 	_agregar_uint32_t_a_paquete(paquete, posy);
-	_agregar_uint32_t_a_paquete(paquete, strlen(pokemon));
+	_agregar_uint32_t_a_paquete(paquete, strlen(pokemon)+1);
 	_agregar_string_a_paquete(paquete, pokemon);
 
 	enviar_mensaje(socket, paquete);
 	_eliminar_mensaje(paquete);
 }
-/*
 
-tp_appeared_pokemon recibir_appeared_pokemon(int paquete_size, int socket){
-	void * buffer = malloc(paquete_size);
-	recibir_mensaje(socket, buffer, paquete_size);
-	uint32_t tamanio_pokemon;
-	uint32_t posx;
-	uint32_t posy;
-	uint32_t id_mensaje;
-	int desplazamiento = 0;
-	memcpy(&tamanio_pokemon, buffer + desplazamiento, sizeof(uint32_t));
-	desplazamiento+=sizeof(uint32_t);
-	char* pokemon=malloc(tamanio_pokemon);
-	memcpy(pokemon, buffer+desplazamiento, tamanio_pokemon);
-	desplazamiento+=tamanio_pokemon;
-	memcpy(&posx, buffer + desplazamiento, sizeof(uint32_t));
-	desplazamiento=tamanio_pokemon+sizeof(uint32_t)+sizeof(uint32_t);
-	memcpy(&posy, buffer + desplazamiento, sizeof(uint32_t));
-	desplazamiento=tamanio_pokemon+sizeof(uint32_t)+sizeof(uint32_t)+sizeof(uint32_t);
-	memcpy(&id_mensaje,buffer+desplazamiento,sizeof(uint32_t));
-	tp_appeared_pokemon contenido = malloc(sizeof(t_appeared_pokemon));
-	contenido->pokemon=pokemon;
-	contenido->posx=posx;
-	contenido->posy=posy;
-	contenido->id_mensaje=id_mensaje;
-	free(buffer);
-	return contenido;
+//Implementaciones Recepcion
+void recibir_mensaje_string(void *mensaje,t_packed *paquete){
+
+	paquete->mensaje = (t_appeared_pokemon*)malloc(paquete->tamanio_payload);
+
+	memcpy(paquete->mensaje,mensaje,paquete->tamanio_payload);
+
+	free(mensaje);
+
+	return;
+
 }
+
+void recibir_appeared_pokemon(void *mensaje,t_packed *paquete){
+	t_appeared_pokemon* ap_pkm;
+
+	ap_pkm 			 = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
+	paquete->mensaje = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
+
+	memcpy(ap_pkm,mensaje,sizeof(t_appeared_pokemon)-sizeof(ap_pkm->pokemon));
+
+	ap_pkm->pokemon = (char*)malloc(ap_pkm->tamanio_string_pokemon);
+
+	memcpy(ap_pkm->pokemon,mensaje+sizeof(t_appeared_pokemon)-sizeof(ap_pkm->pokemon),ap_pkm->tamanio_string_pokemon);
+
+	paquete->mensaje = ap_pkm;
+
+	free(mensaje);
+
+	return;
+}
+
+/*
 
 
 void enviar_new_pokemon(char* pokemon, uint32_t posx, uint32_t posy, uint32_t cantidad, int socket){
