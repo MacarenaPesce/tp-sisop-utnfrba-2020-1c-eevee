@@ -81,40 +81,50 @@ t_packed* recibir_mensaje(int sock){
 	mensaje = (void*)malloc(paquete->tamanio_payload);
 	recibir_paquete(sock, mensaje, paquete->tamanio_payload);
 
-	if(paquete->operacion == ENVIAR_MENSAJE){
-		switch(paquete->cola_de_mensajes){
-
-			case -1:
-				_recibir_mensaje_string(mensaje,paquete);
-				break;
-
-			case COLA_CATCH_POKEMON:
-			case COLA_APPEARED_POKEMON:
-				_recibir_catch_o_appeared_pokemon(mensaje,paquete);
-				break;
-
-			case COLA_NEW_POKEMON:
-				_recibir_new_pokemon(mensaje,paquete);
-				break;
-			
-			case COLA_CAUGHT_POKEMON:
-				_recibir_caught_pokemon(mensaje,paquete);
-				break;
-			
-			case COLA_GET_POKEMON:
-				_recibir_get_pokemon(mensaje,paquete);
-				break;
-
-			case COLA_LOCALIZED_POKEMON:
-				_recibir_localized_pokemon(mensaje,paquete);
-				break;			
-
-			default:
-				break;
-		}
+	switch(paquete->operacion){
+		case ENVIAR_MENSAJE:
+			_recuperar_mensaje(paquete,mensaje);
+			break;
+		
+		case SUSCRIPTOR_TEMPORAL:
+			_recibir_suscriptor_temporal(paquete,mensaje);
+			break;
 	}
 
-	 paquete;
+	return paquete;
+}
+
+void _recuperar_mensaje(t_packed* paquete, void* mensaje){
+	switch(paquete->cola_de_mensajes){
+
+		case -1:
+			_recibir_mensaje_string(mensaje,paquete);
+			break;
+
+		case COLA_CATCH_POKEMON:
+		case COLA_APPEARED_POKEMON:
+			_recibir_catch_o_appeared_pokemon(mensaje,paquete);
+			break;
+
+		case COLA_NEW_POKEMON:
+			_recibir_new_pokemon(mensaje,paquete);
+			break;
+		
+		case COLA_CAUGHT_POKEMON:
+			_recibir_caught_pokemon(mensaje,paquete);
+			break;
+		
+		case COLA_GET_POKEMON:
+			_recibir_get_pokemon(mensaje,paquete);
+			break;
+
+		case COLA_LOCALIZED_POKEMON:
+			_recibir_localized_pokemon(mensaje,paquete);
+			break;			
+
+		default:
+			break;
+	}
 }
 
 
@@ -310,6 +320,22 @@ void enviar_localized_pokemon(int socket,
 
 };
 
+void enviar_solicitud_suscripcion(int socket, enum COLA_DE_MENSAJES cola_mensajes,int tiempo_en_minutos){
+	t_packed* paquete;
+
+	if(tiempo_en_minutos < 0){
+		paquete = _crear_paquete(SUSCRIPTOR_GLOBAL);
+	}else{
+		paquete = _crear_paquete(SUSCRIPTOR_TEMPORAL);
+		paquete->tamanio_payload = sizeof(uint32_t);
+		_agregar_uint32_t_a_paquete(paquete, tiempo_en_minutos);
+	}
+
+	_enviar_mensaje(socket, paquete);
+	_eliminar_mensaje(paquete);
+
+}
+
 
 //Implementaciones Recepcion
 void _recibir_mensaje_string(void *mensaje,t_packed *paquete){
@@ -363,7 +389,6 @@ void _recibir_new_pokemon(void *mensaje,t_packed *paquete){
 }
 
 void _recibir_caught_pokemon(void *mensaje,t_packed *paquete){
-	t_new_pokemon* aux;
 
 	paquete->mensaje = (t_caught_pokemon*)malloc(sizeof(t_caught_pokemon));
 
@@ -409,6 +434,17 @@ void _recibir_localized_pokemon(void *mensaje,t_packed *paquete){
 	free(mensaje);
 
 	return;*/
+}
+
+void _recibir_suscriptor_temporal(void *mensaje,t_packed *paquete){
+
+	paquete->mensaje = (uint32_t)malloc(sizeof(uint32_t));
+
+	memcpy(paquete->mensaje,mensaje,sizeof(uint32_t));
+
+	free(mensaje);
+
+	return;
 }
 
 
