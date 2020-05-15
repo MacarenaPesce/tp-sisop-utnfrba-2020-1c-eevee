@@ -90,17 +90,18 @@ t_packed* recibir_mensaje(int sock){
 	memcpy(ap_pkm,paquete->mensaje,sizeof(t_appeared_pokemon)-sizeof(ap_pkm->pokemon));
 	memcpy(ap_pkm->pokemon,paquete->mensaje+sizeof(t_appeared_pokemon)-sizeof(ap_pkm->pokemon),ap_pkm->tamanio_string_pokemon);
 
-/*
-	printf("tamanio %d \n",paquete->tamanio_payload);
-	printf("operacion %d \n",paquete->operacion);
-	printf("cola_de_mensajes %d \n",paquete->cola_de_mensajes);
-	printf("id_correlacional %d \n",paquete->id_correlacional);
- 	printf("mensaje: %s \n",paquete->mensaje);
-	printf("id_mensaje %d \n",paquete->id_mensaje); 
+	printf("\n\nInformacion del mensaje: \npokemon %s \n", ap_pkm->pokemon);
 	printf("posx %d \n", ap_pkm->posx);
 	printf("posy %d \n", ap_pkm->posy);
-	printf("pokemon %s \n", ap_pkm->pokemon);
-	printf("tamanio %d \n", ap_pkm->tamanio_string_pokemon);*/
+	printf("tamanio %d \n\n", ap_pkm->tamanio_string_pokemon);
+
+	printf("Informacion del paquete: \n");
+	printf("id_mensaje %d \n",paquete->id_mensaje); 
+	printf("id_correlacional %d \n",paquete->id_correlacional);
+	printf("operacion %d \n",paquete->operacion);
+	printf("cola_de_mensajes %d \n",paquete->cola_de_mensajes);
+	printf("tamanio_payload %d \n",paquete->tamanio_payload);
+
 
 	return paquete;
 }

@@ -45,8 +45,11 @@ void esperar_cliente(int socket_servidor){
 	//despues es una fiaca. Tambien tenemos que ver si el mensaje lo ingresamos por consola o no. Ahora a team le llega algo hardcodeado.
 	t_packed* paquete;
 	paquete = recibir_mensaje(socket_cliente);
+	
 
-	logger(escribir_loguear,paquete->tamanio_payload);
+
+
+//	logger(escribir_loguear,paquete->tamanio_payload);
 }
 
 
