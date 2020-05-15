@@ -81,65 +81,36 @@ typedef struct{
 
 } t_packed;
 
-typedef struct t_payload{
-	uint32_t tamanio __attribute__((packed));
-	void*    buffer;
-} t_payload;
-
-
-typedef struct stru_appeared_pokemon{
+typedef struct{
 	uint32_t posx __attribute__((packed));
 	uint32_t posy __attribute__((packed));
-	uint32_t tamanio_string_pokemon __attribute__((packed));
+	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_appeared_pokemon;
-typedef t_appeared_pokemon* tp_appeared_pokemon;
 
+typedef t_appeared_pokemon t_catch_pokemon;
 
-/*
- * ACLARACION, APPEARED POKEMON PARA TEAM NO TIENE ID_MENSAJE
- * ENTONCES HAGO UNA ESTRUCTURA A PARTE
- */
-
-typedef struct stru_appeared_pokemon_team{
-	char * pokemon;
-	uint32_t posx;
-	uint32_t posy;
-} t_appeared_pokemon_team;
-typedef t_appeared_pokemon_team* tp_appeared_pokemon_team;
-
-
-typedef struct stru_catch_pokemon{
-	char * pokemon;
-	uint32_t posx;
-	uint32_t posy;
-} t_catch_pokemon;
-typedef t_catch_pokemon* tp_catch_pokemon;
-
-typedef struct stru_caught_pokemon{
-	uint32_t id_mensaje;
-	uint32_t status; //OK o FAIL
+typedef struct{
+	uint32_t status __attribute__((packed)); //OK o FAIL
 } t_caught_pokemon;
-typedef t_caught_pokemon* tp_caught_pokemon;
 
-typedef struct stru_new_pokemon{
+typedef struct{
+	uint32_t posx __attribute__((packed));
+	uint32_t posy __attribute__((packed));
+	uint32_t cantidad __attribute__((packed));
+	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
-	uint32_t posx;
-	uint32_t posy;
-	uint32_t cantidad;
 } t_new_pokemon;
-typedef t_new_pokemon* tp_new_pokemon;
 
-typedef struct stru_get_pokemon{
+typedef struct{
+	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_get_pokemon;
-typedef t_get_pokemon* tp_get_pokemon;
 
 typedef struct stru_modo_suscriptor{
 	uint32_t cola_de_mensajes;
 	uint32_t tiempo;
 } t_modo_suscriptor;
-typedef t_modo_suscriptor* tp_modo_suscriptor;
 
 t_packed* recibir_mensaje(int sock);
 void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
