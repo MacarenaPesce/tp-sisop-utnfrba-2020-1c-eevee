@@ -85,9 +85,16 @@ t_packed* recibir_mensaje(int sock){
 		case ENVIAR_MENSAJE:
 			_recuperar_mensaje(paquete,mensaje);
 			break;
+
+		case SUSCRIPTOR_GLOBAL:
+			break;
 		
 		case SUSCRIPTOR_TEMPORAL:
 			_recibir_suscriptor_temporal(paquete,mensaje);
+			break;
+		
+		default:
+			printf("Error, operacion desconocida: %d",paquete->operacion);
 			break;
 	}
 
@@ -123,6 +130,7 @@ void _recuperar_mensaje(t_packed* paquete, void* mensaje){
 			break;			
 
 		default:
+			printf("Error, cola de mensajes desconocida: %d",paquete->cola_de_mensajes);
 			break;
 	}
 }
