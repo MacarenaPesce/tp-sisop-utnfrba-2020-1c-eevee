@@ -70,12 +70,27 @@ int enviar_paquete(int sock, void *paquete, int tamanio){
 	return bytes_enviados;
 }
 
+//Manejo de mensaje
+int _enviar_mensaje(int sock,
+				   t_packed *paquete){	
+	int envio_payload, envio_header;
+
+	envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
+
+
+	envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+
+
+	return envio_header+envio_payload;
+
+}
+
 t_packed* recibir_mensaje(int sock){
 
 	t_packed* paquete;	
-	paquete = (t_packed*)malloc(sizeof(t_packed));
 	void* mensaje;
 
+	paquete = (t_packed*)malloc(sizeof(t_packed));
 	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
 
 	mensaje = (void*)malloc(paquete->tamanio_payload);
@@ -83,25 +98,23 @@ t_packed* recibir_mensaje(int sock){
 
 	switch(paquete->operacion){
 		case ENVIAR_MENSAJE:
-			_recuperar_mensaje(paquete,mensaje);
-			break;
-
-		case SUSCRIPTOR_GLOBAL:
+			_recuperar_mensaje(mensaje,paquete);
 			break;
 		
-		case SUSCRIPTOR_TEMPORAL:
-			_recibir_suscriptor_temporal(paquete,mensaje);
+		case SUSCRIBIRSE_A_COLA:
+			_recibir_solicitud_suscripcion(mensaje,paquete);
 			break;
 		
 		default:
-			printf("Error, operacion desconocida: %d",paquete->operacion);
+			printf("Error, operacion desconocida: %d\n",paquete->operacion);
 			break;
 	}
 
 	return paquete;
 }
 
-void _recuperar_mensaje(t_packed* paquete, void* mensaje){
+void _recuperar_mensaje(void *mensaje,t_packed *paquete){
+
 	switch(paquete->cola_de_mensajes){
 
 		case -1:
@@ -118,11 +131,12 @@ void _recuperar_mensaje(t_packed* paquete, void* mensaje){
 			break;
 		
 		case COLA_CAUGHT_POKEMON:
-			_recibir_caught_pokemon(mensaje,paquete);
+			_recibir_solicitud_suscripcion(mensaje,paquete);
 			break;
 		
 		case COLA_GET_POKEMON:
 			_recibir_get_pokemon(mensaje,paquete);
+				printf("se recibio el pkmn %s\n",((t_get_pokemon*)paquete->mensaje)->pokemon);
 			break;
 
 		case COLA_LOCALIZED_POKEMON:
@@ -130,25 +144,17 @@ void _recuperar_mensaje(t_packed* paquete, void* mensaje){
 			break;			
 
 		default:
-			printf("Error, cola de mensajes desconocida: %d",paquete->cola_de_mensajes);
+			printf("Error, cola de mensajes desconocida: %d\n",paquete->cola_de_mensajes);
 			break;
 	}
 }
 
-
-//Manejo de mensaje
-int _enviar_mensaje(int sock,
-				   t_packed *paquete){	
-
-	int envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
-	int envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
-
-	return envio_header+envio_payload;
-
-}
-
 void _eliminar_mensaje(t_packed* paquete){
 	free(paquete->mensaje);
+	free(paquete);
+}
+
+void eliminar_mensaje(t_packed* paquete){
 	free(paquete);
 }
 
@@ -184,7 +190,6 @@ void _agregar_string_a_paquete(t_packed* paquete, char* string){
 }
 
 void _agregar_uint32_t_a_paquete(t_packed* paquete, uint32_t value){
-	printf("%d",value);
 
 	_agregar_dato_a_paquete(paquete, &value, sizeof(uint32_t));
 
@@ -328,19 +333,17 @@ void enviar_localized_pokemon(int socket,
 
 };
 
-void enviar_solicitud_suscripcion(int socket, enum COLA_DE_MENSAJES cola_mensajes,int tiempo_en_minutos){
+void enviar_solicitud_suscripcion(int socket,uint32_t cola_de_mensajes, t_suscripcion* suscripcion){
 	t_packed* paquete;
+	paquete = _crear_paquete(SUSCRIBIRSE_A_COLA);
 
-	if(tiempo_en_minutos < 0){
-		paquete = _crear_paquete(SUSCRIPTOR_GLOBAL);
-	}else{
-		paquete = _crear_paquete(SUSCRIPTOR_TEMPORAL);
-		paquete->tamanio_payload = sizeof(uint32_t);
-		_agregar_uint32_t_a_paquete(paquete, tiempo_en_minutos);
-	}
+	paquete->cola_de_mensajes = cola_de_mensajes;
+
+	_agregar_uint32_t_a_paquete(paquete, suscripcion->tipo_suscripcion);
+	_agregar_uint32_t_a_paquete(paquete, suscripcion->minutos_suscripcion);
 
 	_enviar_mensaje(socket, paquete);
-	_eliminar_mensaje(paquete);
+	_eliminar_mensaje(paquete);	
 
 }
 
@@ -425,9 +428,20 @@ void _recibir_get_pokemon(void *mensaje,t_packed *paquete){
 	return;
 }
 
+void _recibir_solicitud_suscripcion(void *mensaje,t_packed *paquete){
+
+	paquete->mensaje = malloc(sizeof(t_suscripcion));
+
+	memcpy(paquete->mensaje,mensaje,sizeof(t_suscripcion));
+
+	free(mensaje);
+
+	return;
+}
+
 //TODO
 void _recibir_localized_pokemon(void *mensaje,t_packed *paquete){
-/*	t_get_pokemon* aux;
+	t_get_pokemon* aux;
 
 	aux 			 = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 	paquete->mensaje = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
@@ -441,19 +455,10 @@ void _recibir_localized_pokemon(void *mensaje,t_packed *paquete){
 
 	free(mensaje);
 
-	return;*/
-}
-
-void _recibir_suscriptor_temporal(void *mensaje,t_packed *paquete){
-
-	paquete->mensaje = (uint32_t)malloc(sizeof(uint32_t));
-
-	memcpy(paquete->mensaje,mensaje,sizeof(uint32_t));
-
-	free(mensaje);
-
 	return;
 }
+
+
 
 
 /*

@@ -56,8 +56,12 @@ enum COLA_DE_MENSAJES{
 
 enum OPERACIONES{
 	ENVIAR_MENSAJE,
-	SUSCRIPTOR_GLOBAL,
-	SUSCRIPTOR_TEMPORAL
+	SUSCRIBIRSE_A_COLA,
+};
+
+enum TIPOS_SUSCRIPCION{
+	SUSCRIPCION_GLOBAL,
+	SUSCRIPCION_TEMPORAL
 };
 
 enum STATUS_CAUGHT{
@@ -99,6 +103,11 @@ typedef struct{
 } t_caught_pokemon;
 
 typedef struct{
+	enum TIPOS_SUSCRIPCION tipo_suscripcion __attribute__((packed));	 
+	uint32_t minutos_suscripcion __attribute__((packed)); //OK o FAIL
+} t_suscripcion;
+
+typedef struct{
 	t_coordenadas coordenadas;
 	uint32_t cantidad __attribute__((packed));
 	uint32_t _tamanio_string_pokemon __attribute__((packed));
@@ -117,10 +126,6 @@ typedef struct{
 	t_list lista_coordenadas;
 } t_localized_pokemon;
 
-typedef struct stru_modo_suscriptor{
-	uint32_t cola_de_mensajes;
-	uint32_t tiempo;
-} t_modo_suscriptor;
 
 t_packed* recibir_mensaje(int sock);
 void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
