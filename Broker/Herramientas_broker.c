@@ -1,19 +1,12 @@
-/*
- * Herramientas_broker.c
- *
- *  Created on: 11 abr. 2020
- *      Author: utnso
- */
-
 #include "Herramientas_broker.h"
 
 void inicializar_logger(){
-	team_logger = log_create("broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
+	broker_logger = log_create("broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
 	logger(escribir_loguear,l_info,"Hi, bienvenido a Broker ");
 }
 
 void inicializar_archivo_de_configuracion(){
-	config = config_create("broker.config");
+	config = config_create("../Broker.config");
 	if(config == NULL){
 		logger(escribir_loguear,l_error,"El archivo de configuracion no existe. Fijate en la carpeta Debug.");
 		terminar_broker_correctamente();

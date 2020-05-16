@@ -1,14 +1,7 @@
-/*
- * Herramientas_broker.h
- *
- *  Created on: 11 abr. 2020
- *      Author: utnso
- */
-
 #ifndef HERRAMIENTAS_TEAM_H_
 #define HERRAMIENTAS_TEAM_H_
 
-#include "Contexto_team.h"
+#include "Contexto_broker.h"
 
 void inicializar_logger();
 void inicializar_archivo_de_configuracion();

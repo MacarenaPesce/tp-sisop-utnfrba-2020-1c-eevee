@@ -1,10 +1,3 @@
-/*
- * Contexto_team.h
- *
- *  Created on: 11 abr. 2020
- *      Author: utnso
- */
-
 #ifndef CONTEXTO_BROKER_H_
 #define CONTEXTO_BROKER_H_
 

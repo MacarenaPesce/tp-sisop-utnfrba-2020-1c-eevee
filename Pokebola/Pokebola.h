@@ -54,15 +54,14 @@ enum COLA_DE_MENSAJES{
 	COLA_LOCALIZED_POKEMON
 };
 
-enum MENSAJES{
-	CHAR_MESSAGE,
-	APPEARED_POKEMON,
-	APPEARED_POKEMON_TEAM,
-	NEW_POKEMON,
-	CATCH_POKEMON,
-	GET_POKEMON,
-	CAUGHT_POKEMON,
-	SUSCRIPTOR
+enum OPERACIONES{
+	ENVIAR_MENSAJE,
+	SUSCRIBIRSE_A_COLA,
+};
+
+enum TIPOS_SUSCRIPCION{
+	SUSCRIPCION_GLOBAL,
+	SUSCRIPCION_TEMPORAL
 };
 
 enum STATUS_CAUGHT{
@@ -71,77 +70,65 @@ enum STATUS_CAUGHT{
 };
 
 typedef struct{
-	int tamanio;
-	enum MENSAJES tipo_de_mensaje;
-}__attribute__((packed)) t_header;
+	uint32_t posx __attribute__((packed));
+	uint32_t posy __attribute__((packed));
+} t_coordenadas;
+
+typedef struct{	
+
+	uint32_t id_mensaje __attribute__((packed));
+
+	uint32_t id_correlacional __attribute__((packed));
+
+	uint32_t tamanio_payload __attribute__((packed));
+
+	enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));	 
+
+	enum OPERACIONES operacion __attribute__((packed));
+
+	void* mensaje;
+
+} t_packed;
 
 typedef struct{
-	void* stream;
-} t_buffer;
-
-typedef struct{
-	t_header header;
-	t_buffer* buffer;
-} t_paquete;
-
-typedef struct stru_mensaje_char{
-	char * mensaje;
-} t_mensaje_char;
-typedef t_mensaje_char* tp_mensaje_char;
-
-typedef struct stru_appeared_pokemon{
+	t_coordenadas coordenadas;
+	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
-	uint32_t posx;
-	uint32_t posy;
-	uint32_t id_mensaje;
 } t_appeared_pokemon;
-typedef t_appeared_pokemon* tp_appeared_pokemon;
 
+typedef t_appeared_pokemon t_catch_pokemon;
 
-/*
- * ACLARACION, APPEARED POKEMON PARA TEAM NO TIENE ID_MENSAJE
- * ENTONCES HAGO UNA ESTRUCTURA A PARTE
- */
-
-typedef struct stru_appeared_pokemon_team{
-	char * pokemon;
-	uint32_t posx;
-	uint32_t posy;
-} t_appeared_pokemon_team;
-typedef t_appeared_pokemon_team* tp_appeared_pokemon_team;
-
-
-typedef struct stru_catch_pokemon{
-	char * pokemon;
-	uint32_t posx;
-	uint32_t posy;
-} t_catch_pokemon;
-typedef t_catch_pokemon* tp_catch_pokemon;
-
-typedef struct stru_caught_pokemon{
-	uint32_t id_mensaje;
-	uint32_t status; //OK o FAIL
+typedef struct{
+	uint32_t status __attribute__((packed)); //OK o FAIL
 } t_caught_pokemon;
-typedef t_caught_pokemon* tp_caught_pokemon;
 
-typedef struct stru_new_pokemon{
+typedef struct{
+	enum TIPOS_SUSCRIPCION tipo_suscripcion __attribute__((packed));	 
+	uint32_t minutos_suscripcion __attribute__((packed)); //OK o FAIL
+} t_suscripcion;
+
+typedef struct{
+	t_coordenadas coordenadas;
+	uint32_t cantidad __attribute__((packed));
+	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
-	uint32_t posx;
-	uint32_t posy;
-	uint32_t cantidad;
 } t_new_pokemon;
-typedef t_new_pokemon* tp_new_pokemon;
 
-typedef struct stru_get_pokemon{
+typedef struct{
+	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_get_pokemon;
-typedef t_get_pokemon* tp_get_pokemon;
 
-typedef struct stru_modo_suscriptor{
-	uint32_t cola_de_mensajes;
-	uint32_t tiempo;
-} t_modo_suscriptor;
-typedef t_modo_suscriptor* tp_modo_suscriptor;
+typedef struct{
+	uint32_t cantidad_coordenadas __attribute__((packed));
+	uint32_t _tamanio_string_pokemon __attribute__((packed));
+	char * pokemon;
+	t_list lista_coordenadas;
+} t_localized_pokemon;
+
+
+t_packed* recibir_mensaje(int sock);
+void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
 
 /*
  * HAY VARIAS COSAS QUE SE PUEDEN REUTILIZAR PARA NO DUPLICAR CODIGO
@@ -149,7 +136,7 @@ typedef t_modo_suscriptor* tp_modo_suscriptor;
  */
 
 /**************************************************************************************/
-int conectar_a_server(char*, char*);
+/*int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
 int enviar_mensaje(int sock, void *mensaje, int tamanio);
 int recibir_mensaje(int sock, void *mensaje, int tamanio);
@@ -157,7 +144,6 @@ int enviar_header(int, enum MENSAJES tipo_de_mensaje,int);
 t_header recibir_header(int);
 t_paquete* crear_paquete(enum MENSAJES tipo_de_mensaje);
 void crear_buffer(t_paquete*);
-void enviar_paquete(t_paquete*, int);
 void* serializar_paquete(t_paquete*, int);
 void agregar_string_a_paquete(t_paquete*, void*, int);
 void agregar_int_a_paquete(t_paquete*, int);
@@ -189,9 +175,7 @@ void enviar_modo_suscriptor(uint32_t, uint32_t, int);
 tp_modo_suscriptor recibir_modo_suscriptor(int, int);
 
 /**************************************************************************************/
-void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer,char* log_colors[8], char* msj_salida);
-void definir_nivel_y_loguear(int, int, char*);
-void logger(int, int, const char*, ...);
+
 
 
 #endif /* POKEBOLA_H_ */
