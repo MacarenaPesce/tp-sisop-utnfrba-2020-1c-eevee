@@ -6,7 +6,7 @@ void inicializar_logger(){
 }
 
 void inicializar_archivo_de_configuracion(){
-	config = config_create("broker.config");
+	config = config_create("../Broker.config");
 	if(config == NULL){
 		logger(escribir_loguear,l_error,"El archivo de configuracion no existe. Fijate en la carpeta Debug.");
 		terminar_broker_correctamente();
