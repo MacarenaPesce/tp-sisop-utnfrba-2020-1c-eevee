@@ -21,4 +21,5 @@ char* puerto_broker;
 char* log_file;
 
 t_log* team_logger;
+t_log* team_logger_oficial;
 t_config* config;

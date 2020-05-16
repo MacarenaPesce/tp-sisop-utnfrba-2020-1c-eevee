@@ -1,10 +1,3 @@
-/*
- * Contexto_broker.c
- *
- *  Created on: 11 abr. 2020
- *      Author: utnso
- */
-
 #include "Contexto_broker.h"
 
 /* Global variables*/

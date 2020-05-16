@@ -57,6 +57,7 @@ extern char* puerto_broker;
 extern char* log_file;
 
 extern t_log* team_logger;
+extern t_log* team_logger_oficial;
 extern t_config* config;
 
 #endif /* CONTEXTO_TEAM_H_ */

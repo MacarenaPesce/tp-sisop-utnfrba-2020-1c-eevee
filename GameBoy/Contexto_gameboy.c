@@ -15,5 +15,9 @@ char* puerto_broker;
 char* puerto_team;
 char* puerto_gamecard;
 
+int server_broker;
+int server_team;
+int server_gamecard;
+
 t_log* gameboy_logger;
 t_config* config;
