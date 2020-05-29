@@ -1,7 +1,7 @@
 #include "includes.h"
 
 //--------------- ADMINISTRACION DE MEMORIA-------------------
-// ---
+
 
 void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
     
@@ -34,6 +34,7 @@ void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
 
 void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes){
     
+    //Asigno un bloque segun el algoritmo de memoria que utilicemos
     algoritmo_memoria(lista_memoria, tamanio_en_bytes);
 
 }
@@ -93,22 +94,24 @@ int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
 }
 
 //----------------------------ALGORITMOS DE MEMORIA-------------------------
-void* algoritmo_memoria(){
+void* algoritmo_memoria(t_list* lista_memoria, int tamanio_en_bytes){
+
+    //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
 
     if (algoritmo_memoria == "BD"){
-        buddy_system();
+        buddy_system(t_list* lista_memoria, int tamanio_en_bytes);
     }
     else{
-        particiones_dinamicas();
+        particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes);
     }
 
     return ;
 }
 
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
-void particiones_dinamicas(){
+void particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes){
 
-
+    
 
 }
 //-------------------------FIN DE PARTICIONES DINAMICAS-------------------------
@@ -116,7 +119,7 @@ void particiones_dinamicas(){
 
 
 //------------------------------BUDDY SYSTEM----------------------------------
-void buddy_system(){
+void buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
 
 }
 //----------------------------FIN BUDDY SYSTEM----------------------------------
