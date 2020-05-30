@@ -1,3 +1,4 @@
-#include "includes.h"
 
-int calcularBytes (t_paquete* paquete);
+#include <includes.h>
+
+int calcularBytes (t_packed* paquete);

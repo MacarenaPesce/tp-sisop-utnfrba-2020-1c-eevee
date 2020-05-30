@@ -1,47 +1,73 @@
+#include "includes.h"
 
-
-
-int calcularBytes (t_paquete* paquete){ 
+int calcularBytes (t_packed* paquete){ 
 
     int bytes = 0;
 
-    _recuperar_mensaje(paquete-> mensaje , paquete);
-    
+	//Calculo los bytes segun que operacion tiene mi paquete
+
+	//ME FALTA AGREGAR UN ENUM O ALGO PARA PODER SABER QUE OPERACION HACE, PAQUETE->OPERACION NO ES!!!
+
+	//NO ESTOY SEGURA SI ELIMINAR PAQUETE ESTA BIEN, Y CUANDO HACER EL FREE PKMN PORQUE LE ESTOY RESERVANDO MEMORIA
+	
+
     switch(paquete-> operacion){
 			case NEW_POKEMON:
 				puts(" Recibi un NEW POKEMON");
 				
-                
+                	t_new_pokemon* pkmn;
+					pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+
+					/* Apunto a los datos del mensaje */
+					pkmn = paquete->mensaje;
+
+					/*Libero la memoria del paquete*/
+					eliminar_mensaje(paquete);
+
+				//4 bytes por cada uint_32, y tengo 4 uint_32 -> 4*4 
+				//mas el largo del nombre del pokemon
+
+                bytes = 16 + (strlen(pkmn->pokemon));
+
+				return bytes;
+			case LOCALIZED_POKEMON:
+				puts(" Recibi un LOCALIZED POKEMON");
+
+					t_localized_pokemon* pkmn;
+					pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+
+					/* Apunto a los datos del mensaje */
+					pkmn = paquete->mensaje;
+
+					/*Libero la memoria del paquete*/
+					eliminar_mensaje(paquete);
+				
+				//tengo 8 uint_32 -> 4 * 8 = 32
+				//mas el largo del nombre por pokemon
+
+                bytes = 32 + (strlen(pkmn->pokemon);
+
+				return bytes;
+			case GET_POKEMON:
+				puts(" Recibi un GET POKEMON");
 
                 //bytes = ;
 
 				return bytes;
-			case :
-				puts(" Recibi un ");
+			case APPEARED_POKEMON:
+				puts(" Recibi un APPEARED POKEMON");
 
                 //bytes = ;
 
 				return bytes;
-			case :
-				puts(" Recibi un ");
+			case CATCH_POKEMON:
+				puts(" Recibi un CATCH POKEMON");
 
                 //bytes = ;
 
 				return bytes;
-			case :
-				puts(" Recibi un ");
-
-                //bytes = ;
-
-				return bytes;
-			case :
-				puts(" Recibi un ");
-
-                //bytes = ;
-
-				return bytes;
-			case :
-				puts(" Recibi un ");
+			case CAUGHT_POKEMON:
+				puts(" Recibi un CAUGHT POKEMON");
 
                 //bytes = ;
 
