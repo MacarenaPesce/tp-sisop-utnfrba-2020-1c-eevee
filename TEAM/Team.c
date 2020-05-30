@@ -7,23 +7,114 @@
 
 #include "Team.h"
 
-void recibir_mensaje_de_texto(int cliente, int tamanio){
-	log_info(team_logger,"Voy a recibir un mensaje de texto");
-	tp_mensaje_char contenido_del_paquete = recibir_mensaje_char(tamanio, cliente);
-	log_info(team_logger,"Esto es lo que recibi: %s", contenido_del_paquete->mensaje);
-	free(contenido_del_paquete->mensaje);
-	free(contenido_del_paquete);
+void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon * mensaje){
+	log_info(team_logger,"Voy a recibir un pokemon y coordenadas");
+
+	log_info(team_logger,"Me llego este pokemon: %s", mensaje->pokemon);
+	log_info(team_logger,"La coordenada X es: %d", mensaje->coordenadas.posx);
+	log_info(team_logger,"La coordenada Y es: %d", mensaje->coordenadas.posy);
+	free(mensaje->pokemon);
+	free(mensaje);
 }
 
-void recibir_appeared_pokemon_desde_gameboy(int cliente, int tamanio){
-	log_info(team_logger,"Voy a recibir un pokemon y coordenadas");
-	tp_appeared_pokemon_team contenido_del_paquete = recibir_appeared_pokemon_team(tamanio, cliente);
-	log_info(team_logger,"Me llego este pokemon: %s", contenido_del_paquete->pokemon);
-	log_info(team_logger,"La coordenada X es: %d", contenido_del_paquete->posx);
-	log_info(team_logger,"La coordenada Y es: %d", contenido_del_paquete->posy);
-	free(contenido_del_paquete->pokemon);
-	free(contenido_del_paquete);
+void definir_objetivo_global(){
+
+	/*Leo del archivo de config y guardo los pokemon en la lista pokemones*/
+
+	char **read_array = config_get_array_value(config, "POKEMON_ENTRENADORES");
+	lista_config = list_create();
+	pokemones_ordenada = list_create();
+	string_iterate_lines(read_array, _imprimir);
+
+	/*Creo una nueva lista con los pokemon agrupados por especie*/
+
+	pokemones_ordenada = list_sorted(lista_config, (void*)ordenar);
+	//list_iterate(pokemones_ordenada, mostrar);
+	t_objetivo* objetivo = malloc(sizeof(t_objetivo));
+	char* unPokemon;
+	unPokemon = list_get(pokemones_ordenada, 0);
+	uint32_t contador = 0;
+	lista_objetivos = malloc(sizeof(t_list));
+
+	/*Empiezo a cargar a lista de objetivo global, con tipo y cantidad de cada uno*/
+	log_info(team_logger,"Cargando el objetivo global... \n");
+	char* especiePokemon;
+	char* otroPokemon;
+	int i = 0;
+	while(pokemones_ordenada != NULL){
+			especiePokemon = unPokemon;
+			otroPokemon = list_get(pokemones_ordenada, i);
+			if(otroPokemon == NULL){
+				objetivo->especie = string_from_format("%s\0",especiePokemon);
+				objetivo->cantidad = contador;
+				log_info(team_logger,"Un tipo de pokemon es: %s y la cantidad es %i", objetivo->especie, objetivo->cantidad);
+				list_add(lista_objetivos, (void*)objetivo);
+				break;
+			}
+			if(string_equals_ignore_case(unPokemon,otroPokemon)){
+				contador++;
+				i++;
+			}else{
+				objetivo->especie = string_from_format("%s\0",especiePokemon);
+				objetivo->cantidad = contador;
+				log_info(team_logger,"Un tipo de pokemon es: %s y la cantidad es %i", objetivo->especie, objetivo->cantidad);
+				list_add(lista_objetivos, (void*)objetivo);
+				unPokemon = otroPokemon;
+				contador = 1;
+				i++;
+			}
+	}
+	log_info(team_logger,"Objetivo global cargado\n");
+	list_clean(lista_config);
 }
+
+void localizar_entrenadores_en_mapa(){
+	char **read_array_posiciones = config_get_array_value(config, "POSICIONES_ENTRENADORES");
+	char **read_array_objetivos = config_get_array_value(config, "OBJETIVOS_ENTRENADORES");
+	lista_entrenadores = list_create();
+
+	string_iterate_lines(read_array_posiciones, _imprimir);
+	//list_iterate(lista_config, mostrar);
+
+	uint32_t i = 0;
+	t_entrenador* entrenador = malloc(sizeof(t_entrenador));
+	while(lista_config != NULL){
+		char* coordenada_char;
+		coordenada_char = list_get(lista_config, i);
+		if(coordenada_char != NULL) {
+			int coordenada = atoi(coordenada_char);
+			if(i == 0 || i % 2 == 0) {
+			entrenador->posx = coordenada;
+			i++;
+
+		}else{
+			entrenador->posy = coordenada;
+			entrenador->estado = NUEVO;
+			entrenador->objetivo = NULL;
+			entrenador->id = i;
+			list_add(lista_entrenadores, entrenador);
+
+			/*CREO UN HILO POR ENTRENADOR*/
+			pthread_t hilo;
+			pthread_create(&hilo,NULL,(void*)jugar_con_el_entrenador,(void*)entrenador);
+
+			printf("Se agrego un entrenador con id %i, pos x = %i, pos y = %i\n",entrenador->id, entrenador->posx, entrenador->posy);
+			i++;
+		}
+
+		} else{
+			break;
+		}
+	}
+	list_clean(lista_config);
+
+}
+
+void * jugar_con_el_entrenador(t_entrenador * entrenador){
+	printf("Soy un hilo para el entrenador \n");
+	//TODO PLANIFICAR A PARTIR DE ACA..
+}
+
 
 void iniciar_servidor(void){
 	int socket_servidor;
@@ -62,49 +153,14 @@ void esperar_cliente(int socket_servidor){
 	int socket_cliente = accept(socket_servidor, (void*) &dir_cliente, &tam_direccion);
 	log_info(team_logger,"\nSe aceptó un nuevo cliente");
 
-	//PARA HACER QUE EL SERVIDOR SEA MULTIHILO, A PARTIR DE aca tendriamos que crear un hilo por cliente, y hacer que derive las operaciones
-	//o sea:
-	//pthread_create(&thread,NULL,(void*)serve_client,&socket_cliente);
-	//pthread_detach(thread);
-	//y cerrar el corchete. Luego la funcion que recibe el pthread_create usa lo siguiente:
+	t_packed * paquete = recibir_mensaje(socket_cliente);
 
-	/*
-	 * void serve_client(int* socket){
-			int cod_op;
-			if(recv(*socket, &cod_op, sizeof(int), MSG_WAITALL) == -1)
-				cod_op = -1;
-			process_request(cod_op, *socket);
-	   }
-
-		void process_request(int cod_op, int cliente_fd) {
-			int size;
-			void* msg;
-				switch (cod_op) {
-				case MENSAJE:
-					msg = recibir_mensaje(cliente_fd, &size);
-					devolver_mensaje(msg, size, cliente_fd);
-					free(msg);
-					break;
-				case 0:
-					pthread_exit(NULL);
-				case -1:
-					pthread_exit(NULL);
-				}
-		}
-
-		NOSOTROS LO TENEMOS QUE ACOPLAR A NUESTRO PROTOCOLO!!
-	 */
-
-
-	//Por ahora queda en un loop esperando que le lleguen cosas, no es multihilo, eso esta claro.
-	//Todavia queda definir si team y gamecard seran servers multihilo o no. Necesitamos definirlo urgente, porque meter el select
-	//despues es una fiaca. Tambien tenemos que ver si el mensaje lo ingresamos por consola o no. Ahora a team le llega algo hardcodeado.
-	t_header header = recibir_header(socket_cliente);
-	if(header.tipo_de_mensaje == CHAR_MESSAGE){
-		recibir_mensaje_de_texto(socket_cliente, header.tamanio);
-	}
-	if(header.tipo_de_mensaje == APPEARED_POKEMON_TEAM){
-		recibir_appeared_pokemon_desde_gameboy(socket_cliente, header.tamanio);
+	switch(paquete->cola_de_mensajes){
+		case COLA_APPEARED_POKEMON:
+			recibir_appeared_pokemon_desde_gameboy(paquete->mensaje);
+			break;
+		default:
+			printf("Error\n");
 	}
 
 }
@@ -114,8 +170,18 @@ int main(){
 
 	inicializar_logger();
 	inicializar_archivo_de_configuracion();
+	config = config_create("team.config");
 	configurar_signals();
+	inicializar_listas();//sacar los leaks
+	definir_objetivo_global();//sacar los leaks
+	localizar_entrenadores_en_mapa();
 
 	iniciar_servidor();
+
+	//enviar_get();
+	//conectarse_a_colas_de_broker();
+
+	//liberar el config de arriba
+
 
 }
