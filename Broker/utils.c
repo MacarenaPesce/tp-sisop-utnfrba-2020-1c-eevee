@@ -87,13 +87,37 @@ int calcularBytes (t_packed* paquete){
 			case CATCH_POKEMON:
 				puts(" Recibi un CATCH POKEMON");
 
-                //bytes = ;
+                	t_catch_pokemon* pkmn;
+					pkmn =(t_catch_pokemon*)malloc(sizeof(t_catch_pokemon));
 
+					/* Apunto a los datos del mensaje */
+					pkmn = paquete->mensaje;
+
+					/*Libero la memoria del paquete*/
+					eliminar_mensaje(paquete);
+                
+				//tengo 3 uint_32 -> 4 * 3 = 12
+				//mas el largo del nombre del pokemon
+
+				bytes = 12 + (strlen(pkmn->pokemon));
 				return bytes;
 			case CAUGHT_POKEMON:
 				puts(" Recibi un CAUGHT POKEMON");
 
-                //bytes = ;
+					/*
+                	t_caught_pokemon* pkmn;
+					pkmn =(t_caught_pokemon*)malloc(sizeof(t_caught_pokemon));
+
+					//Apunto a los datos del mensaje
+					pkmn = paquete->mensaje;
+
+					//Libero la memoria del paquete
+					eliminar_mensaje(paquete);
+					*/
+                
+				//tengo 1 solo uint_32 -> 4 bytes
+                
+				bytes = 4;
 
 				return bytes;
 			default:
