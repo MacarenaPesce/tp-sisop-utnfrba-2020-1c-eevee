@@ -92,7 +92,7 @@ void localizar_entrenadores_en_mapa(){
 			entrenador->estado = NUEVO;
 			entrenador->objetivo = NULL;
 			entrenador->id = i;
-			list_add(lista_entrenadores, entrenador);
+			list_add(lista_entrenadores, entrenador); //esta seria la lista de new
 
 			/*CREO UN HILO POR ENTRENADOR*/
 			pthread_t hilo;
@@ -110,94 +110,14 @@ void localizar_entrenadores_en_mapa(){
 
 }
 
-
-
-
 void * jugar_con_el_entrenador(t_entrenador * entrenador){
 	printf("Soy un hilo para el entrenador \n");
-	//TODO PLANIFICAR A PARTIR DE ACA..
-	/*
-	 * Para poder planificar un entrenador, se seleccionará el hilo del entrenador más cercano al Pokémon.
-Cada movimiento en el mapa responderá a un ciclo de CPU, y este NO realizará movimientos
-diagonales para llegar a la posición deseada. Para simular más a la realidad esta funcionalidad, se
-deberá agregar un retardo de X segundos configurado por archivo de configuración.
+	//TODO MOVERLO EN EL MAPA / INTERCAMBIAR / ATRAPAR UN POKEMON..
+
+	/**
+	 * SI EL ESTADO ES EJECUTANDO, SIGNIFICA QUE HAY QUE HACER ALGUNA DE LAS FUNCIONES DE ARRIBA, USAR EL RETARDO DE EJECUCION Y USAR EL MAPA
 	 */
 
-	/*
-	 * Para planificar a los distintos entrenadores se utilizarán los algoritmos FIFO, Round Robin y Shortest
-job first con y sin desalojo. Para este último algoritmo se desconoce la próxima rafaga, por lo que se
-deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos los
-entrenadores será la misma y deberá poder ser modificable por archivo de configuración
-	 */
-
-
-	/*
-	 * Cada entrenador al iniciar en el sistema entrará en estado New. A medida que el Team empiece a
-recibir distintos Pokémon en el mapa despertará a los distintos entrenadores en estado New o en
-Blocked (que estén esperando para procesar) pasandolos a Ready. Siempre se planificará aquel
-entrenador que se encuentre sin estar realizando ninguna operación activamente y, en caso de
-existir más de uno, sea el que más cerca se encuentre del objetivo.
-A medida que cada entrenador se planifique (ya sea para moverse, intercambiar o atrapar un
-Pokémon) entrarán en estado exec. En el contexto de nuestro trabajo practico no contemplaremos el
-multiprocesamiento, esto implica que solo UN entrenador podrá estar en estado Exec en
-determinado tiempo.
-Cuando un entrenador en estado Exec finalice su recorrido y su ejecución planificada entrará en un
-estado bloqueados. Este estado implica que el entrenador no tiene más tareas para realizar
-momentáneamente.
-Cuando un entrenador en estado Exec cumpla todos sus objetivos, pasará a estado Exit. Cuando
-todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team
-cumplió el objetivo global.
-	 */
-}
-
-t_entrenador * sacar_entrenador_de_lista_pid(t_list* lista,int pid){
-	bool is_pid_esi(t_entrenador * entrenador){
-		return (entrenador->id==pid);
-	}
-
-	return (list_remove_by_condition(lista,(void*)is_pid_esi));
-}
-
-void obtener_proximo_ejecucion(void){
-	t_entrenador * ejec_ant;
-	t_list * lista_aux;
-
-	ejec_ant = entrenador_en_ejecucion;
-
-	/* SJF debe copiar la lista de listos a una lista auxiliar,
-	 * ordenarla por estimacion mas corta, tomar el primero, destruir la lista auxiliar.
-	 * Eso para ambos casos
-	 */
-
-	lista_aux = list_duplicate(lista_listos);
-	printf("Planificando por %s...", algoritmo_planificacion);
-
-	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD")))
-	{
-		ordenar_lista_estimacion(lista_aux);
-	}
-
-
-	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion
-	 * Por default hace fifo
-	 */
-	entrenador_en_ejecucion = list_remove(lista_aux,0);
-	if(!list_is_empty(lista_listos)){
-		printf("Saco de la lista de listos el próximo esi a ejecutar");
-		sacar_entrenador_de_lista_pid(lista_listos,entrenador_en_ejecucion->id);
-		entrenador_en_ejecucion->estado = EJECUTANDO;
-	}
-	else{
-		entrenador_en_ejecucion = NULL;
-		printf("No hay entrenadores para ejecutar! Todo en orden...");
-	}
-
-	list_destroy(lista_aux);
-
-	//Si hubo un cambio en el entrenador en ejecucion, debo avisarle al nuevo entrenador en ejecucion que es su turno
-	//TODO
-
-	return;
 }
 
 void iniciar_servidor(void){
@@ -228,10 +148,10 @@ void iniciar_servidor(void){
     freeaddrinfo(servinfo);
 
     while(1)
-    	esperar_cliente(socket_servidor);
+    	esperar_gameboy(socket_servidor);
 }
 
-void esperar_cliente(int socket_servidor){
+void esperar_gameboy(int socket_servidor){
 	struct sockaddr_in dir_cliente;
 	int tam_direccion = sizeof(struct sockaddr_in);
 	int socket_cliente = accept(socket_servidor, (void*) &dir_cliente, &tam_direccion);
@@ -249,6 +169,64 @@ void esperar_cliente(int socket_servidor){
 
 }
 
+void seleccionar_el_entrenador_mas_cercano_al_pokemon(){
+	/*
+	 * Para poder planificar un entrenador, se seleccionará el hilo del entrenador más cercano al Pokémon.
+Cada movimiento en el mapa responderá a un ciclo de CPU, y este NO realizará movimientos
+diagonales para llegar a la posición deseada. Para simular más a la realidad esta funcionalidad, se
+deberá agregar un retardo de X segundos configurado por archivo de configuración.
+	 */
+
+	//TODO
+
+	//AAUUUUXXXIIIILLLLLIIIIIOOOO
+	/////////////////??? SI VAS A AGARRAR SIEMPRE AL MAS CERCANO PARA QUE NECESITAS LOS ALGORITMOS???? PREGUNTAR ESTO URGENTE
+}
+
+void meter_entrenadores_en_ready(){
+	//TODO ACA ES CUANDO ENTRAN EN JUEGO LOS HILOS, SE PONE CADA ENTRENADOR EN LA LISTA_LISTOS
+}
+
+void chequear_si_hay_pokemones_nuevos(){
+	//TODO
+	//aca hay que ver si llegaron solicitudes desde gameboy, o si el broker dice que llegó un pokemon
+	meter_entrenadores_en_ready();
+}
+
+void planificar(){
+	/* Cada entrenador al iniciar en el sistema entrará en estado New. ------- ESTO YA ESTA! CUANDO SE ORDENA LA LISTA DE ENTRENADORES */
+
+	/*A medida que el Team empiece a recibir distintos Pokémon en el mapa despertará a los distintos entrenadores en estado New o en
+Blocked (que estén esperando para procesar) pasandolos a Ready. */
+	chequear_si_hay_pokemones_nuevos();
+
+	/*Siempre se planificará aquel entrenador que se encuentre sin estar realizando ninguna operación activamente y, en caso de
+existir más de uno, sea el que más cerca se encuentre del objetivo.
+A medida que cada entrenador se planifique (ya sea para moverse, intercambiar o atrapar un
+Pokémon) entrarán en estado exec. En el contexto de nuestro trabajo practico no contemplaremos el
+multiprocesamiento, esto implica que solo UN entrenador podrá estar en estado Exec en
+determinado tiempo.
+Cuando un entrenador en estado Exec finalice su recorrido y su ejecución planificada entrará en un
+estado bloqueados. Este estado implica que el entrenador no tiene más tareas para realizar
+momentáneamente.
+Cuando un entrenador en estado Exec cumpla todos sus objetivos, pasará a estado Exit. Cuando
+todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team
+cumplió el objetivo global.
+	 */
+	seleccionar_el_entrenador_mas_cercano_al_pokemon(); /// ??? SI VAS A AGARRAR SIEMPRE AL MAS CERCANO PARA QUE NECESITAS LOS ALGORITMOS???? PREGUNTAR ESTO URGENTE
+	obtener_proximo_ejecucion();
+}
+
+void conectarse_a_colas_de_broker(){
+	/*
+	 * Cabe aclarar que el Proceso Team debe poder ejecutarse sin haber establecido la conexión con el
+Broker. Es decir, si el broker se encuentra sin funcionar o se cae durante la ejecución, el proceso
+Team debe seguir procesando sus funciones sin el mismo. Para esto, se contarán con funciones
+default para aquellos mensajes que el Proceso Team envíe directamente al Broker.
+En caso que la conexión no llegue a realizarse o se caiga, el proceso Team deberá contar con un
+sistema de reintento de conexión cada X segundos configurado desde archivo de configuración.
+	 */
+}
 
 int main(){
 
@@ -261,11 +239,10 @@ int main(){
 	localizar_entrenadores_en_mapa();
 
 	iniciar_servidor();
+	conectarse_a_colas_de_broker();
+
+	planificar();
 
 	//enviar_get();
-	//conectarse_a_colas_de_broker();
-
 	//liberar el config de arriba
-
-
 }

@@ -28,6 +28,7 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_CONFIG_TIEMPO_RECONEXION, config, obtener_el_tiempo_de_reconexion);
 		obtener_valor_config(KEY_CONFIG_RETARDO_CICLO_CPU, config, obtener_el_retardo_de_ciclo_de_cpu);
 		obtener_valor_config(KEY_CONFIG_ALGORITMO_PLANIFICACION, config, obtener_el_algoritmo_de_planificacion);
+		obtener_valor_config(KEY_CONFIG_ALPHA, config, obtener_el_alpha);
 		obtener_valor_config(KEY_CONFIG_QUANTUM, config, obtener_el_quantum);
 		obtener_valor_config(KEY_CONFIG_ESTIMACION_INICIAL, config, obtener_la_estimacion_inicial);
 		obtener_valor_config(KEY_CONFIG_IP_BROKER, config, obtener_la_ip_del_broker);
@@ -66,6 +67,11 @@ void obtener_los_objetivos_de_entrenadores(){
 void obtener_el_tiempo_de_reconexion(){
 	tiempo_reconexion = config_get_int_value(config, KEY_CONFIG_TIEMPO_RECONEXION);
 	log_info(team_logger,"El tiempo de reconexion es: %d",tiempo_reconexion);
+}
+
+void obtener_el_alpha(){
+	alpha = config_get_int_value(config, KEY_CONFIG_ALPHA);
+	log_info(team_logger,"El alpha es: %d",alpha);
 }
 
 void obtener_el_retardo_de_ciclo_de_cpu(){

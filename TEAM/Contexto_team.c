@@ -15,6 +15,7 @@ int tiempo_reconexion;
 int retardo_ciclo_cpu;
 char* algoritmo_planificacion;
 int quantum;
+int alpha;
 char* ip_broker;
 int estimacion_inicial;
 char* puerto_broker;
@@ -26,8 +27,8 @@ t_config* config;
 
 t_list* lista_entrenadores; //lista de entrenadores cargada.
 t_list* lista_objetivos; //una lista de objetivos para cada entrenador, esto falta.
-t_list* list_listos;
-t_list* list_finalizar;
-t_list* list_bloqueados;
+t_list* lista_listos;
+t_list* lista_finalizar;
+t_list* lista_bloqueados;
 t_list* lista_config; //lista auxiliar para cargar la info del archivo de configuracion
 t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global

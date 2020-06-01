@@ -9,9 +9,9 @@
 
 void inicializar_listas(){
 
-	cola_listos = list_create();
-	cola_finalizar = list_create();
-	cola_bloqueados = list_create();
+	lista_listos = list_create();
+	lista_finalizar = list_create();
+	lista_bloqueados = list_create();
 	lista_objetivos = list_create();
 	lista_entrenadores = list_create();
 

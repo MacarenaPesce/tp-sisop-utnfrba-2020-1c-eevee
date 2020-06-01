@@ -42,6 +42,7 @@
 #define KEY_CONFIG_IP_BROKER "IP_BROKER"
 #define KEY_CONFIG_PUERTO_BROKER "PUERTO_BROKER"
 #define KEY_CONFIG_LOG_FILE "LOG_FILE"
+#define KEY_CONFIG_ALPHA "ALPHA"
 
 #define IP "127.0.0.2"
 #define PUERTO "5002"
@@ -53,6 +54,7 @@ extern int tiempo_reconexion;
 extern int retardo_ciclo_cpu;
 extern char* algoritmo_planificacion;
 extern int quantum;
+extern int alpha;
 extern char* ip_broker;
 extern int estimacion_inicial;
 extern char* puerto_broker;
@@ -80,16 +82,16 @@ enum ESTADO{
 };
 
 typedef struct {
-	char id;
+	int id;
 	uint32_t posx;
 	uint32_t posy;
 	enum ESTADO estado;
 	t_list *objetivo;
-	float estimacion_real;
-	float estimacion_actual;
-	float estimacion_anterior;
-	int instruccion_actual;
-	int ejec_anterior;
+	float estimacion_real;//sjf
+	float estimacion_actual;//sjf
+	float estimacion_anterior;//sjf
+	int instruccion_actual;//sjf
+	int ejec_anterior;//sjf
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
@@ -97,6 +99,6 @@ typedef struct { //estructura del objetivo global
 	uint32_t cantidad;
 } t_objetivo;
 
-t_entrenador * entrenador_en_ejecucion = NULL;
+t_entrenador * entrenador_en_ejecucion;
 
 #endif /* CONTEXTO_TEAM_H_ */

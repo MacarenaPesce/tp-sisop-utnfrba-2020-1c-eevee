@@ -11,9 +11,10 @@
 #include "Contexto_team.h"
 #include "Herramientas_team.h"
 #include "Funciones_para_listas.h"
+#include "Algoritmos_de_planificacion.h"
 
 void iniciar_servidor(void);
-void esperar_cliente(int);
+void esperar_gameboy(int);
 void enviar_get();
 void conectarse_a_colas_de_broker();
 void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon *);

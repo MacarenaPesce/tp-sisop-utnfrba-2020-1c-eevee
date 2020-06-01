@@ -17,6 +17,7 @@ void obtener_las_posiciones_de_entrenadores();
 void obtener_los_pokemon_de_entrenadores();
 void obtener_los_objetivos_de_entrenadores();
 void obtener_el_tiempo_de_reconexion();
+void obtener_el_alpha();
 void obtener_el_retardo_de_ciclo_de_cpu();
 void obtener_el_algoritmo_de_planificacion();
 void obtener_el_quantum();
