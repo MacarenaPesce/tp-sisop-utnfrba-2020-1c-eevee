@@ -150,6 +150,55 @@ cumplió el objetivo global.
 	 */
 }
 
+t_entrenador * sacar_entrenador_de_lista_pid(t_list* lista,int pid){
+	bool is_pid_esi(t_entrenador * entrenador){
+		return (entrenador->id==pid);
+	}
+
+	return (list_remove_by_condition(lista,(void*)is_pid_esi));
+}
+
+void obtener_proximo_ejecucion(void){
+	t_entrenador * ejec_ant;
+	t_list * lista_aux;
+
+	ejec_ant = entrenador_en_ejecucion;
+
+	/* SJF debe copiar la lista de listos a una lista auxiliar,
+	 * ordenarla por estimacion mas corta, tomar el primero, destruir la lista auxiliar.
+	 * Eso para ambos casos
+	 */
+
+	lista_aux = list_duplicate(lista_listos);
+	printf("Planificando por %s...", algoritmo_planificacion);
+
+	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD")))
+	{
+		ordenar_lista_estimacion(lista_aux);
+	}
+
+
+	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion
+	 * Por default hace fifo
+	 */
+	entrenador_en_ejecucion = list_remove(lista_aux,0);
+	if(!list_is_empty(lista_listos)){
+		printf("Saco de la lista de listos el próximo esi a ejecutar");
+		sacar_entrenador_de_lista_pid(lista_listos,entrenador_en_ejecucion->id);
+		entrenador_en_ejecucion->estado = EJECUTANDO;
+	}
+	else{
+		entrenador_en_ejecucion = NULL;
+		printf("No hay entrenadores para ejecutar! Todo en orden...");
+	}
+
+	list_destroy(lista_aux);
+
+	//Si hubo un cambio en el entrenador en ejecucion, debo avisarle al nuevo entrenador en ejecucion que es su turno
+	//TODO
+
+	return;
+}
 
 void iniciar_servidor(void){
 	int socket_servidor;

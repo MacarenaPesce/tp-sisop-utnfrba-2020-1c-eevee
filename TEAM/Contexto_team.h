@@ -78,12 +78,18 @@ enum ESTADO{
 	BLOQUEADO,
 	FINALIZANDO
 };
+
 typedef struct {
 	char id;
 	uint32_t posx;
 	uint32_t posy;
 	enum ESTADO estado;
 	t_list *objetivo;
+	float estimacion_real;
+	float estimacion_actual;
+	float estimacion_anterior;
+	int instruccion_actual;
+	int ejec_anterior;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
