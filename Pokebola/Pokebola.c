@@ -27,8 +27,9 @@ int conectar_a_server(char* ip, char* puerto){
 		return -1;
 	}
 
-	int activado = 1;
-	setsockopt(new_socket, SOL_SOCKET, SO_REUSEADDR, &activado, sizeof(activado));
+	//esto no va más
+	//int activado = 1;
+	//setsockopt(new_socket, SOL_SOCKET, SO_REUSEADDR, &activado, sizeof(activado));
 
 	int res_connect = connect(new_socket, server_info->ai_addr, server_info->ai_addrlen);
 	if(res_connect < 0){
@@ -53,6 +54,14 @@ int recibir_paquete(int sock, void *mensaje, int tamanio){
 		perror("Error en el recv.\n");
 		return -1;
 	}
+
+	//validación
+	// no recibe la cantidad esperada
+			if (bytes_recibidos < tamanio){
+				perror("No se recibió el mensaje completo");
+						return -1;
+			}
+
 	return bytes_recibidos;
 }
 
@@ -67,6 +76,12 @@ int enviar_paquete(int sock, void *paquete, int tamanio){
 		return -1;
 	}
 
+	//agrego validacion
+	// envia el mensaje pero no completo
+		if (bytes_enviados < tamanio){
+			perror("No se ha podido enviar el mensaje completo");
+					return -1;
+		}
 	return bytes_enviados;
 }
 
