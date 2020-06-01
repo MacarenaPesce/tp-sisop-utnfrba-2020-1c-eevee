@@ -64,9 +64,9 @@ extern t_config* config;
 
 extern t_list* lista_entrenadores; //lista de entrenadores cargada.
 extern t_list* lista_objetivos; //una lista de objetivos para cada entrenador, esto falta.
-extern t_queue* cola_listos;
-extern t_queue* cola_finalizar;
-extern t_queue* cola_bloqueados;
+extern t_list* lista_listos;
+extern t_list* lista_finalizar;
+extern t_list* lista_bloqueados;
 extern t_list* lista_config; //lista auxiliar para cargar la info del archivo de configuracion
 extern t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global
 
@@ -90,5 +90,7 @@ typedef struct { //estructura del objetivo global
 	char* especie;
 	uint32_t cantidad;
 } t_objetivo;
+
+t_entrenador * entrenador_en_ejecucion = NULL;
 
 #endif /* CONTEXTO_TEAM_H_ */

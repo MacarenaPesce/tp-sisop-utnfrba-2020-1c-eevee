@@ -26,8 +26,8 @@ t_config* config;
 
 t_list* lista_entrenadores; //lista de entrenadores cargada.
 t_list* lista_objetivos; //una lista de objetivos para cada entrenador, esto falta.
-t_queue* cola_listos;
-t_queue* cola_finalizar;
-t_queue* cola_bloqueados;
+t_list* list_listos;
+t_list* list_finalizar;
+t_list* list_bloqueados;
 t_list* lista_config; //lista auxiliar para cargar la info del archivo de configuracion
 t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global

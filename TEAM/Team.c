@@ -110,9 +110,44 @@ void localizar_entrenadores_en_mapa(){
 
 }
 
+
+
+
 void * jugar_con_el_entrenador(t_entrenador * entrenador){
 	printf("Soy un hilo para el entrenador \n");
 	//TODO PLANIFICAR A PARTIR DE ACA..
+	/*
+	 * Para poder planificar un entrenador, se seleccionará el hilo del entrenador más cercano al Pokémon.
+Cada movimiento en el mapa responderá a un ciclo de CPU, y este NO realizará movimientos
+diagonales para llegar a la posición deseada. Para simular más a la realidad esta funcionalidad, se
+deberá agregar un retardo de X segundos configurado por archivo de configuración.
+	 */
+
+	/*
+	 * Para planificar a los distintos entrenadores se utilizarán los algoritmos FIFO, Round Robin y Shortest
+job first con y sin desalojo. Para este último algoritmo se desconoce la próxima rafaga, por lo que se
+deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos los
+entrenadores será la misma y deberá poder ser modificable por archivo de configuración
+	 */
+
+
+	/*
+	 * Cada entrenador al iniciar en el sistema entrará en estado New. A medida que el Team empiece a
+recibir distintos Pokémon en el mapa despertará a los distintos entrenadores en estado New o en
+Blocked (que estén esperando para procesar) pasandolos a Ready. Siempre se planificará aquel
+entrenador que se encuentre sin estar realizando ninguna operación activamente y, en caso de
+existir más de uno, sea el que más cerca se encuentre del objetivo.
+A medida que cada entrenador se planifique (ya sea para moverse, intercambiar o atrapar un
+Pokémon) entrarán en estado exec. En el contexto de nuestro trabajo practico no contemplaremos el
+multiprocesamiento, esto implica que solo UN entrenador podrá estar en estado Exec en
+determinado tiempo.
+Cuando un entrenador en estado Exec finalice su recorrido y su ejecución planificada entrará en un
+estado bloqueados. Este estado implica que el entrenador no tiene más tareas para realizar
+momentáneamente.
+Cuando un entrenador en estado Exec cumpla todos sus objetivos, pasará a estado Exit. Cuando
+todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team
+cumplió el objetivo global.
+	 */
 }
 
 
