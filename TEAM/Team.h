@@ -10,10 +10,23 @@
 
 #include "Contexto_team.h"
 #include "Herramientas_team.h"
+#include "Funciones_para_listas.h"
 
-void recibir_mensaje_de_texto(int, int);
-void recibir_appeared_pokemon_desde_gameboy(int, int);
 void iniciar_servidor(void);
 void esperar_cliente(int);
+void enviar_get();
+void conectarse_a_colas_de_broker();
+void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon *);
+void * jugar_con_el_entrenador(t_entrenador *);
+
+void localizar_entrenadores_en_el_mapa();
+/*Carga una lista de entrenadores con la info del archivo de configuracion, ademas de agregarles un id
+  y el estado NUEVO. Me falta resolver agregarles las listas de objetivos particulares de cada uno. Y quizas
+  es conveniente tener dos estructuras una para la info del hilo y el estado, y otra para la info del entrenador en si.
+  Vamos a tener otra info, como la de las rafagas ejecutadas y alguna otra cosa que surja. Me hace ruido que este
+  todo en la misma estructura*/
+
+void definir_objetivo_global();
+/*Cuenta todos los pokemones de cada especie y carga en una lista especie-cantidad*/
 
 #endif /* TEAM_H_ */
