@@ -1,10 +1,12 @@
-#include "Herramientas_broker.h"
+#include "includes.h"
 
+//Logger inicializado
 void inicializar_logger(){
 	broker_logger = log_create("broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
 	logger(escribir_loguear,l_info,"Hi, bienvenido a Broker ");
 }
 
+//Archivo de configuracion
 void inicializar_archivo_de_configuracion(){
 	config = config_create("../Broker.config");
 	if(config == NULL){
@@ -12,16 +14,14 @@ void inicializar_archivo_de_configuracion(){
 		terminar_broker_correctamente();
 	}else{
 		logger(escribir_loguear,l_info,"Cargando el archivo de configuracion...");
-		obtener_valor_config(KEY_CONFIG_POSICIONES_ENTRENADORES, config, obtener_las_posiciones_de_entrenadores);
-		obtener_valor_config(KEY_CONFIG_POKEMON_ENTRENADORES, config, obtener_los_pokemon_de_entrenadores);
-		obtener_valor_config(KEY_CONFIG_OBJETIVOS_ENTRENADORES, config, obtener_los_objetivos_de_entrenadores);
-		obtener_valor_config(KEY_CONFIG_TIEMPO_RECONEXION, config, obtener_el_tiempo_de_reconexion);
-		obtener_valor_config(KEY_CONFIG_RETARDO_CICLO_CPU, config, obtener_el_retardo_de_ciclo_de_cpu);
-		obtener_valor_config(KEY_CONFIG_ALGORITMO_PLANIFICACION, config, obtener_el_algoritmo_de_planificacion);
-		obtener_valor_config(KEY_CONFIG_QUANTUM, config, obtener_el_quantum);
-		obtener_valor_config(KEY_CONFIG_ESTIMACION_INICIAL, config, obtener_la_estimacion_inicial);
+		obtener_valor_config(KEY_CONFIG_TAMANIO_MEMORIA, config, obtener_tamanio_memoria);
+		obtener_valor_config(KEY_CONFIG_TAMANIO_MINIMO_PARTICION, config, obtener_tamanio_minimo_particion);
+		obtener_valor_config(KEY_CONFIG_ALGORITMO_MEMORIA, config, obtener_algoritmo_memoria);
+		obtener_valor_config(KEY_CONFIG_ALGORITMO_REEMPLAZO, config, obtener_algoritmo_reemplazo);
+		obtener_valor_config(KEY_CONFIG_ALGORITMO_PARTICION_LIBRE, config, obtener_algoritmo_particion_libre);
 		obtener_valor_config(KEY_CONFIG_IP_BROKER, config, obtener_la_ip_del_broker);
 		obtener_valor_config(KEY_CONFIG_PUERTO_BROKER, config, obtener_el_puerto_del_broker);
+		obtener_valor_config(KEY_CONFIG_FRECUENCIA_COMPACTACION, config, obtener_frecuencia_compactacion);
 		obtener_valor_config(KEY_CONFIG_LOG_FILE, config, obtener_el_log_file);
 
 
@@ -38,44 +38,29 @@ void obtener_valor_config(char* key, t_config* file, void(*obtener)(void)){
 	}
 }
 
-void obtener_las_posiciones_de_entrenadores(){
-	posiciones_entrenadores = config_get_array_value(config, KEY_CONFIG_POSICIONES_ENTRENADORES);
-	logger(escribir_loguear,l_debug,"Las posiciones de entrenadores recuperadas");
+void obtener_tamanio_memoria(){
+	tamanio_memoria = config_get_array_value(config, KEY_CONFIG_TAMANIO_MEMORIA);
+	logger(escribir_loguear,l_debug,"El tamaño inicial de memoria: %d",tamanio_memoria);
 }
 
-void obtener_los_pokemon_de_entrenadores(){
-	pokemon_entrenadores = config_get_array_value(config, KEY_CONFIG_POKEMON_ENTRENADORES);
-	logger(escribir_loguear,l_debug,"Los pokemon de los entrenadores recuperados");
+void obtener_tamanio_minimo_particion(){
+	tamanio_minimo_particion = config_get_array_value(config, KEY_CONFIG_TAMANIO_MINIMO_PARTICION);
+	logger(escribir_loguear,l_debug,"El tamaño minimo de particion: %d",tamanio_minimo_particion);
 }
 
-void obtener_los_objetivos_de_entrenadores(){
-	objetivos_entrenadores = config_get_array_value(config, KEY_CONFIG_OBJETIVOS_ENTRENADORES);
-	logger(escribir_loguear,l_debug,"Los objetivos de los entrenadores recuperados");
+void obtener_algoritmo_memoria(){
+	algoritmo_memoria = config_get_array_value(config, KEY_CONFIG_ALGORITMO_MEMORIA);
+	logger(escribir_loguear,l_debug,"El algoritmo de memoria es: %s",algoritmo_memoria);
 }
 
-void obtener_el_tiempo_de_reconexion(){
-	tiempo_reconexion = config_get_int_value(config, KEY_CONFIG_TIEMPO_RECONEXION);
-	logger(escribir_loguear,l_debug,"El tiempo de reconexion es: %d",tiempo_reconexion);
+void obtener_algoritmo_reemplazo(){
+	algoritmo_reemplazo = config_get_int_value(config, KEY_CONFIG_ALGORITMO_REEMPLAZO);
+	logger(escribir_loguear,l_debug,"El algoritmo de reemplazo es: %s",algoritmo_reemplazo);
 }
 
-void obtener_el_retardo_de_ciclo_de_cpu(){
-    retardo_ciclo_cpu = config_get_int_value(config, KEY_CONFIG_RETARDO_CICLO_CPU);
-	logger(escribir_loguear,l_debug,"El retardo de ciclo de cpu es: %d",retardo_ciclo_cpu);
-}
-
-void obtener_el_algoritmo_de_planificacion(){
-	algoritmo_planificacion = strdup(config_get_string_value(config, KEY_CONFIG_ALGORITMO_PLANIFICACION));
-	logger(escribir_loguear,l_debug,"El algoritmo de planificacion es: %s",algoritmo_planificacion);
-}
-
-void obtener_el_quantum(){
-	quantum = config_get_int_value(config, KEY_CONFIG_QUANTUM);
-	logger(escribir_loguear,l_debug,"El quantum es: %d",quantum);
-}
-
-void obtener_la_estimacion_inicial(){
-	estimacion_inicial = config_get_int_value(config, KEY_CONFIG_ESTIMACION_INICIAL);
-	logger(escribir_loguear,l_debug,"La estimacion_inicial es: %d",estimacion_inicial);
+void obtener_algoritmo_particion_libre(){
+    algoritmo_particion_libre = config_get_int_value(config, KEY_CONFIG_ALGORITMO_PARTICION_LIBRE);
+	logger(escribir_loguear,l_debug,"El algoritmo para particiones libre es: %s",algoritmo_particion_libre);
 }
 
 void obtener_la_ip_del_broker(){
@@ -85,7 +70,12 @@ void obtener_la_ip_del_broker(){
 
 void obtener_el_puerto_del_broker(){
 	puerto_broker = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER));
-	logger(escribir_loguear,l_debug,"El puerto del broker es: %s",puerto_broker);
+	logger(escribir_loguear,l_debug,"El puerto del broker es: %d",puerto_broker);
+}
+
+void obtener_frecuencia_compactacion(){
+	frecuencia_compactacion = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER));
+	logger(escribir_loguear,l_debug,"La frecuencia de compactacion es: %d",frecuencia_compactacion);
 }
 
 void obtener_el_log_file(){
@@ -139,3 +129,4 @@ void terminar_broker_correctamente(){
 	log_destroy(broker_logger);
 	exit(EXIT_SUCCESS);
 }
+
