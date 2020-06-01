@@ -10,26 +10,57 @@
 void broker_new_pokemon(char * pokemon, char * posx, char * posy, char * cantidad){
 	validar_parametros_cuatro_argumentos(pokemon, posx, posy, cantidad);
 	log_info(gameboy_logger,"\nLe voy a mandar a broker los parametros para un nuevo pokemon %s",pokemon);
+
+	t_new_pokemon* new_pokemon = malloc(sizeof(t_new_pokemon));
+	new_pokemon->_tamanio_string_pokemon = 0;
+	new_pokemon->cantidad = cantidad;
+	new_pokemon->coordenadas.posx = atoi(posx);
+	new_pokemon->coordenadas.posy = atoi(posy);
+	new_pokemon->pokemon = pokemon;
+
 	server_broker = conectar_a_server(ip_broker, puerto_broker);
-	enviar_new_pokemon(pokemon, atoi(posx), atoi(posy), atoi(cantidad), server_broker);
+	enviar_new_pokemon(server_broker, 0, 0, pokemon, new_pokemon);
 	log_info(gameboy_logger,"\nYa lo envie");
+
+	free(new_pokemon);
+
 	terminar_gameboy_correctamente();
 }
 
 void broker_appeared_pokemon(char* pokemon, char * posx, char * posy, char * id_mensaje){
 	validar_parametros_cuatro_argumentos(pokemon, posx, posy, id_mensaje);
 	log_info(gameboy_logger,"\nLe voy a mandar a broker los parametros de un appeared pokemon %s",pokemon);
+
+	t_appeared_pokemon* appeared_pokemon = malloc(sizeof(t_appeared_pokemon));
+	appeared_pokemon->pokemon = pokemon;
+	appeared_pokemon->coordenadas.posx = atoi(posx);
+	appeared_pokemon->coordenadas.posy = atoi(posy);
+	appeared_pokemon->_tamanio_string_pokemon = 0;
+
 	server_broker = conectar_a_server(ip_broker, puerto_broker);
-	enviar_appeared_pokemon(pokemon, atoi(posx), atoi(posy), atoi(id_mensaje), server_broker);
+	enviar_appeared_pokemon(server_broker, atoi(id_mensaje), 0, appeared_pokemon);
 	log_info(gameboy_logger,"\nYa lo envie");
+
+	free(appeared_pokemon);
+
 	terminar_gameboy_correctamente();
 }
 
 void broker_catch_pokemon(char * pokemon, char* posx, char* posy){
 	validar_parametros_tres_argumentos(pokemon, posx, posy);
 	log_info(gameboy_logger,"\nLe voy a mandar a broker los parametros para un catch pokemon %s",pokemon);
+
+	t_catch_pokemon* appeared_pokemon = malloc(sizeof(t_catch_pokemon));
+	appeared_pokemon->pokemon = pokemon;
+	appeared_pokemon->coordenadas.posx = atoi(posx);
+	appeared_pokemon->coordenadas.posy = atoi(posy);
+	appeared_pokemon->_tamanio_string_pokemon = 0;
+
 	server_broker = conectar_a_server(ip_broker, puerto_broker);
-	enviar_catch_pokemon(pokemon, atoi(posx), atoi(posy), server_broker);
+	enviar_catch_pokemon(server_broker, 0, 0, appeared_pokemon);
+
+	free(appeared_pokemon);
+
 	log_info(gameboy_logger,"\nYa lo envie");
 	terminar_gameboy_correctamente();
 }
@@ -37,9 +68,16 @@ void broker_catch_pokemon(char * pokemon, char* posx, char* posy){
 void broker_caught_pokemon(char * id_mensaje, char *ok_or_fail){
 	validar_parametros_dos_argumentos(id_mensaje, ok_or_fail);
 	log_info(gameboy_logger,"\nLe voy a mandar a broker los parametros para un caught pokemon %s");
+
+	t_caught_pokemon* caught_pokemon = malloc(sizeof(t_caught_pokemon));
+	caught_pokemon->status = atoi(ok_or_fail);
+
 	server_broker = conectar_a_server(ip_broker, puerto_broker);
-	enviar_caught_pokemon(id_mensaje, ok_or_fail, server_broker);
+	enviar_caught_pokemon(server_broker, atoi(id_mensaje), 0, caught_pokemon);
 	log_info(gameboy_logger,"\nYa lo envie");
+
+	free(caught_pokemon);
+
 	terminar_gameboy_correctamente();
 }
 
@@ -49,9 +87,17 @@ void broker_get_pokemon(char * pokemon){
 		terminar_gameboy_correctamente();
 	}else{
 		log_info(gameboy_logger,"\n Envio a broker el pokemon %s", pokemon);
+
+		t_get_pokemon * get_pokemon = malloc(sizeof(t_get_pokemon));
+		get_pokemon->pokemon = pokemon;
+		get_pokemon->_tamanio_string_pokemon = 0;
+
 		server_broker= conectar_a_server(ip_broker, puerto_broker);
-		enviar_get_pokemon(pokemon, server_broker);
+		enviar_get_pokemon(server_broker, 0, 0, get_pokemon);
 		log_info(gameboy_logger,"\nYa lo envie");
+
+		free(get_pokemon);
+
 		terminar_gameboy_correctamente();
 	}
 }
@@ -99,9 +145,19 @@ void mostrar_mensaje_de_error(){
 void team_appeared_pokemon(char* pokemon, char* posx, char* posy){
 	validar_parametros_tres_argumentos(pokemon, posx, posy);
 	log_info(gameboy_logger,"\nLe voy a mandar a team las coordenadas del pokemon %s",pokemon);
+
+	t_appeared_pokemon* appeared_pokemon = malloc(sizeof(t_appeared_pokemon));
+	appeared_pokemon->pokemon = pokemon;
+	appeared_pokemon->coordenadas.posx = atoi(posx);
+	appeared_pokemon->coordenadas.posy = atoi(posy);
+	appeared_pokemon->_tamanio_string_pokemon = 0;
+
 	server_team = conectar_a_server(ip_team, puerto_team);
-	enviar_appeared_pokemon_team(pokemon, atoi(posx), atoi(posy), server_team);
+	enviar_appeared_pokemon(server_team, 0, 0, appeared_pokemon);
 	log_info(gameboy_logger,"\nYa lo envie");
+
+	free(appeared_pokemon);
+
 	terminar_gameboy_correctamente();
 }
 
@@ -146,9 +202,20 @@ void gamecard_new_pokemon(char * pokemon, char * posx, char * posy, char * canti
 	validar_parametros_cuatro_argumentos(pokemon,posx,posy,cantidad);
 	log_info(gameboy_logger,"\n Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, con la cantidad %s del pokemon %s a crear en el mapa",
 			posx,posy,cantidad,pokemon);
+
+	t_new_pokemon* new_pokemon = malloc(sizeof(t_new_pokemon));
+	new_pokemon->_tamanio_string_pokemon = 0;
+	new_pokemon->cantidad = cantidad;
+	new_pokemon->coordenadas.posx = atoi(posx);
+	new_pokemon->coordenadas.posy = atoi(posy);
+	new_pokemon->pokemon = pokemon;
+
 	server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
-	enviar_new_pokemon(pokemon, atoi(posx), atoi(posy),atoi(cantidad),server_gamecard);
+	enviar_new_pokemon(server_gamecard, 0, 0, pokemon, new_pokemon);
 	log_info(gameboy_logger,"\nYa lo envie");
+
+	free(new_pokemon);
+
 	terminar_gameboy_correctamente();
 }
 
@@ -188,9 +255,19 @@ void gamecard_catch_pokemon(char * pokemon, char* posx, char* posy){
 
 	validar_parametros_tres_argumentos(pokemon,posx,posy);
 	log_info(gameboy_logger,"\n Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, del pokemon %s a crear en el mapa",posx,posy,pokemon);
+
+	t_catch_pokemon* appeared_pokemon = malloc(sizeof(t_catch_pokemon));
+	appeared_pokemon->pokemon = pokemon;
+	appeared_pokemon->coordenadas.posx = atoi(posx);
+	appeared_pokemon->coordenadas.posy = atoi(posy);
+	appeared_pokemon->_tamanio_string_pokemon = 0;
+
 	server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
-	enviar_catch_pokemon(pokemon, atoi(posx), atoi(posy),server_gamecard);
+	enviar_catch_pokemon(server_gamecard, 0, 0, appeared_pokemon);
 	log_info(gameboy_logger,"\nYa lo envie");
+
+	free(appeared_pokemon);
+
 	terminar_gameboy_correctamente();
 }
 
@@ -217,8 +294,17 @@ void gamecard_get_pokemon(char * pokemon){
 		terminar_gameboy_correctamente();
 	}else{
 		log_info(gameboy_logger,"\n Envio a gamecard el pokemon %s", pokemon);
+
+		t_get_pokemon * get_pokemon = malloc(sizeof(t_get_pokemon));
+		get_pokemon->pokemon = pokemon;
+		get_pokemon->_tamanio_string_pokemon = 0;
+
 		server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
-		enviar_get_pokemon(pokemon, server_gamecard);
+		enviar_get_pokemon(server_gamecard, 0, 0, get_pokemon);
+		log_info(gameboy_logger,"\nYa lo envie");
+
+		free(get_pokemon);
+
 		log_info(gameboy_logger,"\nYa lo envie");
 		terminar_gameboy_correctamente();
 	}
@@ -261,10 +347,9 @@ void consola_gamecard(char * parametro1, char * parametro2, char * parametro3, c
 }
 
 void consola_suscriptor(char* cola_de_mensajes, char* tiempo){
+/*
 
-	/*
-	 * HAY QUE PROBAR ESTO!!!!!!!!!
-	 */
+	 TODO: MODIFICAR
 
 	server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
 	int key = -1;
@@ -308,7 +393,7 @@ void consola_suscriptor(char* cola_de_mensajes, char* tiempo){
 
 	log_info(gameboy_logger,"\nYa lo envie");
 	terminar_gameboy_correctamente();
-
+*/
 }
 
 void consola_modo_suscriptor(char* parametro1, char* parametro2){

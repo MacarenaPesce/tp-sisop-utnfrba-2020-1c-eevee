@@ -26,6 +26,8 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <Pokebola.h>
+#include <commons/collections/queue.h>
+#include <pthread.h>
 
 
 /* Keys config file*/
@@ -59,5 +61,36 @@ extern char* log_file;
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
 extern t_config* config;
+
+extern t_list* lista_entrenadores; //lista de entrenadores cargada.
+extern t_list* lista_objetivos; //una lista de objetivos para cada entrenador, esto falta.
+extern t_list* lista_listos;
+extern t_list* lista_finalizar;
+extern t_list* lista_bloqueados;
+extern t_list* lista_config; //lista auxiliar para cargar la info del archivo de configuracion
+extern t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global
+
+//Estructura de un entrenador
+enum ESTADO{
+	NUEVO,
+	LISTO,
+	EJECUTANDO,
+	BLOQUEADO,
+	FINALIZANDO
+};
+typedef struct {
+	char id;
+	uint32_t posx;
+	uint32_t posy;
+	enum ESTADO estado;
+	t_list *objetivo;
+} t_entrenador;
+
+typedef struct { //estructura del objetivo global
+	char* especie;
+	uint32_t cantidad;
+} t_objetivo;
+
+t_entrenador * entrenador_en_ejecucion = NULL;
 
 #endif /* CONTEXTO_TEAM_H_ */
