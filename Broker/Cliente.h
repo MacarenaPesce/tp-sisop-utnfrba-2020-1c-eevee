@@ -1,8 +1,7 @@
 #ifndef BROKER_H_
 #define BROKER_H_
 
-#include "includes.h"
-//#include "memoria.h"
+#include <Pokebola.h>
 
 int espacio_total;
 int espacio_vacio;
@@ -18,10 +17,6 @@ typedef struct{
     t_list* lista_suscriptores_enviados;
     t_list* lista_suscriptores_ack;
 }t_mensaje;
-
-void recibir_mensaje_de_texto(int, int);
-void iniciar_servidor(void);
-void esperar_cliente(int);
 
 
 #endif
