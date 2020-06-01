@@ -21,7 +21,7 @@ void definir_objetivo_global(){
 
 	/*Leo del archivo de config y guardo los pokemon en la lista pokemones*/
 
-	char **read_array = config_get_array_value(config, "POKEMON_ENTRENADORES");
+	char **read_array = config_get_array_value(config, "OBJETIVOS_ENTRENADORES");
 	lista_config = list_create();
 	pokemones_ordenada = list_create();
 	string_iterate_lines(read_array, _imprimir);
@@ -216,6 +216,8 @@ cumplió el objetivo global.
 	seleccionar_el_entrenador_mas_cercano_al_pokemon(); /// ??? SI VAS A AGARRAR SIEMPRE AL MAS CERCANO PARA QUE NECESITAS LOS ALGORITMOS???? PREGUNTAR ESTO URGENTE
 	obtener_proximo_ejecucion();
 }
+
+
 
 void conectarse_a_colas_de_broker(){
 	/*
