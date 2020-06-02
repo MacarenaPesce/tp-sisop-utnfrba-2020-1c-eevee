@@ -28,6 +28,8 @@
 #include <Pokebola.h>
 #include <commons/collections/queue.h>
 #include <pthread.h>
+#include <sys/select.h>		// Select
+#include <sys/time.h>
 
 
 /* Keys config file*/
@@ -59,6 +61,7 @@ extern char* ip_broker;
 extern int estimacion_inicial;
 extern char* puerto_broker;
 extern char* log_file;
+extern int broker_socket;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
@@ -71,6 +74,8 @@ extern t_list* lista_finalizar;
 extern t_list* lista_bloqueados;
 extern t_list* lista_config; //lista auxiliar para cargar la info del archivo de configuracion
 extern t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global
+extern t_list* lista_mapa;
+extern t_list* lista_pokemon_atrapado;
 
 //Estructura de un entrenador
 enum ESTADO{
@@ -98,6 +103,12 @@ typedef struct { //estructura del objetivo global
 	char* especie;
 	uint32_t cantidad;
 } t_objetivo;
+
+typedef struct { //estructura del objetivo global
+	char* especie;
+	uint32_t posx;
+	uint32_t posy;
+} t_pokemon;
 
 t_entrenador * entrenador_en_ejecucion;
 

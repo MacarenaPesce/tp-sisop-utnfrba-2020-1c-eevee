@@ -36,7 +36,7 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_CONFIG_LOG_FILE, config, obtener_el_log_file);
 
 
-		log_info(team_logger,"\nArchivo de configuracion cargado correctamente :)");
+		log_info(team_logger,"Archivo de configuracion cargado correctamente :)");
 		config_destroy(config);
 
 	}
@@ -153,5 +153,11 @@ void capturar_signal(int signo){
 void terminar_team_correctamente(){
 	log_info(team_logger,"Chau!");
 	log_destroy(team_logger);
+	//eliminar todas las listas que se hayan usado en TODO el proceso
+	//revisar los sockets
+	//meter frees en todos los mallocs
+
+
+
 	exit(EXIT_SUCCESS);
 }

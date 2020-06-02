@@ -14,6 +14,7 @@ void inicializar_listas(){
 	lista_bloqueados = list_create();
 	lista_objetivos = list_create();
 	lista_entrenadores = list_create();
+	lista_mapa = list_create();
 
 }
 
