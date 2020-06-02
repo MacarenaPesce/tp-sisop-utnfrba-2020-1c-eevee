@@ -153,3 +153,21 @@ bool tamanio_potencia_dos(int tamanio_en_bytes){
 
 	}
 }
+
+//Me fijo si un numero es potencia de dos.
+//Si lo es, devuelvo ese numero, 
+//y si no lo es, busco el numero mayor mas cercano potencia de 2
+int numero_potencia_dos(int tamanio_en_bytes){
+	int bytes = tamanio_en_bytes;
+
+	bool num_pot_dos = tamanio_potencia_dos(tamanio_en_bytes);
+
+	while(!num_pot_dos){
+		bytes = bytes + 1;
+		
+		num_pot_dos = tamanio_potencia_dos(bytes);
+	}
+
+	return bytes;
+
+}
