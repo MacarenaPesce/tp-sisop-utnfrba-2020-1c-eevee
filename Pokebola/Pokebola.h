@@ -22,6 +22,7 @@
 #include <commons/log.h>
 #include <commons/collections/list.h>
 #include <commons/string.h>
+#include <sys/ioctl.h>
 
 
 /*** Enums log***/
@@ -57,6 +58,7 @@ enum COLA_DE_MENSAJES{
 enum OPERACIONES{
 	ENVIAR_MENSAJE,
 	SUSCRIBIRSE_A_COLA,
+	ACK
 };
 
 enum TIPOS_SUSCRIPCION{
@@ -136,8 +138,14 @@ void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
  */
 
 /**************************************************************************************/
-/*int conectar_a_server(char*, char*);
+int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
+t_packed* recibir_mensaje(int sock);
+void eliminar_mensaje(t_packed* paquete);
+void enviar_new_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_new_pokemon* new_pokemon);
+void logger(int tipo_esc, int tipo_log, const char* mensaje, ...);
+
+/*
 int enviar_mensaje(int sock, void *mensaje, int tamanio);
 int recibir_mensaje(int sock, void *mensaje, int tamanio);
 int enviar_header(int, enum MENSAJES tipo_de_mensaje,int);
