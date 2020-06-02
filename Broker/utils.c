@@ -6,13 +6,10 @@ int calcularBytes (t_packed* paquete){
 
 	//Calculo los bytes segun que operacion tiene mi paquete
 
-	//ME FALTA AGREGAR UN ENUM O ALGO PARA PODER SABER QUE OPERACION HACE, PAQUETE->OPERACION NO ES!!!
-
 	//NO ESTOY SEGURA SI ELIMINAR PAQUETE ESTA BIEN, Y CUANDO HACER EL FREE PKMN PORQUE LE ESTOY RESERVANDO MEMORIA
 
-
-    switch(paquete-> operacion){
-			case NEW_POKEMON:
+    switch(paquete->cola_de_mensajes){
+			case COLA_NEW_POKEMON:
 				puts(" Recibi un NEW POKEMON");
 				
                 	t_new_pokemon* pkmn;
@@ -30,7 +27,7 @@ int calcularBytes (t_packed* paquete){
                 bytes = 16 + (strlen(pkmn->pokemon));
 
 				return bytes;
-			case LOCALIZED_POKEMON:
+			case COLA_LOCALIZED_POKEMON:
 				puts(" Recibi un LOCALIZED POKEMON");
 
 					t_localized_pokemon* pkmn;
@@ -48,7 +45,7 @@ int calcularBytes (t_packed* paquete){
                 bytes = 32 + (strlen(pkmn->pokemon));
 
 				return bytes;
-			case GET_POKEMON:
+			case COLA_GET_POKEMON:
 				puts(" Recibi un GET POKEMON");
 
 					t_get_pokemon* pkmn;
@@ -66,7 +63,7 @@ int calcularBytes (t_packed* paquete){
 				bytes = 4 + (strlen(pkmn->pokemon));
 
 				return bytes;
-			case APPEARED_POKEMON:
+			case COLA_APPEARED_POKEMON:
 				puts(" Recibi un APPEARED POKEMON");
 
                 	t_appeared_pokemon* pkmn;
@@ -84,7 +81,7 @@ int calcularBytes (t_packed* paquete){
 				bytes = 12 + (strlen(pkmn->pokemon));
 
 				return bytes;
-			case CATCH_POKEMON:
+			case COLA_CATCH_POKEMON:
 				puts(" Recibi un CATCH POKEMON");
 
                 	t_catch_pokemon* pkmn;
@@ -101,7 +98,7 @@ int calcularBytes (t_packed* paquete){
 
 				bytes = 12 + (strlen(pkmn->pokemon));
 				return bytes;
-			case CAUGHT_POKEMON:
+			case COLA_CAUGHT_POKEMON:
 				puts(" Recibi un CAUGHT POKEMON");
 
 					/*
