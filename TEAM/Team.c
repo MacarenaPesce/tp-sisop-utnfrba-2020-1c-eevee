@@ -21,7 +21,7 @@ void definir_objetivo_global(){
 
 	/*Leo del archivo de config y guardo los pokemon en la lista pokemones*/
 
-	char **read_array = config_get_array_value(config, "POKEMON_ENTRENADORES");
+	char **read_array = config_get_array_value(config, "OBJETIVOS_ENTRENADORES");
 	lista_config = list_create();
 	pokemones_ordenada = list_create();
 	string_iterate_lines(read_array, _imprimir);
@@ -219,6 +219,7 @@ cumplió el objetivo global.
 	obtener_proximo_ejecucion();
 }
 
+
 int hacer_intento_de_reconexion(){
 	sleep(tiempo_reconexion);
 	int broker_socket = conectar_broker();
@@ -226,6 +227,28 @@ int hacer_intento_de_reconexion(){
 }
 
 int conectar_broker() {
+	/*
+	Cabe aclarar que el Proceso Team debe poder ejecutarse sin haber establecido la conexión con el	Broker.
+	Es decir, si el broker se encuentra sin funcionar o se cae durante la ejecución, el proceso Team debe seguir procesando sus funciones sin el mismo.
+	Para esto, se contarán con funciones 	default para aquellos mensajes que el Proceso Team envíe directamente al Broker.
+	En caso que la conexión no llegue a realizarse o se caiga, el proceso Team deberá contar con un sistema de reintento de conexión cada X segundos
+	configurado desde archivo de configuración.
+		 */
+
+	int broker_socket = conectar_a_server(ip_broker, puerto_broker);
+	if (broker_socket < 0){
+		log_info(team_logger, "Error al intentar conectar al broker\n");
+		broker_socket = hacer_intento_de_reconexion();
+	}
+	else{
+		log_info(team_logger, "Conectado con el broker! (%d)",broker_socket);
+	}
+
+	return broker_socket;
+}
+
+
+void conectarse_a_colas_de_broker(){
 	/*
 	Cabe aclarar que el Proceso Team debe poder ejecutarse sin haber establecido la conexión con el	Broker.
 	Es decir, si el broker se encuentra sin funcionar o se cae durante la ejecución, el proceso Team debe seguir procesando sus funciones sin el mismo.

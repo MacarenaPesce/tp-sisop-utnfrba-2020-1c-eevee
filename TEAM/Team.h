@@ -19,6 +19,7 @@ void enviar_get();
 void conectarse_a_colas_de_broker();
 void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon *);
 void * jugar_con_el_entrenador(t_entrenador *);
+void obtener_proximo_ejecucion();
 
 void localizar_entrenadores_en_el_mapa();
 /*Carga una lista de entrenadores con la info del archivo de configuracion, ademas de agregarles un id
