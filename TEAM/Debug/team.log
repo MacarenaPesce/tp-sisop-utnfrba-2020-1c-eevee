@@ -1,0 +1,1329 @@
+[INFO] 18:15:07:631 Team/(9460:9460): Hi, bienvenido a Team
+[INFO] 18:15:07:639 Team/(9460:9460): El archivo de configuracion no existe. Fijate en la carpeta Debug.
+[INFO] 18:15:07:639 Team/(9460:9460): Chau!
+[INFO] 18:21:31:102 Team/(10143:10143): Hi, bienvenido a Team
+[INFO] 18:21:31:103 Team/(10143:10143): Cargando el archivo de configuracion...
+[INFO] 18:21:31:103 Team/(10143:10143): Los objetivos de los entrenadores recuperados
+[INFO] 18:21:31:103 Team/(10143:10143): El tiempo de reconexion es: 30
+[INFO] 18:21:31:103 Team/(10143:10143): El algoritmo de planificacion es: RR
+[INFO] 18:21:31:103 Team/(10143:10143): El quantum es: 2
+[INFO] 18:21:31:103 Team/(10143:10143): La estimacion_inicial es: 0
+[INFO] 18:21:31:103 Team/(10143:10143): La ip del broker es: 127.0.0.1
+[INFO] 18:21:31:103 Team/(10143:10143): El puerto del broker es: 5002
+[INFO] 18:21:31:103 Team/(10143:10143): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 18:21:43:192 Team/(10150:10150): Hi, bienvenido a Team
+[INFO] 18:21:43:274 Team/(10150:10150): Cargando el archivo de configuracion...
+[INFO] 18:21:43:290 Team/(10150:10150): Los objetivos de los entrenadores recuperados
+[INFO] 18:21:43:307 Team/(10150:10150): El tiempo de reconexion es: 30
+[INFO] 18:21:43:308 Team/(10150:10150): El algoritmo de planificacion es: RR
+[INFO] 18:21:43:309 Team/(10150:10150): El quantum es: 2
+[INFO] 18:21:43:311 Team/(10150:10150): La estimacion_inicial es: 0
+[INFO] 18:21:43:312 Team/(10150:10150): La ip del broker es: 127.0.0.1
+[INFO] 18:21:43:316 Team/(10150:10150): El puerto del broker es: 5002
+[INFO] 18:21:43:316 Team/(10150:10150): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 18:23:36:819 Team/(10667:10667): Hi, bienvenido a Team
+[INFO] 18:23:36:824 Team/(10667:10667): Cargando el archivo de configuracion...
+[INFO] 18:23:36:825 Team/(10667:10667): Los objetivos de los entrenadores recuperados
+[INFO] 18:23:36:825 Team/(10667:10667): El tiempo de reconexion es: 30
+[INFO] 18:23:36:825 Team/(10667:10667): El algoritmo de planificacion es: RR
+[INFO] 18:23:36:825 Team/(10667:10667): El quantum es: 2
+[INFO] 18:23:36:825 Team/(10667:10667): La estimacion_inicial es: 0
+[INFO] 18:23:36:825 Team/(10667:10667): La ip del broker es: 127.0.0.1
+[INFO] 18:23:36:825 Team/(10667:10667): El puerto del broker es: 5002
+[INFO] 18:23:36:825 Team/(10667:10667): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 18:24:37:529 Team/(10667:10667): 
+Se aceptó un nuevo cliente
+[INFO] 18:24:37:529 Team/(10667:10667): Voy a recibir un pokemon y coordenadas
+[INFO] 18:24:37:529 Team/(10667:10667): Me llego este pokemon: picachu
+[INFO] 18:24:37:529 Team/(10667:10667): La coordenada X es: 3
+[INFO] 18:24:37:529 Team/(10667:10667): La coordenada Y es: 5
+[INFO] 18:25:07:700 Team/(10667:10667): 
+Se aceptó un nuevo cliente
+[INFO] 18:25:07:718 Team/(10667:10667): Voy a recibir un pokemon y coordenadas
+[INFO] 18:25:07:718 Team/(10667:10667): Me llego este pokemon: picachu
+[INFO] 18:25:07:718 Team/(10667:10667): La coordenada X es: 3
+[INFO] 18:25:07:718 Team/(10667:10667): La coordenada Y es: 5
+[INFO] 18:27:36:675 Team/(10667:10667): 
+Se aceptó un nuevo cliente
+[INFO] 18:27:36:676 Team/(10667:10667): Voy a recibir un pokemon y coordenadas
+[INFO] 18:27:36:676 Team/(10667:10667): Me llego este pokemon: picachu
+[INFO] 18:27:36:676 Team/(10667:10667): La coordenada X es: 3
+[INFO] 18:27:36:676 Team/(10667:10667): La coordenada Y es: 5
+[INFO] 18:27:51:229 Team/(10667:10667): 
+Se aceptó un nuevo cliente
+[INFO] 18:27:51:260 Team/(10667:10667): Voy a recibir un pokemon y coordenadas
+[INFO] 18:27:51:260 Team/(10667:10667): Me llego este pokemon: picachu
+[INFO] 18:27:51:260 Team/(10667:10667): La coordenada X es: 3
+[INFO] 18:27:51:260 Team/(10667:10667): La coordenada Y es: 5
+[INFO] 18:58:39:593 Team/(10667:10667): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 18:58:39:594 Team/(10667:10667): Chau!
+[INFO] 18:58:47:684 Team/(11533:11533): Hi, bienvenido a Team
+[INFO] 18:58:47:689 Team/(11533:11533): Cargando el archivo de configuracion...
+[INFO] 18:58:47:690 Team/(11533:11533): Las posiciones de entrenadores recuperadas
+[INFO] 18:58:47:690 Team/(11533:11533): Los pokemon de los entrenadores recuperados
+[INFO] 18:58:47:690 Team/(11533:11533): Los objetivos de los entrenadores recuperados
+[INFO] 18:58:47:690 Team/(11533:11533): El tiempo de reconexion es: 30
+[INFO] 18:58:47:690 Team/(11533:11533): El retardo de ciclo de cpu es: 2
+[INFO] 18:58:47:690 Team/(11533:11533): El algoritmo de planificacion es: RR
+[INFO] 18:58:47:691 Team/(11533:11533): El quantum es: 2
+[INFO] 18:58:47:691 Team/(11533:11533): La estimacion_inicial es: 0
+[INFO] 18:58:47:691 Team/(11533:11533): La ip del broker es: 127.0.0.1
+[INFO] 18:58:47:691 Team/(11533:11533): El puerto del broker es: 5002
+[INFO] 18:58:47:691 Team/(11533:11533): El log file es: /home/utnso/log_team1.txt
+[INFO] 18:58:47:691 Team/(11533:11533): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 18:58:59:525 Team/(11536:11536): Hi, bienvenido a Team
+[INFO] 18:58:59:613 Team/(11536:11536): Cargando el archivo de configuracion...
+[INFO] 18:58:59:634 Team/(11536:11536): Las posiciones de entrenadores recuperadas
+[INFO] 18:58:59:636 Team/(11536:11536): Los pokemon de los entrenadores recuperados
+[INFO] 18:58:59:658 Team/(11536:11536): Los objetivos de los entrenadores recuperados
+[INFO] 18:58:59:663 Team/(11536:11536): El tiempo de reconexion es: 30
+[INFO] 18:58:59:665 Team/(11536:11536): El retardo de ciclo de cpu es: 2
+[INFO] 18:58:59:666 Team/(11536:11536): El algoritmo de planificacion es: RR
+[INFO] 18:58:59:668 Team/(11536:11536): El quantum es: 2
+[INFO] 18:58:59:669 Team/(11536:11536): La estimacion_inicial es: 0
+[INFO] 18:58:59:672 Team/(11536:11536): La ip del broker es: 127.0.0.1
+[INFO] 18:58:59:689 Team/(11536:11536): El puerto del broker es: 5002
+[INFO] 18:58:59:690 Team/(11536:11536): El log file es: /home/utnso/log_team1.txt
+[INFO] 18:58:59:691 Team/(11536:11536): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:04:15:505 Team/(11831:11831): Hi, bienvenido a Team
+[INFO] 19:04:15:511 Team/(11831:11831): Cargando el archivo de configuracion...
+[INFO] 19:04:15:511 Team/(11831:11831): Las posiciones de entrenadores recuperadas
+[INFO] 19:04:15:511 Team/(11831:11831): Los pokemon de los entrenadores recuperados
+[INFO] 19:04:15:512 Team/(11831:11831): Los objetivos de los entrenadores recuperados
+[INFO] 19:04:15:512 Team/(11831:11831): El tiempo de reconexion es: 30
+[INFO] 19:04:15:512 Team/(11831:11831): El retardo de ciclo de cpu es: 2
+[INFO] 19:04:15:512 Team/(11831:11831): El algoritmo de planificacion es: RR
+[INFO] 19:04:15:512 Team/(11831:11831): El quantum es: 2
+[INFO] 19:04:15:512 Team/(11831:11831): La estimacion_inicial es: 0
+[INFO] 19:04:15:512 Team/(11831:11831): La ip del broker es: 127.0.0.1
+[INFO] 19:04:15:512 Team/(11831:11831): El puerto del broker es: 5002
+[INFO] 19:04:15:512 Team/(11831:11831): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:04:15:512 Team/(11831:11831): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:04:15:513 Team/(11831:11831): Cargando el objetivo global... 
+
+[INFO] 19:04:15:513 Team/(11831:11831): Un tipo de pokemon es: Squirtle y la cantidad es 2
+
+[INFO] 19:04:15:513 Team/(11831:11831): Un tipo de pokemon es: Pikachu y la cantidad es 1
+
+[INFO] 19:04:15:513 Team/(11831:11831): Un tipo de pokemon es: Pidgey y la cantidad es 1
+
+[INFO] 19:04:15:513 Team/(11831:11831): Un tipo de pokemon es: Charmander y la cantidad es 1
+
+[INFO] 19:04:15:513 Team/(11831:11831): Un tipo de pokemon es: Bulbasaur y la cantidad es 1 
+
+[INFO] 19:04:15:513 Team/(11831:11831): Objetivo global cargado
+
+[INFO] 19:15:44:951 Team/(11831:11831): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 19:15:44:951 Team/(11831:11831): Chau!
+[INFO] 19:15:54:442 Team/(12111:12111): Hi, bienvenido a Team
+[INFO] 19:15:54:448 Team/(12111:12111): Cargando el archivo de configuracion...
+[INFO] 19:15:54:448 Team/(12111:12111): Las posiciones de entrenadores recuperadas
+[INFO] 19:15:54:449 Team/(12111:12111): Los pokemon de los entrenadores recuperados
+[INFO] 19:15:54:449 Team/(12111:12111): Los objetivos de los entrenadores recuperados
+[INFO] 19:15:54:449 Team/(12111:12111): El tiempo de reconexion es: 30
+[INFO] 19:15:54:449 Team/(12111:12111): El retardo de ciclo de cpu es: 2
+[INFO] 19:15:54:449 Team/(12111:12111): El algoritmo de planificacion es: RR
+[INFO] 19:15:54:449 Team/(12111:12111): El quantum es: 2
+[INFO] 19:15:54:449 Team/(12111:12111): La estimacion_inicial es: 0
+[INFO] 19:15:54:449 Team/(12111:12111): La ip del broker es: 127.0.0.1
+[INFO] 19:15:54:449 Team/(12111:12111): El puerto del broker es: 5002
+[INFO] 19:15:54:450 Team/(12111:12111): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:15:54:450 Team/(12111:12111): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:15:54:450 Team/(12111:12111): Cargando el objetivo global... 
+
+[INFO] 19:15:54:450 Team/(12111:12111): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:15:54:450 Team/(12111:12111): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:15:54:450 Team/(12111:12111): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:15:54:451 Team/(12111:12111): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:15:54:451 Team/(12111:12111): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:15:54:451 Team/(12111:12111): Objetivo global cargado
+
+[INFO] 19:16:27:521 Team/(12111:12111): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 19:16:27:521 Team/(12111:12111): Chau!
+[INFO] 19:16:33:889 Team/(12173:12173): Hi, bienvenido a Team
+[INFO] 19:16:33:895 Team/(12173:12173): Cargando el archivo de configuracion...
+[INFO] 19:16:33:895 Team/(12173:12173): Las posiciones de entrenadores recuperadas
+[INFO] 19:16:33:895 Team/(12173:12173): Los pokemon de los entrenadores recuperados
+[INFO] 19:16:33:895 Team/(12173:12173): Los objetivos de los entrenadores recuperados
+[INFO] 19:16:33:896 Team/(12173:12173): El tiempo de reconexion es: 30
+[INFO] 19:16:33:896 Team/(12173:12173): El retardo de ciclo de cpu es: 2
+[INFO] 19:16:33:896 Team/(12173:12173): El algoritmo de planificacion es: RR
+[INFO] 19:16:33:896 Team/(12173:12173): El quantum es: 2
+[INFO] 19:16:33:896 Team/(12173:12173): La estimacion_inicial es: 0
+[INFO] 19:16:33:896 Team/(12173:12173): La ip del broker es: 127.0.0.1
+[INFO] 19:16:33:896 Team/(12173:12173): El puerto del broker es: 5002
+[INFO] 19:16:33:896 Team/(12173:12173): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:16:33:896 Team/(12173:12173): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:16:33:896 Team/(12173:12173): Cargando el objetivo global... 
+
+[INFO] 19:16:33:897 Team/(12173:12173): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:16:33:897 Team/(12173:12173): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:16:33:897 Team/(12173:12173): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:16:33:897 Team/(12173:12173): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:16:33:897 Team/(12173:12173): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:16:33:897 Team/(12173:12173): Objetivo global cargado
+
+[INFO] 19:16:54:132 Team/(12178:12178): Hi, bienvenido a Team
+[INFO] 19:16:54:218 Team/(12178:12178): Cargando el archivo de configuracion...
+[INFO] 19:16:54:233 Team/(12178:12178): Las posiciones de entrenadores recuperadas
+[INFO] 19:16:54:234 Team/(12178:12178): Los pokemon de los entrenadores recuperados
+[INFO] 19:16:54:236 Team/(12178:12178): Los objetivos de los entrenadores recuperados
+[INFO] 19:16:54:250 Team/(12178:12178): El tiempo de reconexion es: 30
+[INFO] 19:16:54:257 Team/(12178:12178): El retardo de ciclo de cpu es: 2
+[INFO] 19:16:54:258 Team/(12178:12178): El algoritmo de planificacion es: RR
+[INFO] 19:16:54:259 Team/(12178:12178): El quantum es: 2
+[INFO] 19:16:54:260 Team/(12178:12178): La estimacion_inicial es: 0
+[INFO] 19:16:54:262 Team/(12178:12178): La ip del broker es: 127.0.0.1
+[INFO] 19:16:54:263 Team/(12178:12178): El puerto del broker es: 5002
+[INFO] 19:16:54:264 Team/(12178:12178): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:16:54:265 Team/(12178:12178): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:16:54:306 Team/(12178:12178): Cargando el objetivo global... 
+
+[INFO] 19:16:54:325 Team/(12178:12178): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:16:54:329 Team/(12178:12178): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:16:54:342 Team/(12178:12178): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:16:54:343 Team/(12178:12178): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:16:54:351 Team/(12178:12178): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:16:54:355 Team/(12178:12178): Objetivo global cargado
+
+[INFO] 19:17:35:474 Team/(12344:12344): Hi, bienvenido a Team
+[INFO] 19:17:35:479 Team/(12344:12344): Cargando el archivo de configuracion...
+[INFO] 19:17:35:480 Team/(12344:12344): Las posiciones de entrenadores recuperadas
+[INFO] 19:17:35:480 Team/(12344:12344): Los pokemon de los entrenadores recuperados
+[INFO] 19:17:35:480 Team/(12344:12344): Los objetivos de los entrenadores recuperados
+[INFO] 19:17:35:480 Team/(12344:12344): El tiempo de reconexion es: 30
+[INFO] 19:17:35:480 Team/(12344:12344): El retardo de ciclo de cpu es: 2
+[INFO] 19:17:35:480 Team/(12344:12344): El algoritmo de planificacion es: RR
+[INFO] 19:17:35:480 Team/(12344:12344): El quantum es: 2
+[INFO] 19:17:35:481 Team/(12344:12344): La estimacion_inicial es: 0
+[INFO] 19:17:35:481 Team/(12344:12344): La ip del broker es: 127.0.0.1
+[INFO] 19:17:35:481 Team/(12344:12344): El puerto del broker es: 5002
+[INFO] 19:17:35:481 Team/(12344:12344): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:17:35:481 Team/(12344:12344): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:17:35:481 Team/(12344:12344): Cargando el objetivo global... 
+
+[INFO] 19:17:35:481 Team/(12344:12344): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:17:35:481 Team/(12344:12344): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:17:35:482 Team/(12344:12344): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:17:35:482 Team/(12344:12344): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:17:35:482 Team/(12344:12344): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:17:35:482 Team/(12344:12344): Objetivo global cargado
+
+[INFO] 19:17:39:34 Team/(12350:12350): Hi, bienvenido a Team
+[INFO] 19:17:40:122 Team/(12350:12350): Cargando el archivo de configuracion...
+[INFO] 19:17:40:144 Team/(12350:12350): Las posiciones de entrenadores recuperadas
+[INFO] 19:17:40:151 Team/(12350:12350): Los pokemon de los entrenadores recuperados
+[INFO] 19:17:40:152 Team/(12350:12350): Los objetivos de los entrenadores recuperados
+[INFO] 19:17:40:157 Team/(12350:12350): El tiempo de reconexion es: 30
+[INFO] 19:17:40:162 Team/(12350:12350): El retardo de ciclo de cpu es: 2
+[INFO] 19:17:40:163 Team/(12350:12350): El algoritmo de planificacion es: RR
+[INFO] 19:17:40:164 Team/(12350:12350): El quantum es: 2
+[INFO] 19:17:40:166 Team/(12350:12350): La estimacion_inicial es: 0
+[INFO] 19:17:40:173 Team/(12350:12350): La ip del broker es: 127.0.0.1
+[INFO] 19:17:40:179 Team/(12350:12350): El puerto del broker es: 5002
+[INFO] 19:17:40:181 Team/(12350:12350): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:17:40:182 Team/(12350:12350): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:17:40:233 Team/(12350:12350): Cargando el objetivo global... 
+
+[INFO] 19:17:40:238 Team/(12350:12350): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:17:40:239 Team/(12350:12350): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:17:40:241 Team/(12350:12350): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:17:40:241 Team/(12350:12350): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:17:40:242 Team/(12350:12350): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:17:40:248 Team/(12350:12350): Objetivo global cargado
+
+[INFO] 19:17:40:283 Team/(12350:12352): HOla, un hilo
+
+[INFO] 19:18:25:704 Team/(12361:12361): Hi, bienvenido a Team
+[INFO] 19:18:25:776 Team/(12361:12361): Cargando el archivo de configuracion...
+[INFO] 19:18:25:789 Team/(12361:12361): Las posiciones de entrenadores recuperadas
+[INFO] 19:18:25:790 Team/(12361:12361): Los pokemon de los entrenadores recuperados
+[INFO] 19:18:25:791 Team/(12361:12361): Los objetivos de los entrenadores recuperados
+[INFO] 19:18:25:796 Team/(12361:12361): El tiempo de reconexion es: 30
+[INFO] 19:18:25:797 Team/(12361:12361): El retardo de ciclo de cpu es: 2
+[INFO] 19:18:25:798 Team/(12361:12361): El algoritmo de planificacion es: RR
+[INFO] 19:18:25:799 Team/(12361:12361): El quantum es: 2
+[INFO] 19:18:25:803 Team/(12361:12361): La estimacion_inicial es: 0
+[INFO] 19:18:25:804 Team/(12361:12361): La ip del broker es: 127.0.0.1
+[INFO] 19:18:25:806 Team/(12361:12361): El puerto del broker es: 5002
+[INFO] 19:18:25:807 Team/(12361:12361): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:18:25:807 Team/(12361:12361): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:18:25:829 Team/(12361:12361): Cargando el objetivo global... 
+
+[INFO] 19:18:25:836 Team/(12361:12361): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:18:25:837 Team/(12361:12361): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:18:25:838 Team/(12361:12361): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:18:25:839 Team/(12361:12361): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:18:25:840 Team/(12361:12361): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:18:25:842 Team/(12361:12361): Objetivo global cargado
+
+[INFO] 19:18:25:888 Team/(12361:12364): HOla, un hilo
+
+[INFO] 19:19:33:135 Team/(12433:12433): Hi, bienvenido a Team
+[INFO] 19:19:33:227 Team/(12433:12433): Cargando el archivo de configuracion...
+[INFO] 19:19:33:244 Team/(12433:12433): Las posiciones de entrenadores recuperadas
+[INFO] 19:19:33:251 Team/(12433:12433): Los pokemon de los entrenadores recuperados
+[INFO] 19:19:33:259 Team/(12433:12433): Los objetivos de los entrenadores recuperados
+[INFO] 19:19:33:264 Team/(12433:12433): El tiempo de reconexion es: 30
+[INFO] 19:19:33:269 Team/(12433:12433): El retardo de ciclo de cpu es: 2
+[INFO] 19:19:33:270 Team/(12433:12433): El algoritmo de planificacion es: RR
+[INFO] 19:19:33:271 Team/(12433:12433): El quantum es: 2
+[INFO] 19:19:33:273 Team/(12433:12433): La estimacion_inicial es: 0
+[INFO] 19:19:33:274 Team/(12433:12433): La ip del broker es: 127.0.0.1
+[INFO] 19:19:33:275 Team/(12433:12433): El puerto del broker es: 5002
+[INFO] 19:19:33:283 Team/(12433:12433): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:19:33:284 Team/(12433:12433): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:19:33:332 Team/(12433:12433): Cargando el objetivo global... 
+
+[INFO] 19:19:33:343 Team/(12433:12433): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:19:33:346 Team/(12433:12433): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:19:33:353 Team/(12433:12433): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:19:33:354 Team/(12433:12433): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:19:33:355 Team/(12433:12433): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:19:33:357 Team/(12433:12433): Objetivo global cargado
+
+[INFO] 19:19:33:400 Team/(12433:12435): HOla, un hilo
+
+[INFO] 19:19:33:413 Team/(12433:12440): HOla, un hilo
+
+[INFO] 19:19:33:414 Team/(12433:12439): HOla, un hilo
+
+[INFO] 19:19:33:414 Team/(12433:12438): HOla, un hilo
+
+[INFO] 19:19:33:418 Team/(12433:12441): HOla, un hilo
+
+[INFO] 19:19:33:418 Team/(12433:12442): HOla, un hilo
+
+[INFO] 19:19:33:419 Team/(12433:12437): HOla, un hilo
+
+[INFO] 19:19:33:405 Team/(12433:12436): HOla, un hilo
+
+[INFO] 19:19:33:433 Team/(12433:12448): HOla, un hilo
+
+[INFO] 19:19:33:434 Team/(12433:12449): HOla, un hilo
+
+[INFO] 19:19:33:434 Team/(12433:12453): HOla, un hilo
+
+[INFO] 19:19:33:434 Team/(12433:12451): HOla, un hilo
+
+[INFO] 19:19:33:434 Team/(12433:12452): HOla, un hilo
+
+[INFO] 19:19:33:435 Team/(12433:12450): HOla, un hilo
+
+[INFO] 19:19:33:435 Team/(12433:12454): HOla, un hilo
+
+[INFO] 19:19:33:435 Team/(12433:12447): HOla, un hilo
+
+[INFO] 19:19:33:436 Team/(12433:12446): HOla, un hilo
+
+[INFO] 19:19:33:437 Team/(12433:12445): HOla, un hilo
+
+[INFO] 19:19:33:438 Team/(12433:12455): HOla, un hilo
+
+[INFO] 19:19:33:438 Team/(12433:12444): HOla, un hilo
+
+[INFO] 19:19:33:439 Team/(12433:12458): HOla, un hilo
+
+[INFO] 19:19:33:440 Team/(12433:12459): HOla, un hilo
+
+[INFO] 19:19:33:440 Team/(12433:12460): HOla, un hilo
+
+[INFO] 19:19:33:441 Team/(12433:12457): HOla, un hilo
+
+[INFO] 19:19:33:441 Team/(12433:12443): HOla, un hilo
+
+[INFO] 19:19:33:450 Team/(12433:12461): HOla, un hilo
+
+[INFO] 19:19:33:451 Team/(12433:12456): HOla, un hilo
+
+[INFO] 19:19:33:454 Team/(12433:12462): HOla, un hilo
+
+[INFO] 19:19:33:455 Team/(12433:12463): HOla, un hilo
+
+[INFO] 19:19:33:455 Team/(12433:12464): HOla, un hilo
+
+[INFO] 19:19:33:455 Team/(12433:12467): HOla, un hilo
+
+[INFO] 19:19:33:455 Team/(12433:12465): HOla, un hilo
+
+[INFO] 19:19:33:455 Team/(12433:12466): HOla, un hilo
+
+[INFO] 19:19:33:456 Team/(12433:12470): HOla, un hilo
+
+[INFO] 19:19:33:457 Team/(12433:12469): HOla, un hilo
+
+[INFO] 19:19:33:458 Team/(12433:12471): HOla, un hilo
+
+[INFO] 19:19:33:458 Team/(12433:12468): HOla, un hilo
+
+[INFO] 19:19:33:460 Team/(12433:12472): HOla, un hilo
+
+[INFO] 19:19:33:460 Team/(12433:12475): HOla, un hilo
+
+[INFO] 19:19:33:460 Team/(12433:12476): HOla, un hilo
+
+[INFO] 19:19:33:461 Team/(12433:12474): HOla, un hilo
+
+[INFO] 19:19:33:461 Team/(12433:12477): HOla, un hilo
+
+[INFO] 19:19:33:462 Team/(12433:12480): HOla, un hilo
+
+[INFO] 19:19:33:462 Team/(12433:12473): HOla, un hilo
+
+[INFO] 19:19:33:462 Team/(12433:12478): HOla, un hilo
+
+[INFO] 19:19:33:463 Team/(12433:12479): HOla, un hilo
+
+[INFO] 19:19:33:465 Team/(12433:12487): HOla, un hilo
+
+[INFO] 19:19:33:466 Team/(12433:12493): HOla, un hilo
+
+[INFO] 19:19:33:466 Team/(12433:12489): HOla, un hilo
+
+[INFO] 19:19:33:466 Team/(12433:12491): HOla, un hilo
+
+[INFO] 19:19:33:466 Team/(12433:12490): HOla, un hilo
+
+[INFO] 19:19:33:467 Team/(12433:12492): HOla, un hilo
+
+[INFO] 19:19:33:467 Team/(12433:12488): HOla, un hilo
+
+[INFO] 19:19:33:467 Team/(12433:12486): HOla, un hilo
+
+[INFO] 19:19:33:467 Team/(12433:12485): HOla, un hilo
+
+[INFO] 19:19:33:467 Team/(12433:12483): HOla, un hilo
+
+[INFO] 19:19:33:468 Team/(12433:12484): HOla, un hilo
+
+[INFO] 19:19:33:468 Team/(12433:12494): HOla, un hilo
+
+[INFO] 19:19:33:469 Team/(12433:12481): HOla, un hilo
+
+[INFO] 19:19:33:469 Team/(12433:12482): HOla, un hilo
+
+[INFO] 19:19:33:472 Team/(12433:12499): HOla, un hilo
+
+[INFO] 19:19:33:472 Team/(12433:12500): HOla, un hilo
+
+[INFO] 19:19:33:472 Team/(12433:12501): HOla, un hilo
+
+[INFO] 19:19:33:472 Team/(12433:12498): HOla, un hilo
+
+[INFO] 19:19:33:473 Team/(12433:12496): HOla, un hilo
+
+[INFO] 19:19:33:473 Team/(12433:12502): HOla, un hilo
+
+[INFO] 19:19:33:474 Team/(12433:12497): HOla, un hilo
+
+[INFO] 19:19:33:475 Team/(12433:12495): HOla, un hilo
+
+[INFO] 19:19:33:474 Team/(12433:12503): HOla, un hilo
+
+[INFO] 19:19:33:485 Team/(12433:12515): HOla, un hilo
+
+[INFO] 19:19:33:485 Team/(12433:12513): HOla, un hilo
+
+[INFO] 19:19:33:485 Team/(12433:12514): HOla, un hilo
+
+[INFO] 19:19:33:485 Team/(12433:12516): HOla, un hilo
+
+[INFO] 19:19:33:486 Team/(12433:12506): HOla, un hilo
+
+[INFO] 19:19:33:488 Team/(12433:12509): HOla, un hilo
+
+[INFO] 19:19:33:488 Team/(12433:12508): HOla, un hilo
+
+[INFO] 19:19:33:488 Team/(12433:12507): HOla, un hilo
+
+[INFO] 19:19:33:489 Team/(12433:12504): HOla, un hilo
+
+[INFO] 19:19:33:489 Team/(12433:12505): HOla, un hilo
+
+[INFO] 19:19:33:490 Team/(12433:12510): HOla, un hilo
+
+[INFO] 19:19:33:490 Team/(12433:12511): HOla, un hilo
+
+[INFO] 19:19:33:490 Team/(12433:12512): HOla, un hilo
+
+[INFO] 19:19:33:494 Team/(12433:12518): HOla, un hilo
+
+[INFO] 19:19:33:495 Team/(12433:12517): HOla, un hilo
+
+[INFO] 19:19:33:495 Team/(12433:12519): HOla, un hilo
+
+[INFO] 19:19:33:496 Team/(12433:12520): HOla, un hilo
+
+[INFO] 19:19:33:496 Team/(12433:12525): HOla, un hilo
+
+[INFO] 19:19:33:497 Team/(12433:12526): HOla, un hilo
+
+[INFO] 19:19:33:497 Team/(12433:12523): HOla, un hilo
+
+[INFO] 19:19:33:497 Team/(12433:12524): HOla, un hilo
+
+[INFO] 19:19:33:498 Team/(12433:12527): HOla, un hilo
+
+[INFO] 19:19:33:498 Team/(12433:12522): HOla, un hilo
+
+[INFO] 19:19:33:500 Team/(12433:12521): HOla, un hilo
+
+[INFO] 19:19:33:500 Team/(12433:12531): HOla, un hilo
+
+[INFO] 19:19:33:501 Team/(12433:12535): HOla, un hilo
+
+[INFO] 19:19:33:501 Team/(12433:12538): HOla, un hilo
+
+[INFO] 19:19:33:501 Team/(12433:12537): HOla, un hilo
+
+[INFO] 19:19:33:501 Team/(12433:12534): HOla, un hilo
+
+[INFO] 19:19:33:502 Team/(12433:12533): HOla, un hilo
+
+[INFO] 19:19:33:502 Team/(12433:12536): HOla, un hilo
+
+[INFO] 19:19:33:503 Team/(12433:12528): HOla, un hilo
+
+[INFO] 19:19:33:502 Team/(12433:12532): HOla, un hilo
+
+[INFO] 19:19:33:502 Team/(12433:12529): HOla, un hilo
+
+[INFO] 19:19:33:502 Team/(12433:12530): HOla, un hilo
+
+[INFO] 19:19:33:514 Team/(12433:12544): HOla, un hilo
+
+[INFO] 19:19:33:514 Team/(12433:12545): HOla, un hilo
+
+[INFO] 19:19:33:514 Team/(12433:12546): HOla, un hilo
+
+[INFO] 19:19:33:515 Team/(12433:12539): HOla, un hilo
+
+[INFO] 19:19:33:515 Team/(12433:12547): HOla, un hilo
+
+[INFO] 19:19:33:516 Team/(12433:12548): HOla, un hilo
+
+[INFO] 19:19:33:517 Team/(12433:12541): HOla, un hilo
+
+[INFO] 19:19:33:517 Team/(12433:12543): HOla, un hilo
+
+[INFO] 19:19:33:518 Team/(12433:12549): HOla, un hilo
+
+[INFO] 19:19:33:521 Team/(12433:12550): HOla, un hilo
+
+[INFO] 19:19:33:521 Team/(12433:12542): HOla, un hilo
+
+[INFO] 19:19:33:522 Team/(12433:12540): HOla, un hilo
+
+[INFO] 19:19:33:523 Team/(12433:12551): HOla, un hilo
+
+[INFO] 19:19:33:524 Team/(12433:12555): HOla, un hilo
+
+[INFO] 19:19:33:524 Team/(12433:12556): HOla, un hilo
+
+[INFO] 19:19:33:524 Team/(12433:12553): HOla, un hilo
+
+[INFO] 19:19:33:525 Team/(12433:12554): HOla, un hilo
+
+[INFO] 19:19:33:525 Team/(12433:12557): HOla, un hilo
+
+[INFO] 19:19:33:525 Team/(12433:12552): HOla, un hilo
+
+[INFO] 19:19:33:526 Team/(12433:12561): HOla, un hilo
+
+[INFO] 19:19:33:527 Team/(12433:12562): HOla, un hilo
+
+[INFO] 19:19:33:527 Team/(12433:12560): HOla, un hilo
+
+[INFO] 19:19:33:528 Team/(12433:12563): HOla, un hilo
+
+[INFO] 19:19:33:528 Team/(12433:12558): HOla, un hilo
+
+[INFO] 19:19:33:529 Team/(12433:12564): HOla, un hilo
+
+[INFO] 19:19:33:529 Team/(12433:12559): HOla, un hilo
+
+[INFO] 19:19:33:530 Team/(12433:12565): HOla, un hilo
+
+[INFO] 19:19:33:531 Team/(12433:12568): HOla, un hilo
+
+[INFO] 19:19:33:532 Team/(12433:12569): HOla, un hilo
+
+[INFO] 19:19:33:532 Team/(12433:12567): HOla, un hilo
+
+[INFO] 19:19:33:532 Team/(12433:12566): HOla, un hilo
+
+[INFO] 19:19:33:533 Team/(12433:12572): HOla, un hilo
+
+[INFO] 19:19:33:533 Team/(12433:12570): HOla, un hilo
+
+[INFO] 19:19:33:533 Team/(12433:12571): HOla, un hilo
+
+[INFO] 19:19:33:535 Team/(12433:12573): HOla, un hilo
+
+[INFO] 19:19:33:535 Team/(12433:12576): HOla, un hilo
+
+[INFO] 19:19:33:535 Team/(12433:12574): HOla, un hilo
+
+[INFO] 19:19:33:535 Team/(12433:12577): HOla, un hilo
+
+[INFO] 19:19:33:536 Team/(12433:12575): HOla, un hilo
+
+[INFO] 19:19:33:539 Team/(12433:12578): HOla, un hilo
+
+[INFO] 19:19:33:578 Team/(12433:12587): HOla, un hilo
+
+[INFO] 19:19:33:579 Team/(12433:12583): HOla, un hilo
+
+[INFO] 19:19:33:580 Team/(12433:12584): HOla, un hilo
+
+[INFO] 19:19:33:580 Team/(12433:12585): HOla, un hilo
+
+[INFO] 19:19:33:581 Team/(12433:12586): HOla, un hilo
+
+[INFO] 19:19:33:581 Team/(12433:12588): HOla, un hilo
+
+[INFO] 19:19:33:582 Team/(12433:12580): HOla, un hilo
+
+[INFO] 19:19:33:584 Team/(12433:12582): HOla, un hilo
+
+[INFO] 19:19:33:585 Team/(12433:12581): HOla, un hilo
+
+[INFO] 19:19:33:585 Team/(12433:12589): HOla, un hilo
+
+[INFO] 19:19:33:586 Team/(12433:12590): HOla, un hilo
+
+[INFO] 19:19:33:586 Team/(12433:12579): HOla, un hilo
+
+[INFO] 19:19:33:588 Team/(12433:12591): HOla, un hilo
+
+[INFO] 19:19:33:588 Team/(12433:12592): HOla, un hilo
+
+[INFO] 19:19:33:589 Team/(12433:12593): HOla, un hilo
+
+[INFO] 19:19:33:590 Team/(12433:12594): HOla, un hilo
+
+[INFO] 19:19:33:591 Team/(12433:12595): HOla, un hilo
+
+[INFO] 19:19:33:591 Team/(12433:12596): HOla, un hilo
+
+[INFO] 19:19:33:592 Team/(12433:12597): HOla, un hilo
+
+[INFO] 19:19:33:593 Team/(12433:12598): HOla, un hilo
+
+[INFO] 19:19:33:594 Team/(12433:12599): HOla, un hilo
+
+[INFO] 19:19:33:594 Team/(12433:12600): HOla, un hilo
+
+[INFO] 19:19:33:595 Team/(12433:12601): HOla, un hilo
+
+[INFO] 19:19:33:597 Team/(12433:12607): HOla, un hilo
+
+[INFO] 19:19:33:598 Team/(12433:12606): HOla, un hilo
+
+[INFO] 19:19:33:598 Team/(12433:12605): HOla, un hilo
+
+[INFO] 19:19:33:599 Team/(12433:12604): HOla, un hilo
+
+[INFO] 19:19:33:599 Team/(12433:12602): HOla, un hilo
+
+[INFO] 19:19:33:600 Team/(12433:12603): HOla, un hilo
+
+[INFO] 19:19:33:602 Team/(12433:12608): HOla, un hilo
+
+[INFO] 19:19:33:602 Team/(12433:12612): HOla, un hilo
+
+[INFO] 19:19:33:602 Team/(12433:12611): HOla, un hilo
+
+[INFO] 19:19:33:603 Team/(12433:12609): HOla, un hilo
+
+[INFO] 19:19:33:603 Team/(12433:12610): HOla, un hilo
+
+[INFO] 19:19:33:604 Team/(12433:12613): HOla, un hilo
+
+[INFO] 19:19:33:605 Team/(12433:12616): HOla, un hilo
+
+[INFO] 19:19:33:605 Team/(12433:12617): HOla, un hilo
+
+[INFO] 19:19:33:605 Team/(12433:12618): HOla, un hilo
+
+[INFO] 19:19:33:606 Team/(12433:12620): HOla, un hilo
+
+[INFO] 19:19:33:606 Team/(12433:12614): HOla, un hilo
+
+[INFO] 19:19:33:606 Team/(12433:12615): HOla, un hilo
+
+[INFO] 19:19:33:606 Team/(12433:12619): HOla, un hilo
+
+[INFO] 19:19:33:608 Team/(12433:12627): HOla, un hilo
+
+[INFO] 19:19:33:608 Team/(12433:12626): HOla, un hilo
+
+[INFO] 19:19:33:608 Team/(12433:12628): HOla, un hilo
+
+[INFO] 19:19:33:609 Team/(12433:12622): HOla, un hilo
+
+[INFO] 19:19:33:609 Team/(12433:12625): HOla, un hilo
+
+[INFO] 19:19:33:609 Team/(12433:12629): HOla, un hilo
+
+[INFO] 19:19:33:610 Team/(12433:12621): HOla, un hilo
+
+[INFO] 19:19:33:610 Team/(12433:12623): HOla, un hilo
+
+[INFO] 19:19:33:610 Team/(12433:12624): HOla, un hilo
+
+[INFO] 19:19:33:611 Team/(12433:12631): HOla, un hilo
+
+[INFO] 19:19:33:611 Team/(12433:12632): HOla, un hilo
+
+[INFO] 19:19:33:612 Team/(12433:12630): HOla, un hilo
+
+[INFO] 19:19:33:612 Team/(12433:12633): HOla, un hilo
+
+[INFO] 19:19:33:613 Team/(12433:12634): HOla, un hilo
+
+[INFO] 19:19:33:613 Team/(12433:12635): HOla, un hilo
+
+[INFO] 19:19:33:614 Team/(12433:12636): HOla, un hilo
+
+[INFO] 19:19:33:618 Team/(12433:12637): HOla, un hilo
+
+[INFO] 19:19:33:618 Team/(12433:12638): HOla, un hilo
+
+[INFO] 19:19:33:619 Team/(12433:12639): HOla, un hilo
+
+[INFO] 19:19:33:619 Team/(12433:12640): HOla, un hilo
+
+[INFO] 19:19:33:619 Team/(12433:12641): HOla, un hilo
+
+[INFO] 19:19:33:620 Team/(12433:12642): HOla, un hilo
+
+[INFO] 19:19:33:620 Team/(12433:12643): HOla, un hilo
+
+[INFO] 19:19:33:622 Team/(12433:12645): HOla, un hilo
+
+[INFO] 19:19:33:623 Team/(12433:12646): HOla, un hilo
+
+[INFO] 19:19:33:623 Team/(12433:12647): HOla, un hilo
+
+[INFO] 19:19:33:625 Team/(12433:12648): HOla, un hilo
+
+[INFO] 19:19:33:629 Team/(12433:12644): HOla, un hilo
+
+[INFO] 19:19:33:634 Team/(12433:12653): HOla, un hilo
+
+[INFO] 19:19:33:634 Team/(12433:12649): HOla, un hilo
+
+[INFO] 19:19:33:635 Team/(12433:12651): HOla, un hilo
+
+[INFO] 19:19:33:635 Team/(12433:12652): HOla, un hilo
+
+[INFO] 19:19:33:635 Team/(12433:12655): HOla, un hilo
+
+[INFO] 19:19:33:635 Team/(12433:12650): HOla, un hilo
+
+[INFO] 19:19:33:636 Team/(12433:12654): HOla, un hilo
+
+[INFO] 19:19:33:637 Team/(12433:12657): HOla, un hilo
+
+[INFO] 19:19:33:638 Team/(12433:12656): HOla, un hilo
+
+[INFO] 19:19:33:638 Team/(12433:12658): HOla, un hilo
+
+[INFO] 19:19:33:642 Team/(12433:12659): HOla, un hilo
+
+[INFO] 19:19:33:643 Team/(12433:12660): HOla, un hilo
+
+[INFO] 19:19:33:643 Team/(12433:12661): HOla, un hilo
+
+[INFO] 19:19:33:643 Team/(12433:12662): HOla, un hilo
+
+[INFO] 19:19:33:644 Team/(12433:12663): HOla, un hilo
+
+[INFO] 19:19:33:646 Team/(12433:12664): HOla, un hilo
+
+[INFO] 19:19:33:646 Team/(12433:12665): HOla, un hilo
+
+[INFO] 19:19:33:649 Team/(12433:12666): HOla, un hilo
+
+[INFO] 19:19:33:650 Team/(12433:12667): HOla, un hilo
+
+[INFO] 19:19:33:650 Team/(12433:12668): HOla, un hilo
+
+[INFO] 19:19:33:655 Team/(12433:12669): HOla, un hilo
+
+[INFO] 19:19:33:662 Team/(12433:12675): HOla, un hilo
+
+[INFO] 19:19:33:662 Team/(12433:12674): HOla, un hilo
+
+[INFO] 19:19:33:663 Team/(12433:12670): HOla, un hilo
+
+[INFO] 19:19:33:662 Team/(12433:12671): HOla, un hilo
+
+[INFO] 19:19:33:662 Team/(12433:12672): HOla, un hilo
+
+[INFO] 19:19:33:663 Team/(12433:12673): HOla, un hilo
+
+[INFO] 19:19:33:664 Team/(12433:12676): HOla, un hilo
+
+[INFO] 19:19:33:665 Team/(12433:12677): HOla, un hilo
+
+[INFO] 19:19:33:665 Team/(12433:12678): HOla, un hilo
+
+[INFO] 19:19:33:665 Team/(12433:12679): HOla, un hilo
+
+[INFO] 19:19:33:671 Team/(12433:12682): HOla, un hilo
+
+[INFO] 19:19:33:671 Team/(12433:12680): HOla, un hilo
+
+[INFO] 19:19:33:672 Team/(12433:12681): HOla, un hilo
+
+[INFO] 19:19:33:673 Team/(12433:12683): HOla, un hilo
+
+[INFO] 19:19:33:678 Team/(12433:12684): HOla, un hilo
+
+[INFO] 19:19:33:680 Team/(12433:12685): HOla, un hilo
+
+[INFO] 19:19:33:680 Team/(12433:12687): HOla, un hilo
+
+[INFO] 19:19:33:680 Team/(12433:12686): HOla, un hilo
+
+[INFO] 19:19:33:682 Team/(12433:12694): HOla, un hilo
+
+[INFO] 19:19:33:682 Team/(12433:12693): HOla, un hilo
+
+[INFO] 19:19:33:684 Team/(12433:12695): HOla, un hilo
+
+[INFO] 19:19:33:685 Team/(12433:12692): HOla, un hilo
+
+[INFO] 19:19:33:685 Team/(12433:12688): HOla, un hilo
+
+[INFO] 19:19:33:685 Team/(12433:12690): HOla, un hilo
+
+[INFO] 19:19:33:694 Team/(12433:12691): HOla, un hilo
+
+[INFO] 19:19:33:695 Team/(12433:12689): HOla, un hilo
+
+[INFO] 19:19:33:697 Team/(12433:12700): HOla, un hilo
+
+[INFO] 19:19:33:697 Team/(12433:12701): HOla, un hilo
+
+[INFO] 19:19:33:698 Team/(12433:12702): HOla, un hilo
+
+[INFO] 19:19:33:698 Team/(12433:12703): HOla, un hilo
+
+[INFO] 19:19:33:701 Team/(12433:12699): HOla, un hilo
+
+[INFO] 19:19:33:701 Team/(12433:12704): HOla, un hilo
+
+[INFO] 19:19:33:701 Team/(12433:12696): HOla, un hilo
+
+[INFO] 19:19:33:701 Team/(12433:12698): HOla, un hilo
+
+[INFO] 19:19:33:702 Team/(12433:12697): HOla, un hilo
+
+[INFO] 19:19:33:703 Team/(12433:12705): HOla, un hilo
+
+[INFO] 19:19:33:703 Team/(12433:12706): HOla, un hilo
+
+[INFO] 19:19:33:707 Team/(12433:12707): HOla, un hilo
+
+[INFO] 19:19:33:708 Team/(12433:12710): HOla, un hilo
+
+[INFO] 19:19:33:708 Team/(12433:12711): HOla, un hilo
+
+[INFO] 19:19:33:709 Team/(12433:12709): HOla, un hilo
+
+[INFO] 19:19:33:709 Team/(12433:12708): HOla, un hilo
+
+[INFO] 19:19:33:710 Team/(12433:12712): HOla, un hilo
+
+[INFO] 19:19:33:711 Team/(12433:12716): HOla, un hilo
+
+[INFO] 19:19:33:711 Team/(12433:12714): HOla, un hilo
+
+[INFO] 19:19:33:712 Team/(12433:12717): HOla, un hilo
+
+[INFO] 19:19:33:712 Team/(12433:12715): HOla, un hilo
+
+[INFO] 19:19:33:712 Team/(12433:12713): HOla, un hilo
+
+[INFO] 19:19:33:713 Team/(12433:12718): HOla, un hilo
+
+[INFO] 19:19:33:714 Team/(12433:12720): HOla, un hilo
+
+[INFO] 19:19:33:714 Team/(12433:12722): HOla, un hilo
+
+[INFO] 19:19:33:715 Team/(12433:12721): HOla, un hilo
+
+[INFO] 19:19:33:715 Team/(12433:12719): HOla, un hilo
+
+[INFO] 19:19:33:716 Team/(12433:12723): HOla, un hilo
+
+[INFO] 19:19:33:717 Team/(12433:12726): HOla, un hilo
+
+[INFO] 19:19:33:718 Team/(12433:12724): HOla, un hilo
+
+[INFO] 19:19:33:718 Team/(12433:12725): HOla, un hilo
+
+[INFO] 19:19:33:726 Team/(12433:12732): HOla, un hilo
+
+[INFO] 19:19:33:726 Team/(12433:12733): HOla, un hilo
+
+[INFO] 19:19:33:727 Team/(12433:12734): HOla, un hilo
+
+[INFO] 19:19:33:727 Team/(12433:12735): HOla, un hilo
+
+[INFO] 19:19:33:728 Team/(12433:12729): HOla, un hilo
+
+[INFO] 19:19:33:728 Team/(12433:12730): HOla, un hilo
+
+[INFO] 19:19:33:728 Team/(12433:12731): HOla, un hilo
+
+[INFO] 19:19:33:730 Team/(12433:12736): HOla, un hilo
+
+[INFO] 19:19:33:730 Team/(12433:12727): HOla, un hilo
+
+[INFO] 19:19:33:730 Team/(12433:12728): HOla, un hilo
+
+[INFO] 19:19:33:732 Team/(12433:12737): HOla, un hilo
+
+[INFO] 19:19:33:735 Team/(12433:12738): HOla, un hilo
+
+[INFO] 19:19:33:738 Team/(12433:12744): HOla, un hilo
+
+[INFO] 19:19:33:739 Team/(12433:12745): HOla, un hilo
+
+[INFO] 19:19:33:739 Team/(12433:12750): HOla, un hilo
+
+[INFO] 19:19:33:739 Team/(12433:12746): HOla, un hilo
+
+[INFO] 19:19:33:739 Team/(12433:12747): HOla, un hilo
+
+[INFO] 19:19:33:740 Team/(12433:12748): HOla, un hilo
+
+[INFO] 19:19:33:740 Team/(12433:12749): HOla, un hilo
+
+[INFO] 19:19:33:740 Team/(12433:12751): HOla, un hilo
+
+[INFO] 19:19:33:741 Team/(12433:12752): HOla, un hilo
+
+[INFO] 19:19:33:741 Team/(12433:12743): HOla, un hilo
+
+[INFO] 19:19:33:741 Team/(12433:12753): HOla, un hilo
+
+[INFO] 19:19:33:741 Team/(12433:12742): HOla, un hilo
+
+[INFO] 19:19:33:743 Team/(12433:12739): HOla, un hilo
+
+[INFO] 19:19:33:744 Team/(12433:12741): HOla, un hilo
+
+[INFO] 19:19:33:745 Team/(12433:12740): HOla, un hilo
+
+[INFO] 19:19:33:746 Team/(12433:12754): HOla, un hilo
+
+[INFO] 19:19:33:754 Team/(12433:12760): HOla, un hilo
+
+[INFO] 19:19:33:755 Team/(12433:12759): HOla, un hilo
+
+[INFO] 19:19:33:755 Team/(12433:12761): HOla, un hilo
+
+[INFO] 19:19:33:755 Team/(12433:12757): HOla, un hilo
+
+[INFO] 19:19:33:756 Team/(12433:12758): HOla, un hilo
+
+[INFO] 19:19:33:757 Team/(12433:12762): HOla, un hilo
+
+[INFO] 19:19:33:760 Team/(12433:12763): HOla, un hilo
+
+[INFO] 19:19:33:763 Team/(12433:12756): HOla, un hilo
+
+[INFO] 19:19:33:763 Team/(12433:12755): HOla, un hilo
+
+[INFO] 19:19:33:764 Team/(12433:12770): HOla, un hilo
+
+[INFO] 19:19:33:765 Team/(12433:12771): HOla, un hilo
+
+[INFO] 19:19:33:765 Team/(12433:12769): HOla, un hilo
+
+[INFO] 19:19:33:766 Team/(12433:12772): HOla, un hilo
+
+[INFO] 19:19:33:766 Team/(12433:12764): HOla, un hilo
+
+[INFO] 19:19:33:766 Team/(12433:12765): HOla, un hilo
+
+[INFO] 19:19:33:766 Team/(12433:12767): HOla, un hilo
+
+[INFO] 19:19:33:767 Team/(12433:12768): HOla, un hilo
+
+[INFO] 19:19:33:767 Team/(12433:12766): HOla, un hilo
+
+[INFO] 19:19:33:769 Team/(12433:12773): HOla, un hilo
+
+[INFO] 19:19:33:770 Team/(12433:12775): HOla, un hilo
+
+[INFO] 19:19:33:770 Team/(12433:12777): HOla, un hilo
+
+[INFO] 19:19:33:770 Team/(12433:12776): HOla, un hilo
+
+[INFO] 19:19:33:771 Team/(12433:12774): HOla, un hilo
+
+[INFO] 19:19:33:773 Team/(12433:12784): HOla, un hilo
+
+[INFO] 19:19:33:773 Team/(12433:12785): HOla, un hilo
+
+[INFO] 19:19:33:773 Team/(12433:12778): HOla, un hilo
+
+[INFO] 19:19:33:774 Team/(12433:12783): HOla, un hilo
+
+[INFO] 19:19:33:774 Team/(12433:12786): HOla, un hilo
+
+[INFO] 19:19:33:774 Team/(12433:12781): HOla, un hilo
+
+[INFO] 19:19:33:775 Team/(12433:12782): HOla, un hilo
+
+[INFO] 19:19:33:776 Team/(12433:12779): HOla, un hilo
+
+[INFO] 19:19:33:776 Team/(12433:12780): HOla, un hilo
+
+[INFO] 19:19:33:776 Team/(12433:12788): HOla, un hilo
+
+[INFO] 19:19:33:776 Team/(12433:12787): HOla, un hilo
+
+[INFO] 19:19:33:786 Team/(12433:12791): HOla, un hilo
+
+[INFO] 19:19:33:787 Team/(12433:12792): HOla, un hilo
+
+[INFO] 19:19:33:792 Team/(12433:12790): HOla, un hilo
+
+[INFO] 19:19:33:792 Team/(12433:12789): HOla, un hilo
+
+[INFO] 19:19:51:773 Team/(12433:12433): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 19:19:51:775 Team/(12433:12433): Chau!
+[INFO] 19:30:46:527 Team/(13165:13165): Hi, bienvenido a Team
+[INFO] 19:30:46:610 Team/(13165:13165): Cargando el archivo de configuracion...
+[INFO] 19:30:46:631 Team/(13165:13165): Las posiciones de entrenadores recuperadas
+[INFO] 19:30:46:653 Team/(13165:13165): Los pokemon de los entrenadores recuperados
+[INFO] 19:30:46:654 Team/(13165:13165): Los objetivos de los entrenadores recuperados
+[INFO] 19:30:46:659 Team/(13165:13165): El tiempo de reconexion es: 30
+[INFO] 19:30:46:660 Team/(13165:13165): El retardo de ciclo de cpu es: 2
+[INFO] 19:30:46:661 Team/(13165:13165): El algoritmo de planificacion es: RR
+[INFO] 19:30:46:662 Team/(13165:13165): El quantum es: 2
+[INFO] 19:30:46:664 Team/(13165:13165): La estimacion_inicial es: 0
+[INFO] 19:30:46:665 Team/(13165:13165): La ip del broker es: 127.0.0.1
+[INFO] 19:30:46:675 Team/(13165:13165): El puerto del broker es: 5002
+[INFO] 19:30:46:676 Team/(13165:13165): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:30:46:677 Team/(13165:13165): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:30:46:724 Team/(13165:13165): Cargando el objetivo global... 
+
+[INFO] 19:30:46:740 Team/(13165:13165): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:30:46:741 Team/(13165:13165): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:30:46:743 Team/(13165:13165): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:30:46:744 Team/(13165:13165): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:30:46:745 Team/(13165:13165): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:30:46:763 Team/(13165:13165): Objetivo global cargado
+
+[INFO] 19:34:05:995 Team/(13310:13310): Hi, bienvenido a Team
+[INFO] 19:34:06:72 Team/(13310:13310): Cargando el archivo de configuracion...
+[INFO] 19:34:06:98 Team/(13310:13310): Las posiciones de entrenadores recuperadas
+[INFO] 19:34:06:100 Team/(13310:13310): Los pokemon de los entrenadores recuperados
+[INFO] 19:34:06:107 Team/(13310:13310): Los objetivos de los entrenadores recuperados
+[INFO] 19:34:06:112 Team/(13310:13310): El tiempo de reconexion es: 30
+[INFO] 19:34:06:113 Team/(13310:13310): El retardo de ciclo de cpu es: 2
+[INFO] 19:34:06:118 Team/(13310:13310): El algoritmo de planificacion es: RR
+[INFO] 19:34:06:119 Team/(13310:13310): El quantum es: 2
+[INFO] 19:34:06:120 Team/(13310:13310): La estimacion_inicial es: 0
+[INFO] 19:34:06:130 Team/(13310:13310): La ip del broker es: 127.0.0.1
+[INFO] 19:34:06:132 Team/(13310:13310): El puerto del broker es: 5002
+[INFO] 19:34:06:133 Team/(13310:13310): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:34:06:135 Team/(13310:13310): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:34:06:183 Team/(13310:13310): Cargando el objetivo global... 
+
+[INFO] 19:34:06:189 Team/(13310:13310): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:34:06:190 Team/(13310:13310): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:34:06:192 Team/(13310:13310): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:34:06:192 Team/(13310:13310): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:34:06:193 Team/(13310:13310): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:34:06:195 Team/(13310:13310): Objetivo global cargado
+
+[INFO] 19:36:37:269 Team/(13381:13381): Hi, bienvenido a Team
+[INFO] 19:36:37:436 Team/(13381:13381): Cargando el archivo de configuracion...
+[INFO] 19:36:37:466 Team/(13381:13381): Las posiciones de entrenadores recuperadas
+[INFO] 19:36:37:467 Team/(13381:13381): Los pokemon de los entrenadores recuperados
+[INFO] 19:36:37:490 Team/(13381:13381): Los objetivos de los entrenadores recuperados
+[INFO] 19:36:37:499 Team/(13381:13381): El tiempo de reconexion es: 30
+[INFO] 19:36:37:502 Team/(13381:13381): El retardo de ciclo de cpu es: 2
+[INFO] 19:36:37:511 Team/(13381:13381): El algoritmo de planificacion es: RR
+[INFO] 19:36:37:514 Team/(13381:13381): El quantum es: 2
+[INFO] 19:36:37:516 Team/(13381:13381): La estimacion_inicial es: 0
+[INFO] 19:36:37:531 Team/(13381:13381): La ip del broker es: 127.0.0.1
+[INFO] 19:36:37:532 Team/(13381:13381): El puerto del broker es: 5002
+[INFO] 19:36:37:543 Team/(13381:13381): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:36:37:547 Team/(13381:13381): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:36:37:608 Team/(13381:13381): Cargando el objetivo global... 
+
+[INFO] 19:36:37:618 Team/(13381:13381): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:36:37:621 Team/(13381:13381): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:36:37:623 Team/(13381:13381): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:36:37:626 Team/(13381:13381): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:36:37:627 Team/(13381:13381): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:36:37:630 Team/(13381:13381): Objetivo global cargado
+
+[INFO] 19:36:37:684 Team/(13381:13382): HOla, soy el hilo para el entrenador
+
+[INFO] 19:36:37:691 Team/(13381:13383): HOla, soy el hilo para el entrenador
+
+[INFO] 19:36:37:691 Team/(13381:13384): HOla, soy el hilo para el entrenador
+
+[INFO] 19:36:52:915 Team/(13381:13381): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 19:36:52:918 Team/(13381:13381): Chau!
+[INFO] 19:36:58:713 Team/(13388:13388): Hi, bienvenido a Team
+[INFO] 19:36:58:714 Team/(13388:13388): Cargando el archivo de configuracion...
+[INFO] 19:36:58:714 Team/(13388:13388): Las posiciones de entrenadores recuperadas
+[INFO] 19:36:58:714 Team/(13388:13388): Los pokemon de los entrenadores recuperados
+[INFO] 19:36:58:714 Team/(13388:13388): Los objetivos de los entrenadores recuperados
+[INFO] 19:36:58:714 Team/(13388:13388): El tiempo de reconexion es: 30
+[INFO] 19:36:58:714 Team/(13388:13388): El retardo de ciclo de cpu es: 2
+[INFO] 19:36:58:714 Team/(13388:13388): El algoritmo de planificacion es: RR
+[INFO] 19:36:58:714 Team/(13388:13388): El quantum es: 2
+[INFO] 19:36:58:714 Team/(13388:13388): La estimacion_inicial es: 0
+[INFO] 19:36:58:715 Team/(13388:13388): La ip del broker es: 127.0.0.1
+[INFO] 19:36:58:715 Team/(13388:13388): El puerto del broker es: 5002
+[INFO] 19:36:58:715 Team/(13388:13388): El log file es: /home/utnso/log_team1.txt
+[INFO] 19:36:58:715 Team/(13388:13388): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 19:36:58:715 Team/(13388:13388): Cargando el objetivo global... 
+
+[INFO] 19:36:58:715 Team/(13388:13388): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 19:36:58:715 Team/(13388:13388): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 19:36:58:715 Team/(13388:13388): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 19:36:58:716 Team/(13388:13388): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 19:36:58:716 Team/(13388:13388): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 19:36:58:716 Team/(13388:13388): Objetivo global cargado
+
+[INFO] 19:36:58:716 Team/(13388:13391): HOla, soy el hilo para el entrenador
+
+[INFO] 19:36:58:716 Team/(13388:13390): HOla, soy el hilo para el entrenador
+
+[INFO] 19:36:58:716 Team/(13388:13389): HOla, soy el hilo para el entrenador
+
+[INFO] 19:42:30:614 Team/(13388:13388): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 19:42:30:614 Team/(13388:13388): Chau!
+[INFO] 20:15:30:524 Team/(14710:14710): Hi, bienvenido a Team
+[INFO] 20:15:30:524 Team/(14710:14710): Cargando el archivo de configuracion...
+[INFO] 20:15:30:524 Team/(14710:14710): Las posiciones de entrenadores recuperadas
+[INFO] 20:15:30:525 Team/(14710:14710): Los pokemon de los entrenadores recuperados
+[INFO] 20:15:30:525 Team/(14710:14710): Los objetivos de los entrenadores recuperados
+[INFO] 20:15:30:525 Team/(14710:14710): El tiempo de reconexion es: 30
+[INFO] 20:15:30:525 Team/(14710:14710): El retardo de ciclo de cpu es: 2
+[INFO] 20:15:30:525 Team/(14710:14710): El algoritmo de planificacion es: RR
+[INFO] 20:15:30:525 Team/(14710:14710): El quantum es: 2
+[INFO] 20:15:30:525 Team/(14710:14710): La estimacion_inicial es: 0
+[INFO] 20:15:30:525 Team/(14710:14710): La ip del broker es: 127.0.0.1
+[INFO] 20:15:30:525 Team/(14710:14710): El puerto del broker es: 5002
+[INFO] 20:15:30:525 Team/(14710:14710): El log file es: /home/utnso/log_team1.txt
+[INFO] 20:15:30:526 Team/(14710:14710): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 20:15:30:526 Team/(14710:14710): Cargando el objetivo global... 
+
+[INFO] 20:15:30:526 Team/(14710:14710): Un tipo de pokemon es: Squirtle y la cantidad es 2
+
+[INFO] 20:15:30:526 Team/(14710:14710): Un tipo de pokemon es: Pikachu y la cantidad es 1
+
+[INFO] 20:15:30:526 Team/(14710:14710): Un tipo de pokemon es: Pidgey y la cantidad es 1
+
+[INFO] 20:15:30:526 Team/(14710:14710): Un tipo de pokemon es: Charmander y la cantidad es 1
+
+[INFO] 20:15:30:526 Team/(14710:14710): Un tipo de pokemon es: Bulbasaur y la cantidad es 1 
+
+[INFO] 20:15:30:527 Team/(14710:14710): Objetivo global cargado
+
+[INFO] 20:16:47:638 Team/(14710:14710): 
+Se aceptó un nuevo cliente
+[INFO] 20:16:47:669 Team/(14710:14710): Voy a recibir un pokemon y coordenadas
+[INFO] 20:16:47:670 Team/(14710:14710): Me llego este pokemon: picachu
+[INFO] 20:16:47:670 Team/(14710:14710): La coordenada X es: 3
+[INFO] 20:16:47:670 Team/(14710:14710): La coordenada Y es: 5
+[INFO] 20:17:03:375 Team/(14710:14710): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 20:17:03:376 Team/(14710:14710): Chau!
+[INFO] 20:17:10:98 Team/(14799:14799): Hi, bienvenido a Team
+[INFO] 20:17:10:98 Team/(14799:14799): Cargando el archivo de configuracion...
+[INFO] 20:17:10:98 Team/(14799:14799): Las posiciones de entrenadores recuperadas
+[INFO] 20:17:10:98 Team/(14799:14799): Los pokemon de los entrenadores recuperados
+[INFO] 20:17:10:98 Team/(14799:14799): Los objetivos de los entrenadores recuperados
+[INFO] 20:17:10:98 Team/(14799:14799): El tiempo de reconexion es: 30
+[INFO] 20:17:10:98 Team/(14799:14799): El retardo de ciclo de cpu es: 2
+[INFO] 20:17:10:98 Team/(14799:14799): El algoritmo de planificacion es: RR
+[INFO] 20:17:10:98 Team/(14799:14799): El quantum es: 2
+[INFO] 20:17:10:99 Team/(14799:14799): La estimacion_inicial es: 0
+[INFO] 20:17:10:99 Team/(14799:14799): La ip del broker es: 127.0.0.1
+[INFO] 20:17:10:99 Team/(14799:14799): El puerto del broker es: 5002
+[INFO] 20:17:10:99 Team/(14799:14799): El log file es: /home/utnso/log_team1.txt
+[INFO] 20:17:10:99 Team/(14799:14799): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 20:17:10:99 Team/(14799:14799): Cargando el objetivo global... 
+
+[INFO] 20:17:10:99 Team/(14799:14799): Un tipo de pokemon es: Squirtle y la cantidad es 2
+
+[INFO] 20:17:10:99 Team/(14799:14799): Un tipo de pokemon es: Pikachu y la cantidad es 1
+
+[INFO] 20:17:10:100 Team/(14799:14799): Un tipo de pokemon es: Pidgey y la cantidad es 1
+
+[INFO] 20:17:10:100 Team/(14799:14799): Un tipo de pokemon es: Charmander y la cantidad es 1
+
+[INFO] 20:17:10:100 Team/(14799:14799): Un tipo de pokemon es: Bulbasaur y la cantidad es 1 
+
+[INFO] 20:17:10:100 Team/(14799:14799): Objetivo global cargado
+
+[INFO] 20:17:21:526 Team/(14799:14799): 
+Se aceptó un nuevo cliente
+[INFO] 20:17:21:543 Team/(14799:14799): Voy a recibir un pokemon y coordenadas
+[INFO] 20:17:21:543 Team/(14799:14799): Me llego este pokemon: picachu
+[INFO] 20:17:21:543 Team/(14799:14799): La coordenada X es: 3
+[INFO] 20:17:21:543 Team/(14799:14799): La coordenada Y es: 5
+[INFO] 20:18:17:480 Team/(14799:14799): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 20:18:17:481 Team/(14799:14799): Chau!
+[INFO] 20:18:24:360 Team/(14863:14863): Hi, bienvenido a Team
+[INFO] 20:18:24:360 Team/(14863:14863): Cargando el archivo de configuracion...
+[INFO] 20:18:24:361 Team/(14863:14863): Las posiciones de entrenadores recuperadas
+[INFO] 20:18:24:361 Team/(14863:14863): Los pokemon de los entrenadores recuperados
+[INFO] 20:18:24:361 Team/(14863:14863): Los objetivos de los entrenadores recuperados
+[INFO] 20:18:24:361 Team/(14863:14863): El tiempo de reconexion es: 30
+[INFO] 20:18:24:361 Team/(14863:14863): El retardo de ciclo de cpu es: 2
+[INFO] 20:18:24:361 Team/(14863:14863): El algoritmo de planificacion es: RR
+[INFO] 20:18:24:361 Team/(14863:14863): El quantum es: 2
+[INFO] 20:18:24:361 Team/(14863:14863): La estimacion_inicial es: 0
+[INFO] 20:18:24:361 Team/(14863:14863): La ip del broker es: 127.0.0.1
+[INFO] 20:18:24:361 Team/(14863:14863): El puerto del broker es: 5002
+[INFO] 20:18:24:362 Team/(14863:14863): El log file es: /home/utnso/log_team1.txt
+[INFO] 20:18:24:362 Team/(14863:14863): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 20:18:24:362 Team/(14863:14863): Cargando el objetivo global... 
+
+[INFO] 20:18:24:362 Team/(14863:14863): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 20:18:24:362 Team/(14863:14863): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 20:18:24:362 Team/(14863:14863): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 20:18:24:362 Team/(14863:14863): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 20:18:24:362 Team/(14863:14863): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 20:18:24:362 Team/(14863:14863): Objetivo global cargado
+
+[INFO] 20:18:39:484 Team/(14863:14863): 
+Se aceptó un nuevo cliente
+[INFO] 20:18:39:501 Team/(14863:14863): Voy a recibir un pokemon y coordenadas
+[INFO] 20:18:39:502 Team/(14863:14863): Me llego este pokemon: picachu
+[INFO] 20:18:39:502 Team/(14863:14863): La coordenada X es: 3
+[INFO] 20:18:39:502 Team/(14863:14863): La coordenada Y es: 5
+[INFO] 20:19:07:347 Team/(14863:14863): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 20:19:07:347 Team/(14863:14863): Chau!
+[INFO] 20:23:26:49 Team/(15013:15013): Hi, bienvenido a Team
+[INFO] 20:23:27:143 Team/(15013:15013): Cargando el archivo de configuracion...
+[INFO] 20:23:27:167 Team/(15013:15013): Las posiciones de entrenadores recuperadas
+[INFO] 20:23:27:168 Team/(15013:15013): Los pokemon de los entrenadores recuperados
+[INFO] 20:23:27:174 Team/(15013:15013): Los objetivos de los entrenadores recuperados
+[INFO] 20:23:27:178 Team/(15013:15013): El tiempo de reconexion es: 30
+[INFO] 20:23:27:179 Team/(15013:15013): El retardo de ciclo de cpu es: 2
+[INFO] 20:23:27:181 Team/(15013:15013): El algoritmo de planificacion es: RR
+[INFO] 20:23:27:182 Team/(15013:15013): El quantum es: 2
+[INFO] 20:23:27:191 Team/(15013:15013): La estimacion_inicial es: 0
+[INFO] 20:23:27:192 Team/(15013:15013): La ip del broker es: 127.0.0.1
+[INFO] 20:23:27:199 Team/(15013:15013): El puerto del broker es: 5002
+[INFO] 20:23:27:200 Team/(15013:15013): El log file es: /home/utnso/log_team1.txt
+[INFO] 20:23:27:201 Team/(15013:15013): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 20:23:27:242 Team/(15013:15013): Cargando el objetivo global... 
+
+[INFO] 20:23:27:253 Team/(15013:15013): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 20:23:27:258 Team/(15013:15013): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 20:23:27:262 Team/(15013:15013): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 20:23:27:266 Team/(15013:15013): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 20:23:27:267 Team/(15013:15013): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 20:23:27:269 Team/(15013:15013): Objetivo global cargado
+
+[INFO] 20:23:31:990 Team/(15013:15013): 
+Se aceptó un nuevo cliente
+[INFO] 20:23:32:7 Team/(15013:15013): Voy a recibir un pokemon y coordenadas
+[INFO] 20:23:32:10 Team/(15013:15013): Me llego este pokemon: picachu
+[INFO] 20:23:32:12 Team/(15013:15013): La coordenada X es: 3
+[INFO] 20:23:32:13 Team/(15013:15013): La coordenada Y es: 5
+[INFO] 20:23:36:975 Team/(15013:15013): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 20:23:36:979 Team/(15013:15013): Chau!
+[INFO] 01:02:21:587 Team/(13418:13418): Hi, bienvenido a Team
+[INFO] 01:02:21:595 Team/(13418:13418): Cargando el archivo de configuracion...
+[INFO] 01:02:21:595 Team/(13418:13418): Las posiciones de entrenadores recuperadas
+[INFO] 01:02:21:596 Team/(13418:13418): Los pokemon de los entrenadores recuperados
+[INFO] 01:02:21:596 Team/(13418:13418): Los objetivos de los entrenadores recuperados
+[INFO] 01:02:21:596 Team/(13418:13418): El tiempo de reconexion es: 30
+[INFO] 01:02:21:596 Team/(13418:13418): El retardo de ciclo de cpu es: 2
+[INFO] 01:02:21:598 Team/(13418:13418): El algoritmo de planificacion es: RR
+[INFO] 01:02:21:598 Team/(13418:13418): El quantum es: 2
+[INFO] 01:02:21:598 Team/(13418:13418): La estimacion_inicial es: 0
+[INFO] 01:02:21:599 Team/(13418:13418): La ip del broker es: 127.0.0.1
+[INFO] 01:02:21:599 Team/(13418:13418): El puerto del broker es: 5002
+[INFO] 01:02:21:599 Team/(13418:13418): El log file es: /home/utnso/log_team1.txt
+[INFO] 01:02:21:599 Team/(13418:13418): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 01:02:21:599 Team/(13418:13418): Cargando el objetivo global... 
+
+[INFO] 01:02:21:599 Team/(13418:13418): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 01:02:21:599 Team/(13418:13418): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 01:02:21:599 Team/(13418:13418): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 01:02:21:599 Team/(13418:13418): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 01:02:21:600 Team/(13418:13418): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 01:02:21:600 Team/(13418:13418): Objetivo global cargado
+
+[INFO] 01:02:54:785 Team/(13418:13418): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 01:02:54:785 Team/(13418:13418): Chau!
+[INFO] 01:10:14:719 Team/(13887:13887): Hi, bienvenido a Team
+[INFO] 01:10:14:719 Team/(13887:13887): Cargando el archivo de configuracion...
+[INFO] 01:10:14:719 Team/(13887:13887): Las posiciones de entrenadores recuperadas
+[INFO] 01:10:14:720 Team/(13887:13887): Los pokemon de los entrenadores recuperados
+[INFO] 01:10:14:720 Team/(13887:13887): Los objetivos de los entrenadores recuperados
+[INFO] 01:10:14:720 Team/(13887:13887): El tiempo de reconexion es: 30
+[INFO] 01:10:14:720 Team/(13887:13887): El retardo de ciclo de cpu es: 2
+[INFO] 01:10:14:720 Team/(13887:13887): El algoritmo de planificacion es: RR
+[INFO] 01:10:14:720 Team/(13887:13887): El quantum es: 2
+[INFO] 01:10:14:720 Team/(13887:13887): La estimacion_inicial es: 0
+[INFO] 01:10:14:720 Team/(13887:13887): La ip del broker es: 127.0.0.1
+[INFO] 01:10:14:720 Team/(13887:13887): El puerto del broker es: 5002
+[INFO] 01:10:14:720 Team/(13887:13887): El log file es: /home/utnso/log_team1.txt
+[INFO] 01:10:14:720 Team/(13887:13887): 
+Archivo de configuracion cargado correctamente :)
+[INFO] 01:10:14:721 Team/(13887:13887): Cargando el objetivo global... 
+
+[INFO] 01:10:14:721 Team/(13887:13887): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 01:10:14:721 Team/(13887:13887): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 01:10:14:721 Team/(13887:13887): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 01:10:14:721 Team/(13887:13887): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 01:10:14:721 Team/(13887:13887): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 01:10:14:721 Team/(13887:13887): Objetivo global cargado
+
+[INFO] 01:10:16:417 Team/(13887:13887): 
+ TEAM DEJA DE FUNCIONAR
+[INFO] 01:10:16:417 Team/(13887:13887): Chau!

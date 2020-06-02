@@ -148,10 +148,10 @@ void iniciar_servidor(void){
     freeaddrinfo(servinfo);
 
     while(1)
-    	esperar_gameboy(socket_servidor);
+    	esperar_cliente(socket_servidor);
 }
 
-void esperar_gameboy(int socket_servidor){
+void esperar_cliente(int socket_servidor){
 	struct sockaddr_in dir_cliente;
 	int tam_direccion = sizeof(struct sockaddr_in);
 	int socket_cliente = accept(socket_servidor, (void*) &dir_cliente, &tam_direccion);
@@ -185,6 +185,8 @@ deberá agregar un retardo de X segundos configurado por archivo de configuraci�
 
 void meter_entrenadores_en_ready(){
 	//TODO ACA ES CUANDO ENTRAN EN JUEGO LOS HILOS, SE PONE CADA ENTRENADOR EN LA LISTA_LISTOS
+
+
 }
 
 void chequear_si_hay_pokemones_nuevos(){
@@ -218,17 +220,114 @@ cumplió el objetivo global.
 }
 
 
+int hacer_intento_de_reconexion(){
+	sleep(tiempo_reconexion);
+	int broker_socket = conectar_broker();
+	return broker_socket;
+}
+
+int conectar_broker() {
+	/*
+	Cabe aclarar que el Proceso Team debe poder ejecutarse sin haber establecido la conexión con el	Broker.
+	Es decir, si el broker se encuentra sin funcionar o se cae durante la ejecución, el proceso Team debe seguir procesando sus funciones sin el mismo.
+	Para esto, se contarán con funciones 	default para aquellos mensajes que el Proceso Team envíe directamente al Broker.
+	En caso que la conexión no llegue a realizarse o se caiga, el proceso Team deberá contar con un sistema de reintento de conexión cada X segundos
+	configurado desde archivo de configuración.
+		 */
+
+	int broker_socket = conectar_a_server(ip_broker, puerto_broker);
+	if (broker_socket < 0){
+		log_info(team_logger, "Error al intentar conectar al broker\n");
+		broker_socket = hacer_intento_de_reconexion();
+	}
+	else{
+		log_info(team_logger, "Conectado con el broker! (%d)",broker_socket);
+	}
+
+	return broker_socket;
+}
+
 
 void conectarse_a_colas_de_broker(){
 	/*
-	 * Cabe aclarar que el Proceso Team debe poder ejecutarse sin haber establecido la conexión con el
-Broker. Es decir, si el broker se encuentra sin funcionar o se cae durante la ejecución, el proceso
-Team debe seguir procesando sus funciones sin el mismo. Para esto, se contarán con funciones
-default para aquellos mensajes que el Proceso Team envíe directamente al Broker.
-En caso que la conexión no llegue a realizarse o se caiga, el proceso Team deberá contar con un
-sistema de reintento de conexión cada X segundos configurado desde archivo de configuración.
-	 */
+	Cabe aclarar que el Proceso Team debe poder ejecutarse sin haber establecido la conexión con el	Broker.
+	Es decir, si el broker se encuentra sin funcionar o se cae durante la ejecución, el proceso Team debe seguir procesando sus funciones sin el mismo.
+	Para esto, se contarán con funciones 	default para aquellos mensajes que el Proceso Team envíe directamente al Broker.
+	En caso que la conexión no llegue a realizarse o se caiga, el proceso Team deberá contar con un sistema de reintento de conexión cada X segundos
+	configurado desde archivo de configuración.
+		 */
+
+	int broker_socket = conectar_a_server(ip_broker, puerto_broker);
+	if (broker_socket < 0){
+		log_info(team_logger, "Error al intentar conectar al broker\n");
+		broker_socket = hacer_intento_de_reconexion();
+	}
+	else{
+		log_info(team_logger, "Conectado con el broker! (%d)",broker_socket);
+	}
+
+	return broker_socket;
 }
+
+void enviar_get(int socket_broker){
+	/*
+Este mensaje se ejecutará al iniciar el proceso Team. El objetivo del mismo es obtener todas las locaciones de una especie de Pokemon.
+De esta manera, al iniciar el proceso, por cada especie de Pokémon requerido se debe enviar un mensaje a la cola de mensajes GET_POKEMON del Broker.
+Para esto se deben ejecutar los siguientes pasos:
+1. Enviar el mensaje a la cola de mensajes GET_POKEMON indicando cual es la especie del Pokemon.
+2. Obtener el ID del mensaje anterior desde el Broker.
+En caso que el Broker no se encuentre funcionando o la conexión inicial falle, se deberá tomar como comportamiento Default que no existen locaciones para la especie requerida.
+	 */
+	if (socket_broker < 0){
+		log_info(team_logger, "NO EXISTEN LOCACIONES PARA LA ESPECIE REQUERIDA\n");
+	}
+	else{
+		enviar_mensaje_por_cada_pokemon_requerido(socket_broker);
+	}
+
+}
+
+t_objetivo * sacar_objetivo_de_la_lista(t_list* lista, char* especie){
+	bool is_especie(t_objetivo * objetivo){
+		return !strcmp(objetivo->especie, especie);
+	}
+	return (list_remove_by_condition(lista,(void*)is_especie));
+}
+
+void enviar_mensaje_por_cada_pokemon_requerido(int socket_broker){
+	t_list * lista_aux;
+	t_objetivo * objetivo;
+	lista_aux = list_duplicate(lista_objetivos);
+
+	if(!list_is_empty(lista_objetivos)){
+
+		while(!list_is_empty(lista_aux)){
+			objetivo = sacar_objetivo_de_la_lista(lista_objetivos, objetivo->especie);
+
+			t_get_pokemon* get_pokemon = malloc(sizeof(t_get_pokemon));
+			get_pokemon->pokemon = objetivo->especie;
+			enviar_get_pokemon(socket_broker, -1, -1, get_pokemon);
+			free(get_pokemon);
+
+			//RECIBIR ACK
+		}
+	}
+	else{
+		log_info(team_logger, "ERROR! No hay OBJETIVOS");
+	}
+
+	list_destroy(lista_aux);
+}
+
+void convertirse_en_suscriptor_global_del_broker(int socket_broker){
+	enviar_solicitud_suscripcion(socket_broker, COLA_APPEARED_POKEMON, SUSCRIPCION_GLOBAL);
+	//recibir ACK
+	enviar_solicitud_suscripcion(socket_broker, COLA_CAUGHT_POKEMON, SUSCRIPCION_GLOBAL);
+	//recibir ACK
+	enviar_solicitud_suscripcion(socket_broker, COLA_LOCALIZED_POKEMON, SUSCRIPCION_GLOBAL);
+	//recibir ACK
+}
+
 
 int main(){
 
@@ -240,11 +339,13 @@ int main(){
 	definir_objetivo_global();//sacar los leaks
 	localizar_entrenadores_en_mapa();
 
+	int broker = conectar_broker();
+	enviar_get(broker);
+	convertirse_en_suscriptor_global_del_broker(broker);
+
 	iniciar_servidor();
-	conectarse_a_colas_de_broker();
 
 	planificar();
 
-	//enviar_get();
 	//liberar el config de arriba
 }
