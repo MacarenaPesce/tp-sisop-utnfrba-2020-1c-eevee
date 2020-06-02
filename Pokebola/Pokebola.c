@@ -93,8 +93,10 @@ t_packed* recibir_mensaje(int sock){
 	paquete = (t_packed*)malloc(sizeof(t_packed));
 	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
 
-	mensaje = (void*)malloc(paquete->tamanio_payload);
-	recibir_paquete(sock, mensaje, paquete->tamanio_payload);
+	if(paquete->tamanio_payload > 0){
+		mensaje = (void*)malloc(paquete->tamanio_payload);
+		recibir_paquete(sock, mensaje, paquete->tamanio_payload);
+	}
 
 	switch(paquete->operacion){
 		case ENVIAR_MENSAJE:
@@ -103,6 +105,9 @@ t_packed* recibir_mensaje(int sock){
 		
 		case SUSCRIBIRSE_A_COLA:
 			_recibir_solicitud_suscripcion(mensaje,paquete);
+			break;
+
+		case ACK:
 			break;
 		
 		default:
@@ -304,6 +309,20 @@ void enviar_get_pokemon(int socket,
 
 	_agregar_uint32_t_a_paquete(paquete, strlen(get_pokemon->pokemon)+1);
 	_agregar_string_a_paquete(paquete, get_pokemon->pokemon);
+
+	_enviar_mensaje(socket, paquete);
+	_eliminar_mensaje(paquete);
+
+};
+
+void enviar_ack(int socket,
+				uint32_t id_mensaje, 
+				uint32_t id_correlacional){
+	t_packed* paquete;
+	paquete = _crear_paquete(ACK);
+
+	paquete->id_mensaje = id_mensaje;
+	paquete->id_correlacional = id_correlacional;
 
 	_enviar_mensaje(socket, paquete);
 	_eliminar_mensaje(paquete);
