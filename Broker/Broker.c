@@ -76,6 +76,8 @@ void* esperar_mensajes(void* cliente){
 			//Esto me devuelve el paquete con todos los datos
 			/* El nro de operacion y cola de mensajes indican el 
 			tipo de estructura que contiene el paquete */
+
+			printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
 			printf("operacion: %d \n",paquete->operacion);
 			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
 			printf("id_correlacional: %d  \n",paquete->id_correlacional);
