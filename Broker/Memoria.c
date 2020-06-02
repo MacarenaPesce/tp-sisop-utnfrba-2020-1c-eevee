@@ -111,19 +111,19 @@ void* algoritmo_memoria(t_list* lista_memoria, int tamanio_en_bytes){
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
 void particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes){
 
-    
+    return ;
 
 }
-//-------------------------FIN DE PARTICIONES DINAMICAS-------------------------
-
 
 
 //------------------------------BUDDY SYSTEM----------------------------------
 void buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
 
-}
-//----------------------------FIN BUDDY SYSTEM----------------------------------
+    bool tamanio_es_potencia=tamanio_potencia_dos(tamanio_en_bytes);
 
+    return ;
+    
+}
 
 //---------------------------FIN DE ALGORITMOS DE MEMORIA-----------------------
 
@@ -135,6 +135,7 @@ void buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
 void* algoritmo_reemplazo(){
 
     return;
+
 }
 //------------------------------FIFO--------------------------------
 

@@ -137,3 +137,19 @@ int calcularBytes (t_packed* paquete){
 
     return bytes;
 }
+
+
+//Calculo si un numero es potencia de dos para buddy system
+bool tamanio_potencia_dos(int tamanio_en_bytes){
+	
+	if((tamanio_en_bytes == 0) && (tamanio_en_bytes < 0){
+
+		return false;
+
+	}
+	else{
+
+		return ((tamanio_en_bytes & (tamanio_en_bytes - 1)) == 0);
+
+	}
+}
