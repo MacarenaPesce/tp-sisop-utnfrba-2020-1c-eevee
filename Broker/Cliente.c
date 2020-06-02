@@ -28,6 +28,8 @@ int main(){
 	new_pokemon.pokemon = "pikachu";
 
 	enviar_new_pokemon(socket,-1,-1,&new_pokemon);
+	enviar_new_pokemon(socket,-1,-1,&new_pokemon);
+
 
 	/* Caught Pokemon*/
 	/*t_caught_pokemon caught_pokemon;
@@ -46,5 +48,28 @@ int main(){
 	suscripcion.minutos_suscripcion = -1;
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
 	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);*/
-	
+	esperar_mensajes(socket);
+}
+
+
+void esperar_mensajes(int socket_server){
+	while(1){
+		//Creo un paquete y recibo el mensaje
+		t_packed* paquete;
+		paquete = recibir_mensaje(socket_server);
+
+		if(paquete != -1){
+			//Esto me devuelve el paquete con todos los datos
+			/* El nro de operacion y cola de mensajes indican el 
+			tipo de estructura que contiene el paquete */
+			printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
+			printf("operacion: %d \n",paquete->operacion);
+			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
+			printf("id_correlacional: %d  \n",paquete->id_correlacional);
+			printf("id_mensaje: %d \n",paquete->id_mensaje);
+			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+
+		}
+		
+	}
 }
