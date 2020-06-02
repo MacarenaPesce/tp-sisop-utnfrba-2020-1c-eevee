@@ -283,9 +283,10 @@ void enviar_mensaje_por_cada_pokemon_requerido(int socket_broker){
 
 			t_get_pokemon* get_pokemon = malloc(sizeof(t_get_pokemon));
 			get_pokemon->pokemon = objetivo->especie;
-			get_pokemon->_tamanio_string_pokemon = 0;
 			enviar_get_pokemon(socket_broker, -1, -1, get_pokemon);
 			free(get_pokemon);
+
+			//RECIBIR ACK
 		}
 	}
 	else{
@@ -297,8 +298,11 @@ void enviar_mensaje_por_cada_pokemon_requerido(int socket_broker){
 
 void convertirse_en_suscriptor_global_del_broker(int socket_broker){
 	enviar_solicitud_suscripcion(socket_broker, COLA_APPEARED_POKEMON, SUSCRIPCION_GLOBAL);
+	//recibir ACK
 	enviar_solicitud_suscripcion(socket_broker, COLA_CAUGHT_POKEMON, SUSCRIPCION_GLOBAL);
+	//recibir ACK
 	enviar_solicitud_suscripcion(socket_broker, COLA_LOCALIZED_POKEMON, SUSCRIPCION_GLOBAL);
+	//recibir ACK
 }
 
 
