@@ -6,7 +6,7 @@ int calcularBytes (t_packed* paquete){
 
 	//Calculo los bytes segun que operacion tiene mi paquete
 
-	//NO ESTOY SEGURA SI ELIMINAR PAQUETE ESTA BIEN, Y CUANDO HACER EL FREE PKMN PORQUE LE ESTOY RESERVANDO MEMORIA
+	//NO ESTOY SEGURA SI ELIMINAR PAQUETE ESTA BIEN
 
     switch(paquete->cola_de_mensajes){
 			case COLA_NEW_POKEMON:
@@ -26,6 +26,8 @@ int calcularBytes (t_packed* paquete){
 
                 bytes = 16 + (strlen(pkmn->pokemon));
 
+				free(pkmn);
+
 				return bytes;
 			case COLA_LOCALIZED_POKEMON:
 				puts(" Recibi un LOCALIZED POKEMON");
@@ -43,6 +45,8 @@ int calcularBytes (t_packed* paquete){
 				//mas el largo del nombre por pokemon
 
                 bytes = 32 + (strlen(pkmn->pokemon));
+
+				free(pkmn);
 
 				return bytes;
 			case COLA_GET_POKEMON:
@@ -62,6 +66,8 @@ int calcularBytes (t_packed* paquete){
 
 				bytes = 4 + (strlen(pkmn->pokemon));
 
+				free(pkmn);
+
 				return bytes;
 			case COLA_APPEARED_POKEMON:
 				puts(" Recibi un APPEARED POKEMON");
@@ -80,6 +86,8 @@ int calcularBytes (t_packed* paquete){
 
 				bytes = 12 + (strlen(pkmn->pokemon));
 
+				free(pkmn);
+
 				return bytes;
 			case COLA_CATCH_POKEMON:
 				puts(" Recibi un CATCH POKEMON");
@@ -97,6 +105,9 @@ int calcularBytes (t_packed* paquete){
 				//mas el largo del nombre del pokemon
 
 				bytes = 12 + (strlen(pkmn->pokemon));
+
+				free(pkmn);
+
 				return bytes;
 			case COLA_CAUGHT_POKEMON:
 				puts(" Recibi un CAUGHT POKEMON");
@@ -115,6 +126,8 @@ int calcularBytes (t_packed* paquete){
 				//tengo 1 solo uint_32 -> 4 bytes
                 
 				bytes = 4;
+
+				free(pkmn);
 
 				return bytes;
 			default:
