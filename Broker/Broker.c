@@ -52,7 +52,7 @@ void* esperar_cliente(void* socket_servidor){
 
 			cliente = socket_cliente;
 
-			pthread_create(&hilo_cliente,NULL,ObtenerMensaje,cliente);
+			pthread_create(&hilo_cliente,NULL,esperar_mensajes,cliente);
 
 			logger(escribir_loguear,l_trace,"\nSe aceptó un nuevo cliente");
 
@@ -63,48 +63,79 @@ void* esperar_cliente(void* socket_servidor){
 
 }
 
-void* ObtenerMensaje(void* cliente){
+void* esperar_mensajes(void* cliente){
 
-		int socket_cliente = (int*)cliente;
+	int socket_cliente = (int*)cliente;
 
-		while(1){
-			//Creo un paquete y recibo el mensaje
-			t_packed* paquete;
-			paquete = recibir_mensaje(socket_cliente);
+	while(1){
+		//Creo un paquete y recibo el mensaje
+		t_packed* paquete;
+		paquete = recibir_mensaje(socket_cliente);
 
-			if(paquete != -1){
-				//Esto me devuelve el paquete con todos los datos
-				/* El nro de operacion y cola de mensajes indican el 
-				tipo de estructura que contiene el paquete        */
-				printf("operacion: %d \n",paquete->operacion);
-				printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
-				printf("id_correlacional: %d  \n",paquete->id_correlacional);
-				printf("id_mensaje: %d \n",paquete->id_mensaje);
-				printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+		if(paquete != -1){
+			//Esto me devuelve el paquete con todos los datos
+			/* El nro de operacion y cola de mensajes indican el 
+			tipo de estructura que contiene el paquete */
+			printf("operacion: %d \n",paquete->operacion);
+			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
+			printf("id_correlacional: %d  \n",paquete->id_correlacional);
+			printf("id_mensaje: %d \n",paquete->id_mensaje);
+			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
 
-				if(paquete->tamanio_payload <= 0){
-					continue;
-				}
-				/* Genero un puntero de ese tipo y lo inicializo */
-				t_new_pokemon* pkmn;
-				pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+			switch(paquete->operacion){
+				case ENVIAR_MENSAJE:
+					agregar_mensaje_a_queue(paquete,socket_cliente);
+					break;
+				
+				case SUSCRIBIRSE_A_COLA:
+					recibir_solicitud_suscripcion(paquete);
+					break;
 
-				/* Apunto a los datos del mensaje */
-				pkmn = paquete->mensaje;
-
-				/*Libero la memoria del paquete*/
-				eliminar_mensaje(paquete);
-
-				/* Ya puedo usar mi copia de la estructura enviada*/
-				printf("posx: %d \n",pkmn->coordenadas.posx);
-				printf("posy: %d \n",pkmn->coordenadas.posy);
-				printf("cantidad: %d \n",pkmn->cantidad);
-				printf("pokemon: %s \n",pkmn->pokemon);
+				case ACK:
+					recibir_ack(paquete);
+					break;
+				
+				default:
+					printf("Error, operacion desconocida: %d\n",paquete->operacion);
+					break;
 			}
+
 		}
+		
+	}
 	
 }
 
+void agregar_mensaje_a_queue(void *paquete,int socket_cliente){
+	enviar_ack(socket_cliente,123,-1);
+/*
+	if(paquete->tamanio_payload != 0){
+		continue;
+	}
+	/* Genero un puntero de ese tipo y lo inicializo */
+/*	t_new_pokemon* pkmn;
+	pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+
+	/* Apunto a los datos del mensaje */
+/*	pkmn = paquete->mensaje;
+
+	/*Libero la memoria del paquete*/
+/*	eliminar_mensaje(paquete);
+
+	/* Ya puedo usar mi copia de la estructura enviada*/
+/*	printf("posx: %d \n",pkmn->coordenadas.posx);
+	printf("posy: %d \n",pkmn->coordenadas.posy);
+	printf("cantidad: %d \n",pkmn->cantidad);
+	printf("pokemon: %s \n",pkmn->pokemon);*/
+}
+
+void recibir_solicitud_suscripcion(void *paquete,int socket_cliente){
+	enviar_ack(socket_cliente,123,-1);
+}
+
+void recibir_ack(void *paquete,int socket_cliente){
+	//enviar_ack(socket_cliente,123,-1);
+}
 
 int main(){
 

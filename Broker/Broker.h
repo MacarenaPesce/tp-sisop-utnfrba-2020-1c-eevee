@@ -25,5 +25,5 @@ void recibir_mensaje_de_texto(int, int);
 void iniciar_servidor(void);
 void* esperar_cliente(void* socket_servidor);
 void* ObtenerMensaje(void* cliente);
-
+void* esperar_mensajes(void* cliente);
 #endif
