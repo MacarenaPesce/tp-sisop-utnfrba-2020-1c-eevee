@@ -67,34 +67,41 @@ void* ObtenerMensaje(void* cliente){
 
 		int socket_cliente = (int*)cliente;
 
-		//Creo un paquete y recibo el mensaje
-		t_packed* paquete;
-		paquete = recibir_mensaje(socket_cliente);
+		while(1){
+			//Creo un paquete y recibo el mensaje
+			t_packed* paquete;
+			paquete = recibir_mensaje(socket_cliente);
 
-		//Esto me devuelve el paquete con todos los datos
-		/* El nro de operacion y cola de mensajes indican el 
-		tipo de estructura que contiene el paquete        */
-		printf("operacion: %d \n",paquete->operacion);
-		printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
-		printf("id_correlacional: %d  \n",paquete->id_correlacional);
-		printf("id_mensaje: %d \n",paquete->id_mensaje);
-		printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+			if(paquete != -1){
+				//Esto me devuelve el paquete con todos los datos
+				/* El nro de operacion y cola de mensajes indican el 
+				tipo de estructura que contiene el paquete        */
+				printf("operacion: %d \n",paquete->operacion);
+				printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
+				printf("id_correlacional: %d  \n",paquete->id_correlacional);
+				printf("id_mensaje: %d \n",paquete->id_mensaje);
+				printf("tamanio_payload: %d \n",paquete->tamanio_payload);
 
-		/* Genero un puntero de ese tipo y lo inicializo */
-		t_new_pokemon* pkmn;
-		pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+				if(paquete->tamanio_payload <= 0){
+					continue;
+				}
+				/* Genero un puntero de ese tipo y lo inicializo */
+				t_new_pokemon* pkmn;
+				pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
 
-		/* Apunto a los datos del mensaje */
-		pkmn = paquete->mensaje;
+				/* Apunto a los datos del mensaje */
+				pkmn = paquete->mensaje;
 
-		/*Libero la memoria del paquete*/
-		eliminar_mensaje(paquete);
+				/*Libero la memoria del paquete*/
+				eliminar_mensaje(paquete);
 
-		/* Ya puedo usar mi copia de la estructura enviada*/
-		printf("posx: %d \n",pkmn->coordenadas.posx);
-		printf("posy: %d \n",pkmn->coordenadas.posy);
-		printf("cantidad: %d \n",pkmn->cantidad);
-		printf("pokemon: %s \n",pkmn->pokemon);
+				/* Ya puedo usar mi copia de la estructura enviada*/
+				printf("posx: %d \n",pkmn->coordenadas.posx);
+				printf("posy: %d \n",pkmn->coordenadas.posy);
+				printf("cantidad: %d \n",pkmn->cantidad);
+				printf("pokemon: %s \n",pkmn->pokemon);
+			}
+		}
 	
 }
 

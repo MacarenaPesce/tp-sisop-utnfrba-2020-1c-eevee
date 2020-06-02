@@ -28,6 +28,8 @@ int main(){
 	new_pokemon.pokemon = "pikachu";
 
 	enviar_new_pokemon(socket,-1,-1,&new_pokemon);
+	enviar_new_pokemon(socket,-1,-1,&new_pokemon);
+
 
 	/* Caught Pokemon*/
 	/*t_caught_pokemon caught_pokemon;

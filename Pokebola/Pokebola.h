@@ -22,6 +22,7 @@
 #include <commons/log.h>
 #include <commons/collections/list.h>
 #include <commons/string.h>
+#include <sys/ioctl.h>
 
 
 /*** Enums log***/
@@ -57,6 +58,7 @@ enum COLA_DE_MENSAJES{
 enum OPERACIONES{
 	ENVIAR_MENSAJE,
 	SUSCRIBIRSE_A_COLA,
+	ACK
 };
 
 enum TIPOS_SUSCRIPCION{

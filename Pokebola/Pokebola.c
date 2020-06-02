@@ -89,14 +89,24 @@ t_packed* recibir_mensaje(int sock){
 
 	t_packed* paquete;	
 	void* mensaje;
+	int size;
+	
+	ioctl(sock,FIONREAD,&size);
+
+	if(size <= 0){
+		return -1;
+	}
 
 	paquete = (t_packed*)malloc(sizeof(t_packed));
 	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
 
-	if(paquete->tamanio_payload > 0){
-		mensaje = (void*)malloc(paquete->tamanio_payload);
-		recibir_paquete(sock, mensaje, paquete->tamanio_payload);
+	if(paquete->tamanio_payload <= 0) {
+		return paquete;
 	}
+
+	mensaje = (void*)malloc(paquete->tamanio_payload);
+	recibir_paquete(sock, mensaje, paquete->tamanio_payload);
+
 
 	switch(paquete->operacion){
 		case ENVIAR_MENSAJE:
