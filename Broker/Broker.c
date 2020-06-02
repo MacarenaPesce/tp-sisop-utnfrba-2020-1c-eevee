@@ -106,27 +106,34 @@ void* esperar_mensajes(void* cliente){
 	
 }
 
-void agregar_mensaje_a_queue(void *paquete,int socket_cliente){
+void agregar_mensaje_a_queue(t_packed *paquete,int socket_cliente){
 	enviar_ack(socket_cliente,123,-1);
-/*
-	if(paquete->tamanio_payload != 0){
-		continue;
-	}
-	/* Genero un puntero de ese tipo y lo inicializo */
-/*	t_new_pokemon* pkmn;
-	pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+	
+	switch(paquete->cola_de_mensajes){
 
-	/* Apunto a los datos del mensaje */
-/*	pkmn = paquete->mensaje;
+		case COLA_NEW_POKEMON:;
+			/* Genero un puntero de ese tipo y lo inicializo */
+			t_new_pokemon* pkmn;
+			pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+
+			/* Apunto a los datos del mensaje */
+			pkmn = paquete->mensaje;
+
+			/* Ya puedo usar mi copia de la estructura enviada*/
+			if(paquete->tamanio_payload > 0){
+				printf("posx: %d \n",pkmn->coordenadas.posx);
+				printf("posy: %d \n",pkmn->coordenadas.posy);
+				printf("cantidad: %d \n",pkmn->cantidad);
+				printf("pokemon: %s \n",pkmn->pokemon);
+			}
+
+			break;
+
+	}
 
 	/*Libero la memoria del paquete*/
-/*	eliminar_mensaje(paquete);
-
-	/* Ya puedo usar mi copia de la estructura enviada*/
-/*	printf("posx: %d \n",pkmn->coordenadas.posx);
-	printf("posy: %d \n",pkmn->coordenadas.posy);
-	printf("cantidad: %d \n",pkmn->cantidad);
-	printf("pokemon: %s \n",pkmn->pokemon);*/
+	eliminar_mensaje(paquete);
+	
 }
 
 void recibir_solicitud_suscripcion(void *paquete,int socket_cliente){

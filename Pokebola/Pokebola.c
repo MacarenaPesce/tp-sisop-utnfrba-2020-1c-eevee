@@ -77,9 +77,9 @@ int _enviar_mensaje(int sock,
 
 	envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
 
-
-	envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
-
+	if(paquete->tamanio_payload > 0){
+		envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+	}
 
 	return envio_header+envio_payload;
 
