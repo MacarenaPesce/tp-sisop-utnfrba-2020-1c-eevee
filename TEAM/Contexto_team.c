@@ -20,6 +20,7 @@ char* ip_broker;
 int estimacion_inicial;
 char* puerto_broker;
 char* log_file;
+int broker_socket;
 
 t_log* team_logger;
 t_log* team_logger_oficial;
@@ -32,3 +33,5 @@ t_list* lista_finalizar;
 t_list* lista_bloqueados;
 t_list* lista_config; //lista auxiliar para cargar la info del archivo de configuracion
 t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global
+t_list* lista_mapa;
+t_list* lista_pokemon_atrapado;
