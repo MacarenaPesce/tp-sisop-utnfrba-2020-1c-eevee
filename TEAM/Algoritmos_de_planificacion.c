@@ -88,7 +88,7 @@ entrenadores será la misma y deberá poder ser modificable por archivo de confi
 	entrenador_en_ejecucion = list_remove(lista_aux,0);
 	if(!list_is_empty(lista_listos)){
 		printf("Saco de la lista de listos el próximo entrenador a ejecutar");
-		sacar_entrenador_de_lista_pid(lista_listos,entrenador_en_ejecucion->id);
+		entrenador_en_ejecucion = sacar_entrenador_de_lista_pid(lista_listos,entrenador_en_ejecucion->id);
 		entrenador_en_ejecucion->estado = EJECUTANDO;
 	}
 	else{
