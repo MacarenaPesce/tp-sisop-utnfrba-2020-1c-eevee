@@ -119,7 +119,7 @@ void particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes){
 //------------------------------BUDDY SYSTEM----------------------------------
 void buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
 
-    //tamanio_potencia_dos(tamanio_en_bytes);
+    //int bytes_reservar= numero_potencia_dos(int tamanio_en_bytes)
 
     return ;
     
