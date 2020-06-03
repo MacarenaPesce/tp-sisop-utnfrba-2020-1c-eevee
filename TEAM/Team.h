@@ -19,6 +19,7 @@ void operar_con_localized_pokemon(t_localized_pokemon *);
 void operar_con_caught_pokemon(t_caught_pokemon *);
 void agregar_pokemon_a_mapa(t_pokemon * pokemon);
 void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon*);
+void agregar_entrenador(uint32_t, uint32_t, uint32_t);
 void localizar_entrenadores_en_el_mapa();
 /*Carga una lista de entrenadores con la info del archivo de configuracion, ademas de agregarles un id
   y el estado NUEVO. Me falta resolver agregarles las listas de objetivos particulares de cada uno. Y quizas
