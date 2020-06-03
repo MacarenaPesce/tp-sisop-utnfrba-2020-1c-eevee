@@ -42,5 +42,5 @@ typedef struct {
 
 void cargarRutasFs();
 int abrir_ruta(char *ruta);
-int esta_vacio_fs();
+
 #endif /* FILESYSTEM_H_ */
