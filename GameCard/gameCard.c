@@ -1,4 +1,6 @@
 #include "gameCard.h"
+#include <stdbool.h>
+#include <sys/mman.h>
 
  void recibir_get_pokemon_desde_gameboy(t_get_pokemon * mensaje){
 	log_info(gameCard_logger,"Recibo el pokemon: %s de Game Boy",mensaje->pokemon);
@@ -90,8 +92,5 @@ int  main () {
 }
 
 
-/*
-bool esta_vacio_fs(char* path_fs){
 
-}
-*/
+
