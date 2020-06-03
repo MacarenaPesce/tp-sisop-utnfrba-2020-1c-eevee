@@ -121,46 +121,74 @@ void definir_objetivo_global(){
 	}
 	log_info(team_logger,"Objetivo global cargado\n");
 	list_clean(lista_config);
+	/*int j = 0;
+	while(lista_objetivos != NULL){ //while para recorred la lista ya completa y ver si se agregaron bien
+		objetivo = list_get(lista_objetivos, j);
+		if(objetivo->especie == NULL){
+			break;
+		}
+		log_info(team_logger,"Un tipo de pokemon es: %s y la cantidad es %i", objetivo->especie, objetivo->cantidad);
+		j++;
+	}*/
 	//free(objetivo);
 }
 
+
 void localizar_entrenadores_en_mapa(){
-	lista_entrenadores = list_create();
 
 	string_iterate_lines(posiciones_entrenadores, _imprimir);
 
 	uint32_t i = 0;
 	t_entrenador* entrenador = malloc(sizeof(t_entrenador));
+	uint32_t posx;
+	uint32_t posy;
+	bool hay_que_agregar_entrenador = false;
+	for(uint32_t i = 0; i < list_size(lista_config); i++){
+		if(!hay_que_agregar_entrenador){
+			char* coordenada_char;
+			coordenada_char = list_get(lista_config, i);
+			if(coordenada_char != NULL) {
+					int coordenada = atoi(coordenada_char);
+					if(i == 0 || i % 2 == 0) {
+						posx = coordenada;
+					}else{
+						posy = coordenada;
+						hay_que_agregar_entrenador = true;
+					}
+					if(hay_que_agregar_entrenador){
+						agregar_entrenador(posx, posy, i);
+						hay_que_agregar_entrenador = false;
 
-	while(lista_config != NULL){
-		char* coordenada_char;
-		coordenada_char = list_get(lista_config, i);
-		if(coordenada_char != NULL) {
-			int coordenada = atoi(coordenada_char);
-			if(i == 0 || i % 2 == 0) {
-			entrenador->posx = coordenada;
-			i++;
+					}
 
-		}else{
-			entrenador->posy = coordenada;
-			entrenador->estado = NUEVO;
-			entrenador->objetivo = NULL; //falta agregar el objetivo particular
-			entrenador->id = i;
-			list_add(lista_entrenadores, entrenador); //esta seria la lista de new
-			printf("Se agrego un entrenador con id %i, pos x = %i, pos y = %i\n",entrenador->id, entrenador->posx, entrenador->posy);
-
-			/*CREO UN HILO POR ENTRENADOR*/
-			//crear_hilo_entrenador(entrenador, jugar_con_el_entrenador(entrenador));
-			i++;
+			}else{
+				break;
 			}
-
-		} else{
-			break;
 		}
 	}
+	int l = 0;
+		while(!list_is_empty(lista_entrenadores)){
+			entrenador = list_get(lista_entrenadores, l);
+			if(entrenador == NULL){
+				break;
+			}
+			printf("Un entrenador tiene id = %i, pos x = %i, y = %i\n", entrenador->id, entrenador->posx, entrenador->posy);
+			l++;
+		}
+
 	list_clean(lista_config);
 	list_destroy(lista_config);
 
+}
+
+void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id){
+	t_entrenador* entrenador = malloc(sizeof(t_entrenador));
+	entrenador->posx = posx;
+	entrenador->posy = posy;
+	entrenador->id = id;
+	list_add(lista_entrenadores, (void*)entrenador);
+	/*CREO UN HILO POR ENTRENADOR*/
+	crear_hilo_entrenador(entrenador, jugar_con_el_entrenador(entrenador));
 }
 
 void crear_hilo_entrenador(t_entrenador * entrenador, void*funcion_a_ejecutar(t_entrenador*)){
@@ -220,14 +248,30 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 }
 
 void enviar_get(){
+	int i = 0;
+	int h = 0;
+	t_objetivo* objetivo = malloc(sizeof(t_objetivo));
+	while(lista_objetivos != NULL){
+		objetivo = list_get(lista_objetivos, h);
+		if(objetivo == NULL){
+			break;
+		}
+		log_info(team_logger, "No existen locaciones para esta especie: %s, cant %i\n", objetivo->especie, objetivo->cantidad);
+		h++;
+	}
+	//free(objetivo);
 	if(broker_socket < 0 || broker_socket == 0){
-		int largo_lista = list_size(lista_objetivos);
-		t_objetivo * objetivo = malloc(sizeof(t_objetivo));
+		//int largo_lista = list_size(lista_objetivos);
 
-		for(int i=0; i<largo_lista; i++){
-			objetivo = list_get(lista_objetivos, i);
-			log_info(team_logger, "No existen locaciones para la especie requerida: %s, cant %d\n", objetivo->especie, objetivo->cantidad);
+		while(lista_objetivos != NULL){
+
 			i++;
+			if(objetivo == NULL){
+				break;
+			} else{
+				log_info(team_logger, "No existen locaciones para la especie requerida: %s, cant %i\n", objetivo->especie, objetivo->cantidad);
+			}
+
 		}
 		free(objetivo);
 	}else{
@@ -339,7 +383,7 @@ int main(){
 	localizar_entrenadores_en_mapa();
 
 	/*CREO UN HILO POR ENTRENADOR*/
-	//TODO
+	/*Ya esta hecho en la funcion localizar_entrenadores_en_el_mapa(), cuando llama a la funcion agregar_entrenador()*/
 
 	/*CREO UN HILO QUE SE DEDIQUE AL BROKER*/
 	crear_hilo_para_broker();
