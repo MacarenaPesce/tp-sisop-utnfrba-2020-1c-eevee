@@ -9,6 +9,10 @@
 #define FILESYSTEM_H_
 
 #include <stdbool.h>
+#include <stdlib.h>
+#include <commons/collections/list.h>
+#include "Herramientas_gameCard.h"
+#include <fcntl.h>
 
 typedef struct {
 	char* puntoDeMontaje;
@@ -35,4 +39,8 @@ typedef struct {
 	bool estaAbiertoArchivo;
 } t_metadata_;
 
+
+void cargarRutasFs();
+int abrir_ruta(char *ruta);
+int esta_vacio_fs();
 #endif /* FILESYSTEM_H_ */

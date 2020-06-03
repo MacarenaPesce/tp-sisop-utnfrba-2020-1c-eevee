@@ -1,6 +1,6 @@
 #include "gameCard.h"
 #include <stdbool.h>
-#include <sys/mman.h>
+#include "FileSystem.h"
 
  void recibir_get_pokemon_desde_gameboy(t_get_pokemon * mensaje){
 	log_info(gameCard_logger,"Recibo el pokemon: %s de Game Boy",mensaje->pokemon);
@@ -87,10 +87,16 @@ int  main () {
 
 	inicializar_logger ();
 	inicializar_archivo_de_configuracion ();
-	configurar_signals_gc ();
-	iniciar_servidor ();
+
+/*
+	if (esta_vacio_fs()==0){
+		printf (" el file system esta cargado, somos felices");
+		return 0;;
+	}
+	else {printf("el file system no esta cargado");
+	return -1;}
+	//configurar_signals_gc ();
+	//iniciar_servidor ();
+	 *
+	 */
 }
-
-
-
-

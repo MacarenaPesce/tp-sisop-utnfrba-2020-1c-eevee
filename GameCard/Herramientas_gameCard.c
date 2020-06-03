@@ -2,8 +2,7 @@
 #include<commons/log.h>
 
 void inicializar_logger(){
-	//creando el log
-	//trace o debug
+	//creando el log , modo o level trace o debug
 	gameCard_logger = log_create("gamecard.log", "gameCard", 1, LOG_LEVEL_TRACE);
 	log_info(gameCard_logger, "Bienvenido al proceso Game Card");
 	//logger(escribir_loguear,l_info,"Hi, bienvenido a GameCard!");
@@ -17,11 +16,12 @@ void inicializar_archivo_de_configuracion(){
 	}else{
 		//logger(escribir_loguear,l_info,"Cargando el archivo de configuracion...");
 		log_info(gameCard_logger, "cargando los datos del archivo de configuración...");
-		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_CONEXION,config_game_card,obtener_tiempo_reintento_conexion);
-		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_OPERACION , config_game_card, obtener_tiempo_reintento_operacion);
-		obtener_valor_config(KEY_PUNTO_MONTAJE_TALLGRASS, config_game_card, obtener_punto_montaje_tallgrass);
+
 		obtener_valor_config(KEY_IP_BROKER, config_game_card, obtener_ip_broker);
 		obtener_valor_config(KEY_PUERTO_BROKER, config_game_card,obtener_puerto_broker);
+		obtener_valor_config(KEY_PUNTO_MONTAJE_TALLGRASS, config_game_card, obtener_punto_montaje_tallgrass);
+		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_CONEXION,config_game_card,obtener_tiempo_reintento_conexion);
+		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_OPERACION , config_game_card, obtener_tiempo_reintento_operacion);
 		obtener_valor_config(KEY_TIEMPO_RETARDO_OPERACION,config_game_card,obtener_tiempo_retardo_operacion);
 		//logger(escribir_loguear,l_info,"\nArchivo de configuracion cargado correctamente");
 		config_destroy(config_game_card);
