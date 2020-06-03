@@ -100,20 +100,14 @@ void definir_objetivo_global(){
 		especiePokemon = unPokemon;
 		otroPokemon = list_get(pokemones_ordenada, i);
 		if(otroPokemon == NULL){
-			objetivo->especie = string_from_format("%s\0",especiePokemon);
-			objetivo->cantidad = contador;
-			log_info(team_logger,"Un tipo de pokemon es: %s y la cantidad es %i", objetivo->especie, objetivo->cantidad);
-			list_add(lista_objetivos, objetivo);
+			agregar_objetivo(especiePokemon, contador);
 			break;
 		}
 		if(string_equals_ignore_case(unPokemon,otroPokemon)){
 			contador++;
 			i++;
 		}else{
-			objetivo->especie = string_from_format("%s\0",especiePokemon);
-			objetivo->cantidad = contador;
-			log_info(team_logger,"Un tipo de pokemon es: %s y la cantidad es %i", objetivo->especie, objetivo->cantidad);
-			list_add(lista_objetivos, objetivo);
+			agregar_objetivo(especiePokemon, contador);
 			unPokemon = otroPokemon;
 			contador = 1;
 			i++;
@@ -121,16 +115,24 @@ void definir_objetivo_global(){
 	}
 	log_info(team_logger,"Objetivo global cargado\n");
 	list_clean(lista_config);
-	/*int j = 0;
-	while(lista_objetivos != NULL){ //while para recorred la lista ya completa y ver si se agregaron bien
-		objetivo = list_get(lista_objetivos, j);
-		if(objetivo->especie == NULL){
-			break;
-		}
-		log_info(team_logger,"Un tipo de pokemon es: %s y la cantidad es %i", objetivo->especie, objetivo->cantidad);
-		j++;
-	}*/
+	int k = 0;
+			while(!list_is_empty(lista_objetivos)){
+				objetivo = list_get(lista_objetivos, k);
+				if(objetivo == NULL){
+					break;
+				}
+				log_info(team_logger,"Un objetivo es de la especie = %s, cantidad %i\n", objetivo->especie, objetivo->cantidad);
+				k++;
+			}
 	//free(objetivo);
+}
+
+void agregar_objetivo(char* especie, uint32_t cantidad){
+	t_objetivo* objetivo = malloc(sizeof(t_objetivo));
+	objetivo->especie = especie;
+	objetivo->cantidad = cantidad;
+	list_add(lista_objetivos, (void*)objetivo);
+
 }
 
 
@@ -172,7 +174,7 @@ void localizar_entrenadores_en_mapa(){
 			if(entrenador == NULL){
 				break;
 			}
-			printf("Un entrenador tiene id = %i, pos x = %i, y = %i\n", entrenador->id, entrenador->posx, entrenador->posy);
+			log_info(team_logger,"Un entrenador tiene id = %i, pos x = %i, y = %i\n", entrenador->id, entrenador->posx, entrenador->posy);
 			l++;
 		}
 
