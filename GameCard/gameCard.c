@@ -92,21 +92,17 @@ int  main () {
 
 	 //valida si existen las rutas propias del fs
 
-		if (
-				/*
-				 *
-				 (abrir_ruta(rutas_fs->pathDirectorioMetadataFs) < 0 ) |
-				(abrir_ruta(rutas_fs->pathArchivoMetadataFs)<0 )|
-				  (abrir_ruta(rutas_fs->pathArchivoBitMap)<0) |
-				     ( abrir_ruta(rutas_fs->pathDirectorioBloques)<0 )*/
-				 abrir_ruta(rutas_fs->puntoDeMontaje) < 0
-
-				     ){
-			perror("no existe ruta, no existe el fs");
+		if ( abrir_ruta(rutas_fs->pathDirectorioMetadataFs) < 0 |
+				abrir_ruta(rutas_fs->pathArchivoMetadataFs)<0 |
+				  abrir_ruta(rutas_fs->pathArchivoBitMap)<0 |
+				     abrir_ruta(rutas_fs->pathDirectorioBloques)<0 )
+		{
+			perror("no existen rutas, no existe el fs");
 			return -1;
 		}
 
-		printf("yes, existen todas las rutas");
+
+
 		return 0;
 
 }

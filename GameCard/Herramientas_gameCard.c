@@ -3,7 +3,8 @@
 
 void inicializar_logger(){
 	//creando el log , modo o level trace o debug
-	gameCard_logger = log_create("gamecard.log", "gameCard", 1, LOG_LEVEL_TRACE);
+	//si pongo 1 muestra por consola si muestra 0 no.
+	gameCard_logger = log_create("gamecard.log", "gameCard", 0, LOG_LEVEL_INFO);
 	log_info(gameCard_logger, "Bienvenido al proceso Game Card");
 	//logger(escribir_loguear,l_info,"Hi, bienvenido a GameCard!");
 }

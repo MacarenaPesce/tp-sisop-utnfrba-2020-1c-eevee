@@ -32,6 +32,8 @@ typedef struct {
 	char* magicNumber;
 } t_metadata_fs;
 
+t_metadata_fs * metadata_fs;
+
 typedef struct {
 	bool esDirectorio;
 	int32_t tamanioArchivo;
@@ -42,5 +44,6 @@ typedef struct {
 
 void cargarRutasFs();
 int abrir_ruta(char *ruta);
+void cargarMetadataFs();
 
 #endif /* FILESYSTEM_H_ */
