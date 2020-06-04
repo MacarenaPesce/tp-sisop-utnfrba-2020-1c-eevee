@@ -46,8 +46,10 @@
 #define KEY_CONFIG_LOG_FILE "LOG_FILE"
 #define KEY_CONFIG_ALPHA "ALPHA"
 
+#define NO_SOCKET -1
 #define IP "127.0.0.2"
 #define PUERTO "5002"
+#define MAX_CLIENTES 20
 
 extern char** posiciones_entrenadores;
 extern char** pokemon_entrenadores;
@@ -109,7 +111,15 @@ typedef struct { //estructura del objetivo global
 	uint32_t posx;
 	uint32_t posy;
 } t_pokemon;
-
 t_entrenador * entrenador_en_ejecucion;
+
+struct conexion_gameboy {
+	int pid;
+	int socket;
+	struct sockaddr_in addres;
+};
+typedef struct conexion_gameboy t_conexion_gameboy;
+
+t_conexion_gameboy conexiones_gameboy[MAX_CLIENTES];
 
 #endif /* CONTEXTO_TEAM_H_ */

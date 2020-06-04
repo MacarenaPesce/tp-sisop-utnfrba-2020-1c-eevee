@@ -44,7 +44,7 @@ int iniciar_servidor(){
 		exit(1);
 	}
 	else{
-		log_info(team_logger, "\nSocket servidor (%d) escuchando", server_socket);
+		log_info(team_logger, "Team esta listo para recibir mensajes de gameboy en el socket servidor (%d)\n", server_socket);
 	}
 
 	return server_socket;
@@ -59,39 +59,22 @@ void hacer_intento_de_reconexion(){
 
 int conectar_broker() {
 	broker_socket = conectar_a_server(ip_broker, "6009");
+
 	if (broker_socket < 0){
 		log_info(team_logger, "Error al intentar conectar al broker\n");
-		hacer_intento_de_reconexion();
+		//hacer_intento_de_reconexion();
+		crear_hilo_para_broker();
 	}
 	else{
 		if (broker_socket == 0){
 			log_info(team_logger, "Error al intentar conectar al broker\n");
-			hacer_intento_de_reconexion();
+			//hacer_intento_de_reconexion();
+			crear_hilo_para_broker();
 		}else{
 			log_info(team_logger, "Conectado con el broker! (%d)",broker_socket);
-			convertirse_en_suscriptor_global_del_broker();
-			//recibir mensaje de broker
+			//convertirse_en_suscriptor_global_del_broker();
 		}
 	}
 
 	return broker_socket;
-}
-
-void * atender_nuevo_gameboy(int serv_socket){
-	struct sockaddr_in client_addr;
-
-	//Setea la direccion en 0
-	memset(&client_addr, 0, sizeof(client_addr));
-	socklen_t client_len = sizeof(client_addr);
-
-	//Acepta la nueva conexion
-	int new_client_sock = accept(serv_socket, (struct sockaddr *)&client_addr, &client_len);
-	if (new_client_sock < 0) {
-		log_info(team_logger, "Error al aceptar un nuevo gameboy :(\n");
-	}else{
-		log_info(team_logger, "\nSe aceptó un nuevo gameboy, conexión (%d)", new_client_sock);
-		recibir_mensaje_gameboy(new_client_sock);
-	}
-
-	 close(new_client_sock);
 }

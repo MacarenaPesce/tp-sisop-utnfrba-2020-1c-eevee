@@ -39,6 +39,6 @@ t_objetivo * sacar_objetivo_de_la_lista(t_list*, char*);
 void enviar_mensaje_por_cada_pokemon_requerido();
 void convertirse_en_suscriptor_global_del_broker();
 int recibir_mensaje_broker();
-void recibir_mensaje_gameboy(int);
+int recibir_mensaje_gameboy(t_conexion_gameboy);
 
 #endif /* TEAM_H_ */
