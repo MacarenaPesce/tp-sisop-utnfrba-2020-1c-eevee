@@ -90,7 +90,7 @@ void* esperar_mensajes(void* cliente){
 					break;
 				
 				case SUSCRIBIRSE_A_COLA:
-					recibir_solicitud_suscripcion(paquete);
+					recibir_solicitud_suscripcion(paquete,socket_cliente);
 					break;
 
 				case ACK:
@@ -109,6 +109,7 @@ void* esperar_mensajes(void* cliente){
 }
 
 void agregar_mensaje_a_queue(t_packed *paquete,int socket_cliente){
+
 	enviar_ack(socket_cliente,123,-1);
 	
 	switch(paquete->cola_de_mensajes){
