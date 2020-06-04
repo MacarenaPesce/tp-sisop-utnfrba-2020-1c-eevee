@@ -63,16 +63,16 @@ int conectar_broker() {
 	if (broker_socket < 0){
 		log_info(team_logger, "Error al intentar conectar al broker\n");
 		//hacer_intento_de_reconexion();
-		crear_hilo_para_broker();
+		//crear_hilo_para_broker();
 	}
 	else{
 		if (broker_socket == 0){
 			log_info(team_logger, "Error al intentar conectar al broker\n");
 			//hacer_intento_de_reconexion();
-			crear_hilo_para_broker();
+			//crear_hilo_para_broker();
 		}else{
 			log_info(team_logger, "Conectado con el broker! (%d)",broker_socket);
-			//convertirse_en_suscriptor_global_del_broker();
+			convertirse_en_suscriptor_global_del_broker();
 		}
 	}
 

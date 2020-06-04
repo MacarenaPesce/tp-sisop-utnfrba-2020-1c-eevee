@@ -29,4 +29,7 @@ void configurar_signals(void);
 void capturar_signal(int signo);
 void terminar_team_correctamente();
 
+int destruir_entrenador(t_entrenador *);
+int destruir_objetivo(t_objetivo *);
+
 #endif /* HERRAMIENTAS_TEAM_H_ */

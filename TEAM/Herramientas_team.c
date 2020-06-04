@@ -150,14 +150,97 @@ void capturar_signal(int signo){
 
 }
 
+int destruir_entrenador(t_entrenador * entrenador){
+	/*if(entrenador->objetivo!=NULL){
+		free(entrenador->objetivo);
+		entrenador->objetivo = NULL;
+	}*/
+	free(entrenador);
+
+	return 0;
+}
+
+int destruir_objetivo(t_objetivo * objetivo){
+	/*if(objetivo->especie!=NULL){
+		free(objetivo->especie);
+		objetivo->especie = NULL;
+	}*/
+	free(objetivo);
+
+	return 0;
+}
+
+int destruir_pokemon(t_pokemon * pokemon){
+	/*if(pokemon->especie!=NULL){
+		free(pokemon->especie);
+		pokemon->especie = NULL;
+	}*/
+	free(pokemon);
+
+	return 0;
+}
+
 void terminar_team_correctamente(){
-	log_info(team_logger,"Chau!");
-	log_destroy(team_logger);
-	//eliminar todas las listas que se hayan usado en TODO el proceso
-	//revisar los sockets
-	//meter frees en todos los mallocs
+	log_info(team_logger,"Cerrando team...");
 
+	list_destroy_and_destroy_elements(lista_entrenadores,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_objetivos,(void*)destruir_objetivo);
+	list_destroy_and_destroy_elements(lista_listos,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_finalizar,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_bloqueados,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_mapa,(void*)destruir_pokemon);
+	//list_destroy_and_destroy_elements(lista_pokemon_atrapado,(void*)destruir_pokemon);
 
+	//lista_config y pokemones ordenada?
 
-	exit(EXIT_SUCCESS);
+	if(entrenador_en_ejecucion!=NULL){
+		destruir_entrenador(entrenador_en_ejecucion);
+	}
+
+	//log_destroy(team_logger);
+/*
+	if(posiciones_entrenadores!=NULL)
+	{
+		free(posiciones_entrenadores);
+		posiciones_entrenadores = NULL;
+	}
+
+	if(pokemon_entrenadores!=NULL)
+	{
+		free(pokemon_entrenadores);
+		pokemon_entrenadores = NULL;
+	}
+
+	if(objetivos_entrenadores!=NULL)
+	{
+		free(objetivos_entrenadores);
+		objetivos_entrenadores = NULL;
+	}
+*/
+	if(log_file!=NULL)
+	{
+		free(log_file);
+		log_file = NULL;
+	}
+
+	if(puerto_broker!=NULL)
+	{
+		free(puerto_broker);
+		puerto_broker = NULL;
+	}
+
+	if(ip_broker!=NULL)
+	{
+		free(ip_broker);
+		ip_broker = NULL;
+	}
+
+	if(algoritmo_planificacion!=NULL)
+	{
+		free(algoritmo_planificacion);
+		algoritmo_planificacion = NULL;
+	}
+
+	return;
+
 }

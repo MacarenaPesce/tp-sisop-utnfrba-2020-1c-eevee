@@ -73,6 +73,20 @@ void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon * mensaje){
 	//free(mensaje);
 }
 
+void mostrar_lo_que_hay_en_la_lista_de_objetivos(){
+	int k = 0;
+	t_objetivo * objetivo = malloc(sizeof(t_objetivo));
+	while(!list_is_empty(lista_objetivos)){
+		objetivo = list_get(lista_objetivos, k);
+		if(objetivo == NULL){
+			break;
+		}
+		log_info(team_logger,"Un objetivo es de la especie = %s, cantidad %i", objetivo->especie, objetivo->cantidad);
+		k++;
+	}
+	free(objetivo);
+}
+
 void definir_objetivo_global(){
 
 	/*Leo del archivo de config y guardo los pokemon en la lista pokemones*/
@@ -84,8 +98,7 @@ void definir_objetivo_global(){
 	/*Creo una nueva lista con los pokemon agrupados por especie*/
 
 	pokemones_ordenada = list_sorted(lista_config, (void*)ordenar);
-	//list_iterate(pokemones_ordenada, mostrar);
-	t_objetivo* objetivo = malloc(sizeof(t_objetivo));
+
 	char* unPokemon;
 	unPokemon = list_get(pokemones_ordenada, 0);
 	uint32_t contador = 0;
@@ -114,17 +127,13 @@ void definir_objetivo_global(){
 	}
 
 	list_clean(lista_config);
-	int k = 0;
-	while(!list_is_empty(lista_objetivos)){
-		objetivo = list_get(lista_objetivos, k);
-		if(objetivo == NULL){
-			break;
-		}
-		log_info(team_logger,"Un objetivo es de la especie = %s, cantidad %i", objetivo->especie, objetivo->cantidad);
-		k++;
-	}
-	//free(objetivo);
+	mostrar_lo_que_hay_en_la_lista_de_objetivos();
+
 	log_info(team_logger,"Objetivo global cargado\n");
+	list_clean(pokemones_ordenada);
+	list_destroy(pokemones_ordenada);
+	free(unPokemon);
+
 }
 
 void agregar_objetivo(char* especie, uint32_t cantidad){
@@ -135,13 +144,26 @@ void agregar_objetivo(char* especie, uint32_t cantidad){
 
 }
 
+void mostrar_lo_que_hay_en_lista_entrenadores(){
+	int l = 0;
+	t_entrenador * entrenador;
+	while(!list_is_empty(lista_entrenadores)){
+		entrenador = list_get(lista_entrenadores, l);
+		if(entrenador == NULL){
+			break;
+		}
+		log_info(team_logger,"Un entrenador tiene id = %i, pos x = %i, y = %i", entrenador->id, entrenador->posx, entrenador->posy);
+		l++;
+	}
+	free(entrenador);
+}
 
 void localizar_entrenadores_en_mapa(){
 
 	string_iterate_lines(posiciones_entrenadores, _imprimir);
 
 	uint32_t i = 0;
-	t_entrenador* entrenador = malloc(sizeof(t_entrenador));
+	t_entrenador * entrenador = malloc(sizeof(t_entrenador));
 	uint32_t posx;
 	uint32_t posy;
 	bool hay_que_agregar_entrenador = false;
@@ -166,18 +188,10 @@ void localizar_entrenadores_en_mapa(){
 			}
 		}
 	}
-	int l = 0;
-		while(!list_is_empty(lista_entrenadores)){
-			entrenador = list_get(lista_entrenadores, l);
-			if(entrenador == NULL){
-				break;
-			}
-			log_info(team_logger,"Un entrenador tiene id = %i, pos x = %i, y = %i", entrenador->id, entrenador->posx, entrenador->posy);
-			l++;
-		}
 
-	list_clean(lista_config);
-	list_destroy(lista_config);
+	mostrar_lo_que_hay_en_lista_entrenadores();
+	free(entrenador);
+	list_destroy_and_destroy_elements(lista_config, (void*)free);
 	log_info(team_logger,"Entrenadores ubicados\n");
 
 }
@@ -260,8 +274,9 @@ void enviar_get(){
 			}
 			log_info(team_logger, "No existen locaciones para esta especie: %s, cant %i", objetivo->especie, objetivo->cantidad);
 			h++;
+			free(objetivo);
 		}
-		free(objetivo);
+		//free(objetivo);
 	}else{
 		enviar_mensaje_por_cada_pokemon_requerido();
 	}
@@ -270,7 +285,7 @@ void enviar_get(){
 void enviar_mensaje_por_cada_pokemon_requerido(){
 
 	int h = 0;
-	t_objetivo* objetivo = malloc(sizeof(t_objetivo));
+	t_objetivo * objetivo;
 	while(lista_objetivos != NULL){
 		objetivo = list_get(lista_objetivos, h);
 		if(objetivo == NULL){
@@ -280,12 +295,10 @@ void enviar_mensaje_por_cada_pokemon_requerido(){
 		t_get_pokemon* get_pokemon = malloc(sizeof(t_get_pokemon));
 		get_pokemon->pokemon = objetivo->especie;
 		enviar_get_pokemon(broker_socket, -1, -1, get_pokemon);
-		free(get_pokemon);
-
 		log_info(team_logger, "Enviado pedido de get pokemon para esta especie: %s", objetivo->especie);
+		free(get_pokemon);
 		h++;
 	}
-	free(objetivo);
 
 }
 
@@ -305,7 +318,7 @@ void convertirse_en_suscriptor_global_del_broker(){
 		log_info(team_logger, "Solicitud de suscripcion a COLA_CAUGHT_POKEMON enviada al broker");
 
 		enviar_solicitud_suscripcion(broker_socket, COLA_LOCALIZED_POKEMON, suscripcion);
-		log_info(team_logger, "Solicitud de suscripcion a COLA_LOCALIZED_POKEMON enviada al broker");
+		log_info(team_logger, "Solicitud de suscripcion a COLA_LOCALIZED_POKEMON enviada al broker\n");
 
 		free(suscripcion);
 
@@ -313,9 +326,8 @@ void convertirse_en_suscriptor_global_del_broker(){
 }
 
 int recibir_mensaje_broker(){
-	t_packed * paquete = recibir_mensaje(broker_socket);
-
 	log_info(team_logger, "Llegó un nuevo mensaje desde el broker!");
+	t_packed * paquete = recibir_mensaje(broker_socket);
 
 	if(paquete != -1){
 		if(paquete->operacion == ENVIAR_MENSAJE){
@@ -331,21 +343,15 @@ int recibir_mensaje_broker(){
 					break;
 				default:
 					break;
-
 			}
-
 		}
 
 		if(paquete->operacion == ACK){
-			log_info(team_logger, "Confirmada recepcion de algo");
+			log_info(team_logger, "Confirmada recepcion de algo\n");
 		}
 		free(paquete);
-	}else{
-		log_info(team_logger, "ERROR, el broker mando basura");
-		close(broker_socket);
-		return -1;
-	}
 
+	}
 
 }
 
@@ -429,6 +435,7 @@ int main(){
 	//Crea el socket cliente para conectarse al broker
 	broker_socket = conectar_broker();
 	enviar_get();
+	printf("\n");
 
 	while(1){
 		//Inicializa los file descriptor
@@ -483,15 +490,17 @@ int main(){
 
 			//Atender al broker
 			if(FD_ISSET(broker_socket, &readset)){
-				if(recibir_mensaje_broker() == 0 || recibir_mensaje_broker() < 0){
-					hacer_intento_de_reconexion();
+				if(recibir_mensaje_broker() <= 0){
+					//hacer_intento_de_reconexion();
+					log_info(team_logger, "El broker se cayo\n");
 					continue;
 				}
 			}
 
 			if(FD_ISSET(broker_socket, &exepset)){
-				if(recibir_mensaje_broker() == 0 || recibir_mensaje_broker() < 0){
-					hacer_intento_de_reconexion();
+				if(recibir_mensaje_broker() <= 0 ){
+					//hacer_intento_de_reconexion();
+					log_info(team_logger, "El broker se cayo\n");
 					continue;
 				}
 			}
@@ -501,7 +510,7 @@ int main(){
 				if (conexiones_gameboy[i].socket != NO_SOCKET ){
 					//Mensajes nuevos de algun gameboy
 					if (FD_ISSET(conexiones_gameboy[i].socket, &readset)){
-						if(recibir_mensaje_gameboy(conexiones_gameboy[i]) == 0 || recibir_mensaje_gameboy(conexiones_gameboy[i]) < 0){
+						if(recibir_mensaje_gameboy(conexiones_gameboy[i]) <= 0){
 							close(conexiones_gameboy[i].socket);
 							conexiones_gameboy[i].socket = NO_SOCKET;
 							continue;
@@ -510,7 +519,7 @@ int main(){
 
 					//Excepciones del gameboy, para la desconexion
 					if (FD_ISSET(conexiones_gameboy[i].socket, &exepset)) {
-						if(recibir_mensaje_gameboy(conexiones_gameboy[i]) == 0 || recibir_mensaje_gameboy(conexiones_gameboy[i]) < 0){
+						if(recibir_mensaje_gameboy(conexiones_gameboy[i]) <= 0){
 							close(conexiones_gameboy[i].socket);
 							conexiones_gameboy[i].socket = NO_SOCKET;
 							continue;
