@@ -19,7 +19,7 @@ void broker_new_pokemon(char * pokemon, char * posx, char * posy, char * cantida
 	new_pokemon->pokemon = pokemon;
 
 	server_broker = conectar_a_server(ip_broker, puerto_broker);
-	enviar_new_pokemon(server_broker, 0, 0, pokemon, new_pokemon);
+	enviar_new_pokemon(server_broker, 0, 0, new_pokemon);
 	log_info(gameboy_logger,"\nYa lo envie");
 
 	free(new_pokemon);
@@ -211,7 +211,7 @@ void gamecard_new_pokemon(char * pokemon, char * posx, char * posy, char * canti
 	new_pokemon->pokemon = pokemon;
 
 	server_gamecard= conectar_a_server(ip_gamecard, puerto_gamecard);
-	enviar_new_pokemon(server_gamecard, 0, 0, pokemon, new_pokemon);
+	enviar_new_pokemon(server_gamecard, 0, 0, new_pokemon);
 	log_info(gameboy_logger,"\nYa lo envie");
 
 	free(new_pokemon);

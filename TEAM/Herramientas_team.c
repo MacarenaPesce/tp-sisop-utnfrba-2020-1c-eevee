@@ -36,7 +36,7 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_CONFIG_LOG_FILE, config, obtener_el_log_file);
 
 
-		log_info(team_logger,"Archivo de configuracion cargado correctamente :)");
+		log_info(team_logger,"Archivo de configuracion cargado correctamente :)\n");
 		config_destroy(config);
 
 	}

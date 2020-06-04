@@ -15,6 +15,6 @@ int iniciar_servidor();
 void hacer_intento_de_reconexion();
 void * intento_de_reconexion();
 int conectar_broker();
-void * atender_nuevo_gameboy(int);
+
 
 #endif /* FUNCIONES_DE_CONEXION_H_ */
