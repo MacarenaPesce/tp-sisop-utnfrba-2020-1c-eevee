@@ -13,6 +13,8 @@
 #include <commons/collections/list.h>
 #include "Herramientas_gameCard.h"
 #include <fcntl.h>
+#include <commons/collections/dictionary.h>
+#include <commons/bitarray.h>
 
 typedef struct {
 	char* puntoDeMontaje;
@@ -41,9 +43,9 @@ typedef struct {
 	bool estaAbiertoArchivo;
 } t_metadata_;
 
-
+int32_t tamanioBitmap;
 void cargarRutasFs();
 int abrir_ruta(char *ruta);
-void cargarMetadataFs();
+void cargarMetadataFs(char *ruta);
 
 #endif /* FILESYSTEM_H_ */

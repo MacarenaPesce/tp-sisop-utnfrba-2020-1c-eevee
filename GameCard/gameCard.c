@@ -88,21 +88,52 @@ int  main () {
 	inicializar_logger ();
 	inicializar_archivo_de_configuracion ();
 
+	//valida si existen las rutas propias del fs
 	cargarRutasFs();
-
-	 //valida si existen las rutas propias del fs
-
-		if ( abrir_ruta(rutas_fs->pathDirectorioMetadataFs) < 0 |
-				abrir_ruta(rutas_fs->pathArchivoMetadataFs)<0 |
-				  abrir_ruta(rutas_fs->pathArchivoBitMap)<0 |
-				     abrir_ruta(rutas_fs->pathDirectorioBloques)<0 )
-		{
-			perror("no existen rutas, no existe el fs");
-			return -1;
+	if ( noCumpleConRutasfs())
+		{log_info(gameCard_logger,"no existe el FileSytem requerido");
+		log_info(gameCard_logger,"Inicializando FileSystem requerido");
+		crearFileSystemVacio();
 		}
 
+	//carga la estructura metadata_fs con el metadata.bin
+	cargarMetadatoFs(rutas_fs->pathArchivoMetadataFs);
+
+}
 
 
-		return 0;
+
+bool noCumpleConRutasfs(){
+
+	// se intenta hacer open de cada ruta propia del fs
+	//si open da negativo no existe ruta
+
+	return abrir_ruta(rutas_fs->pathDirectorioMetadataFs) < 0 |
+					abrir_ruta(rutas_fs->pathArchivoMetadataFs)<0 |
+					  abrir_ruta(rutas_fs->pathArchivoBitMap)<0;
+}
+
+void crearFileSystemVacio(){
+
+	//debería tomar del archivo configuracion lo que necesito para crear fs
+	//NO TENGO OTRO LADO DE DONDE SACAr ESA INFORMACION
+	//tamanio de bloque, cantidad total de bloques y el string "TALL_GRASS"
+	cargarMetadataFs("gamecard.config");
+
+
+	//se va a crear el directorio metadata
+	//analizar permisos para ese directorio por ahora todos pueden hacer cualquier cosa
+		int status = mkdir(rutas_fs->pathDirectorioMetadataFs,0777);
+		//se pudo crear directorio metadata
+		if(status == 0){
+			log_info("se ha creado el directorio Matadata");
+		}
+	// se van a crear el archivo metadata.bin
+	// w= crea un fichero en modo binario para escribir
+		FILE * archivoMetadata = fopen(rutas_fs->pathArchivoMetadataFs,"wb");
+
+	/*
+	 * 	fwrite(metadata_fs,sizeof(t_metadata_fs)
+			 */
 
 }

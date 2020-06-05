@@ -59,7 +59,7 @@ int abrir_ruta(char *ruta){
 
 }
 
-void cargarMetadataFs() {
+void cargarMetadataFs(char *ruta) {
 
 	log_info(gameCard_logger, "Cargando Metadata FileSystem");
 
@@ -72,7 +72,7 @@ void cargarMetadataFs() {
 
 	//el archivo metadata.bin se parece al archivo de configuracion
 	//se reutilizan estructuras
-	t_config* config = config_create(rutas_fs->pathArchivoMetadataFs);
+	t_config* config = config_create(ruta);
 
 	string_append(&tamanioBloque,config_get_string_value(config,"TAMANIO_BLOQUES"));
 	string_append(&cantidadBloques,config_get_string_value(config,"CANTIDAD_BLOQUES"));
@@ -86,3 +86,32 @@ void cargarMetadataFs() {
 	log_info(gameCard_logger, "se ha cargado correctamente la metadata del FileSystem");
 
 }
+
+void freeEstructurasParaFs() {
+
+//ver los free
+
+}
+
+/*
+ *
+
+t_bitarray* inicializarBitmap(){
+
+
+	if(tamanioBitmap==0){
+		tamanioBitmap++;
+	}
+	char* a = string_repeat(0,tamanioBitmap*4096);
+	t_bitarray* bitarray = bitarray_create_with_mode(a,tamanioBitmap*4096,MSB_FIRST);
+	for(int i=0;i<tamanioBitmap+1+1024;i++){//sumo 1 por el header y 1024 por la tabla de nodos
+		bitarray_set_bit(bitarray,i);
+	}
+	for(int j = tamanioBitmap+1+1024;j<bitarray->size;j++){
+		bitarray_clean_bit(bitarray,j);
+	}
+
+	return bitarray;
+}
+
+*/
