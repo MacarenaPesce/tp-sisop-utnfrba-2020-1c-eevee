@@ -32,6 +32,7 @@ void _imprimir(char *string) {
 	if(string != NULL) {
 		char **pokes = string_split(string, "|");
 		string_iterate_lines(pokes, _a_la_lista);
+		free(pokes);
 		//printf("Read: %s\n", string);
 	}else {
 		printf("Got NULL\n");

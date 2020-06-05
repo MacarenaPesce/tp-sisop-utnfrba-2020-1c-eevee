@@ -20,7 +20,7 @@ int main(){
 	/* Para enviar solamente tengo que crear la estructura
 	   y llamar a la funcion de envio correspondiente pasandole
 	   un puntero a la misma*/
-	t_new_pokemon new_pokemon;
+/*	t_new_pokemon new_pokemon;
 
 	new_pokemon.coordenadas.posx = 10;
 	new_pokemon.coordenadas.posy = 20;
@@ -28,7 +28,7 @@ int main(){
 	new_pokemon.pokemon = "pikachu";
 
 	enviar_new_pokemon(socket,-1,-1,&new_pokemon);
-	enviar_new_pokemon(socket,-1,-1,&new_pokemon);
+	enviar_new_pokemon(socket,-1,-1,&new_pokemon);*/
 
 
 	/* Caught Pokemon*/
@@ -43,11 +43,11 @@ int main(){
 	get_pokemon.pokemon = "pepe_el_dino";*/
 	
 
-/*
+
 	t_suscripcion suscripcion;
 	suscripcion.minutos_suscripcion = -1;
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
-	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);*/
+	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);
 	esperar_mensajes(socket);
 }
 
@@ -68,7 +68,7 @@ void esperar_mensajes(int socket_server){
 			printf("id_correlacional: %d  \n",paquete->id_correlacional);
 			printf("id_mensaje: %d \n",paquete->id_mensaje);
 			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
-
+ 
 		}
 		
 	}
