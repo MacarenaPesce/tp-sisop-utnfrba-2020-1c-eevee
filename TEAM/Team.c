@@ -127,7 +127,7 @@ void definir_objetivo_global(){
 	}
 
 	list_clean(lista_config);
-	mostrar_lo_que_hay_en_la_lista_de_objetivos();
+	//mostrar_lo_que_hay_en_la_lista_de_objetivos();
 
 	log_info(team_logger,"Objetivo global cargado\n");
 	list_clean(pokemones_ordenada);
@@ -160,9 +160,13 @@ void mostrar_lo_que_hay_en_lista_entrenadores(){
 
 void localizar_entrenadores_en_mapa(){
 
+	lista_global_objetivos = list_create();
+	lista_objetivos_de_entrenador = list_create();
+	string_iterate_lines(objetivos_entrenadores, separar_listas_objetivos);
 	string_iterate_lines(posiciones_entrenadores, _imprimir);
 
 	uint32_t i = 0;
+	uint32_t pos_entrenador_en_lista_objetivos = 0;
 	t_entrenador * entrenador = malloc(sizeof(t_entrenador));
 	uint32_t posx;
 	uint32_t posy;
@@ -180,8 +184,11 @@ void localizar_entrenadores_en_mapa(){
 						hay_que_agregar_entrenador = true;
 					}
 					if(hay_que_agregar_entrenador){
-						agregar_entrenador(posx, posy, i);
+						lista_objetivos_de_entrenador = obtener_objetivos_de_entrenador(lista_global_objetivos, pos_entrenador_en_lista_objetivos);
+						pos_entrenador_en_lista_objetivos++;
+						agregar_entrenador(posx, posy, i, lista_objetivos_de_entrenador);
 						hay_que_agregar_entrenador = false;
+						list_clean(lista_objetivos_de_entrenador);
 					}
 			}else{
 				break;
@@ -191,16 +198,40 @@ void localizar_entrenadores_en_mapa(){
 
 	mostrar_lo_que_hay_en_lista_entrenadores();
 	free(entrenador);
+	//list_destroy_and_destroy_elements(lista_global_objetivos, (void*)free);
+	list_destroy_and_destroy_elements(lista_objetivos_de_entrenador, (void*)free);
 	list_destroy_and_destroy_elements(lista_config, (void*)free);
 	log_info(team_logger,"Entrenadores ubicados\n");
 
 }
 
-void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id){
+t_list* obtener_objetivos_de_entrenador(t_list* lista_global_objetivos, uint32_t posicion){
+	char* objetivos_de_entrenador;
+	objetivos_de_entrenador = list_get(lista_global_objetivos, posicion);
+	separar_pokemones_de_objetivo(objetivos_de_entrenador);
+	for(uint32_t i = 0; i < list_size(lista_objetivos_de_entrenador); i++){
+		char* objetivo;
+		objetivo = list_get(lista_objetivos_de_entrenador, i);
+		if(objetivo == NULL){
+			printf("El pokemon de la lista de objetivos de entrenador es nulo\n");
+			break;
+		}
+
+		log_info(team_logger, "Un pokemon del entrenador %i es: %s \n", posicion, objetivo);
+		free(objetivo);
+	}
+	free(objetivos_de_entrenador);
+	return lista_objetivos_de_entrenador;
+
+
+}
+
+void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista_objetivos_de_entrenador){
 	t_entrenador* entrenador = malloc(sizeof(t_entrenador));
 	entrenador->posx = posx;
 	entrenador->posy = posy;
 	entrenador->id = id;
+	entrenador->objetivo = lista_objetivos_de_entrenador; //chequear como se agrega esta lista
 	list_add(lista_entrenadores, (void*)entrenador);
 
 	/*CREO UN HILO POR ENTRENADOR*/

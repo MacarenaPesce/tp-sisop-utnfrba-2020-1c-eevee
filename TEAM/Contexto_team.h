@@ -71,6 +71,8 @@ extern t_config* config;
 
 extern t_list* lista_entrenadores; //lista de entrenadores cargada.
 extern t_list* lista_objetivos;
+extern t_list* lista_global_objetivos;
+extern t_list* lista_objetivos_de_entrenador;
 extern t_list* lista_listos;
 extern t_list* lista_finalizar;
 extern t_list* lista_bloqueados;
