@@ -72,7 +72,9 @@ extern t_config* config;
 extern t_list* lista_entrenadores; //lista de entrenadores cargada.
 extern t_list* lista_objetivos;
 extern t_list* lista_global_objetivos;
+extern t_list* lista_global_pokemones;
 extern t_list* lista_objetivos_de_entrenador;
+extern t_list* lista_pokemones_de_entrenador;
 extern t_list* lista_listos;
 extern t_list* lista_finalizar;
 extern t_list* lista_bloqueados;
@@ -96,6 +98,7 @@ typedef struct {
 	uint32_t posy;
 	enum ESTADO estado;
 	t_list *objetivo; //una lista de objetivos para cada entrenador, esto falta.
+	t_list *pokemones;
 	float estimacion_real;//sjf
 	float estimacion_actual;//sjf
 	float estimacion_anterior;//sjf

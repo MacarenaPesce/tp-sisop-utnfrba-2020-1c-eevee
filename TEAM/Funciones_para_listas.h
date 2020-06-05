@@ -17,7 +17,10 @@ void _imprimir(char*);
 void mostrar(void *);
 void separar_listas_objetivos(char*);
 void agregar_a_lista_objetivos(char*);
-void separar_pokemones_de_objetivo(char* );
+void separar_pokemones_de_objetivo(char*);
+void separar_listas_pokemones(char*);
+void agregar_a_lista_pokemones(char*);
+void separar_pokemones_de_entrenador(char*);
 
 
 #endif /* FUNCIONES_PARA_LISTAS_H_ */

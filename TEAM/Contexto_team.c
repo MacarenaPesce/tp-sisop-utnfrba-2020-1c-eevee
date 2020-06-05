@@ -29,7 +29,9 @@ t_config* config;
 t_list* lista_entrenadores; //lista de entrenadores cargada.
 t_list* lista_objetivos; //una lista de objetivos para cada entrenador, esto falta.
 t_list* lista_global_objetivos;
+t_list* lista_global_pokemones;
 t_list* lista_objetivos_de_entrenador;
+t_list* lista_pokemones_de_entrenador;
 t_list* lista_listos;
 t_list* lista_finalizar;
 t_list* lista_bloqueados;

@@ -19,17 +19,12 @@ void operar_con_localized_pokemon(t_localized_pokemon *);
 void operar_con_caught_pokemon(t_caught_pokemon *);
 void agregar_pokemon_a_mapa(t_pokemon * pokemon);
 void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon*);
-void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*);
+void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*, t_list*);
 void localizar_entrenadores_en_el_mapa();
-t_list* obtener_objetivos_de_entrenador(t_list* lista_global_objetivos, uint32_t posicion);
+t_list* obtener_objetivos_de_entrenador(t_list*, uint32_t);
+t_list* obtener_pokemones_de_entrenador(t_list*, uint32_t);
 void agregar_objetivo(char*, uint32_t);
-/*Carga una lista de entrenadores con la info del archivo de configuracion, ademas de agregarles un id
-  y el estado NUEVO. Me falta resolver agregarles las listas de objetivos particulares de cada uno. Y quizas
-  es conveniente tener dos estructuras una para la info del hilo y el estado, y otra para la info del entrenador en si.
-  Vamos a tener otra info, como la de las rafagas ejecutadas y alguna otra cosa que surja. Me hace ruido que este
-  todo en la misma estructura*/
 void definir_objetivo_global();
-/*Cuenta todos los pokemones de cada especie y carga en una lista especie-cantidad*/
 void crear_hilo_entrenador(t_entrenador*, void*funcion_a_ejecutar(t_entrenador*));
 void * jugar_con_el_entrenador(t_entrenador*);
 void seleccionar_el_entrenador_mas_cercano_al_pokemon();
