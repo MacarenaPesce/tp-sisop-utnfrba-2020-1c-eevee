@@ -43,3 +43,44 @@ void mostrar(void *elemento) {
 	printf("El elemento: %s\n", (char *)elemento);
 }
 
+void separar_listas_objetivos(char *string){
+	if(string != NULL){
+		list_add(lista_global_objetivos, string);
+		//printf("Una lista de objetivos es: %s\n", string);
+	} else{
+		printf("Got NULL\n");
+	}
+}
+
+void separar_pokemones_de_objetivo(char* objetivos_de_entrenador){
+	char **pokes = string_split(objetivos_de_entrenador, "|");
+	string_iterate_lines(pokes, agregar_a_lista_objetivos);
+	free(pokes);
+}
+
+void agregar_a_lista_objetivos(char* elemento){
+	if (elemento != NULL) {
+		list_add(lista_objetivos_de_entrenador, elemento);
+	}
+}
+
+void separar_listas_pokemones(char *string){
+	if(string != NULL){
+		list_add(lista_global_pokemones, string);
+		//printf("Una lista de objetivos es: %s\n", string);
+	} else{
+		printf("Got NULL\n");
+	}
+}
+
+void separar_pokemones_de_entrenador(char* pokemones_de_entrenador){
+	char **pokes = string_split(pokemones_de_entrenador, "|");
+	string_iterate_lines(pokes, agregar_a_lista_pokemones);
+	free(pokes);
+}
+
+void agregar_a_lista_pokemones(char* elemento){
+	if (elemento != NULL) {
+		list_add(lista_pokemones_de_entrenador, elemento);
+	}
+}
