@@ -109,7 +109,7 @@ void* esperar_mensajes(void* cliente){
 
 void agregar_mensaje_a_queue(t_packed *paquete,int socket_cliente){
 
-	enviar_ack(socket_cliente,123,-1);
+	//enviar_ack(socket_cliente,123,-1);
 	
 	switch(paquete->cola_de_mensajes){
 
@@ -139,7 +139,7 @@ void agregar_mensaje_a_queue(t_packed *paquete,int socket_cliente){
 }
 
 void recibir_solicitud_suscripcion(void *paquete,int socket_cliente){
-	enviar_ack(socket_cliente,123,-1);
+	//enviar_ack(socket_cliente,123,-1);
 }
 
 void recibir_ack(void *paquete,int socket_cliente){

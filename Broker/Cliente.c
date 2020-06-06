@@ -2,18 +2,23 @@
 
 int main(){
 
-	int socket =  conectar_a_server("127.0.0.1","6009");
+	t_servidor servidor;
+	servidor.ip = "127.0.0.1";
+	servidor.puerto = "6009";
 
-	//enviar_mensaje_string(socket, "hola_broker");
+	
 
-	/* Appeared/Catch Pokemon*/
-	/*t_catch_pokemon appeared_pokemon;
+	/* Appeared/Catch Pokemon */
+	t_catch_pokemon appeared_pokemon;
 
 	appeared_pokemon.coordenadas.posx = 10;
 	appeared_pokemon.coordenadas.posy = 20;
 	appeared_pokemon.pokemon = "pikachu";
 
-	enviar_catch_pokemon(socket, -1, -1, &appeared_pokemon);*/
+	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
+
 
 	/* New Pokemon*/
 	
@@ -43,15 +48,17 @@ int main(){
 	get_pokemon.pokemon = "pepe_el_dino";*/
 	
 
-
+/*
 	t_suscripcion suscripcion;
 	suscripcion.minutos_suscripcion = -1;
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
-	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);
-	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);
-	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);
+	enviar_solicitud_suscripcion(servidor,COLA_CATCH_POKEMON,&suscripcion);
+	enviar_solicitud_suscripcion(servidor,COLA_CATCH_POKEMON,&suscripcion);
+	enviar_solicitud_suscripcion(servidor,COLA_CATCH_POKEMON,&suscripcion);
+*/
 
-	esperar_mensajes(socket);
+//enviar_mensaje_string(socket, "hola_broker");
+
 }
 
 
