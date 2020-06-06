@@ -76,6 +76,11 @@ typedef struct{
 	uint32_t posy __attribute__((packed));
 } t_coordenadas;
 
+typedef struct{
+	char* ip;
+	char* puerto;
+} t_servidor;
+
 typedef struct{	
 
 	uint32_t id_mensaje __attribute__((packed));

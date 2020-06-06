@@ -19,7 +19,7 @@ typedef struct{
     uint32_t id_correlacion;
     t_list* lista_suscriptores_enviados;
     t_list* lista_suscriptores_ack;
-}t_mensaje;
+}t_queue_mensaje;
 
 
 #endif
