@@ -48,6 +48,9 @@ int main(){
 	suscripcion.minutos_suscripcion = -1;
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
 	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);
+	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);
+	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);
+
 	esperar_mensajes(socket);
 }
 
