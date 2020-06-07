@@ -1,10 +1,3 @@
-/*
- * FileSystem.h
- *
- *  Created on: 2 jun. 2020
- *      Author: utnso
- */
-
 #ifndef FILESYSTEM_H_
 #define FILESYSTEM_H_
 
@@ -15,6 +8,7 @@
 #include <fcntl.h>
 #include <commons/collections/dictionary.h>
 #include <commons/bitarray.h>
+#include <sys/mman.h>
 
 typedef struct {
 	char* puntoDeMontaje;
@@ -44,8 +38,16 @@ typedef struct {
 } t_metadata_;
 
 int32_t tamanioBitmap;
+
+t_bitarray* bitarray;
+
+
 void cargarRutasFs();
 int abrir_ruta(char *ruta);
 void cargarMetadataFs(char *ruta);
+void crearFileSystemVacio();
+bool noCumpleConRutasfs();
+void crearMetadataFs();
+void inicializarBitmap();
 
 #endif /* FILESYSTEM_H_ */

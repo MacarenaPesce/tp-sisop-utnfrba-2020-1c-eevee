@@ -1,11 +1,49 @@
-/*
- * FileSystem.c
- *
- *  Created on: 2 jun. 2020
- *      Author: utnso
- */
 
 #include "FileSystem.h"
+#include <fcntl.h>
+ #include <sys/mman.h>
+
+bool noCumpleConRutasfs(){
+
+	// se intenta hacer open de cada ruta propia del fs
+	//si open da negativo no existe ruta
+
+	return abrir_ruta(rutas_fs->pathDirectorioMetadataFs) < 0 |
+					abrir_ruta(rutas_fs->pathArchivoMetadataFs)<0 |
+					  abrir_ruta(rutas_fs->pathArchivoBitMap)<0;
+}
+
+
+
+void crearFileSystemVacio(){
+
+	//debería tomar del archivo configuracion lo que necesito para crear fs
+	//NO TENGO OTRO LADO DE DONDE SACAr ESA INFORMACION
+	//tamanio de bloque, cantidad total de bloques y el string "TALL_GRASS"
+	cargarMetadataFs("gamecard.config");
+	crearMetadataFs();
+	crearBitmap();
+
+}
+
+void crearMetadataFs(){
+
+//se va a crear el directorio metadata
+//analizar permisos para ese directorio por ahora todos pueden hacer cualquier cosa
+	int status = mkdir(rutas_fs->pathDirectorioMetadataFs,0777);
+	//se pudo crear directorio metadata
+	if(status == 0){
+		log_info(gameCard_logger,"se ha creado el directorio Matadata");
+	}
+// se van a crear el archivo metadata.bin
+// w= crea un fichero en modo binario para escribir
+	FILE * archivoMetadata = fopen(rutas_fs->pathArchivoMetadataFs,"wb");
+	fwrite(&metadata_fs->magicNumber, sizeof(metadata_fs->magicNumber),1,archivoMetadata);
+	fwrite(&metadata_fs->tamanioBLoques, sizeof(metadata_fs->tamanioBLoques),1,archivoMetadata);
+	fwrite(&metadata_fs->cantidadBloques,sizeof(metadata_fs->cantidadBloques),1,archivoMetadata);
+
+	log_info(gameCard_logger," Se ha creado el archivo metadata.bin");
+}
 
 void cargarRutasFs() {
 
@@ -92,6 +130,48 @@ void freeEstructurasParaFs() {
 //ver los free
 
 }
+
+
+void inicializarBitmap(){
+
+
+
+}
+
+
+void crearBitmap(){
+
+	// se van a crear el archivo bitmap.bin
+	// w= crea un fichero en modo binario para escribir
+	//FILE * archivoMetadata = fopen(rutas_fs->pathArchivoBitMap,"wb");
+
+	//abrir el archivo y crearlo si noexiste
+		int archBitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+		uint32_t cantBloques = metadata_fs->cantidadBloques;
+
+		//quitar parte fraccionaria con ftruncate para evitar errores
+		ftruncate(archBitmap,cantBloques);
+
+/*   ftruncate () hacen que el archivo normal nombrado por ruta o  al que hace referencia
+  fd se trunca a un tamaño de bytes de longitud precisa */
+		int bloquesDisponibles=0;
+		char* bitarraycontent = mmap(NULL, (cantBloques/8), PROT_READ | PROT_WRITE, MAP_SHARED, archBitmap, 0);
+	    bitarray = bitarray_create_with_mode(bitarraycontent, (cantBloques/8), LSB_FIRST);
+	    			for(int i=0;i< bitarray_get_max_bit(bitarray);i++){
+	    				 if(bitarray_test_bit(bitarray, i) == 0){
+	    					 bloquesDisponibles = bloquesDisponibles+1;
+	    				 }
+	    			}
+
+
+		fwrite(&bitarray, sizeof(bitarray),1,archBitmap);
+
+		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
+
+
+
+}
+
 
 /*
  *

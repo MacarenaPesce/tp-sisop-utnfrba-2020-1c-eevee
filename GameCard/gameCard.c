@@ -2,13 +2,12 @@
 #include <stdbool.h>
 #include "FileSystem.h"
 
- void recibir_get_pokemon_desde_gameboy(t_get_pokemon * mensaje){
+void recibir_get_pokemon_desde_gameboy(t_get_pokemon * mensaje){
 	log_info(gameCard_logger,"Recibo el pokemon: %s de Game Boy",mensaje->pokemon);
 	free(mensaje->pokemon);
 	free(mensaje);
 }
 
-//catch y appered reciben lo mismo
 void recibir_catch_pokemon_desde_gameboy(t_catch_pokemon *mensaje){
 	log_info(gameCard_logger,"Voy a recibir un pokemon y coordenadas");
 	log_info(gameCard_logger,"Me llego este pokemon: %s", mensaje->pokemon);
@@ -26,7 +25,6 @@ void recibir_new_pokemon_desde_gameboy(t_new_pokemon *mensaje){
 		log_info(gameCard_logger,"La cantidad del pokemon en esa coordenada es:%d",mensaje->cantidad);
 		free(mensaje->pokemon);
 		free(mensaje);
-
 }
 
 void iniciar_servidor(void){
@@ -90,50 +88,18 @@ int  main () {
 
 	//valida si existen las rutas propias del fs
 	cargarRutasFs();
-	if ( noCumpleConRutasfs())
-		{log_info(gameCard_logger,"no existe el FileSytem requerido");
+	if ( noCumpleConRutasfs()){
+		log_info(gameCard_logger,"no existe el FileSytem requerido");
 		log_info(gameCard_logger,"Inicializando FileSystem requerido");
 		crearFileSystemVacio();
 		}
 
 	//carga la estructura metadata_fs con el metadata.bin
-	cargarMetadatoFs(rutas_fs->pathArchivoMetadataFs);
+	// todo cargarMetadatoFs(rutas_fs->pathArchivoMetadataFs);
 
 }
 
 
 
-bool noCumpleConRutasfs(){
-
-	// se intenta hacer open de cada ruta propia del fs
-	//si open da negativo no existe ruta
-
-	return abrir_ruta(rutas_fs->pathDirectorioMetadataFs) < 0 |
-					abrir_ruta(rutas_fs->pathArchivoMetadataFs)<0 |
-					  abrir_ruta(rutas_fs->pathArchivoBitMap)<0;
-}
-
-void crearFileSystemVacio(){
-
-	//debería tomar del archivo configuracion lo que necesito para crear fs
-	//NO TENGO OTRO LADO DE DONDE SACAr ESA INFORMACION
-	//tamanio de bloque, cantidad total de bloques y el string "TALL_GRASS"
-	cargarMetadataFs("gamecard.config");
 
 
-	//se va a crear el directorio metadata
-	//analizar permisos para ese directorio por ahora todos pueden hacer cualquier cosa
-		int status = mkdir(rutas_fs->pathDirectorioMetadataFs,0777);
-		//se pudo crear directorio metadata
-		if(status == 0){
-			log_info("se ha creado el directorio Matadata");
-		}
-	// se van a crear el archivo metadata.bin
-	// w= crea un fichero en modo binario para escribir
-		FILE * archivoMetadata = fopen(rutas_fs->pathArchivoMetadataFs,"wb");
-
-	/*
-	 * 	fwrite(metadata_fs,sizeof(t_metadata_fs)
-			 */
-
-}
