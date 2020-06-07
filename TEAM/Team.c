@@ -98,51 +98,64 @@ void definir_objetivo_global(){
 	/*Creo una nueva lista con los pokemon agrupados por especie*/
 
 	pokemones_ordenada = list_sorted(lista_config, (void*)ordenar);
-
 	char* unPokemon;
 	unPokemon = list_get(pokemones_ordenada, 0);
 	uint32_t contador = 0;
 
-	/*Empiezo a cargar a lista de objetivo global, con tipo y cantidad de cada uno*/
 	log_info(team_logger,"Cargando el objetivo global...");
-	char* especiePokemon;
-	char* otroPokemon;
-	int i = 0;
-	while(pokemones_ordenada != NULL){
-		especiePokemon = unPokemon;
-		otroPokemon = list_get(pokemones_ordenada, i);
-		if(otroPokemon == NULL){
-			agregar_objetivo(especiePokemon, contador);
-			break;
-		}
-		if(string_equals_ignore_case(unPokemon,otroPokemon)){
-			contador++;
-			i++;
-		}else{
-			agregar_objetivo(especiePokemon, contador);
-			unPokemon = otroPokemon;
-			contador = 1;
-			i++;
-		}
-	}
-
-	list_clean(lista_config);
-	//mostrar_lo_que_hay_en_la_lista_de_objetivos();
-
+	cargar_objetivos(pokemones_ordenada, lista_objetivos);
 	log_info(team_logger,"Objetivo global cargado\n");
-	list_clean(pokemones_ordenada);
-	list_destroy(pokemones_ordenada);
-	free(unPokemon);
+	list_remove(lista_objetivos, list_size(lista_objetivos)-1);
+	//mostrar_lo_que_hay_en_la_lista_de_objetivos();
+	list_clean(lista_config);
+}
+
+void cargar_objetivos(t_list* pokemones_ordenada, t_list* lista){
+	char* unPokemon;
+		unPokemon = list_get(pokemones_ordenada, 0);
+		uint32_t contador = 0;
+		printf("El tamanio de pokemones ordenada es %i", list_size(pokemones_ordenada));
+		char* un_char = "Ultimo poke\0";
+		char* ultimo_poke = string_from_format("%s\0", un_char);
+		list_add(pokemones_ordenada, ultimo_poke);
+
+		/*Empiezo a cargar a lista de objetivos, con tipo y cantidad de cada uno*/
+
+		char* especiePokemon;
+		char* otroPokemon;
+		int i = 0;
+		while(pokemones_ordenada != NULL){
+			especiePokemon = unPokemon;
+			otroPokemon = list_get(pokemones_ordenada, i);
+			if(otroPokemon == NULL){
+				//agregar_objetivo("Este pokemon es de mentira", 0, lista);
+				agregar_objetivo(especiePokemon, contador, lista);
+
+				break;
+			}
+			if(string_equals_ignore_case(unPokemon,otroPokemon)){
+				contador++;
+				i++;
+			}else{
+				agregar_objetivo(especiePokemon, contador, lista);
+				unPokemon = otroPokemon;
+				contador = 1;
+				i++;
+			}
+		}
+		//mostrar_lo_que_hay_en_la_lista_de_objetivos();
+		free(unPokemon);
 
 }
 
-void agregar_objetivo(char* especie, uint32_t cantidad){
+void agregar_objetivo(char* especie, uint32_t cantidad, t_list* lista){
 	t_objetivo* objetivo = malloc(sizeof(t_objetivo));
 	objetivo->especie = especie;
 	objetivo->cantidad = cantidad;
-	list_add(lista_objetivos, (void*)objetivo);
+	list_add(lista, (void*)objetivo);
 
 }
+
 
 void mostrar_lo_que_hay_en_lista_entrenadores(){
 	int l = 0;
@@ -152,6 +165,7 @@ void mostrar_lo_que_hay_en_lista_entrenadores(){
 		if(entrenador == NULL){
 			break;
 		}
+
 		log_info(team_logger,"Un entrenador tiene id = %i, pos x = %i, y = %i", entrenador->id, entrenador->posx, entrenador->posy);
 		l++;
 	}
@@ -203,7 +217,7 @@ void localizar_entrenadores_en_mapa(){
 		}
 	}
 
-	mostrar_lo_que_hay_en_lista_entrenadores();
+	//mostrar_lo_que_hay_en_lista_entrenadores();
 	free(entrenador);
 	list_destroy_and_destroy_elements(lista_objetivos_de_entrenador, (void*)free);
 	list_destroy_and_destroy_elements(lista_config, (void*)free);
@@ -223,10 +237,9 @@ t_list* obtener_objetivos_de_entrenador(t_list* lista_global_objetivos, uint32_t
 			break;
 		}
 
-		log_info(team_logger, "Un pokemon que necesita el entrenador %i es: %s \n", posicion, objetivo);
+		//log_info(team_logger, "Un pokemon que necesita el entrenador %i es: %s \n", posicion, objetivo);
 		free(objetivo);
 	}
-	free(objetivos_de_entrenador);
 	return lista_objetivos_de_entrenador;
 }
 
@@ -242,10 +255,10 @@ t_list* obtener_pokemones_de_entrenador(t_list* lista_global_de_pokemones, uint3
 				break;
 			}
 
-			log_info(team_logger, "Un pokemon que tiene el entrenador %i es: %s \n", posicion, pokemon);
+			//log_info(team_logger, "Un pokemon que tiene el entrenador %i es: %s \n", posicion, pokemon);
 			free(pokemon);
 	}
-	free(pokemones_de_entrenador);
+	//free(pokemones_de_entrenador);
 	return lista_pokemones_de_entrenador;
 }
 
@@ -257,7 +270,6 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->pokemones = lista_pokemones_de_entrenador;//chequear como se agrega esta lista tambien
 	entrenador->objetivo = lista_objetivos_de_entrenador; //chequear como se agrega esta lista
 	list_add(lista_entrenadores, (void*)entrenador);
-
 	/*CREO UN HILO POR ENTRENADOR*/
 	//crear_hilo_entrenador(entrenador, jugar_con_el_entrenador(entrenador));
 }

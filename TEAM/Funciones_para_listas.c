@@ -84,3 +84,5 @@ void agregar_a_lista_pokemones(char* elemento){
 		list_add(lista_pokemones_de_entrenador, elemento);
 	}
 }
+
+

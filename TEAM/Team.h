@@ -23,7 +23,7 @@ void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*, t_list*);
 void localizar_entrenadores_en_el_mapa();
 t_list* obtener_objetivos_de_entrenador(t_list*, uint32_t);
 t_list* obtener_pokemones_de_entrenador(t_list*, uint32_t);
-void agregar_objetivo(char*, uint32_t);
+void agregar_objetivo(char*, uint32_t, t_list*);
 void definir_objetivo_global();
 void crear_hilo_entrenador(t_entrenador*, void*funcion_a_ejecutar(t_entrenador*));
 void * jugar_con_el_entrenador(t_entrenador*);
