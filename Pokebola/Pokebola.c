@@ -151,7 +151,6 @@ void _recuperar_mensaje(void *mensaje,t_packed *paquete){
 		
 		case COLA_GET_POKEMON:
 			_recibir_get_pokemon(mensaje,paquete);
-				printf("se recibio el pkmn %s\n",((t_get_pokemon*)paquete->mensaje)->pokemon);
 			break;
 
 		case COLA_LOCALIZED_POKEMON:
