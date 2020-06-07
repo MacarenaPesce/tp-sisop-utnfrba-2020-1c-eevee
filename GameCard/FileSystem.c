@@ -112,8 +112,8 @@ void cargarMetadataFs(char *ruta) {
 	//se reutilizan estructuras
 	t_config* config = config_create(ruta);
 
-	string_append(&tamanioBloque,config_get_string_value(config,"TAMANIO_BLOQUES"));
-	string_append(&cantidadBloques,config_get_string_value(config,"CANTIDAD_BLOQUES"));
+	string_append(&tamanioBloque,config_get_string_value(config,"BLOCK_SIZE"));
+	string_append(&cantidadBloques,config_get_string_value(config,"BLOCKS"));
 	string_append(&magicNumber,config_get_string_value(config,"MAGIC_NUMBER"));
 
 	// atoi: convierte cadena de caracteres a un int
@@ -145,7 +145,7 @@ void crearBitmap(){
 	// w= crea un fichero en modo binario para escribir
 	//FILE * archivoMetadata = fopen(rutas_fs->pathArchivoBitMap,"wb");
 
-	//abrir el archivo y crearlo si noexiste
+	//abrir el archivo y crearlo si no existe
 		int archBitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 		uint32_t cantBloques = metadata_fs->cantidadBloques;
 
@@ -163,12 +163,9 @@ void crearBitmap(){
 	    				 }
 	    			}
 
-
-		fwrite(&bitarray, sizeof(bitarray),1,archBitmap);
+		fwrite(&bitarray,sizeof(bitarray),1,archBitmap);
 
 		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
-
-
 
 }
 
