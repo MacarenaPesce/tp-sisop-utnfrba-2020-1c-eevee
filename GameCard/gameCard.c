@@ -97,6 +97,8 @@ int  main () {
 	//carga la estructura metadata_fs con el metadata.bin
 	// todo cargarMetadatoFs(rutas_fs->pathArchivoMetadataFs);
 
+	liberarMemoriaFs();
+
 }
 
 

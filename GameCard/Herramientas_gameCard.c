@@ -25,10 +25,11 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_OPERACION , config_game_card, obtener_tiempo_reintento_operacion);
 		obtener_valor_config(KEY_TIEMPO_RETARDO_OPERACION,config_game_card,obtener_tiempo_retardo_operacion);
 		//logger(escribir_loguear,l_info,"\nArchivo de configuracion cargado correctamente");
-		config_destroy(config_game_card);
+
 
 	}
 
+	config_destroy(config_game_card);
 }
 
 // a partir de la clave del archivo de configuracion

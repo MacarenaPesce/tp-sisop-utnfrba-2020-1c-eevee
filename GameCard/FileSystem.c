@@ -101,6 +101,7 @@ void cargarMetadataFs(char *ruta) {
 
 	log_info(gameCard_logger, "Cargando Metadata FileSystem");
 
+
 	metadata_fs = malloc(sizeof(t_metadata_fs));
 	metadata_fs->magicNumber = string_new();
 
@@ -123,12 +124,17 @@ void cargarMetadataFs(char *ruta) {
 
 	log_info(gameCard_logger, "se ha cargado correctamente la metadata del FileSystem");
 
+	free(tamanioBloque);
+    free(cantidadBloques);
+	free(magicNumber);
+	free(config);
+
 }
 
-void freeEstructurasParaFs() {
+void liberarMemoriaFs(){
 
-//ver los free
-
+	free(metadata_fs);
+	free(gameCard_logger);
 }
 
 
@@ -163,7 +169,7 @@ void crearBitmap(){
 	    				 }
 	    			}
 
-		fwrite(&bitarray,sizeof(bitarray),1,archBitmap);
+		//fwrite(&bitarray,sizeof(bitarray),1,archBitmap);
 
 		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
 

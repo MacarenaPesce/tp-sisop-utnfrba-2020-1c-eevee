@@ -49,5 +49,6 @@ void crearFileSystemVacio();
 bool noCumpleConRutasfs();
 void crearMetadataFs();
 void inicializarBitmap();
+void liberarMemoriaFs();
 
 #endif /* FILESYSTEM_H_ */
