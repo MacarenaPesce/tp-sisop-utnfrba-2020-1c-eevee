@@ -2,11 +2,19 @@
 
 int main(){
 
+/* 
+	Creo un server donde voy a mandar mensajes (Broker)
+*/
+
 	t_servidor servidor;
 	servidor.ip = "127.0.0.1";
 	servidor.puerto = "6009";
 
-	
+/* 
+	Para enviar solamente tengo que crear la estructura
+	y llamar a la funcion de envio correspondiente pasandole
+	un puntero a la misma
+*/	
 
 	/* Appeared/Catch Pokemon */
 	t_catch_pokemon appeared_pokemon;
@@ -15,49 +23,38 @@ int main(){
 	appeared_pokemon.coordenadas.posy = 20;
 	appeared_pokemon.pokemon = "pikachu";
 
-	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
-	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
-	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
-
-
-	/* New Pokemon*/
-	
-	/* Para enviar solamente tengo que crear la estructura
-	   y llamar a la funcion de envio correspondiente pasandole
-	   un puntero a la misma*/
-/*	t_new_pokemon new_pokemon;
+	/* New Pokemon*/	
+	t_new_pokemon new_pokemon;
 
 	new_pokemon.coordenadas.posx = 10;
 	new_pokemon.coordenadas.posy = 20;
 	new_pokemon.cantidad = 7;
 	new_pokemon.pokemon = "pikachu";
 
-	enviar_new_pokemon(socket,-1,-1,&new_pokemon);
-	enviar_new_pokemon(socket,-1,-1,&new_pokemon);*/
-
-
 	/* Caught Pokemon*/
-	/*t_caught_pokemon caught_pokemon;
-
+	t_caught_pokemon caught_pokemon;
 	caught_pokemon.status = 1;
 
-	enviar_caught_pokemon(socket,-1,-1,&caught_pokemon);*/
-	
-	/* 
+	/* Get Pokemon*/
 	t_get_pokemon get_pokemon;
-	get_pokemon.pokemon = "pepe_el_dino";*/
-	
+	get_pokemon.pokemon = "pepe_el_dino";
 
-/*
+	/* Suscripcion */
 	t_suscripcion suscripcion;
 	suscripcion.minutos_suscripcion = -1;
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
-	enviar_solicitud_suscripcion(servidor,COLA_CATCH_POKEMON,&suscripcion);
-	enviar_solicitud_suscripcion(servidor,COLA_CATCH_POKEMON,&suscripcion);
-	enviar_solicitud_suscripcion(servidor,COLA_CATCH_POKEMON,&suscripcion);
-*/
 
-//enviar_mensaje_string(socket, "hola_broker");
+	enviar_caught_pokemon(&servidor,-1,-1,&caught_pokemon);
+	enviar_new_pokemon(&servidor,-1,-1,&new_pokemon);
+	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	enviar_appeared_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	enviar_get_pokemon(&servidor, -1, -1, &get_pokemon);
+	
+	//int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_CATCH_POKEMON,&suscripcion);
+	
+	//enviar_mensaje_string(socket, "hola_broker");	
+	 
+	/*esperar_mensajes(socket_get_pokemon);*/
 
 }
 

@@ -99,7 +99,6 @@ typedef struct{
 
 typedef struct{
 	t_coordenadas coordenadas;
-	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_appeared_pokemon;
 
@@ -117,18 +116,15 @@ typedef struct{
 typedef struct{
 	t_coordenadas coordenadas;
 	uint32_t cantidad __attribute__((packed));
-	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_new_pokemon;
 
 typedef struct{
-	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_get_pokemon;
 
 typedef struct{
 	uint32_t cantidad_coordenadas __attribute__((packed));
-	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 	t_list lista_coordenadas;
 } t_localized_pokemon;

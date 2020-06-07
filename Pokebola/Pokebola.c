@@ -146,7 +146,7 @@ void _recuperar_mensaje(void *mensaje,t_packed *paquete){
 			break;
 		
 		case COLA_CAUGHT_POKEMON:
-			_recibir_solicitud_suscripcion(mensaje,paquete);
+			_recibir_caught_pokemon(mensaje,paquete);
 			break;
 		
 		case COLA_GET_POKEMON:
@@ -378,13 +378,9 @@ int enviar_get_pokemon(t_servidor* servidor,
 
 };
 
-int enviar_ack(t_servidor* servidor,
+void enviar_ack(int socket,
 				uint32_t id_mensaje, 
 				uint32_t id_correlacional){
-
-	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
-
-	if(socket == -1) return -1;
 
 	t_packed* paquete;
 	paquete = _crear_paquete(ACK);
@@ -394,10 +390,6 @@ int enviar_ack(t_servidor* servidor,
 
 	_enviar_mensaje(socket, paquete);
 	_eliminar_mensaje(paquete);
-
-	cerrar_conexion(socket);
-
-	return 0;
 
 };
 
@@ -469,16 +461,22 @@ void _recibir_mensaje_string(void *mensaje,t_packed *paquete){
 }
 
 void _recibir_catch_o_appeared_pokemon(void *mensaje,t_packed *paquete){
-	t_appeared_pokemon* aux;
+
+	uint32_t _tamanio_string_pokemon;
+	int offset = 0;
+	t_appeared_pokemon *aux;
 
 	aux 			 = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
 	paquete->mensaje = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
 
-	memcpy(aux,mensaje,sizeof(t_appeared_pokemon)-sizeof(aux->pokemon));
+	memcpy(aux,mensaje+offset,sizeof(t_coordenadas));
+	offset += sizeof(t_coordenadas);
 
-	aux->pokemon = (char*)malloc(aux->_tamanio_string_pokemon);
+	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
+	offset += sizeof(uint32_t);
 
-	memcpy(aux->pokemon,mensaje+sizeof(t_appeared_pokemon)-sizeof(aux->pokemon),aux->_tamanio_string_pokemon);
+	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	memcpy(aux->pokemon,mensaje+offset,_tamanio_string_pokemon);
 
 	paquete->mensaje = aux;
 
@@ -488,16 +486,22 @@ void _recibir_catch_o_appeared_pokemon(void *mensaje,t_packed *paquete){
 }
 
 void _recibir_new_pokemon(void *mensaje,t_packed *paquete){
-	t_new_pokemon* aux;
 
-	aux 			 = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+	int offset = 0;
+	uint32_t _tamanio_string_pokemon;
+	t_new_pokemon *aux;
+
+	aux 			 = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));	
 	paquete->mensaje = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
 
-	memcpy(aux,mensaje,sizeof(t_new_pokemon)-sizeof(aux->pokemon));
+	memcpy(aux,mensaje+offset,sizeof(t_coordenadas)+sizeof(uint32_t));
+	offset += sizeof(t_coordenadas)+sizeof(uint32_t);
 
-	aux->pokemon = (char*)malloc(aux->_tamanio_string_pokemon);
+	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
+	offset += sizeof(uint32_t);
 
-	memcpy(aux->pokemon,mensaje+sizeof(t_new_pokemon)-sizeof(aux->pokemon),aux->_tamanio_string_pokemon);
+	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	memcpy(aux->pokemon,mensaje+offset,_tamanio_string_pokemon);
 
 	paquete->mensaje = aux;
 
@@ -518,15 +522,19 @@ void _recibir_caught_pokemon(void *mensaje,t_packed *paquete){
 }
 
 void _recibir_get_pokemon(void *mensaje,t_packed *paquete){
+
+	int offset = 0;
+	uint32_t _tamanio_string_pokemon;
 	t_get_pokemon* aux;
 
 	aux 			 = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 	paquete->mensaje = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 
-	memcpy(aux,mensaje,sizeof(t_get_pokemon)-sizeof(aux->pokemon));
+	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
+	offset += sizeof(uint32_t);
 
-	aux->pokemon = (char*)malloc(aux->_tamanio_string_pokemon);
-	memcpy(aux->pokemon,mensaje+sizeof(t_get_pokemon)-sizeof(aux->pokemon),aux->_tamanio_string_pokemon);
+	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	memcpy(aux->pokemon,mensaje+offset,_tamanio_string_pokemon);
 
 	paquete->mensaje = aux;
 
@@ -547,8 +555,9 @@ void _recibir_solicitud_suscripcion(void *mensaje,t_packed *paquete){
 }
 
 //TODO
+
 void _recibir_localized_pokemon(void *mensaje,t_packed *paquete){
-	t_get_pokemon* aux;
+/*	t_get_pokemon* aux;
 
 	aux 			 = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 	paquete->mensaje = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
@@ -562,7 +571,7 @@ void _recibir_localized_pokemon(void *mensaje,t_packed *paquete){
 
 	free(mensaje);
 
-	return;
+	return;*/
 }
 
 
