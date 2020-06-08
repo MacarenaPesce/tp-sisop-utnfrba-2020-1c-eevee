@@ -77,6 +77,7 @@ void _ParticionarBloqueMemoria(t_list* lista_memoria, int indice_nodo_particiona
     return;
 }
 
+/*
 void* EncontrarBloqueMemoriaLibre(char* bloque_memoria_inicial, int tamanio_en_bytes){
 
 
@@ -91,7 +92,7 @@ int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
 
     return i;
 
-}
+}*/
 
 //----------------------------ALGORITMOS DE MEMORIA-------------------------
 void* algoritmo_memoria(t_list* lista_memoria, int tamanio_en_bytes){
@@ -137,6 +138,7 @@ void* algoritmo_reemplazo(){
     return;
 
 }
+
 //------------------------------FIFO--------------------------------
 
 
@@ -155,8 +157,11 @@ void* algoritmo_reemplazo(){
 
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
 
-void* algoritmo_particion_libre(){
+void* algoritmo_particion_libre(/*recibo una particion*/){
     
+
+    //devuelvo una particion ??
+
     return;
 
 }
