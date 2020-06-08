@@ -14,7 +14,6 @@ bool noCumpleConRutasfs(){
 }
 
 
-
 void crearFileSystemVacio(){
 
 	//debería tomar del archivo configuracion lo que necesito para crear fs
@@ -41,7 +40,6 @@ void crearMetadataFs(){
 	fwrite(&metadata_fs->magicNumber, sizeof(metadata_fs->magicNumber),1,archivoMetadata);
 	fwrite(&metadata_fs->tamanioBLoques, sizeof(metadata_fs->tamanioBLoques),1,archivoMetadata);
 	fwrite(&metadata_fs->cantidadBloques,sizeof(metadata_fs->cantidadBloques),1,archivoMetadata);
-
 	log_info(gameCard_logger," Se ha creado el archivo metadata.bin");
 }
 
@@ -105,9 +103,9 @@ void cargarMetadataFs(char *ruta) {
 	metadata_fs = malloc(sizeof(t_metadata_fs));
 	metadata_fs->magicNumber = string_new();
 
-	char * tamanioBloque = string_new();
-	char * cantidadBloques = string_new();
-	char * magicNumber = string_new();
+	char* tamanioBloque = string_new();
+	char* cantidadBloques = string_new();
+	char* magicNumber = string_new();
 
 	//el archivo metadata.bin se parece al archivo de configuracion
 	//se reutilizan estructuras
@@ -134,15 +132,11 @@ void cargarMetadataFs(char *ruta) {
 void liberarMemoriaFs(){
 
 	free(metadata_fs);
-	free(gameCard_logger);
+	//free(gameCard_logger);
+	//free(config_game_card);
+	free(rutas_fs);
 }
 
-
-void inicializarBitmap(){
-
-
-
-}
 
 
 void crearBitmap(){
@@ -176,25 +170,3 @@ void crearBitmap(){
 }
 
 
-/*
- *
-
-t_bitarray* inicializarBitmap(){
-
-
-	if(tamanioBitmap==0){
-		tamanioBitmap++;
-	}
-	char* a = string_repeat(0,tamanioBitmap*4096);
-	t_bitarray* bitarray = bitarray_create_with_mode(a,tamanioBitmap*4096,MSB_FIRST);
-	for(int i=0;i<tamanioBitmap+1+1024;i++){//sumo 1 por el header y 1024 por la tabla de nodos
-		bitarray_set_bit(bitarray,i);
-	}
-	for(int j = tamanioBitmap+1+1024;j<bitarray->size;j++){
-		bitarray_clean_bit(bitarray,j);
-	}
-
-	return bitarray;
-}
-
-*/

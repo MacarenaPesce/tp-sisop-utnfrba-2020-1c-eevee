@@ -1,6 +1,7 @@
 #include "gameCard.h"
 #include <stdbool.h>
 #include "FileSystem.h"
+#include "Pokebola.h"
 
 void recibir_get_pokemon_desde_gameboy(t_get_pokemon * mensaje){
 	log_info(gameCard_logger,"Recibo el pokemon: %s de Game Boy",mensaje->pokemon);
@@ -83,6 +84,8 @@ void esperar_cliente(int socket_servidor){
 
 int  main () {
 
+	//analizar fugas de memoria
+
 	inicializar_logger ();
 	inicializar_archivo_de_configuracion ();
 
@@ -93,6 +96,24 @@ int  main () {
 		log_info(gameCard_logger,"Inicializando FileSystem requerido");
 		crearFileSystemVacio();
 		}
+
+	//ANALIZAR ADECUADAMENTE LA CONEXION
+
+	//aca intentará suscribirse globalmente al Broker
+	//a las colas de mensaje NEW_POKEMON, CATCH_POKEMON,GET_POKEMON
+
+	//DEBERÍA RECIBIR ACK DEL BROKER
+
+	//DEBE ESPERAR RECIBIR UN MENSAJE DEL BROKER
+
+	//AL RECIBIR UN MENSAJE DE CUALQUIER HILO DEL BROKER
+	//ENVIAR ACK AL BROKER
+	//CREAR HILO QUE ATIENDA DICHA SOLICITUD
+    //DEBE EVALUARSE QUE TIPO DE SOLICITUD ES
+	//VOLVER A ESTAR A LA ESCUCHA DE NUEVOS MENSAJES DE LA COLA DE MENSAJES
+
+	//Y TAMMBIÉN TENDRA UN SOCKET ESCUCHA PARA EL GAMECARD
+
 
 	//carga la estructura metadata_fs con el metadata.bin
 	// todo cargarMetadatoFs(rutas_fs->pathArchivoMetadataFs);
