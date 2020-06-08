@@ -1,7 +1,36 @@
 #ifndef HERRAMIENTAS_BROKER_H_
 #define HERRAMIENTAS_BROKER_H_
 
-#include "includes.h"
+#include "Memoria.h"
+//#include "Herramientas_broker.h"
+#include "Contexto_broker.h"
+#include "Broker.h"
+#include "utils.h"
+#include <Pokebola.h>
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <signal.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include <netdb.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#include <commons/collections/list.h>
+#include <commons/log.h>
+#include <commons/config.h>
+#include <commons/bitarray.h>
+#include <commons/string.h>
+
+#include <sys/socket.h>
+#include <sys/types.h>
+
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 void inicializar_logger();
 void inicializar_archivo_de_configuracion();
@@ -13,8 +42,8 @@ void obtener_tamanio_minimo_particion();
 void obtener_algoritmo_memoria();
 void obtener_algoritmo_reemplazo();
 void obtener_algoritmo_particion_libre();
-void obtener_la_ip_broker();
-void obtener_el_puerto_broker();
+void obtener_la_ip_del_broker();
+void obtener_el_puerto_del_broker();
 void obtener_frecuencia_compactacion();
 void obtener_el_log_file();
 

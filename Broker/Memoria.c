@@ -1,4 +1,4 @@
-#include "includes.h"
+#include "Memoria.h"
 
 //--------------- ADMINISTRACION DE MEMORIA-------------------
 
@@ -35,7 +35,7 @@ void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
 void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes){
     
     //Asigno un bloque segun el algoritmo de memoria que utilicemos
-    algoritmo_memoria(lista_memoria, tamanio_en_bytes);
+    algoritmo_de_memoria(lista_memoria, tamanio_en_bytes);
 
 }
 
@@ -95,15 +95,15 @@ int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
 }*/
 
 //----------------------------ALGORITMOS DE MEMORIA-------------------------
-void* algoritmo_memoria(t_list* lista_memoria, int tamanio_en_bytes){
+void algoritmo_de_memoria(t_list* lista_memoria, int tamanio_en_bytes){
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
 
     if (algoritmo_memoria == "BD"){
-        buddy_system(t_list* lista_memoria, int tamanio_en_bytes);
+        buddy_system(lista_memoria, tamanio_en_bytes);
     }
     else{
-        particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes);
+        particiones_dinamicas(lista_memoria, tamanio_en_bytes);
     }
 
     return ;
@@ -133,7 +133,7 @@ void buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
 
 //----------------------------ELIMINAR UNA PARTICION-----------------------
 
-void* algoritmo_reemplazo(){
+void* algoritmo_de_reemplazo(){
 
     return;
 
@@ -157,7 +157,7 @@ void* algoritmo_reemplazo(){
 
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
 
-void* algoritmo_particion_libre(/*recibo una particion*/){
+void algoritmo_de_particion_libre(/*recibo una particion*/){
     
 
     //devuelvo una particion ??

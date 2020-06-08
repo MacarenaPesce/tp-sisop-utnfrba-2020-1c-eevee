@@ -1,4 +1,4 @@
-#include "includes.h"
+#include "Broker.h"
 
 
 
@@ -15,7 +15,7 @@ int main(){
 	int tamanio_memoria_inicial = 8000;
 
 	//primer_bloque = AsignarMemoriaInicial(tamanio_memoria_inicial,lista_memoria);
-	while(true){
+	/*while(true){
 	
-	}
+	}*/
 }

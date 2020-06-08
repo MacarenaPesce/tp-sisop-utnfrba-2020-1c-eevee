@@ -1,5 +1,6 @@
-#include "includes.h"
+#include "utils.h"
 
+/*
 int calcularBytes (t_packed* paquete){ 
 
     int bytes = 0;
@@ -15,10 +16,10 @@ int calcularBytes (t_packed* paquete){
                 	t_new_pokemon* pkmn;
 					pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
 
-					/* Apunto a los datos del mensaje */
+					/* Apunto a los datos del mensaje 
 					pkmn = paquete->mensaje;
 
-					/*Libero la memoria del paquete*/
+					/*Libero la memoria del paquete
 					eliminar_mensaje(paquete);
 
 				//4 bytes por cada uint_32, y tengo 4 uint_32 -> 4 * 4 = 16 
@@ -35,10 +36,10 @@ int calcularBytes (t_packed* paquete){
 					t_localized_pokemon* pkmn;
 					pkmn =(t_localized_pokemon*)malloc(sizeof(t_localized_pokemon));
 
-					/* Apunto a los datos del mensaje */
+					/* Apunto a los datos del mensaje 
 					pkmn = paquete->mensaje;
 
-					/*Libero la memoria del paquete*/
+					/*Libero la memoria del paquete
 					eliminar_mensaje(paquete);
 				
 				//tengo 8 uint_32 -> 4 * 8 = 32
@@ -55,10 +56,10 @@ int calcularBytes (t_packed* paquete){
 					t_get_pokemon* pkmn;
 					pkmn =(t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 
-					/* Apunto a los datos del mensaje */
+					/* Apunto a los datos del mensaje 
 					pkmn = paquete->mensaje;
 
-					/*Libero la memoria del paquete*/
+					/*Libero la memoria del paquete
 					eliminar_mensaje(paquete);
                 
 				//tengo 1 sólo uint_32 -> 4 bytes
@@ -75,10 +76,10 @@ int calcularBytes (t_packed* paquete){
                 	t_appeared_pokemon* pkmn;
 					pkmn =(t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
 
-					/* Apunto a los datos del mensaje */
+					/* Apunto a los datos del mensaje 
 					pkmn = paquete->mensaje;
 
-					/*Libero la memoria del paquete*/
+					/*Libero la memoria del paquete
 					eliminar_mensaje(paquete);
                 
 				//tengo 3 uint_32 -> 4 * 3 = 12
@@ -95,10 +96,10 @@ int calcularBytes (t_packed* paquete){
                 	t_catch_pokemon* pkmn;
 					pkmn =(t_catch_pokemon*)malloc(sizeof(t_catch_pokemon));
 
-					/* Apunto a los datos del mensaje */
+					/* Apunto a los datos del mensaje 
 					pkmn = paquete->mensaje;
 
-					/*Libero la memoria del paquete*/
+					/*Libero la memoria del paquete
 					eliminar_mensaje(paquete);
                 
 				//tengo 3 uint_32 -> 4 * 3 = 12
@@ -121,7 +122,7 @@ int calcularBytes (t_packed* paquete){
 
 					//Libero la memoria del paquete
 					eliminar_mensaje(paquete);
-					*/
+					
                 
 				//tengo 1 solo uint_32 -> 4 bytes
                 
@@ -136,13 +137,13 @@ int calcularBytes (t_packed* paquete){
 
 
     return bytes;
-}
+}*/
 
 
 //Calculo si un numero es potencia de dos para buddy system
 bool tamanio_potencia_dos(int tamanio_en_bytes){
 	
-	if((tamanio_en_bytes == 0) && (tamanio_en_bytes < 0){
+	if((tamanio_en_bytes == 0) && (tamanio_en_bytes < 0)){
 
 		return false;
 
@@ -152,6 +153,7 @@ bool tamanio_potencia_dos(int tamanio_en_bytes){
 		return ((tamanio_en_bytes & (tamanio_en_bytes - 1)) == 0);
 
 	}
+
 }
 
 //Me fijo si un numero es potencia de dos.
