@@ -22,6 +22,7 @@
 #include <commons/log.h>
 #include <commons/collections/list.h>
 #include <commons/string.h>
+#include <sys/ioctl.h>
 
 
 /*** Enums log***/
@@ -57,6 +58,7 @@ enum COLA_DE_MENSAJES{
 enum OPERACIONES{
 	ENVIAR_MENSAJE,
 	SUSCRIBIRSE_A_COLA,
+	ACK
 };
 
 enum TIPOS_SUSCRIPCION{
@@ -73,6 +75,11 @@ typedef struct{
 	uint32_t posx __attribute__((packed));
 	uint32_t posy __attribute__((packed));
 } t_coordenadas;
+
+typedef struct{
+	char* ip;
+	char* puerto;
+} t_servidor;
 
 typedef struct{	
 
@@ -92,7 +99,6 @@ typedef struct{
 
 typedef struct{
 	t_coordenadas coordenadas;
-	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_appeared_pokemon;
 
@@ -110,18 +116,15 @@ typedef struct{
 typedef struct{
 	t_coordenadas coordenadas;
 	uint32_t cantidad __attribute__((packed));
-	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_new_pokemon;
 
 typedef struct{
-	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 } t_get_pokemon;
 
 typedef struct{
 	uint32_t cantidad_coordenadas __attribute__((packed));
-	uint32_t _tamanio_string_pokemon __attribute__((packed));
 	char * pokemon;
 	t_list lista_coordenadas;
 } t_localized_pokemon;
@@ -136,8 +139,12 @@ void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
  */
 
 /**************************************************************************************/
-/*int conectar_a_server(char*, char*);
+int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
+t_packed* recibir_mensaje(int sock);
+void eliminar_mensaje(t_packed* paquete);
+void logger(int tipo_esc, int tipo_log, const char* mensaje, ...);
+/*
 int enviar_mensaje(int sock, void *mensaje, int tamanio);
 int recibir_mensaje(int sock, void *mensaje, int tamanio);
 int enviar_header(int, enum MENSAJES tipo_de_mensaje,int);
