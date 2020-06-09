@@ -18,7 +18,6 @@ void inicializar_archivo_de_configuracion(){
 	}else{
 		//logger(escribir_loguear,l_info,"Cargando el archivo de configuracion...");
 		log_info(gameCard_logger, "cargando los datos del archivo de configuración...");
-
 		obtener_valor_config(KEY_IP_BROKER, config_game_card, obtener_ip_broker);
 		obtener_valor_config(KEY_PUERTO_BROKER, config_game_card,obtener_puerto_broker);
 		obtener_valor_config(KEY_PUNTO_MONTAJE_TALLGRASS, config_game_card, obtener_punto_montaje_tallgrass);
@@ -26,11 +25,11 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_OPERACION , config_game_card, obtener_tiempo_reintento_operacion);
 		obtener_valor_config(KEY_TIEMPO_RETARDO_OPERACION,config_game_card,obtener_tiempo_retardo_operacion);
 		//logger(escribir_loguear,l_info,"\nArchivo de configuracion cargado correctamente");
-		config_destroy(config_game_card);
+		//config_destroy(config_game_card);
 
 	}
 
-
+//	config_destroy(config_game_card);
 }
 
 // a partir de la clave del archivo de configuracion

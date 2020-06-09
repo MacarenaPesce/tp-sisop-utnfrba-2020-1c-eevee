@@ -40,6 +40,7 @@ void crearMetadataFs(){
 	fwrite(&metadata_fs->magicNumber, sizeof(metadata_fs->magicNumber),1,archivoMetadata);
 	fwrite(&metadata_fs->tamanioBLoques, sizeof(metadata_fs->tamanioBLoques),1,archivoMetadata);
 	fwrite(&metadata_fs->cantidadBloques,sizeof(metadata_fs->cantidadBloques),1,archivoMetadata);
+	fclose(archivoMetadata);
 	log_info(gameCard_logger," Se ha creado el archivo metadata.bin");
 }
 
@@ -101,7 +102,7 @@ void cargarMetadataFs(char *ruta) {
 
 
 	metadata_fs = malloc(sizeof(t_metadata_fs));
-	metadata_fs->magicNumber = string_new();
+	//metadata_fs->magicNumber = string_new();
 
 	char* tamanioBloque = string_new();
 	char* cantidadBloques = string_new();
@@ -109,11 +110,11 @@ void cargarMetadataFs(char *ruta) {
 
 	//el archivo metadata.bin se parece al archivo de configuracion
 	//se reutilizan estructuras
-	t_config* config = config_create(ruta);
+	t_config* configMetataNueva = config_create(ruta);
 
-	string_append(&tamanioBloque,config_get_string_value(config,"BLOCK_SIZE"));
-	string_append(&cantidadBloques,config_get_string_value(config,"BLOCKS"));
-	string_append(&magicNumber,config_get_string_value(config,"MAGIC_NUMBER"));
+	string_append(&tamanioBloque,config_get_string_value(configMetataNueva,"BLOCK_SIZE"));
+	string_append(&cantidadBloques,config_get_string_value(configMetataNueva,"BLOCKS"));
+	string_append(&magicNumber,config_get_string_value(configMetataNueva,"MAGIC_NUMBER"));
 
 	// atoi: convierte cadena de caracteres a un int
 	metadata_fs->cantidadBloques = atoi(cantidadBloques);
@@ -122,21 +123,23 @@ void cargarMetadataFs(char *ruta) {
 
 	log_info(gameCard_logger, "se ha cargado correctamente la metadata del FileSystem");
 
+	//free(configMetataNueva);
+	config_destroy(configMetataNueva);
 	free(tamanioBloque);
     free(cantidadBloques);
 	free(magicNumber);
-	free(config);
+	//config_destroy(configMetataNueva);
 
 }
 
 void liberarMemoriaFs(){
 
+	//free(metadata_fs->magicNumber);
 	free(metadata_fs);
-	//free(gameCard_logger);
+	free(gameCard_logger);
 	//free(config_game_card);
 	free(rutas_fs);
 }
-
 
 
 void crearBitmap(){

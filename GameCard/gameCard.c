@@ -95,7 +95,27 @@ int  main () {
 		log_info(gameCard_logger,"no existe el FileSytem requerido");
 		log_info(gameCard_logger,"Inicializando FileSystem requerido");
 		crearFileSystemVacio();
+
+	    //free(metadata_fs->magicNumber);
+		//free(metadata_fs);
+		//free(gameCard_logger);
+		//free(config_game_card);
+		//free(rutas_fs);
+
 		}
+
+	//free(metadata_fs->magicNumber);
+
+
+	return 0;
+
+	/*
+	config_destroy(config_game_card);
+	free(rutas_fs);
+	free(metadata_fs);
+	free(gameCard_logger);*/
+
+
 
 	//ANALIZAR ADECUADAMENTE LA CONEXION
 
@@ -118,7 +138,11 @@ int  main () {
 	//carga la estructura metadata_fs con el metadata.bin
 	// todo cargarMetadatoFs(rutas_fs->pathArchivoMetadataFs);
 
-	liberarMemoriaFs();
+	  //  free(metadata_fs->magicNumber);
+
+
+
+	//liberarMemoriaFs();
 
 }
 
