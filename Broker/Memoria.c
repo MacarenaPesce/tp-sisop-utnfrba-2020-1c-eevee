@@ -32,11 +32,14 @@ void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
     return;
 }
 
-void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes){
+void* AsignarParticionMemoria(t_list* lista_memoria, int tamanio_en_bytes){
     
+    //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
+    t_particion* nuevaParticion;
     //Asigno un bloque segun el algoritmo de memoria que utilicemos
-    algoritmo_de_memoria(lista_memoria, tamanio_en_bytes);
+    nuevaParticion = algoritmo_de_memoria(lista_memoria, tamanio_en_bytes);
 
+    return nuevaParticion;
 }
 
 void LiberarBloqueMemoria(t_bloque_memoria *bloque){
@@ -95,34 +98,42 @@ int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
 }*/
 
 //----------------------------ALGORITMOS DE MEMORIA-------------------------
-void algoritmo_de_memoria(t_list* lista_memoria, int tamanio_en_bytes){
+void* algoritmo_de_memoria(t_list* lista_memoria, int tamanio_en_bytes){
+
+    //Creo una nueva particion, que es donde se van a guardar los datos de la particion alojada
+    //y la particion que voy a retornar
+    t_particion* particionNueva;
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
-
     if (algoritmo_memoria == "BD"){
-        buddy_system(lista_memoria, tamanio_en_bytes);
+        particionNueva= buddy_system(lista_memoria, tamanio_en_bytes);
     }
     else{
-        particiones_dinamicas(lista_memoria, tamanio_en_bytes);
+        particionNueva= particiones_dinamicas(lista_memoria, tamanio_en_bytes);
     }
 
-    return ;
+    return particionNueva;
 }
 
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
-void particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes){
+void* particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes){
 
-    return ;
+    t_particion* particionNueva;
+
+
+    return particionNueva;
 
 }
 
 
 //------------------------------BUDDY SYSTEM----------------------------------
-void buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
+void* buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
 
     //int bytes_reservar= numero_potencia_dos(int tamanio_en_bytes)
 
-    return ;
+    t_particion* particionNueva;
+
+    return particionNueva;
     
 }
 
@@ -133,11 +144,11 @@ void buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
 
 //----------------------------ELIMINAR UNA PARTICION-----------------------
 
-void* algoritmo_de_reemplazo(){
+/*void* algoritmo_de_reemplazo(){
 
     return;
 
-}
+}*/
 
 //------------------------------FIFO--------------------------------
 
@@ -157,22 +168,22 @@ void* algoritmo_de_reemplazo(){
 
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
 
-void algoritmo_de_particion_libre(/*recibo una particion*/){
+/*void algoritmo_de_particion_libre(recibo una particion){
     
 
     //devuelvo una particion ??
 
     return;
 
-}
+}*/
 
 //------------------------------FIRST FIT------------------------------------
 
-void* algoritmo_first(){
+/*void* algoritmo_first(){
 
     return;
 
-}
+}*/
 
 /*
     Recorrer la memoria o la lista?
@@ -186,12 +197,12 @@ void* algoritmo_first(){
 
 //------------------------------BEST FIT-------------------------------------
 
-void* algoritmo_best(){
+/*void* algoritmo_best(){
 
 
     return;
 
-}
+}*/
 //----------------------------FIN DE BEST FIT---------------------------------
 
 //------------------------------FIN DE ELECCION DE PARTICION------------------

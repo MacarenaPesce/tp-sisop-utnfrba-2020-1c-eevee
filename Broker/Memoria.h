@@ -46,19 +46,23 @@ typedef struct{
 }t_bloque_memoria;
 
 //Estructura para particiones de la memoria inicial
-/*
 typedef struct{
     int id_particion;
     int tamanio;
     int esta_vacio;
-    //int comienzo;
-    //int fin;
-}t_particion;*/    
+    int base;
+    //Dato_auxiliar* aux;
+}t_particion; 
+
+/*typedef struct{
+    int respondioAck; //para avisar cuando lo vamos a borrar
+    int limite; //no hace falta porque se puede calcular pero no afecta agregarlo
+}Dato_auxiliar;*/
 
 void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria);
 void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
 
-void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes);
+void* AsignarParticionMemoria(t_list* lista_memoria, int tamanio_en_bytes);
 void  LiberarBloqueMemoria(t_bloque_memoria *bloque);
 
 
@@ -66,10 +70,10 @@ void  LiberarBloqueMemoria(t_bloque_memoria *bloque);
 
 //Segun el algoritmo que me pasa el archivo de configuracion, designo con esta funcion
 //que algoritmo se va a usar y le paso la lista y el tamaño de bytes
-void algoritmo_de_memoria(t_list* lista_memoria, int tamanio_en_bytes);
+void* algoritmo_de_memoria(t_list* lista_memoria, int tamanio_en_bytes);
 
-void particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes);
-void buddy_system(t_list* lista_memoria, int tamanio_en_bytes);
+void* particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes);
+void* buddy_system(t_list* lista_memoria, int tamanio_en_bytes);
 
 
 void algoritmo_de_particion_libre();
