@@ -1,8 +1,5 @@
 #include "Broker.h"
 
-
-
-
 int main(){
 
 	inicializar_logger();
@@ -15,7 +12,5 @@ int main(){
 	int tamanio_memoria_inicial = 8000;
 
 	//primer_bloque = AsignarMemoriaInicial(tamanio_memoria_inicial,lista_memoria);
-	/*while(true){
-	
-	}*/
+
 }

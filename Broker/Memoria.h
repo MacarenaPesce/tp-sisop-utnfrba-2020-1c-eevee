@@ -2,7 +2,6 @@
 #define MEMORIA_BROKER_H_
 
 
-//#include "Memoria.h"
 #include "Herramientas_broker.h"
 #include "Contexto_broker.h"
 #include "Broker.h"
