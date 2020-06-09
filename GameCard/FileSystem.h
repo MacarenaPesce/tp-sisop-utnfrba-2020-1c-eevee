@@ -53,5 +53,7 @@ void liberarMemoriaFs();
 void crearBitmap();
 void existePokemon(char* pokemon);
 bool existeDirectorio(char* ruta);
+void crearDirectoriosParaFs();
+void InicializarBloquesDeDatosFs();
 
 #endif /* FILESYSTEM_H_ */

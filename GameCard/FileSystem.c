@@ -23,6 +23,7 @@ void crearFileSystemVacio(){
 	crearMetadataFs();
 	crearBitmap();
 	crearDirectoriosParaFs();
+	InicializarBloquesDeDatosFs();
 
 }
 
@@ -178,37 +179,53 @@ void crearDirectoriosParaFs(){
 	//ver los permisos S_IRWXU
 	int fueCreado=mkdir(rutas_fs->pathDirectorioFilesMetadata,0777 );
 	if(fueCreado==-1){
-		perror("no se pudo crear el directorio: %s", rutas_fs->pathDirectorioFilesMetadata);
+		perror("no se pudo crear el directorio /Files");
 		log_info(gameCard_logger,"se ha producido un error no se pudo crear el directorio %s",rutas_fs->pathDirectorioFilesMetadata);
 	}
 
 	//de nuevo ver permisos
 	int creado=mkdir(rutas_fs->pathDirectorioBloques,0777);
 	if(creado==-1){
-			perror("no se pudo crear el directorio: %s", rutas_fs->pathDirectorioBloques);
+			perror("no se pudo crear el directorio /Blocks");
 			log_info(gameCard_logger,"se ha producido un error no se pudo crear el directorio %s",rutas_fs->pathDirectorioBloques);
 		}
 
 	log_info(gameCard_logger,"se han creado los directorios /Files y /Blocks");
 }
 
-bool existePokemon(char* nombrePokemon){
+void existePokemon(char* nombrePokemon){
 
 
 if (existeDirectorio(rutas_fs->pathDirectorioFilesMetadata)){
-	return true;
+	//return true;
 
 }
-else { return false;}
-
-
 }
-
 
 
 
 bool existeDirectorio(char* ruta){
 
 	return abrir_ruta(ruta) > -1;
+}
+
+
+void InicializarBloquesDeDatosFs(){
+
+	int numBloque;
+		for (numBloque = 0; numBloque < metadata_fs->cantidadBloques; numBloque++) {
+
+			char * pathBloque = string_new();
+			string_append(&pathBloque, rutas_fs->pathDirectorioBloques);
+			string_append(&pathBloque, itoa(numBloque));
+			string_append(&pathBloque, ".bin");
+
+			//se va a crear ese archivo si no existe
+			FILE * nuevoBloque = fopen(pathBloque, "wb");
+			fclose(nuevoBloque);
+
+		}
 
 }
+
+
