@@ -22,6 +22,7 @@ void crearFileSystemVacio(){
 	cargarMetadataFs("gamecard.config");
 	crearMetadataFs();
 	crearBitmap();
+	crearDirectoriosParaFs();
 
 }
 
@@ -172,4 +173,42 @@ void crearBitmap(){
 
 }
 
+void crearDirectoriosParaFs(){
 
+	//ver los permisos S_IRWXU
+	int fueCreado=mkdir(rutas_fs->pathDirectorioFilesMetadata,0777 );
+	if(fueCreado==-1){
+		perror("no se pudo crear el directorio: %s", rutas_fs->pathDirectorioFilesMetadata);
+		log_info(gameCard_logger,"se ha producido un error no se pudo crear el directorio %s",rutas_fs->pathDirectorioFilesMetadata);
+	}
+
+	//de nuevo ver permisos
+	int creado=mkdir(rutas_fs->pathDirectorioBloques,0777);
+	if(creado==-1){
+			perror("no se pudo crear el directorio: %s", rutas_fs->pathDirectorioBloques);
+			log_info(gameCard_logger,"se ha producido un error no se pudo crear el directorio %s",rutas_fs->pathDirectorioBloques);
+		}
+
+	log_info(gameCard_logger,"se han creado los directorios /Files y /Blocks");
+}
+
+bool existePokemon(char* nombrePokemon){
+
+
+if (existeDirectorio(rutas_fs->pathDirectorioFilesMetadata)){
+	return true;
+
+}
+else { return false;}
+
+
+}
+
+
+
+
+bool existeDirectorio(char* ruta){
+
+	return abrir_ruta(ruta) > -1;
+
+}

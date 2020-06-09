@@ -145,8 +145,3 @@ int  main () {
 	//liberarMemoriaFs();
 
 }
-
-
-
-
-

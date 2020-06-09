@@ -50,5 +50,8 @@ bool noCumpleConRutasfs();
 void crearMetadataFs();
 void inicializarBitmap();
 void liberarMemoriaFs();
+void crearBitmap();
+void existePokemon(char* pokemon);
+bool existeDirectorio(char* ruta);
 
 #endif /* FILESYSTEM_H_ */
