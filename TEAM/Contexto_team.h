@@ -63,7 +63,8 @@ extern char* ip_broker;
 extern int estimacion_inicial;
 extern char* puerto_broker;
 extern char* log_file;
-extern int broker_socket;
+
+extern int GLOBAL_SEGUIR;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
@@ -117,14 +118,5 @@ typedef struct { //estructura del objetivo global
 	uint32_t posy;
 } t_pokemon;
 t_entrenador * entrenador_en_ejecucion;
-
-struct conexion_gameboy {
-	int pid;
-	int socket;
-	struct sockaddr_in addres;
-};
-typedef struct conexion_gameboy t_conexion_gameboy;
-
-t_conexion_gameboy conexiones_gameboy[MAX_CLIENTES];
 
 #endif /* CONTEXTO_TEAM_H_ */

@@ -136,7 +136,9 @@ void capturar_signal(int signo){
     if(signo == SIGINT)
     {
     	log_info(team_logger,"\n TEAM DEJA DE FUNCIONAR");
+    	GLOBAL_SEGUIR = 0;
     	terminar_team_correctamente();
+    	exit(EXIT_FAILURE);
 
     }
     else if(signo == SIGPIPE)
@@ -182,16 +184,15 @@ int destruir_pokemon(t_pokemon * pokemon){
 
 void terminar_team_correctamente(){
 	log_info(team_logger,"Cerrando team...");
-
-	list_destroy_and_destroy_elements(lista_entrenadores,(void*)destruir_entrenador);
-	list_destroy_and_destroy_elements(lista_objetivos,(void*)destruir_objetivo);
-	list_destroy_and_destroy_elements(lista_listos,(void*)destruir_entrenador);
-	list_destroy_and_destroy_elements(lista_finalizar,(void*)destruir_entrenador);
-	list_destroy_and_destroy_elements(lista_bloqueados,(void*)destruir_entrenador);
+/*
+	list_destroy(lista_entrenadores);
+	list_destroy(lista_objetivos);
+	list_destroy(lista_listos);
+	list_destroy(lista_finalizar);
+	list_destroy(lista_bloqueados);
 	list_destroy_and_destroy_elements(lista_mapa,(void*)destruir_pokemon);
 	list_destroy_and_destroy_elements(pokemones_ordenada, (void*)free);
 	//list_destroy_and_destroy_elements(lista_pokemon_atrapado,(void*)destruir_pokemon);
-
 
 	if(entrenador_en_ejecucion!=NULL){
 		destruir_entrenador(entrenador_en_ejecucion);

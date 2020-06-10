@@ -49,32 +49,3 @@ int iniciar_servidor(){
 
 	return server_socket;
 }
-
-void hacer_intento_de_reconexion(){
-	log_info(team_logger, "Haciendo intento de reconexion...\n");
-	sleep(tiempo_reconexion);
-	broker_socket = conectar_broker();
-
-}
-
-int conectar_broker() {
-	broker_socket = conectar_a_server(ip_broker, "6009");
-
-	if (broker_socket < 0){
-		log_info(team_logger, "Error al intentar conectar al broker\n");
-		//hacer_intento_de_reconexion();
-		//crear_hilo_para_broker();
-	}
-	else{
-		if (broker_socket == 0){
-			log_info(team_logger, "Error al intentar conectar al broker\n");
-			//hacer_intento_de_reconexion();
-			//crear_hilo_para_broker();
-		}else{
-			log_info(team_logger, "Conectado con el broker! (%d)",broker_socket);
-			convertirse_en_suscriptor_global_del_broker();
-		}
-	}
-
-	return broker_socket;
-}

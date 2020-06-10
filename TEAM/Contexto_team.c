@@ -20,7 +20,8 @@ char* ip_broker;
 int estimacion_inicial;
 char* puerto_broker;
 char* log_file;
-int broker_socket;
+
+int GLOBAL_SEGUIR = 1;
 
 t_log* team_logger;
 t_log* team_logger_oficial;
