@@ -12,8 +12,6 @@
 
 int crear_listen_socket(char*);
 int iniciar_servidor();
-void hacer_intento_de_reconexion();
-void * intento_de_reconexion();
 int conectar_broker();
 
 

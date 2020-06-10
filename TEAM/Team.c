@@ -132,7 +132,7 @@ void definir_objetivo_global(){
 	log_info(team_logger,"Objetivo global cargado\n");
 	list_clean(pokemones_ordenada);
 	list_destroy(pokemones_ordenada);
-	free(unPokemon);
+	//free(unPokemon);
 
 }
 
@@ -319,6 +319,7 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 }
 
 void enviar_get(){
+	int broker_socket = conectar_a_server(ip_broker, "6009");
 	if(broker_socket < 0){// || broker_socket == 0){
 		int h = 0;
 		t_objetivo* objetivo = malloc(sizeof(t_objetivo));
@@ -332,12 +333,14 @@ void enviar_get(){
 			free(objetivo);
 		}
 		//free(objetivo);
+		//close(broker_socket);
 	}else{
-		enviar_mensaje_por_cada_pokemon_requerido();
+		enviar_mensaje_por_cada_pokemon_requerido(broker_socket);
+		close(broker_socket);
 	}
 }
 
-void enviar_mensaje_por_cada_pokemon_requerido(){
+void enviar_mensaje_por_cada_pokemon_requerido(int broker_socket){
 
 	int h = 0;
 	t_objetivo * objetivo;
@@ -353,125 +356,98 @@ void enviar_mensaje_por_cada_pokemon_requerido(){
 		log_info(team_logger, "Enviado pedido de get pokemon para esta especie: %s", objetivo->especie);
 		free(get_pokemon);
 		h++;
+
+		//Recibo ACK
+		t_packed * paquete1 = recibir_mensaje(broker_socket);
+
+		if(paquete1->operacion == ACK){
+			log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
+		}
+
+		//TODO GUARDAR EL ID
 	}
 
 }
 
 void convertirse_en_suscriptor_global_del_broker(){
-	if(broker_socket < 0 || broker_socket == 0){
-		log_info(team_logger, "EL BROKER ESTA CAIDO, NO SE PUEDE MANDAR EL MENSAJE DE SUSCRIPCION AHORA");
-	}else{
 
-		t_suscripcion * suscripcion = malloc(sizeof(t_suscripcion));
-		suscripcion->minutos_suscripcion = -1;
-		suscripcion->tipo_suscripcion = SUSCRIPCION_GLOBAL;
+	enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon();
+	//enviar_mensaje_de_suscripcion_a_cola_caught_pokemon();
+	//enviar_mensaje_de_suscripcion_a_cola_localized_pokemon();
 
+}
+
+void * reconexion(){
+	sleep(tiempo_reconexion);
+}
+
+void hacer_intento_de_reconexion(){
+	pthread_t hilo;
+	pthread_create(&hilo,NULL,(void*)reconexion,NULL);
+	pthread_detach(hilo);
+}
+
+void enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon(){
+	int broker_socket = conectar_a_server(ip_broker, "6009");
+
+	t_suscripcion * suscripcion = malloc(sizeof(t_suscripcion));
+	suscripcion->minutos_suscripcion = -1;
+	suscripcion->tipo_suscripcion = SUSCRIPCION_GLOBAL;
+
+	while(broker_socket > 0){
 		enviar_solicitud_suscripcion(broker_socket,COLA_APPEARED_POKEMON,suscripcion);
 		log_info(team_logger, "Solicitud de suscripcion a COLA_APPEARED_POKEMON enviada al broker");
 
-		enviar_solicitud_suscripcion(broker_socket, COLA_CAUGHT_POKEMON, suscripcion);
-		log_info(team_logger, "Solicitud de suscripcion a COLA_CAUGHT_POKEMON enviada al broker");
+		//Recibo ACK
+		t_packed * paquete1 = recibir_mensaje(broker_socket);
 
-		enviar_solicitud_suscripcion(broker_socket, COLA_LOCALIZED_POKEMON, suscripcion);
-		log_info(team_logger, "Solicitud de suscripcion a COLA_LOCALIZED_POKEMON enviada al broker\n");
+		if(paquete1->operacion == ACK){
+			log_info(team_logger, "Confirmada recepcion del mensaje de suscripcion a la cola_appeaded_pokemon\n");
+		}
 
-		free(suscripcion);
-
-	}
-}
-
-int recibir_mensaje_broker(){
-	log_info(team_logger, "Llegó un nuevo mensaje desde el broker!");
-	t_packed * paquete = recibir_mensaje(broker_socket);
-
-	if(paquete != -1){
-		if(paquete->operacion == ENVIAR_MENSAJE){
-			switch(paquete->cola_de_mensajes){
-				case COLA_APPEARED_POKEMON:
-					operar_con_appeared_pokemon(paquete->mensaje);
-					break;
-				case COLA_LOCALIZED_POKEMON:
-					operar_con_localized_pokemon(paquete->mensaje);
-					break;
-				case COLA_CAUGHT_POKEMON:
-					operar_con_caught_pokemon(paquete->mensaje);
-					break;
-				default:
-					break;
+		//Quedo a la espera de recibir notificaciones
+		t_packed * paquete2 = recibir_mensaje(broker_socket);
+		if(paquete2->operacion == ENVIAR_MENSAJE){
+			if(paquete2->cola_de_mensajes){
+				operar_con_appeared_pokemon(paquete2->mensaje);
 			}
 		}
-
-		if(paquete->operacion == ACK){
-			log_info(team_logger, "Confirmada recepcion de algo\n");
-		}
-		free(paquete);
-
 	}
+
+	free(suscripcion);
+	/*if(broker_socket <= 0){
+		hacer_intento_de_reconexion();
+		enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon();
+	}*/
+	log_info(team_logger, "NO se pudo enviar la solicitud de suscripcion a COLA_APPEARED_POKEMON al broker");
 
 }
 
-int recibir_mensaje_gameboy(t_conexion_gameboy gameboy){
-	t_packed * paquete = recibir_mensaje(gameboy.socket);
+void * escuchar_mensajes_entrantes(int new_client_sock){
+
+	log_info(team_logger, "Gameboy conectado, esperando mensajes...");
+
+	t_packed * paquete = recibir_mensaje(new_client_sock);
+
+	if(paquete == 0) {
+	   log_info(team_logger, "\nDesconectado \n");
+	}
 
 	if(paquete->cola_de_mensajes == COLA_APPEARED_POKEMON){
 		recibir_appeared_pokemon_desde_gameboy(paquete->mensaje);
 	}
 
+		close(new_client_sock);
+		free(paquete);
 }
 
-
-void * interactuar_con_broker(){
-	hacer_intento_de_reconexion();
-}
-
-void crear_hilo_para_broker(){
+void crear_hilo_de_escucha_para_gameboy(int socket, void*funcion_a_ejecutar(int)){
 	pthread_t hilo;
-	pthread_create(&hilo,NULL,(void*)interactuar_con_broker,NULL);
-}
-
-
-int atender_nuevo_gameboy(int serv_socket){
-	struct sockaddr_in client_addr;
-
-	//Setea la direccion en 0
-	memset(&client_addr, 0, sizeof(client_addr));
-	socklen_t client_len = sizeof(client_addr);
-
-	//Acepta la nueva conexion
-	int new_client_sock = accept(serv_socket, (struct sockaddr *)&client_addr, &client_len);
-	if (new_client_sock < 0) {
-		log_info(team_logger, "Error al aceptar un nuevo gameboy :(\n");
-		return -1;
-	}
-
-	log_info(team_logger, "Se aceptó un nuevo gameboy");
-
-	//Lo agrego a la lista de conexiones esi actuales
-	for (int i = 0; i < MAX_CLIENTES; ++i) {
-		if (conexiones_gameboy[i].socket == NO_SOCKET) {
-			conexiones_gameboy[i].socket = new_client_sock;
-			conexiones_gameboy[i].addres = client_addr;
-	        return 0;
-	    }
-	 }
-
-	log_info(team_logger, "Demasiadas conexiones. Cerrando nueva conexion\n");
-	close(new_client_sock);
-
-	return -1;
-}
-
-void inicializar_conexiones_gameboy(void){
-	for (int i = 0; i < MAX_CLIENTES; i++){
-		conexiones_gameboy[i].socket = NO_SOCKET;
-	}
+	pthread_create(&hilo,NULL,(void*)funcion_a_ejecutar,(void*)socket);
+	pthread_detach(hilo);
 }
 
 int main(){
-
-	fd_set readset, writeset, exepset;
-	int max_fd;
-	struct timeval tv = {0, 500};
 
 	inicializar_logger();
 	inicializar_archivo_de_configuracion();
@@ -479,7 +455,6 @@ int main(){
 	inicializar_listas();//sacar los leaks
 	definir_objetivo_global();//sacar los leaks
 	localizar_entrenadores_en_mapa();
-	inicializar_conexiones_gameboy();
 
 	/*CREO UN HILO POR ENTRENADOR*/
 	/*Ya esta hecho en la funcion localizar_entrenadores_en_el_mapa(), cuando llama a la funcion agregar_entrenador()*/
@@ -488,103 +463,27 @@ int main(){
 	int serv_socket = iniciar_servidor(PUERTO);
 
 	//Crea el socket cliente para conectarse al broker
-	broker_socket = conectar_broker();
 	enviar_get();
-	printf("\n");
 
-	while(1){
-		//Inicializa los file descriptor
-		FD_ZERO(&readset);
-		FD_ZERO(&writeset);
-		FD_ZERO(&exepset);
+	convertirse_en_suscriptor_global_del_broker();
 
-		tv.tv_sec = 5;
-		tv.tv_usec = 0;
+	while(GLOBAL_SEGUIR){
+		struct sockaddr_in client_addr;
 
-		//Agrega el fd del socket servidor al set de lectura y excepciones
-		FD_SET(serv_socket, &readset);
-		FD_SET(serv_socket, &exepset);
+		//Setea la direccion en 0
+		memset(&client_addr, 0, sizeof(client_addr));
+		socklen_t client_len = sizeof(client_addr);
 
-		//Agrega el fd del socket coordinador al set de lectura
-		FD_SET(broker_socket, &readset);
-		FD_SET(broker_socket, &exepset);
+		//Acepta la nueva conexion
+		int new_client_sock = accept(serv_socket, (struct sockaddr *)&client_addr, &client_len);
 
-		/* Seteo el maximo file descriptor necesario para el select */
-		max_fd = serv_socket;
+		log_info(team_logger, "Se aceptó un nuevo gameboy");
 
-		//Agrega las conexiones gameboy existentes
-		for (int i = 0; i < MAX_CLIENTES; i++){
-			if (conexiones_gameboy[i].socket != NO_SOCKET){
-				FD_SET(conexiones_gameboy[i].socket, &readset);
-				FD_SET(conexiones_gameboy[i].socket, &exepset);
-			}
-			if (conexiones_gameboy[i].socket > max_fd)
-				max_fd = conexiones_gameboy[i].socket;
-		}
+		crear_hilo_de_escucha_para_gameboy(new_client_sock, escuchar_mensajes_entrantes);
+	}
 
-		if(max_fd < broker_socket){
-			max_fd = broker_socket;
-		}
+	close(serv_socket);
 
-		int result = select(max_fd+1, &readset, &writeset, &exepset, &tv);
-
-		if(result < 0 ) {
-			log_info(team_logger, "Error en select\n");
-			break;
-		}
-		else if(errno == EINTR) {
-			log_info(team_logger, "Me mataron! salgo del select\n");
-			break;
-		}
-		else if(result > 0) //Hubo un cambio en algun fd
-		{
-			//Aceptar nuevas conexiones de gameboy
-			if (FD_ISSET(serv_socket, &readset)) {
-				atender_nuevo_gameboy(serv_socket);
-			}
-
-			//Atender al broker
-			if(FD_ISSET(broker_socket, &readset)){
-				if(recibir_mensaje_broker() <= 0){
-					//hacer_intento_de_reconexion();
-					log_info(team_logger, "El broker se cayo\n");
-					continue;
-				}
-			}
-
-			if(FD_ISSET(broker_socket, &exepset)){
-				if(recibir_mensaje_broker() <= 0 ){
-					//hacer_intento_de_reconexion();
-					log_info(team_logger, "El broker se cayo\n");
-					continue;
-				}
-			}
-
-			//Manejo de conexiones gameboy ya existentes
-			for (int i = 0; i < MAX_CLIENTES; ++i) {
-				if (conexiones_gameboy[i].socket != NO_SOCKET ){
-					//Mensajes nuevos de algun gameboy
-					if (FD_ISSET(conexiones_gameboy[i].socket, &readset)){
-						if(recibir_mensaje_gameboy(conexiones_gameboy[i]) <= 0){
-							close(conexiones_gameboy[i].socket);
-							conexiones_gameboy[i].socket = NO_SOCKET;
-							continue;
-						}
-					}
-
-					//Excepciones del gameboy, para la desconexion
-					if (FD_ISSET(conexiones_gameboy[i].socket, &exepset)) {
-						if(recibir_mensaje_gameboy(conexiones_gameboy[i]) <= 0){
-							close(conexiones_gameboy[i].socket);
-							conexiones_gameboy[i].socket = NO_SOCKET;
-							continue;
-						}
-					}//if isset
-				} // if NO_SOCKET
-			} //for conexiones_gameboy
-		} //if result select
-	} //while
-
-	//pthread_exit(0);
-	return EXIT_SUCCESS;
+	terminar_team_correctamente();
+	return 0;
 }
