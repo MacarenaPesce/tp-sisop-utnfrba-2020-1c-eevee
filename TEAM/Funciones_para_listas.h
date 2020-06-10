@@ -23,4 +23,5 @@ void agregar_a_lista_pokemones(char*);
 void separar_pokemones_de_entrenador(char*);
 
 
+
 #endif /* FUNCIONES_PARA_LISTAS_H_ */

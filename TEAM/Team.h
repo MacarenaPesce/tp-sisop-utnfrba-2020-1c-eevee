@@ -17,9 +17,6 @@
 void operar_con_appeared_pokemon(t_appeared_pokemon *);
 void operar_con_localized_pokemon(t_localized_pokemon *);
 void operar_con_caught_pokemon(t_caught_pokemon *);
-void agregar_pokemon_a_mapa(t_pokemon *);
-void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon *);
-void mostrar_lo_que_hay_en_la_lista_de_objetivos();
 void definir_objetivo_global();
 void agregar_objetivo(char*, uint32_t);
 void mostrar_lo_que_hay_en_lista_entrenadores();

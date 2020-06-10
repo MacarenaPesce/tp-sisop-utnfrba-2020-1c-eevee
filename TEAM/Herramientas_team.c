@@ -191,10 +191,9 @@ void terminar_team_correctamente(){
 	list_destroy(lista_finalizar);
 	list_destroy(lista_bloqueados);
 	list_destroy_and_destroy_elements(lista_mapa,(void*)destruir_pokemon);
+	list_destroy_and_destroy_elements(pokemones_ordenada, (void*)free);
 	//list_destroy_and_destroy_elements(lista_pokemon_atrapado,(void*)destruir_pokemon);
 
-	//lista_config y pokemones ordenada?
-*/
 	if(entrenador_en_ejecucion!=NULL){
 		destruir_entrenador(entrenador_en_ejecucion);
 	}
