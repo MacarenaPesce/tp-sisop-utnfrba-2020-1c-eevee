@@ -29,6 +29,11 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+void* AsignarParticionMemoria( int tamanio_en_bytes);
+bool puedeAlojarse(int tamanio_en_bytes);
+
+
+
 //int calcularBytes (t_packed* paquete);
 
 bool tamanio_potencia_dos(int tamanio_en_bytes);

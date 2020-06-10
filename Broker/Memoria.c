@@ -32,15 +32,6 @@ void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
     return;
 }
 
-void* AsignarParticionMemoria(t_list* lista_memoria, int tamanio_en_bytes){
-    
-    //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
-    t_particion* nuevaParticion;
-    //Asigno un bloque segun el algoritmo de memoria que utilicemos
-    nuevaParticion = algoritmo_de_memoria(lista_memoria, tamanio_en_bytes);
-
-    return nuevaParticion;
-}
 
 void LiberarBloqueMemoria(t_bloque_memoria *bloque){
 
@@ -80,7 +71,7 @@ void _ParticionarBloqueMemoria(t_list* lista_memoria, int indice_nodo_particiona
     return;
 }
 
-/*
+
 void* EncontrarBloqueMemoriaLibre(char* bloque_memoria_inicial, int tamanio_en_bytes){
 
 
@@ -95,30 +86,32 @@ int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
 
     return i;
 
-}*/
+}
 
 //----------------------------ALGORITMOS DE MEMORIA-------------------------
-void* algoritmo_de_memoria(t_list* lista_memoria, int tamanio_en_bytes){
+void* algoritmo_de_memoria(int tamanio_en_bytes){
 
     //Creo una nueva particion, que es donde se van a guardar los datos de la particion alojada
     //y la particion que voy a retornar
     t_particion* particionNueva;
-
+    
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
     if (algoritmo_memoria == "BD"){
-        particionNueva= buddy_system(lista_memoria, tamanio_en_bytes);
+        particionNueva= buddy_system(tamanio_en_bytes);
     }
     else{
-        particionNueva= particiones_dinamicas(lista_memoria, tamanio_en_bytes);
+        particionNueva= particiones_dinamicas(tamanio_en_bytes);
     }
 
     return particionNueva;
 }
 
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
-void* particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes){
+void* particiones_dinamicas( int tamanio_en_bytes){
 
     t_particion* particionNueva;
+
+    bool sePuedeAlojar = puedeAlojarse(tamanio_en_bytes);
 
 
     return particionNueva;
@@ -127,7 +120,7 @@ void* particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes){
 
 
 //------------------------------BUDDY SYSTEM----------------------------------
-void* buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
+void* buddy_system( int tamanio_en_bytes){
 
     //int bytes_reservar= numero_potencia_dos(int tamanio_en_bytes)
 

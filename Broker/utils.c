@@ -1,5 +1,53 @@
 #include "utils.h"
 
+void* AsignarParticionMemoria(int tamanio_en_bytes){
+    
+    //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
+    t_particion* nuevaParticion;
+    //Asigno un bloque segun el algoritmo de memoria que utilicemos
+    nuevaParticion = algoritmo_de_memoria(tamanio_en_bytes);
+
+    return nuevaParticion;
+}
+
+bool puedeAlojarse(int tamanio_en_bytes){
+
+	int tamanio_particion;
+	bool puedeEntrar = FALSE;
+
+	//Primero me fijo si el tamaño de mi mensaje a guardar, es menor que el
+	//minimo tamaño de particion
+	if(tamanio_en_bytes < tamanio_minimo_particion){ //tamanio_minimo_particion es variable global
+		//si es menor guardo el valor minimo del archivo config para ver si se puede alojar
+		tamanio_particion= tamanio_minimo_particion;
+	}
+	else {
+		//Si es mayor , me quedo con el tamaño del mensaje
+		tamanio_particion = tamanio_en_bytes;
+	}
+
+	//recorro la lista de memoria, hasta encontrar una particion que este vacia y 
+	//entre mi tamaño de particion nueva
+	for(int i=0; i< list_size(lista_memoria); i++){
+
+		//obtengo el elemento de la lista en la posicion i
+		t_particion* elemento = list_get(lista_memoria, i);
+
+		//me fijo si el elemento esta vacio y a su vez entra mi particion
+		//Si entra, cambio el valor de puedeEntrar, y corto el for.
+		if((elemento->esta_vacio == TRUE) && (elemento->tamanio >= tamanio_particion)){
+			puedeEntrar= TRUE;
+			i = list_size(lista_memoria);
+			break;
+		}
+
+	}
+
+
+	return puedeEntrar;
+}
+
+
 /*
 int calcularBytes (t_packed* paquete){ 
 
