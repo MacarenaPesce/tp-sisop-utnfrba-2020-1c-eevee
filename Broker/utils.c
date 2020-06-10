@@ -12,19 +12,16 @@ void* AsignarParticionMemoria(int tamanio_en_bytes){
 
 bool puedeAlojarse(int tamanio_en_bytes){
 
-	int tamanio_particion;
+	int tamanio_particion= tamanio_minimo_particion;
 	bool puedeEntrar = FALSE;
 
 	//Primero me fijo si el tamaño de mi mensaje a guardar, es menor que el
 	//minimo tamaño de particion
-	if(tamanio_en_bytes < tamanio_minimo_particion){ //tamanio_minimo_particion es variable global
-		//si es menor guardo el valor minimo del archivo config para ver si se puede alojar
-		tamanio_particion= tamanio_minimo_particion;
-	}
-	else {
-		//Si es mayor , me quedo con el tamaño del mensaje
+	
+	if(tamanio_en_bytes > tamanio_minimo_particion){ //tamanio_minimo_particion es variable global
 		tamanio_particion = tamanio_en_bytes;
 	}
+
 
 	//recorro la lista de memoria, hasta encontrar una particion que este vacia y 
 	//entre mi tamaño de particion nueva

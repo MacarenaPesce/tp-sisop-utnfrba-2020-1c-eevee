@@ -3,7 +3,7 @@
 //--------------- ADMINISTRACION DE MEMORIA-------------------
 
 
-void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
+t_bloque_memoria* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
     
     /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
     void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
@@ -11,6 +11,8 @@ void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
    
     /* Genero el bloque de memoria inicial*/
     t_bloque_memoria *bloque;
+    bloque = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
+
     bloque->tamanio = tamanio_en_bytes;
     bloque->esta_vacio = true;
     bloque->payload = memoria_inicial;
@@ -19,7 +21,7 @@ void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
     list_add(lista_memoria,bloque);
 
     /* Retorno la variable inicial para guardarla en la global */
-    return memoria_inicial;
+    return bloque;
 }
 
 void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
@@ -45,6 +47,7 @@ void LiberarBloqueMemoria(t_bloque_memoria *bloque){
 
 }
 
+//el indice lo tengo que buscar por ej con el payload 
 void _ParticionarBloqueMemoria(t_list* lista_memoria, int indice_nodo_particionar, int tamanio){
 
     t_bloque_memoria *bloque_restante;
@@ -78,15 +81,6 @@ void* EncontrarBloqueMemoriaLibre(char* bloque_memoria_inicial, int tamanio_en_b
     return ;
 }
 
-int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
-    
-    int i = 0;
-    
-    while(inicio_del_bloque+i == -1 && i < tamanio_en_bytes){ i++; }
-
-    return i;
-
-}
 
 //----------------------------ALGORITMOS DE MEMORIA-------------------------
 void* algoritmo_de_memoria(int tamanio_en_bytes){

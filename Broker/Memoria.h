@@ -39,9 +39,10 @@ t_list* lista_particiones; //lista de particiones de la memoria
 
 //Estructura para reservar la memoria inicial
 typedef struct{
+    int id_particion;
     int tamanio;
     bool esta_vacio;
-    float* payload;
+    float* payload; //puntero a ubicacion en memoria
 }t_bloque_memoria;
 
 //Estructura para particiones de la memoria inicial
