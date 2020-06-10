@@ -36,9 +36,7 @@ void planificar();
 void enviar_get();
 void enviar_mensaje_por_cada_pokemon_requerido(int broker_socket);
 void convertirse_en_suscriptor_global_del_broker();
-void * reconexion();
 void hacer_intento_de_reconexion();
-
-void enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon();
+void * enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon();
 
 #endif /* TEAM_H_ */

@@ -382,24 +382,20 @@ void enviar_mensaje_por_cada_pokemon_requerido(int broker_socket){
 }
 
 void convertirse_en_suscriptor_global_del_broker(){
-
-	enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon();
+	pthread_t hilo;
+	pthread_create(&hilo,NULL,(void*)enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon,NULL);
+	pthread_detach(hilo);
 	//enviar_mensaje_de_suscripcion_a_cola_caught_pokemon();
 	//enviar_mensaje_de_suscripcion_a_cola_localized_pokemon();
 
 }
 
-void * reconexion(){
+void hacer_intento_de_reconexion(){
+	log_info(team_logger, "Haciendo intento de reconexión");
 	sleep(tiempo_reconexion);
 }
 
-void hacer_intento_de_reconexion(){
-	pthread_t hilo;
-	pthread_create(&hilo,NULL,(void*)reconexion,NULL);
-	pthread_detach(hilo);
-}
-
-void enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon(){
+void * enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon(){
 	int broker_socket = conectar_a_server(ip_broker, "6009");
 
 	t_suscripcion * suscripcion = malloc(sizeof(t_suscripcion));
@@ -427,12 +423,11 @@ void enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon(){
 	}
 
 	free(suscripcion);
-	/*if(broker_socket <= 0){
+	if(broker_socket <= 0){
+		log_info(team_logger, "No se pudo interactuar con el broker");
 		hacer_intento_de_reconexion();
 		enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon();
-	}*/
-	log_info(team_logger, "NO se pudo enviar la solicitud de suscripcion a COLA_APPEARED_POKEMON al broker");
-
+	}
 }
 
 void * escuchar_mensajes_entrantes(int new_client_sock){
