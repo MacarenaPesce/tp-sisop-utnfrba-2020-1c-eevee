@@ -55,5 +55,6 @@ void existePokemon(char* pokemon);
 bool existeDirectorio(char* ruta);
 void crearDirectoriosParaFs();
 void InicializarBloquesDeDatosFs();
+void enteroACadena(uint32_t numero, char *bufer);
 
 #endif /* FILESYSTEM_H_ */
