@@ -87,6 +87,9 @@ extern t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo gl
 extern t_list* lista_mapa;
 extern t_list* lista_pokemon_atrapado;
 
+pthread_mutex_t entrenador_exec;
+sem_t hilo_entrenador;
+
 //Estructura de un entrenador
 enum ESTADO{
 	NUEVO,
