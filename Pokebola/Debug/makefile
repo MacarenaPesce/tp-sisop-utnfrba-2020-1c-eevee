@@ -24,11 +24,14 @@ endif
 # All Target
 all: libPokebola.so
 
+dependents:
+	-cd /home/utnso/so-commons-library/Debug && $(MAKE) clean all
+
 # Tool invocations
-libPokebola.so: $(OBJS) $(USER_OBJS)
+libPokebola.so: $(OBJS) $(USER_OBJS) /home/utnso/so-commons-library/Debug/libcommons.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -shared -o "libPokebola.so" -lm $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/so-commons-library/Debug" -shared -o "libPokebola.so" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -38,5 +41,6 @@ clean:
 	-@echo ' '
 
 .PHONY: all clean dependents
+/home/utnso/so-commons-library/Debug/libcommons.so:
 
 -include ../makefile.targets
