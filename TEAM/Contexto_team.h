@@ -30,6 +30,8 @@
 #include <pthread.h>
 #include <sys/select.h>		// Select
 #include <sys/time.h>
+#include <math.h>
+#include <semaphore.h>
 
 
 /* Keys config file*/
@@ -76,6 +78,7 @@ extern t_list* lista_global_objetivos;
 extern t_list* lista_global_pokemones;
 extern t_list* lista_objetivos_de_entrenador;
 extern t_list* lista_pokemones_de_entrenador;
+extern t_list* lista_pokemones_objetivos;
 extern t_list* lista_listos;
 extern t_list* lista_finalizar;
 extern t_list* lista_bloqueados;
@@ -93,13 +96,29 @@ enum ESTADO{
 	FINALIZANDO
 };
 
+enum RAZON_BLOQUEO{
+	ESPERANDO_MENSAJE_CAUGHT,
+	ESPERANDO_DEADLOCK,
+	CANTIDAD_MAXIMA_ALCANZADA,
+	ESPERANDO_POKEMON
+};
+
+typedef struct { //estructura del objetivo global
+	char* especie;
+	uint32_t posx;
+	uint32_t posy;
+} t_pokemon;
+
 typedef struct {
 	int id;
 	uint32_t posx;
 	uint32_t posy;
 	enum ESTADO estado;
-	t_list *objetivo; //una lista de objetivos para cada entrenador, esto falta.
+	enum RAZON_BLOQUEO razon_de_bloqueo;
+	t_list *objetivo;
 	t_list *pokemones;
+	uint32_t cant_maxima_objetivos;
+	t_pokemon* objetivo_actual;
 	float estimacion_real;//sjf
 	float estimacion_actual;//sjf
 	float estimacion_anterior;//sjf
@@ -109,14 +128,16 @@ typedef struct {
 
 typedef struct { //estructura del objetivo global
 	char* especie;
-	uint32_t cantidad;
+	uint32_t cantidad_atrapada;
+	uint32_t cantidad_necesitada;
 } t_objetivo;
 
-typedef struct { //estructura del objetivo global
+typedef struct { //estructura del objetivo de un entrenador
 	char* especie;
-	uint32_t posx;
-	uint32_t posy;
-} t_pokemon;
+	uint32_t cantidad;
+} t_objetivo_entrenador;
+
+
 t_entrenador * entrenador_en_ejecucion;
 
 #endif /* CONTEXTO_TEAM_H_ */

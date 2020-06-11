@@ -172,6 +172,16 @@ int destruir_objetivo(t_objetivo * objetivo){
 	return 0;
 }
 
+int destruir_objetivo_entrenador(t_objetivo_entrenador * objetivo){
+	/*if(objetivo->especie!=NULL){
+		free(objetivo->especie);
+		objetivo->especie = NULL;
+	}*/
+	free(objetivo);
+
+	return 0;
+}
+
 int destruir_pokemon(t_pokemon * pokemon){
 	/*if(pokemon->especie!=NULL){
 		free(pokemon->especie);
@@ -182,6 +192,7 @@ int destruir_pokemon(t_pokemon * pokemon){
 	return 0;
 }
 
+
 void terminar_team_correctamente(){
 	log_info(team_logger,"Cerrando team...");
 /*
@@ -191,8 +202,11 @@ void terminar_team_correctamente(){
 	list_destroy(lista_finalizar);
 	list_destroy(lista_bloqueados);
 	list_destroy_and_destroy_elements(lista_mapa,(void*)destruir_pokemon);
-	list_destroy_and_destroy_elements(pokemones_ordenada, (void*)free);
-	//list_destroy_and_destroy_elements(lista_pokemon_atrapado,(void*)destruir_pokemon);
+	//list_destroy_and_destroy_elements(lista_pokemones_objetivos,(void*)destruir_objetivo_entrenador);
+	//list_destroy_and_destroy_elements(lista_pokemones_de_entrenador,(void*)destruir_objetivo_entrenador);
+	//list_destroy_and_destroy_elements(lista_objetivos_de_entrenador,(void*)destruir_objetivo_entrenador);
+
+
 
 	if(entrenador_en_ejecucion!=NULL){
 		destruir_entrenador(entrenador_en_ejecucion);
@@ -216,8 +230,8 @@ void terminar_team_correctamente(){
 	{
 		free(objetivos_entrenadores);
 		objetivos_entrenadores = NULL;
-	}
-*/
+	}*/
+
 	if(log_file!=NULL)
 	{
 		free(log_file);

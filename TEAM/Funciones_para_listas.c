@@ -15,6 +15,7 @@ void inicializar_listas(){
 	lista_objetivos = list_create();
 	lista_entrenadores = list_create();
 	lista_mapa = list_create();
+	pokemones_ordenada = list_create();
 
 }
 
@@ -22,67 +23,86 @@ int ordenar(char* cadena1, char* cadena2){
 	return strcmp(cadena1, cadena2);
 }
 
-void _a_la_lista(char *elemento){
-	if (elemento != NULL) {
-		list_add(lista_config, elemento);
+void string_iterate_lines_with_list(char** strings, t_list* list, void (*closure)(char*, t_list*)) {
+	while (*strings != NULL) {
+		closure(*strings, list);
+		strings++;
 	}
 }
 
-void _imprimir(char *string) {
-	if(string != NULL) {
-		char **pokes = string_split(string, "|");
-		string_iterate_lines(pokes, _a_la_lista);
-		free(pokes);
-		//printf("Read: %s\n", string);
-	}else {
-		printf("Got NULL\n");
-	}
-}
-
-void mostrar(void *elemento) {
-	printf("El elemento: %s\n", (char *)elemento);
-}
-
-void separar_listas_objetivos(char *string){
+void separar_listas_pokemones(char *string, t_list* lista){
 	if(string != NULL){
-		list_add(lista_global_objetivos, string);
-		//printf("Una lista de objetivos es: %s\n", string);
+		list_add(lista, string);
+		//printf("Una lista de pokemones es: %s\n", string);
 	} else{
 		printf("Got NULL\n");
 	}
 }
 
-void separar_pokemones_de_objetivo(char* objetivos_de_entrenador){
-	char **pokes = string_split(objetivos_de_entrenador, "|");
-	string_iterate_lines(pokes, agregar_a_lista_objetivos);
+void separar_pokemones_de_entrenador(char* pokemones_de_entrenador, t_list* lista){
+	char** pokes = string_split(pokemones_de_entrenador, "|");
+	string_iterate_lines_with_list(pokes, lista, agregar_a_lista_pokemones);
 	free(pokes);
 }
 
-void agregar_a_lista_objetivos(char* elemento){
-	if (elemento != NULL) {
-		list_add(lista_objetivos_de_entrenador, elemento);
+
+
+void agregar_a_lista_pokemones(char* especie, t_list* lista){
+	if (especie != NULL) {
+		list_add(lista, especie);
 	}
 }
 
-void separar_listas_pokemones(char *string){
-	if(string != NULL){
-		list_add(lista_global_pokemones, string);
-		//printf("Una lista de objetivos es: %s\n", string);
-	} else{
-		printf("Got NULL\n");
+void agregar_objetivo(char* especie, uint32_t cantidad, t_list* lista){
+	if(lista == lista_objetivos){
+		t_objetivo* objetivo = malloc(sizeof(t_objetivo));
+		objetivo->especie = especie;
+		objetivo->cantidad_necesitada = cantidad;
+		objetivo->cantidad_atrapada = 0;
+		list_add(lista, (void*)objetivo);
+	} else {
+		t_objetivo_entrenador* objetivo = malloc(sizeof(t_objetivo_entrenador));
+		objetivo->especie = especie;
+		objetivo->cantidad = cantidad;
+		list_add(lista, (void*)objetivo);
 	}
 }
 
-void separar_pokemones_de_entrenador(char* pokemones_de_entrenador){
-	char **pokes = string_split(pokemones_de_entrenador, "|");
-	string_iterate_lines(pokes, agregar_a_lista_pokemones);
-	free(pokes);
+void cargar_objetivos(t_list* pokemones, t_list* lista){
+		char* unPokemon;
+		unPokemon = list_get(pokemones, 0);
+		uint32_t contador = 0;
+		char* un_char = "Ultimo poke\0";
+		char* ultimo_poke = string_from_format("%s\0", un_char);
+		list_add(pokemones, ultimo_poke);
+
+		/*Empiezo a cargar a lista de objetivos, con tipo y cantidad de cada uno*/
+		char* especiePokemon;
+		char* otroPokemon;
+		int i = 0;
+		while(pokemones != NULL){
+			especiePokemon = unPokemon;
+			otroPokemon = list_get(pokemones, i);
+			if(otroPokemon == NULL){
+				agregar_objetivo(especiePokemon, contador, lista);
+				break;
+			}
+			if(string_equals_ignore_case(unPokemon,otroPokemon)){
+				contador++;
+				i++;
+			}else{
+				agregar_objetivo(especiePokemon, contador, lista);
+				unPokemon = otroPokemon;
+				contador = 1;
+				i++;
+
+			}
+		}
+
+		free(unPokemon);
+		//list_destroy(pokemones);
 }
 
-void agregar_a_lista_pokemones(char* elemento){
-	if (elemento != NULL) {
-		list_add(lista_pokemones_de_entrenador, elemento);
-	}
-}
+
 
 
