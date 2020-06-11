@@ -51,10 +51,15 @@ void crearMetadataFs();
 void inicializarBitmap();
 void liberarMemoriaFs();
 void crearBitmap();
-void existePokemon(char* pokemon);
+bool existePokemon(char* pokemon);
 bool existeDirectorio(char* ruta);
 void crearDirectoriosParaFs();
 void InicializarBloquesDeDatosFs();
 void enteroACadena(uint32_t numero, char *bufer);
+void mostrarContenidoFs();
+
+//esto es auxiliar para ver contenido del bitmap
+
+char * bitmapAux;
 
 #endif /* FILESYSTEM_H_ */

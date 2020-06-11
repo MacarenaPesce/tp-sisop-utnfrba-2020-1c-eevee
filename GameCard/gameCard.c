@@ -96,6 +96,7 @@ int  main () {
 		log_info(gameCard_logger,"Inicializando FileSystem requerido");
 		crearFileSystemVacio();
 
+
 	    //free(metadata_fs->magicNumber);
 		//free(metadata_fs);
 		//free(gameCard_logger);
@@ -103,9 +104,16 @@ int  main () {
 		//free(rutas_fs);
 
 		}
+	if(existePokemon("Pikachu")){
+		log_info(gameCard_logger,"si, existe pokemon Pikachu");
+	}
+	else { log_info(gameCard_logger, "no existe pokemon Pikachu");}
+
+	//mostrarContenidoFs();
 
 	//free(metadata_fs->magicNumber);
 
+	terminar_game_card();
 
 	return 0;
 
@@ -143,5 +151,7 @@ int  main () {
 
 
 	//liberarMemoriaFs();
+
+
 
 }

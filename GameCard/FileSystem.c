@@ -3,6 +3,7 @@
 #include "FileSystem.h"
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <string.h>
 
 bool noCumpleConRutasfs() {
 
@@ -23,8 +24,11 @@ void crearFileSystemVacio() {
 	crearMetadataFs();
 	crearBitmap();
 	crearDirectoriosParaFs();
+	mostrarContenidoFs();
 
 }
+
+
 
 void crearMetadataFs() {
 
@@ -155,6 +159,18 @@ void liberarMemoriaFs() {
 
 void crearBitmap() {
 
+	FILE  *archBitmap = fopen(rutas_fs->pathArchivoBitMap,"wb");
+
+		char* a = string_repeat(0,metadata_fs->cantidadBloques);
+		t_bitarray* bitarray = bitarray_create_with_mode(a,(metadata_fs->cantidadBloques/8),LSB_FIRST);
+		for(int i=1;i< bitarray_get_max_bit(bitarray)  ;i++){
+			bitarray_set_bit(bitarray,i);
+		}
+
+		fwrite(&bitarray,sizeof(t_bitarray),1,archBitmap);
+
+/*
+
 	// se van a crear el archivo bitmap.bin
 	// w= crea un fichero en modo binario para escribir
 	//FILE * archivoMetadata = fopen(rutas_fs->pathArchivoBitMap,"wb");
@@ -169,20 +185,33 @@ void crearBitmap() {
 
 	/*   ftruncate () hacen que el archivo normal nombrado por ruta o  al que hace referencia
 	 fd se trunca a un tamaño de bytes de longitud precisa */
-	int bloquesDisponibles = 0;
-	char* bitarraycontent = mmap(NULL, (cantBloques / 8),
+	//int bloquesDisponibles = 0;
+
+
+		/* char* bitarraycontent = mmap(NULL, (cantBloques / 8),
 			PROT_READ | PROT_WRITE, MAP_SHARED, archBitmap, 0);
+
 	bitarray = bitarray_create_with_mode(bitarraycontent, (cantBloques / 8),
 			LSB_FIRST);
-	for (int i = 0; i < bitarray_get_max_bit(bitarray); i++) {
-		if (bitarray_test_bit(bitarray, i) == 0) {
-			bloquesDisponibles = bloquesDisponibles + 1;
-		}
+
+	log_info(gameCard_logger, "aca bit max es %d",bitarray_get_max_bit(bitarray));
+
+	for (int i = 1; i < bitarray_get_max_bit(bitarray); i++) {
+
+		//	bloquesDisponibles = bloquesDisponibles + 1;
+	//		log_info(gameCard_logger,"mostrame tu contenido amigo bitmap: %d",bitarray_test_bit(bitarray,i));
+
+		bitarray_set_bit(bitarray,i);
+
 	}
 
-	//fwrite(&bitarray,sizeof(bitarray),1,archBitmap);
+	msync(bitarraycontent,archBitmap, MS_SYNC);
 
-	log_info(gameCard_logger, " Se ha creado el archivo bitmap.bin");
+
+
+	//fwrite(&bitarray,sizeof(bitarray),1,archBitmap); */
+
+	log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
 
 }
 
@@ -206,7 +235,7 @@ void crearDirectoriosParaFs() {
 				rutas_fs->pathDirectorioBloques);
 	}
 
-	log_info(gameCard_logger, "se han creado los directorios /Files y /Blocks");
+
 
 	//aca se van a inicializar los bloques
 
@@ -216,26 +245,14 @@ void crearDirectoriosParaFs() {
 
 	InicializarBloquesDeDatosFs();
 
+	log_info(gameCard_logger, "se han creado los directorios /Files y /Blocks");
 
 }
 
-void existePokemon(char* nombrePokemon) {
-
-	if (existeDirectorio(rutas_fs->pathDirectorioFilesMetadata)) {
-		//return true;
-
-	}
-}
 
 bool existeDirectorio(char* ruta) {
 
 	return abrir_ruta(ruta) > -1;
-}
-
-
-void enteroACadena(uint32_t numero, char *bufer){
-
-    sprintf(bufer, "%d", numero);
 }
 
 
@@ -245,7 +262,7 @@ void InicializarBloquesDeDatosFs() {
 	int numBloque=1;
 	char* nombreBloque= string_new();
 
-	//log_info(gameCard_logger,"dame cant bloques: %d",metadata_fs->cantidadBloques);
+	log_info(gameCard_logger,"dame cant bloques: %d",metadata_fs->cantidadBloques);
 
 	for (numBloque = 1; numBloque <= metadata_fs->cantidadBloques; numBloque++) {
 
@@ -255,7 +272,7 @@ void InicializarBloquesDeDatosFs() {
 		string_append(&pathBloque, rutas_fs->pathDirectorioBloques);
 		//log_info(gameCard_logger,"dame path aux: %s",pathBloque);
 		string_append(&pathBloque,"/");
-		enteroACadena(numBloque,nombreBloque);
+		strcpy(nombreBloque,(string_itoa(numBloque)));
 		//log_info(gameCard_logger,"path nombre Bloque: %s",nombreBloque);
 		string_append(&pathBloque,nombreBloque);
 		//log_info(gameCard_logger, "path bloque con nombre bloque:%s");
@@ -264,11 +281,77 @@ void InicializarBloquesDeDatosFs() {
 
 		//se va a crear ese archivo si no existe
 		FILE * nuevoBloque = fopen(pathBloque, "wb");
-		fclose(nuevoBloque);
-    	free(pathBloque);
+		//fclose(nuevoBloque);
+    	//free(pathBloque);
 	//	free(nombreBloque);
 
 	}
 
 }
 
+/*********************************ACA OPERACIONES************************/
+
+bool existePokemon(char* nombrePokemon) {
+
+	char* ruta_pokemon= string_new();
+	string_append(&ruta_pokemon, rutas_fs->pathDirectorioFilesMetadata);
+	string_append(&ruta_pokemon,"/Pokemon/");
+	string_append(&ruta_pokemon,nombrePokemon);
+	log_info(gameCard_logger,"la ruta buscada es : %s", ruta_pokemon);
+	return existeDirectorio(ruta_pokemon);
+
+	}
+
+void crearPokemon(t_new_pokemon* pokemon){
+
+	//buscar primer bloque libre y cargar alli hasta la cantidad de bytes
+	//indicada por tamaño de bloque
+	//si no alcanza buscar otro bloque libre y así hasta que termine de copiarlos datos
+
+	//por cada bloque que ocupa hay que modificar el bitmap y el metadata agregar un nuevo bloque
+	//agregar tamanio y si es archivo es y y el open inicilaizarlo
+
+}
+
+
+int32_t buscarPrimerBloqueLibre() {
+
+
+}
+
+void mostrarContenidoFs(){
+
+	//para verificar que las cosas se han cargado correctamente
+
+	//mostrar bitmap
+	log_info(gameCard_logger,"mostrar bitmap");
+	struct stat s;
+	int status;
+
+	log_info(gameCard_logger,"mostrame tu ruta: %s", rutas_fs->pathArchivoBitMap);
+	int bitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR);
+
+	status = fstat(bitmap, &s);
+	int tamanioBitmap= s.st_size;
+
+	bitmapAux= mmap(NULL, tamanioBitmap, PROT_READ | PROT_WRITE, MAP_SHARED, bitmap, 0);
+
+	if(bitmapAux==NULL){
+		log_info(gameCard_logger,"Bitmap esta vacio o no se puedo abrir arch");
+	}
+
+	log_info(gameCard_logger, "estoy mostrando bitmap: %s",bitmapAux);
+
+	//mostrar metadataFs.bin
+
+/*	t_config* configGame= config_create(rutas_fs->pathArchivoMetadataFs);
+
+	int tamanioBloque= config_get_int_value(configGame,"BLOCK_SIZE");
+	int cantBloques= config_get_int_value(configGame,"BLOCKS");
+	char* nombreFileSystem= config_get_string_value(configGame,"MAGIC_NUMBER");
+
+	log_info(gameCard_logger,"dame tamanio bloque: %d",tamanioBloque);
+	log_info(gameCard_logger,"dame cant bloques: %d", cantBloques);
+	log_info(gameCard_logger,"dame nombre fs: %s", nombreFileSystem);
+	*/
+}
