@@ -5,7 +5,6 @@
 //#include "utils.h"
 #include <Pokebola.h>
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,12 +28,14 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+t_bloque_memoria* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria);
 void* AsignarParticionMemoria( int tamanio_en_bytes);
 bool puedeAlojarse(int tamanio_en_bytes);
 
 
 
-//int calcularBytes (t_packed* paquete);
-
+//*****************Auxiliares especificas Buddy System******************************
 bool tamanio_potencia_dos(int tamanio_en_bytes);
 int numero_potencia_dos(int tamanio_en_bytes);
+
+//int calcularBytes (t_packed* paquete);

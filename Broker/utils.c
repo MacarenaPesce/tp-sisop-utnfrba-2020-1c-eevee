@@ -1,22 +1,47 @@
 #include "utils.h"
 
-void* AsignarParticionMemoria(int tamanio_en_bytes){
+/*Dado el valor de memoria inicial, asigno un bloque para la memoria inicial y lo retorno*/
+t_bloque_memoria* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
+    
+    /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
+    void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
+    memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
+   
+    /* Genero el bloque de memoria inicial*/
+    t_bloque_memoria *bloque;
+    bloque = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
+
+    bloque->id = 0;
+    bloque->tamanio = tamanio_en_bytes;
+    bloque->esta_vacio = true;
+    bloque->payload = memoria_inicial;
+  
+    /* Agrego el bloque a la lista */
+    list_add(lista_memoria,bloque);
+
+    /* Retorno la variable inicial para guardarla en la global */
+    return bloque;
+}
+
+/*Dado un tamaño de particion, devuelvo el bloque asignado y derivo segun el algoritmo de memoria */
+t_bloque_memoria* AsignarParticionMemoria(int tamanio_en_bytes){
     
     //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
-    t_particion* nuevaParticion;
+    t_bloque_memoria* nuevaParticion;
     //Asigno un bloque segun el algoritmo de memoria que utilicemos
     nuevaParticion = algoritmo_de_memoria(tamanio_en_bytes);
 
     return nuevaParticion;
 }
 
+/*Dado el tamaño de una particion, me fijo si puede alojarse a la primera 
+	o si hay que correr el algoritmo de eliminacion*/ 
 bool puedeAlojarse(int tamanio_en_bytes){
 
 	int tamanio_particion= tamanio_minimo_particion;
 	bool puedeEntrar = FALSE;
 
-	//Primero me fijo si el tamaño de mi mensaje a guardar, es menor que el
-	//minimo tamaño de particion
+	//Primero me fijo si el tamaño de mi mensaje a guardar, es menor que el minimo tamaño de particion
 	
 	if(tamanio_en_bytes > tamanio_minimo_particion){ //tamanio_minimo_particion es variable global
 		tamanio_particion = tamanio_en_bytes;
@@ -42,6 +67,43 @@ bool puedeAlojarse(int tamanio_en_bytes){
 
 
 	return puedeEntrar;
+}
+
+
+//*****************Auxiliares especificas Buddy System******************************
+
+/*Calculo si un numero es potencia de dos para buddy system*/
+bool tamanio_potencia_dos(int tamanio_en_bytes){
+	
+	if((tamanio_en_bytes == 0) && (tamanio_en_bytes < 0)){
+
+		return false;
+
+	}
+	else{
+
+		return ((tamanio_en_bytes & (tamanio_en_bytes - 1)) == 0);
+
+	}
+
+}
+
+//Me fijo si un numero es potencia de dos.
+//Si lo es, devuelvo ese numero, 
+//y si no lo es, busco el numero mayor mas cercano potencia de 2
+int numero_potencia_dos(int tamanio_en_bytes){
+	int bytes = tamanio_en_bytes;
+
+	bool num_pot_dos = tamanio_potencia_dos(tamanio_en_bytes);
+
+	while(!num_pot_dos){
+		bytes = bytes + 1;
+		
+		num_pot_dos = tamanio_potencia_dos(bytes);
+	}
+
+	return bytes;
+
 }
 
 
@@ -185,36 +247,3 @@ int calcularBytes (t_packed* paquete){
 }*/
 
 
-//Calculo si un numero es potencia de dos para buddy system
-bool tamanio_potencia_dos(int tamanio_en_bytes){
-	
-	if((tamanio_en_bytes == 0) && (tamanio_en_bytes < 0)){
-
-		return false;
-
-	}
-	else{
-
-		return ((tamanio_en_bytes & (tamanio_en_bytes - 1)) == 0);
-
-	}
-
-}
-
-//Me fijo si un numero es potencia de dos.
-//Si lo es, devuelvo ese numero, 
-//y si no lo es, busco el numero mayor mas cercano potencia de 2
-int numero_potencia_dos(int tamanio_en_bytes){
-	int bytes = tamanio_en_bytes;
-
-	bool num_pot_dos = tamanio_potencia_dos(tamanio_en_bytes);
-
-	while(!num_pot_dos){
-		bytes = bytes + 1;
-		
-		num_pot_dos = tamanio_potencia_dos(bytes);
-	}
-
-	return bytes;
-
-}

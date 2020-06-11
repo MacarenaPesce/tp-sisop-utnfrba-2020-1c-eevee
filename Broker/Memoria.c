@@ -3,26 +3,7 @@
 //--------------- ADMINISTRACION DE MEMORIA-------------------
 
 
-t_bloque_memoria* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
-    
-    /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
-    void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
-    memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
-   
-    /* Genero el bloque de memoria inicial*/
-    t_bloque_memoria *bloque;
-    bloque = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
 
-    bloque->tamanio = tamanio_en_bytes;
-    bloque->esta_vacio = true;
-    bloque->payload = memoria_inicial;
-  
-    /* Agrego el bloque a la lista */
-    list_add(lista_memoria,bloque);
-
-    /* Retorno la variable inicial para guardarla en la global */
-    return bloque;
-}
 
 void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
     

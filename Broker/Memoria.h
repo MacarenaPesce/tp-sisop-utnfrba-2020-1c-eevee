@@ -35,8 +35,6 @@
 
 //--------------- ADMINISTRACION DE MEMORIA-------------------
 
-t_list* lista_particiones; //lista de particiones de la memoria
-
 //Estructura para reservar la memoria inicial
 typedef struct{
     int id_particion;
@@ -45,21 +43,6 @@ typedef struct{
     float* payload; //puntero a ubicacion en memoria
 }t_bloque_memoria;
 
-//Estructura para particiones de la memoria inicial
-typedef struct{
-    int id_particion;
-    int tamanio;
-    int esta_vacio;
-    int base;
-    //Dato_auxiliar* aux;
-}t_particion; 
-
-/*typedef struct{
-    int respondioAck; //para avisar cuando lo vamos a borrar
-    int limite; //no hace falta porque se puede calcular pero no afecta agregarlo
-}Dato_auxiliar;*/
-
-void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria);
 void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
 
 void  LiberarBloqueMemoria(t_bloque_memoria *bloque);
