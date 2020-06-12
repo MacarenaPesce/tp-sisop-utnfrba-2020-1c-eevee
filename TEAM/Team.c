@@ -318,7 +318,8 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 
 
 	if(broker_socket < 0){
-		//TODO
+		log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
+;		//TODO
 		/*
 		 * Sacar el pokemon del mapa y moverlo a la lista de pokemones atrapados. Esa lista de pokemones atrapados tiene que ser comparada constantemente con el objetivo global.
 		 * Si las listas coinciden, significa que llegamos al objetivo global. Tendriamos que poner un semaforo ahí, para avisar que ya se cumplio el objetivo global y terminar
@@ -327,6 +328,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 		 * QUE HACEMOS CON EL ENTRENADOR??
 		 */
 		log_info(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
+		log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %i %i", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
 		for(int i = 0; i < list_size(lista_mapa); i++){
 			t_pokemon* pokemon;
 			pokemon = list_get(lista_mapa, i);
@@ -386,11 +388,15 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 }
 
 void bloquear_entrenador(t_entrenador* entrenador){
+	list_add(lista_bloqueados, entrenador);
 	if(entrenador->cant_maxima_objetivos == 0) {
 		entrenador->razon_de_bloqueo = CANTIDAD_MAXIMA_ALCANZADA;
+		log_info(team_logger_oficial,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones");
 	} else {
 		entrenador->razon_de_bloqueo = ESPERANDO_POKEMON;
+		log_info(team_logger_oficial, "El entrenador %i esta bloqueado esperando que aparezca un pokemon");
 	}
+
 }
 
 bool objetivo_personal_cumplido(t_entrenador* entrenador){
@@ -427,7 +433,7 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 	 * Cada movimiento en el mapa responderá a un ciclo de CPU, y este NO realizará movimientos diagonales para llegar a la posición deseada.
 	 * Para simular más a la realidad esta funcionalidad, se deberá agregar un retardo de X segundos configurado por archivo de configuración.
 	 */
-
+	log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 	//Primero me muevo por izq
 	while(entrenador->posx < entrenador->objetivo_actual->posx){
 		consumir_un_ciclo_de_cpu();
@@ -454,6 +460,7 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 
 	if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
 		log_info(team_logger, "LLEGUE AL POKEMON");
+
 	}
 }
 
@@ -491,6 +498,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 
 	list_destroy(lista_aux);
 	log_info(team_logger,"El entrenador mas cercano es el de id %d y su objetivo es %s\n", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
+	log_info(team_logger,"El entrenador %d paso a la lista de Listos por ser el mas cercano a %s\n", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
 	//free(entrenador_mas_cercano);
 }
 
