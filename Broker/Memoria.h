@@ -59,10 +59,9 @@ void  LiberarBloqueMemoria(t_bloque_memoria *bloque);
 //---ALGORITMOS DE MEMORIA----
 
 
-t_bloque_memoria* algoritmo_de_memoria( int tamanio_en_bytes);
-
-t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);
-t_bloque_memoria* buddy_system( int tamanio_en_bytes);
+t_bloque_memoria* algoritmo_de_memoria( int tamanio_en_bytes); //LISTO
+t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);  //EN PROCESO
+t_bloque_memoria* buddy_system( int tamanio_en_bytes); //EN PROCESO
 
 
 
@@ -83,5 +82,6 @@ t_bloque_memoria* buddy_system( int tamanio_en_bytes);
         1- Recorrer la lista de memoria para ver si puedo alojar la particion
         2- Si cabe en una particion libre, tengo que alojar la particion (segun el algoritmo)
             Tener en cuenta si esta vacio, y el tamañominimo de particion seteado por el archivo config
+        -------HASTA ACA LISTO-----------
         3- Si no cabe tengo que correr el algoritmo de eliminacion
 */

@@ -31,30 +31,6 @@ void LiberarBloqueMemoria(t_bloque_memoria *bloque){
 
 
 
-void* EncontrarBloqueMemoriaLibre(char* bloque_memoria_inicial, int tamanio_en_bytes){
-
-
-    return ;
-}
-
-t_bloque_memoria* alojar_bloque(int tamanio_bytes){
-	/*  me fijo si puede alojarse o ya me habia fijado ??
-        tengo que correr el algoritmo de particion ya se first fit o best fit --- algoritmo_de_particion_libre
-		encontrar la particion o bloque
-		obtener el indice de partcion
-		particionar el bloque
-		y devuelvo el bloque alojado*/
-
-
-
-		t_bloque_memoria* bloque;
-
-		return bloque;
-}
-
-
-
-
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
 
 t_bloque_memoria* algoritmo_de_particion_libre(int tamanio){
@@ -89,7 +65,7 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_bytes){
 
         aux = list_get(lista_memoria, i);
 
-        if(aux->tamanio >= tamanio_bytes){
+        if((aux->tamanio >= tamanio_bytes) && (aux->esta_vacio == TRUE)){
             bloque = aux;
             i = list_size(lista_memoria);
             break;
@@ -153,9 +129,12 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes){
 
 }
 
-//----------------------------FIN DE BEST FIT---------------------------------
-
 //------------------------------FIN DE ELECCION DE PARTICION------------------
+
+
+
+
+
 
 //----------------------------ALGORITMOS DE MEMORIA-------------------------
 
@@ -186,7 +165,7 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes){
     //me fijo si la particion puede alojarse a la primera
     bool sePuedeAlojar = puede_alojarse(tamanio_en_bytes);
 
-    
+
     //si puede alojarse a la primera llamo al algoritmo de particion libre
     if(sePuedeAlojar == TRUE){
         particionNueva = algoritmo_de_particion_libre(tamanio_en_bytes);
