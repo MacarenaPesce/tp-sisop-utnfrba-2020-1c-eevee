@@ -14,6 +14,7 @@
 #include <netdb.h>
 #include <fcntl.h>
 #include <errno.h>
+#include<stdint.h>
 
 #include <commons/collections/list.h>
 #include <commons/log.h>

@@ -125,8 +125,16 @@ int tamanio_a_alojar(int tamanio){
 	return tamanio_final;
 
 }
- 
 
+
+
+ 
+uint64_t get_timestamp(){
+	struct timeval tv;
+	gettimeofday(&tv,NULL);
+	uint64_t  x = (uint64_t)( (tv.tv_sec)*1000 + (tv.tv_usec)/1000 );
+	return x;
+}
 
 //*****************Auxiliares especificas Buddy System******************************
 

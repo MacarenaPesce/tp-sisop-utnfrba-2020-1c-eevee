@@ -19,6 +19,7 @@
 #include <netdb.h>
 #include <fcntl.h>
 #include <errno.h>
+#include<stdint.h>
 
 #include <commons/collections/list.h>
 #include <commons/log.h>
@@ -41,7 +42,14 @@ typedef struct{
     int tamanio;
     bool esta_vacio;
     float* payload; //puntero a ubicacion en memoria
+    uint64_t timestamp;
 }t_bloque_memoria;
+
+//********Funciones de Algoritmos de memoria************
+t_bloque_memoria* algoritmo_de_particion_libre(int tamanio); //LISTO
+t_bloque_memoria* algoritmo_first_fit(int tamanio); //LISTO
+t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes); //LISTO
+
 
 void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
 
@@ -55,12 +63,6 @@ t_bloque_memoria* algoritmo_de_memoria( int tamanio_en_bytes);
 
 t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);
 t_bloque_memoria* buddy_system( int tamanio_en_bytes);
-
-t_bloque_memoria* algoritmo_first_fit(int tamanio); //LISTO
-t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes); //LISTO
-
-//void algoritmo_de_particion_libre();
-
 
 
 
