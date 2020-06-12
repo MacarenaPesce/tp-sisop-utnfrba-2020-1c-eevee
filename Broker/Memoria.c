@@ -37,6 +37,18 @@ void* EncontrarBloqueMemoriaLibre(char* bloque_memoria_inicial, int tamanio_en_b
     return ;
 }
 
+t_bloque_memoria* alojarBloque(){
+	/*tengo que correr el algoritmo de particion ya se first fit o best fit --- algoritmo_de_particion_libre
+		encontrar la particion o bloque
+		obtener el indice de partcion
+		particionar el bloque
+		y devuelvo el bloque alojado*/
+
+		t_bloque_memoria* bloque;
+
+		return bloque;
+}
+
 
 //----------------------------ALGORITMOS DE MEMORIA-------------------------
 t_bloque_memoria* algoritmo_de_memoria(int tamanio_en_bytes){
@@ -122,11 +134,48 @@ t_bloque_memoria* buddy_system( int tamanio_en_bytes){
 
 //------------------------------FIRST FIT------------------------------------
 
-/*void* algoritmo_first(){
+t_bloque_memoria* algoritmo_first_fit(int tamanio){
 
-    return;
+    t_bloque_memoria* bloque;
+    t_bloque_memoria* aux;
+    t_bloque_memoria* bloque_final;
+    int tamanio_final_a_alojar = tamanio_minimo_particion;
+    int indice; 
 
-}*/
+    /*
+        buscar el primer primer hueco en el que entre (para esto yo ya se que puede alojarse):
+            -obtengo el indice de esa particion
+            -particiono el bloque 
+            -ddevuelvo el bloque 
+    */
+
+	//Primero me fijo si el tamaño de mi mensaje a guardar, es menor que el minimo tamaño de particion
+	if(tamanio > tamanio_minimo_particion){ //tamanio_minimo_particion es variable global
+		tamanio_final_a_alojar = tamanio;
+	}    
+
+    //obtengo el primer bloque donde quepa mi particion nueva
+	for(int i=0; i< list_size(lista_memoria); i++){
+
+        aux = list_get(lista_memoria, i);
+
+        if(aux->tamanio >= tamanio_final_a_alojar){
+            bloque = aux;
+            i = list_size(lista_memoria);
+            break;
+        }
+
+    }
+
+    //obtengo el indice del bloque que voy a particionar
+    indice = obtenerIndiceParticion(bloque);
+
+    //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
+    bloque_final = particionarBloque(tamanio_final_a_alojar,indice);
+
+    return bloque_final;
+
+}
 
 /*
     Recorrer la memoria o la lista?

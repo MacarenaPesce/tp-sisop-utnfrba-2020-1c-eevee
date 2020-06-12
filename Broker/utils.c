@@ -73,7 +73,7 @@ bool puedeAlojarse(int tamanio_en_bytes){
 /*Dado un indice y un tamaño en byte, alojo la particion en el indice, y creo el nuevo bloque con lo restante en el caso
 	que haya algo restante. La idea de esta funcion es que sea llamada por el algoritmo de asignacion.
 	Se usaria una vez encontrado el lugar en memoria que ocuparia mi nueva particion */
-void particionarBloque(int tamanio, int indice_nodo_particionar){
+t_bloque_memoria* particionarBloque(int tamanio, int indice_nodo_particionar){
 
     t_bloque_memoria *bloque_restante;
 	t_bloque_memoria *bloque_inicial;
@@ -96,10 +96,10 @@ void particionarBloque(int tamanio, int indice_nodo_particionar){
     bloque_inicial->tamanio = tamanio;
     bloque_inicial->esta_vacio = false;
 
-    return;
+    return bloque_inicial;
 }
 
-//el indice lo tengo que buscar por ej con el payload 
+/*Obtengo el indice de un determinado, recorriendo toda la lista y comparando los payload*/
 int obtenerIndiceParticion(t_bloque_memoria* bloque){
 
 	int indice;
@@ -121,17 +121,7 @@ int obtenerIndiceParticion(t_bloque_memoria* bloque){
 	return indice;
 }
 
-t_bloque_memoria* alojarBloque(){
-	/*tengo que correr el algoritmo 
-		encontrar la particion o bloque
-		obtener el indice de partcion
-		particionar el bloque
-		y devuelvo el bloque alojado*/
 
-		t_bloque_memoria* bloque;
-
-		return bloque;
-}
 
 //*****************Auxiliares especificas Buddy System******************************
 
