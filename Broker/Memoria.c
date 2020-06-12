@@ -37,12 +37,15 @@ void* EncontrarBloqueMemoriaLibre(char* bloque_memoria_inicial, int tamanio_en_b
     return ;
 }
 
-t_bloque_memoria* alojar_bloque(){
-	/*tengo que correr el algoritmo de particion ya se first fit o best fit --- algoritmo_de_particion_libre
+t_bloque_memoria* alojar_bloque(int tamanio_bytes){
+	/*  me fijo si puede alojarse o ya me habia fijado ??
+        tengo que correr el algoritmo de particion ya se first fit o best fit --- algoritmo_de_particion_libre
 		encontrar la particion o bloque
 		obtener el indice de partcion
 		particionar el bloque
 		y devuelvo el bloque alojado*/
+
+
 
 		t_bloque_memoria* bloque;
 
@@ -137,32 +140,22 @@ t_bloque_memoria* buddy_system( int tamanio_en_bytes){
 
 //------------------------------FIRST FIT------------------------------------
 
-t_bloque_memoria* algoritmo_first_fit(int tamanio){
+/* Busco el primer hueco donde puedo alojar una nueva particion y la alojo.
+    NOTA: para esto ya esta chequeado que puede alojarse
+    NOTA2: recibo el tamaño correcto, ya chequeado si es el minimo a alojar o no.*/
+t_bloque_memoria* algoritmo_first_fit(int tamanio_bytes){
 
     t_bloque_memoria* bloque;
     t_bloque_memoria* aux;
     t_bloque_memoria* bloque_final;
-    int tamanio_final_a_alojar = tamanio_minimo_particion;
     int indice; 
-
-    /*
-        buscar el primer primer hueco en el que entre (para esto yo ya se que puede alojarse):
-            -obtengo el indice de esa particion
-            -particiono el bloque 
-            -ddevuelvo el bloque 
-    */
-
-	//Primero me fijo si el tamaño de mi mensaje a guardar, es menor que el minimo tamaño de particion
-	if(tamanio > tamanio_minimo_particion){ //tamanio_minimo_particion es variable global
-		tamanio_final_a_alojar = tamanio;
-	}    
 
     //obtengo el primer bloque donde quepa mi particion nueva
 	for(int i=0; i< list_size(lista_memoria); i++){
 
         aux = list_get(lista_memoria, i);
 
-        if(aux->tamanio >= tamanio_final_a_alojar){
+        if(aux->tamanio >= tamanio_bytes){
             bloque = aux;
             i = list_size(lista_memoria);
             break;
@@ -174,30 +167,60 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio){
     indice = obtener_indice_particion(bloque);
 
     //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
-    bloque_final = particionar_bloque(tamanio_final_a_alojar,indice);
+    bloque_final = particionar_bloque(tamanio_bytes,indice);
 
     return bloque_final;
 
 }
 
-/*
-    Recorrer la memoria o la lista?
-    Buscar la primer particion libre --- buscarParticion()
-    fijarme si entra --- la ocupo o sigo buscando
-    si no entra, hago una compactacion
-    vuelvo a fijarme si entra, si no entra borro algo ---- que se borra?
-*/
-
 //----------------------------FIN FIRST FIT----------------------------------
 
 //------------------------------BEST FIT-------------------------------------
 
-/*void* algoritmo_best(){
+/* Busco el huevo mas pequeño donde quepa la nueva particion a alojar, y la alojo.
+    NOTA: para esto ya esta chequeado que puede alojarse
+    NOTA2: recibo el tamaño correcto, ya chequeado si es el minimo a alojar o no.*/
+t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes){
 
+    t_bloque_memoria* bloque;
+    t_bloque_memoria* aux;
+    t_bloque_memoria* bloque_final;
+    int indice;
+    int tam_minimo=0; 
 
-    return;
+    //obtengo el primer bloque donde quepa mi particion nueva
+	for(int i=0; i<list_size(lista_memoria); i++){
 
-}*/
+        //Obtengo el bloque en la posicion de la lista que estamos
+        aux = list_get(lista_memoria, i);
+
+        //me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no 
+        if((aux->esta_vacio == TRUE) && (aux->tamanio >= tamanio_bytes)){
+            
+            //me fijo si el tamaño mas chico de particiones sigue siendo 0 
+            if(tam_minimo==0){
+                tam_minimo = aux->tamanio;
+            }
+
+            //me fijo si el tamaño mas chico de particion es menor o igual al tamaño del bloque auxiliar actual, en caso de serlo, al bloque le asigno el aux
+            //y asi me quedo con el bloque mas chico de toda la lista
+            if(tam_minimo <= aux->tamanio){
+                bloque = aux;
+            }
+
+        }
+
+    }
+
+    //obtengo el indice del bloque que voy a particionar
+    indice = obtener_indice_particion(bloque);
+
+    //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
+    bloque_final = particionar_bloque(tamanio_bytes,indice);
+
+    return bloque_final;
+
+}
 //----------------------------FIN DE BEST FIT---------------------------------
 
 //------------------------------FIN DE ELECCION DE PARTICION------------------

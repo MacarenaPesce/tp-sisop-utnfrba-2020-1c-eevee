@@ -36,29 +36,21 @@ t_bloque_memoria* asignar_particion_memoria(int tamanio_en_bytes){
 
 /*Dado el tamaño de una particion, me fijo si puede alojarse a la primera 
 	o si hay que correr el algoritmo de eliminacion*/ 
-bool puede_alojarse(int tamanio_en_bytes){
+bool puede_alojarse(int tamanio_bytes){
 
-	int tamanio_particion= tamanio_minimo_particion;
 	bool puedeEntrar = FALSE;
 	t_bloque_memoria* elemento;
 
-	//Primero me fijo si el tamaño de mi mensaje a guardar, es menor que el minimo tamaño de particion
-	
-	if(tamanio_en_bytes > tamanio_minimo_particion){ //tamanio_minimo_particion es variable global
-		tamanio_particion = tamanio_en_bytes;
-	}
 
-
-	//recorro la lista de memoria, hasta encontrar una particion que este vacia y 
-	//entre mi tamaño de particion nueva
+	//recorro la lista de memoria, hasta encontrar una particion que este vacia y entre mi tamaño de particion nueva
 	for(int i=0; i< list_size(lista_memoria); i++){
 
-		//obtengo el elemento de la lista en la posicion i
+		//Obtengo el elemento de la lista en la posicion i
 		elemento = list_get(lista_memoria, i);
 
-		//me fijo si el elemento esta vacio y a su vez entra mi particion
+		//Me fijo si el elemento esta vacio y a su vez entra mi particion
 		//Si entra, cambio el valor de puedeEntrar, y corto el for.
-		if((elemento->esta_vacio == TRUE) && (elemento->tamanio >= tamanio_particion)){
+		if((elemento->esta_vacio == TRUE) && (elemento->tamanio >= tamanio_bytes)){
 			puedeEntrar= TRUE;
 			i = list_size(lista_memoria);
 			break;
@@ -121,6 +113,19 @@ int obtener_indice_particion(t_bloque_memoria* bloque){
 	return indice;
 }
 
+/*Me fijo si el tamaño de mi mensaje a guardar, es menor que el minimo tamaño de particion*/
+int tamanio_a_alojar(int tamanio){
+
+	int tamanio_final = tamanio_minimo_particion; //tamanio_minimo_particion es variable global
+
+	if(tamanio_bytes > tamanio_minimo_particion){ 
+		tamanio_final = tamanio_bytes;
+	}   
+
+	return tamanio_final;
+
+}
+ 
 
 
 //*****************Auxiliares especificas Buddy System******************************
