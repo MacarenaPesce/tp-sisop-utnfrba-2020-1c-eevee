@@ -67,6 +67,9 @@ extern char* puerto_broker;
 extern char* log_file;
 
 extern int GLOBAL_SEGUIR;
+extern int ciclos_de_cpu;
+extern int hilos_entrenadores_total;
+extern int MAXIMO_ENTRENADORES;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
@@ -89,6 +92,10 @@ extern t_list* lista_pokemon_atrapado;
 
 pthread_mutex_t entrenador_exec;
 sem_t hilo_entrenador;
+sem_t variable_valida;
+sem_t hilo_disponible[];
+
+
 
 //Estructura de un entrenador
 enum ESTADO{

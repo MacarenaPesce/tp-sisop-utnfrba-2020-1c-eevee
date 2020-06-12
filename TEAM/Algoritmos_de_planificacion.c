@@ -61,7 +61,7 @@ job first con y sin desalojo. Para este último algoritmo se desconoce la próxi
 deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos los
 entrenadores será la misma y deberá poder ser modificable por archivo de configuración
 	 */
-	pthread_mutex_lock(&entrenador_exec);
+
 	t_entrenador * ejec_ant;
 	entrenador_en_ejecucion = NULL;
 	t_list * lista_aux;
@@ -88,11 +88,10 @@ entrenadores será la misma y deberá poder ser modificable por archivo de confi
 	entrenador_en_ejecucion = list_remove(lista_aux,0);
 
 	if(!list_is_empty(lista_listos)){
-
 		entrenador_en_ejecucion = sacar_entrenador_de_lista_pid(lista_listos,entrenador_en_ejecucion->id);
 		entrenador_en_ejecucion->estado = EJECUTANDO;
 
-		sem_post(&hilo_entrenador);
+		sem_post(&hilo_disponible[entrenador_en_ejecucion->id]);
 	}
 	else{
 		entrenador_en_ejecucion = NULL;
@@ -103,7 +102,6 @@ entrenadores será la misma y deberá poder ser modificable por archivo de confi
 
 	//Si hubo un cambio en el entrenador en ejecucion, debo avisarle al nuevo entrenador en ejecucion que es su turno
 	//TODO
-	pthread_mutex_unlock(&entrenador_exec);
 
 	return;
 }

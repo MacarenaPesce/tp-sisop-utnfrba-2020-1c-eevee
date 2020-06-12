@@ -22,6 +22,8 @@ char* puerto_broker;
 char* log_file;
 
 int GLOBAL_SEGUIR = 1;
+int ciclos_de_cpu = 0;
+int MAXIMO_ENTRENADORES;
 
 t_log* team_logger;
 t_log* team_logger_oficial;
