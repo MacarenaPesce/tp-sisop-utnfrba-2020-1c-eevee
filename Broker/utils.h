@@ -28,10 +28,12 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+/* Las aclaraciones del uso de cada funcion estan en el archivo .c */
 t_bloque_memoria* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria);
-void* AsignarParticionMemoria( int tamanio_en_bytes);
+t_bloque_memoria* AsignarParticionMemoria( int tamanio_en_bytes);
 bool puedeAlojarse(int tamanio_en_bytes);
-
+void particionarBloque(int tamanio, int indice_nodo_particionar);
+int obtenerIndiceParticion(t_bloque_memoria* bloque);
 
 
 //*****************Auxiliares especificas Buddy System******************************

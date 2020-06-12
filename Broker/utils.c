@@ -40,6 +40,7 @@ bool puedeAlojarse(int tamanio_en_bytes){
 
 	int tamanio_particion= tamanio_minimo_particion;
 	bool puedeEntrar = FALSE;
+	t_bloque_memoria* elemento;
 
 	//Primero me fijo si el tamaño de mi mensaje a guardar, es menor que el minimo tamaño de particion
 	
@@ -53,7 +54,7 @@ bool puedeAlojarse(int tamanio_en_bytes){
 	for(int i=0; i< list_size(lista_memoria); i++){
 
 		//obtengo el elemento de la lista en la posicion i
-		t_particion* elemento = list_get(lista_memoria, i);
+		elemento = list_get(lista_memoria, i);
 
 		//me fijo si el elemento esta vacio y a su vez entra mi particion
 		//Si entra, cambio el valor de puedeEntrar, y corto el for.
@@ -69,6 +70,68 @@ bool puedeAlojarse(int tamanio_en_bytes){
 	return puedeEntrar;
 }
 
+/*Dado un indice y un tamaño en byte, alojo la particion en el indice, y creo el nuevo bloque con lo restante en el caso
+	que haya algo restante. La idea de esta funcion es que sea llamada por el algoritmo de asignacion.
+	Se usaria una vez encontrado el lugar en memoria que ocuparia mi nueva particion */
+void particionarBloque(int tamanio, int indice_nodo_particionar){
+
+    t_bloque_memoria *bloque_restante;
+	t_bloque_memoria *bloque_inicial;
+
+    /* Obtengo el nodo del bloque a particionar por su indice */
+    bloque_inicial = list_get(lista_memoria, indice_nodo_particionar);
+
+    /* Si me sobra espacio lo separo en un nuevo nodo */
+    if(bloque_inicial->tamanio - tamanio > 0){ 
+
+        bloque_restante->tamanio = bloque_inicial->tamanio - tamanio;
+        bloque_restante->esta_vacio = true;
+        bloque_restante->payload = bloque_inicial->payload + tamanio + 1;
+
+        list_add_in_index(lista_memoria, indice_nodo_particionar + 1, bloque_restante);    
+
+    }
+
+    /* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
+    bloque_inicial->tamanio = tamanio;
+    bloque_inicial->esta_vacio = false;
+
+    return;
+}
+
+//el indice lo tengo que buscar por ej con el payload 
+int obtenerIndiceParticion(t_bloque_memoria* bloque){
+
+	int indice;
+	t_bloque_memoria* elemento ;
+
+	for(int i=0; i< list_size(lista_memoria); i++){
+
+		elemento = list_get(lista_memoria, i);
+
+		if(elemento->payload == bloque->payload){
+			indice=i;
+			i = list_size(lista_memoria);
+			break;
+		}
+		
+	}
+
+
+	return indice;
+}
+
+t_bloque_memoria* alojarBloque(){
+	/*tengo que correr el algoritmo 
+		encontrar la particion o bloque
+		obtener el indice de partcion
+		particionar el bloque
+		y devuelvo el bloque alojado*/
+
+		t_bloque_memoria* bloque;
+
+		return bloque;
+}
 
 //*****************Auxiliares especificas Buddy System******************************
 
