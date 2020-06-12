@@ -58,6 +58,11 @@ void InicializarBloquesDeDatosFs();
 void enteroACadena(uint32_t numero, char *bufer);
 void mostrarContenidoFs();
 
+//nuevas bitmap
+
+int abrirBitmap();
+
+
 //esto es auxiliar para ver contenido del bitmap
 
 char * bitmapAux;

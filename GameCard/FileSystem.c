@@ -24,7 +24,8 @@ void crearFileSystemVacio() {
 	crearMetadataFs();
 	crearBitmap();
 	crearDirectoriosParaFs();
-	mostrarContenidoFs();
+	abrirBitmap();
+	//mostrarContenidoFs();
 
 }
 
@@ -159,15 +160,28 @@ void liberarMemoriaFs() {
 
 void crearBitmap() {
 
+	int bytesBitmap= metadata_fs->cantidadBloques/8;
+
+	if (bytesBitmap % 8 != 0 ){ bytesBitmap++;}
+
+	char* bitarrayInicializador = malloc(bytesBitmap);
+
+	bzero( bitarrayInicializador, bytesBitmap);
+
 	FILE  *archBitmap = fopen(rutas_fs->pathArchivoBitMap,"wb");
 
-		char* a = string_repeat(0,metadata_fs->cantidadBloques);
+		/*char* a = string_repeat(0,metadata_fs->cantidadBloques);
 		t_bitarray* bitarray = bitarray_create_with_mode(a,(metadata_fs->cantidadBloques/8),LSB_FIRST);
 		for(int i=1;i< bitarray_get_max_bit(bitarray)  ;i++){
 			bitarray_set_bit(bitarray,i);
 		}
+*/
 
-		fwrite(&bitarray,sizeof(t_bitarray),1,archBitmap);
+		fwrite(bitarrayInicializador,bytesBitmap,1,archBitmap);
+
+		fclose(archBitmap);
+		free(bitarrayInicializador);
+
 
 /*
 
@@ -355,3 +369,47 @@ void mostrarContenidoFs(){
 	log_info(gameCard_logger,"dame nombre fs: %s", nombreFileSystem);
 	*/
 }
+
+int abrirBitmap() {
+
+	int bitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR);
+	struct stat mystat;
+
+	/*if (fstat(bitmap, &mystat) < 0) {
+		log_error(gameCard_logger, "Error en el fstat\n");
+		close(bitmap);
+	}*/
+
+	char *bmap;
+	bmap = mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ, MAP_SHARED,
+			bitmap, 0);
+
+//	log_info(logger,"inicialicé mmap");
+
+	/*if (bmap == MAP_FAILED) {
+		log_error(gameCard_logger, "Fallo el mmap");
+	}
+*/
+	int bytesBitmap = metadata_fs->cantidadBloques / 8;
+
+	if (metadata_fs->cantidadBloques % 8 != 0){ bytesBitmap++;}
+
+	bitarray = bitarray_create_with_mode(bmap, bytesBitmap,MSB_FIRST);
+
+	for (int i=1;i<= bitarray_get_max_bit(bitarray);i++){
+
+		if (bitarray_test_bit(bitarray,i)==0){
+			log_info(gameCard_logger," el bloque numero : %d esta vacio ",i);
+		}
+		else{
+		log_info(gameCard_logger,"el bloque numero %d esta lleno",i);}
+
+	}
+
+	log_info(gameCard_logger,"cantidad de bits del bitmap:%d", bitarray_get_max_bit(bitarray));
+	log_info(gameCard_logger,"abriendo bitmap");
+
+	//free(fs_path);
+	return 0;
+}
+
