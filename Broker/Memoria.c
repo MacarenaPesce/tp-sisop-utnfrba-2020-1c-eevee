@@ -221,6 +221,7 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes){
     return bloque_final;
 
 }
+
 //----------------------------FIN DE BEST FIT---------------------------------
 
 //------------------------------FIN DE ELECCION DE PARTICION------------------
@@ -234,58 +235,3 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes){
 
 
 //-----------------------------FIN DEL DUMP--------------------------------
-
-
-/*
-uint32_t muse_alloc_mem(int programId, uint32_t tam) {
-    // ajusta la memoria solicitada como múltiplo entero del tamaño de la página
-    int cantPaginas = tam / MEMORIA.tamPagina + !!(tam % MEMORIA.tamPagina);
-    tam = cantPaginas * MEMORIA.tamPagina;
-    Segmento *s = MEMORIA.tabla;
-    Bloque *b = NULL;
-    // intenta asignar en el primer segmento
-    if(!s->progId || s->progId == programId) {
-        b = alojarBloque(s, tam);
-    }
-    // mientras no logre asignar y haya segmentos más adelante
-    while(s->next && !b) {
-        while(s->next->progId && s->next->progId != programId) {
-            s = s->next;
-        }
-        if(s->next) {
-            s = s->next;
-            b = alojarBloque(s, tam);
-        }
-    }
-    // s apunta ahora al segmento donde fue asignado el bloque
-    // o al último segmento de la lista, si no fue asignado
-    if(b) { // si el bloque fue asignado
-            // establece el programa como propietario del segmento
-        s->progId = programId;
-    } else {    // si no pudo ser asignado
-        // calcula hasta dónde llegará un nuevo segmento a continuación del último
-    	uint32_t mem = s->mem + s->tam + METAD + tam;
-        // si hay espacio crea el nuevo segmento y le asigna el bloque
-        if(mem < MEMORIA.tamMemoria) {
-            s->next = nuevoSegmento(programId, s->mem + s->tam, s->next);
-            s = s->next;
-            b = alojarBloque(s, tam);
-            s->progId = programId;
-        }
-    }
-    s->memLiberada = 0;
-    free(s);
-    // si no logra asignar el bloque es porque se agotó la memoria disponible
-    if(b){
-    	funMem = iniciar_logger_fun();
-    	log_info(funMem, "Alloc realizado con exito. Proceso: %d", programId);
-    	free(funMem);
-    	return b->data;
-    }else{
-    	return 0; //sacar al resolver el tema de clock
-    	//activar clock moficado wachines
-    }
-    //return b ? b->data : 0; //si retorna 0 es segmentation fault
-}
-
-*/

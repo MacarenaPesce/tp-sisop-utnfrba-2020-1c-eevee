@@ -57,7 +57,7 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);
 t_bloque_memoria* buddy_system( int tamanio_en_bytes);
 
 t_bloque_memoria* algoritmo_first_fit(int tamanio); //LISTO
-t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes);
+t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes); //LISTO
 
 //void algoritmo_de_particion_libre();
 

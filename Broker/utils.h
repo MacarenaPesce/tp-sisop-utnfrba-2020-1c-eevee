@@ -34,6 +34,7 @@ t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes);
 bool puede_alojarse(int tamanio_en_bytes);
 t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar);
 int obtener_indice_particion(t_bloque_memoria* bloque);
+int tamanio_a_alojar(int tamanio);
 
 
 //*****************Auxiliares especificas Buddy System******************************
