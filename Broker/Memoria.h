@@ -48,20 +48,15 @@ void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
 void  LiberarBloqueMemoria(t_bloque_memoria *bloque);
 
 
-//En utils.h
-//void* AsignarParticionMemoria(t_list* lista_memoria, int tamanio_en_bytes);
-
-
-
 //---ALGORITMOS DE MEMORIA----
 
-//Segun el algoritmo que me pasa el archivo de configuracion, designo con esta funcion
-//que algoritmo se va a usar y le paso la lista y el tamaño de bytes
+
 t_bloque_memoria* algoritmo_de_memoria( int tamanio_en_bytes);
 
 t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);
 t_bloque_memoria* buddy_system( int tamanio_en_bytes);
 
+t_bloque_memoria* algoritmo_first_fit(int tamanio); //LISTO
 
 //void algoritmo_de_particion_libre();
 

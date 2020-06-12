@@ -29,11 +29,11 @@
 #include <arpa/inet.h>
 
 /* Las aclaraciones del uso de cada funcion estan en el archivo .c */
-t_bloque_memoria* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria);
-t_bloque_memoria* AsignarParticionMemoria( int tamanio_en_bytes);
-bool puedeAlojarse(int tamanio_en_bytes);
-t_bloque_memoria* particionarBloque(int tamanio, int indice_nodo_particionar);
-int obtenerIndiceParticion(t_bloque_memoria* bloque);
+t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_memoria);
+t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes);
+bool puede_alojarse(int tamanio_en_bytes);
+t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar);
+int obtener_indice_particion(t_bloque_memoria* bloque);
 
 
 //*****************Auxiliares especificas Buddy System******************************

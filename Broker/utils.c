@@ -1,7 +1,7 @@
 #include "utils.h"
 
 /*Dado el valor de memoria inicial, asigno un bloque para la memoria inicial y lo retorno*/
-t_bloque_memoria* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
+t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_memoria){
     
     /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
     void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
@@ -24,7 +24,7 @@ t_bloque_memoria* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memo
 }
 
 /*Dado un tamaño de particion, devuelvo el bloque asignado y derivo segun el algoritmo de memoria */
-t_bloque_memoria* AsignarParticionMemoria(int tamanio_en_bytes){
+t_bloque_memoria* asignar_particion_memoria(int tamanio_en_bytes){
     
     //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
     t_bloque_memoria* nuevaParticion;
@@ -36,7 +36,7 @@ t_bloque_memoria* AsignarParticionMemoria(int tamanio_en_bytes){
 
 /*Dado el tamaño de una particion, me fijo si puede alojarse a la primera 
 	o si hay que correr el algoritmo de eliminacion*/ 
-bool puedeAlojarse(int tamanio_en_bytes){
+bool puede_alojarse(int tamanio_en_bytes){
 
 	int tamanio_particion= tamanio_minimo_particion;
 	bool puedeEntrar = FALSE;
@@ -73,7 +73,7 @@ bool puedeAlojarse(int tamanio_en_bytes){
 /*Dado un indice y un tamaño en byte, alojo la particion en el indice, y creo el nuevo bloque con lo restante en el caso
 	que haya algo restante. La idea de esta funcion es que sea llamada por el algoritmo de asignacion.
 	Se usaria una vez encontrado el lugar en memoria que ocuparia mi nueva particion */
-t_bloque_memoria* particionarBloque(int tamanio, int indice_nodo_particionar){
+t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar){
 
     t_bloque_memoria *bloque_restante;
 	t_bloque_memoria *bloque_inicial;
@@ -100,7 +100,7 @@ t_bloque_memoria* particionarBloque(int tamanio, int indice_nodo_particionar){
 }
 
 /*Obtengo el indice de un determinado, recorriendo toda la lista y comparando los payload*/
-int obtenerIndiceParticion(t_bloque_memoria* bloque){
+int obtener_indice_particion(t_bloque_memoria* bloque){
 
 	int indice;
 	t_bloque_memoria* elemento ;

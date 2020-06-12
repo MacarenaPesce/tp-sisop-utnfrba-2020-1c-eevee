@@ -37,7 +37,7 @@ void* EncontrarBloqueMemoriaLibre(char* bloque_memoria_inicial, int tamanio_en_b
     return ;
 }
 
-t_bloque_memoria* alojarBloque(){
+t_bloque_memoria* alojar_bloque(){
 	/*tengo que correr el algoritmo de particion ya se first fit o best fit --- algoritmo_de_particion_libre
 		encontrar la particion o bloque
 		obtener el indice de partcion
@@ -51,6 +51,9 @@ t_bloque_memoria* alojarBloque(){
 
 
 //----------------------------ALGORITMOS DE MEMORIA-------------------------
+
+/*Segun el algoritmo que me pasa el archivo de configuracion, designo con esta funcion
+    que algoritmo se va a usar y le paso la lista y el tamaño de bytes*/
 t_bloque_memoria* algoritmo_de_memoria(int tamanio_en_bytes){
 
     //Creo una nueva particion, que es donde se van a guardar los datos de la particion alojada
@@ -73,7 +76,7 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes){
 
     t_bloque_memoria* particionNueva;
 
-    bool sePuedeAlojar = puedeAlojarse(tamanio_en_bytes);
+    bool sePuedeAlojar = puede_alojarse(tamanio_en_bytes);
 
 
     return t_bloque_memoria;
@@ -168,10 +171,10 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio){
     }
 
     //obtengo el indice del bloque que voy a particionar
-    indice = obtenerIndiceParticion(bloque);
+    indice = obtener_indice_particion(bloque);
 
     //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
-    bloque_final = particionarBloque(tamanio_final_a_alojar,indice);
+    bloque_final = particionar_bloque(tamanio_final_a_alojar,indice);
 
     return bloque_final;
 
