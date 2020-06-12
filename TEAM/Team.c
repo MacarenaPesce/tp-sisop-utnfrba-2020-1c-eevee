@@ -105,7 +105,7 @@ void agregar_pokemon_a_mapa(t_pokemon * pokemon){
 	t_objetivo* un_objetivo;
 	un_objetivo = buscar_pokemon_por_especie(lista_objetivos, pokemon->especie);
 	if(un_objetivo == NULL){
-		log_info(team_logger, "El objetivo es nulo");
+		log_info(team_logger, "No necesito este pokemon");
 	}
 	if(un_objetivo->cantidad_necesitada > un_objetivo->cantidad_atrapada){
 		list_add(lista_mapa, (void*)pokemon);
@@ -299,6 +299,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 
 	int broker_socket = conectar_a_server(ip_broker, "6009");
 
+
 	if(broker_socket < 0){
 		//TODO
 		/*
@@ -308,8 +309,45 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 		 *
 		 * QUE HACEMOS CON EL ENTRENADOR??
 		 */
+		log_info(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
+		for(int i = 0; i < list_size(lista_mapa); i++){
+			t_pokemon* pokemon;
+			pokemon = list_get(lista_mapa, i);
+			if(pokemon->especie == catch_pokemon->pokemon //busco al pokemon a atrapar en el mapa
+					&& pokemon->posx == catch_pokemon->coordenadas.posx
+					&& pokemon->posy == catch_pokemon->coordenadas.posy){
+				entrenador->cant_maxima_objetivos--; //actualizo la cantidad maxima de objetivos a atrapar del entrenador
+				t_objetivo_entrenador* pokemon_objetivo = buscar_pokemon_por_especie(entrenador->objetivo, pokemon->especie);
+				if(pokemon_objetivo != NULL){
+					pokemon_objetivo->cantidad--; //si es una especie que tenia como objetivo personal, disminuyo su cantidad
+				} else {
+				}
+				t_objetivo_entrenador* pokemon_encontrado = buscar_pokemon_por_especie(entrenador->pokemones, pokemon->especie);
+				if(pokemon_encontrado == NULL){
+					agregar_objetivo(pokemon->especie, 1, entrenador->pokemones); //agrego el pokemon a la lista de atrapados por el entrenador
+				} else {
+					pokemon_encontrado->cantidad++; // o actualizo la cantidad de esa especie de atrapados del entrenador
+				}
+				entrenador->objetivo_actual = NULL;// no se si esto es necesario
+				list_remove(lista_mapa, i); //elimino el poke del mapa
+				break;
+			}
+		}
 
-		log_info(team_logger, "El pokemon %s ha sido atrapado con exito", entrenador->objetivo_actual->especie);
+		if(objetivo_personal_cumplido(entrenador)){ /*esto siempre da true porque la lista de pokes del entrenador
+			no esta cargada*/
+			entrenador->estado == FINALIZANDO; //ver que onda el hilo
+			t_objetivo* pokemon_encontrado = buscar_pokemon_por_especie(lista_objetivos, catch_pokemon->pokemon);
+			pokemon_encontrado->cantidad_atrapada++;/*Busco la especie en la lista global y sumo uno a los atrapados*/
+			if(objetivo_global_cumplido()){
+				log_info(team_logger, "Objetivo global cumplido");
+			} else {
+				log_info(team_logger, "Aun no se cumplio el objetivo global");
+			}
+		} else {
+			bloquear_entrenador(entrenador);
+			printf("Entrenador bloqueado");
+		}
 
 	}else{
 		enviar_catch_pokemon(broker_socket, -1, -1, catch_pokemon);
@@ -328,6 +366,38 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 
 	free(catch_pokemon);
 
+}
+
+void bloquear_entrenador(t_entrenador* entrenador){
+	if(entrenador->cant_maxima_objetivos == 0) {
+		entrenador->razon_de_bloqueo = CANTIDAD_MAXIMA_ALCANZADA;
+	} else {
+		entrenador->razon_de_bloqueo = ESPERANDO_POKEMON;
+	}
+}
+
+bool objetivo_personal_cumplido(t_entrenador* entrenador){
+	int contador = 0;
+	for (int i = 0; i < list_size(entrenador->objetivo); i++){
+		t_objetivo_entrenador* un_objetivo = list_get(entrenador->objetivo, i);
+		if(un_objetivo == NULL){
+		}
+		if(un_objetivo->cantidad == 0){
+			contador++;
+		}
+	}
+	return (contador == list_size(entrenador->objetivo));
+}
+
+bool objetivo_global_cumplido(){
+	int contador = 0;
+		for (int i = 0; i < list_size(lista_objetivos); i++){
+			t_objetivo* un_objetivo = list_get(lista_objetivos, i);
+			if(un_objetivo->cantidad_atrapada == un_objetivo->cantidad_necesitada){
+				contador++;
+			}
+		}
+		return (contador == list_size(lista_objetivos)); //es verdadero y cumple esto y ademas no haya deadlock
 }
 
 void consumir_un_ciclo_de_cpu(){
@@ -478,7 +548,7 @@ int main(){
 	//Crea el socket cliente para conectarse al broker
 	enviar_get();
 
-	convertirse_en_suscriptor_global_del_broker();
+	//convertirse_en_suscriptor_global_del_broker();
 
 	while(GLOBAL_SEGUIR){
 		struct sockaddr_in client_addr;

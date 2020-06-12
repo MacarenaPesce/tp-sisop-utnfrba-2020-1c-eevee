@@ -39,5 +39,7 @@ bool esta_mas_cerca(t_entrenador*, t_entrenador*, t_pokemon*);
 int distancia_a_pokemon(t_entrenador*, t_pokemon*);
 t_objetivo * buscar_pokemon_por_especie(t_list*, char*);
 void mostrar_pokemones_de_entrenador(t_list*, t_list* , int);
+bool objetivo_personal_cumplido(t_entrenador*);
+bool objetivo_global_cumplido();
 
 #endif /* TEAM_H_ */
