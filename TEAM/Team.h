@@ -41,5 +41,6 @@ t_objetivo * buscar_pokemon_por_especie(t_list*, char*);
 void mostrar_pokemones_de_entrenador(t_list*, t_list* , int);
 bool objetivo_personal_cumplido(t_entrenador*);
 bool objetivo_global_cumplido();
+void sacar_de_objetivos_pokemones_atrapados(t_list*, t_list*);
 
 #endif /* TEAM_H_ */

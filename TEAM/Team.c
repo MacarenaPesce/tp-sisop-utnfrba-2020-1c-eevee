@@ -254,7 +254,22 @@ uint32_t obtener_cantidad_maxima(t_list* lista){
 
 }
 
+void sacar_de_objetivos_pokemones_atrapados(t_list* lista_de_objetivos, t_list* lista_de_pokemones){
+	for (int i = 0; i < list_size(lista_de_pokemones); i++){
+		t_objetivo_entrenador* pokemon = list_get(lista_de_pokemones, i);
+		t_objetivo_entrenador* objetivo = buscar_pokemon_por_especie(lista_de_objetivos, pokemon->especie);
+		if(objetivo != NULL){
+			if(objetivo->cantidad >= pokemon->cantidad){
+				objetivo->cantidad -= pokemon->cantidad;
+			} else {
+				objetivo->cantidad = 0;
+			}
+		}
+	}
+}
+
 void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista_pokemones_de_entrenador, t_list* lista_objetivos_de_entrenador){
+	sacar_de_objetivos_pokemones_atrapados(lista_objetivos_de_entrenador, lista_pokemones_de_entrenador);
 	uint32_t cantidad_maxima = obtener_cantidad_maxima(lista_objetivos_de_entrenador);
 	t_entrenador* entrenador = malloc(sizeof(t_entrenador));
 	entrenador->posx = posx;
