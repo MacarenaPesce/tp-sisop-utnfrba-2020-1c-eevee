@@ -249,7 +249,7 @@ void crearDirectoriosParaFs() {
 				rutas_fs->pathDirectorioBloques);
 	}
 
-
+log_info(gameCard_logger, "se han creado los directorios /Files y /Blocks");
 
 	//aca se van a inicializar los bloques
 
@@ -259,7 +259,7 @@ void crearDirectoriosParaFs() {
 
 	InicializarBloquesDeDatosFs();
 
-	log_info(gameCard_logger, "se han creado los directorios /Files y /Blocks");
+
 
 }
 
@@ -274,29 +274,27 @@ bool existeDirectorio(char* ruta) {
 void InicializarBloquesDeDatosFs() {
 
 	int numBloque=1;
-	char* nombreBloque= string_new();
 
-	log_info(gameCard_logger,"dame cant bloques: %d",metadata_fs->cantidadBloques);
-
-	for (numBloque = 1; numBloque <= metadata_fs->cantidadBloques; numBloque++) {
+	for (numBloque = 1; numBloque<= metadata_fs->cantidadBloques; numBloque++) {
 
 		char* pathBloque = string_new();
+		char* nombreBloque= string_new();
 
 		//log_info(gameCard_logger,"dame path de /block: %s",rutas_fs->pathDirectorioBloques);
 		string_append(&pathBloque, rutas_fs->pathDirectorioBloques);
 		//log_info(gameCard_logger,"dame path aux: %s",pathBloque);
 		string_append(&pathBloque,"/");
-		strcpy(nombreBloque,(string_itoa(numBloque)));
+		string_append(&nombreBloque,(string_itoa(numBloque)));
 		//log_info(gameCard_logger,"path nombre Bloque: %s",nombreBloque);
 		string_append(&pathBloque,nombreBloque);
-		//log_info(gameCard_logger, "path bloque con nombre bloque:%s");
+		//log_info(gameCard_logger, "path bloque con nombre bloque:%s",pathBloque);
 		string_append(&pathBloque, ".bin");
 		//log_info(gameCard_logger, "dame path con el nombre completo: %s", pathBloque);
 
 		//se va a crear ese archivo si no existe
 		FILE * nuevoBloque = fopen(pathBloque, "wb");
-		//fclose(nuevoBloque);
-    	//free(pathBloque);
+		fclose(nuevoBloque);
+   //	free(pathBloque);
 	//	free(nombreBloque);
 
 	}
@@ -341,8 +339,6 @@ void mostrarContenidoFs(){
 	log_info(gameCard_logger,"mostrar bitmap");
 	struct stat s;
 	int status;
-
-	log_info(gameCard_logger,"mostrame tu ruta: %s", rutas_fs->pathArchivoBitMap);
 	int bitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR);
 
 	status = fstat(bitmap, &s);
@@ -354,7 +350,6 @@ void mostrarContenidoFs(){
 		log_info(gameCard_logger,"Bitmap esta vacio o no se puedo abrir arch");
 	}
 
-	log_info(gameCard_logger, "estoy mostrando bitmap: %s",bitmapAux);
 
 	//mostrar metadataFs.bin
 
@@ -374,6 +369,8 @@ int abrirBitmap() {
 
 	int bitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR);
 	struct stat mystat;
+
+	fstat(bitmap, &mystat);
 
 	/*if (fstat(bitmap, &mystat) < 0) {
 		log_error(gameCard_logger, "Error en el fstat\n");
@@ -396,7 +393,7 @@ int abrirBitmap() {
 
 	bitarray = bitarray_create_with_mode(bmap, bytesBitmap,MSB_FIRST);
 
-	for (int i=1;i<= bitarray_get_max_bit(bitarray);i++){
+	/*for (int i=1;i<= bitarray_get_max_bit(bitarray);i++){
 
 		if (bitarray_test_bit(bitarray,i)==0){
 			log_info(gameCard_logger," el bloque numero : %d esta vacio ",i);
@@ -404,7 +401,7 @@ int abrirBitmap() {
 		else{
 		log_info(gameCard_logger,"el bloque numero %d esta lleno",i);}
 
-	}
+	}*/
 
 	log_info(gameCard_logger,"cantidad de bits del bitmap:%d", bitarray_get_max_bit(bitarray));
 	log_info(gameCard_logger,"abriendo bitmap");
