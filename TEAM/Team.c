@@ -27,7 +27,7 @@ void operar_con_appeared_pokemon(t_appeared_pokemon * mensaje){
 
 	planificar();
 
-	free(pokemon);
+	//free(pokemon);
 }
 
 void operar_con_localized_pokemon(t_localized_pokemon * mensaje){
@@ -189,32 +189,34 @@ void localizar_entrenadores_en_mapa(){
 
 	string_iterate_lines_with_list(posiciones_entrenadores, pokemones_ordenada, separar_pokemones_de_entrenador);
 
-
 	uint32_t pos_entrenador_en_lista_objetivos = 0;
 	uint32_t posx;
 	uint32_t posy;
 	bool hay_que_agregar_entrenador = false;
+	int id = 1;
+
 	for(uint32_t i = 0; i < list_size(pokemones_ordenada); i++){
 		if(!hay_que_agregar_entrenador){
 			char* brokerenada_char;
 			brokerenada_char = list_get(pokemones_ordenada, i);
 			if(brokerenada_char != NULL) {
-					int brokerenada = atoi(brokerenada_char);
-					if(i == 0 || i % 2 == 0) {
-						posx = brokerenada;
-					}else{
-						posy = brokerenada;
-						hay_que_agregar_entrenador = true;
-					}
-					if(hay_que_agregar_entrenador){
-						lista_pokemones_de_entrenador = obtener_pokemones(lista_global_pokemones, lista_pokemones_de_entrenador, pos_entrenador_en_lista_objetivos);
-						lista_objetivos_de_entrenador = obtener_pokemones(lista_global_objetivos, lista_objetivos_de_entrenador, pos_entrenador_en_lista_objetivos);
-						pos_entrenador_en_lista_objetivos++;
-						agregar_entrenador(posx, posy, i, lista_pokemones_de_entrenador, lista_objetivos_de_entrenador);
-						hay_que_agregar_entrenador = false;
-						list_clean(lista_objetivos_de_entrenador);
-						list_clean(lista_pokemones_de_entrenador);
-					}
+				int brokerenada = atoi(brokerenada_char);
+				if(i == 0 || i % 2 == 0) {
+					posx = brokerenada;
+				}else{
+					posy = brokerenada;
+					hay_que_agregar_entrenador = true;
+				}
+				if(hay_que_agregar_entrenador){
+					lista_pokemones_de_entrenador = obtener_pokemones(lista_global_pokemones, lista_pokemones_de_entrenador, pos_entrenador_en_lista_objetivos);
+					lista_objetivos_de_entrenador = obtener_pokemones(lista_global_objetivos, lista_objetivos_de_entrenador, pos_entrenador_en_lista_objetivos);
+					pos_entrenador_en_lista_objetivos++;
+					agregar_entrenador(posx, posy, id, lista_pokemones_de_entrenador, lista_objetivos_de_entrenador);
+					hay_que_agregar_entrenador = false;
+					list_clean(lista_objetivos_de_entrenador);
+					list_clean(lista_pokemones_de_entrenador);
+					id++;
+				}
 			}else{
 				break;
 			}
@@ -270,17 +272,17 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 }
 
 void * jugar_con_el_entrenador(t_entrenador * entrenador){
+	log_info(team_logger, "ID entrenador del hilo %d...", entrenador->id);
 
-	sem_wait(&hilo_entrenador);
-	pthread_mutex_lock(&entrenador_exec);
-	if(entrenador->id == entrenador_en_ejecucion->id){
-		log_info(team_logger, "Soy el entrenador que va a ejecutar CARAJOOOOOO");
+	sem_wait(&entrenador_exec);
 
-		llegar_a_el_pokemon(entrenador);
-		atrapar(entrenador);
+	sem_wait(&hilo_disponible[entrenador->id]);
 
-	}
-	pthread_mutex_unlock(&entrenador_exec);
+	log_info(team_logger, "Soy el entrenador que va a ejecutar CARAJOOOOOO");
+
+	/*llegar_a_el_pokemon(entrenador);
+	atrapar(entrenador);*/
+
 }
 
 void atrapar(t_entrenador * entrenador){
@@ -331,11 +333,15 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 }
 
 void consumir_un_ciclo_de_cpu(){
-
+	ciclos_de_cpu++;
+	sleep(retardo_ciclo_cpu);
 }
 
-
 void llegar_a_el_pokemon(t_entrenador * entrenador){
+	/*
+	 * Cada movimiento en el mapa responderá a un ciclo de CPU, y este NO realizará movimientos diagonales para llegar a la posición deseada.
+	 * Para simular más a la realidad esta funcionalidad, se deberá agregar un retardo de X segundos configurado por archivo de configuración.
+	 */
 
 	//Primero me muevo por izq
 	while(entrenador->posx < entrenador->objetivo_actual->posx){
@@ -366,14 +372,8 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 	}
 }
 
-
-
 void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
-	/*
-	 * Para poder planificar un entrenador, se seleccionará el hilo del entrenador más cercano al Pokémon. Cada movimiento en el mapa responderá a un ciclo de CPU,
-	 * y este NO realizará movimientos diagonales para llegar a la posición deseada. Para simular más a la realidad esta funcionalidad, se deberá agregar un retardo de X
-	 *  segundos configurado por archivo de configuración.
-	 */
+	//Para poder planificar un entrenador, se seleccionará el hilo del entrenador más cercano al Pokémon.
 
 	t_list* lista_aux;
 	lista_aux = list_duplicate(lista_entrenadores);
@@ -381,7 +381,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	t_pokemon* objetivo_actual;
 	int i = 0;
 	bool mas_cerca;
-	t_entrenador* entrenador_mas_cercano;// = malloc(sizeof(t_entrenador*));
+	t_entrenador* entrenador_mas_cercano;
 	t_entrenador* otro_entrenador;
 	entrenador_mas_cercano = list_get(lista_aux, i);
 	int cantidad_entrenadores = list_size(lista_aux);
@@ -390,8 +390,8 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 		if(i == cantidad_entrenadores){
 			objetivo_actual = pokemon;
 			entrenador_mas_cercano->objetivo_actual = objetivo_actual;
-			list_add(lista_listos,entrenador_mas_cercano);
-			sacar_entrenador_de_lista_pid(lista_entrenadores,entrenador_mas_cercano->id);
+			list_add(lista_listos, (void*)entrenador_mas_cercano);
+			sacar_entrenador_de_lista_pid(lista_entrenadores, entrenador_mas_cercano->id);
 			break;
 		}
 		otro_entrenador = list_get(lista_aux, i);
@@ -406,7 +406,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 
 	list_destroy(lista_aux);
 	log_info(team_logger,"El entrenador mas cercano es el de id %d y su objetivo es %s\n", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
-	free(entrenador_mas_cercano);
+	//free(entrenador_mas_cercano);
 }
 
 bool esta_mas_cerca(t_entrenador* entrenador1, t_entrenador* entrenador2, t_pokemon* pokemon){
@@ -417,6 +417,10 @@ bool esta_mas_cerca(t_entrenador* entrenador1, t_entrenador* entrenador2, t_poke
 	} else {
 		return false;
 	}
+}
+
+int cant_max_de_entrenadores(){
+	return list_size(lista_entrenadores);
 }
 
 int distancia_a_pokemon(t_entrenador* entrenador, t_pokemon* pokemon){
@@ -466,11 +470,14 @@ int main(){
 	definir_objetivo_global();//sacar los leaks
 	localizar_entrenadores_en_mapa();
 
-	pthread_mutex_init(&entrenador_exec, NULL);
-	sem_init(&hilo_entrenador, 0, 0);
+	MAXIMO_ENTRENADORES = cant_max_de_entrenadores();
 
-	/*CREO UN HILO POR ENTRENADOR*/
-	/*Ya esta hecho en la funcion localizar_entrenadores_en_el_mapa(), cuando llama a la funcion agregar_entrenador()*/
+	sem_init(&entrenador_exec, 0, 0);
+
+	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
+		sem_init(&hilo_disponible[i], 0, 0);
+	}
+	sem_post(&entrenador_exec);
 
 	//Crea el socket servidor para recibir mensajes de gameboy
 	int serv_socket = iniciar_servidor(PUERTO);
@@ -478,7 +485,7 @@ int main(){
 	//Crea el socket cliente para conectarse al broker
 	enviar_get();
 
-	convertirse_en_suscriptor_global_del_broker();
+	//convertirse_en_suscriptor_global_del_broker();
 
 	while(GLOBAL_SEGUIR){
 		struct sockaddr_in client_addr;
