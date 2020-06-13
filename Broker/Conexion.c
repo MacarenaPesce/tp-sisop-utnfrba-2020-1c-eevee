@@ -73,7 +73,7 @@ void* esperar_mensajes(void* cliente){
 	t_packed* paquete;
 	paquete = recibir_mensaje(socket_cliente);
 
-	if(paquete != -1){
+	if(paquete != (t_packed*)-1){
 		//Esto me devuelve el paquete con todos los datos
 		/* El nro de operacion y cola de mensajes indican el 
 		tipo de estructura que contiene el paquete */

@@ -93,9 +93,7 @@ t_packed* recibir_mensaje(int sock){
 	
 	ioctl(sock,FIONREAD,&size);
 
-	if(size <= 0){
-		return -1;
-	}
+	if(size <= 0) return (t_packed *)-1;
 
 	paquete = (t_packed*)malloc(sizeof(t_packed));
 	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
@@ -132,7 +130,7 @@ void _recuperar_mensaje(void *mensaje,t_packed *paquete){
 
 	switch(paquete->cola_de_mensajes){
 
-		case -1:
+		case MENSAJE_TEXTO:
 			_recibir_mensaje_string(mensaje,paquete);
 			break;
 
@@ -216,11 +214,11 @@ void _agregar_int_t_a_paquete(t_packed* paquete, int value){
 }
 
 //Implementaciones Envio
-int enviar_mensaje_string(t_servidor* servidor, char* mensaje){
+t_packed* enviar_mensaje_string(t_servidor* servidor, char* mensaje){
 
 	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
 
-	if(socket == -1) return -1;
+	if(socket == -1) return (t_packed *)-1;
 
 	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
@@ -230,12 +228,17 @@ int enviar_mensaje_string(t_servidor* servidor, char* mensaje){
 	_enviar_mensaje(socket,paquete);
 	_eliminar_mensaje(paquete);
 
+	t_packed* ack;
+	ack = (t_packed*)malloc(sizeof(t_packed));
+	
+	_esperar_ack(socket, ack);
+
 	cerrar_conexion(socket);
 
-	return 0;
+	return ack;
 }
 
-int _enviar_catch_o_appeared_pokemon(int socket,
+void _enviar_catch_o_appeared_pokemon(int socket,
 							 uint32_t id_mensaje, 
 							 uint32_t id_correlacional, 
 							 uint32_t cola_de_mensajes,
@@ -265,7 +268,7 @@ t_packed* enviar_appeared_pokemon(t_servidor* servidor,
 
     int socket =  conectar_a_server(servidor->ip,servidor->puerto);
 
-	if(socket == -1) return -1;
+	if(socket == -1) return (t_packed *)-1;
 
 	_enviar_catch_o_appeared_pokemon(socket,id_mensaje,id_correlacional,COLA_APPEARED_POKEMON,appeared_pokemon);
 	
@@ -287,7 +290,7 @@ t_packed* enviar_catch_pokemon(t_servidor* servidor,
 
     int socket =  conectar_a_server(servidor->ip,servidor->puerto);
 
-	if(socket == -1) return -1;
+	if(socket == -1) return (t_packed *)-1;
 
 	_enviar_catch_o_appeared_pokemon(socket,id_mensaje,id_correlacional,COLA_CATCH_POKEMON,catch_pokemon);
     
@@ -308,7 +311,7 @@ t_packed* enviar_new_pokemon(t_servidor* servidor,
 
     int socket =  conectar_a_server(servidor->ip,servidor->puerto);
 
-	if(socket == -1) return -1;
+	if(socket == -1) return (t_packed *)-1;
 
 	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
@@ -344,7 +347,7 @@ t_packed* enviar_caught_pokemon(t_servidor* servidor,
 
 	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
 
-	if(socket == -1) return -1;
+	if(socket == -1) return (t_packed *) -1;
 
 	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
@@ -376,7 +379,7 @@ t_packed* enviar_get_pokemon(t_servidor* servidor,
 
     int socket =  conectar_a_server(servidor->ip,servidor->puerto);
 
-	if(socket == -1) return -1;
+	if(socket == -1) return (t_packed *) -1;
 
 	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
@@ -446,9 +449,9 @@ int enviar_localized_pokemon(t_servidor* servidor,
 	t_packed* ack;
 	ack = (t_packed*)malloc(sizeof(t_packed));
 	
-	_esperar_ack(socket, ack);*/
+	_esperar_ack(socket, ack);
 
-	cerrar_conexion(socket);
+	cerrar_conexion(socket);*/
 
 	return 0;
 
@@ -612,7 +615,7 @@ void _esperar_ack(int socket, t_packed* ack){
 		
 		ack = recibir_mensaje(socket);
 
-		if(ack != -1){
+		if(ack != (t_packed*)-1){
 			ack_obtenido = true;
 		}	
 
@@ -621,33 +624,6 @@ void _esperar_ack(int socket, t_packed* ack){
 	return;
 	
 }
-/*
-
-void enviar_modo_suscriptor(uint32_t cola_de_mensajes, uint32_t tiempo, int socket){
-	t_paquete* paquete = crear_paquete(SUSCRIPTOR);
-	agregar_uint32_t_a_paquete(paquete, cola_de_mensajes);
-	agregar_uint32_t_a_paquete(paquete, tiempo);
-	enviar_paquete(paquete, socket);
-	eliminar_paquete(paquete);
-}
-
-tp_modo_suscriptor recibir_modo_suscriptor(int paquete_size, int socket){
-	void * buffer = malloc(paquete_size);
-	recibir_mensaje(socket, buffer, paquete_size);
-	uint32_t cola_de_mensajes;
-	uint32_t tiempo;
-	int desplazamiento = 0;
-	memcpy(&cola_de_mensajes, buffer + desplazamiento, sizeof(uint32_t));
-	desplazamiento+=sizeof(uint32_t);
-	memcpy(&tiempo, buffer + desplazamiento, sizeof(uint32_t));
-	tp_modo_suscriptor contenido = malloc(sizeof(t_modo_suscriptor));
-	contenido->cola_de_mensajes=cola_de_mensajes;
-	contenido->tiempo=tiempo;
-	free(buffer);
-	return contenido;
-}
-
-
 
 /**************FUNCIONES PARA EL LOG*********************/
 void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer, char* log_colors[8], char* msj_salida){
