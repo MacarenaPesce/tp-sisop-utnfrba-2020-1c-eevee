@@ -106,6 +106,8 @@ void* esperar_mensajes(void* cliente){
 		}
 
 	}
+
+	return NULL;
 	
 }
 
