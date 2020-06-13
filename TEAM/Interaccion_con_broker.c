@@ -10,6 +10,7 @@
 void enviar_get(){
 	int broker_socket = conectar_a_server(ip_broker, "6009");
 	if(broker_socket < 0){// || broker_socket == 0){
+		log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 		int h = 0;
 		t_objetivo* objetivo = malloc(sizeof(t_objetivo));
 		while(lista_objetivos != NULL){
@@ -140,7 +141,9 @@ void * enviar_mensaje_de_suscripcion_a_cola_localized_pokemon(){
 
 	free(suscripcion);
 	if(broker_socket <= 0){
+		log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 		log_info(team_logger, "No se pudo mandar al broker la solicitud para la cola localized");
+		log_info(team_logger_oficial, "Se inicia el intento de reconexión con Broker");
 		hacer_intento_de_reconexion();
 		enviar_mensaje_de_suscripcion_a_cola_localized_pokemon();
 	}

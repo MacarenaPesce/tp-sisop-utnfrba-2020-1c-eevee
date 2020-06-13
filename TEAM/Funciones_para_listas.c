@@ -16,6 +16,7 @@ void inicializar_listas(){
 	lista_entrenadores = list_create();
 	lista_mapa = list_create();
 	pokemones_ordenada = list_create();
+	mensajes = list_create();
 
 }
 

@@ -43,3 +43,4 @@ t_list* lista_config; //lista auxiliar para cargar la info del archivo de config
 t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global
 t_list* lista_mapa;
 t_list* lista_pokemon_atrapado;
+t_list* mensajes;
