@@ -70,7 +70,7 @@ bool puede_alojarse(int tamanio_bytes){
 /*Dado un indice y un tamaño en byte, alojo la particion en el indice, y creo el nuevo bloque con lo restante en el caso
 	que haya algo restante. La idea de esta funcion es que sea llamada por el algoritmo de asignacion.
 	Se usaria una vez encontrado el lugar en memoria que ocuparia mi nueva particion */
-t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar){
+t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, int tamanio_msje){
 
     t_bloque_memoria *bloque_restante;
 	t_bloque_memoria *bloque_inicial;
@@ -79,9 +79,10 @@ t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar){
     bloque_inicial = list_get(lista_memoria, indice_nodo_particionar);
 
     /* Si me sobra espacio lo separo en un nuevo nodo */
-    if(bloque_inicial->tamanio - tamanio > 0){ 
+    if(bloque_inicial->tamanio - tamanio_parti > 0){ 
 
-        bloque_restante->tamanio = bloque_inicial->tamanio - tamanio;
+        bloque_restante->tamanio_particion = bloque_inicial->tamanio - tamanio_parti;
+		bloque_restante->tamanio_msje = 0;
         bloque_restante->esta_vacio = true;
         bloque_restante->payload = bloque_inicial->payload + tamanio + 1;
 		bloque_restante->timestamp = 0;
@@ -93,7 +94,8 @@ t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar){
     }
 
     /* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
-    bloque_inicial->tamanio = tamanio;
+    bloque_inicial->tamanio_particion = tamanio_parti;
+    bloque_inicial->tamanio_mensaje = tamanio_msje;
     bloque_inicial->esta_vacio = false;
 	bloque_inicial->timestamp = get_timestamp();
 	bloque_inicial->last_time = get_timestamp();

@@ -48,8 +48,8 @@ typedef struct{
 }t_bloque_memoria;
 
 //********Funciones de Algoritmos de memoria************
-t_bloque_memoria* algoritmo_de_particion_libre(int tamanio); //LISTO
-t_bloque_memoria* algoritmo_first_fit(int tamanio); //LISTO
+t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti); //LISTO
+t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti); //LISTO
 t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes); //LISTO
 void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros que son con opciones, si mandan una opcion por el archivo config que no es valida
 void algoritmo_fifo(); //LISTO , falta setear el cambio a la lista
@@ -59,7 +59,7 @@ void algoritmo_lru(); //LISTO (creo) , falta setear el cambio a la lista
 //---ALGORITMOS DE MEMORIA----
 
 
-t_bloque_memoria* algoritmo_de_memoria( int tamanio_en_bytes); //LISTO
+t_bloque_memoria* algoritmo_de_memoria( int tamanio_msje); //LISTO
 t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);  //EN PROCESO
 t_bloque_memoria* buddy_system( int tamanio_en_bytes); //EN PROCESO
 

@@ -9,15 +9,15 @@
 
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
 
-t_bloque_memoria* algoritmo_de_particion_libre(int tamanio){
+t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti){
     
     t_bloque_memoria* bloque;
 
     if( algoritmo_particion_libre == "FF"){
-        bloque = algoritmo_first_fit(tamanio);
+        bloque = algoritmo_first_fit(tamanio_msje, tamanio_parti);
     }
     else{
-        bloque = algoritmo_best_fit(tamanio);
+        bloque = algoritmo_best_fit(tamanio_msje, tamanio_parti);
     }
 
 
@@ -29,7 +29,7 @@ t_bloque_memoria* algoritmo_de_particion_libre(int tamanio){
 /* Busco el primer hueco donde puedo alojar una nueva particion y la alojo.
     NOTA: para esto ya esta chequeado que puede alojarse
     NOTA2: recibo el tamaño correcto, ya chequeado si es el minimo a alojar o no.*/
-t_bloque_memoria* algoritmo_first_fit(int tamanio_bytes){
+t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti){
 
     t_bloque_memoria* bloque;
     t_bloque_memoria* aux;
@@ -41,7 +41,7 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_bytes){
 
         aux = list_get(lista_memoria, i);
 
-        if((aux->tamanio >= tamanio_bytes) && (aux->esta_vacio == true)){
+        if((aux->tamanio >= tamanio_parti) && (aux->esta_vacio == true)){
             bloque = aux;
             i = list_size(lista_memoria);
             break;
@@ -53,7 +53,7 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_bytes){
     indice = obtener_indice_particion(bloque);
 
     //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
-    bloque_final = particionar_bloque(tamanio_bytes,indice);
+    bloque_final = particionar_bloque(tamanio_parti,indice,tamanio_msje);
 
     return bloque_final;
 
@@ -63,7 +63,7 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_bytes){
 /* Busco el huevo mas pequeño donde quepa la nueva particion a alojar, y la alojo.
     NOTA: para esto ya esta chequeado que puede alojarse
     NOTA2: recibo el tamaño correcto, ya chequeado si es el minimo a alojar o no.*/
-t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes){
+t_bloque_memoria* algoritmo_best_fit(int tamanio_msje, int tamanio_parti){
 
     t_bloque_memoria* bloque;
     t_bloque_memoria* aux;
@@ -78,7 +78,7 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes){
         aux = list_get(lista_memoria, i);
 
         //me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no 
-        if((aux->esta_vacio == true) && (aux->tamanio >= tamanio_bytes)){
+        if((aux->esta_vacio == true) && (aux->tamanio >= tamanio_parti)){
             
             //me fijo si el tamaño mas chico de particiones sigue siendo 0 
             if(tam_minimo==0){
@@ -99,7 +99,7 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes){
     indice = obtener_indice_particion(bloque);
 
     //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
-    bloque_final = particionar_bloque(tamanio_bytes,indice);
+    bloque_final = particionar_bloque(tamanio_parti,indice,tamanio_msje);
 
     return bloque_final;
 
@@ -138,6 +138,7 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_msje){
 
     t_bloque_memoria* particionNueva;
 
+    //me fijo si el tamaño del mensaje es menor al minimo tamaño de particion
     int tamanio_parti = tamanio_a_alojar(tamanio_msje);
 
     //me fijo si la particion puede alojarse a la primera
@@ -147,7 +148,7 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_msje){
     int frec_para_compactar = frecuencia_compactacion; 
 
     if(sePuedeAlojar == true){ //si puede alojarse a la primera llamo al algoritmo de particion libre
-        particionNueva = algoritmo_de_particion_libre(tamanio_en_bytes);
+        particionNueva = algoritmo_de_particion_libre(tamanio_msje, tamanio_parti);
     }
     else{ //si no puede alojarse a la primera ....
 
@@ -164,7 +165,7 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_msje){
                 frec_para_compactar=frecuencia_compactacion;
             }
 
-            sePuedeAlojar = puede_alojarse(tamanio_en_bytes);
+            sePuedeAlojar = puede_alojarse(tamanio_parti);
 
         }
 
