@@ -24,20 +24,21 @@ void crearFileSystemVacio() {
 void crearMetadataFs() {
 
 	cargarMetadataFs("gamecard.config");
-//se va a crear el directorio metadata
-//analizar permisos para ese directorio por ahora todos pueden hacer cualquier cosa
-	int status = mkdir(rutas_fs->pathDirectorioMetadataFs, 0777);
-	//se pudo crear directorio metadata
+	int status = mkdir(rutas_fs->pathDirectorioMetadataFs, 0777); //analizar permisos
+
 	if (status == 0) {
-		log_info(gameCard_logger, "se ha creado el directorio Matadata");
+		log_info(gameCard_logger, "no se ha creado el directorio Matadata");
 	}
-// se van a crear el archivo metadata.bin
-// w= crea un fichero en modo binario para escribir
-	int archivoMetadata = open(rutas_fs->pathArchivoMetadataFs, "wb");
-	write(archivoMetadata, metadata_fs->magicNumber, sizeof(metadata_fs->magicNumber));
-	write(archivoMetadata,metadata_fs->tamanioBLoques, sizeof(metadata_fs->tamanioBLoques));
-	write(archivoMetadata, &metadata_fs->cantidadBloques, sizeof(metadata_fs->cantidadBloques));
-	close(archivoMetadata);
+
+	FILE * archivoMetadata = fopen(rutas_fs->pathArchivoMetadataFs, "wb");
+		fwrite(&metadata_fs->magicNumber, sizeof(metadata_fs->magicNumber), 1,
+				archivoMetadata);
+		fwrite(&metadata_fs->tamanioBLoques, sizeof(metadata_fs->tamanioBLoques), 1,
+				archivoMetadata);
+		fwrite(&metadata_fs->cantidadBloques, sizeof(metadata_fs->cantidadBloques),
+				1, archivoMetadata);
+		fclose(archivoMetadata);
+
 	log_info(gameCard_logger, " Se ha creado el archivo metadata.bin");
 }
 
@@ -82,7 +83,6 @@ void cargarMetadataFs(char *ruta) {
 	log_info(gameCard_logger, "Cargando Metadata FileSystem");
 
 	metadata_fs = malloc(sizeof(t_metadata_fs));
-	//metadata_fs->magicNumber = string_new();
 
 	char* tamanioBloque = string_new();
 	char* cantidadBloques = string_new();
@@ -124,17 +124,11 @@ void crearBitmap() {
 
 	bzero( bitarrayInicializador, bytesBitmap);
 
-	int archBitmap = open(rutas_fs->pathArchivoBitMap,"wb");
+	FILE  *archBitmap = fopen(rutas_fs->pathArchivoBitMap,"wb");
 
-	int i = write(archBitmap,bitarrayInicializador,bytesBitmap);
+		fwrite(bitarrayInicializador,bytesBitmap,1,archBitmap);
 
-	if(i<bytesBitmap){
-
-		log_info(gameCard_logger,"no se pudo copiar el bitamp");
-		break;
-	}
-
-		close(archBitmap);
+		fclose(archBitmap);
 		free(bitarrayInicializador);
 
 
@@ -144,8 +138,8 @@ void crearBitmap() {
 
 void crearDirectoriosParaFs() {
 
-	//ver los permisos S_IRWXU
-	int fueCreado = mkdir(rutas_fs->pathDirectorioFilesMetadata, 0777);
+
+	int fueCreado = mkdir(rutas_fs->pathDirectorioFilesMetadata, 0777); //analizar permisos
 	if (fueCreado == -1) {
 		perror("no se pudo crear el directorio /Files");
 		log_info(gameCard_logger,
@@ -153,8 +147,8 @@ void crearDirectoriosParaFs() {
 				rutas_fs->pathDirectorioFilesMetadata);
 	}
 
-	//de nuevo ver permisos
-	int creado = mkdir(rutas_fs->pathDirectorioBloques, 0777);
+
+	int creado = mkdir(rutas_fs->pathDirectorioBloques, 0777); //analizar permisos
 	if (creado == -1) {
 		perror("no se pudo crear el directorio /Blocks");
 		log_info(gameCard_logger,
@@ -212,10 +206,7 @@ bool existePokemon(char* nombrePokemon) {
 
 
 void crearPokemon(t_new_pokemon* pokemon){
-
-	int tamanioPokemon;
-
-
+;
 	int bloqueLibre= obtenerPrimerBloqueLibre();
 
 	char* rutaBloqueLibre=string_new();
@@ -226,7 +217,30 @@ void crearPokemon(t_new_pokemon* pokemon){
    string_append(&nombreBloque,(string_itoa(bloqueLibre)));
    string_append(&rutaBloqueLibre,nombreBloque);
    string_append(&rutaBloqueLibre, ".bin");
-   int bloque = open(rutaBloqueLibre, "wb+");
+   FILE *bloque = fopen(rutaBloqueLibre, "wb");
+
+
+   char* lineaPokemon= string_new();
+	 string_append(&lineaPokemon, string_atoi(pokemon->coordenadas->posx));
+	 string_append(&lineaPokemon,"-");
+	 string_append(&lineaPokemon, string_atoi(pokemon->coordenadas->posy));
+	 string_append(&lineaPokemon,"=");
+	 string_append(&lineaPokemon,string_atoi(pokemon->cantidad));
+
+	 if (metadata_fs->tamanioBLoques<=string_length(lineaPokemon)){
+	fwrite(lineaPokemon,string_length(lineaPokemon),1,bloque);}
+	 else{
+
+		 //aca esta vacio el bloque que busco entonces uso el tamño completo del bloque
+
+
+		 //devuelve un string, devuelve desde start los length caracteres
+		 char*   string_substring(char* text, int start, int length);
+
+		 //fwite(lineaPokemon,)
+
+	 }
+}
 
 	//lo que quiero copiar es menor al tamaño del bloque
 
