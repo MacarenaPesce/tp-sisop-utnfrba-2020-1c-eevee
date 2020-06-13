@@ -1,6 +1,8 @@
 #include "ColaMensajes.h"
 
-int agregar_mensaje_a_queue(t_packed *paquete,int socket_cliente){
+//pthread_mutex_t mutex_queue_mensajes;
+
+int traducir_mensaje(t_packed *paquete,int socket_cliente){
 
 	//enviar_ack(socket_cliente,123,-1);
 	
@@ -15,12 +17,9 @@ int agregar_mensaje_a_queue(t_packed *paquete,int socket_cliente){
 			new_pokemon = paquete->mensaje;
 
 			/* Ya puedo usar mi copia de la estructura enviada*/
-			if(paquete->tamanio_payload > 0){
-				printf("posx: %d \n",new_pokemon->coordenadas.posx);
-				printf("posy: %d \n",new_pokemon->coordenadas.posy);
-				printf("cantidad: %d \n",new_pokemon->cantidad);
-				printf("pokemon: %s \n",new_pokemon->pokemon);
-			}
+		//	int id_mensaje = list_add(lista_mensajes, void *element);
+
+			//enviar_ack(socket_cliente,id_mensaje,-1);
 
 			break;
 
@@ -97,4 +96,22 @@ int agregar_mensaje_a_queue(t_packed *paquete,int socket_cliente){
 	/*Libero la memoria del paquete*/
 	eliminar_mensaje(paquete);
 	
+}
+
+int agregar_mensaje_a_cola(t_packed* paquete){
+
+	t_mensaje_cola* mensaje;
+	mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
+
+	void* mensaje_cola;
+	mensaje_cola = malloc(sizeof(t_mensaje_cola));
+
+	mensaje->cola_de_mensajes = paquete->cola_de_mensajes;
+	mensaje->id_correlacional = paquete->id_correlacional;
+	mensaje->mensaje = paquete->mensaje;
+
+	mensaje_cola = mensaje;
+	
+	return list_add(&cola_mensajes,mensaje_cola);
+
 }

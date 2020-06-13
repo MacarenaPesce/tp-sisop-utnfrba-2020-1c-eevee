@@ -7,7 +7,8 @@
 #include <stdbool.h>
 #include <commons/collections/list.h>
 #include <Pokebola.h>
-
+#include <semaphore.h>
+#include "ColaMensajes.h"
 
 void recibir_mensaje_de_texto(int, int);
 void iniciar_servidor(void);
@@ -15,4 +16,9 @@ void* esperar_cliente(void* socket_servidor);
 void* ObtenerMensaje(void* cliente);
 void* esperar_mensajes(void* cliente);
 
+
+void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente);
+void recibir_solicitud_suscripcion(void *paquete,int socket_cliente);
+void recibir_ack(void *paquete,int socket_cliente);
+int agregar_mensaje_a_cola(t_packed* paquete);
 #endif /* HILOS_BROKER_H_ */

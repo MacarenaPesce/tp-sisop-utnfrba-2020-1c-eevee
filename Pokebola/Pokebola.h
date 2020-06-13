@@ -145,6 +145,7 @@ t_packed* recibir_mensaje(int sock);
 void eliminar_mensaje(t_packed* paquete);
 void logger(int tipo_esc, int tipo_log, const char* mensaje, ...);
 void _esperar_ack(int socket,t_packed* ack);
+void enviar_ack(int socket,uint32_t id_mensaje, uint32_t id_correlacional);
 /*
 int enviar_mensaje(int sock, void *mensaje, int tamanio);
 int recibir_mensaje(int sock, void *mensaje, int tamanio);

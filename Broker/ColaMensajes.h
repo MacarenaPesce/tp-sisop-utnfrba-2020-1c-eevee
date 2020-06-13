@@ -8,7 +8,9 @@
 #include <commons/collections/list.h>
 #include <Pokebola.h>
 #include <semaphore.h>
+#include "Broker.h"
+#include "Conexion.h"
 
-
+int agregar_mensaje_a_cola(t_packed* paquete);
 
 #endif /* COLA_MENSAJES_BROKER_H_ */

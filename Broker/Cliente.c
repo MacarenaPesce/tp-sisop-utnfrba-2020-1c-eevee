@@ -1,5 +1,6 @@
 #include <Pokebola.h>
 
+
 int main(){
 
 /* 
@@ -45,10 +46,10 @@ int main(){
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
 
 	enviar_caught_pokemon(&servidor,-1,-1,&caught_pokemon);
-	//enviar_new_pokemon(&servidor,-1,-1,&new_pokemon);
-	//enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
-	//enviar_appeared_pokemon(&servidor, -1, -1, &appeared_pokemon);
-	//enviar_get_pokemon(&servidor, -1, -1, &get_pokemon);
+	enviar_new_pokemon(&servidor,-1,-1,&new_pokemon);
+	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	enviar_appeared_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	enviar_get_pokemon(&servidor, -1, -1, &get_pokemon);
 	
 	//int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_CATCH_POKEMON,&suscripcion);
 	
@@ -70,11 +71,11 @@ void esperar_mensajes(int socket_server){
 			/* El nro de operacion y cola de mensajes indican el 
 			tipo de estructura que contiene el paquete */
 			printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
-			printf("operacion: %d \n",paquete->operacion);
+		/*	printf("operacion: %d \n",paquete->operacion);
 			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
 			printf("id_correlacional: %d  \n",paquete->id_correlacional);
 			printf("id_mensaje: %d \n",paquete->id_mensaje);
-			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+			printf("tamanio_payload: %d \n",paquete->tamanio_payload);*/
  
 		}
 		

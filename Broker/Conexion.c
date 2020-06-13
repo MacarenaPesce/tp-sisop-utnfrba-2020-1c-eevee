@@ -1,5 +1,9 @@
 #include "Conexion.h"
 
+extern t_list* cola_mensajes;
+
+//pthread_mutex_t mutex_queue_mensajes;
+
 void iniciar_servidor(void){
 	int socket_servidor;
 
@@ -29,18 +33,17 @@ void iniciar_servidor(void){
 
 	pthread_t hilo_sockets;
 	
-	pthread_create(&hilo_sockets,NULL,esperar_cliente,socket_servidor);
+	pthread_create(&hilo_sockets,NULL,esperar_cliente,(void*)socket_servidor);
 }
 
 void* esperar_cliente(void* socket_servidor){
 	while(1){
-		int* int_socket_servidor = (int*) socket_servidor;
 
 		struct sockaddr_in dir_cliente;
 
 		int tam_direccion = sizeof(struct sockaddr_in);
 
-		int socket_cliente = accept(socket_servidor, (void*) &dir_cliente, &tam_direccion);
+		int socket_cliente = accept((int)socket_servidor, (void*) &dir_cliente,(socklen_t*) &tam_direccion);
 
 		//Iniciar un hilo por cliente
 		if(socket_cliente != -1){
@@ -49,7 +52,7 @@ void* esperar_cliente(void* socket_servidor){
 
 			void *cliente = (void*)malloc(sizeof(int));
 
-			cliente = socket_cliente;
+			cliente = &socket_cliente;
 
 			pthread_create(&hilo_cliente,NULL,esperar_mensajes,cliente);
 
@@ -64,7 +67,7 @@ void* esperar_cliente(void* socket_servidor){
 
 void* esperar_mensajes(void* cliente){
 
-	int socket_cliente = (int*)cliente;
+	int socket_cliente = *(int*)cliente;
 
 	//Creo un paquete y recibo el mensaje
 	t_packed* paquete;
@@ -75,12 +78,14 @@ void* esperar_mensajes(void* cliente){
 		/* El nro de operacion y cola de mensajes indican el 
 		tipo de estructura que contiene el paquete */
 
-		printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
-		printf("operacion: %d \n",paquete->operacion);
-		printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
-		printf("id_correlacional: %d  \n",paquete->id_correlacional);
-		printf("id_mensaje: %d \n",paquete->id_mensaje);
-		printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+		{
+			printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
+			printf("operacion: %d \n",paquete->operacion);
+			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
+			printf("id_correlacional: %d  \n",paquete->id_correlacional);
+			printf("id_mensaje: %d \n",paquete->id_mensaje);
+			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+		}
 
 		switch(paquete->operacion){
 			case ENVIAR_MENSAJE:
@@ -104,15 +109,48 @@ void* esperar_mensajes(void* cliente){
 	
 }
 
-void recibir_mensaje_de_colas(void *paquete,int socket_cliente){
-	//int id_mensaje = agregar_mensaje_a_queue;
-	enviar_ack(socket_cliente,123,-1);
+void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
+
+	int id_mensaje = agregar_mensaje_a_cola(paquete);
+	
+	enviar_ack(socket_cliente,id_mensaje,-1);
+
+	return;
+
 }
 
 void recibir_solicitud_suscripcion(void *paquete,int socket_cliente){
-	enviar_ack(socket_cliente,123,-1);
+	//agregar suscriptor
+	enviar_ack(socket_cliente,-1,-1);
+
+	return;
 }
 
 void recibir_ack(void *paquete,int socket_cliente){
-	//enviar_ack(socket_cliente,123,-1);
+	//agregar ack a mensaje
+	return;
+}
+
+
+int agregar_mensaje_a_cola(t_packed* paquete){	
+
+	t_mensaje_cola* mensaje;
+	mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
+
+	mensaje->cola_de_mensajes = paquete->cola_de_mensajes;
+	mensaje->id_correlacional = paquete->id_correlacional;
+	mensaje->mensaje = paquete->mensaje;
+
+	 printf("\n\n aca agrego el mensaje a la lista");
+
+	pthread_mutex_lock(&mutex_queue_mensajes);
+
+	int id_mensaje = list_add(cola_mensajes,(void*)mensaje);
+
+	pthread_mutex_unlock(&mutex_queue_mensajes);
+
+	 printf("\n\n el id del mensaje es: %d",id_mensaje);
+
+	return id_mensaje;
+
 }

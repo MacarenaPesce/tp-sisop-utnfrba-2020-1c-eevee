@@ -605,24 +605,21 @@ void _recibir_localized_pokemon(void *mensaje,t_packed *paquete){
 }
 
 void _esperar_ack(int socket, t_packed* ack){
+
 	bool ack_obtenido = false;
 
 	while(!ack_obtenido){
 		
 		ack = recibir_mensaje(socket);
 
-		if(ack!= -1){
-			printf("\n\n ACK:\n");
-			printf("operacion: %d \n",ack->operacion);
-			printf("cola_de_mensajes: %d \n",ack->cola_de_mensajes);
-			printf("id_correlacional: %d  \n",ack->id_correlacional);
-			printf("id_mensaje: %d \n",ack->id_mensaje);
-			printf("tamanio_payload: %d \n",ack->tamanio_payload);
+		if(ack != -1){
 			ack_obtenido = true;
 		}	
 
 	}
+
 	return;
+	
 }
 /*
 
