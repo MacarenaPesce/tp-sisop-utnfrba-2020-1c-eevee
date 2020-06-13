@@ -84,24 +84,15 @@ void esperar_cliente(int socket_servidor){
 
 int  main () {
 
-	//analizar fugas de memoria
 
 	inicializar_logger ();
 	inicializar_archivo_de_configuracion ();
 
-	//valida si existen las rutas propias del fs
 	cargarRutasFs();
 	if ( noCumpleConRutasfs()){
 		log_info(gameCard_logger,"no existe el FileSytem requerido");
 		log_info(gameCard_logger,"Inicializando FileSystem requerido");
 		crearFileSystemVacio();
-
-
-	    //free(metadata_fs->magicNumber);
-		//free(metadata_fs);
-		//free(gameCard_logger);
-		//free(config_game_card);
-		//free(rutas_fs);
 
 		}
 	if(existePokemon("Pikachu")){
@@ -109,49 +100,8 @@ int  main () {
 	}
 	else { log_info(gameCard_logger, "no existe pokemon Pikachu");}
 
-	//mostrarContenidoFs();
-
-	//free(metadata_fs->magicNumber);
 
 	terminar_game_card();
-
-	return 0;
-
-	/*
-	config_destroy(config_game_card);
-	free(rutas_fs);
-	free(metadata_fs);
-	free(gameCard_logger);*/
-
-
-
-	//ANALIZAR ADECUADAMENTE LA CONEXION
-
-	//aca intentará suscribirse globalmente al Broker
-	//a las colas de mensaje NEW_POKEMON, CATCH_POKEMON,GET_POKEMON
-
-	//DEBERÍA RECIBIR ACK DEL BROKER
-
-	//DEBE ESPERAR RECIBIR UN MENSAJE DEL BROKER
-
-	//AL RECIBIR UN MENSAJE DE CUALQUIER HILO DEL BROKER
-	//ENVIAR ACK AL BROKER
-	//CREAR HILO QUE ATIENDA DICHA SOLICITUD
-    //DEBE EVALUARSE QUE TIPO DE SOLICITUD ES
-	//VOLVER A ESTAR A LA ESCUCHA DE NUEVOS MENSAJES DE LA COLA DE MENSAJES
-
-	//Y TAMMBIÉN TENDRA UN SOCKET ESCUCHA PARA EL GAMECARD
-
-
-	//carga la estructura metadata_fs con el metadata.bin
-	// todo cargarMetadatoFs(rutas_fs->pathArchivoMetadataFs);
-
-	  //  free(metadata_fs->magicNumber);
-
-
-
-	//liberarMemoriaFs();
-
 
 
 }

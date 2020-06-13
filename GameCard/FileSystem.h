@@ -59,12 +59,13 @@ void enteroACadena(uint32_t numero, char *bufer);
 void mostrarContenidoFs();
 
 //nuevas bitmap
-
-int abrirBitmap();
+void abrirBitmap();
 
 
 //esto es auxiliar para ver contenido del bitmap
 
 char * bitmapAux;
+
+int  obtenerPrimerBloqueLibre();
 
 #endif /* FILESYSTEM_H_ */
