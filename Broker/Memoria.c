@@ -152,14 +152,33 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes){
     //me fijo si la particion puede alojarse a la primera
     bool sePuedeAlojar = puede_alojarse(tamanio_en_bytes);
 
+    //igualo la frecuencia para compactar segun cuantas veces compacte
+    int frec_para_compactar = frecuencia_compactacion; 
 
-    //si puede alojarse a la primera llamo al algoritmo de particion libre
-    if(sePuedeAlojar == TRUE){
+    if(sePuedeAlojar == true){ //si puede alojarse a la primera llamo al algoritmo de particion libre
         particionNueva = algoritmo_de_particion_libre(tamanio_en_bytes);
     }
-    /*else{ //si no puede alojarse a la primera ....
+    else{ //si no puede alojarse a la primera ....
 
-    }*/
+        while(!sePuedeAlojar){  //mientras no pueda alojarlo tengo que ir vaciando particiones y fijandome si tengo que compactar
+         
+            //me fijo si la frecuencia de compactacion esta habilitada para seguir vaciando particiones
+            if(frec_para_compactar > 0){
+                algoritmo_de_reemplazo();
+                frec_para_compactar - 1;
+            }
+            else{   //en caso de no estar habilitada
+                //compactar();
+                //seteo de nuevo la frecuencia para la prox compactacion
+                frec_para_compactar=frecuencia_compactacion;
+            }
+
+            sePuedeAlojar = puede_alojarse(tamanio_en_bytes);
+
+        }
+
+    }
+
 
     return particionNueva;
 
@@ -222,7 +241,7 @@ void algoritmo_fifo(){
                 
                 min_time= elemento->timestamp;
 
-                bloque=aux;
+                bloque=elemento;
 
             }
         }
@@ -249,7 +268,36 @@ void algoritmo_fifo(){
     superior, se elige como victima la pag de la parte inferior*/
 void algoritmo_lru(){
 
-    //tengo que agregar en el struct de la particion , un valor para el ultimo momento usado, y ver cuando mierda se actualiza
+    t_bloque_memoria* elemento;
+    t_bloque_memoria* bloque;
+    uint64_t min_time = get_timestamp();
+    int indice;
+
+	for(int i=0; i< list_size(lista_memoria); i++){
+
+        elemento = list_get(lista_memoria, i);
+
+        //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero
+        if( (elemento->esta_vacio == false) && (elemento->timestamp > 0) ){
+            
+            //si el timestamp de la ultima vez usado, es menor al minimo time, lo guardo y me guardo el bloque
+            if(elemento->last_time < min_time){
+                
+                min_time= elemento->last_time;
+
+                bloque=elemento;
+
+            }
+        }
+
+    }
+
+    //obtengo el indice del bloque que voy a particionar
+    indice = obtener_indice_particion(bloque);
+    
+    //libero la memoria de un determinado bloque de mi lista , y me lo devuelve
+    liberar_bloque_memoria(bloque,indice);
+    
 
     return ;
 }

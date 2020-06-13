@@ -52,7 +52,7 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio); //LISTO
 t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes); //LISTO
 void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros que son con opciones, si mandan una opcion por el archivo config que no es valida
 void algoritmo_fifo(); //LISTO , falta setear el cambio a la lista
-void algoritmo_lru();
+void algoritmo_lru(); //LISTO (creo) , falta setear el cambio a la lista
 
 void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
 
