@@ -19,7 +19,7 @@
 
 void operar_con_appeared_pokemon(t_appeared_pokemon *);
 void operar_con_localized_pokemon(t_localized_pokemon *);
-void operar_con_caught_pokemon(t_caught_pokemon *);
+void operar_con_caught_pokemon(t_caught_pokemon *, uint32_t);
 void agregar_pokemon_a_mapa(t_pokemon *);
 void mostrar_lo_que_hay_en_la_lista_de_objetivos();
 void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*, t_list*);
@@ -42,5 +42,9 @@ void mostrar_pokemones_de_entrenador(t_list*, t_list* , int);
 bool objetivo_personal_cumplido(t_entrenador*);
 bool objetivo_global_cumplido();
 void sacar_de_objetivos_pokemones_atrapados(t_list*, t_list*);
+t_entrenador* buscar_entrenador_por_objetivo_actual(t_catch_pokemon*);
+void actualizar_mapa_y_entrenador(t_catch_pokemon*, t_entrenador*);
+void agregar_pokemon_a_mapa(t_pokemon *);
+void bloquear_entrenador(t_entrenador*);
 
 #endif /* TEAM_H_ */
