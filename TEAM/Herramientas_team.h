@@ -11,6 +11,7 @@
 #include "Contexto_team.h"
 
 void inicializar_logger();
+void inicializar_semaforos();
 void inicializar_archivo_de_configuracion();
 void obtener_valor_config(char* key, t_config* file, void(*obtener)(void));
 void obtener_las_posiciones_de_entrenadores();

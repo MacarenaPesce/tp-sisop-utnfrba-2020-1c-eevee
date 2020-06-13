@@ -91,11 +91,7 @@ extern t_list* lista_mapa;
 extern t_list* lista_pokemon_atrapado;
 extern t_list* mensajes;
 
-pthread_mutex_t entrenador_exec;
-sem_t hilo_entrenador;
-sem_t variable_valida;
-sem_t hilo_disponible[];
-
+sem_t * array_semaforos;
 
 //Estructura de un entrenador
 enum ESTADO{
