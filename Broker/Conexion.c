@@ -56,7 +56,7 @@ void* esperar_cliente(void* socket_servidor){
 
 			pthread_create(&hilo_cliente,NULL,esperar_mensajes,cliente);
 
-			logger(escribir_loguear,l_trace,"\nSe aceptó un nuevo cliente");
+			printf("\nSe aceptó un nuevo cliente");
 
 		}
 	
@@ -133,7 +133,6 @@ void recibir_ack(void *paquete,int socket_cliente){
 	return;
 }
 
-
 int agregar_mensaje_a_cola(t_packed* paquete){	
 
 	t_mensaje_cola* mensaje;
@@ -143,15 +142,11 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 	mensaje->id_correlacional = paquete->id_correlacional;
 	mensaje->mensaje = paquete->mensaje;
 
-	 printf("\n\n aca agrego el mensaje a la lista");
-
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
 	int id_mensaje = list_add(cola_mensajes,(void*)mensaje);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);
-
-	 printf("\n\n el id del mensaje es: %d",id_mensaje);
 
 	return id_mensaje;
 

@@ -3,10 +3,9 @@
 int main(){
 
 	cola_mensajes = list_create();
-	printf("\n\n cantidad de elementos en lista %d",cola_mensajes->elements_count);
 
-	inicializar_logger();
 	inicializar_archivo_de_configuracion();
+	
 	configurar_signals();
 
 	iniciar_servidor();

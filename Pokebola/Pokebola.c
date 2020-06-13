@@ -421,7 +421,7 @@ void enviar_ack(int socket,
 };
 
 //TODO
-int enviar_localized_pokemon(t_servidor* servidor,
+t_packed* enviar_localized_pokemon(t_servidor* servidor,
 							 uint32_t id_mensaje, 
 							 uint32_t id_correlacional, 
 							 t_localized_pokemon* localized_pokemon){
@@ -453,7 +453,7 @@ int enviar_localized_pokemon(t_servidor* servidor,
 
 	cerrar_conexion(socket);*/
 
-	return 0;
+	return (t_packed*)0;
 
 };
 
@@ -616,6 +616,12 @@ void _esperar_ack(int socket, t_packed* ack){
 		ack = recibir_mensaje(socket);
 
 		if(ack != (t_packed*)-1){
+		/*	printf("\n\nACK Recibido:\n");
+			printf("operacion: %d \n",ack->operacion);
+			printf("cola_de_mensajes: %d \n",ack->cola_de_mensajes);
+			printf("id_correlacional: %d  \n",ack->id_correlacional);
+			printf("id_mensaje: %d \n",ack->id_mensaje);
+			printf("tamanio_payload: %d \n",ack->tamanio_payload);*/
 			ack_obtenido = true;
 		}	
 
