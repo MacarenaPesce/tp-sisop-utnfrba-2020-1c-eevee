@@ -7,6 +7,34 @@
 
 #include "Funciones_para_listas.h"
 
+void mostrar_lo_que_hay_en_la_lista_de_objetivos(){
+	int k = 0;
+	t_objetivo * objetivo = malloc(sizeof(t_objetivo));
+	while(!list_is_empty(lista_objetivos)){
+		objetivo = list_get(lista_objetivos, k);
+		if(objetivo == NULL){
+			break;
+		}
+		log_info(team_logger,"Un objetivo es de la especie = %s, cantidad necesitada %i, cantidad atrapada %i", objetivo->especie, objetivo->cantidad_necesitada, objetivo->cantidad_atrapada);
+		k++;
+	}
+	free(objetivo);
+}
+
+void mostrar_lo_que_hay_en_lista_entrenadores(){
+	int l = 0;
+	t_entrenador * entrenador;
+	while(!list_is_empty(lista_entrenadores)){
+		entrenador = list_get(lista_entrenadores, l);
+		if(entrenador == NULL){
+			break;
+		}
+		log_info(team_logger,"Un entrenador tiene id = %i, pos x = %i, y = %i, y puede atrapar %i pokemones\n", entrenador->id, entrenador->posx, entrenador->posy, entrenador->cant_maxima_objetivos);
+		l++;
+	}
+	//free(entrenador);
+}
+
 void inicializar_listas(){
 
 	lista_listos = list_create();
@@ -102,6 +130,46 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 
 		//free(unPokemon);
 		//list_destroy(pokemones);
+}
+
+t_list* obtener_pokemones(t_list* lista_global,t_list* lista, uint32_t posicion){
+
+	char* pokemones_de_entrenador;
+	lista_pokemones_objetivos = list_create();//este list_create es el culpable de la mayoria de los leaks
+	pokemones_de_entrenador = list_get(lista_global, posicion);
+
+	separar_pokemones_de_entrenador(pokemones_de_entrenador, lista);
+	list_sort(lista, (void*)ordenar);
+	cargar_objetivos(lista, lista_pokemones_objetivos);
+	list_remove(lista_pokemones_objetivos, list_size(lista_pokemones_objetivos)-1);
+
+	return lista_pokemones_objetivos;
+
+}
+
+uint32_t obtener_cantidad_maxima(t_list* lista){
+	uint32_t contador = 0;
+	t_objetivo_entrenador* un_objetivo;
+	for(int i = 0; i < list_size(lista); i++){
+		un_objetivo = list_get(lista, i);
+		contador += un_objetivo->cantidad;
+	}
+	return contador;
+
+}
+
+void sacar_de_objetivos_pokemones_atrapados(t_list* lista_de_objetivos, t_list* lista_de_pokemones){
+	for (int i = 0; i < list_size(lista_de_pokemones); i++){
+		t_objetivo_entrenador* pokemon = list_get(lista_de_pokemones, i);
+		t_objetivo_entrenador* objetivo = buscar_pokemon_por_especie(lista_de_objetivos, pokemon->especie);
+		if(objetivo != NULL){
+			if(objetivo->cantidad >= pokemon->cantidad){
+				objetivo->cantidad -= pokemon->cantidad;
+			} else {
+				objetivo->cantidad = 0;
+			}
+		}
+	}
 }
 
 

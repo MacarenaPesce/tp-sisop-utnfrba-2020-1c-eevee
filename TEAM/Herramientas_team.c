@@ -8,6 +8,31 @@
 #include "Herramientas_team.h"
 #include "Funciones_para_listas.h"
 
+bool objetivo_personal_cumplido(t_entrenador* entrenador){
+	int contador = 0;
+	if(entrenador->objetivo == NULL){
+		printf("la lista es nula");
+	}
+	for (int i = 0; i < list_size(entrenador->objetivo); i++){
+		t_objetivo_entrenador* un_objetivo = list_get(entrenador->objetivo, i);
+		if(un_objetivo->cantidad == 0){
+			contador++;
+		}
+	}
+	return (contador == list_size(entrenador->objetivo));
+}
+
+bool objetivo_global_cumplido(){
+	int contador = 0;
+		for (int i = 0; i < list_size(lista_objetivos); i++){
+			t_objetivo* un_objetivo = list_get(lista_objetivos, i);
+			if(un_objetivo->cantidad_atrapada == un_objetivo->cantidad_necesitada){
+				contador++;
+			}
+		}
+		return (contador == list_size(lista_objetivos)); //es verdadero y cumple esto y ademas no haya deadlock
+}
+
 void inicializar_logger(){
 	team_logger = log_create("team.log", "Team", 1, LOG_LEVEL_DEBUG);
 	log_info(team_logger,"Hi, bienvenido a Team");
@@ -21,6 +46,8 @@ void inicializar_semaforos(){
 	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
 		sem_init(&array_semaforos[i], 0, 0);
 	}
+
+	sem_init(&hay_un_pokemon_nuevo, 0, 0);
 }
 
 void inicializar_archivo_de_configuracion(){
@@ -205,7 +232,6 @@ int destruir_pokemon(t_pokemon * pokemon){
 	return 0;
 }
 
-
 void terminar_team_correctamente(){
 	log_info(team_logger,"Cerrando team...");
 /*
@@ -226,7 +252,7 @@ void terminar_team_correctamente(){
 	}
 
 	//log_destroy(team_logger);
-/*
+	 *
 	if(posiciones_entrenadores!=NULL)
 	{
 		free(posiciones_entrenadores);
@@ -271,4 +297,33 @@ void terminar_team_correctamente(){
 
 	return;
 
+}
+
+t_objetivo * buscar_pokemon_por_especie(t_list* lista, char* especie){
+
+	bool es_la_especie_buscada(t_objetivo* pokemon){
+		return (string_equals_ignore_case(pokemon->especie, especie));
+	}
+	return (list_find(lista,(void*)es_la_especie_buscada));
+}
+
+t_entrenador * buscar_entrenador_por_id(t_list* lista, int id){
+	bool es_el_buscado(t_entrenador* entrenador){
+		return entrenador->id == id;
+	}
+	return (list_find(lista,(void*)es_el_buscado));
+}
+
+t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_pokemon){
+	bool es_el_buscado(t_entrenador* entrenador){
+		return entrenador->objetivo_actual == catch_pokemon;
+	}
+	return (list_find(lista_bloqueados,(void*)es_el_buscado));
+}
+
+t_mensaje_guardado * buscar_mensaje(uint32_t id){
+	bool es_el_buscado(t_mensaje_guardado* mensaje){
+		return mensaje->id == id;
+	}
+	return (list_find(mensajes,(void*)es_el_buscado));
 }

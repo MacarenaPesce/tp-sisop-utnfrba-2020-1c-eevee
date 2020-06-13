@@ -91,6 +91,7 @@ extern t_list* lista_mapa;
 extern t_list* lista_pokemon_atrapado;
 extern t_list* mensajes;
 
+sem_t hay_un_pokemon_nuevo;
 sem_t * array_semaforos;
 
 //Estructura de un entrenador

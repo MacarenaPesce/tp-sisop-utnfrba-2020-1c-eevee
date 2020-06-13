@@ -21,8 +21,8 @@ void * escuchar_mensajes_entrantes(int new_client_sock){
 		recibir_appeared_pokemon_desde_gameboy(paquete->mensaje);
 	}
 
-		close(new_client_sock);
-		free(paquete);
+	close(new_client_sock);
+	free(paquete);
 }
 
 void crear_hilo_de_escucha_para_gameboy(int socket, void*funcion_a_ejecutar(int)){
@@ -37,6 +37,7 @@ void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon * mensaje){
 	log_info(team_logger,"Me llego este pokemon: %s", mensaje->pokemon);
 	log_info(team_logger,"La coordenada X es: %d", mensaje->coordenadas.posx);
 	log_info(team_logger,"La coordenada Y es: %d\n", mensaje->coordenadas.posy);
+	sem_post(&hay_un_pokemon_nuevo);
 	operar_con_appeared_pokemon(mensaje);
 
 	free(mensaje);
