@@ -206,50 +206,51 @@ bool existePokemon(char* nombrePokemon) {
 
 
 void crearPokemon(t_new_pokemon* pokemon){
-;
-	int bloqueLibre= obtenerPrimerBloqueLibre();
 
-	char* rutaBloqueLibre=string_new();
-	char* nombreBloque=string_new();
+	char* lineaPokemon= string_new();
+	string_append(&lineaPokemon, string_atoi(pokemon->coordenadas->posx));
+	string_append(&lineaPokemon,"-");
+	string_append(&lineaPokemon, string_atoi(pokemon->coordenadas->posy));
+	string_append(&lineaPokemon,"=");
+	string_append(&lineaPokemon,string_atoi(pokemon->cantidad));
 
-   string_append(&rutaBloqueLibre, rutas_fs->pathDirectorioBloques);
-   string_append(&rutaBloqueLibre,"/");
-   string_append(&nombreBloque,(string_itoa(bloqueLibre)));
-   string_append(&rutaBloqueLibre,nombreBloque);
-   string_append(&rutaBloqueLibre, ".bin");
-   FILE *bloque = fopen(rutaBloqueLibre, "wb");
-
-
-   char* lineaPokemon= string_new();
-	 string_append(&lineaPokemon, string_atoi(pokemon->coordenadas->posx));
-	 string_append(&lineaPokemon,"-");
-	 string_append(&lineaPokemon, string_atoi(pokemon->coordenadas->posy));
-	 string_append(&lineaPokemon,"=");
-	 string_append(&lineaPokemon,string_atoi(pokemon->cantidad));
-
-	 if (metadata_fs->tamanioBLoques<=string_length(lineaPokemon)){
-	fwrite(lineaPokemon,string_length(lineaPokemon),1,bloque);}
-	 else{
-
-		 //aca esta vacio el bloque que busco entonces uso el tamño completo del bloque
-
-
-		 //devuelve un string, devuelve desde start los length caracteres
-		 char*   string_substring(char* text, int start, int length);
-
-		 //fwite(lineaPokemon,)
-
-	 }
+	int tamanioLinea=string_length(lineaPokemon);
+	agregarAparcionPokemonABloque(tamanioLinea,lineaPokemon);
 }
 
-	//lo que quiero copiar es menor al tamaño del bloque
 
-   //copiar
+void agregarAparicionPokemonABloque(int bytesAcopiar, char* linea){
 
-   //si no es menor buscar otro bloque libre
+	if (bytesAcopiar<=0){break;}
 
+	else{
 
+	int bloqueLibre= obtenerPrimerBloqueLibre();
 
+		char* rutaBloqueLibre=string_new();
+		char* nombreBloque=string_new();
+
+	   string_append(&rutaBloqueLibre, rutas_fs->pathDirectorioBloques);
+	   string_append(&rutaBloqueLibre,"/");
+	   string_append(&nombreBloque,(string_itoa(bloqueLibre)));
+	   string_append(&rutaBloqueLibre,nombreBloque);
+	   string_append(&rutaBloqueLibre, ".bin");
+	   FILE *bloque = fopen(rutaBloqueLibre, "wb");
+
+		 if (metadata_fs->tamanioBLoques>=bytesAcopiar){
+		fwrite(linea,string_length(linea),1,bloque);
+		 fclose(bloque);
+		}
+		 else{
+
+			 fwrite(linea,metadata_fs->tamanioBLoques,1,bloque);
+			 fclose(bloque);
+			 int  bytesAcopiar= string_length(linea)- metadata_fs->tamanioBLoques;
+
+			 agregarAparicionPokemonABloque(bytesAcopiar,linea);
+
+		 }
+	}
 }
 
 
@@ -296,8 +297,6 @@ int  obtenerPrimerBloqueLibre(){
 			}
 
 	}
-
-
 }
 
 
