@@ -4,6 +4,7 @@
 #include "Contexto_broker.h"
 #include "Herramientas_broker.h"
 #include <Pokebola.h>
+#include <semaphore.h>
 //#include "memoria.h"
 
 int espacio_total;
@@ -12,6 +13,7 @@ int q_bloques_ocupados;
 int q_bloques_vacios;
 float* primer_bloque;
 t_list* lista_memoria;
+sem_t sem_mutex_queue_mensajes;
 
 typedef struct{
     uint32_t id;

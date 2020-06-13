@@ -45,10 +45,10 @@ int main(){
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
 
 	enviar_caught_pokemon(&servidor,-1,-1,&caught_pokemon);
-	enviar_new_pokemon(&servidor,-1,-1,&new_pokemon);
-	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
-	enviar_appeared_pokemon(&servidor, -1, -1, &appeared_pokemon);
-	enviar_get_pokemon(&servidor, -1, -1, &get_pokemon);
+	//enviar_new_pokemon(&servidor,-1,-1,&new_pokemon);
+	//enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	//enviar_appeared_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	//enviar_get_pokemon(&servidor, -1, -1, &get_pokemon);
 	
 	//int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_CATCH_POKEMON,&suscripcion);
 	
