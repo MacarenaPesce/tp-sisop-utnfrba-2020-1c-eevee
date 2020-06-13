@@ -38,7 +38,7 @@
 
 //Estructura para reservar la memoria inicial
 typedef struct{
-    int id_particion;
+    //int id_particion;
     int tamanio;
     bool esta_vacio;
     float* payload; //puntero a ubicacion en memoria
@@ -49,12 +49,9 @@ typedef struct{
 t_bloque_memoria* algoritmo_de_particion_libre(int tamanio); //LISTO
 t_bloque_memoria* algoritmo_first_fit(int tamanio); //LISTO
 t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes); //LISTO
-
+void algoritmo_fifo(); //LISTO , falta setear el cambio a la lista
 
 void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
-
-void  LiberarBloqueMemoria(t_bloque_memoria *bloque);
-
 
 //---ALGORITMOS DE MEMORIA----
 

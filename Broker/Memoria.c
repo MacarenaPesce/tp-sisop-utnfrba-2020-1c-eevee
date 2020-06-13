@@ -1,8 +1,8 @@
 #include "Memoria.h"
 
-//--------------- ADMINISTRACION DE MEMORIA-------------------
 
-
+//ASCII boquitas en hexa
+//control + shift + u 3e y 3c 
 
 
 void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
@@ -16,20 +16,7 @@ void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
 }
 
 
-void LiberarBloqueMemoria(t_bloque_memoria *bloque){
-
-    /* Inicializo todo el bloque en 0 */
-    memset(bloque->payload, 0, bloque->tamanio);   
-
-    /* Marco el bloque como vacio */
-    bloque->esta_vacio = true;
-
-    return;
-
-}
-
-
-
+//--------------- ADMINISTRACION DE MEMORIA-------------------
 
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
 
@@ -208,16 +195,37 @@ t_bloque_memoria* buddy_system( int tamanio_en_bytes){
 /* elije como victima a la pagina que esta cargada en memoria hace mas tiempo*/
 /* se puede implementar guardando el instante en el que la pagina fue cargada
     o con una cola fifo y se elige a la pagina que primero se agrego*/
-void eliminar_fifo(){
+void algoritmo_fifo(){
 
-    t_bloque_memoria* aux;
+    t_bloque_memoria* elemento;
+    t_bloque_memoria* bloque;
     uint64_t min_time = get_timestamp();
+    int indice;
 
 	for(int i=0; i< list_size(lista_memoria); i++){
 
-        aux = list_get(lista_memoria, i);
+        elemento = list_get(lista_memoria, i);
+
+        //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero
+        if( (elemento->esta_vacio == false) && (elemento->timestamp > 0) ){
+            
+            //si el timestamp, es menor al minimo time, lo guardo y me guardo el bloque
+            if(elemento->timestamp < min_time){
+                
+                min_time= elemento->timestamp;
+
+                bloque=aux;
+
+            }
+        }
 
     }
+
+    //obtengo el indice del bloque que voy a particionar
+    indice = obtener_indice_particion(bloque);
+    
+    //libero la memoria de un determinado bloque de mi lista , y me lo devuelve
+    liberar_bloque_memoria(bloque,indice);
 
     return ;
 }
@@ -231,7 +239,7 @@ void eliminar_fifo(){
 /* se puede implementar guardando el instante de ultima referencia a la pagina 
     o con una pila con numeros de paginas, con cada referencia se coloca la pag
     superior, se elige como victima la pag de la parte inferior*/
-void eliminar_lru(){
+void algoritmo_lru(){
 
 
     return ;

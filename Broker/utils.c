@@ -15,6 +15,8 @@ t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_me
     bloque->tamanio = tamanio_en_bytes;
     bloque->esta_vacio = true;
     bloque->payload = memoria_inicial;
+	bloque->timestamp = 0;
+
   
     /* Agrego el bloque a la lista */
     list_add(lista_memoria,bloque);
@@ -23,7 +25,8 @@ t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_me
     return bloque;
 }
 
-/*Dado un tamaño de particion, devuelvo el bloque asignado y derivo segun el algoritmo de memoria */
+/*Dado un tamaño de particion, devuelvo el bloque asignado y derivo segun el algoritmo de memoria 
+	Ya corri todos los algoritmos aca. Esta deberia ser la que tiene que llamar la cola de mensajes*/
 t_bloque_memoria* asignar_particion_memoria(int tamanio_en_bytes){
     
     //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
@@ -79,6 +82,8 @@ t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar){
         bloque_restante->tamanio = bloque_inicial->tamanio - tamanio;
         bloque_restante->esta_vacio = true;
         bloque_restante->payload = bloque_inicial->payload + tamanio + 1;
+		bloque_restante->timestamp = 0;
+
 
         list_add_in_index(lista_memoria, indice_nodo_particionar + 1, bloque_restante);    
 
@@ -87,9 +92,12 @@ t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar){
     /* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
     bloque_inicial->tamanio = tamanio;
     bloque_inicial->esta_vacio = false;
+	bloque_inicial->timestamp = get_timestamp();
 
     return bloque_inicial;
 }
+
+
 
 /*Obtengo el indice de un determinado, recorriendo toda la lista y comparando los payload*/
 int obtener_indice_particion(t_bloque_memoria* bloque){
@@ -127,14 +135,30 @@ int tamanio_a_alojar(int tamanio){
 }
 
 
+/*Libero la memoria de un determinado bloque y lo retorno */
+void liberar_memoria_bloque(t_bloque_memoria* bloque, int indice){
 
- 
+	/* Inicializo todo el bloque en 0 */
+    memset(bloque->payload, 0, bloque->tamanio);
+
+    /* Marco el bloque como vacio */
+    bloque->esta_vacio = true;
+
+	/* Vacio el timestamp del bloque*/
+	bloque->timestamp = 0;
+
+    return ;
+
+}
+
+/*Obtengo el tiempo actual en segundos*/ 
 uint64_t get_timestamp(){
 	struct timeval tv;
 	gettimeofday(&tv,NULL);
 	uint64_t  x = (uint64_t)( (tv.tv_sec)*1000 + (tv.tv_usec)/1000 );
 	return x;
 }
+
 
 //*****************Auxiliares especificas Buddy System******************************
 
@@ -154,9 +178,7 @@ bool tamanio_potencia_dos(int tamanio_en_bytes){
 
 }
 
-//Me fijo si un numero es potencia de dos.
-//Si lo es, devuelvo ese numero, 
-//y si no lo es, busco el numero mayor mas cercano potencia de 2
+/*Me fijo si un numero es potencia de dos. Si lo es, devuelvo ese numero, y si no lo es, busco el numero mayor mas cercano potencia de 2*/
 int numero_potencia_dos(int tamanio_en_bytes){
 	int bytes = tamanio_en_bytes;
 
