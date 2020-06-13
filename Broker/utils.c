@@ -16,6 +16,7 @@ t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_me
     bloque->esta_vacio = true;
     bloque->payload = memoria_inicial;
 	bloque->timestamp = 0;
+	bloque->last_time = 0;
 
   
     /* Agrego el bloque a la lista */
@@ -41,7 +42,7 @@ t_bloque_memoria* asignar_particion_memoria(int tamanio_en_bytes){
 	o si hay que correr el algoritmo de eliminacion*/ 
 bool puede_alojarse(int tamanio_bytes){
 
-	bool puedeEntrar = FALSE;
+	bool puedeEntrar = false;
 	t_bloque_memoria* elemento;
 
 
@@ -53,8 +54,8 @@ bool puede_alojarse(int tamanio_bytes){
 
 		//Me fijo si el elemento esta vacio y a su vez entra mi particion
 		//Si entra, cambio el valor de puedeEntrar, y corto el for.
-		if((elemento->esta_vacio == TRUE) && (elemento->tamanio >= tamanio_bytes)){
-			puedeEntrar= TRUE;
+		if((elemento->esta_vacio == true) && (elemento->tamanio >= tamanio_bytes)){
+			puedeEntrar= true;
 			i = list_size(lista_memoria);
 			break;
 		}
@@ -83,6 +84,7 @@ t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar){
         bloque_restante->esta_vacio = true;
         bloque_restante->payload = bloque_inicial->payload + tamanio + 1;
 		bloque_restante->timestamp = 0;
+		bloque_restante->last_time = 0;
 
 
         list_add_in_index(lista_memoria, indice_nodo_particionar + 1, bloque_restante);    
@@ -93,6 +95,8 @@ t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar){
     bloque_inicial->tamanio = tamanio;
     bloque_inicial->esta_vacio = false;
 	bloque_inicial->timestamp = get_timestamp();
+	bloque_inicial->last_time = get_timestamp();
+
 
     return bloque_inicial;
 }

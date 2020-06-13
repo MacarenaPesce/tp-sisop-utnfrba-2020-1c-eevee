@@ -52,7 +52,7 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_bytes){
 
         aux = list_get(lista_memoria, i);
 
-        if((aux->tamanio >= tamanio_bytes) && (aux->esta_vacio == TRUE)){
+        if((aux->tamanio >= tamanio_bytes) && (aux->esta_vacio == true)){
             bloque = aux;
             i = list_size(lista_memoria);
             break;
@@ -89,7 +89,7 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes){
         aux = list_get(lista_memoria, i);
 
         //me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no 
-        if((aux->esta_vacio == TRUE) && (aux->tamanio >= tamanio_bytes)){
+        if((aux->esta_vacio == true) && (aux->tamanio >= tamanio_bytes)){
             
             //me fijo si el tamaño mas chico de particiones sigue siendo 0 
             if(tam_minimo==0){
@@ -141,7 +141,7 @@ t_bloque_memoria* algoritmo_de_memoria(int tamanio_en_bytes){
         particionNueva= particiones_dinamicas(tamanio_en_bytes);
     }
 
-    return t_bloque_memoria;
+    return particionNueva;
 }
 
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
@@ -184,11 +184,19 @@ t_bloque_memoria* buddy_system( int tamanio_en_bytes){
 
 //----------------------------ELIMINAR UNA PARTICION-----------------------
 
-/*void* algoritmo_de_reemplazo(){
+void algoritmo_de_reemplazo(){
+
+    //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
+    if (algoritmo_reemplazo == "LRU"){
+        algoritmo_lru();
+    }
+    else{
+        algoritmo_fifo();
+    }
 
     return;
 
-}*/
+}
 
 //------------------------------FIFO--------------------------------
 

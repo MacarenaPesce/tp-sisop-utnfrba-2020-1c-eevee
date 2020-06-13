@@ -43,13 +43,16 @@ typedef struct{
     bool esta_vacio;
     float* payload; //puntero a ubicacion en memoria
     uint64_t timestamp;
+    uint64_t last_time;    
 }t_bloque_memoria;
 
 //********Funciones de Algoritmos de memoria************
 t_bloque_memoria* algoritmo_de_particion_libre(int tamanio); //LISTO
 t_bloque_memoria* algoritmo_first_fit(int tamanio); //LISTO
 t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes); //LISTO
+void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros que son con opciones, si mandan una opcion por el archivo config que no es valida
 void algoritmo_fifo(); //LISTO , falta setear el cambio a la lista
+void algoritmo_lru();
 
 void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
 
