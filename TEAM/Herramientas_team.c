@@ -6,6 +6,7 @@
  */
 
 #include "Herramientas_team.h"
+#include "Funciones_para_listas.h"
 
 void inicializar_logger(){
 	team_logger = log_create("team.log", "Team", 1, LOG_LEVEL_DEBUG);
@@ -13,6 +14,13 @@ void inicializar_logger(){
 
 	team_logger_oficial = log_create("/home/utnso/log_team1", "Team", 0, LOG_LEVEL_DEBUG);
 	log_info(team_logger_oficial,"Bienvenido a Team, este es el archivo de log oficial");
+}
+
+void inicializar_semaforos(){
+	array_semaforos = (sem_t*)malloc(sizeof(sem_t)*MAXIMO_ENTRENADORES);
+	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
+		sem_init(&array_semaforos[i], 0, 0);
+	}
 }
 
 void inicializar_archivo_de_configuracion(){
@@ -51,7 +59,12 @@ void obtener_valor_config(char* key, t_config* file, void(*obtener)(void)){
 
 void obtener_las_posiciones_de_entrenadores(){
 	posiciones_entrenadores = config_get_array_value(config, KEY_CONFIG_POSICIONES_ENTRENADORES);
+	t_list * lista_aux = list_create();
+	string_iterate_lines_with_list(posiciones_entrenadores, lista_aux, separar_pokemones_de_entrenador);
+	MAXIMO_ENTRENADORES = list_size(lista_aux)/2;
+	//log_info(team_logger,"MAXIMO ENTRENADORES %d", MAXIMO_ENTRENADORES);
 	log_info(team_logger,"Las posiciones de entrenadores recuperadas");
+	list_destroy(lista_aux);
 }
 
 void obtener_los_pokemon_de_entrenadores(){

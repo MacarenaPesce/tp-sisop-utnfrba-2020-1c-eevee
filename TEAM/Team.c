@@ -193,7 +193,7 @@ void localizar_entrenadores_en_mapa(){
 	uint32_t posx;
 	uint32_t posy;
 	bool hay_que_agregar_entrenador = false;
-	int id = 1;
+	uint32_t id = 0;
 
 	for(uint32_t i = 0; i < list_size(pokemones_ordenada); i++){
 		if(!hay_que_agregar_entrenador){
@@ -212,10 +212,10 @@ void localizar_entrenadores_en_mapa(){
 					lista_objetivos_de_entrenador = obtener_pokemones(lista_global_objetivos, lista_objetivos_de_entrenador, pos_entrenador_en_lista_objetivos);
 					pos_entrenador_en_lista_objetivos++;
 					agregar_entrenador(posx, posy, id, lista_pokemones_de_entrenador, lista_objetivos_de_entrenador);
+					id++;
 					hay_que_agregar_entrenador = false;
 					list_clean(lista_objetivos_de_entrenador);
 					list_clean(lista_pokemones_de_entrenador);
-					id++;
 				}
 			}else{
 				break;
@@ -272,16 +272,12 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 }
 
 void * jugar_con_el_entrenador(t_entrenador * entrenador){
-	log_info(team_logger, "ID entrenador del hilo %d...", entrenador->id);
 
-	sem_wait(&entrenador_exec);
+	sem_wait(&array_semaforos[entrenador->id]);
+	log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
-	sem_wait(&hilo_disponible[entrenador->id]);
-
-	log_info(team_logger, "Soy el entrenador que va a ejecutar CARAJOOOOOO");
-
-	/*llegar_a_el_pokemon(entrenador);
-	atrapar(entrenador);*/
+	llegar_a_el_pokemon(entrenador);
+	atrapar(entrenador);
 
 }
 
@@ -462,22 +458,13 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 
 int main(){
 
-
 	inicializar_logger();
 	inicializar_archivo_de_configuracion();
+	inicializar_semaforos();
 	configurar_signals();
 	inicializar_listas();//sacar los leaks
 	definir_objetivo_global();//sacar los leaks
 	localizar_entrenadores_en_mapa();
-
-	MAXIMO_ENTRENADORES = cant_max_de_entrenadores();
-
-	sem_init(&entrenador_exec, 0, 0);
-
-	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
-		sem_init(&hilo_disponible[i], 0, 0);
-	}
-	sem_post(&entrenador_exec);
 
 	//Crea el socket servidor para recibir mensajes de gameboy
 	int serv_socket = iniciar_servidor(PUERTO);
