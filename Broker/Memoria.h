@@ -82,3 +82,35 @@ t_bloque_memoria* buddy_system( int tamanio_en_bytes); //EN PROCESO
         -------HASTA ACA LISTO-----------
         3- Si no cabe tengo que correr el algoritmo de eliminacion
 */
+
+/*
+void execute_replacement(uint16_t key, char* value, segment* segment_to_use, int isModified){
+	log_info(logger,"Ejecutando algoritmo de reemplazo LRU");
+	uint64_t min_time = get_timestamp();
+	page* min_page = NULL;
+	segment* min_segment = NULL;
+	void re_segment(void* aSegment){
+		segment* s = (segment*) aSegment;
+		void searching_page(void* aPage){
+			page*p = (page*) aPage;
+			if(p->last_time_used < min_time && !p->isModified){
+				min_time = p->last_time_used;
+				min_page = p;
+				min_segment = s;
+			}
+		}
+		list_iterate(s->page_list,searching_page);
+	}
+	list_iterate(segmentList,re_segment);
+
+	if(min_segment != NULL && min_page != NULL) {
+		log_info(logger,"Se remueve la key %d del segmento %s \n", (int)get_key_from_memory(min_page->frame_num), min_segment->segment_id);
+		log_info(output,"[LRU]: Se remueve la key %d del segmento %s", (int)get_key_from_memory(min_page->frame_num), min_segment->segment_id);
+		free_frame(min_page->frame_num);
+		remove_page_from_segment(min_page,min_segment);
+		load_page_to_segment(key, segment_to_use, value, isModified);
+	} else {
+		log_error(logger, "No se encontro una pagina para reemplazar.");
+	}
+
+}*/
