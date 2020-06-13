@@ -47,7 +47,11 @@ void inicializar_semaforos(){
 		sem_init(&array_semaforos[i], 0, 0);
 	}
 
+	pthread_mutex_init(&mapa_mutex, NULL);
+	pthread_mutex_init(&gameboy_paquetes_mutex, NULL);
 	sem_init(&hay_un_pokemon_nuevo, 0, 0);
+	sem_init(&llego_gameboy, 0, 0);
+
 }
 
 void inicializar_archivo_de_configuracion(){

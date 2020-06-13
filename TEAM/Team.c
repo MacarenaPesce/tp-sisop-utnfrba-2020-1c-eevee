@@ -7,25 +7,16 @@
 
 #include "Team.h"
 
-void operar_con_appeared_pokemon(t_appeared_pokemon * mensaje){
-	/*Este mensaje permitirá la inclusión en el proceso Team de un nuevo Pokémon en el mapa.
-	Al llegar este mensaje, el proceso Team deberá verificar si requiere atrapar el mismo controlando los
-	Pokemon globales necesarios y los ya atrapados. No se debe poder atrapar mas Pokemon de una especie de los requeridos globalmente.
-	En caso que se requiera el mismo, se debe agregar a la lista de Pokémon requeridos y en el momento
-	que un entrenador se encuentre en estado “Dormido” o “Libre” debe planificarlo para ir a atraparlo.
-	En este mensaje se recibirán los siguientes parámetros:
-	●Especie de Pokemon.
-	●Posición del Pokemon.*/
-
-	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-	pokemon->especie = mensaje->pokemon;
-	pokemon->posx = mensaje->coordenadas.posx;
-	pokemon->posy = mensaje->coordenadas.posy;
+void operar_con_appeared_pokemon(t_pokemon * pokemon){
+	/*Este mensaje permitirá la inclusión en el proceso Team de un nuevo Pokémon en el mapa. Al llegar este mensaje, el proceso Team deberá verificar si requiere
+	 * atrapar el mismo controlando los Pokemon globales necesarios y los ya atrapados. No se debe poder atrapar mas Pokemon de una especie de los requeridos globalmente.
+	 * En caso que se requiera el mismo, se debe agregar a la lista de Pokémon requeridos y en el momento que un entrenador se encuentre en estado “Dormido” o “Libre”
+	 * debe planificarlo para ir a atraparlo. En este mensaje se recibirán los siguientes parámetros: Especie de Pokemon y Posición del Pokemon.*/
 
 	agregar_pokemon_a_mapa(pokemon);
 	log_info(team_logger, "Agregue el pokemon al mapa\n");
 
-	planificar();
+	//sem_post(&hay_un_pokemon_nuevo);
 }
 
 void operar_con_localized_pokemon(t_localized_pokemon * mensaje){
@@ -87,7 +78,7 @@ void operar_con_caught_pokemon(t_caught_pokemon * mensaje, uint32_t id){
 				bloquear_entrenador(entrenador);
 				printf("Entrenador de id %d bloqueado", entrenador->id);
 				if(entrenador->razon_de_bloqueo == ESPERANDO_POKEMON){
-					planificar();
+					//planificar();
 				}
 			}
 			free(catch_pokemon);
@@ -105,8 +96,9 @@ void agregar_pokemon_a_mapa(t_pokemon * pokemon){
 		log_info(team_logger, "No necesito este pokemon");
 	}
 	if(un_objetivo->cantidad_necesitada > un_objetivo->cantidad_atrapada){
+		pthread_mutex_lock(&mapa_mutex);
 		list_add(lista_mapa, (void*)pokemon);
-
+		pthread_mutex_unlock(&mapa_mutex);
 	}else{
 		log_info(team_logger,"Ya tenemos la cantidad necesaria de la especie %s\n", pokemon->especie);
 	}
@@ -225,9 +217,17 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 }
 
 void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* entrenador){
-	for(int i = 0; i < list_size(lista_mapa); i++){
+	pthread_mutex_lock(&mapa_mutex);
+	int max = list_size(lista_mapa);
+	pthread_mutex_unlock(&mapa_mutex);
+
+	for(int i = 0; i < max; i++){
 		t_pokemon* pokemon;
+
+		pthread_mutex_lock(&mapa_mutex);
 		pokemon = list_get(lista_mapa, i);
+		pthread_mutex_unlock(&mapa_mutex);
+
 		if(pokemon->especie == catch_pokemon->pokemon //busco al pokemon a atrapar en el mapa
 			&& pokemon->posx == catch_pokemon->coordenadas.posx
 			&& pokemon->posy == catch_pokemon->coordenadas.posy){
@@ -249,20 +249,21 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 				pokemon_encontrado->cantidad++; // o actualizo la cantidad de esa especie de atrapados del entrenador
 			}
 			entrenador->objetivo_actual = NULL;// no se si esto es necesario*/
+
+			pthread_mutex_lock(&mapa_mutex);
 			list_remove(lista_mapa, i); //elimino el poke del mapa
+			pthread_mutex_unlock(&mapa_mutex);
 			break;
 		}
 	}
 }
 
 void atrapar(t_entrenador * entrenador){
-	/*
-	 * Para esto, se deben ejecutar los siguientes pasos:
+	/*Para esto, se deben ejecutar los siguientes pasos:
 1. Enviar el mensaje a la cola de mensajes CATCH_POKEMON indicando cual es la especie del Pokémon y la posición del mismo.
 2. Obtener el ID del mensaje anterior desde el Broker y guardarlo a la espera de la llegada de la respuesta en CAUGHT_POKEMON.
 3. Bloquear al entrenador en cuestión a la espera del resultado del mensaje. Este entrenador no podrá volver a ejecutar hasta que se reciba el resultado.
-En caso que el Broker no se encuentre funcionando o la conexión inicial falle, se deberá tomar como comportamiento Default que el Pokémon ha sido atrapado con éxito.
-	 */
+En caso que el Broker no se encuentre funcionando o la conexión inicial falle, se deberá tomar como comportamiento Default que el Pokémon ha sido atrapado con éxito.*/
 
 	t_catch_pokemon* catch_pokemon = malloc(sizeof(t_catch_pokemon));
 	catch_pokemon->pokemon = entrenador->objetivo_actual->especie;
@@ -296,7 +297,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 			log_info(team_logger,"Entrenador de id %d bloqueado", entrenador->id);
 
 			if(entrenador->razon_de_bloqueo == ESPERANDO_POKEMON){
-				planificar();
+				//planificar();
 			}
 		}
 
@@ -338,10 +339,8 @@ void consumir_un_ciclo_de_cpu(){
 }
 
 void llegar_a_el_pokemon(t_entrenador * entrenador){
-	/*
-	 * Cada movimiento en el mapa responderá a un ciclo de CPU, y este NO realizará movimientos diagonales para llegar a la posición deseada.
-	 * Para simular más a la realidad esta funcionalidad, se deberá agregar un retardo de X segundos configurado por archivo de configuración.
-	 */
+	/*Cada movimiento en el mapa responderá a un ciclo de CPU, y este NO realizará movimientos diagonales para llegar a la posición deseada.
+	 * Para simular más a la realidad esta funcionalidad, se deberá agregar un retardo de X segundos configurado por archivo de configuración.*/
 	log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 	//Primero me muevo por izq
 	while(entrenador->posx < entrenador->objetivo_actual->posx){
@@ -373,8 +372,8 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 	}
 }
 
-void planificar(){
-	/* Cada entrenador al iniciar en el sistema entrará en estado New. ------- ESTO YA ESTA! CUANDO SE ORDENA LA LISTA DE ENTRENADORES */
+void * planificar(){
+	/*Cada entrenador al iniciar en el sistema entrará en estado New. ------- ESTO YA ESTA! CUANDO SE ORDENA LA LISTA DE ENTRENADORES */
 
 	/*A medida que el Team empiece a recibir distintos Pokémon en el mapa despertará a los distintos entrenadores en estado New o en
 	Blocked (que estén esperando para procesar) pasandolos a Ready. */
@@ -384,23 +383,21 @@ existir más de uno, sea el que más cerca se encuentre del objetivo. A medida q
 Pokémon) entrarán en estado exec. En el contexto de nuestro trabajo practico no contemplaremos el multiprocesamiento, esto implica que solo UN entrenador
 podrá estar en estado Exec en determinado tiempo. Cuando un entrenador en estado Exec finalice su recorrido y su ejecución planificada entrará en un estado bloqueados.
 Este estado implica que el entrenador no tiene más tareas para realizar momentáneamente. Cuando un entrenador en estado Exec cumpla todos sus objetivos, pasará a estado Exit.
-Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team cumplió el objetivo global.
-	 */
+Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team cumplió el objetivo global. */
 
+	sem_wait(&hay_un_pokemon_nuevo);
 
-	t_pokemon* pokemon;
-	pokemon = list_get(lista_mapa, 0);/*esto funciona solo para appeared.
-	Para localized voy a tener que buscar al mas cercano para cada pokemon de la especie que aparezca.
-	en un ciclo*/
-
-	if(pokemon == NULL){
-		log_info(team_logger,"Esperando que aparezcan pokemones en el mapa");
-	}
+	pthread_mutex_lock(&mapa_mutex);
+	t_pokemon * pokemon = list_get(lista_mapa, 0);
+	pthread_mutex_unlock(&mapa_mutex);
 
 	seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-	//log_info(team_logger,"Entrenador mas cercano seleccionado");
-
 	obtener_proximo_ejecucion();
+}
+
+void crear_hilo_para_planificar(){
+	pthread_t hilo;
+	pthread_create(&hilo,NULL,(void*)planificar, NULL);
 }
 
 int main(){
@@ -417,24 +414,11 @@ int main(){
 	int serv_socket = iniciar_servidor(PUERTO);
 
 	//Crea el socket cliente para conectarse al broker
-	enviar_get();
+	//enviar_get();
 
 	//convertirse_en_suscriptor_global_del_broker();
-
-	while(GLOBAL_SEGUIR){
-		struct sockaddr_in client_addr;
-
-		//Setea la direccion en 0
-		memset(&client_addr, 0, sizeof(client_addr));
-		socklen_t client_len = sizeof(client_addr);
-
-		//Acepta la nueva conexion
-		int new_client_sock = accept(serv_socket, (struct sockaddr *)&client_addr, &client_len);
-
-		log_info(team_logger, "Se aceptó un nuevo gameboy");
-
-		crear_hilo_de_escucha_para_gameboy(new_client_sock, escuchar_mensajes_entrantes);
-	}
+	crear_hilo_para_planificar();
+	crear_hilo_de_escucha_para_gameboy(serv_socket);
 
 	close(serv_socket);
 

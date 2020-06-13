@@ -16,7 +16,7 @@
 #include "Interaccion_con_gameboy.h"
 #include "Interaccion_con_broker.h"
 
-void operar_con_appeared_pokemon(t_appeared_pokemon *);
+void operar_con_appeared_pokemon(t_pokemon *);
 void operar_con_localized_pokemon(t_localized_pokemon *);
 void operar_con_caught_pokemon(t_caught_pokemon *, uint32_t);
 void agregar_pokemon_a_mapa(t_pokemon *);
@@ -27,7 +27,7 @@ void atrapar(t_entrenador * entrenador);
 void bloquear_entrenador(t_entrenador*);
 void consumir_un_ciclo_de_cpu();
 void llegar_a_el_pokemon(t_entrenador *);
-void planificar();
+void * planificar();
 void localizar_entrenadores_en_mapa();
 void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*, t_list*);
 

@@ -134,7 +134,7 @@ entrenadores será la misma y deberá poder ser modificable por archivo de confi
 	 */
 
 	lista_aux = list_duplicate(lista_listos);
-	log_info(team_logger, "Planificando por FIFO, AUNQUE TENDRIA QUE SER POR %s...", algoritmo_planificacion);
+	log_info(team_logger, "Planificando por FIFO");
 
 	//if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
 		//ordenar_lista_estimacion(lista_aux);
