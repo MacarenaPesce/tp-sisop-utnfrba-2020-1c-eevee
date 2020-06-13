@@ -212,14 +212,14 @@ void localizar_entrenadores_en_mapa(){
 
 	for(uint32_t i = 0; i < list_size(pokemones_ordenada); i++){
 		if(!hay_que_agregar_entrenador){
-			char* brokerenada_char;
-			brokerenada_char = list_get(pokemones_ordenada, i);
-			if(brokerenada_char != NULL) {
-				int brokerenada = atoi(brokerenada_char);
+			char* coordenada_char;
+			coordenada_char = list_get(pokemones_ordenada, i);
+			if(coordenada_char != NULL) {
+				int coordenada = atoi(coordenada_char);
 				if(i == 0 || i % 2 == 0) {
-					posx = brokerenada;
+					posx = coordenada;
 				}else{
-					posy = brokerenada;
+					posy = coordenada;
 					hay_que_agregar_entrenador = true;
 				}
 				if(hay_que_agregar_entrenador){
@@ -286,13 +286,28 @@ void sacar_de_objetivos_pokemones_atrapados(t_list* lista_de_objetivos, t_list* 
 void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista_pokemones_de_entrenador, t_list* lista_objetivos_de_entrenador){
 	sacar_de_objetivos_pokemones_atrapados(lista_objetivos_de_entrenador, lista_pokemones_de_entrenador);
 	uint32_t cantidad_maxima = obtener_cantidad_maxima(lista_objetivos_de_entrenador);
+
 	t_entrenador* entrenador = malloc(sizeof(t_entrenador));
 	entrenador->posx = posx;
 	entrenador->posy = posy;
 	entrenador->id = id;
 	entrenador->cant_maxima_objetivos = cantidad_maxima;
-	entrenador->pokemones = lista_pokemones_de_entrenador;//chequear como se agrega esta lista tambien
-	entrenador->objetivo = lista_objetivos_de_entrenador; //chequear como se agrega esta lista
+
+	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
+	entrenador->pokemones = list_create();
+	for(int i = 0; i < list_size(lista_pokemones_de_entrenador); i++){
+		un_pokemon = list_get(lista_pokemones_de_entrenador, i);
+		//log_info(team_logger,"POKEMON NUMERO %d, ESPECIE %s POSX %d POSY %d\n", i, un_pokemon->especie, un_pokemon->posx, un_pokemon->posy);
+		list_add(entrenador->pokemones, (void*)un_pokemon);
+	}
+
+	entrenador->objetivo = list_create();
+	t_objetivo_entrenador * una_meta = malloc(sizeof(t_objetivo_entrenador));
+	for(int i = 0; i < list_size(lista_objetivos_de_entrenador); i++){
+		una_meta = list_get(lista_objetivos_de_entrenador, i);
+		list_add(entrenador->objetivo, (void*)una_meta);
+	}
+
 	list_add(lista_entrenadores, (void*)entrenador);
 	list_clean(lista_pokemones_de_entrenador);
 
@@ -307,7 +322,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 	log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
 	llegar_a_el_pokemon(entrenador);
-	atrapar(entrenador);
+	//atrapar(entrenador);
 
 }
 
@@ -525,10 +540,6 @@ bool esta_mas_cerca(t_entrenador* entrenador1, t_entrenador* entrenador2, t_poke
 	} else {
 		return false;
 	}
-}
-
-int cant_max_de_entrenadores(){
-	return list_size(lista_entrenadores);
 }
 
 int distancia_a_pokemon(t_entrenador* entrenador, t_pokemon* pokemon){
