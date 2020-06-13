@@ -89,12 +89,12 @@ extern t_list* lista_config; //lista auxiliar para cargar la info del archivo de
 extern t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global
 extern t_list* lista_mapa;
 extern t_list* lista_pokemon_atrapado;
+extern t_list* mensajes;
 
 pthread_mutex_t entrenador_exec;
 sem_t hilo_entrenador;
 sem_t variable_valida;
 sem_t hilo_disponible[];
-
 
 
 //Estructura de un entrenador
@@ -147,6 +147,10 @@ typedef struct { //estructura del objetivo de un entrenador
 	uint32_t cantidad;
 } t_objetivo_entrenador;
 
+typedef struct {
+	uint32_t id;
+	t_pokemon pokemon;
+}t_mensaje_guardado;
 
 t_entrenador * entrenador_en_ejecucion;
 
