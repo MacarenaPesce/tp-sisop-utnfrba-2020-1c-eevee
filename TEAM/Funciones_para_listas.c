@@ -100,7 +100,7 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 			}
 		}
 
-		free(unPokemon);
+		//free(unPokemon);
 		//list_destroy(pokemones);
 }
 
