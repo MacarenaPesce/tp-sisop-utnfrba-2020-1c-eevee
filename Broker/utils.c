@@ -27,7 +27,8 @@ t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_me
 }
 
 /*Dado un tamaño de particion, devuelvo el bloque asignado y derivo segun el algoritmo de memoria 
-	Ya corri todos los algoritmos aca. Esta deberia ser la que tiene que llamar la cola de mensajes*/
+	Ya corri todos los algoritmos aca. 
+	Esta deberia ser la que tiene que llamar la cola de mensajes*/
 t_bloque_memoria* asignar_particion_memoria(int tamanio_en_bytes){
     
     //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
@@ -338,4 +339,15 @@ int calcularBytes (t_packed* paquete){
     return bytes;
 }*/
 
+
+
+void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
+    
+    /* Libero la memoria inicial */
+    free(bloque_memoria_inicial);
+
+    /* Destruyo la lista y su contenido */
+    //list_destroy_and_destroy_elements(lista_memoria);
+    return;
+}
 

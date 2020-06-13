@@ -5,17 +5,6 @@
 //control + shift + u 3e y 3c 
 
 
-void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
-    
-    /* Libero la memoria inicial */
-    free(bloque_memoria_inicial);
-
-    /* Destruyo la lista y su contenido */
-    //list_destroy_and_destroy_elements(lista_memoria);
-    return;
-}
-
-
 //--------------- ADMINISTRACION DE MEMORIA-------------------
 
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
@@ -127,7 +116,7 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes){
 
 /*Segun el algoritmo que me pasa el archivo de configuracion, designo con esta funcion
     que algoritmo se va a usar y le paso la lista y el tamaño de bytes*/
-t_bloque_memoria* algoritmo_de_memoria(int tamanio_en_bytes){
+t_bloque_memoria* algoritmo_de_memoria(int tamanio_msje){
 
     //Creo una nueva particion, que es donde se van a guardar los datos de la particion alojada
     //y la particion que voy a retornar
@@ -135,22 +124,24 @@ t_bloque_memoria* algoritmo_de_memoria(int tamanio_en_bytes){
     
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
     if (algoritmo_memoria == "BD"){
-        particionNueva= buddy_system(tamanio_en_bytes);
+        particionNueva= buddy_system(tamanio_msje);
     }
     else{
-        particionNueva= particiones_dinamicas(tamanio_en_bytes);
+        particionNueva= particiones_dinamicas(tamanio_msje);
     }
 
     return particionNueva;
 }
 
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
-t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes){
+t_bloque_memoria* particiones_dinamicas( int tamanio_msje){
 
     t_bloque_memoria* particionNueva;
 
+    int tamanio_parti = tamanio_a_alojar(tamanio_msje);
+
     //me fijo si la particion puede alojarse a la primera
-    bool sePuedeAlojar = puede_alojarse(tamanio_en_bytes);
+    bool sePuedeAlojar = puede_alojarse(tamanio_parti);
 
     //igualo la frecuencia para compactar segun cuantas veces compacte
     int frec_para_compactar = frecuencia_compactacion; 

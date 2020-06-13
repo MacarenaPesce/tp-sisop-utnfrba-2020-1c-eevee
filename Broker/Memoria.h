@@ -39,7 +39,8 @@
 //Estructura para reservar la memoria inicial
 typedef struct{
     //int id_particion;
-    int tamanio;
+    int tamanio_particion;
+    int tamanio_mensaje;
     bool esta_vacio;
     float* payload; //puntero a ubicacion en memoria
     uint64_t timestamp;
@@ -54,7 +55,6 @@ void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros 
 void algoritmo_fifo(); //LISTO , falta setear el cambio a la lista
 void algoritmo_lru(); //LISTO (creo) , falta setear el cambio a la lista
 
-void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
 
 //---ALGORITMOS DE MEMORIA----
 

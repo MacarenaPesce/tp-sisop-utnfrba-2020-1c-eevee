@@ -32,6 +32,7 @@
 /* Las aclaraciones del uso de cada funcion estan en el archivo .c */
 t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_memoria);
 t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes);
+
 bool puede_alojarse(int tamanio_en_bytes);
 t_bloque_memoria* particionar_bloque(int tamanio, int indice_nodo_particionar);
 int obtener_indice_particion(t_bloque_memoria* bloque);
@@ -47,3 +48,5 @@ bool tamanio_potencia_dos(int tamanio_en_bytes);
 int numero_potencia_dos(int tamanio_en_bytes);
 
 //int calcularBytes (t_packed* paquete);
+
+void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
