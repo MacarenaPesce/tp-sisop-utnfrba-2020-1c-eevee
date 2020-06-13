@@ -60,7 +60,7 @@ void algoritmo_lru(); //LISTO (creo) , falta setear el cambio a la lista
 
 
 t_bloque_memoria* algoritmo_de_memoria( int tamanio_msje); //LISTO
-t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);  //EN PROCESO
+t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);  //FALTA COMPACTAR CASI LISTO
 t_bloque_memoria* buddy_system( int tamanio_en_bytes); //EN PROCESO
 
 

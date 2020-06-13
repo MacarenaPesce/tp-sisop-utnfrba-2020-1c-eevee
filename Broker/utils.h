@@ -37,7 +37,9 @@ bool puede_alojarse(int tamanio_en_bytes);
 t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, int tamanio_msje);
 int obtener_indice_particion(t_bloque_memoria* bloque);
 int tamanio_a_alojar(int tamanio);
+
 void liberar_memoria_bloque(t_bloque_memoria* bloque, int indice); //FALTA SETEAR ESE BLOQUE VACIO EN EL LUGAR DEL ANTERIOR
+void settear_bloque_liberado_memoria(t_bloque_memoria* bloque, int indice); //EN PROCESO
 
 uint64_t get_timestamp();
 

@@ -143,7 +143,7 @@ int tamanio_a_alojar(int tamanio){
 
 
 /*Libero la memoria de un determinado bloque y lo retorno */
-void liberar_memoria_bloque(t_bloque_memoria* bloque, int indice){
+void liberar_memoria_bloque(t_bloque_memoria* bloque){
 
 	/* Inicializo todo el bloque en 0 */
     memset(bloque->payload, 0, bloque->tamanio);
@@ -154,9 +154,28 @@ void liberar_memoria_bloque(t_bloque_memoria* bloque, int indice){
 	/* Vacio el timestamp del bloque*/
 	bloque->timestamp = 0;
 
+	/* Vacio el last_time del bloque*/
+	bloque->last_time = 0;
+
+	/* Vacio el tamaño del mensaje del bloque */
+	bloque->tamanio_mensaje = 0;   
+
+	int indice = obtener_indice_particion(bloque);
+
+	settear_bloque_liberado_memoria(bloque, indice);
+
     return ;
 
 }
+
+/* Seteo el bloque liberado en la lista, para que reemplace al que estaba ocupando espacio*/
+void settear_bloque_liberado_memoria(t_bloque_memoria* bloque, int indice){
+
+
+	return ;
+}
+
+
 
 /*Obtengo el tiempo actual en segundos*/ 
 uint64_t get_timestamp(){
