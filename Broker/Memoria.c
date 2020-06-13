@@ -144,33 +144,44 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_msje){
     //me fijo si la particion puede alojarse a la primera
     bool sePuedeAlojar = puede_alojarse(tamanio_parti);
 
+    bool alojado = false
+
     //igualo la frecuencia para compactar segun cuantas veces compacte
     int frec_para_compactar = frecuencia_compactacion; 
 
-    if(sePuedeAlojar == true){ //si puede alojarse a la primera llamo al algoritmo de particion libre
-        particionNueva = algoritmo_de_particion_libre(tamanio_msje, tamanio_parti);
-    }
-    else{ //si no puede alojarse a la primera ....
+    
+    while(alojado == false){  //mientras no  este alojado hago la secuencia pueda alojarlo tengo que ir vaciando particiones y fijandome si tengo que compactar
 
-        while(!sePuedeAlojar){  //mientras no pueda alojarlo tengo que ir vaciando particiones y fijandome si tengo que compactar
-         
+        //me fijo si puedo alojarla a la primera
+        if(sePuedeAlojar == true){ 
+            //si puede alojarse a la primera llamo al algoritmo de particion libre
+            particionNueva = algoritmo_de_particion_libre(tamanio_msje, tamanio_parti);
+            //seteo alojado en true, para salir del while
+            alojado = true;
+        }
+        else{ //si no puede alojarse a la primera ....
+
             //me fijo si la frecuencia de compactacion esta habilitada para seguir vaciando particiones
-            if(frec_para_compactar > 0){
+            if(frec_para_compactar == -1){ //si la frecuencia esta seteada en -1
+                //corro el algoritmo y tengo que compactar si o si 
+                algoritmo_de_reemplazo();
+                //compactar();
+            }
+            else if(frec_para_compactar > 0){ //en caso de estar habilitada la frecuencia
                 algoritmo_de_reemplazo();
                 frec_para_compactar - 1;
             }
-            else{   //en caso de no estar habilitada
+            else{  //en caso de no estar habilitada , porque ya se agoto
                 //compactar();
                 //seteo de nuevo la frecuencia para la prox compactacion
                 frec_para_compactar=frecuencia_compactacion;
             }
 
+            //me fijo de nuevo si puede alojarse
             sePuedeAlojar = puede_alojarse(tamanio_parti);
-
         }
 
     }
-
 
     return particionNueva;
 
