@@ -15,7 +15,9 @@ int q_bloques_ocupados;
 int q_bloques_vacios;
 float* primer_bloque;
 t_list* lista_memoria;
-t_list* cola_mensajes;
+
+
+
 static pthread_mutex_t mutex_queue_mensajes = PTHREAD_MUTEX_INITIALIZER;
 
 typedef struct{
@@ -26,5 +28,24 @@ typedef struct{
     void* mensaje;
 }t_mensaje_cola;
 
+typedef struct{
+ t_list* mensajes;
+ t_list* colas;
+}t_cache_colas;
+
+typedef struct{
+    uint32_t id __attribute__((packed));
+    int cliente __attribute__((packed));
+}t_envio_pendiente;
+
+typedef struct{
+    enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
+    t_list* envios_pendientes;
+    t_list* suscriptores;
+}t_cola_mensajes;
+
+t_cache_colas* cache_mensajes;
+
+t_cola_mensajes* crear_cola_mensajes(int cola_mensajes);
 
 #endif

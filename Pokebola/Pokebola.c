@@ -123,7 +123,6 @@ t_packed* recibir_mensaje(int sock){
 			break;
 	}
 	
-	free(mensaje);
 	return paquete;
 }
 

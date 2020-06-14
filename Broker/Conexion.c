@@ -1,6 +1,6 @@
 #include "Conexion.h"
 
-extern t_list* cola_mensajes;
+extern t_cache_colas* cache_mensajes;
 
 //pthread_mutex_t mutex_queue_mensajes;
 
@@ -42,6 +42,8 @@ void iniciar_servidor(void){
 	pthread_t hilo_sockets;
 	
 	pthread_create(&hilo_sockets,NULL,esperar_cliente,(void*)socket_servidor);
+
+	pthread_join(hilo_sockets,NULL);
 }
 
 void* esperar_cliente(void* socket_servidor){
@@ -66,10 +68,13 @@ void* esperar_cliente(void* socket_servidor){
 
 			printf("\nSe aceptó un nuevo cliente");
 
+			pthread_join(hilo_cliente,NULL);
+
 		}
 	
 	}
-	//return NULL;
+	
+	return NULL;
 
 }
 
@@ -115,8 +120,7 @@ void* esperar_mensajes(void* cliente){
 
 	}
 
-	free(paquete);
-
+	pthread_exit(NULL);
 	return NULL;
 	
 }
@@ -125,9 +129,11 @@ void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 
 	int id_mensaje = agregar_mensaje_a_cola(paquete);
 
-	list_iterate(cola_mensajes,print_operacion);
+	list_iterate(cache_mensajes->mensajes,print_operacion);
 	
 	enviar_ack(socket_cliente,id_mensaje,-1);
+
+	free(paquete);
 
 	return;
 
@@ -156,7 +162,7 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
-	int id_mensaje = list_add(cola_mensajes,(void*)mensaje);
+	int id_mensaje = list_add(cache_mensajes->mensajes,(void*)mensaje);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
