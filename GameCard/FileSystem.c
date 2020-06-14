@@ -116,23 +116,20 @@ void cargarMetadataFs(char *ruta) {
 
 void crearBitmap() {
 
-	int bytesBitmap= metadata_fs->cantidadBloques/8;
+	FILE *bitmapArch = fopen(rutas_fs->pathArchivoBitMap,"w");
 
-	if (bytesBitmap % 8 != 0 ){ bytesBitmap++;}
+		int blocksChar = metadata_fs->tamanioBLoques/8;
+		char* bitmapData = malloc(blocksChar*sizeof(char));
+		for(int i= 0;i< blocksChar;i++){
+			bitmapData[i] = 0;
+		}
+		fwrite(bitmapData,sizeof(char),blocksChar,bitmapArch);
 
-	char* bitarrayInicializador = malloc(bytesBitmap);
-
-	bzero( bitarrayInicializador, bytesBitmap);
-
-	FILE  *archBitmap = fopen(rutas_fs->pathArchivoBitMap,"wb");
-
-		fwrite(bitarrayInicializador,bytesBitmap,1,archBitmap);
-
-		fclose(archBitmap);
-		free(bitarrayInicializador);
+		free(bitmapData);
+		fclose(bitmapArch);
 
 
-	log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
+		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
 
 }
 
@@ -205,23 +202,9 @@ bool existePokemon(char* nombrePokemon) {
 	}
 
 
-void crearPokemon(t_new_pokemon* pokemon){
-
-	char* lineaPokemon= string_new();
-	string_append(&lineaPokemon, string_atoi(pokemon->coordenadas->posx));
-	string_append(&lineaPokemon,"-");
-	string_append(&lineaPokemon, string_atoi(pokemon->coordenadas->posy));
-	string_append(&lineaPokemon,"=");
-	string_append(&lineaPokemon,string_atoi(pokemon->cantidad));
-
-	int tamanioLinea=string_length(lineaPokemon);
-	agregarAparcionPokemonABloque(tamanioLinea,lineaPokemon);
-}
-
-
 void agregarAparicionPokemonABloque(int bytesAcopiar, char* linea){
 
-	if (bytesAcopiar<=0){break;}
+	if (bytesAcopiar<=0){return;}
 
 	else{
 
@@ -254,6 +237,68 @@ void agregarAparicionPokemonABloque(int bytesAcopiar, char* linea){
 }
 
 
+
+
+void crearPokemon(t_new_pokemon* pokemon){
+
+	char* lineaPokemon= string_new();
+
+	string_append(&lineaPokemon,(string_itoa(pokemon->coordenadas.posx)));
+	string_append(&lineaPokemon,"-");
+	string_append(&lineaPokemon,(string_itoa(pokemon->coordenadas.posy)));
+	string_append(&lineaPokemon,"=");
+	string_append(&lineaPokemon,(string_itoa(pokemon->cantidad)));
+
+	int tamanioLinea=string_length(lineaPokemon);
+
+	log_info(gameCard_logger, "aca quiero linea a copiar en el bloque: %s", lineaPokemon);
+
+
+	if (tamanioLinea<=0){return;}
+
+		else{
+
+		int bloqueLibre= obtenerPrimerBloqueLibre();
+
+		log_info(gameCard_logger, "primer bloque libre : %d",bloqueLibre);
+
+			char* rutaBloqueLibre=string_new();
+			char* nombreBloque=string_new();
+
+		   string_append(&rutaBloqueLibre, rutas_fs->pathDirectorioBloques);
+		   string_append(&rutaBloqueLibre,"/");
+		   string_append(&nombreBloque,(string_itoa(bloqueLibre)));
+		   string_append(&rutaBloqueLibre,nombreBloque);
+		   string_append(&rutaBloqueLibre, ".bin");
+		   FILE *bloque = fopen(rutaBloqueLibre, "wb");
+
+		   log_info (gameCard_logger,"el bloque que abrimos es %s",rutaBloqueLibre);
+
+			 if (metadata_fs->tamanioBLoques>=tamanioLinea){
+			fwrite(lineaPokemon,string_length(lineaPokemon),1,bloque);
+			 fclose(bloque);
+
+			 log_info(gameCard_logger, "se escribió el pokemon correctamente");
+			}
+			 else{
+
+				 fwrite(lineaPokemon,metadata_fs->tamanioBLoques,1,bloque);
+				 fclose(bloque);
+				 int  bytesAcopiar= string_length(lineaPokemon)- metadata_fs->tamanioBLoques;
+
+				 agregarAparicionPokemonABloque(bytesAcopiar,lineaPokemon);
+
+			log_info(gameCard_logger,"se estan llenando bloques");
+
+			 }
+		}
+
+
+
+}
+
+
+
 void copiarEnArchivo(int fd,char* dato,int tamanioDato){
 
 	write(fd,dato,tamanioDato);
@@ -279,16 +324,24 @@ void abrirBitmap() {
 
 	if (metadata_fs->cantidadBloques % 8 != 0){ bytesBitmap++;}
 
-	bitarray = bitarray_create_with_mode(bmap, bytesBitmap,MSB_FIRST);
+	bitarray = bitarray_create_with_mode(bmap, bytesBitmap,LSB_FIRST);
+
+
 
 
 	log_info(gameCard_logger,"abriendo bitmap");
 }
 
 
-int  obtenerPrimerBloqueLibre(){
+int obtenerPrimerBloqueLibre(){
+
+	log_info(gameCard_logger,"entrando a primer bloque libre");
+
+	log_info(gameCard_logger,"dame tamanio de bitarray: %d",bitarray_get_max_bit(bitarray));
 
 	for(int i; bitarray_get_max_bit(bitarray);i++){
+
+		log_info(gameCard_logger,"pos del bit del bitarray",i);
 
 		if (bitarray_test_bit(bitarray,i)==0){
 

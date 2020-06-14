@@ -95,10 +95,25 @@ int  main () {
 		crearFileSystemVacio();
 
 		}
+
+	abrirBitmap();
 	if(existePokemon("Pikachu")){
 		log_info(gameCard_logger,"si, existe pokemon Pikachu");
 	}
-	else { log_info(gameCard_logger, "no existe pokemon Pikachu");}
+	else { log_info(gameCard_logger, "no existe pokemon Pikachu");
+	log_info(gameCard_logger,"vamos a crearlo");
+
+	t_new_pokemon* poke = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+
+	poke->pokemon="Picachu";
+	poke->coordenadas.posx=120;
+	poke->coordenadas.posx=7000;
+	poke->cantidad=1023;
+
+	crearPokemon(poke);
+
+	free(poke);
+	}
 
 
 	terminar_game_card();

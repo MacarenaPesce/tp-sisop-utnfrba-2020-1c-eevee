@@ -68,4 +68,8 @@ char * bitmapAux;
 
 int  obtenerPrimerBloqueLibre();
 
+void agregarAparicionPokemonABloque(int bytesAcopiar, char* linea);
+
+void crearPokemon(t_new_pokemon* pokemon);
+
 #endif /* FILESYSTEM_H_ */
