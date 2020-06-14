@@ -10,6 +10,7 @@ bool noCumpleConRutasfs() {
 			| (abrir_ruta(rutas_fs->pathArchivoMetadataFs) < 0)
 			| (abrir_ruta(rutas_fs->pathArchivoBitMap) < 0);
 }
+
 void crearFileSystemVacio() {
 
 	crearMetadataFs();
@@ -22,7 +23,6 @@ void crearFileSystemVacio() {
 
 
 void crearMetadataFs() {
-
 
 	int status = mkdir(rutas_fs->pathDirectorioMetadataFs, 0777); //analizar permisos
 
@@ -274,7 +274,11 @@ void crearPokemon(t_new_pokemon* pokemon){
 
 		   log_info (gameCard_logger,"el bloque que abrimos es %s",rutaBloqueLibre);
 
-			 if (metadata_fs->tamanioBLoques>=tamanioLinea){
+		   log_info(gameCard_logger,"el tamanio de bloque es: %d",metadata_fs->tamanioBLoques);
+
+		   log_info(gameCard_logger,"el tamanio de la linea es ", tamanioLinea);
+
+			 if (metadata_fs->tamanioBLoques>tamanioLinea){
 			fwrite(lineaPokemon,string_length(lineaPokemon),1,bloque);
 			 fclose(bloque);
 
@@ -345,6 +349,7 @@ int obtenerPrimerBloqueLibre(){
 
 		if (bitarray_test_bit(bitarray,i)==0){
 
+			log_info(gameCard_logger,"aca el bitarray es : %d", bitarray_test_bit(bitarray, i));
 			return i;
 
 			}
