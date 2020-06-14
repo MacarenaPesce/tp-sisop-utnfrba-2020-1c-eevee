@@ -487,7 +487,7 @@ void _recibir_catch_o_appeared_pokemon(void *mensaje,t_packed *paquete){
 	int offset = 0;
 	t_appeared_pokemon *aux;
 
-	aux 			 = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
+	aux = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
 
 	memcpy(aux,mensaje+offset,sizeof(t_coordenadas));
 	offset += sizeof(t_coordenadas);
@@ -511,7 +511,7 @@ void _recibir_new_pokemon(void *mensaje,t_packed *paquete){
 	uint32_t _tamanio_string_pokemon;
 	t_new_pokemon *aux;
 
-	aux 			 = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));	
+	aux = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));	
 
 	memcpy(aux,mensaje+offset,sizeof(t_coordenadas)+sizeof(uint32_t));
 	offset += sizeof(t_coordenadas)+sizeof(uint32_t);
@@ -546,8 +546,7 @@ void _recibir_get_pokemon(void *mensaje,t_packed *paquete){
 	uint32_t _tamanio_string_pokemon;
 	t_get_pokemon* aux;
 
-	aux 			 = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
-	paquete->mensaje = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
+	aux = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 
 	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
 	offset += sizeof(uint32_t);

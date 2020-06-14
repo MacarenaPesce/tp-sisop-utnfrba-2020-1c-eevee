@@ -83,8 +83,8 @@ void esperar_mensajes(int socket_server){
 			printf("id_correlacional: %d  \n",paquete->id_correlacional);
 			printf("id_mensaje: %d \n",paquete->id_mensaje);
 			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
- 
-		}
+			free(paquete);
+ 		}
 		
 	}
 }
