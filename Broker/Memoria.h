@@ -36,6 +36,7 @@
 
 //--------------- ADMINISTRACION DE MEMORIA-------------------
 
+
 //Estructura para reservar la memoria inicial
 typedef struct{
     //int id_particion;
@@ -46,6 +47,10 @@ typedef struct{
     uint64_t timestamp;
     uint64_t last_time;    
 }t_bloque_memoria;
+
+
+t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_memoria); //LISTO
+t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes); //LISTO
 
 //********Funciones de Algoritmos de memoria************
 t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti); //LISTO

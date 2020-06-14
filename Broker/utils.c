@@ -1,43 +1,6 @@
 #include "utils.h"
 
-/*Dado el valor de memoria inicial, asigno un bloque para la memoria inicial y lo retorno*/
-t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_memoria){
-    
-    /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
-    void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
-    memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
-   
-    /* Genero el bloque de memoria inicial*/
-    t_bloque_memoria *bloque;
-    bloque = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
 
-    bloque->id = 0;
-    bloque->tamanio = tamanio_en_bytes;
-    bloque->esta_vacio = true;
-    bloque->payload = memoria_inicial;
-	bloque->timestamp = 0;
-	bloque->last_time = 0;
-
-  
-    /* Agrego el bloque a la lista */
-    list_add(lista_memoria,bloque);
-
-    /* Retorno la variable inicial para guardarla en la global */
-    return bloque;
-}
-
-/*Dado un tamaño de particion, devuelvo el bloque asignado y derivo segun el algoritmo de memoria 
-	Ya corri todos los algoritmos aca. 
-	Esta deberia ser la que tiene que llamar la cola de mensajes*/
-t_bloque_memoria* asignar_particion_memoria(int tamanio_en_bytes){
-    
-    //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
-    t_bloque_memoria* nuevaParticion;
-    //Asigno un bloque segun el algoritmo de memoria que utilicemos
-    nuevaParticion = algoritmo_de_memoria(tamanio_en_bytes);
-
-    return nuevaParticion;
-}
 
 /*Dado el tamaño de una particion, me fijo si puede alojarse a la primera 
 	o si hay que correr el algoritmo de eliminacion*/ 
@@ -75,6 +38,8 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
     t_bloque_memoria *bloque_restante;
 	t_bloque_memoria *bloque_inicial;
 
+    log_info(broker_logger, "Por particionar...");
+
     /* Obtengo el nodo del bloque a particionar por su indice */
     bloque_inicial = list_get(lista_memoria, indice_nodo_particionar);
 
@@ -100,6 +65,7 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 	bloque_inicial->timestamp = get_timestamp();
 	bloque_inicial->last_time = get_timestamp();
 
+    log_info(broker_logger, "Bloque particionado...");
 
     return bloque_inicial;
 }
@@ -170,6 +136,13 @@ void liberar_memoria_bloque(t_bloque_memoria* bloque){
 
 /* Seteo el bloque liberado en la lista, para que reemplace al que estaba ocupando espacio*/
 void settear_bloque_liberado_memoria(t_bloque_memoria* bloque, int indice){
+
+
+	return ;
+}
+
+/* Se encarga de realizar la compactacion en particiones dinamicas*/
+void compactar(){
 
 
 	return ;

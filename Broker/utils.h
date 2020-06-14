@@ -2,7 +2,6 @@
 #include "Herramientas_broker.h"
 #include "Contexto_broker.h"
 #include "Broker.h"
-//#include "utils.h"
 #include <Pokebola.h>
 
 #include <stdio.h>
@@ -30,8 +29,7 @@
 #include <arpa/inet.h>
 
 /* Las aclaraciones del uso de cada funcion estan en el archivo .c */
-t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_memoria);
-t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes);
+
 
 bool puede_alojarse(int tamanio_en_bytes);
 t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, int tamanio_msje);
@@ -40,6 +38,8 @@ int tamanio_a_alojar(int tamanio);
 
 void liberar_memoria_bloque(t_bloque_memoria* bloque, int indice); //FALTA SETEAR ESE BLOQUE VACIO EN EL LUGAR DEL ANTERIOR
 void settear_bloque_liberado_memoria(t_bloque_memoria* bloque, int indice); //EN PROCESO
+
+void compactar(); //empezando
 
 uint64_t get_timestamp();
 
