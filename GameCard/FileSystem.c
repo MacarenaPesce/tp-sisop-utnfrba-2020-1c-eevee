@@ -23,7 +23,7 @@ void crearFileSystemVacio() {
 
 void crearMetadataFs() {
 
-	cargarMetadataFs("gamecard.config");
+
 	int status = mkdir(rutas_fs->pathDirectorioMetadataFs, 0777); //analizar permisos
 
 	if (status == 0) {
@@ -315,7 +315,6 @@ void abrirBitmap() {
 
 	fstat(bitmap, &mystat);
 
-
 	char *bmap;
 	bmap = mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ, MAP_SHARED,
 			bitmap, 0);
@@ -324,10 +323,11 @@ void abrirBitmap() {
 
 	if (metadata_fs->cantidadBloques % 8 != 0){ bytesBitmap++;}
 
-	bitarray = bitarray_create_with_mode(bmap, bytesBitmap,LSB_FIRST);
+	bitarray = bitarray_create_with_mode(bmap, bytesBitmap,MSB_FIRST);
 
+	for (int i=1; i<=bitarray_get_max_bit(bitarray);i++){
 
-
+		 bitarray_clean_bit(bitarray,i);}
 
 	log_info(gameCard_logger,"abriendo bitmap");
 }
@@ -339,7 +339,7 @@ int obtenerPrimerBloqueLibre(){
 
 	log_info(gameCard_logger,"dame tamanio de bitarray: %d",bitarray_get_max_bit(bitarray));
 
-	for(int i; bitarray_get_max_bit(bitarray);i++){
+	for(int i=1; i<=bitarray_get_max_bit(bitarray);i++){
 
 		log_info(gameCard_logger,"pos del bit del bitarray",i);
 

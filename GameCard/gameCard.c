@@ -89,6 +89,7 @@ int  main () {
 	inicializar_archivo_de_configuracion ();
 
 	cargarRutasFs();
+	cargarMetadataFs("gamecard.config");
 	if ( noCumpleConRutasfs()){
 		log_info(gameCard_logger,"no existe el FileSytem requerido");
 		log_info(gameCard_logger,"Inicializando FileSystem requerido");
@@ -107,7 +108,7 @@ int  main () {
 
 	poke->pokemon="Picachu";
 	poke->coordenadas.posx=120;
-	poke->coordenadas.posx=7000;
+	poke->coordenadas.posy=7000;
 	poke->cantidad=1023;
 
 	crearPokemon(poke);
