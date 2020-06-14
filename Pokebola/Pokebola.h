@@ -160,7 +160,7 @@ t_packed* enviar_localized_pokemon(t_servidor* servidor, uint32_t id_mensaje, ui
 /**************************************************************************************/
 
 void _recuperar_mensaje(void *mensaje,t_packed *paquete);
-void _esperar_ack(int socket,t_packed* ack);
+t_packed* _esperar_ack(int socket);
 void _recibir_solicitud_suscripcion(void *mensaje,t_packed *paquete);
 void _recibir_localized_pokemon(void *mensaje,t_packed *paquete);
 void _recibir_get_pokemon(void *mensaje,t_packed *paquete);

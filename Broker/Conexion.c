@@ -4,6 +4,14 @@ extern t_list* cola_mensajes;
 
 //pthread_mutex_t mutex_queue_mensajes;
 
+void* print_operacion(t_mensaje_cola* mensaje){
+
+	printf("\n\n Mensaje: ");
+	printf("\n\n Cola: %d",mensaje->cola_de_mensajes);
+
+	return;
+}
+
 void iniciar_servidor(void){
 	int socket_servidor;
 
@@ -114,6 +122,8 @@ void* esperar_mensajes(void* cliente){
 void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 
 	int id_mensaje = agregar_mensaje_a_cola(paquete);
+
+	list_iterate(cola_mensajes,print_operacion);
 	
 	enviar_ack(socket_cliente,id_mensaje,-1);
 
@@ -151,3 +161,4 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 	return id_mensaje;
 
 }
+

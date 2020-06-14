@@ -45,11 +45,18 @@ int main(){
 	suscripcion.minutos_suscripcion = -1;
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
 
-	enviar_appeared_pokemon(&servidor, -1, -1, &appeared_pokemon);
-	enviar_new_pokemon(&servidor,-1,-1,&new_pokemon);
-	enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
-	enviar_get_pokemon(&servidor, -1, -1, &get_pokemon);
-	enviar_caught_pokemon(&servidor,-1,-1,&caught_pokemon);
+	t_packed* ack;
+
+	ack = enviar_appeared_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	free(ack);
+	ack = enviar_new_pokemon(&servidor,-1,-1,&new_pokemon);
+	free(ack);
+	ack = enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	free(ack);
+	ack = enviar_get_pokemon(&servidor, -1, -1, &get_pokemon);
+	free(ack);
+	ack = enviar_caught_pokemon(&servidor,-1,-1,&caught_pokemon);
+	free(ack);
 	
 	//int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_CATCH_POKEMON,&suscripcion);
 	

@@ -122,7 +122,8 @@ t_packed* recibir_mensaje(int sock){
 			printf("Error, operacion desconocida: %d\n",paquete->operacion);
 			break;
 	}
-
+	
+	free(mensaje);
 	return paquete;
 }
 
@@ -229,9 +230,7 @@ t_packed* enviar_mensaje_string(t_servidor* servidor, char* mensaje){
 	_eliminar_mensaje(paquete);
 
 	t_packed* ack;
-	ack = (t_packed*)malloc(sizeof(t_packed));
-	
-	_esperar_ack(socket, ack);
+	ack = _esperar_ack(socket);
 
 	cerrar_conexion(socket);
 
@@ -273,9 +272,8 @@ t_packed* enviar_appeared_pokemon(t_servidor* servidor,
 	_enviar_catch_o_appeared_pokemon(socket,id_mensaje,id_correlacional,COLA_APPEARED_POKEMON,appeared_pokemon);
 	
 	t_packed* ack;
-	ack = (t_packed*)malloc(sizeof(t_packed));
 	
-	_esperar_ack(socket, ack);
+	ack = _esperar_ack(socket);
 	
     cerrar_conexion(socket);
 
@@ -295,9 +293,7 @@ t_packed* enviar_catch_pokemon(t_servidor* servidor,
 	_enviar_catch_o_appeared_pokemon(socket,id_mensaje,id_correlacional,COLA_CATCH_POKEMON,catch_pokemon);
     
 	t_packed* ack;
-	ack = (t_packed*)malloc(sizeof(t_packed));
-	
-	_esperar_ack(socket, ack);
+	ack = _esperar_ack(socket);
 
 	cerrar_conexion(socket);
 
@@ -330,9 +326,7 @@ t_packed* enviar_new_pokemon(t_servidor* servidor,
 	_eliminar_mensaje(paquete);
 
 	t_packed* ack;
-	ack = (t_packed*)malloc(sizeof(t_packed));
-	
-	_esperar_ack(socket, ack);
+	ack = _esperar_ack(socket);
 
 	cerrar_conexion(socket);
 
@@ -362,9 +356,7 @@ t_packed* enviar_caught_pokemon(t_servidor* servidor,
 	_eliminar_mensaje(paquete);
 
 	t_packed* ack;
-	ack = (t_packed*)malloc(sizeof(t_packed));
-	
-	_esperar_ack(socket, ack);
+	ack = _esperar_ack(socket);
 
 	cerrar_conexion(socket);
 
@@ -395,9 +387,7 @@ t_packed* enviar_get_pokemon(t_servidor* servidor,
 	_eliminar_mensaje(paquete);
 
 	t_packed* ack;
-	ack = (t_packed*)malloc(sizeof(t_packed));
-	
-	_esperar_ack(socket, ack);
+	ack = _esperar_ack(socket);
 
 	cerrar_conexion(socket);
 
@@ -447,9 +437,7 @@ t_packed* enviar_localized_pokemon(t_servidor* servidor,
 	_eliminar_mensaje(paquete);
 
 	t_packed* ack;
-	ack = (t_packed*)malloc(sizeof(t_packed));
-	
-	_esperar_ack(socket, ack);
+	ack = _esperar_ack(socket);
 
 	cerrar_conexion(socket);*/
 
@@ -500,7 +488,6 @@ void _recibir_catch_o_appeared_pokemon(void *mensaje,t_packed *paquete){
 	t_appeared_pokemon *aux;
 
 	aux 			 = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
-	paquete->mensaje = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
 
 	memcpy(aux,mensaje+offset,sizeof(t_coordenadas));
 	offset += sizeof(t_coordenadas);
@@ -525,7 +512,6 @@ void _recibir_new_pokemon(void *mensaje,t_packed *paquete){
 	t_new_pokemon *aux;
 
 	aux 			 = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));	
-	paquete->mensaje = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
 
 	memcpy(aux,mensaje+offset,sizeof(t_coordenadas)+sizeof(uint32_t));
 	offset += sizeof(t_coordenadas)+sizeof(uint32_t);
@@ -607,27 +593,29 @@ void _recibir_localized_pokemon(void *mensaje,t_packed *paquete){
 	return;*/
 }
 
-void _esperar_ack(int socket, t_packed* ack){
+t_packed* _esperar_ack(int socket){
 
 	bool ack_obtenido = false;
+	t_packed* ack;
 
 	while(!ack_obtenido){
 		
 		ack = recibir_mensaje(socket);
 
 		if(ack != (t_packed*)-1){
-		/*	printf("\n\nACK Recibido:\n");
+			printf("\n\nACK Recibido:\n");
 			printf("operacion: %d \n",ack->operacion);
 			printf("cola_de_mensajes: %d \n",ack->cola_de_mensajes);
 			printf("id_correlacional: %d  \n",ack->id_correlacional);
 			printf("id_mensaje: %d \n",ack->id_mensaje);
-			printf("tamanio_payload: %d \n",ack->tamanio_payload);*/
+			printf("tamanio_payload: %d \n",ack->tamanio_payload);
 			ack_obtenido = true;
+	
 		}	
 
 	}
 
-	return;
+	return ack;
 	
 }
 
