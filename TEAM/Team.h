@@ -16,35 +16,19 @@
 #include "Interaccion_con_gameboy.h"
 #include "Interaccion_con_broker.h"
 
-
-void operar_con_appeared_pokemon(t_appeared_pokemon *);
+void operar_con_appeared_pokemon(t_pokemon *);
 void operar_con_localized_pokemon(t_localized_pokemon *);
 void operar_con_caught_pokemon(t_caught_pokemon *, uint32_t);
 void agregar_pokemon_a_mapa(t_pokemon *);
-void mostrar_lo_que_hay_en_la_lista_de_objetivos();
-void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*, t_list*);
-t_list* obtener_pokemones(t_list*,t_list*, uint32_t);
 void definir_objetivo_global();
-void cargar_objetivos(t_list*, t_list*);
-void agregar_objetivo(char*, uint32_t, t_list*);
-void mostrar_lo_que_hay_en_lista_entrenadores();
-void localizar_entrenadores_en_mapa();
-void crear_hilo_entrenador(t_entrenador *, void*funcion_a_ejecutar(t_entrenador*));
-void * jugar_con_el_entrenador(t_entrenador *);
-void seleccionar_el_entrenador_mas_cercano_al_pokemon();
-void meter_entrenadores_en_ready();
-void chequear_si_hay_pokemones_nuevos();
-void planificar();
-bool esta_mas_cerca(t_entrenador*, t_entrenador*, t_pokemon*);
-int distancia_a_pokemon(t_entrenador*, t_pokemon*);
-t_objetivo * buscar_pokemon_por_especie(t_list*, char*);
-void mostrar_pokemones_de_entrenador(t_list*, t_list* , int);
-bool objetivo_personal_cumplido(t_entrenador*);
-bool objetivo_global_cumplido();
-void sacar_de_objetivos_pokemones_atrapados(t_list*, t_list*);
-t_entrenador* buscar_entrenador_por_objetivo_actual(t_catch_pokemon*);
-void actualizar_mapa_y_entrenador(t_catch_pokemon*, t_entrenador*);
-void agregar_pokemon_a_mapa(t_pokemon *);
+void * jugar_con_el_entrenador(t_entrenador * entrenador);
+void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* entrenador);
+void atrapar(t_entrenador * entrenador);
 void bloquear_entrenador(t_entrenador*);
+void consumir_un_ciclo_de_cpu();
+void llegar_a_el_pokemon(t_entrenador *);
+void * planificar();
+void localizar_entrenadores_en_mapa();
+void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*, t_list*);
 
 #endif /* TEAM_H_ */
