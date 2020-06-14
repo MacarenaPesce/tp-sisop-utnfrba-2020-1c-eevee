@@ -16,7 +16,7 @@ void operar_con_appeared_pokemon(t_pokemon * pokemon){
 	agregar_pokemon_a_mapa(pokemon);
 	log_info(team_logger, "Agregue el pokemon al mapa\n");
 
-	//sem_post(&hay_un_pokemon_nuevo);
+	sem_post(&hay_un_pokemon_nuevo);
 }
 
 void operar_con_localized_pokemon(t_localized_pokemon * mensaje){
@@ -202,18 +202,17 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	list_clean(lista_pokemones_de_entrenador);
 
 	/*CREO UN HILO POR ENTRENADOR*/
-	pthread_t hilo;
-	pthread_create(&hilo,NULL,(void*)jugar_con_el_entrenador,(void*)entrenador);
+	pthread_t entre;
+	pthread_create(&entre,NULL,(void*)jugar_con_el_entrenador,(void*)entrenador);
 }
 
 void * jugar_con_el_entrenador(t_entrenador * entrenador){
-
+	log_info(team_logger, "Soy el entrenador de id: %d.", entrenador->id);
 	sem_wait(&array_semaforos[entrenador->id]);
 	log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
 	llegar_a_el_pokemon(entrenador);
 	atrapar(entrenador);
-
 }
 
 void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* entrenador){
@@ -272,7 +271,6 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 
 	int broker_socket = conectar_a_server(ip_broker, "6009");
 
-
 	if(broker_socket < 0){
 		log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 		log_info(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
@@ -295,9 +293,10 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 		} else {
 			bloquear_entrenador(entrenador);
 			log_info(team_logger,"Entrenador de id %d bloqueado", entrenador->id);
+			planificar();
 
 			if(entrenador->razon_de_bloqueo == ESPERANDO_POKEMON){
-				//planificar();
+				planificar();
 			}
 		}
 
@@ -321,13 +320,14 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 }
 
 void bloquear_entrenador(t_entrenador* entrenador){
-	list_add(lista_bloqueados, (void*)entrenador);
 	if(entrenador->cant_maxima_objetivos == 0) {
+		list_add(lista_bloqueados, (void*)entrenador);
 		entrenador->razon_de_bloqueo = CANTIDAD_MAXIMA_ALCANZADA;
 		log_info(team_logger,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones", entrenador->id);
 		log_info(team_logger_oficial,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones", entrenador->id);
 	} else {
 		entrenador->razon_de_bloqueo = ESPERANDO_POKEMON;
+		list_add(lista_bloqueados_esperando, (void*)entrenador);
 		log_info(team_logger, "El entrenador %i esta bloqueado esperando que aparezca un pokemon", entrenador->id);
 		log_info(team_logger_oficial, "El entrenador %i esta bloqueado esperando que aparezca un pokemon", entrenador->id);
 	}
@@ -393,9 +393,11 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 
 	seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 	obtener_proximo_ejecucion();
+
 }
 
 void crear_hilo_para_planificar(){
+	sem_wait(&entrenadores_ubicados);
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)planificar, NULL);
 }
@@ -409,6 +411,7 @@ int main(){
 	inicializar_listas();//sacar los leaks
 	definir_objetivo_global();//sacar los leaks
 	localizar_entrenadores_en_mapa();
+	sem_post(&entrenadores_ubicados);
 
 	//Crea el socket servidor para recibir mensajes de gameboy
 	int serv_socket = iniciar_servidor(PUERTO);

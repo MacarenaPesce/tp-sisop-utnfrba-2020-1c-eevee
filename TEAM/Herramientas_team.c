@@ -51,6 +51,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&gameboy_paquetes_mutex, NULL);
 	sem_init(&hay_un_pokemon_nuevo, 0, 0);
 	sem_init(&llego_gameboy, 0, 0);
+	sem_init(&entrenadores_ubicados, 0, 0);
 
 }
 

@@ -45,3 +45,4 @@ t_list* lista_mapa;
 t_list* lista_pokemon_atrapado;
 t_list* mensajes;
 t_list* paquetes_que_llegan_de_gameboy;
+t_list* lista_bloqueados_esperando;
