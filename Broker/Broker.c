@@ -21,7 +21,9 @@ int main(){
 
 		list_add(cache_mensajes->colas,aux_crear_cola_mensajes);
 
-		pthread_create(&hilo_sender[i],NULL,sender_suscriptores,aux_crear_cola_mensajes);		
+		pthread_create(&hilo_sender[i],NULL,sender_suscriptores,aux_crear_cola_mensajes);	
+
+		pthread_detach(hilo_sender[i]);	
 		
 	}
 
