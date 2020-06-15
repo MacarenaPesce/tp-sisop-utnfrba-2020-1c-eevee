@@ -150,11 +150,20 @@ void crearBitmap() {
 
 		char* bitmapData = string_new();
 
-		bitmapData= string_repeat("0",blocksChar);
+		bitmapData=string_repeat('0',blocksChar);
 
-		fwrite(bitmapData,string_length(bitmapData),blocksChar,bitmapArch);
 
-		log_info(gameCard_logger,"bitmap de texto copiado %s",bitmapData);
+		log_info(gameCard_logger,"aca veo bitmapData: %s",bitmapData);
+
+		//log_info(gameCard_logger,"quiero ver el cero %s",string_itoa(cero));
+		//string_append(&bitmapData,(string_repeat(string_itoa(0),blocksChar)));
+
+		//log_info(gameCard_logger,"el cero como texto  %s",bitmapData);
+
+
+		fwrite(&bitmapData,sizeof(char),string_length(bitmapData),bitmapArch);
+
+
 		free(bitmapData);
 		fclose(bitmapArch);
 
