@@ -24,7 +24,6 @@ int conectar_a_server(char* ip, char* puerto){
 
 	int new_socket = socket(server_info->ai_family, server_info->ai_socktype, server_info->ai_protocol);
 	if(new_socket < 0){
-		printf("\n\nerror en socket pokebola conectar a server");
 		return -1;
 	}
 
@@ -33,7 +32,6 @@ int conectar_a_server(char* ip, char* puerto){
 
 	int res_connect = connect(new_socket, server_info->ai_addr, server_info->ai_addrlen);
 	if(res_connect < 0){
-		printf("\n\nerror en connect pokebola conectar a server");
 		freeaddrinfo(server_info);
 		close(new_socket);
 		return -1;
@@ -417,7 +415,6 @@ t_packed* enviar_get_pokemon(t_servidor* servidor,
     int socket =  conectar_a_server(servidor->ip,servidor->puerto);
 
 	if(socket == -1){
-		printf("\n\nError al enviar get pokemon: broken pipe");
 		return (t_packed *) -1;
 	}
 
