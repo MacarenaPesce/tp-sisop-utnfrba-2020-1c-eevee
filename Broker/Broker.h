@@ -4,6 +4,9 @@
 #include "Contexto_broker.h"
 #include "Herramientas_broker.h"
 #include <Pokebola.h>
+#include <semaphore.h>
+#include <pthread.h>
+#include "ColaMensajes.h"
 //#include "memoria.h"
 
 int espacio_total;
@@ -11,19 +14,42 @@ int espacio_vacio;
 int q_bloques_ocupados;
 int q_bloques_vacios;
 float* primer_bloque;
-t_list* lista_memoria;
+t_list* lista_memoria; 
+
+
+static pthread_mutex_t mutex_queue_mensajes = PTHREAD_MUTEX_INITIALIZER;
 
 typedef struct{
-    uint32_t id;
-    uint32_t tipo_mensaje;
-    uint32_t id_correlacion;
+    uint32_t id_mensaje __attribute__((packed));
+    uint32_t id_correlacional __attribute__((packed));
+    enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
     t_list* lista_suscriptores_enviados;
     t_list* lista_suscriptores_ack;
-}t_mensaje;
+    void* mensaje;
+}t_mensaje_cola;
 
-void recibir_mensaje_de_texto(int, int);
-void iniciar_servidor(void);
-void* esperar_cliente(void* socket_servidor);
-void* ObtenerMensaje(void* cliente);
-void* esperar_mensajes(void* cliente);
+typedef struct{
+ t_list* mensajes;
+ t_list* colas;
+ int* proximo_id_mensaje;
+}t_cache_colas;
+
+typedef struct{
+    int id;
+    int cliente;
+}t_envio_pendiente;
+
+typedef struct{
+    enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
+    t_list* envios_pendientes;
+    t_list* suscriptores;
+    sem_t* producciones; 
+}t_cola_mensajes;
+
+t_cache_colas* cache_mensajes;
+
+t_cola_mensajes* crear_cola_mensajes(int cola_mensajes);
+void* sender_suscriptores(t_cola_mensajes* cola);
+void eliminar_envio_pendiente(t_envio_pendiente* pendiente);
+
 #endif

@@ -1,156 +1,34 @@
 #include "Broker.h"
 
-
-void iniciar_servidor(void){
-	int socket_servidor;
-
-    struct addrinfo hints, *servinfo, *p;
-
-    memset(&hints, 0, sizeof(hints));
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = AI_PASSIVE;
-
-    getaddrinfo("127.0.0.1", "6009", &hints, &servinfo);
-
-    for (p=servinfo; p != NULL; p = p->ai_next){
-        if ((socket_servidor = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1)
-            continue;
-
-        if (bind(socket_servidor, p->ai_addr, p->ai_addrlen) == -1) {
-            close(socket_servidor);
-            continue;
-        }
-        break;
-    }
-
-	listen(socket_servidor, SOMAXCONN);
-
-    freeaddrinfo(servinfo);
-
-	pthread_t hilo_sockets;
-	
-	pthread_create(&hilo_sockets,NULL,esperar_cliente,socket_servidor);
-}
-
-void* esperar_cliente(void* socket_servidor){
-	while(1){
-		int* int_socket_servidor = (int*) socket_servidor;
-
-		struct sockaddr_in dir_cliente;
-
-		int tam_direccion = sizeof(struct sockaddr_in);
-
-		int socket_cliente = accept(socket_servidor, (void*) &dir_cliente, &tam_direccion);
-
-		//Iniciar un hilo por cliente
-		if(socket_cliente != -1){
-
-			pthread_t hilo_cliente;
-
-			void *cliente = (void*)malloc(sizeof(int));
-
-			cliente = socket_cliente;
-
-			pthread_create(&hilo_cliente,NULL,esperar_mensajes,cliente);
-
-			logger(escribir_loguear,l_trace,"\nSe aceptó un nuevo cliente");
-
-		}
-	
-	}
-	//return NULL;
-
-}
-
-void* esperar_mensajes(void* cliente){
-
-	int socket_cliente = (int*)cliente;
-
-	while(1){
-		//Creo un paquete y recibo el mensaje
-		t_packed* paquete;
-		paquete = recibir_mensaje(socket_cliente);
-
-		if(paquete != -1){
-			//Esto me devuelve el paquete con todos los datos
-			/* El nro de operacion y cola de mensajes indican el 
-			tipo de estructura que contiene el paquete */
-
-			printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
-			printf("operacion: %d \n",paquete->operacion);
-			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
-			printf("id_correlacional: %d  \n",paquete->id_correlacional);
-			printf("id_mensaje: %d \n",paquete->id_mensaje);
-			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
-
-			switch(paquete->operacion){
-				case ENVIAR_MENSAJE:
-					agregar_mensaje_a_queue(paquete,socket_cliente);
-					break;
-				
-				case SUSCRIBIRSE_A_COLA:
-					recibir_solicitud_suscripcion(paquete,socket_cliente);
-					break;
-
-				case ACK:
-					recibir_ack(paquete);
-					break;
-				
-				default:
-					printf("Error, operacion desconocida: %d\n",paquete->operacion);
-					break;
-			}
-
-		}
-		
-	}
-	
-}
-
-void agregar_mensaje_a_queue(t_packed *paquete,int socket_cliente){
-
-	enviar_ack(socket_cliente,123,-1);
-	
-	switch(paquete->cola_de_mensajes){
-
-		case COLA_NEW_POKEMON:;
-			/* Genero un puntero de ese tipo y lo inicializo */
-			t_new_pokemon* pkmn;
-			pkmn =(t_new_pokemon*)malloc(sizeof(t_new_pokemon));
-
-			/* Apunto a los datos del mensaje */
-			pkmn = paquete->mensaje;
-
-			/* Ya puedo usar mi copia de la estructura enviada*/
-			if(paquete->tamanio_payload > 0){
-				printf("posx: %d \n",pkmn->coordenadas.posx);
-				printf("posy: %d \n",pkmn->coordenadas.posy);
-				printf("cantidad: %d \n",pkmn->cantidad);
-				printf("pokemon: %s \n",pkmn->pokemon);
-			}
-
-			break;
-
-	}
-
-	/*Libero la memoria del paquete*/
-	eliminar_mensaje(paquete);
-	
-}
-
-void recibir_solicitud_suscripcion(void *paquete,int socket_cliente){
-	enviar_ack(socket_cliente,123,-1);
-}
-
-void recibir_ack(void *paquete,int socket_cliente){
-	//enviar_ack(socket_cliente,123,-1);
-}
-
 int main(){
 
-	inicializar_logger();
+	cache_mensajes = (t_cache_colas*)malloc(sizeof(t_cache_colas));
+	cache_mensajes->mensajes = list_create();
+	cache_mensajes->colas = list_create();
+	cache_mensajes->proximo_id_mensaje = 0;
+
+	t_cola_mensajes* aux_crear_cola_mensajes; 
+
+	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
+
+	for(int i = COLA_APPEARED_POKEMON; i <= COLA_LOCALIZED_POKEMON; i++){
+
+		aux_crear_cola_mensajes = crear_cola_mensajes(i);
+
+		list_add(cache_mensajes->colas,aux_crear_cola_mensajes);
+
+		pthread_create(&hilo_sender[i],NULL,sender_suscriptores,aux_crear_cola_mensajes);
+		
+	}
+
+	/*for(int i = COLA_APPEARED_POKEMON; i <= COLA_LOCALIZED_POKEMON; i++){
+
+		pthread_join(&hilo_sender[i],NULL);
+		
+	}*/
+
 	inicializar_archivo_de_configuracion();
+	
 	configurar_signals();
 
 	iniciar_servidor();
@@ -162,4 +40,118 @@ int main(){
 	while(true){
 	
 	}
+}
+
+t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
+
+	t_cola_mensajes* cola_mensaje; 
+	cola_mensaje = (t_cola_mensajes*)malloc(sizeof(t_cola_mensajes));
+
+	sem_t* producciones;
+	producciones = (sem_t*)malloc(sizeof(sem_t));
+
+	sem_init(producciones, 0, 0); 	
+
+	cola_mensaje->cola_de_mensajes = cola_mensajes;
+	cola_mensaje->envios_pendientes = list_create();
+	cola_mensaje->suscriptores = list_create();
+	cola_mensaje->producciones = producciones;
+
+	//list_add(cola_mensaje->suscriptores,123);
+	//list_add(cola_mensaje->suscriptores,234);
+
+	return cola_mensaje;
+
+}
+
+void* sender_suscriptores(t_cola_mensajes* cola){
+
+	t_mensaje_cola* mensaje;
+
+	t_envio_pendiente* envio_pendiente;
+
+	while(1){
+
+		sem_wait(cola->producciones);	
+
+		pthread_mutex_lock(&mutex_queue_mensajes);	
+
+		printf("\n\nLos pendientes tienen %d mensajes",(cola->envios_pendientes)->elements_count);
+		
+		envio_pendiente = list_get(cola->envios_pendientes,0);
+
+		bool filtro_cola(t_mensaje_cola* mensaje){
+			return mensaje->id_mensaje == envio_pendiente->id;
+		}
+
+		mensaje = list_find(cache_mensajes->mensajes,filtro_cola);
+
+		int envio = enviar_mensaje_a_suscriptor(envio_pendiente->id,
+												mensaje->id_correlacional, 
+												cola->cola_de_mensajes, 
+												envio_pendiente->cliente, 
+												mensaje->mensaje);
+
+		if(envio != -1){			
+			printf("\nEnviado correctamente mensaje de id %d de cola %d al cliente %d!!!",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
+			printf("\nLos pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
+		}else{
+			//QUE HAGO SI NO PUDE ENVIAR EL MENSAJE CORRECTAMENTE AL SUSCRIPTOR????
+			printf("\nFallo el envio del mensaje de id %d de cola %d al cliente %d!!! Se perdió :c",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
+		}
+
+		list_remove_and_destroy_element(cola->envios_pendientes,0,eliminar_envio_pendiente);
+
+		pthread_mutex_unlock(&mutex_queue_mensajes);
+	
+	}
+
+	return NULL;
+}
+
+void eliminar_envio_pendiente(t_envio_pendiente* pendiente){
+	free(pendiente);
+	return NULL;
+}
+
+int enviar_mensaje_a_suscriptor(int id_mensaje,
+								int id_correlacional, 
+								enum COLA_DE_MENSAJES cola_de_mensajes, 
+								int cliente, 
+								void* mensaje){
+	int send_status = -1;
+
+	switch(cola_de_mensajes){
+
+		case COLA_CATCH_POKEMON:
+			send_status = distribuir_catch_pokemon(cliente,id_mensaje,id_correlacional,(t_catch_pokemon*)mensaje);
+			break;
+ 
+		case COLA_APPEARED_POKEMON:
+			send_status = distribuir_appeared_pokemon(cliente,id_mensaje,id_correlacional,(t_appeared_pokemon*)mensaje);
+			break;
+
+		case COLA_NEW_POKEMON:
+			send_status = distribuir_new_pokemon(cliente,id_mensaje,id_correlacional,(t_new_pokemon*)mensaje);
+			break;
+		
+		case COLA_CAUGHT_POKEMON:
+			send_status = distribuir_caught_pokemon(cliente,id_mensaje,id_correlacional,(t_caught_pokemon*)mensaje);
+			break;
+		
+		case COLA_GET_POKEMON:
+			send_status = distribuir_get_pokemon(cliente,id_mensaje,id_correlacional,(t_get_pokemon*)mensaje);
+			break;
+
+		case COLA_LOCALIZED_POKEMON:
+			//send_status = enviar_localized_pokemon(cliente,id_mensaje,id_correlacional,(t_localized_pokemon*)mensaje);
+			break;			
+
+		default:
+			printf("Error, cola de mensajes desconocida: %d\n",cola_de_mensajes);
+			break;
+	}
+
+	return send_status;
+
 }
