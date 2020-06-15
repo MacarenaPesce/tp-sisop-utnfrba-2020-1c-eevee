@@ -152,14 +152,12 @@ void crearBitmap() {
 
 		bitmapData=string_repeat('0',blocksChar);
 
-
 		log_info(gameCard_logger,"aca veo bitmapData: %s",bitmapData);
 
 		//log_info(gameCard_logger,"quiero ver el cero %s",string_itoa(cero));
 		//string_append(&bitmapData,(string_repeat(string_itoa(0),blocksChar)));
 
 		//log_info(gameCard_logger,"el cero como texto  %s",bitmapData);
-
 
 		fwrite(&bitmapData,sizeof(char),string_length(bitmapData),bitmapArch);
 
@@ -280,9 +278,42 @@ void agregarAparicionPokemonABloque(int bytesAcopiar, char* linea){
 
 void crearPokemon(t_new_pokemon* pokemon){
 
+	if (obtenerPrimerBloqueLibre()<-1){
+		log_info(gameCard_logger,"no hay bloques libres, no se puede copiar pokemon");}
+	else{
+		log_info(gameCard_logger,"preparando creacion del pokemon");
+	}
+
+
+	int espacio=metadata_fs->tamanioBLoques;
 	char* lineaPokemon= string_new();
 
-	string_append(&lineaPokemon,(string_itoa(pokemon->coordenadas.posx)));
+
+	char* posx= string_itoa(pokemon->coordenadas.posx);
+	char* posy=string_itoa(pokemon->coordenadas.posy);
+	char* guion="-";
+	char* igual="=";
+	char* cantidad=string_itoa(pokemon->cantidad);
+
+	if(espacio<=string_length(posx)){
+
+		string_append(&lineaPokemon,posx);
+		espacio=espacio-string_length(posx);
+	}
+	else {perror("no hay espacio para copiar");}
+
+	if(espacio<=string_length(guion)){
+
+		string_append(&lineaPokemon,guion);
+		espacio=espacio-string_length(guion);
+		}
+
+	if(espacio<=string_length(posy)){
+
+		string_append(&lineaPokemon,posy);
+		espacio=espacio-string_length(posy);
+		}
+
 	string_append(&lineaPokemon,"-");
 	string_append(&lineaPokemon,(string_itoa(pokemon->coordenadas.posy)));
 	string_append(&lineaPokemon,"=");
@@ -394,6 +425,8 @@ int obtenerPrimerBloqueLibre(){
 			}
 
 	}
+
+	return -1;
 }
 
 
