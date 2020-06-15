@@ -194,7 +194,6 @@ void agregar_mensaje_a_pendientes(int cola_mensajes,int id_mensaje){
 
 }
 
-
 void* print_operacion(t_mensaje_cola* mensaje){
 
 	printf("\n\n Mensaje: ");

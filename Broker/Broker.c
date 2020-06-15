@@ -119,23 +119,23 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 	switch(cola_de_mensajes){
 
 		case COLA_CATCH_POKEMON:
-			//send_status = enviar_catch_pokemon(cliente,id_mensaje,id_correlacional,(t_catch_pokemon*)mensaje);
+			send_status = distribuir_catch_pokemon(cliente,id_mensaje,id_correlacional,(t_catch_pokemon*)mensaje);
 			break;
  
 		case COLA_APPEARED_POKEMON:
-			//send_status = enviar_appeared_pokemon(cliente,id_mensaje,id_correlacional,(t_appeared_pokemon*)mensaje);
+			send_status = distribuir_appeared_pokemon(cliente,id_mensaje,id_correlacional,(t_appeared_pokemon*)mensaje);
 			break;
 
 		case COLA_NEW_POKEMON:
-			//send_status = enviar_new_pokemon(cliente,id_mensaje,id_correlacional,(t_new_pokemon*)mensaje);
+			send_status = distribuir_new_pokemon(cliente,id_mensaje,id_correlacional,(t_new_pokemon*)mensaje);
 			break;
 		
 		case COLA_CAUGHT_POKEMON:
-			//send_status = enviar_caught_pokemon(cliente,id_mensaje,id_correlacional,(t_caught_pokemon*)mensaje);
+			send_status = distribuir_caught_pokemon(cliente,id_mensaje,id_correlacional,(t_caught_pokemon*)mensaje);
 			break;
 		
 		case COLA_GET_POKEMON:
-			//send_status = enviar_get_pokemon(cliente,id_mensaje,id_correlacional,(t_get_pokemon*)mensaje);
+			send_status = distribuir_get_pokemon(cliente,id_mensaje,id_correlacional,(t_get_pokemon*)mensaje);
 			break;
 
 		case COLA_LOCALIZED_POKEMON:

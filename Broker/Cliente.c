@@ -1,5 +1,4 @@
-#include <Pokebola.h>
-
+#include "Cliente.h"
 
 int main(){
 
@@ -47,33 +46,40 @@ int main(){
 
 	t_packed* ack;
 
-	int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_CATCH_POKEMON,&suscripcion);
-	sleep(3);
+	int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_GET_POKEMON,&suscripcion);
+	
+	pthread_t hilo_espera_mensajes;
+	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
 
-	ack = enviar_appeared_pokemon(&servidor, -1, -1, &appeared_pokemon);
+/*
+	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
-	ack = enviar_new_pokemon(&servidor,-1,-1,&new_pokemon);
+	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
 	free(ack);
-	ack = enviar_catch_pokemon(&servidor, -1, -1, &appeared_pokemon);
+	ack = enviar_catch_pokemon(&servidor,-1, &appeared_pokemon);
+	free(ack);*/
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
-	ack = enviar_get_pokemon(&servidor, -1, -1, &get_pokemon);
-	free(ack);
-	ack = enviar_caught_pokemon(&servidor,-1,-1,&caught_pokemon);
-	free(ack);
+/*	ack = enviar_caught_pokemon(&servidor,-1,&caught_pokemon);
+	free(ack);*/
 	
 	
 	//enviar_mensaje_string(socket, "hola_broker");	
 	 
 	/*esperar_mensajes(socket_get_pokemon);*/
 
+	while(1){
+
+	}
+
 }
 
 
-void esperar_mensajes(int socket_server){
+void esperar_mensajes(int* socket_server){
 	while(1){
 		//Creo un paquete y recibo el mensaje
 		t_packed* paquete;
-		paquete = recibir_mensaje(socket_server);
+		paquete = recibir_mensaje(*socket_server);
 
 		if(paquete != (t_packed*)-1){
 			//Esto me devuelve el paquete con todos los datos

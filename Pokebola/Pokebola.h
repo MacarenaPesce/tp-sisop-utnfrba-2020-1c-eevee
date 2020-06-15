@@ -150,12 +150,22 @@ void logger(int tipo_esc, int tipo_log, const char* mensaje, ...);
 
 void enviar_ack(int socket,uint32_t id_mensaje, uint32_t id_correlacional);
 t_packed* enviar_mensaje_string(t_servidor* servidor, char* mensaje);
-t_packed* enviar_appeared_pokemon(t_servidor* servidor, uint32_t id_mensaje, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );
-t_packed* enviar_catch_pokemon(t_servidor* servidor, uint32_t id_mensaje, uint32_t id_correlacional, t_catch_pokemon* catch_pokemon);
-t_packed* enviar_new_pokemon(t_servidor* servidor, uint32_t id_mensaje, uint32_t id_correlacional, t_new_pokemon* new_pokemon);
-t_packed* enviar_caught_pokemon(t_servidor* servidor, uint32_t id_mensaje, uint32_t id_correlacional, t_caught_pokemon* caught_pokemon);
-t_packed* enviar_get_pokemon(t_servidor* servidor, uint32_t id_mensaje, uint32_t id_correlacional, t_get_pokemon* get_pokemon);
-t_packed* enviar_localized_pokemon(t_servidor* servidor, uint32_t id_mensaje, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
+t_packed* enviar_appeared_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );
+t_packed* enviar_catch_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_catch_pokemon* catch_pokemon);
+t_packed* enviar_new_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_new_pokemon* new_pokemon);
+t_packed* enviar_caught_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_caught_pokemon* caught_pokemon);
+t_packed* enviar_get_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_get_pokemon* get_pokemon);
+t_packed* enviar_localized_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
+t_packed* distribuir_mensaje_string(int socket, char* mensaje);
+
+/**************************************************************************************/
+
+int distribuir_appeared_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );
+int distribuir_catch_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_catch_pokemon* catch_pokemon);
+int distribuir_new_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_new_pokemon* new_pokemon);
+int distribuir_caught_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_caught_pokemon* caught_pokemon);
+int distribuir_get_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_get_pokemon* get_pokemon);
+int distribuir_localized_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
 
 /**************************************************************************************/
 
