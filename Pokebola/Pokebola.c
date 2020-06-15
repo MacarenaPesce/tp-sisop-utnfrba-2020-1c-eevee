@@ -269,7 +269,12 @@ t_packed* enviar_appeared_pokemon(t_servidor* servidor,
 
 	if(socket == -1) return (t_packed *)-1;
 
-	distribuir_appeared_pokemon(socket,-1,id_correlacional,appeared_pokemon);
+	int send_status = distribuir_appeared_pokemon(socket,-1,id_correlacional,appeared_pokemon);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		return (t_packed *) -1;
+	} 
 	
 	t_packed* ack;
 	
@@ -304,7 +309,12 @@ t_packed* enviar_catch_pokemon(t_servidor* servidor,
 
 	if(socket == -1) return (t_packed *)-1;
 
-	distribuir_catch_pokemon(socket,-1,id_correlacional,catch_pokemon);
+	int send_status = distribuir_catch_pokemon(socket,-1,id_correlacional,catch_pokemon);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		return (t_packed *) -1;
+	} 
     
 	t_packed* ack;
 	ack = _esperar_ack(socket);
@@ -332,7 +342,12 @@ t_packed* enviar_new_pokemon(t_servidor* servidor,
 
 	if(socket == -1) return (t_packed *)-1;
 
-	distribuir_new_pokemon(socket,-1,id_correlacional,new_pokemon);
+	int send_status = distribuir_new_pokemon(socket,-1,id_correlacional,new_pokemon);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		return (t_packed *) -1;
+	} 
 
 	t_packed* ack;
 	ack = _esperar_ack(socket);
@@ -376,7 +391,12 @@ t_packed* enviar_caught_pokemon(t_servidor* servidor,
 
 	if(socket == -1) return (t_packed *) -1;
 
-	distribuir_caught_pokemon(socket,-1,id_correlacional,caught_pokemon);
+	int send_status = distribuir_caught_pokemon(socket,-1,id_correlacional,caught_pokemon);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		return (t_packed *) -1;
+	} 
 
 	t_packed* ack;
 	ack = _esperar_ack(socket);

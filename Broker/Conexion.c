@@ -31,7 +31,12 @@ void iniciar_servidor(void){
             continue;
 		}
 
-        if (bind_status = bind(socket_servidor, p->ai_addr, p->ai_addrlen) == -1) {
+		int flag = 1;  
+		if (-1 == setsockopt(socket_servidor, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag))) {  
+			printf("setsockopt fail");  
+		}  
+
+        if ((bind_status = bind(socket_servidor, p->ai_addr, p->ai_addrlen)) == -1) {
 			printf("\n\nError en bind broker: %d",bind_status);
 			printf("\nCodigo de error: %d \n", errno);
             close(socket_servidor);
@@ -43,25 +48,30 @@ void iniciar_servidor(void){
 
 	listen(socket_servidor, SOMAXCONN);
 
+	int * socket = (int*)malloc(sizeof(int));
+
+	memcpy(socket,&socket_servidor,sizeof(int));
+
 	pthread_t hilo_sockets;
-	
-	pthread_create(&hilo_sockets,NULL,esperar_cliente,(void*)&socket_servidor);
 
-	freeaddrinfo(servinfo);
-
-	pthread_join(hilo_sockets,NULL);
+	pthread_create(&hilo_sockets,NULL,esperar_cliente,(void*)socket);
+	pthread_detach(hilo_sockets);
 	
 }
 
-void* esperar_cliente(void* socket_servidor){
+void* esperar_cliente(void* socket){
+
 	printf("\n\n10) Hilo del servidor cargado correctamente!!!");
-	while(server_status != ENDING){
+
+	while(1){
 
 		struct sockaddr_in dir_cliente;
 
+		int socket_servidor = *((int*)socket);
+
 		int tam_direccion = sizeof(struct sockaddr_in);
 
-		int socket_cliente = accept(*(int*)socket_servidor, (void*) &dir_cliente,(socklen_t*) &tam_direccion);
+		int socket_cliente = accept(socket_servidor, (void*) &dir_cliente,(socklen_t*) &tam_direccion);
 
 		//Iniciar un hilo por cliente
 		if(socket_cliente != -1){
@@ -74,8 +84,6 @@ void* esperar_cliente(void* socket_servidor){
 
 			pthread_create(&hilo_cliente,NULL,esperar_mensajes,cliente);
 
-			printf("\nSe aceptó un nuevo cliente");
-
 			pthread_join(hilo_cliente,NULL);
 
 		}
@@ -87,6 +95,8 @@ void* esperar_cliente(void* socket_servidor){
 }
 
 void* esperar_mensajes(void* cliente){
+
+	printf("\nSe aceptó un nuevo cliente");
 
 	int socket_cliente = *(int*)cliente;
 
@@ -130,6 +140,8 @@ void* esperar_mensajes(void* cliente){
 			}
 
 			break;
+		}else{
+			printf("se recibió un paquete invalido -1");
 		}
 	}
 
