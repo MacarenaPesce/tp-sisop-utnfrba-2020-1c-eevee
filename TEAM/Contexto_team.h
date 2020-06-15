@@ -156,6 +156,11 @@ typedef struct {
 	t_pokemon pokemon;
 }t_mensaje_guardado;
 
+typedef struct {
+	int cola;
+	void *(*operacion)(void*);
+}t_suscripcion_a_broker;
+
 t_entrenador * entrenador_en_ejecucion;
 
 #endif /* CONTEXTO_TEAM_H_ */

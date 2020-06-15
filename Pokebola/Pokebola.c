@@ -543,7 +543,7 @@ int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes,
 
 	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
 
-	if(socket == -1) return -1;
+	if(socket == -1) return (t_packed*)-1;
 
 	t_packed* paquete;
 	paquete = _crear_paquete(SUSCRIBIRSE_A_COLA);
