@@ -34,7 +34,7 @@ typedef struct{
 }t_cache_colas;
 
 typedef struct{
-    uint32_t id __attribute__((packed));
+    int id __attribute__((packed));
     int cliente __attribute__((packed));
 }t_envio_pendiente;
 
@@ -42,10 +42,12 @@ typedef struct{
     enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
     t_list* envios_pendientes;
     t_list* suscriptores;
+    sem_t* producciones; 
 }t_cola_mensajes;
 
 t_cache_colas* cache_mensajes;
 
 t_cola_mensajes* crear_cola_mensajes(int cola_mensajes);
+void* sender_suscriptores(t_cola_mensajes* cola);
 
 #endif

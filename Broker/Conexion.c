@@ -4,13 +4,7 @@ extern t_cache_colas* cache_mensajes;
 
 //pthread_mutex_t mutex_queue_mensajes;
 
-void* print_operacion(t_mensaje_cola* mensaje){
 
-	printf("\n\n Mensaje: ");
-	printf("\n\n Cola: %d",mensaje->cola_de_mensajes);
-
-	return;
-}
 
 void iniciar_servidor(void){
 	int socket_servidor;
@@ -129,7 +123,7 @@ void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 
 	int id_mensaje = agregar_mensaje_a_cola(paquete);
 
-	list_iterate(cache_mensajes->mensajes,print_operacion);
+	//list_iterate(cache_mensajes->mensajes,print_operacion);
 	
 	enviar_ack(socket_cliente,id_mensaje,-1);
 
@@ -164,9 +158,47 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 
 	int id_mensaje = list_add(cache_mensajes->mensajes,(void*)mensaje);
 
+	agregar_mensaje_a_pendientes(mensaje->cola_de_mensajes, id_mensaje);
+
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
 	return id_mensaje;
 
+}
+
+void agregar_mensaje_a_pendientes(int cola_mensajes,int id_mensaje){
+	
+	bool filtro_cola(t_cola_mensajes* cola){
+		return cola->cola_de_mensajes == cola_mensajes;
+	}
+
+	t_cola_mensajes* cola = list_find(cache_mensajes->colas, filtro_cola);
+
+	void agregar_mensaje_pendiente(int* suscriptor){
+		
+		t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
+		
+		envio_pendiente->id = id_mensaje;
+		envio_pendiente->cliente = suscriptor;
+
+		printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
+
+		list_add(cola->envios_pendientes,(void*)envio_pendiente);
+
+		sem_post(cola->producciones);
+
+	}
+
+	list_iterate(cola->suscriptores,agregar_mensaje_pendiente);
+
+}
+
+
+void* print_operacion(t_mensaje_cola* mensaje){
+
+	printf("\n\n Mensaje: ");
+	printf("\n\n Cola: %d",mensaje->cola_de_mensajes);
+
+	return;
 }
 
