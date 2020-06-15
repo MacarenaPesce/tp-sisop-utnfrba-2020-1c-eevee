@@ -12,19 +12,19 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 
 	t_list* lista_aux;
 	lista_aux = list_duplicate(lista_entrenadores);
-	list_add_all(lista_aux, lista_bloqueados);
-	t_pokemon* objetivo_actual;
+	list_add_all(lista_aux, lista_bloqueados_esperando);
+
 	int i = 0;
 	bool mas_cerca;
 	t_entrenador* entrenador_mas_cercano;
 	t_entrenador* otro_entrenador;
 	entrenador_mas_cercano = list_get(lista_aux, i);
 	int cantidad_entrenadores = list_size(lista_aux);
+
 	while(i < cantidad_entrenadores){
 		i++;
 		if(i == cantidad_entrenadores){
-			objetivo_actual = pokemon;
-			entrenador_mas_cercano->objetivo_actual = objetivo_actual;
+			entrenador_mas_cercano->objetivo_actual = pokemon;
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
 			sacar_entrenador_de_lista_pid(lista_entrenadores, entrenador_mas_cercano->id);
 			break;
@@ -36,6 +36,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 		mas_cerca = esta_mas_cerca(entrenador_mas_cercano, otro_entrenador, pokemon);
 		if(!mas_cerca){
 			entrenador_mas_cercano = otro_entrenador;
+			//list_add(lista_listos, (void*)entrenador_mas_cercano);
 		}
 	}
 
@@ -46,8 +47,6 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	} else {
 		log_info(team_logger,"El entrenador %d paso a la lista de Listos por ser el mas cercano a %s\n", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
 	}
-
-	//free(entrenador_mas_cercano);
 }
 
 bool esta_mas_cerca(t_entrenador* entrenador1, t_entrenador* entrenador2, t_pokemon* pokemon){
@@ -115,23 +114,14 @@ int estimar_entrenador(t_entrenador * entrenador){
 }
 
 void obtener_proximo_ejecucion(void){
-	/*
-	 * Para planificar a los distintos entrenadores se utilizarán los algoritmos FIFO, Round Robin y Shortest
-job first con y sin desalojo. Para este último algoritmo se desconoce la próxima rafaga, por lo que se
-deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos los
-entrenadores será la misma y deberá poder ser modificable por archivo de configuración
-	 */
+	/*Para planificar a los distintos entrenadores se utilizarán los algoritmos FIFO, Round Robin y Shortest job first con y sin desalojo. Para este último algoritmo
+	 *se desconoce la próxima rafaga, por lo que se deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos los entrenadore
+	 *se s será la misma y deberá poder ser modificable por archivo de configuración */
 
-	t_entrenador * ejec_ant;
 	entrenador_en_ejecucion = NULL;
 	t_list * lista_aux;
 
-	ejec_ant = entrenador_en_ejecucion;
-
-	/* SJF debe copiar la lista de listos a una lista auxiliar,
-	 * ordenarla por estimacion mas corta, tomar el primero, destruir la lista auxiliar.
-	 * Eso para ambos casos
-	 */
+	/* SJF debe copiar la lista de listos a una lista auxiliar, ordenarla por estimacion mas corta, tomar el primero, destruir la lista auxiliar. Eso para ambos casos */
 
 	lista_aux = list_duplicate(lista_listos);
 	log_info(team_logger, "Planificando por FIFO");
@@ -140,9 +130,7 @@ entrenadores será la misma y deberá poder ser modificable por archivo de confi
 		//ordenar_lista_estimacion(lista_aux);
 	//}
 
-	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion
-	 * Por default hace fifo
-	 */
+	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
 
 	entrenador_en_ejecucion = list_remove(lista_aux,0);
 
@@ -153,7 +141,7 @@ entrenadores será la misma y deberá poder ser modificable por archivo de confi
 	}
 	else{
 		entrenador_en_ejecucion = NULL;
-		log_info(team_logger, "No hay entrenadores para ejecutar! Todo en orden...");
+		log_info(team_logger, "No hay entrenadores para ejecutar!");
 	}
 
 	list_destroy(lista_aux);

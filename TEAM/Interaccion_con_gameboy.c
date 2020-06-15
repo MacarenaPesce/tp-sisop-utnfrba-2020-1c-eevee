@@ -10,11 +10,12 @@
 void escuchar_mensajes_entrantes(int new_client_sock){
 
 	log_info(team_logger, "Gameboy conectado, esperando mensajes...");
+	sem_wait(&llego_gameboy);
 	t_packed * paquete = recibir_mensaje(new_client_sock);
 
 	recibir_appeared_pokemon_desde_gameboy(paquete->mensaje);
 
-	sem_post(&hay_un_pokemon_nuevo);
+	//sem_post(&hay_un_pokemon_nuevo);
 
 	close(new_client_sock);
 	free(paquete);
@@ -30,10 +31,12 @@ void atender_a_gameboy(int serv_socket){
 
 		//Acepta la nueva conexion
 		int new_client_sock = accept(serv_socket, (struct sockaddr *)&client_addr, &client_len);
+		sem_post(&llego_gameboy);
 
 		log_info(team_logger, "Se aceptó un nuevo gameboy");
 
 		escuchar_mensajes_entrantes(new_client_sock);
+		//sem_post(&hay_un_pokemon_nuevo);
 	}
 }
 

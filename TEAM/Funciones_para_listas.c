@@ -45,7 +45,7 @@ void inicializar_listas(){
 	lista_mapa = list_create();
 	pokemones_ordenada = list_create();
 	mensajes = list_create();
-	paquetes_que_llegan_de_gameboy = list_create();
+	lista_bloqueados_esperando = list_create();
 
 }
 

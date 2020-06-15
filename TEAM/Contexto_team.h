@@ -90,10 +90,12 @@ extern t_list* lista_mapa;
 extern t_list* lista_pokemon_atrapado;
 extern t_list* mensajes;
 extern t_list* paquetes_que_llegan_de_gameboy;
+extern t_list* lista_bloqueados_esperando;
 
 sem_t hay_un_pokemon_nuevo;
 sem_t * array_semaforos;
 sem_t llego_gameboy;
+sem_t entrenadores_ubicados;
 pthread_mutex_t mapa_mutex;
 pthread_mutex_t gameboy_paquetes_mutex;
 
