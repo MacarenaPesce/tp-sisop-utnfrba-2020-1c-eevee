@@ -43,7 +43,6 @@ void enviar_get(){
 			h++;
 		}
 		free(get_pokemon);
-		free(ack);
 	}
 
 	free(servidor);
@@ -69,7 +68,7 @@ void hacer_intento_de_reconexion(){
 }
 
 void * enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon(){
-	t_servidor servidor;
+	/*t_servidor servidor;
 	servidor.ip = ip_broker;
 	servidor.puerto = "6009";
 
@@ -105,5 +104,5 @@ void * enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon(){
 		enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon();
 	}
 
-	return NULL;
+	return NULL;*/
 }
