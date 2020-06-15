@@ -1,5 +1,7 @@
 #include "Herramientas_broker.h"
 
+extern enum SERVER_STATUS server_status; 
+
 void inicializar_logger(){
 	broker_logger = log_create("broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
 	logger(escribir_loguear,l_info,"Hi, bienvenido a Broker ");

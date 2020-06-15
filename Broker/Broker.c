@@ -2,6 +2,12 @@
 
 int main(){
 
+	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
+
+	pthread_mutex_lock(&mutex_queue_mensajes);
+
+	printf("\n1) Inicializando cache de mensajes... \n");
+
 	cache_mensajes = (t_cache_colas*)malloc(sizeof(t_cache_colas));
 	cache_mensajes->mensajes = list_create();
 	cache_mensajes->colas = list_create();
@@ -9,27 +15,27 @@ int main(){
 
 	t_cola_mensajes* aux_crear_cola_mensajes; 
 
-	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
-
 	for(int i = COLA_APPEARED_POKEMON; i <= COLA_LOCALIZED_POKEMON; i++){
 
 		aux_crear_cola_mensajes = crear_cola_mensajes(i);
 
 		list_add(cache_mensajes->colas,aux_crear_cola_mensajes);
 
-		pthread_create(&hilo_sender[i],NULL,sender_suscriptores,aux_crear_cola_mensajes);
+		pthread_create(&hilo_sender[i],NULL,sender_suscriptores,aux_crear_cola_mensajes);		
 		
 	}
 
-	/*for(int i = COLA_APPEARED_POKEMON; i <= COLA_LOCALIZED_POKEMON; i++){
+	printf("\n2) Cache de mensajes lista!!! ");
 
-		pthread_join(&hilo_sender[i],NULL);
-		
-	}*/
+	pthread_mutex_unlock(&mutex_queue_mensajes);
 
+	printf("\n\n3) Inicializando archivo de configuracion...\n\n");
 	inicializar_archivo_de_configuracion();
+	printf("\n4) Configuraciones cargadas correctamente!!!");
 	
+	printf("\n\n5) Configurando signals...");
 	configurar_signals();
+	printf("\n\n6) Signals configuradas correctamente!!!");
 
 	iniciar_servidor();
 
@@ -37,8 +43,14 @@ int main(){
 	int tamanio_memoria_inicial = 8000;
 
 	//primer_bloque = AsignarMemoriaInicial(tamanio_memoria_inicial,lista_memoria);
-	while(true){
+	while(server_status != ENDING){
 	
+	}
+
+	for(int i = COLA_APPEARED_POKEMON; i <= COLA_LOCALIZED_POKEMON; i++){
+
+		pthread_join(&hilo_sender[i],NULL);
+		
 	}
 }
 
@@ -64,13 +76,15 @@ t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
 
 }
 
-void* sender_suscriptores(t_cola_mensajes* cola){
+void* sender_suscriptores(void* cola_mensajes){
+
+	t_cola_mensajes* cola = (t_cola_mensajes*)cola_mensajes;
 
 	t_mensaje_cola* mensaje;
 
 	t_envio_pendiente* envio_pendiente;
 
-	while(1){
+	while(server_status != ENDING){
 
 		sem_wait(cola->producciones);	
 
@@ -80,8 +94,8 @@ void* sender_suscriptores(t_cola_mensajes* cola){
 		
 		envio_pendiente = list_get(cola->envios_pendientes,0);
 
-		bool filtro_cola(t_mensaje_cola* mensaje){
-			return mensaje->id_mensaje == envio_pendiente->id;
+		bool filtro_cola(void* mensaje){
+			return ((t_mensaje_cola*)mensaje)->id_mensaje == envio_pendiente->id;
 		}
 
 		mensaje = list_find(cache_mensajes->mensajes,filtro_cola);
@@ -109,9 +123,9 @@ void* sender_suscriptores(t_cola_mensajes* cola){
 	return NULL;
 }
 
-void eliminar_envio_pendiente(t_envio_pendiente* pendiente){
+void eliminar_envio_pendiente(void* pendiente){
 	free(pendiente);
-	return NULL;
+	return;
 }
 
 int enviar_mensaje_a_suscriptor(int id_mensaje,
@@ -153,5 +167,31 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 	}
 
 	return send_status;
+
+}
+
+void enviar_mensajes_cacheados_a_nuevo_suscriptor(t_cola_mensajes* cola,int cliente){
+
+	bool filtro_cola(void* mensaje){
+		return ((t_mensaje_cola*)mensaje)->cola_de_mensajes == cola->cola_de_mensajes;
+	}
+
+	void agregar_mensaje_pendiente(void* mensaje){
+		
+		t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
+		
+		envio_pendiente->id = ((t_mensaje_cola*)mensaje)->id_mensaje;
+		envio_pendiente->cliente = cliente;
+
+		printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
+		list_add(cola->envios_pendientes,(void*)envio_pendiente);
+
+		sem_post(cola->producciones);
+
+	}
+
+	t_list* mensajes_cacheados = list_filter(cache_mensajes->mensajes, filtro_cola);
+
+	list_iterate(mensajes_cacheados,agregar_mensaje_pendiente);	
 
 }

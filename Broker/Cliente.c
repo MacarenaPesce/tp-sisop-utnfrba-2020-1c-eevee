@@ -2,13 +2,14 @@
 
 int main(){
 
+	printf("voy a suscribirme\n");
 /* 
 	Creo un server donde voy a mandar mensajes (Broker)
 */
 
 	t_servidor servidor;
 	servidor.ip = "127.0.0.1";
-	servidor.puerto = "6009";
+	servidor.puerto = "32587";
 
 /* 
 	Para enviar solamente tengo que crear la estructura
@@ -44,12 +45,15 @@ int main(){
 	suscripcion.minutos_suscripcion = -1;
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
 
-	t_packed* ack;
+	t_packed* ack;	
 
 	int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_GET_POKEMON,&suscripcion);
 	
 	pthread_t hilo_espera_mensajes;
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
+
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
+	free(ack);
 
 /*
 	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
@@ -57,21 +61,20 @@ int main(){
 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
 	free(ack);
 	ack = enviar_catch_pokemon(&servidor,-1, &appeared_pokemon);
-	free(ack);*/
+	free(ack);
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
-/*	ack = enviar_caught_pokemon(&servidor,-1,&caught_pokemon);
-	free(ack);*/
+	ack = enviar_caught_pokemon(&servidor,-1,&caught_pokemon);
+	free(ack);
+*/
 	
 	
 	//enviar_mensaje_string(socket, "hola_broker");	
 	 
 	/*esperar_mensajes(socket_get_pokemon);*/
 
-	while(1){
 
-	}
-
+//while(1){};
 }
 
 
