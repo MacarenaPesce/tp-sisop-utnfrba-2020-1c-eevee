@@ -9,10 +9,10 @@
 #define FUNCIONES_DE_CONEXION_H_
 
 #include "Contexto_team.h"
+#include "Herramientas_team.h"
 
 int crear_listen_socket(char*);
 int iniciar_servidor();
-int conectar_broker();
 
 
 #endif /* FUNCIONES_DE_CONEXION_H_ */

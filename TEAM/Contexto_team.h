@@ -49,7 +49,7 @@
 
 #define NO_SOCKET -1
 #define IP "127.0.0.2"
-#define PUERTO "5002"
+#define PUERTO "32500"
 #define MAX_CLIENTES 20
 
 extern char** posiciones_entrenadores;
@@ -89,15 +89,16 @@ extern t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo gl
 extern t_list* lista_mapa;
 extern t_list* lista_pokemon_atrapado;
 extern t_list* mensajes;
-extern t_list* paquetes_que_llegan_de_gameboy;
+extern t_list* pokemones_bloqueados;
 extern t_list* lista_bloqueados_esperando;
+extern t_list* lista_bloqueados_cant_max_alcanzada;
 
 sem_t hay_un_pokemon_nuevo;
 sem_t * array_semaforos;
-sem_t llego_gameboy;
+//sem_t llego_gameboy;
 sem_t entrenadores_ubicados;
 pthread_mutex_t mapa_mutex;
-pthread_mutex_t gameboy_paquetes_mutex;
+pthread_mutex_t llego_gameboy;
 
 //Estructura de un entrenador
 enum ESTADO{
@@ -131,6 +132,7 @@ typedef struct {
 	t_list *pokemones;
 	uint32_t cant_maxima_objetivos;
 	t_pokemon* objetivo_actual;
+	char * pokemon_bloqueo;
 	float estimacion_real;//sjf
 	float estimacion_actual;//sjf
 	float estimacion_anterior;//sjf

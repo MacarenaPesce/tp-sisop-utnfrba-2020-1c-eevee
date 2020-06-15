@@ -41,7 +41,9 @@ void enviar_mensaje_por_cada_pokemon_requerido(int broker_socket){
 
 		t_get_pokemon* get_pokemon = malloc(sizeof(t_get_pokemon));
 		get_pokemon->pokemon = objetivo->especie;
+
 		enviar_get_pokemon(broker_socket, -1, -1, get_pokemon);
+
 		log_info(team_logger, "Enviado pedido de get pokemon para esta especie: %s", objetivo->especie);
 		free(get_pokemon);
 		h++;
@@ -52,6 +54,7 @@ void enviar_mensaje_por_cada_pokemon_requerido(int broker_socket){
 		if(paquete1->operacion == ACK){
 			log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
 		}
+
 
 		//TODO GUARDAR EL ID
 	}
@@ -110,6 +113,8 @@ void * enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon(){
 		hacer_intento_de_reconexion();
 		enviar_mensaje_de_suscripcion_a_cola_appeared_pokemon();
 	}
+
+	return NULL;
 }
 
 void * enviar_mensaje_de_suscripcion_a_cola_localized_pokemon(){
@@ -147,6 +152,8 @@ void * enviar_mensaje_de_suscripcion_a_cola_localized_pokemon(){
 		hacer_intento_de_reconexion();
 		enviar_mensaje_de_suscripcion_a_cola_localized_pokemon();
 	}
+
+	return NULL;
 }
 
 void * enviar_mensaje_de_suscripcion_a_cola_caught_pokemon(){
@@ -171,7 +178,7 @@ void * enviar_mensaje_de_suscripcion_a_cola_caught_pokemon(){
 		t_packed * paquete2 = recibir_mensaje(broker_socket);
 		if(paquete2->operacion == ENVIAR_MENSAJE){
 			if(paquete2->cola_de_mensajes == COLA_CAUGHT_POKEMON){
-				operar_con_caught_pokemon(paquete2->mensaje);
+				//operar_con_caught_pokemon(paquete2->mensaje);
 			}
 		}
 	}
@@ -182,4 +189,6 @@ void * enviar_mensaje_de_suscripcion_a_cola_caught_pokemon(){
 		hacer_intento_de_reconexion();
 		enviar_mensaje_de_suscripcion_a_cola_caught_pokemon();
 	}
+
+	return NULL;
 }

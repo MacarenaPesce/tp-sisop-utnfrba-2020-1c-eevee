@@ -44,5 +44,6 @@ t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global
 t_list* lista_mapa;
 t_list* lista_pokemon_atrapado;
 t_list* mensajes;
-t_list* paquetes_que_llegan_de_gameboy;
+t_list* pokemones_bloqueados;
 t_list* lista_bloqueados_esperando;
+t_list* lista_bloqueados_cant_max_alcanzada;

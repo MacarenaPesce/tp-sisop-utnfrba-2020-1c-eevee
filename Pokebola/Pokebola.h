@@ -182,7 +182,7 @@ tp_caught_pokemon recibir_caught_pokemon(int, int);
 void enviar_modo_suscriptor(uint32_t, uint32_t, int);
 tp_modo_suscriptor recibir_modo_suscriptor(int, int);
 
-/**************************************************************************************/
+*************************************************************************************/
 
 
 
