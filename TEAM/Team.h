@@ -28,7 +28,7 @@ void * jugar_con_el_entrenador(t_entrenador *);
 void actualizar_mapa_y_entrenador(t_catch_pokemon*, t_entrenador*);
 void chequear_si_fue_cumplido_el_objetivo_global();
 void hacer_procedimiento_para_atrapar_default(t_catch_pokemon*, t_entrenador *);
-void hacer_procedimiento_para_atrapar_pokemon_con_broker(int, t_catch_pokemon*, t_entrenador *);
+void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_packed * ack, t_entrenador *);
 void atrapar(t_entrenador *);
 void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list *);
 void bloquear_entrenador(t_entrenador*);

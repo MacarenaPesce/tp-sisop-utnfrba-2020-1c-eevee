@@ -167,7 +167,7 @@ int distribuir_caught_pokemon(int socket, uint32_t id_mensaje, uint32_t id_corre
 int distribuir_get_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_get_pokemon* get_pokemon);
 int distribuir_localized_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
 
-*************************************************************************************/
+/*************************************************************************************/
 
 void _recuperar_mensaje(void *mensaje,t_packed *paquete);
 t_packed* _esperar_ack(int socket);

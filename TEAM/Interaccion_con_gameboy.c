@@ -40,7 +40,6 @@ void * atender_a_gameboy(void * serv_socket){
 		log_info(team_logger, "Se aceptó un nuevo gameboy");
 
 		escuchar_mensajes_entrantes(new_client_sock);
-
 	}
 	return NULL;
 }

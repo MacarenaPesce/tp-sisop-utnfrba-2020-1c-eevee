@@ -291,16 +291,7 @@ void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_
 	}
 }
 
-void hacer_procedimiento_para_atrapar_pokemon_con_broker(int broker_socket, t_catch_pokemon* catch_pokemon, t_entrenador * entrenador){
-	enviar_catch_pokemon(broker_socket, -1, -1, catch_pokemon);
-	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
-
-	//Recibo ACK
-	t_packed * paquete1 = recibir_mensaje(broker_socket);
-
-	if(paquete1->operacion == ACK){
-		log_info(team_logger, "Confirmada recepcion del pedido de catch para el pokemon: %s\n", entrenador->objetivo_actual->especie);
-	}
+void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_packed * ack, t_entrenador * entrenador){
 
 	//TODO RECIBIR ID Y GUARDARLO
 	//TODO BLOQUEAR AL ENTRENADOR CON SEMAFOROS Y CAMBIARLE EL ESTADO A BLOQUEADO
@@ -318,12 +309,22 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	catch_pokemon->coordenadas.posx = entrenador->objetivo_actual->posx;
 	catch_pokemon->coordenadas.posy = entrenador->objetivo_actual->posy;
 
-	int broker_socket = conectar_a_server(ip_broker, "6009");
+	t_servidor * servidor = malloc(sizeof(t_servidor));
+	servidor->ip = ip_broker;
+	servidor->puerto = "6009";
 
-	if(broker_socket < 0){
+	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
+	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
+
+	if(ack == (t_packed*) -1){
 		hacer_procedimiento_para_atrapar_default(catch_pokemon, entrenador);
 	}else{
-		hacer_procedimiento_para_atrapar_pokemon_con_broker(broker_socket, catch_pokemon, entrenador);
+		//Recibo ACK
+		if(ack->operacion == ACK){
+			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", catch_pokemon->pokemon);
+			log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
+			hacer_procedimiento_para_atrapar_pokemon_con_broker(ack, entrenador);
+		}
 	}
 
 	free(catch_pokemon);
@@ -451,7 +452,7 @@ int main(){
 	int serv_socket = iniciar_servidor(PUERTO);
 
 	//Crea el socket cliente para conectarse al broker
-	//enviar_get();
+	enviar_get();
 
 	//convertirse_en_suscriptor_global_del_broker();
 	crear_hilo_para_planificar();
