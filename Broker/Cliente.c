@@ -47,6 +47,9 @@ int main(){
 
 	t_packed* ack;
 
+	int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_CATCH_POKEMON,&suscripcion);
+	sleep(3);
+
 	ack = enviar_appeared_pokemon(&servidor, -1, -1, &appeared_pokemon);
 	free(ack);
 	ack = enviar_new_pokemon(&servidor,-1,-1,&new_pokemon);
@@ -58,7 +61,6 @@ int main(){
 	ack = enviar_caught_pokemon(&servidor,-1,-1,&caught_pokemon);
 	free(ack);
 	
-	//int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_CATCH_POKEMON,&suscripcion);
 	
 	//enviar_mensaje_string(socket, "hola_broker");	
 	 

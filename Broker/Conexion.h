@@ -17,9 +17,10 @@ void* ObtenerMensaje(void* cliente);
 void* esperar_mensajes(void* cliente);
 
 void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente);
-void recibir_solicitud_suscripcion(void *paquete,int socket_cliente);
-void recibir_ack(void *paquete,int socket_cliente);
+void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente);
+void recibir_ack(t_packed *paquete,int socket_cliente);
 int agregar_mensaje_a_cola(t_packed* paquete);
+void agregar_suscriptor_a_cola(int cola_de_mensajes, int cliente);
 
 
 #endif /* HILOS_BROKER_H_ */

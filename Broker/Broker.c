@@ -57,9 +57,9 @@ t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
 	cola_mensaje->suscriptores = list_create();
 	cola_mensaje->producciones = producciones;
 
+
 	list_add(cola_mensaje->suscriptores,123);
 	list_add(cola_mensaje->suscriptores,234);
-
 
 	return cola_mensaje;
 
@@ -67,12 +67,28 @@ t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
 
 void* sender_suscriptores(t_cola_mensajes* cola){
 
+	t_mensaje_cola* mensaje;
+
+	t_envio_pendiente* envio_pendiente;
+
 	while(1){
 
-		sem_wait(cola->producciones);
+		sem_wait(cola->producciones);	
 
-		printf("Enviando mensaje de cola %d !!!",cola->cola_de_mensajes);
+		pthread_mutex_lock(&mutex_queue_mensajes);	
 
+		printf("\n\nLos pendientes tienen %d mensajes",(cola->envios_pendientes)->elements_count);
+		envio_pendiente = list_take_and_remove(cola->envios_pendientes,1)->head->data;
+
+		printf("\nEnviando mensaje de id %d de cola %d al cliente %d!!!",(int)envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
+		printf("\nLos pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
+
+		mensaje = list_get(cache_mensajes->mensajes,envio_pendiente->id);
+
+		//send
+
+		pthread_mutex_unlock(&mutex_queue_mensajes);
+	
 	}
 
 	return NULL;

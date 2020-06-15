@@ -34,8 +34,8 @@ typedef struct{
 }t_cache_colas;
 
 typedef struct{
-    int id __attribute__((packed));
-    int cliente __attribute__((packed));
+    int id;
+    int cliente;
 }t_envio_pendiente;
 
 typedef struct{
