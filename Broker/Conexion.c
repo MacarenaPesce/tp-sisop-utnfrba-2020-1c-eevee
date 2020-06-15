@@ -1,14 +1,19 @@
 #include "Conexion.h"
 
 extern t_cache_colas* cache_mensajes;
+extern enum SERVER_STATUS server_status; 
 
 //extern pthread_mutex_t mutex_queue_mensajes;
 
 
 
 void iniciar_servidor(void){
-	int socket_servidor;
 
+	printf("\n\n7) Iniciando servidor...");
+	
+	int socket_servidor;
+	int bind_status;
+	
     struct addrinfo hints, *servinfo, *p;
 
     memset(&hints, 0, sizeof(hints));
@@ -16,38 +21,47 @@ void iniciar_servidor(void){
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
 
-    getaddrinfo("127.0.0.1", "6009", &hints, &servinfo);
+    getaddrinfo("127.0.0.1", "32587", &hints, &servinfo);
 
     for (p=servinfo; p != NULL; p = p->ai_next){
-        if ((socket_servidor = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1)
-            continue;
+		printf("\n\n8) Intentando bindear sever...");
 
-        if (bind(socket_servidor, p->ai_addr, p->ai_addrlen) == -1) {
+        if ((socket_servidor = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1){
+			printf("\n\nError en socket broker");
+            continue;
+		}
+
+        if (bind_status = bind(socket_servidor, p->ai_addr, p->ai_addrlen) == -1) {
+			printf("\n\nError en bind broker: %d",bind_status);
+			printf("\nCodigo de error: %d \n", errno);
             close(socket_servidor);
             continue;
         }
+		printf("\n\n9) Server bindeado correctamente!!!");
         break;
     }
 
 	listen(socket_servidor, SOMAXCONN);
 
-    freeaddrinfo(servinfo);
-
 	pthread_t hilo_sockets;
 	
-	pthread_create(&hilo_sockets,NULL,esperar_cliente,(void*)socket_servidor);
+	pthread_create(&hilo_sockets,NULL,esperar_cliente,(void*)&socket_servidor);
+
+	freeaddrinfo(servinfo);
 
 	pthread_join(hilo_sockets,NULL);
+	
 }
 
 void* esperar_cliente(void* socket_servidor){
-	while(1){
+	printf("\n\n10) Hilo del servidor cargado correctamente!!!");
+	while(server_status != ENDING){
 
 		struct sockaddr_in dir_cliente;
 
 		int tam_direccion = sizeof(struct sockaddr_in);
 
-		int socket_cliente = accept((int)socket_servidor, (void*) &dir_cliente,(socklen_t*) &tam_direccion);
+		int socket_cliente = accept(*(int*)socket_servidor, (void*) &dir_cliente,(socklen_t*) &tam_direccion);
 
 		//Iniciar un hilo por cliente
 		if(socket_cliente != -1){
@@ -78,14 +92,16 @@ void* esperar_mensajes(void* cliente){
 
 	//Creo un paquete y recibo el mensaje
 	t_packed* paquete;
-	paquete = recibir_mensaje(socket_cliente);
 
-	if(paquete != (t_packed*)-1){
-		//Esto me devuelve el paquete con todos los datos
-		/* El nro de operacion y cola de mensajes indican el 
-		tipo de estructura que contiene el paquete */
+	while(1){
+		paquete = recibir_mensaje(socket_cliente);
 
-		{
+		if(paquete != (t_packed*)-1){
+			//Esto me devuelve el paquete con todos los datos
+			/* El nro de operacion y cola de mensajes indican el 
+			tipo de estructura que contiene el paquete */
+
+			
 			printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
 			printf("operacion: %d \n",paquete->operacion);
 			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
@@ -93,29 +109,30 @@ void* esperar_mensajes(void* cliente){
 			printf("id_mensaje: %d \n",paquete->id_mensaje);
 			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
 			if(paquete->operacion == 1)printf("\n id_cliente: %d",socket_cliente);
-		}
-
-		switch(paquete->operacion){
-			case ENVIAR_MENSAJE:
-				recibir_mensaje_de_colas(paquete,socket_cliente);
-				break;
 			
-			case SUSCRIBIRSE_A_COLA:
-				recibir_solicitud_suscripcion(paquete,socket_cliente);
-				break;
 
-			case ACK:
-				recibir_ack(paquete,socket_cliente);
-				break;
-			
-			default:
-				printf("Error, operacion desconocida: %d\n",paquete->operacion);
-				break;
+			switch(paquete->operacion){
+				case ENVIAR_MENSAJE:
+					recibir_mensaje_de_colas(paquete,socket_cliente);
+					break;
+				
+				case SUSCRIBIRSE_A_COLA:
+					recibir_solicitud_suscripcion(paquete,socket_cliente);
+					break;
+
+				case ACK:
+					recibir_ack(paquete,socket_cliente);
+					break;
+				
+				default:
+					printf("Error, operacion desconocida: %d\n",paquete->operacion);
+					break;
+			}
+
+			break;
 		}
-
 	}
 
-	pthread_exit(NULL);
 	return NULL;
 	
 }
@@ -157,7 +174,7 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 	mensaje->id_correlacional = paquete->id_correlacional;
 	mensaje->mensaje = paquete->mensaje;
 
-	*cache_mensajes->proximo_id_mensaje++;
+	cache_mensajes->proximo_id_mensaje++;
 
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
@@ -173,18 +190,18 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 
 void agregar_mensaje_a_pendientes(int cola_mensajes,int id_mensaje){
 	
-	bool filtro_cola(t_cola_mensajes* cola){
-		return cola->cola_de_mensajes == cola_mensajes;
+	bool filtro_cola(void* cola){
+		return ((t_cola_mensajes*)cola)->cola_de_mensajes == cola_mensajes;
 	}
 
 	t_cola_mensajes* cola = list_find(cache_mensajes->colas, filtro_cola);
 
-	void agregar_mensaje_pendiente(int* suscriptor){
+	void agregar_mensaje_pendiente(void* suscriptor){
 		
 		t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
 		
 		envio_pendiente->id = id_mensaje;
-		envio_pendiente->cliente = suscriptor;
+		envio_pendiente->cliente = *(int*)suscriptor;
 
 		printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
 		list_add(cola->envios_pendientes,(void*)envio_pendiente);
@@ -197,56 +214,32 @@ void agregar_mensaje_a_pendientes(int cola_mensajes,int id_mensaje){
 
 }
 
-void* print_operacion(t_mensaje_cola* mensaje){
+void* print_operacion(void* mensaje){
 
 	printf("\n\n Mensaje: ");
-	printf("\n\n Cola: %d",mensaje->cola_de_mensajes);
+	printf("\n\n Cola: %d",((t_mensaje_cola*)mensaje)->cola_de_mensajes);
 
-	return;
+	return NULL;
 }
 
 void agregar_suscriptor_a_cola(int cola_de_mensajes, int cliente){
 	
+	int* id_cliente = (int*)malloc(sizeof(int));
+	*id_cliente = cliente;
 	
-	bool filtro_cola(t_cola_mensajes* cola){
-		return cola->cola_de_mensajes == cola_de_mensajes;
+	bool filtro_cola(void* cola){
+		return ((t_cola_mensajes*)cola)->cola_de_mensajes == cola_de_mensajes;
 	}
 
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
 	t_cola_mensajes* cola = list_find(cache_mensajes->colas, filtro_cola);
 
-	list_add(cola->suscriptores,cliente);
+	list_add(cola->suscriptores,id_cliente);
 
-	enviar_mensajes_cacheados_a_nuevo_suscriptor(cola);
+	enviar_mensajes_cacheados_a_nuevo_suscriptor(cola,cliente);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
 	return;
-}
-
-void enviar_mensajes_cacheados_a_nuevo_suscriptor(t_cola_mensajes* cola,int cliente){
-
-	bool filtro_cola(t_mensaje_cola* mensaje){
-		return mensaje->cola_de_mensajes == cola->cola_de_mensajes;
-	}
-
-	void agregar_mensaje_pendiente(t_mensaje_cola* mensaje){
-		
-		t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
-		
-		envio_pendiente->id = mensaje->id_mensaje;
-		envio_pendiente->cliente = cliente;
-
-		printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
-		list_add(cola->envios_pendientes,(void*)envio_pendiente);
-
-		sem_post(cola->producciones);
-
-	}
-
-	t_list* mensajes_cacheados = list_filter(cache_mensajes->mensajes, filtro_cola);
-
-	list_iterate(mensajes_cacheados,agregar_mensaje_pendiente);	
-
 }
