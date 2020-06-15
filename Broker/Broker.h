@@ -49,5 +49,6 @@ t_cache_colas* cache_mensajes;
 
 t_cola_mensajes* crear_cola_mensajes(int cola_mensajes);
 void* sender_suscriptores(t_cola_mensajes* cola);
+void eliminar_envio_pendiente(t_envio_pendiente* pendiente);
 
 #endif

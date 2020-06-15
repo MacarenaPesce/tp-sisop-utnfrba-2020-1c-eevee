@@ -41,7 +41,6 @@ int main(){
 	}
 }
 
-
 t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
 
 	t_cola_mensajes* cola_mensaje; 
@@ -57,9 +56,8 @@ t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
 	cola_mensaje->suscriptores = list_create();
 	cola_mensaje->producciones = producciones;
 
-
-	list_add(cola_mensaje->suscriptores,123);
-	list_add(cola_mensaje->suscriptores,234);
+	//list_add(cola_mensaje->suscriptores,123);
+	//list_add(cola_mensaje->suscriptores,234);
 
 	return cola_mensaje;
 
@@ -78,18 +76,77 @@ void* sender_suscriptores(t_cola_mensajes* cola){
 		pthread_mutex_lock(&mutex_queue_mensajes);	
 
 		printf("\n\nLos pendientes tienen %d mensajes",(cola->envios_pendientes)->elements_count);
-		envio_pendiente = list_take_and_remove(cola->envios_pendientes,1)->head->data;
-
-		printf("\nEnviando mensaje de id %d de cola %d al cliente %d!!!",(int)envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
-		printf("\nLos pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
+		
+		envio_pendiente = list_get(cola->envios_pendientes,0);
 
 		mensaje = list_get(cache_mensajes->mensajes,envio_pendiente->id);
 
-		//send
+		int envio = enviar_mensaje_a_suscriptor(envio_pendiente->id,
+												mensaje->id_correlacional, 
+												cola->cola_de_mensajes, 
+												envio_pendiente->cliente, 
+												mensaje->mensaje);
+
+		if(envio != -1){			
+			printf("\nEnviado correctamente mensaje de id %d de cola %d al cliente %d!!!",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
+			printf("\nLos pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
+		}else{
+			//QUE HAGO SI NO PUDE ENVIAR EL MENSAJE CORRECTAMENTE AL SUSCRIPTOR????
+			printf("\nFallo el envio del mensaje de id %d de cola %d al cliente %d!!! Se perdió :c",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
+		}
+
+		list_remove_and_destroy_element(cola->envios_pendientes,0,eliminar_envio_pendiente);
 
 		pthread_mutex_unlock(&mutex_queue_mensajes);
 	
 	}
 
 	return NULL;
+}
+
+void eliminar_envio_pendiente(t_envio_pendiente* pendiente){
+	free(pendiente);
+	return NULL;
+}
+
+int enviar_mensaje_a_suscriptor(int id_mensaje,
+								int id_correlacional, 
+								enum COLA_DE_MENSAJES cola_de_mensajes, 
+								int cliente, 
+								void* mensaje){
+	int send_status = -1;
+
+	switch(cola_de_mensajes){
+
+		case COLA_CATCH_POKEMON:
+			//send_status = enviar_catch_pokemon(cliente,id_mensaje,id_correlacional,(t_catch_pokemon*)mensaje);
+			break;
+ 
+		case COLA_APPEARED_POKEMON:
+			//send_status = enviar_appeared_pokemon(cliente,id_mensaje,id_correlacional,(t_appeared_pokemon*)mensaje);
+			break;
+
+		case COLA_NEW_POKEMON:
+			//send_status = enviar_new_pokemon(cliente,id_mensaje,id_correlacional,(t_new_pokemon*)mensaje);
+			break;
+		
+		case COLA_CAUGHT_POKEMON:
+			//send_status = enviar_caught_pokemon(cliente,id_mensaje,id_correlacional,(t_caught_pokemon*)mensaje);
+			break;
+		
+		case COLA_GET_POKEMON:
+			//send_status = enviar_get_pokemon(cliente,id_mensaje,id_correlacional,(t_get_pokemon*)mensaje);
+			break;
+
+		case COLA_LOCALIZED_POKEMON:
+			//send_status = enviar_localized_pokemon(cliente,id_mensaje,id_correlacional,(t_localized_pokemon*)mensaje);
+			break;			
+
+		default:
+			printf("Error, cola de mensajes desconocida: %d\n",cola_de_mensajes);
+			break;
+	}
+
+	return send_status;
+
 }
