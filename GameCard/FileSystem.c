@@ -31,13 +31,28 @@ void crearMetadataFs() {
 	}
 
 	FILE * archivoMetadata = fopen(rutas_fs->pathArchivoMetadataFs, "wb");
-		fwrite(&metadata_fs->magicNumber, sizeof(metadata_fs->magicNumber), 1,
-				archivoMetadata);
-		fwrite(&metadata_fs->tamanioBLoques, sizeof(metadata_fs->tamanioBLoques), 1,
-				archivoMetadata);
-		fwrite(&metadata_fs->cantidadBloques, sizeof(metadata_fs->cantidadBloques),
-				1, archivoMetadata);
-		fclose(archivoMetadata);
+
+	char* lineaMetadataSize=string_new();
+	string_append(&lineaMetadataSize,"BLOCK_SIZE=");
+	string_append(&lineaMetadataSize,string_itoa(metadata_fs->tamanioBLoques));
+	string_append(&lineaMetadataSize,"\n");
+
+	fwrite(lineaMetadataSize, string_length(lineaMetadataSize),1, archivoMetadata);
+
+	char* lineaMetadataBlock=string_new();
+	string_append(&lineaMetadataBlock,"BLOCKS=");
+	string_append(&lineaMetadataBlock,(string_itoa( metadata_fs->cantidadBloques)));
+	string_append(&lineaMetadataBlock,"\n");
+
+	fwrite(lineaMetadataBlock,string_length(lineaMetadataBlock), 1, archivoMetadata);
+
+	char* lineaMetadataMagicNumber=string_new();
+	string_append(&lineaMetadataMagicNumber,"MAGIC_NUMBER=");
+	string_append(&lineaMetadataMagicNumber,metadata_fs->magicNumber);
+
+	fwrite(lineaMetadataMagicNumber, string_length(lineaMetadataMagicNumber), 1,archivoMetadata);
+
+	fclose(archivoMetadata);
 
 	log_info(gameCard_logger, " Se ha creado el archivo metadata.bin");
 }
@@ -81,6 +96,7 @@ int abrir_ruta(char *ruta) {
 void cargarMetadataFs(char *ruta) {
 
 	log_info(gameCard_logger, "Cargando Metadata FileSystem");
+	log_info(gameCard_logger,"quiero ver la ruta: %s",ruta);
 
 	metadata_fs = malloc(sizeof(t_metadata_fs));
 
@@ -93,9 +109,11 @@ void cargarMetadataFs(char *ruta) {
 	t_config* configMetataNueva = config_create(ruta);
 
 	string_append(&tamanioBloque,
-			config_get_string_value(configMetataNueva, "BLOCK_SIZE"));
+			(string_itoa(config_get_int_value(configMetataNueva, "BLOCK_SIZE"))));
+
 	string_append(&cantidadBloques,
-			config_get_string_value(configMetataNueva, "BLOCKS"));
+			(string_itoa(config_get_int_value(configMetataNueva, "BLOCKS"))));
+
 	string_append(&magicNumber,
 			config_get_string_value(configMetataNueva, "MAGIC_NUMBER"));
 
@@ -103,6 +121,10 @@ void cargarMetadataFs(char *ruta) {
 	metadata_fs->cantidadBloques = atoi(cantidadBloques);
 	metadata_fs->tamanioBLoques = atoi(tamanioBloque);
 	metadata_fs->magicNumber = magicNumber;
+
+	log_info(gameCard_logger,"cant bloques: %d",metadata_fs->cantidadBloques);
+	log_info(gameCard_logger,"tamanio bloque: %d",metadata_fs->tamanioBLoques);
+	log_info(gameCard_logger,"nombre fs: %s",metadata_fs->magicNumber);
 
 	log_info(gameCard_logger,"se ha cargado correctamente la metadata del FileSystem");
 
@@ -116,15 +138,23 @@ void cargarMetadataFs(char *ruta) {
 
 void crearBitmap() {
 
+	log_info(gameCard_logger,"crear bitmap");
+
 	FILE *bitmapArch = fopen(rutas_fs->pathArchivoBitMap,"w");
 
-		int blocksChar = metadata_fs->tamanioBLoques/8;
-		char* bitmapData = malloc(blocksChar*sizeof(char));
-		for(int i= 0;i< blocksChar;i++){
-			bitmapData[i] = 0;
-		}
-		fwrite(bitmapData,sizeof(char),blocksChar,bitmapArch);
+		int blocksChar = metadata_fs->cantidadBloques/8;
 
+		if (metadata_fs->cantidadBloques % 8 != 0) { blocksChar++;}
+
+		log_info(gameCard_logger,"tamanio blocksChar: %d",blocksChar);
+
+		char* bitmapData = string_new();
+
+		bitmapData= string_repeat("0",blocksChar);
+
+		fwrite(bitmapData,string_length(bitmapData),blocksChar,bitmapArch);
+
+		log_info(gameCard_logger,"bitmap de texto copiado %s",bitmapData);
 		free(bitmapData);
 		fclose(bitmapArch);
 
