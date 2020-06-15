@@ -5,6 +5,7 @@ int main(){
 	cache_mensajes = (t_cache_colas*)malloc(sizeof(t_cache_colas));
 	cache_mensajes->mensajes = list_create();
 	cache_mensajes->colas = list_create();
+	cache_mensajes->proximo_id_mensaje = 0;
 
 	t_cola_mensajes* aux_crear_cola_mensajes; 
 
@@ -79,7 +80,11 @@ void* sender_suscriptores(t_cola_mensajes* cola){
 		
 		envio_pendiente = list_get(cola->envios_pendientes,0);
 
-		mensaje = list_get(cache_mensajes->mensajes,envio_pendiente->id);
+		bool filtro_cola(t_mensaje_cola* mensaje){
+			return mensaje->id_mensaje == envio_pendiente->id;
+		}
+
+		mensaje = list_find(cache_mensajes->mensajes,filtro_cola);
 
 		int envio = enviar_mensaje_a_suscriptor(envio_pendiente->id,
 												mensaje->id_correlacional, 

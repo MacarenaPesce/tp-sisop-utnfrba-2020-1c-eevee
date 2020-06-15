@@ -152,19 +152,22 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 	t_mensaje_cola* mensaje;
 	mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
 
+	mensaje->id_mensaje = cache_mensajes->proximo_id_mensaje;
 	mensaje->cola_de_mensajes = paquete->cola_de_mensajes;
 	mensaje->id_correlacional = paquete->id_correlacional;
 	mensaje->mensaje = paquete->mensaje;
 
+	*cache_mensajes->proximo_id_mensaje++;
+
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
-	int id_mensaje = list_add(cache_mensajes->mensajes,(void*)mensaje);
+	list_add(cache_mensajes->mensajes,(void*)mensaje);
 
-	agregar_mensaje_a_pendientes(mensaje->cola_de_mensajes, id_mensaje);
+	agregar_mensaje_a_pendientes(mensaje->cola_de_mensajes, mensaje->id_mensaje);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
-	return id_mensaje;
+	return mensaje->id_mensaje;
 
 }
 
@@ -215,7 +218,35 @@ void agregar_suscriptor_a_cola(int cola_de_mensajes, int cliente){
 
 	list_add(cola->suscriptores,cliente);
 
+	enviar_mensajes_cacheados_a_nuevo_suscriptor(cola);
+
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
 	return;
+}
+
+void enviar_mensajes_cacheados_a_nuevo_suscriptor(t_cola_mensajes* cola,int cliente){
+
+	bool filtro_cola(t_mensaje_cola* mensaje){
+		return mensaje->cola_de_mensajes == cola->cola_de_mensajes;
+	}
+
+	void agregar_mensaje_pendiente(t_mensaje_cola* mensaje){
+		
+		t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
+		
+		envio_pendiente->id = mensaje->id_mensaje;
+		envio_pendiente->cliente = cliente;
+
+		printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
+		list_add(cola->envios_pendientes,(void*)envio_pendiente);
+
+		sem_post(cola->producciones);
+
+	}
+
+	t_list* mensajes_cacheados = list_filter(cache_mensajes->mensajes, filtro_cola);
+
+	list_iterate(mensajes_cacheados,agregar_mensaje_pendiente);	
+
 }
