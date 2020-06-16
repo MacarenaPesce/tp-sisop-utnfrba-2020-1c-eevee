@@ -2,7 +2,7 @@
 
 int main(){
 
-	printf("voy a suscribirme\n");
+	//printf("voy a suscribirme\n");
 /* 
 	Creo un server donde voy a mandar mensajes (Broker)
 */
@@ -52,10 +52,6 @@ int main(){
 	pthread_t hilo_espera_mensajes;
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
 
-	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
-	free(ack);
-
-/*
 	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
@@ -66,7 +62,11 @@ int main(){
 	free(ack);
 	ack = enviar_caught_pokemon(&servidor,-1,&caught_pokemon);
 	free(ack);
-*/
+
+	while(1){};
+
+
+
 	
 	
 	//enviar_mensaje_string(socket, "hola_broker");	
@@ -74,7 +74,7 @@ int main(){
 	/*esperar_mensajes(socket_get_pokemon);*/
 
 
-//while(1){};
+
 }
 
 
