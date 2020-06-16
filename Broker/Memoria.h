@@ -52,6 +52,12 @@ typedef struct{
 t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_memoria); //LISTO
 t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes); //LISTO
 
+//---ALGORITMOS DE MEMORIA----
+t_bloque_memoria* algoritmo_de_memoria( int tamanio_msje); //LISTO
+t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);  //FALTA COMPACTAR CASI LISTO
+t_bloque_memoria* buddy_system( int tamanio_en_bytes); //EN PROCESO
+
+
 //********Funciones de Algoritmos de memoria************
 t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti); //LISTO
 t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti); //LISTO
@@ -61,12 +67,32 @@ void algoritmo_fifo(); //LISTO , falta setear el cambio a la lista
 void algoritmo_lru(); //LISTO (creo) , falta setear el cambio a la lista
 
 
-//---ALGORITMOS DE MEMORIA----
+//-----DUMP-----
 
 
-t_bloque_memoria* algoritmo_de_memoria( int tamanio_msje); //LISTO
-t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);  //FALTA COMPACTAR CASI LISTO
-t_bloque_memoria* buddy_system( int tamanio_en_bytes); //EN PROCESO
+
+//*******************AUXILIARES*******************
+
+/* Las aclaraciones del uso de cada funcion estan en el archivo .c */
+
+bool puede_alojarse(int tamanio_en_bytes);
+t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, int tamanio_msje);
+int obtener_indice_particion(t_bloque_memoria* bloque);
+int tamanio_a_alojar(int tamanio);
+
+void liberar_memoria_bloque(t_bloque_memoria* bloque, int indice); //FALTA SETEAR ESE BLOQUE VACIO EN EL LUGAR DEL ANTERIOR
+void settear_bloque_liberado_memoria(t_bloque_memoria* bloque, int indice); //EN PROCESO
+
+void compactar(); //empezando
+void consolidar(); //tengo que empezar 
+
+uint64_t get_timestamp();
+
+
+
+//*****************Auxiliares especificas Buddy System******************************
+bool tamanio_potencia_dos(int tamanio_en_bytes);
+int numero_potencia_dos(int tamanio_en_bytes);
 
 
 
