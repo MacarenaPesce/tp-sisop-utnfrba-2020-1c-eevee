@@ -98,8 +98,6 @@ void* esperar_mensajes(void* cliente){
 
 	int socket_cliente = *(int*)cliente;
 
-	free(cliente);
-
 	//Creo un paquete y recibo el mensaje
 	t_packed* paquete;
 

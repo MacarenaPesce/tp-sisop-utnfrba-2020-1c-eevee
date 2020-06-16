@@ -90,11 +90,7 @@ void* sender_suscriptores(void* cola_mensajes){
 		
 		envio_pendiente = list_get(cola->envios_pendientes,0);
 
-		bool filtro_cola(void* mensaje){
-			return ((t_mensaje_cola*)mensaje)->id_mensaje == envio_pendiente->id;
-		}
-
-		mensaje = list_find(cache_mensajes->mensajes,filtro_cola);
+		t_mensaje_cola * mensaje = obtener_mensaje_por_id(envio_pendiente->id);
 
 		int envio = enviar_mensaje_a_suscriptor(envio_pendiente->id,
 												mensaje->id_correlacional, 
@@ -104,13 +100,13 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		if(envio != -1){			
 			printf("\nEnviado correctamente mensaje de id %d de cola %d al cliente %d!!!",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
-			printf("\nLos pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
-		}else{
-			//QUE HAGO SI NO PUDE ENVIAR EL MENSAJE CORRECTAMENTE AL SUSCRIPTOR????
+			eliminar_mensaje_enviado(cola);
+            printf("\nLos pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
+        }else{
+			//MODIFICAR EL FLUJO SEGUN DOCUMENTO EN LUGAR DE ELIMINAR
 			printf("\nFallo el envio del mensaje de id %d de cola %d al cliente %d!!! Se perdió :c",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
+            eliminar_mensaje_enviado(cola);
 		}
-
-		list_remove_and_destroy_element(cola->envios_pendientes,0,eliminar_envio_pendiente);
 
 		pthread_mutex_unlock(&mutex_queue_mensajes);
 	
@@ -208,6 +204,16 @@ t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes){
     return cola;
 }
 
+t_mensaje_cola* obtener_mensaje_por_id(int id_mensaje){
+  
+    bool es_mensaje_buscado(void* mensaje){
+        return ((t_mensaje_cola*)mensaje)->id_mensaje == id_mensaje;
+    }
+
+    return list_find(cache_mensajes->mensajes,es_mensaje_buscado);
+
+}
+
 t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 
    	bool filtro_mensajes(void* mensaje){
@@ -246,6 +252,10 @@ void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int clien
 
     sem_post(cola->producciones);
 
+}
+
+void eliminar_mensaje_enviado(t_cola_mensajes* cola){
+    list_remove_and_destroy_element(cola->envios_pendientes,0,eliminar_envio_pendiente);
 }
 
 void eliminar_envio_pendiente(void* pendiente){
