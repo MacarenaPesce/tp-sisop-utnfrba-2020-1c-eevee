@@ -16,7 +16,11 @@ int agregar_mensaje_a_cola(t_packed* paquete);
 void agregar_suscriptor_a_cola(int cola_de_mensajes, int cliente);
 
 /* Genericas */
-void agregar_mensaje_a_pendientes(int cola_mensajes,int id_mensaje);
+void distribuir_mensaje_a_suscriptores(int cola_de_mensajes,int id_mensaje);
+t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes);
+void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int cliente);
+t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola);
+
 void* print_operacion(void* mensaje);
 
 t_cola_mensajes* crear_cola_mensajes(int cola_mensajes);
