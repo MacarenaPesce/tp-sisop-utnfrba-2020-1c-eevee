@@ -72,4 +72,6 @@ void agregarAparicionPokemonABloque(int bytesAcopiar, char* linea);
 
 void crearPokemon(t_new_pokemon* pokemon);
 
+void crearMetadataDirectorioFiles();
+
 #endif /* FILESYSTEM_H_ */

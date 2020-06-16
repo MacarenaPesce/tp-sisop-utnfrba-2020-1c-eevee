@@ -13,6 +13,7 @@ void iniciar_servidor(void);
 void esperar_cliente(int);
 bool noCumpleConRutasfs();
 void crearFileSystemVacio();
+void crearMetadataDirectorios();
 
 #endif /* GAMECARD_H_ */
 

@@ -84,15 +84,14 @@ void esperar_cliente(int socket_servidor){
 
 int  main () {
 
-
 	inicializar_logger ();
 	inicializar_archivo_de_configuracion ();
 
 	cargarRutasFs();
 	cargarMetadataFs("gamecard.config");
 	if ( noCumpleConRutasfs()){
-		log_info(gameCard_logger,"no existe el FileSytem requerido");
-		log_info(gameCard_logger,"Inicializando FileSystem requerido");
+		log_info(gameCard_logger,"No existe el FileSytem requerido");
+		log_info(gameCard_logger,"Creando estructura del FileSytem");
 		crearFileSystemVacio();
 
 		}

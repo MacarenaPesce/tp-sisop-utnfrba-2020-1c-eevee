@@ -13,15 +13,15 @@ void inicializar_archivo_de_configuracion(){
 		terminar_game_card();
 
 	}else{
-		log_info(gameCard_logger, "cargando los datos del archivo de configuración...");
+		log_info(gameCard_logger, "Cargando los datos del archivo de configuración");
 		obtener_valor_config(KEY_IP_BROKER, config_game_card, obtener_ip_broker);
 		obtener_valor_config(KEY_PUERTO_BROKER, config_game_card,obtener_puerto_broker);
 		obtener_valor_config(KEY_PUNTO_MONTAJE_TALLGRASS, config_game_card, obtener_punto_montaje_tallgrass);
 		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_CONEXION,config_game_card,obtener_tiempo_reintento_conexion);
 		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_OPERACION , config_game_card, obtener_tiempo_reintento_operacion);
 		obtener_valor_config(KEY_TIEMPO_RETARDO_OPERACION,config_game_card,obtener_tiempo_retardo_operacion);
-	     config_destroy(config_game_card);
-	     log_info(gameCard_logger," los datos del archivo de configuracion se han cargado correctamente");
+	    config_destroy(config_game_card);
+	    log_info(gameCard_logger,"Los datos del archivo de configuracion se han cargado correctamente");
 
 	}
 
@@ -44,7 +44,6 @@ void obtener_tiempo_reintento_conexion(){
 
 void obtener_tiempo_reintento_operacion(){
 	tiempo_reintento_operacion=config_get_int_value(config_game_card,KEY_TIEMPO_DE_REINTENTO_OPERACION);
-	log_info(gameCard_logger," se cargó el tiempo de reintento de operacion");
 }
 
 
