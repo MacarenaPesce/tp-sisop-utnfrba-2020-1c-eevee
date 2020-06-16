@@ -227,41 +227,6 @@ bool existePokemon(char* nombrePokemon) {
 
 	}
 
-
-void agregarAparicionPokemonABloque(int bytesAcopiar, char* linea){
-
-	/*if (bytesAcopiar<=0){return;}
-
-	else{
-
-	int bloqueLibre= obtenerPrimerBloqueLibre();
-
-		char* rutaBloqueLibre=string_new();
-		char* nombreBloque=string_new();
-
-	   string_append(&rutaBloqueLibre, rutas_fs->pathDirectorioBloques);
-	   string_append(&rutaBloqueLibre,"/");
-	   string_append(&nombreBloque,(string_itoa(bloqueLibre)));
-	   string_append(&rutaBloqueLibre,nombreBloque);
-	   string_append(&rutaBloqueLibre, ".bin");
-	   FILE *bloque = fopen(rutaBloqueLibre, "wb");
-
-		 if (metadata_fs->tamanioBLoques>=bytesAcopiar){
-		fwrite(linea,string_length(linea),1,bloque);
-		 fclose(bloque);
-		}
-		 else{
-
-			 fwrite(linea,metadata_fs->tamanioBLoques,1,bloque);
-			 fclose(bloque);
-			 int  bytesAcopiar= string_length(linea)- metadata_fs->tamanioBLoques;
-
-			 agregarAparicionPokemonABloque(bytesAcopiar,linea);
-
-		 }
-	}*/
-}
-
 bool cumpleTamanio(int espacioBloque,int espacioAocupar){
 
 	return espacioAocupar<=espacioBloque;
@@ -282,18 +247,25 @@ int cantBloquesLibres(){
 	return libres;
 }
 
-bool hayESpacioParaPokemon(t_list* listaPokemon){
 
-	int espacioDisponible=metadata_fs->tamanioBLoques*cantidadBloquesLibres();
+int espacioPokemon(t_list* listaPokemon){
 
 	int espacioPoke=0;
 
-	for(int i=0;i<=size_list(listaPokemon);i++){
+	for(int i=0;i<=list_size(listaPokemon);i++){
 
-		int espacioPoke=espacioPoke+sizeof(list_get(listaPokemon,i));
-	}
+			int espacioPoke=espacioPoke+sizeof(list_get(listaPokemon,i));
+		}
 
-	return espacioDisponible<=espacioPoke;
+	return espacioPoke;
+}
+
+
+bool noHayEspacioParaPokemon(t_list* listaPokemon){
+
+	int espacioDisponible=(metadata_fs->tamanioBLoques)*cantBloquesLibres();
+
+	return espacioDisponible<espacioPokemon(listaPokemon);
 
 }
 
@@ -306,6 +278,7 @@ void crearPokemon(t_new_pokemon* pokemon){
 	char* cantidad=string_itoa(pokemon->cantidad);
 
 	t_list* listaPokemon= list_create();
+	t_list* bloquesMetadataPokemon=list_create();
 
 	list_add(listaPokemon,posx);
 	list_add(listaPokemon,guion);
@@ -313,28 +286,33 @@ void crearPokemon(t_new_pokemon* pokemon){
 	list_add(listaPokemon,igual);
 	list_add(listaPokemon,cantidad);
 
-	//aca analizar bloque de bitamp y de bloques
+	//aca analizar metadataPokemon de bitamp y de bloques
 
-	if (hayESpacioParaPokemon(listaPokemon)){
+	if (noHayEspacioParaPokemon(listaPokemon)){
 		log_info(gameCard_logger,"No hay espacio para un nuevo Pokemon");
-		list_clean_and_destroy_elements(listaPokemon);
-		break;
+		list_clean_and_destroy_elements(listaPokemon,0);
+		exit(-1);
 	}
 
-	//como busco bloques vacios el tamanio max de bloque es
+	//como busco bloques vacios el tamanio max de metadataPokemon es
 	int tamanioBloq= metadata_fs->tamanioBLoques;
 
 	char* lineaAcopiar= string_new();
-	int tamanioLista=list_size(listaPokemon);
+	int tamanioLineaPoke=list_size(listaPokemon);
 	int tamanioLineaAcopiar= sizeof(list_get(listaPokemon,0));
 
 	while(list_size(listaPokemon)!=0){
 
+		log_info(gameCard_logger,"aca estas en el while de armado de pokemon");
+
+		log_info(gameCard_logger,"mostrame tu primer elemento lista pokemon");
+
+		log_info(gameCard_logger,"es: %s",list_get(listaPokemon,0));
 
 		if(cumpleTamanio(tamanioBloq,tamanioLineaAcopiar)){
 			string_append(&lineaAcopiar, list_get(listaPokemon,0));
 			tamanioLineaAcopiar=tamanioLineaAcopiar+ sizeof(list_get(listaPokemon,0));
-			list_remove_and_destroy_element(listaPokemon,0,list_get(listaPokemon,0));
+			list_remove(listaPokemon,1);
 		}
 
 		else {
@@ -351,13 +329,13 @@ void crearPokemon(t_new_pokemon* pokemon){
 			string_append(&rutaBloqueLibre, ".bin");
 			FILE *bloque = fopen(rutaBloqueLibre, "wb");
 
-			log_info (gameCard_logger,"el bloque que abrimos es %s",rutaBloqueLibre);
+			log_info (gameCard_logger,"el metadataPokemon que abrimos es %s",rutaBloqueLibre);
 
 		    log_info(gameCard_logger,"el tamanio de bloque es: %d",metadata_fs->tamanioBLoques);
 
-			log_info(gameCard_logger,"el tamanio de la linea es ", string_legth(lineaAcopiar));
+			log_info(gameCard_logger,"el tamanio de la linea es : %d", string_length(lineaAcopiar));
 
-			//no valido bloque libre porque ya valido al principio de esto
+			//no valido metadataPokemon libre porque ya valido al principio de esto
 			fwrite(lineaAcopiar,string_length(lineaAcopiar),1,bloque);
 			fclose(bloque);
 
@@ -365,7 +343,9 @@ void crearPokemon(t_new_pokemon* pokemon){
 
 			bitarray_set_bit(bitarray,bloqueLibre);
 
-			log_info(gameCard_logger, "El bloque %d en el bitmap pasó a ", bitarray_test_bit(bitarray,bloqueLibre));
+			log_info(gameCard_logger, "El metadataPokemon %d en el bitmap pasó a ", bitarray_test_bit(bitarray,bloqueLibre));
+
+			list_add(bloquesMetadataPokemon,string_itoa(bloqueLibre));
 
 			char* lineaAcopiar= string_new();
 			string_append(lineaAcopiar,list_get(listaPokemon,0));
@@ -375,100 +355,49 @@ void crearPokemon(t_new_pokemon* pokemon){
 		}
 	}
 
+	char* rutaMetadataPoke=string_new();
+
+	string_append(&rutaMetadataPoke,rutas_fs->pathDirectorioBloques);
+	string_append(&rutaMetadataPoke,"/");
+	string_append(&rutaMetadataPoke,pokemon->pokemon);
+	string_append(&rutaMetadataPoke,"/Metadata.bin");
+	FILE* metadataPoke = fopen(rutaMetadataPoke, "wb");
+
+	char* lineaDirectorio=string_new();
+	string_append(&lineaDirectorio,"DIRECTORY=N\n");
+	fwrite(lineaDirectorio, string_length(lineaDirectorio), 1,metadataPoke);
+
+	char* lineaSize=string_new();
+	string_append(&lineaSize,"SIZE=");
+	string_append(&lineaSize, (string_itoa(espacioPokemon(listaPokemon))));
+	string_append(&lineaSize,"\n");
+	fwrite(lineaDirectorio, string_length(lineaSize), 1,metadataPoke);
+
+	char* lineaBloquesOcupados=string_new();
+	string_append(&lineaBloquesOcupados,"BLOCKS=[");
+	for (int i=0, j=0; i<=list_size(bloquesMetadataPokemon) & j<=list_size(bloquesMetadataPokemon)-1 ; i++, j++){
+
+		string_append(&lineaBloquesOcupados,list_get(bloquesMetadataPokemon,i));
+		string_append(&lineaBloquesOcupados,",");
+
+	}
+	string_append(&lineaBloquesOcupados,"]\n");
+	fwrite(lineaBloquesOcupados, string_length(lineaBloquesOcupados), 1,metadataPoke);
+
+	char* lineaOpen=string_new();
+	string_append(&lineaOpen,"OPEN=N");
+	fwrite(lineaOpen, string_length(lineaOpen), 1,metadataPoke);
+
+	fclose(metadataPoke);
+
+	//list_clean_and_destroy_elements(lineaBloquesOcupados);
+	//list_clean_and_destroy_elements(listaPokemon);
+
+	log_info(gameCard_logger, " Se ha creado el archivo metadata.bin de FileSystem");
+
+
 	log_info(gameCard_logger,"Se ha copiado el pokemon Correctamente");
 }
-
-	/*
-	if (obtenerPrimerBloqueLibre()<-1){
-		log_info(gameCard_logger,"no hay bloques libres, no se puede copiar pokemon");}
-	else{
-		log_info(gameCard_logger,"preparando creacion del pokemon");
-	}
-
-
-	int espacio=metadata_fs->tamanioBLoques;
-	char* lineaPokemon= string_new();
-
-
-
-
-	if(espacio<=string_length(posx)){
-
-		string_append(&lineaPokemon,posx);
-		espacio=espacio-string_length(posx);
-	}
-	else {perror("no hay espacio para copiar");}
-
-	if(espacio<=string_length(guion)){
-
-		string_append(&lineaPokemon,guion);
-		espacio=espacio-string_length(guion);
-		}
-
-	if(espacio<=string_length(posy)){
-
-		string_append(&lineaPokemon,posy);
-		espacio=espacio-string_length(posy);
-		}
-
-	string_append(&lineaPokemon,"-");
-	string_append(&lineaPokemon,(string_itoa(pokemon->coordenadas.posy)));
-	string_append(&lineaPokemon,"=");
-	string_append(&lineaPokemon,(string_itoa(pokemon->cantidad)));
-
-	int tamanioLinea=string_length(lineaPokemon);
-
-	log_info(gameCard_logger, "aca quiero linea a copiar en el bloque: %s", lineaPokemon);
-
-
-	if (tamanioLinea<=0){return;}
-
-		else{
-
-		int bloqueLibre= obtenerPrimerBloqueLibre();
-
-		log_info(gameCard_logger, "primer bloque libre : %d",bloqueLibre);
-
-			char* rutaBloqueLibre=string_new();
-			char* nombreBloque=string_new();
-
-		   string_append(&rutaBloqueLibre, rutas_fs->pathDirectorioBloques);
-		   string_append(&rutaBloqueLibre,"/");
-		   string_append(&nombreBloque,(string_itoa(bloqueLibre)));
-		   string_append(&rutaBloqueLibre,nombreBloque);
-		   string_append(&rutaBloqueLibre, ".bin");
-		   FILE *bloque = fopen(rutaBloqueLibre, "wb");
-
-		   log_info (gameCard_logger,"el bloque que abrimos es %s",rutaBloqueLibre);
-
-		   log_info(gameCard_logger,"el tamanio de bloque es: %d",metadata_fs->tamanioBLoques);
-
-		   log_info(gameCard_logger,"el tamanio de la linea es ", tamanioLinea);
-
-			 if (metadata_fs->tamanioBLoques>tamanioLinea){
-			fwrite(lineaPokemon,string_length(lineaPokemon),1,bloque);
-			 fclose(bloque);
-
-			 log_info(gameCard_logger, "se escribió el pokemon correctamente");
-			}
-			 else{
-
-				 fwrite(lineaPokemon,metadata_fs->tamanioBLoques,1,bloque);
-				 fclose(bloque);
-				 int  bytesAcopiar= string_length(lineaPokemon)- metadata_fs->tamanioBLoques;
-
-				 agregarAparicionPokemonABloque(bytesAcopiar,lineaPokemon);
-
-			log_info(gameCard_logger,"se estan llenando bloques");
-
-			 }
-		}
-*/
-
-
-}
-
-
 
 void copiarEnArchivo(int fd,char* dato,int tamanioDato){
 
