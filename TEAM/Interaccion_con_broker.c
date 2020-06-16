@@ -61,7 +61,6 @@ void enviar_get(){
 			if(ack->operacion == ACK){
 				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
 				log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
-
 			}
 
 		}else{
@@ -76,10 +75,10 @@ void enviar_get(){
 }
 
 void convertirse_en_suscriptor_global_del_broker(){
-	t_suscripcion_a_broker * paquete_suscripcion = malloc(sizeof(paquete_suscripcion));
+	t_suscripcion_a_broker * paquete_suscripcion = malloc(sizeof(t_suscripcion_a_broker));
 
-	int colas_a_suscribirse[3] = {COLA_APPEARED_POKEMON, COLA_LOCALIZED_POKEMON, COLA_CAUGHT_POKEMON};
-	void * operacion[3] = {recibir_appeared_pokemon_desde_broker, recibir_localized_pokemon_desde_broker, recibir_caught_pokemon_desde_broker};
+	int colas_a_suscribirse[] = {COLA_APPEARED_POKEMON, COLA_LOCALIZED_POKEMON, COLA_CAUGHT_POKEMON};
+	void * operacion[] = {recibir_appeared_pokemon_desde_broker, recibir_localized_pokemon_desde_broker, recibir_caught_pokemon_desde_broker};
 
 	for(int i = 0; i < 3; i++){
 		paquete_suscripcion->cola = colas_a_suscribirse[i];
@@ -107,28 +106,30 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 	suscripcion->tipo_suscripcion = SUSCRIPCION_GLOBAL;
 
 	int broker_socket = enviar_solicitud_suscripcion(servidor,paquete_suscripcion->cola, suscripcion);
-	log_info(team_logger, "Solicitud de suscripcion a COLA_APPEARED_POKEMON enviada al broker");
 
 	while(1){
-		//Recibo ACK
-		t_packed * paquete = recibir_mensaje(broker_socket);
 
-		if(paquete != (t_packed*)-1){
-			//Quedo a la espera de recibir notificaciones
-			if(paquete->operacion == ENVIAR_MENSAJE){
-				(paquete_suscripcion->operacion)(paquete->mensaje);
+		if(broker_socket <= 0){
+			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola");
+			hacer_intento_de_reconexion();
+			suscribirse_a_cola(paquete_suscripcion);
+
+		}else{
+
+			//Recibo ACK
+			t_packed * paquete = recibir_mensaje(broker_socket);
+
+			if(paquete != (t_packed*)-1){
+				//Quedo a la espera de recibir notificaciones
+				if(paquete->operacion == ENVIAR_MENSAJE){
+					(paquete_suscripcion->operacion)(paquete->mensaje);
+				}
 			}
 		}
 	}
 
 	free(servidor);
 	free(suscripcion);
-
-	if(broker_socket <= 0){
-		log_info(team_logger, "No se pudo mandar al broker la solicitud para la cola");
-		hacer_intento_de_reconexion();
-		suscribirse_a_cola(paquete_suscripcion);
-	}
 
 	return NULL;
 }
