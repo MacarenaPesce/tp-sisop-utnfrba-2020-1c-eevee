@@ -46,6 +46,8 @@ void inicializar_listas(){
 	pokemones_ordenada = list_create();
 	mensajes = list_create();
 	lista_bloqueados_esperando = list_create();
+	lista_bloqueados_cant_max_alcanzada = list_create();
+	pokemones_bloqueados = list_create();
 
 }
 
@@ -171,7 +173,7 @@ uint32_t obtener_cantidad_maxima(t_list* lista){
 void sacar_de_objetivos_pokemones_atrapados(t_list* lista_de_objetivos, t_list* lista_de_pokemones){
 	for (int i = 0; i < list_size(lista_de_pokemones); i++){
 		t_objetivo_entrenador* pokemon = list_get(lista_de_pokemones, i);
-		t_objetivo_entrenador* objetivo = buscar_pokemon_por_especie(lista_de_objetivos, pokemon->especie);
+		t_objetivo_entrenador* objetivo = (t_objetivo_entrenador*)buscar_pokemon_por_especie(lista_de_objetivos, pokemon->especie);
 		if(objetivo != NULL){
 			if(objetivo->cantidad >= pokemon->cantidad){
 				objetivo->cantidad -= pokemon->cantidad;

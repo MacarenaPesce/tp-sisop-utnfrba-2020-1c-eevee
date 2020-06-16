@@ -1,5 +1,7 @@
 #include "Herramientas_broker.h"
 
+extern enum SERVER_STATUS server_status; 
+
 void inicializar_logger(){
 	broker_logger = log_create("broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
 	logger(escribir_loguear,l_info,"Hi, bienvenido a Broker ");
@@ -119,23 +121,22 @@ void capturar_signal(int signo){
 
     if(signo == SIGINT)
     {
-    	logger(escribir_loguear, l_warning,"\n TEAM DEJA DE FUNCIONAR, CHAU");
+    	printf("\n Broker DEJA DE FUNCIONAR \n\n");
     	terminar_broker_correctamente();
 
     }
     else if(signo == SIGPIPE)
     {
-    	logger(escribir_loguear, l_error,"Desconectado");
+    	printf("Desconectado");
     }
     else if(signo == SIGSEGV)
 	{
-		logger(escribir_loguear, l_error,"SEGMENTATION FAULT");
+		printf("SEGMENTATION FAULT");
 	}
 
 }
 
 void terminar_broker_correctamente(){
-	logger(escribir_loguear,l_info,"Chau!");
-	log_destroy(broker_logger);
+	printf("Chau!\n\n");
 	exit(EXIT_SUCCESS);
 }

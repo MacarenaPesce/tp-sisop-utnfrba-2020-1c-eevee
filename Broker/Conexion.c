@@ -1,0 +1,257 @@
+#include "Conexion.h"
+
+extern t_cache_colas* cache_mensajes;
+extern enum SERVER_STATUS server_status; 
+
+//extern pthread_mutex_t mutex_queue_mensajes;
+
+
+
+void iniciar_servidor(void){
+
+	printf("\n\n7) Iniciando servidor...");
+	
+	int socket_servidor;
+	int bind_status;
+	
+    struct addrinfo hints, *servinfo, *p;
+
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_PASSIVE;
+
+    getaddrinfo("127.0.0.1", "32587", &hints, &servinfo);
+
+    for (p=servinfo; p != NULL; p = p->ai_next){
+		printf("\n\n8) Intentando bindear sever...");
+
+        if ((socket_servidor = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1){
+			printf("\n\nError en socket broker");
+            continue;
+		}
+
+		int flag = 1;  
+		if (-1 == setsockopt(socket_servidor, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag))) {  
+			printf("setsockopt fail");  
+		}  
+
+        if ((bind_status = bind(socket_servidor, p->ai_addr, p->ai_addrlen)) == -1) {
+			printf("\n\nError en bind broker: %d",bind_status);
+			printf("\nCodigo de error: %d \n", errno);
+            close(socket_servidor);
+            continue;
+        }
+		printf("\n\n9) Server bindeado correctamente!!!");
+        break;
+    }
+
+	listen(socket_servidor, SOMAXCONN);
+
+	int * socket = (int*)malloc(sizeof(int));
+
+	memcpy(socket,&socket_servidor,sizeof(int));
+
+	pthread_t hilo_sockets;
+
+	pthread_create(&hilo_sockets,NULL,esperar_cliente,(void*)socket);
+	pthread_detach(hilo_sockets);
+	
+}
+
+void* esperar_cliente(void* socket){
+
+	printf("\n\n10) Hilo del servidor cargado correctamente!!!");
+
+	while(1){
+
+		struct sockaddr_in dir_cliente;
+
+		int socket_servidor = *((int*)socket);
+
+		int tam_direccion = sizeof(struct sockaddr_in);
+
+		int socket_cliente = accept(socket_servidor, (void*) &dir_cliente,(socklen_t*) &tam_direccion);
+
+		//Iniciar un hilo por cliente
+		if(socket_cliente != -1){
+
+			pthread_t hilo_cliente;
+
+			void *cliente = (void*)malloc(sizeof(int));
+
+			cliente = &socket_cliente;
+
+			pthread_create(&hilo_cliente,NULL,esperar_mensajes,cliente);
+
+			pthread_join(hilo_cliente,NULL);
+
+		}
+	
+	}
+	
+	return NULL;
+
+}
+
+void* esperar_mensajes(void* cliente){
+
+	printf("\nSe aceptó un nuevo cliente");
+
+	int socket_cliente = *(int*)cliente;
+
+	//Creo un paquete y recibo el mensaje
+	t_packed* paquete;
+
+	while(1){
+		paquete = recibir_mensaje(socket_cliente);
+
+		if(paquete != (t_packed*)-1){
+			//Esto me devuelve el paquete con todos los datos
+			/* El nro de operacion y cola de mensajes indican el 
+			tipo de estructura que contiene el paquete */
+
+			
+			printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
+			printf("operacion: %d \n",paquete->operacion);
+			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
+			printf("id_correlacional: %d  \n",paquete->id_correlacional);
+			printf("id_mensaje: %d \n",paquete->id_mensaje);
+			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+			if(paquete->operacion == 1)printf("\n id_cliente: %d",socket_cliente);
+			
+
+			switch(paquete->operacion){
+				case ENVIAR_MENSAJE:
+					recibir_mensaje_de_colas(paquete,socket_cliente);
+					break;
+				
+				case SUSCRIBIRSE_A_COLA:
+					recibir_solicitud_suscripcion(paquete,socket_cliente);
+					break;
+
+				case ACK:
+					recibir_ack(paquete,socket_cliente);
+					break;
+				
+				default:
+					printf("Error, operacion desconocida: %d\n",paquete->operacion);
+					break;
+			}
+
+			break;
+		}else{
+			printf("se recibió un paquete invalido -1");
+		}
+	}
+
+	return NULL;
+	
+}
+
+void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
+
+	int id_mensaje = agregar_mensaje_a_cola(paquete);
+
+	//list_iterate(cache_mensajes->mensajes,print_operacion);
+	
+	enviar_ack(socket_cliente,id_mensaje,-1);
+
+	free(paquete);
+
+	return;
+
+}
+
+void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
+
+	agregar_suscriptor_a_cola(paquete->cola_de_mensajes,socket_cliente);
+	enviar_ack(socket_cliente,-1,-1);
+
+	return;
+}
+
+void recibir_ack(t_packed *paquete,int socket_cliente){
+	//agregar ack a mensaje
+	return;
+}
+
+int agregar_mensaje_a_cola(t_packed* paquete){	
+
+	t_mensaje_cola* mensaje;
+	mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
+
+	mensaje->id_mensaje = cache_mensajes->proximo_id_mensaje;
+	mensaje->cola_de_mensajes = paquete->cola_de_mensajes;
+	mensaje->id_correlacional = paquete->id_correlacional;
+	mensaje->mensaje = paquete->mensaje;
+
+	cache_mensajes->proximo_id_mensaje++;
+
+	pthread_mutex_lock(&mutex_queue_mensajes);
+
+	list_add(cache_mensajes->mensajes,(void*)mensaje);
+
+	agregar_mensaje_a_pendientes(mensaje->cola_de_mensajes, mensaje->id_mensaje);
+
+	pthread_mutex_unlock(&mutex_queue_mensajes);
+
+	return mensaje->id_mensaje;
+
+}
+
+void agregar_mensaje_a_pendientes(int cola_mensajes,int id_mensaje){
+	
+	bool filtro_cola(void* cola){
+		return ((t_cola_mensajes*)cola)->cola_de_mensajes == cola_mensajes;
+	}
+
+	t_cola_mensajes* cola = list_find(cache_mensajes->colas, filtro_cola);
+
+	void agregar_mensaje_pendiente(void* suscriptor){
+		
+		t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
+		
+		envio_pendiente->id = id_mensaje;
+		envio_pendiente->cliente = *(int*)suscriptor;
+
+		printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
+		list_add(cola->envios_pendientes,(void*)envio_pendiente);
+
+		sem_post(cola->producciones);
+
+	}
+
+	list_iterate(cola->suscriptores,agregar_mensaje_pendiente);
+
+}
+
+void* print_operacion(void* mensaje){
+
+	printf("\n\n Mensaje: ");
+	printf("\n\n Cola: %d",((t_mensaje_cola*)mensaje)->cola_de_mensajes);
+
+	return NULL;
+}
+
+void agregar_suscriptor_a_cola(int cola_de_mensajes, int cliente){
+	
+	int* id_cliente = (int*)malloc(sizeof(int));
+	*id_cliente = cliente;
+	
+	bool filtro_cola(void* cola){
+		return ((t_cola_mensajes*)cola)->cola_de_mensajes == cola_de_mensajes;
+	}
+
+	pthread_mutex_lock(&mutex_queue_mensajes);
+
+	t_cola_mensajes* cola = list_find(cache_mensajes->colas, filtro_cola);
+
+	list_add(cola->suscriptores,id_cliente);
+
+	enviar_mensajes_cacheados_a_nuevo_suscriptor(cola,cliente);
+
+	pthread_mutex_unlock(&mutex_queue_mensajes);
+
+	return;
+}

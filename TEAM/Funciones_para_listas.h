@@ -9,6 +9,7 @@
 #define FUNCIONES_PARA_LISTAS_H_
 
 #include "Contexto_team.h"
+#include "Herramientas_team.h"
 
 /*PARA SEPARAR LISTAS*/
 void separar_pokemones_de_objetivo(char*);

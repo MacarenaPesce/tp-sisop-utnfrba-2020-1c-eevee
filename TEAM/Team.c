@@ -26,7 +26,7 @@ void operar_con_localized_pokemon(t_localized_pokemon * mensaje){
 		2. En caso de que nunca lo haya recibido, realiza las mismas operatorias que para APPEARED_POKEMON por cada coordenada del pokemon.
 	 */
 
-	char* especie = mensaje->pokemon;
+	//char* especie = mensaje->pokemon;
 	/*verificar aca si ya se recibio en algun momento un mensaje de esta especie de pokemon asociado al mensaje*/
 	/*t_list* lista_coordenadas = mensaje->lista_coordenadas;
 	for(int i = 0; i < list_size(lista_coordenadas); i++){
@@ -61,24 +61,21 @@ void operar_con_caught_pokemon(t_caught_pokemon * mensaje, uint32_t id){
 			catch_pokemon->coordenadas.posy = mensaje_guardado->pokemon.posy;
 			t_entrenador* entrenador = buscar_entrenador_por_objetivo_actual(catch_pokemon);
 
-			actualizar_mapa_y_entrenador(entrenador, catch_pokemon);
+			actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
 
 			if(objetivo_personal_cumplido(entrenador)){
-				entrenador->estado == FINALIZANDO; //ver que onda el hilo
+				entrenador->estado = FINALIZANDO;
 				list_add(lista_finalizar, entrenador);
 				t_objetivo* pokemon_encontrado;
 				pokemon_encontrado = buscar_pokemon_por_especie(lista_objetivos, catch_pokemon->pokemon);
 				pokemon_encontrado->cantidad_atrapada++;/*Busco la especie en la lista global y sumo uno a los atrapados*/
-				if(objetivo_global_cumplido()){
-					log_info(team_logger, "Objetivo global cumplido");
-				} else {
-					log_info(team_logger, "Aun no se cumplio el objetivo global");
-				}
+
+				chequear_si_fue_cumplido_el_objetivo_global();
+
 			} else {
 				bloquear_entrenador(entrenador);
-				printf("Entrenador de id %d bloqueado", entrenador->id);
 				if(entrenador->razon_de_bloqueo == ESPERANDO_POKEMON){
-					//planificar();
+					planificar();
 				}
 			}
 			free(catch_pokemon);
@@ -92,9 +89,11 @@ void agregar_pokemon_a_mapa(t_pokemon * pokemon){
 
 	t_objetivo* un_objetivo;
 	un_objetivo = buscar_pokemon_por_especie(lista_objetivos, pokemon->especie);
+
 	if(un_objetivo == NULL){
 		log_info(team_logger, "No necesito este pokemon");
 	}
+
 	if(un_objetivo->cantidad_necesitada > un_objetivo->cantidad_atrapada){
 		pthread_mutex_lock(&mapa_mutex);
 		list_add(lista_mapa, (void*)pokemon);
@@ -207,12 +206,13 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 }
 
 void * jugar_con_el_entrenador(t_entrenador * entrenador){
-	log_info(team_logger, "Soy el entrenador de id: %d.", entrenador->id);
 	sem_wait(&array_semaforos[entrenador->id]);
 	log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
 	llegar_a_el_pokemon(entrenador);
 	atrapar(entrenador);
+
+	return NULL;
 }
 
 void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* entrenador){
@@ -237,11 +237,11 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 			if(entrenador->objetivo == NULL){
 				printf("La lista es nula");
 			}
-			t_objetivo_entrenador* pokemon_objetivo = buscar_pokemon_por_especie(entrenador->objetivo, pokemon->especie);
+			t_objetivo_entrenador* pokemon_objetivo = (t_objetivo_entrenador*)buscar_pokemon_por_especie(entrenador->objetivo, pokemon->especie);
 			if(pokemon_objetivo != NULL){
 				pokemon_objetivo->cantidad--; //si es una especie que tenia como objetivo personal, disminuyo su cantidad
 			}
-			t_objetivo_entrenador* pokemon_encontrado = buscar_pokemon_por_especie(entrenador->pokemones, pokemon->especie);
+			t_objetivo_entrenador* pokemon_encontrado = (t_objetivo_entrenador*)buscar_pokemon_por_especie(entrenador->pokemones, pokemon->especie);
 			if(pokemon_encontrado == NULL){
 				agregar_objetivo(pokemon->especie, 1, entrenador->pokemones); //agrego el pokemon a la lista de atrapados por el entrenador
 			} else {
@@ -257,6 +257,46 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 	}
 }
 
+void chequear_si_fue_cumplido_el_objetivo_global(){
+	if(objetivo_global_cumplido()){
+		log_info(team_logger, "Objetivo global cumplido");
+		terminar_team_correctamente();
+	} else {
+		log_info(team_logger, "Aun no se cumplio el objetivo global");
+	}
+}
+
+void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_entrenador * entrenador){
+	log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
+	log_info(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
+	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %i %i", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
+	actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
+
+	if(objetivo_personal_cumplido(entrenador)){
+		entrenador->estado = FINALIZANDO;
+		list_add(lista_finalizar, entrenador);//ver que onda el hilo
+
+		t_objetivo* pokemon_encontrado = buscar_pokemon_por_especie(lista_objetivos, catch_pokemon->pokemon);
+		pokemon_encontrado->cantidad_atrapada++; /*Busco la especie en la lista global y sumo uno a los atrapados*/
+
+		chequear_si_fue_cumplido_el_objetivo_global();
+
+	} else {
+
+		bloquear_entrenador(entrenador);
+		planificar();
+		if(entrenador->razon_de_bloqueo == ESPERANDO_POKEMON){
+			planificar();
+		}
+	}
+}
+
+void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_packed * ack, t_entrenador * entrenador){
+
+	//TODO RECIBIR ID Y GUARDARLO
+	//TODO BLOQUEAR AL ENTRENADOR CON SEMAFOROS Y CAMBIARLE EL ESTADO A BLOQUEADO
+}
+
 void atrapar(t_entrenador * entrenador){
 	/*Para esto, se deben ejecutar los siguientes pasos:
 1. Enviar el mensaje a la cola de mensajes CATCH_POKEMON indicando cual es la especie del Pokémon y la posición del mismo.
@@ -269,67 +309,61 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	catch_pokemon->coordenadas.posx = entrenador->objetivo_actual->posx;
 	catch_pokemon->coordenadas.posy = entrenador->objetivo_actual->posy;
 
-	int broker_socket = conectar_a_server(ip_broker, "6009");
+	t_servidor * servidor = malloc(sizeof(t_servidor));
+	servidor->ip = ip_broker;
+	servidor->puerto = "6009";
 
-	if(broker_socket < 0){
-		log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
-		log_info(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
-		log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %i %i", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
-		actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
+	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
+	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
 
-		if(objetivo_personal_cumplido(entrenador)){
-			entrenador->estado == FINALIZANDO;
-			list_add(lista_finalizar, entrenador);//ver que onda el hilo
-
-			t_objetivo* pokemon_encontrado = buscar_pokemon_por_especie(lista_objetivos, catch_pokemon->pokemon);
-			pokemon_encontrado->cantidad_atrapada++; /*Busco la especie en la lista global y sumo uno a los atrapados*/
-
-			if(objetivo_global_cumplido()){
-				log_info(team_logger, "Objetivo global cumplido");
-			} else {
-				log_info(team_logger, "Aun no se cumplio el objetivo global");
-			}
-
-		} else {
-			bloquear_entrenador(entrenador);
-			log_info(team_logger,"Entrenador de id %d bloqueado", entrenador->id);
-			planificar();
-
-			if(entrenador->razon_de_bloqueo == ESPERANDO_POKEMON){
-				planificar();
-			}
-		}
-
+	if(ack == (t_packed*) -1){
+		hacer_procedimiento_para_atrapar_default(catch_pokemon, entrenador);
 	}else{
-		enviar_catch_pokemon(broker_socket, -1, -1, catch_pokemon);
-		log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
-
 		//Recibo ACK
-		t_packed * paquete1 = recibir_mensaje(broker_socket);
-
-		if(paquete1->operacion == ACK){
-			log_info(team_logger, "Confirmada recepcion del pedido de catch para el pokemon: %s\n", entrenador->objetivo_actual->especie);
+		if(ack->operacion == ACK){
+			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", catch_pokemon->pokemon);
+			log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
+			hacer_procedimiento_para_atrapar_pokemon_con_broker(ack, entrenador);
 		}
-
-		//TODO RECIBIR ID Y GUARDARLO
-		//TODO BLOQUEAR AL ENTRENADOR CON SEMAFOROS Y CAMBIARLE EL ESTADO A BLOQUEADO
 	}
 
 	free(catch_pokemon);
 
 }
 
+void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list * lista){
+	int k = 0;
+	t_objetivo_entrenador * objetivo = malloc(sizeof(t_objetivo));
+	while(!list_is_empty(lista)){
+		objetivo = list_get(lista, k);
+		if(objetivo == NULL){
+			break;
+		}
+		log_info(team_logger,"Un objetivo es de la especie %s, cantidad necesitada %d", objetivo->especie, objetivo->cantidad);
+		k++;
+	}
+	free(objetivo);
+}
+
 void bloquear_entrenador(t_entrenador* entrenador){
 	if(entrenador->cant_maxima_objetivos == 0) {
-		list_add(lista_bloqueados, (void*)entrenador);
+
 		entrenador->razon_de_bloqueo = CANTIDAD_MAXIMA_ALCANZADA;
-		log_info(team_logger,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones", entrenador->id);
-		log_info(team_logger_oficial,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones", entrenador->id);
+		list_add(lista_bloqueados_cant_max_alcanzada, (void*)entrenador);
+
+		log_info(team_logger,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
+		log_info(team_logger_oficial,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
+
 	} else {
+
 		entrenador->razon_de_bloqueo = ESPERANDO_POKEMON;
 		list_add(lista_bloqueados_esperando, (void*)entrenador);
-		log_info(team_logger, "El entrenador %i esta bloqueado esperando que aparezca un pokemon", entrenador->id);
+
+		log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
+		mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
+
 		log_info(team_logger_oficial, "El entrenador %i esta bloqueado esperando que aparezca un pokemon", entrenador->id);
+
 	}
 }
 
@@ -367,7 +401,7 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 	}
 
 	if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
-		log_info(team_logger, "LLEGUE AL POKEMON");
+		log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
 
 	}
 }
@@ -394,6 +428,7 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 	seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 	obtener_proximo_ejecucion();
 
+	return NULL;
 }
 
 void crear_hilo_para_planificar(){
@@ -417,9 +452,9 @@ int main(){
 	int serv_socket = iniciar_servidor(PUERTO);
 
 	//Crea el socket cliente para conectarse al broker
-	//enviar_get();
+	enviar_get();
 
-	//convertirse_en_suscriptor_global_del_broker();
+	convertirse_en_suscriptor_global_del_broker();
 	crear_hilo_para_planificar();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 

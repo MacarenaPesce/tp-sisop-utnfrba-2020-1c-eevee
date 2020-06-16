@@ -48,9 +48,9 @@ void inicializar_semaforos(){
 	}
 
 	pthread_mutex_init(&mapa_mutex, NULL);
-	pthread_mutex_init(&gameboy_paquetes_mutex, NULL);
+	pthread_mutex_init(&llego_gameboy, NULL);
 	sem_init(&hay_un_pokemon_nuevo, 0, 0);
-	sem_init(&llego_gameboy, 0, 0);
+	//sem_init(&llego_gameboy, 0, 0);
 	sem_init(&entrenadores_ubicados, 0, 0);
 
 }
@@ -320,8 +320,13 @@ t_entrenador * buscar_entrenador_por_id(t_list* lista, int id){
 }
 
 t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_pokemon){
+	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
+	pokemon->especie = catch_pokemon->pokemon;
+	pokemon->posx = catch_pokemon->coordenadas.posx;
+	pokemon->posy = catch_pokemon->coordenadas.posy;
+
 	bool es_el_buscado(t_entrenador* entrenador){
-		return entrenador->objetivo_actual == catch_pokemon;
+		return entrenador->objetivo_actual == pokemon;
 	}
 	return (list_find(lista_bloqueados,(void*)es_el_buscado));
 }
