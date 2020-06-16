@@ -20,6 +20,8 @@ void distribuir_mensaje_a_suscriptores(int cola_de_mensajes,int id_mensaje);
 t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes);
 void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int cliente);
 t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola);
+t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, void* mensaje_recibido);
+void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, int cliente);
 
 void* print_operacion(void* mensaje);
 

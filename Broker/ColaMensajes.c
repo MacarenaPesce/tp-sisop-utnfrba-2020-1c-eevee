@@ -5,21 +5,15 @@ extern t_cache_colas* cache_mensajes;
 /* Flujo de mensajes */
 int agregar_mensaje_a_cola(t_packed* paquete){	
 
-	t_mensaje_cola* mensaje;
-	mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
-
-	mensaje->id_mensaje = cache_mensajes->proximo_id_mensaje;
-	mensaje->cola_de_mensajes = paquete->cola_de_mensajes;
-	mensaje->id_correlacional = paquete->id_correlacional;
-	mensaje->mensaje = paquete->mensaje;
-
-	cache_mensajes->proximo_id_mensaje++;
+	t_mensaje_cola* mensaje = crear_mensaje(paquete->cola_de_mensajes,
+                                            paquete->id_correlacional,
+                                            paquete->mensaje);
 
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
-	list_add(cache_mensajes->mensajes,(void*)mensaje);
+    agregar_mensaje_a_cache(mensaje);
 
-	encolar_envio_a_suscriptores(mensaje->cola_de_mensajes, mensaje->id_mensaje);
+    encolar_envio_a_suscriptores(mensaje->cola_de_mensajes, mensaje->id_mensaje);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
@@ -44,14 +38,11 @@ void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
 /* Flujo de suscripciones */
 void agregar_suscriptor_a_cola(int cola_de_mensajes, int cliente){
 	
-	int* id_cliente = (int*)malloc(sizeof(int));
-	*id_cliente = cliente;
-
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
 	t_cola_mensajes* cola = obtener_cola_mensajes(cola_de_mensajes);
 
-	list_add(cola->suscriptores,(void*)id_cliente);
+	agregar_cliente_a_suscriptores(cola,cliente);
 
 	enviar_mensajes_cacheados_a_nuevo_suscriptor(cola,cliente);
 
@@ -79,73 +70,7 @@ void enviar_mensajes_cacheados_a_nuevo_suscriptor(t_cola_mensajes* cola,int clie
 /* Flujo de ACK */
 
 
-/* Genericas */
-t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes){
-
-    bool filtro_cola(void* cola){
-		return ((t_cola_mensajes*)cola)->cola_de_mensajes == cola_de_mensajes;
-	}
-
-	t_cola_mensajes* cola = list_find(cache_mensajes->colas, filtro_cola);
-
-    return cola;
-}
-
-void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int cliente){
-		
-    t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
-    
-    envio_pendiente->id = id_mensaje;
-    envio_pendiente->cliente = cliente;
-
-    printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
-    
-    list_add(cola->envios_pendientes,(void*)envio_pendiente);
-
-    sem_post(cola->producciones);
-
-}
-
-t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
-
-	t_cola_mensajes* cola_mensaje; 
-	cola_mensaje = (t_cola_mensajes*)malloc(sizeof(t_cola_mensajes));
-
-	sem_t* producciones;
-	producciones = (sem_t*)malloc(sizeof(sem_t));
-
-	sem_init(producciones, 0, 0); 	
-
-	cola_mensaje->cola_de_mensajes = cola_mensajes;
-	cola_mensaje->envios_pendientes = list_create();
-	cola_mensaje->suscriptores = list_create();
-	cola_mensaje->producciones = producciones;
-
-	return cola_mensaje;
-
-}
-
-t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
-
-   	bool filtro_mensajes(void* mensaje){
-		return ((t_mensaje_cola*)mensaje)->cola_de_mensajes == cola->cola_de_mensajes;
-	}
-
-	t_list* mensajes = list_filter(cache_mensajes->mensajes, filtro_mensajes);
-
-    return mensajes;
-
-}
-
-/* Validar */
-
-void* print_operacion(void* mensaje){
-
-	printf("\n\n Mensaje: ");
-	printf("\n\n Cola: %d",((t_mensaje_cola*)mensaje)->cola_de_mensajes);
-
-	return NULL;
-}
+/* Flujo de sender */
 
 void* sender_suscriptores(void* cola_mensajes){
 
@@ -194,11 +119,6 @@ void* sender_suscriptores(void* cola_mensajes){
 	return NULL;
 }
 
-void eliminar_envio_pendiente(void* pendiente){
-	free(pendiente);
-	return;
-}
-
 int enviar_mensaje_a_suscriptor(int id_mensaje,
 								int id_correlacional, 
 								enum COLA_DE_MENSAJES cola_de_mensajes, 
@@ -239,5 +159,105 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 
 	return send_status;
 
+}
+
+/* Genericas */
+
+t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
+
+	t_cola_mensajes* cola_mensaje; 
+	cola_mensaje = (t_cola_mensajes*)malloc(sizeof(t_cola_mensajes));
+
+	sem_t* producciones;
+	producciones = (sem_t*)malloc(sizeof(sem_t));
+
+	sem_init(producciones, 0, 0); 	
+
+	cola_mensaje->cola_de_mensajes = cola_mensajes;
+	cola_mensaje->envios_pendientes = list_create();
+	cola_mensaje->suscriptores = list_create();
+	cola_mensaje->producciones = producciones;
+
+	return cola_mensaje;
+
+}
+
+t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, void* mensaje_recibido){
+
+    t_mensaje_cola* mensaje;
+	mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
+
+	mensaje->id_mensaje = cache_mensajes->proximo_id_mensaje;
+    cache_mensajes->proximo_id_mensaje++;
+    
+	mensaje->cola_de_mensajes = cola_de_mensajes;
+	mensaje->id_correlacional = id_correlacional;
+	mensaje->mensaje = mensaje_recibido;
+
+    return mensaje;
+}
+
+t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes){
+
+    bool filtro_cola(void* cola){
+		return ((t_cola_mensajes*)cola)->cola_de_mensajes == cola_de_mensajes;
+	}
+
+	t_cola_mensajes* cola = list_find(cache_mensajes->colas, filtro_cola);
+
+    return cola;
+}
+
+t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
+
+   	bool filtro_mensajes(void* mensaje){
+		return ((t_mensaje_cola*)mensaje)->cola_de_mensajes == cola->cola_de_mensajes;
+	}
+
+	t_list* mensajes = list_filter(cache_mensajes->mensajes, filtro_mensajes);
+
+    return mensajes;
+
+}
+
+void agregar_mensaje_a_cache(t_mensaje_cola* mensaje){
+    list_add(cache_mensajes->mensajes,(void*)mensaje);
+}
+
+void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, int cliente){
+
+    int* id_cliente = (int*)malloc(sizeof(int));
+	*id_cliente = cliente;
+
+    list_add(cola->suscriptores,(void*)id_cliente);
+
+}
+
+void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int cliente){
+		
+    t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
+    
+    envio_pendiente->id = id_mensaje;
+    envio_pendiente->cliente = cliente;
+
+    printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
+    
+    list_add(cola->envios_pendientes,(void*)envio_pendiente);
+
+    sem_post(cola->producciones);
+
+}
+
+void eliminar_envio_pendiente(void* pendiente){
+	free(pendiente);
+	return;
+}
+
+void* print_operacion(void* mensaje){
+
+	printf("\n\n Mensaje: ");
+	printf("\n\n Cola: %d",((t_mensaje_cola*)mensaje)->cola_de_mensajes);
+
+	return NULL;
 }
 
