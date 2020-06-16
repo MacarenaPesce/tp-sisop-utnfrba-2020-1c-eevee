@@ -354,7 +354,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 		log_info(team_logger,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 		log_info(team_logger_oficial,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
-	} else {
+	}else{
 
 		entrenador->razon_de_bloqueo = ESPERANDO_POKEMON;
 		list_add(lista_bloqueados_esperando, (void*)entrenador);
@@ -454,7 +454,7 @@ int main(){
 	//Crea el socket cliente para conectarse al broker
 	enviar_get();
 
-	convertirse_en_suscriptor_global_del_broker();
+	//convertirse_en_suscriptor_global_del_broker();
 	crear_hilo_para_planificar();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 

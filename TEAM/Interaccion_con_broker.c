@@ -61,7 +61,6 @@ void enviar_get(){
 			if(ack->operacion == ACK){
 				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
 				log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
-
 			}
 
 		}else{
