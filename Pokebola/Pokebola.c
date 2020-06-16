@@ -77,7 +77,7 @@ int _enviar_mensaje(int sock,
 
 	envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
 
-	if(paquete->tamanio_payload > 0 && envio_header == 1){
+	if(paquete->tamanio_payload > 0 && envio_header != -1){
 		envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
 	}
 
@@ -436,14 +436,14 @@ t_packed* enviar_get_pokemon(t_servidor* servidor,
 
 	if(socket == -1){
 		return (t_packed *) -1;
-	}
+	}	
 
 	int send_status = distribuir_get_pokemon(socket,-1,id_correlacional,get_pokemon);
 
 	if(send_status == -1) {
 		cerrar_conexion(socket);
 		return (t_packed *) -1;
-	} 
+	} 	
 
 	t_packed* ack;
 	ack = _esperar_ack(socket);
@@ -470,6 +470,7 @@ int distribuir_get_pokemon(int socket,
 	_agregar_string_a_paquete(paquete, get_pokemon->pokemon);
 
 	int send_status = _enviar_mensaje(socket, paquete);
+
 	_eliminar_mensaje(paquete);
 
 	return send_status;
@@ -574,6 +575,13 @@ int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes,
 	_agregar_uint32_t_a_paquete(paquete, suscripcion->minutos_suscripcion);
 
 	int send_status = _enviar_mensaje(socket, paquete);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		_eliminar_mensaje(paquete);
+		return -1;
+	} 
+
 	_eliminar_mensaje(paquete);	
 
 
@@ -722,8 +730,7 @@ t_packed* _esperar_ack(int socket){
 			printf("id_correlacional: %d  \n",ack->id_correlacional);
 			printf("id_mensaje: %d \n",ack->id_mensaje);
 			printf("tamanio_payload: %d \n",ack->tamanio_payload);
-			ack_obtenido = true;
-	
+			ack_obtenido = true;	
 		}	
 
 	}

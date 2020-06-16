@@ -140,8 +140,6 @@ void* esperar_mensajes(void* cliente){
 			}
 
 			break;
-		}else{
-			printf("se recibió un paquete invalido -1");
 		}
 	}
 
@@ -151,11 +149,15 @@ void* esperar_mensajes(void* cliente){
 
 void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 
+	printf("Se recibió un mensaje para la cola %d",paquete->cola_de_mensajes);
+
 	int id_mensaje = agregar_mensaje_a_cola(paquete);
 
 	//list_iterate(cache_mensajes->mensajes,print_operacion);
 	
-	enviar_ack(socket_cliente,id_mensaje,-1);
+	int send_status = enviar_ack(socket_cliente,id_mensaje,-1);
+
+	printf("\n este send status %d\n",send_status);
 
 	free(paquete);
 
@@ -166,7 +168,7 @@ void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
 
 	agregar_suscriptor_a_cola(paquete->cola_de_mensajes,socket_cliente);
-	enviar_ack(socket_cliente,-1,-1);
+	//enviar_ack(socket_cliente,-1,-1);
 
 	return;
 }
@@ -201,7 +203,7 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 }
 
 void agregar_mensaje_a_pendientes(int cola_mensajes,int id_mensaje){
-	
+
 	bool filtro_cola(void* cola){
 		return ((t_cola_mensajes*)cola)->cola_de_mensajes == cola_mensajes;
 	}
@@ -213,7 +215,7 @@ void agregar_mensaje_a_pendientes(int cola_mensajes,int id_mensaje){
 		t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
 		
 		envio_pendiente->id = id_mensaje;
-		envio_pendiente->cliente = *(int*)suscriptor;
+		envio_pendiente->cliente = *((int*)suscriptor);
 
 		printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
 		list_add(cola->envios_pendientes,(void*)envio_pendiente);
