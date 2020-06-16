@@ -26,7 +26,7 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_CONFIG_PUERTO_TEAM, config, obtener_el_puerto_de_team);
 		obtener_valor_config(KEY_CONFIG_PUERTO_GAMECARD, config, obtener_el_puerto_de_gamecard);
 
-		log_info(gameboy_logger,"\nArchivo de configuracion cargado correctamente :)");
+		log_info(gameboy_logger,"Archivo de configuracion cargado correctamente :)\n");
 		config_destroy(config);
 	}
 }
@@ -93,7 +93,7 @@ void configurar_signals(void){
 void capturar_signal(int signo){
 
     if(signo == SIGINT){
-    	log_info(gameboy_logger,"\n Gameboy murioU");
+    	log_info(gameboy_logger,"Gameboy murioU");
     	terminar_gameboy_correctamente();
     }
     else if(signo == SIGPIPE){

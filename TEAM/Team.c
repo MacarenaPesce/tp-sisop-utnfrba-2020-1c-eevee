@@ -454,7 +454,7 @@ int main(){
 	//Crea el socket cliente para conectarse al broker
 	enviar_get();
 
-	//convertirse_en_suscriptor_global_del_broker();
+	convertirse_en_suscriptor_global_del_broker();
 	crear_hilo_para_planificar();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 
