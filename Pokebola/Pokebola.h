@@ -14,7 +14,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include<netdb.h>
+#include <netdb.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -23,7 +23,7 @@
 #include <commons/collections/list.h>
 #include <commons/string.h>
 #include <sys/ioctl.h>
-
+#include <semaphore.h>
 
 /*** Enums log***/
 enum type_log {
@@ -146,6 +146,37 @@ void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
  */
 
 /**************************************************************************************/
+/* Typedef Broker */
+
+typedef struct{
+    uint32_t id_mensaje __attribute__((packed));
+    uint32_t id_correlacional __attribute__((packed));
+    enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
+    t_list* lista_suscriptores_enviados;
+    t_list* lista_suscriptores_ack;
+    void* mensaje;
+}t_mensaje_cola;
+
+typedef struct{
+ t_list* mensajes;
+ t_list* colas;
+ int proximo_id_mensaje;
+}t_cache_colas;
+
+typedef struct{
+    int id;
+    int cliente;
+}t_envio_pendiente;
+
+typedef struct{
+    enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
+    t_list* envios_pendientes;
+    t_list* suscriptores;
+    sem_t* producciones; 
+}t_cola_mensajes;
+
+/*  */
+
 
 int conectar_a_server(char*, char*);
 void cerrar_conexion(int);

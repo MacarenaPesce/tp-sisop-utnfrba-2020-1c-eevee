@@ -7,10 +7,26 @@
 #include <stdbool.h>
 #include <commons/collections/list.h>
 #include <Pokebola.h>
+#include <pthread.h>
 #include <semaphore.h>
 #include "Broker.h"
-#include "Conexion.h"
 
+/* Flujos de mensajes */
 int agregar_mensaje_a_cola(t_packed* paquete);
+void agregar_suscriptor_a_cola(int cola_de_mensajes, int cliente);
+
+/* Genericas */
+void agregar_mensaje_a_pendientes(int cola_mensajes,int id_mensaje);
+void* print_operacion(void* mensaje);
+
+t_cola_mensajes* crear_cola_mensajes(int cola_mensajes);
+void* sender_suscriptores(void* cola_mensajes);
+void eliminar_envio_pendiente(void* pendiente);
+void enviar_mensajes_cacheados_a_nuevo_suscriptor(t_cola_mensajes* cola,int cliente);
+int enviar_mensaje_a_suscriptor(int id_mensaje,
+								int id_correlacional, 
+								enum COLA_DE_MENSAJES cola_de_mensajes, 
+								int cliente, 
+								void* mensaje);
 
 #endif /* COLA_MENSAJES_BROKER_H_ */

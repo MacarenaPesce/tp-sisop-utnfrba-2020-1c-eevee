@@ -2,7 +2,6 @@
 
 int main(){
 
-	//printf("voy a suscribirme\n");
 /* 
 	Creo un server donde voy a mandar mensajes (Broker)
 */
