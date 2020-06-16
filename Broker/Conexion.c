@@ -100,10 +100,14 @@ void* esperar_mensajes(void* cliente){
 
 	int socket_cliente = *(int*)cliente;
 
+	free(cliente);
+
 	//Creo un paquete y recibo el mensaje
 	t_packed* paquete;
 
-	while(1){
+	int continuar_recibiendo = 1;
+
+	while(continuar_recibiendo){
 		paquete = recibir_mensaje(socket_cliente);
 
 		if(paquete != (t_packed*)-1){
@@ -124,6 +128,7 @@ void* esperar_mensajes(void* cliente){
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:
 					recibir_mensaje_de_colas(paquete,socket_cliente);
+					continuar_recibiendo = 0;
 					break;
 				
 				case SUSCRIBIRSE_A_COLA:

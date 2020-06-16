@@ -4,9 +4,9 @@ int main(){
 
 	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
 
-	pthread_mutex_lock(&mutex_queue_mensajes);
-
 	printf("\n1) Inicializando cache de mensajes... \n");
+
+	pthread_mutex_lock(&mutex_queue_mensajes);
 
 	cache_mensajes = (t_cache_colas*)malloc(sizeof(t_cache_colas));
 	cache_mensajes->mensajes = list_create();
@@ -27,16 +27,20 @@ int main(){
 		
 	}
 
-	printf("\n2) Cache de mensajes lista!!! ");
-
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
+	printf("\n2) Cache de mensajes lista!!! ");
+
 	printf("\n\n3) Inicializando archivo de configuracion...\n\n");
+
 	inicializar_archivo_de_configuracion();
+
 	printf("\n4) Configuraciones cargadas correctamente!!!");
 	
 	printf("\n\n5) Configurando signals...");
+
 	configurar_signals();
+
 	printf("\n\n6) Signals configuradas correctamente!!!");
 
 	iniciar_servidor();
@@ -49,11 +53,6 @@ int main(){
 	
 	}
 
-	for(int i = COLA_APPEARED_POKEMON; i <= COLA_LOCALIZED_POKEMON; i++){
-
-		pthread_join(&hilo_sender[i],NULL);
-		
-	}
 }
 
 t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
@@ -195,5 +194,7 @@ void enviar_mensajes_cacheados_a_nuevo_suscriptor(t_cola_mensajes* cola,int clie
 	t_list* mensajes_cacheados = list_filter(cache_mensajes->mensajes, filtro_cola);
 
 	list_iterate(mensajes_cacheados,agregar_mensaje_pendiente);	
+
+	list_destroy(mensajes_cacheados);
 
 }
