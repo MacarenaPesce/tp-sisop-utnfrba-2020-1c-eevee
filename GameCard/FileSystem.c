@@ -299,25 +299,31 @@ void crearPokemon(t_new_pokemon* pokemon){
 
 	char* lineaAcopiar= string_new();
 	int tamanioLineaPoke=list_size(listaPokemon);
-	int tamanioLineaAcopiar= sizeof(list_get(listaPokemon,0));
+	int tamanioLineaAcopiar= 0;
 
 	while(list_size(listaPokemon)!=0){
 
 		log_info(gameCard_logger,"aca estas en el while de armado de pokemon");
 
-		log_info(gameCard_logger,"mostrame tu primer elemento lista pokemon");
-
-		log_info(gameCard_logger,"es: %s",list_get(listaPokemon,0));
+		log_info(gameCard_logger,"mostrame tu primer elemento lista pokemon: %s",list_get(listaPokemon,0));
 
 		if(cumpleTamanio(tamanioBloq,tamanioLineaAcopiar)){
+			log_info(gameCard_logger,"Me cumple con el tamanio la linea a copiar");
 			string_append(&lineaAcopiar, list_get(listaPokemon,0));
+			log_info(gameCard_logger,"lalinea tienen: %s",lineaAcopiar);
 			tamanioLineaAcopiar=tamanioLineaAcopiar+ sizeof(list_get(listaPokemon,0));
-			list_remove(listaPokemon,1);
+			log_info(gameCard_logger, "lo que se va a copiar tamaño: %d",tamanioLineaAcopiar);
+			list_remove(listaPokemon,0);
+
 		}
 
 		else {
 
 			int bloqueLibre=obtenerPrimerBloqueLibre();
+
+			log_info(gameCard_logger,"aca no cumple tamanio linea a escribir");
+
+			log_info(gameCard_logger,"obtuve bloque libre: %d",bloqueLibre);
 
 			char* rutaBloqueLibre=string_new();
 			char* nombreBloque=string_new();
@@ -329,7 +335,7 @@ void crearPokemon(t_new_pokemon* pokemon){
 			string_append(&rutaBloqueLibre, ".bin");
 			FILE *bloque = fopen(rutaBloqueLibre, "wb");
 
-			log_info (gameCard_logger,"el metadataPokemon que abrimos es %s",rutaBloqueLibre);
+			log_info (gameCard_logger,"el bloque que abrimos es %s",rutaBloqueLibre);
 
 		    log_info(gameCard_logger,"el tamanio de bloque es: %d",metadata_fs->tamanioBLoques);
 
@@ -343,14 +349,15 @@ void crearPokemon(t_new_pokemon* pokemon){
 
 			bitarray_set_bit(bitarray,bloqueLibre);
 
-			log_info(gameCard_logger, "El metadataPokemon %d en el bitmap pasó a ", bitarray_test_bit(bitarray,bloqueLibre));
+			log_info(gameCard_logger, "El bitmap pasó a %d en la pos %d", bitarray_test_bit(bitarray,bloqueLibre),bloqueLibre);
 
 			list_add(bloquesMetadataPokemon,string_itoa(bloqueLibre));
 
+			free(lineaAcopiar);
 			char* lineaAcopiar= string_new();
-			string_append(lineaAcopiar,list_get(listaPokemon,0));
+			string_append(&lineaAcopiar,list_get(listaPokemon,0));
 			tamanioLineaAcopiar=sizeof(get_list(listaPokemon,0));
-			list_remove_and_destroy_element(listaPokemon,0,list_get(listaPokemon,0));
+			list_remove(listaPokemon,0);
 
 		}
 	}
