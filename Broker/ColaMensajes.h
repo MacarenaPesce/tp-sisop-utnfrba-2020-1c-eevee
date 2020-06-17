@@ -60,5 +60,6 @@ void eliminar_envio_pendiente(void* pendiente);
 
 // Helpers
 void* print_operacion(void* mensaje);
+void* print_clientes(void* cliente);
 
 #endif /* COLA_MENSAJES_BROKER_H_ */

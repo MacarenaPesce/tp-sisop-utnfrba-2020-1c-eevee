@@ -27,8 +27,6 @@ void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
 
     void enviar_mensaje_a_suscriptores(void* suscriptor){
 
-		printf("\nsuscriptor: %d\n",*((int*)suscriptor));
-
         agregar_pendiente_de_envio(cola,id_mensaje,*((int*)suscriptor));
 
     }
@@ -50,7 +48,7 @@ void agregar_suscriptor_a_cola(int cola_de_mensajes, uint32_t id_cliente, int so
 
 	agregar_cliente_a_suscriptores(cola,cliente);
 
-	enviar_mensajes_cacheados_a_suscriptor(cola,cliente);
+	enviar_mensajes_cacheados_a_suscriptor(cola,cliente->id);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
@@ -77,6 +75,23 @@ void enviar_mensajes_cacheados_a_suscriptor(t_cola_mensajes* cola,int cliente){
 
 /* Flujo de ACK */
 
+void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente, int socket_cliente){
+
+	printf("\nSe recibió ACK del mensaje %d por parte del cliente %d\n",id_mensaje, id_cliente);
+
+	pthread_mutex_lock(&mutex_queue_mensajes);
+
+	t_mensaje_cola* mensaje = obtener_mensaje_por_id(id_mensaje);
+
+	int* id_cliente_ptr = (int*)malloc(sizeof(int));
+
+	*id_cliente_ptr = id_cliente;
+
+	list_add(mensaje->suscriptores_ack,id_cliente_ptr);
+
+	pthread_mutex_unlock(&mutex_queue_mensajes);
+
+}
 
 /* Flujo de sender */
 
@@ -174,10 +189,13 @@ t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket){
 	t_cliente* cliente = obtener_cliente_por_id(id_cliente);
 
 	if(cliente == NULL){
+		printf("\nCreando nuevo cliente %d en socket %d\n",id_cliente,socket);
 		cliente = crear_cliente(id_cliente, socket);
 		agregar_cliente_a_cache(cliente);
 		return cliente;
 	}
+
+	printf("\nActualizando socket del cliente %d al socket %d\n",id_cliente,socket);
 
 	cliente->socket = socket;
 
@@ -225,6 +243,8 @@ t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, void* 
 	mensaje->cola_de_mensajes = cola_de_mensajes;
 	mensaje->id_correlacional = id_correlacional;
 	mensaje->mensaje = mensaje_recibido;
+	mensaje->suscriptores_enviados = list_create();
+	mensaje->suscriptores_ack = list_create();
 
     return mensaje;
 }
@@ -260,6 +280,18 @@ t_cliente* obtener_cliente_por_id(int id_cliente){
 
 }
 
+t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
+
+   	bool filtro_mensajes(void* mensaje){
+		return ((t_mensaje_cola*)mensaje)->cola_de_mensajes == cola->cola_de_mensajes;
+	}
+
+	t_list* mensajes = list_filter(cache_mensajes->mensajes, filtro_mensajes);
+
+    return mensajes;
+
+}
+
 bool es_suscriptor_de(int id_cliente, t_cola_mensajes* cola){
   
     bool es_cliente_buscado(void* cliente){
@@ -275,24 +307,12 @@ bool es_suscriptor_de(int id_cliente, t_cola_mensajes* cola){
 bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente){
 
 	bool es_cliente_buscado(void* cliente){
-        return ((t_cliente*)cliente)->id == id_cliente;
+        return *((int*)cliente) == id_cliente;
     }
 
 	t_cliente* cliente = list_find(mensaje->suscriptores_ack,es_cliente_buscado);
 
     return cliente != NULL;
-}
-
-t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
-
-   	bool filtro_mensajes(void* mensaje){
-		return ((t_mensaje_cola*)mensaje)->cola_de_mensajes == cola->cola_de_mensajes;
-	}
-
-	t_list* mensajes = list_filter(cache_mensajes->mensajes, filtro_mensajes);
-
-    return mensajes;
-
 }
 
 void agregar_mensaje_a_cache(t_mensaje_cola* mensaje){
@@ -353,3 +373,9 @@ void* print_operacion(void* mensaje){
 	return NULL;
 }
 
+void* print_clientes(void* suscriptor){
+	
+	printf("\n\n id_cliente: %d\n",*((int*)suscriptor) );
+
+	return NULL;
+}

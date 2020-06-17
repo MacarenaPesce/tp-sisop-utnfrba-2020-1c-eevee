@@ -274,6 +274,8 @@ t_packed* enviar_appeared_pokemon(t_servidor* servidor,
 
 	int send_status = distribuir_appeared_pokemon(socket,-1,id_correlacional,servidor->id_cliente,appeared_pokemon);
 
+	printf("\nsend status appeared: %d",send_status);
+
 	if(send_status == -1) {
 		cerrar_conexion(socket);
 		return (t_packed *) -1;
@@ -489,20 +491,32 @@ int distribuir_get_pokemon(int socket,
 
 };
 
-int enviar_ack(int socket,
-				uint32_t id_mensaje, 
-				uint32_t id_cliente,
-				uint32_t id_correlacional){
+int enviar_ack(t_servidor* servidor, uint32_t id_mensaje){
+
+	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1){
+		return -1;
+	}	
+
+	int send_status = distribuir_ack(socket, id_mensaje, servidor->id_cliente);
+
+	return send_status;
+};
+
+int distribuir_ack(int socket,uint32_t id_mensaje, uint32_t id_cliente){
 
 	t_packed* paquete;
 	paquete = _crear_paquete(ACK);
 
 	paquete->id_mensaje = id_mensaje;
-	paquete->id_correlacional = id_correlacional;
+	paquete->id_correlacional = -1;
 	paquete->id_cliente = id_cliente;
 
 	int send_status = _enviar_mensaje(socket, paquete);
+
 	_eliminar_mensaje(paquete);
+
 	return send_status;
 };
 
