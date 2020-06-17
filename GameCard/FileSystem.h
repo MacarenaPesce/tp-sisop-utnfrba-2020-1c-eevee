@@ -92,4 +92,8 @@ bool noHayEspacioParaPokemon(t_list* listaPokemon);
 t_list*  cargarPokemon(t_new_pokemon* pokemon);
 void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar);
 
+//manejo del ultimo elemento
+
+int cantElemPokemon;
+
 #endif /* FILESYSTEM_H_ */

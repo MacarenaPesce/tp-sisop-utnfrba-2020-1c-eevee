@@ -294,7 +294,7 @@ t_list*  cargarPokemon(t_new_pokemon* pokemon){
 
 void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar){
 
-	log_info(gameCard_logger, "aca entro al archivo");
+	log_info(gameCard_logger, "aca entro para preparar arch .bin");
 
 	    char* rutaBloqueLibre=string_new();
 		char* nombreBloque=string_new();
@@ -309,6 +309,7 @@ void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar){
 		fwrite(lineaAcopiar,string_length(lineaAcopiar),1,bloque);
 		fclose(bloque);
 
+		log_info(gameCard_logger,"aca cierro archivo copiado");
 }
 
 void marcarBloqueOcupado(int bloqueLibre){
@@ -323,8 +324,28 @@ void agregarBloqueParaMetadataArchivo(int bloqueLibre){
 }
 
 
+void copiarPersistiendoPokemon(){
+
+	int bloqueLibre=obtenerPrimerBloqueLibre();
+
+		log_info(gameCard_logger,"el primer bloque libre es: %d",bloqueLibre);
+
+		copiarEnBloqueLibre(bloqueLibre,listaPokemon);
+
+		log_info(gameCard_logger, "se ha copiado %s , correctamente en el bloque %d",listaPokemon,bloqueLibre);
+
+		marcarBloqueOcupado(bloqueLibre);
+
+		agregarBloqueParaMetadataArchivo(bloqueLibre);
+}
+
+
 void medirTamanioLineaPokemon(void* pokemon){
 
+	cantElemPokemon=cantElemPokemon-1;
+	log_info(gameCard_logger,"Cantidad de elementos: %d",cantElemPokemon);
+
+	log_info(gameCard_logger,"aca quiero ver el elementode evaluacion: %s",pokemon);
 	char* elem=pokemon;
 
 	//string_append(&listAux,elem);
@@ -341,22 +362,12 @@ void medirTamanioLineaPokemon(void* pokemon){
 		string_append(&listaPokemon,elem);
 
 		log_info(gameCard_logger,"aca linea paó a ser: %s",listaPokemon);
+
+		//si es el ultimo elemento
+
 	}
 
-	else {
-
-		int bloqueLibre=obtenerPrimerBloqueLibre();
-
-		log_info(gameCard_logger,"el primer bloque libre es: %d",bloqueLibre);
-
-		copiarEnBloqueLibre(bloqueLibre,listaPokemon);
-
-		log_info(gameCard_logger, "se ha copiado %s , correctamente en el bloque %d",listaPokemon,bloqueLibre);
-
-		marcarBloqueOcupado(bloqueLibre);
-
-		agregarBloqueParaMetadataArchivo(bloqueLibre);
-
+	else {  copiarPersistiendoPokemon();
 
 		listaPokemon=NULL;
 		listaPokemon= string_new();
@@ -367,6 +378,11 @@ void medirTamanioLineaPokemon(void* pokemon){
 
 
 	}
+
+	if(cantElemPokemon==0){
+
+			copiarPersistiendoPokemon();
+		}
 
 }
 
@@ -481,6 +497,7 @@ void crearPokemon(t_new_pokemon* poke){
 	bloquesMetadataPokemon=list_create();
 	listAux=string_new();
 
+	cantElemPokemon=list_size(pokemonACargar);
 	list_iterate(pokemonACargar,medirTamanioLineaPokemon);
 
 	crearMetadataArchPoke(poke->pokemon);
