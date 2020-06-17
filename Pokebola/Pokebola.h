@@ -84,6 +84,7 @@ typedef struct{
 } t_coordenadas;
 
 typedef struct{
+	uint32_t id_cliente __attribute__((packed));
 	char* ip;
 	char* puerto;
 } t_servidor;
@@ -93,6 +94,8 @@ typedef struct{
 	uint32_t id_mensaje __attribute__((packed));
 
 	uint32_t id_correlacional __attribute__((packed));
+	
+	uint32_t id_cliente __attribute__((packed));
 
 	uint32_t tamanio_payload __attribute__((packed));
 
@@ -175,6 +178,11 @@ typedef struct{
     sem_t* producciones; 
 }t_cola_mensajes;
 
+typedef struct{
+	uint32_t id __attribute__((packed));
+	int socket __attribute__((packed));
+}t_cliente;
+
 /*  */
 
 
@@ -185,7 +193,6 @@ void eliminar_mensaje(t_packed* paquete);
 void logger(int tipo_esc, int tipo_log, const char* mensaje, ...);
 
 
-int enviar_ack(int socket,uint32_t id_mensaje, uint32_t id_correlacional);
 t_packed* enviar_mensaje_string(t_servidor* servidor, char* mensaje);
 t_packed* enviar_appeared_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );
 t_packed* enviar_catch_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_catch_pokemon* catch_pokemon);
@@ -195,14 +202,15 @@ t_packed* enviar_get_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_
 t_packed* enviar_localized_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
 t_packed* distribuir_mensaje_string(int socket, char* mensaje);
 int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes, t_suscripcion* suscripcion);
+int enviar_ack(int socket,uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente);
 /**************************************************************************************/
 
-int distribuir_appeared_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );
-int distribuir_catch_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_catch_pokemon* catch_pokemon);
-int distribuir_new_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_new_pokemon* new_pokemon);
-int distribuir_caught_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_caught_pokemon* caught_pokemon);
-int distribuir_get_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_get_pokemon* get_pokemon);
-int distribuir_localized_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
+int distribuir_appeared_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_appeared_pokemon* appeared_pokemon );
+int distribuir_catch_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_catch_pokemon* catch_pokemon);
+int distribuir_new_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_new_pokemon* new_pokemon);
+int distribuir_caught_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_caught_pokemon* caught_pokemon);
+int distribuir_get_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_get_pokemon* get_pokemon);
+int distribuir_localized_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_localized_pokemon* localized_pokemon);
 
 /**************************************************************************************/
 

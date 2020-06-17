@@ -9,6 +9,7 @@ int main(){
 	t_servidor servidor;
 	servidor.ip = "127.0.0.1";
 	servidor.puerto = "32587";
+	servidor.id_cliente = 12333;
 
 /* 
 	Para enviar solamente tengo que crear la estructura
@@ -59,7 +60,7 @@ int main(){
 	free(ack);
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
-	ack = enviar_caught_pokemon(&servidor,-1,&caught_pokemon);
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
 	free(ack);
 
 	while(1){};
