@@ -49,8 +49,10 @@ bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente);
 
 // Creación
 void agregar_mensaje_a_cache(t_mensaje_cola* mensaje);
+void agregar_cliente_a_cache(t_cliente* cliente);
 void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, t_cliente* cliente);
 void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int cliente);
+void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, t_cliente* cliente);
 
 // Eliminación
 void eliminar_mensaje_enviado();

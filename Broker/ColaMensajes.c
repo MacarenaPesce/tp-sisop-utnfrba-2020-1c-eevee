@@ -108,13 +108,14 @@ void* sender_suscriptores(void* cola_mensajes){
 												cliente->socket, 
 												mensaje->mensaje);
 
+		agregar_cliente_a_enviados(mensaje,cliente);
+
 		if(envio != -1){			
 			printf("\nEnviado correctamente mensaje de id %d de cola %d al cliente %d!!!",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
 			eliminar_mensaje_enviado(cola);
             printf("\nLos pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
         }else{
-			//MODIFICAR EL FLUJO SEGUN DOCUMENTO EN LUGAR DE ELIMINAR
-			printf("\nFallo el envio del mensaje de id %d de cola %d al cliente %d!!! Se perdió :c",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
+			printf("\nFallo el envio del mensaje de id %d de cola %d al cliente %d!!! Se reintentará cuando se vuelva a suscribir",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
             eliminar_mensaje_enviado(cola);
 		}
 
@@ -326,6 +327,12 @@ void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cl
     list_add(cola->envios_pendientes,(void*)envio_pendiente);
 
     sem_post(cola->producciones);
+
+}
+
+void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, t_cliente* cliente){
+
+	list_add(mensaje->suscriptores_enviados,cliente->id);
 
 }
 
