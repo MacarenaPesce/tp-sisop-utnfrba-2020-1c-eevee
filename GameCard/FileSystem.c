@@ -455,11 +455,11 @@ void crearPokemon(t_new_pokemon* poke){
 
 	t_list* pokemonACargar=cargarPokemon(poke);
 
-	if (noHayEspacioParaPokemon(listaPokemon)){
+	/*if (noHayEspacioParaPokemon(listaPokemon)){
 			log_info(gameCard_logger,"No hay espacio para un nuevo Pokemon");
 			list_clean_and_destroy_elements(listaPokemon,0);
 			exit(-1);
-		}
+		}*/
 
 	int tamanioPokemon=0;
 	listaPokemon=string_new();
