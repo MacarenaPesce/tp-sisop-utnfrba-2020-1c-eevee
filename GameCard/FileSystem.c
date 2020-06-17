@@ -294,6 +294,8 @@ t_list*  cargarPokemon(t_new_pokemon* pokemon){
 
 void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar){
 
+	log_info(gameCard_logger, "aca entro al archivo");
+
 	    char* rutaBloqueLibre=string_new();
 		char* nombreBloque=string_new();
 
@@ -309,7 +311,7 @@ void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar){
 
 }
 
-void ActualizarBitmap(int bloqueLibre){
+void marcarBloqueOcupado(int bloqueLibre){
 
 	bitarray_set_bit(bitarray,bloqueLibre);
 
@@ -323,27 +325,46 @@ void agregarBloqueParaMetadataArchivo(int bloqueLibre){
 
 void medirTamanioLineaPokemon(void* pokemon){
 
-	tamanioPokemon=tamanioPokemon+sizeof(pokemon);
+	char* elem=pokemon;
+
+	//string_append(&listAux,elem);
+
+	log_info(gameCard_logger,"aca quiero ver con que valor llega tamanioPokemen %d:",tamanioPokemon);
+
+	tamanioPokemon=tamanioPokemon+string_length(elem);
+
+	log_info(gameCard_logger,"tamanio + longitud del nuevo elemento : %d", tamanioPokemon);
 
 	if (tamanioPokemon<=metadata_fs->tamanioBLoques){
 
-		string_append(&listaPokemon,pokemon);
+		log_info(gameCard_logger,"tamanio Poke menor a bloque es:%d",tamanioPokemon);
+		string_append(&listaPokemon,elem);
+
+		log_info(gameCard_logger,"aca linea paó a ser: %s",listaPokemon);
 	}
 
 	else {
 
 		int bloqueLibre=obtenerPrimerBloqueLibre();
 
+		log_info(gameCard_logger,"el primer bloque libre es: %d",bloqueLibre);
+
 		copiarEnBloqueLibre(bloqueLibre,listaPokemon);
 
-		ActualizarBitmap(bloqueLibre);
+		log_info(gameCard_logger, "se ha copiado %s , correctamente en el bloque %d",listaPokemon,bloqueLibre);
+
+		marcarBloqueOcupado(bloqueLibre);
 
 		agregarBloqueParaMetadataArchivo(bloqueLibre);
 
+
 		listaPokemon=NULL;
 		listaPokemon= string_new();
-		string_append(&listaPokemon,pokemon);
-		tamanioPokemon=sizeof(pokemon);
+		//listAux=NULL;
+		//listAux=string_new();
+		string_append(&listaPokemon,elem);
+		tamanioPokemon=string_length(listaPokemon);
+
 
 	}
 
@@ -458,6 +479,7 @@ void crearPokemon(t_new_pokemon* poke){
 	int tamanioPokemon=0;
 	listaPokemon=string_new();
 	bloquesMetadataPokemon=list_create();
+	listAux=string_new();
 
 	list_iterate(pokemonACargar,medirTamanioLineaPokemon);
 

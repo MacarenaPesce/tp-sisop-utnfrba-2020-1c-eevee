@@ -42,7 +42,7 @@ int32_t tamanioBitmap;
 t_bitarray* bitarray;
 
 
-void ActualizarBitmap(int bloqueLibre);
+void marcarBloqueOcupado(int bloqueLibre);
 void cargarRutasFs();
 int abrir_ruta(char *ruta);
 void cargarMetadataFs(char *ruta);
@@ -80,11 +80,12 @@ void crearMetadataDirectorioFiles();
 t_list* bloquesMetadataPokemon;
 int tamanioPokemon;
 char* listaPokemon;
+char* listAux;
 
 void medirTamanioLineaPokemon(void* pokemon);
 t_list*  cargarPokemon(t_new_pokemon* pokemon);
 void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar);
-void ActualizarBitmap(int bloqueLibre);
+void marcarBloqueOcupado(int bloqueLibre);
 void agregarBloqueParaMetadataArchivo(int bloqueLibre);
 int espacioPokemon(t_list* listaPokemon);
 bool noHayEspacioParaPokemon(t_list* listaPokemon);
