@@ -27,6 +27,8 @@ void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
 
     void enviar_mensaje_a_suscriptores(void* suscriptor){
 
+		printf("\nsuscriptor: %d\n",*((int*)suscriptor));
+
         agregar_pendiente_de_envio(cola,id_mensaje,*((int*)suscriptor));
 
     }
@@ -36,28 +38,34 @@ void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
 }
 
 /* Flujo de suscripciones */
-void agregar_suscriptor_a_cola(int cola_de_mensajes, int cliente){
+void agregar_suscriptor_a_cola(int cola_de_mensajes, uint32_t id_cliente, int socket_cliente){
+
+	printf("\nRecibida suscripcion de cliente %d en socket %d\n",id_cliente,socket_cliente);
 	
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
 	t_cola_mensajes* cola = obtener_cola_mensajes(cola_de_mensajes);
 
+	t_cliente* cliente = crear_o_actualizar_cliente(id_cliente,socket_cliente);
+
 	agregar_cliente_a_suscriptores(cola,cliente);
 
-	enviar_mensajes_cacheados_a_nuevo_suscriptor(cola,cliente);
+	enviar_mensajes_cacheados_a_suscriptor(cola,cliente);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
 	return;
 }
 
-void enviar_mensajes_cacheados_a_nuevo_suscriptor(t_cola_mensajes* cola,int cliente){
+void enviar_mensajes_cacheados_a_suscriptor(t_cola_mensajes* cola,int cliente){
 
     t_list* mensajes = obtener_mensajes_de_cola(cola);
 
     void agregar_mensaje_pendiente(void* mensaje){
 
-        agregar_pendiente_de_envio(cola,((t_mensaje_cola*)mensaje)->id_mensaje,cliente);		
+		if(!ack_recibido_de(mensaje,cliente)){
+        	agregar_pendiente_de_envio(cola,((t_mensaje_cola*)mensaje)->id_mensaje,cliente);		
+		}
 
 	}	
 
@@ -92,10 +100,12 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		t_mensaje_cola * mensaje = obtener_mensaje_por_id(envio_pendiente->id);
 
+		t_cliente* cliente = obtener_cliente_por_id(envio_pendiente->cliente);
+
 		int envio = enviar_mensaje_a_suscriptor(envio_pendiente->id,
 												mensaje->id_correlacional, 
 												cola->cola_de_mensajes, 
-												envio_pendiente->cliente, 
+												cliente->socket, 
 												mensaje->mensaje);
 
 		if(envio != -1){			
@@ -158,6 +168,20 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 }
 
 /* Genericas */
+t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket){
+
+	t_cliente* cliente = obtener_cliente_por_id(id_cliente);
+
+	if(cliente == NULL){
+		cliente = crear_cliente(id_cliente, socket);
+		agregar_cliente_a_cache(cliente);
+		return cliente;
+	}
+
+	cliente->socket = socket;
+
+	return cliente;
+}
 
 t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
 
@@ -175,6 +199,17 @@ t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
 	cola_mensaje->producciones = producciones;
 
 	return cola_mensaje;
+
+}
+
+t_cliente* crear_cliente(uint32_t id_cliente, int socket){
+
+	t_cliente* cliente = (t_cliente*)malloc(sizeof(t_cliente));
+
+	cliente->id = id_cliente;
+	cliente->socket = socket;
+
+	return cliente;
 
 }
 
@@ -214,6 +249,39 @@ t_mensaje_cola* obtener_mensaje_por_id(int id_mensaje){
 
 }
 
+t_cliente* obtener_cliente_por_id(int id_cliente){
+  
+    bool es_cliente_buscado(void* cliente){
+        return ((t_cliente*)cliente)->id == id_cliente;
+    }
+
+    return list_find(cache_mensajes->clientes,es_cliente_buscado);
+
+}
+
+bool es_suscriptor_de(int id_cliente, t_cola_mensajes* cola){
+  
+    bool es_cliente_buscado(void* cliente){
+        return ((t_cliente*)cliente)->id == id_cliente;
+    }
+
+	t_cliente* cliente = list_find(cola->suscriptores,es_cliente_buscado);
+
+    return cliente != NULL;
+
+}
+
+bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente){
+
+	bool es_cliente_buscado(void* cliente){
+        return ((t_cliente*)cliente)->id == id_cliente;
+    }
+
+	t_cliente* cliente = list_find(mensaje->suscriptores_ack,es_cliente_buscado);
+
+    return cliente != NULL;
+}
+
 t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 
    	bool filtro_mensajes(void* mensaje){
@@ -230,21 +298,28 @@ void agregar_mensaje_a_cache(t_mensaje_cola* mensaje){
     list_add(cache_mensajes->mensajes,(void*)mensaje);
 }
 
-void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, int cliente){
+void agregar_cliente_a_cache(t_cliente* cliente){
+	list_add(cache_mensajes->clientes,(void*)cliente);
+}
+
+void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, t_cliente* cliente){
+
+	if(es_suscriptor_de(cliente->id, cola)) return;
 
     int* id_cliente = (int*)malloc(sizeof(int));
-	*id_cliente = cliente;
+
+	*id_cliente = cliente->id;
 
     list_add(cola->suscriptores,(void*)id_cliente);
 
 }
 
-void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int cliente){
+void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cliente){
 		
     t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
     
     envio_pendiente->id = id_mensaje;
-    envio_pendiente->cliente = cliente;
+    envio_pendiente->cliente = id_cliente;
 
     printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
     

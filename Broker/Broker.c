@@ -12,6 +12,7 @@ int main(){
 	cache_mensajes->mensajes = list_create();
 	cache_mensajes->colas = list_create();
 	cache_mensajes->proximo_id_mensaje = 0;
+	cache_mensajes->clientes = list_create();
 
 	t_cola_mensajes* aux_crear_cola_mensajes; 
 

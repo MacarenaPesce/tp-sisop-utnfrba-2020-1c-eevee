@@ -118,9 +118,7 @@ void* esperar_mensajes(void* cliente){
 			printf("id_correlacional: %d  \n",paquete->id_correlacional);
 			printf("id_mensaje: %d \n",paquete->id_mensaje);
 			printf("id_cliente: %d \n",paquete->id_cliente);
-			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
-			if(paquete->operacion == 1)printf("\n id_cliente: %d",socket_cliente);
-			
+			printf("tamanio_payload: %d \n",paquete->tamanio_payload);			
 
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:
@@ -169,7 +167,7 @@ void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 
 void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
 
-	agregar_suscriptor_a_cola(paquete->cola_de_mensajes,socket_cliente);
+	agregar_suscriptor_a_cola(paquete->cola_de_mensajes, paquete->id_cliente, socket_cliente);
 	//enviar_ack(socket_cliente,-1,-1,-1);
     
 	return;

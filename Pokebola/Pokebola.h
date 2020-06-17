@@ -155,14 +155,15 @@ typedef struct{
     uint32_t id_mensaje __attribute__((packed));
     uint32_t id_correlacional __attribute__((packed));
     enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
-    t_list* lista_suscriptores_enviados;
-    t_list* lista_suscriptores_ack;
+    t_list* suscriptores_enviados;
+    t_list* suscriptores_ack;
     void* mensaje;
 }t_mensaje_cola;
 
 typedef struct{
  t_list* mensajes;
- t_list* colas;
+ t_list* colas; 
+ t_list* clientes;
  int proximo_id_mensaje;
 }t_cache_colas;
 
