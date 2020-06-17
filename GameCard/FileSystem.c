@@ -390,12 +390,25 @@ void medirTamanioLineaPokemon(void* pokemon){
 
 void crearMetadataArchPoke(char* pokemon){
 
+	log_info(gameCard_logger,"CReando el directorio Pokemon : %s", pokemon);
+
+	char* directorioPoke=string_new();
+
+		string_append(&directorioPoke,rutas_fs->pathDirectorioFilesMetadata);
+		string_append(&directorioPoke,"/");
+		string_append(&directorioPoke,pokemon);
+
+		int fueCreado = mkdir(directorioPoke, 0777); //analizar permisos
+		if (fueCreado == 0) {
+			log_info(gameCard_logger,"Se ha creado el directorio / %s",pokemon);}
+
 	char* rutaMetadataPoke=string_new();
 
-		string_append(&rutaMetadataPoke,rutas_fs->pathDirectorioBloques);
-		string_append(&rutaMetadataPoke,"/");
-		string_append(&rutaMetadataPoke,pokemon);
+		string_append(&rutaMetadataPoke,directorioPoke);
 		string_append(&rutaMetadataPoke,"/Metadata.bin");
+
+	log_info(gameCard_logger,"la nueva ruta seria : %s",rutaMetadataPoke);
+
 		FILE* metadataPoke = fopen(rutaMetadataPoke, "wb");
 
 		char* lineaDirectorio=string_new();
