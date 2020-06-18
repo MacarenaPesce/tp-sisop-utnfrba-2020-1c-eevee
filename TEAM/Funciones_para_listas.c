@@ -47,7 +47,7 @@ void inicializar_listas(){
 	mensajes = list_create();
 	lista_bloqueados_esperando = list_create();
 	lista_bloqueados_cant_max_alcanzada = list_create();
-	pokemones_bloqueados = list_create();
+	lista_bloqueados_deadlock = list_create();
 
 }
 

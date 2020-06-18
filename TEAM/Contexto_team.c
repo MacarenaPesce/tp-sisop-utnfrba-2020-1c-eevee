@@ -24,6 +24,9 @@ char* log_file;
 int GLOBAL_SEGUIR = 1;
 int ciclos_de_cpu = 0;
 int MAXIMO_ENTRENADORES;
+int CANTIDAD_EN_DEADLOCK;
+
+bool hayDeadlock;
 
 t_log* team_logger;
 t_log* team_logger_oficial;
@@ -44,6 +47,6 @@ t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global
 t_list* lista_mapa;
 t_list* lista_pokemon_atrapado;
 t_list* mensajes;
-t_list* pokemones_bloqueados;
 t_list* lista_bloqueados_esperando;
 t_list* lista_bloqueados_cant_max_alcanzada;
+t_list* lista_bloqueados_deadlock;
