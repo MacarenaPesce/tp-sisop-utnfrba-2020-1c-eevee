@@ -63,25 +63,30 @@ int enviar_paquete(int sock, void *paquete, int tamanio){
 	bytes_enviados = send(sock, paquete, tamanio, 0);
 
 	if (bytes_enviados <= 0) {
+		printf("Error en el send, %d bytes enviados a %d\n",bytes_enviados,sock);
 		perror("Error en el send");
 		return -1;
+	}else{
+		return bytes_enviados;
 	}
 
-	return bytes_enviados;
 }
 
 //Manejo de mensaje
 int _enviar_mensaje(int sock,
 				   t_packed *paquete){	
-	int envio_payload, envio_header;
+	int envio_payload=0, envio_header=0;
 
 	envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
 
+	//printf("\nEnvio header: %d bytes enviados a %d\n",envio_header,sock);
 
-	envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+	if(paquete->tamanio_payload > 0 && envio_header != -1){
+		envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+	//	printf("\nEnvio payload: %d\n",envio_header);
+	}
 
-
-	return envio_header+envio_payload;
+	return envio_header || envio_payload;
 
 }
 
@@ -89,12 +94,22 @@ t_packed* recibir_mensaje(int sock){
 
 	t_packed* paquete;	
 	void* mensaje;
+	int size;
+	
+	ioctl(sock,FIONREAD,&size);
+
+	if(size <= 0) return (t_packed *)-1;
 
 	paquete = (t_packed*)malloc(sizeof(t_packed));
 	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
 
+	if(paquete->tamanio_payload <= 0) {
+		return paquete;
+	}
+
 	mensaje = (void*)malloc(paquete->tamanio_payload);
 	recibir_paquete(sock, mensaje, paquete->tamanio_payload);
+
 
 	switch(paquete->operacion){
 		case ENVIAR_MENSAJE:
@@ -104,12 +119,15 @@ t_packed* recibir_mensaje(int sock){
 		case SUSCRIBIRSE_A_COLA:
 			_recibir_solicitud_suscripcion(mensaje,paquete);
 			break;
+
+		case ACK:
+			break;
 		
 		default:
 			printf("Error, operacion desconocida: %d\n",paquete->operacion);
 			break;
 	}
-
+	
 	return paquete;
 }
 
@@ -117,7 +135,7 @@ void _recuperar_mensaje(void *mensaje,t_packed *paquete){
 
 	switch(paquete->cola_de_mensajes){
 
-		case -1:
+		case MENSAJE_TEXTO:
 			_recibir_mensaje_string(mensaje,paquete);
 			break;
 
@@ -131,12 +149,11 @@ void _recuperar_mensaje(void *mensaje,t_packed *paquete){
 			break;
 		
 		case COLA_CAUGHT_POKEMON:
-			_recibir_solicitud_suscripcion(mensaje,paquete);
+			_recibir_caught_pokemon(mensaje,paquete);
 			break;
 		
 		case COLA_GET_POKEMON:
 			_recibir_get_pokemon(mensaje,paquete);
-				printf("se recibio el pkmn %s\n",((t_get_pokemon*)paquete->mensaje)->pokemon);
 			break;
 
 		case COLA_LOCALIZED_POKEMON:
@@ -202,65 +219,171 @@ void _agregar_int_t_a_paquete(t_packed* paquete, int value){
 }
 
 //Implementaciones Envio
-void enviar_mensaje_string(int socket, char* mensaje){
+t_packed* enviar_mensaje_string(t_servidor* servidor, char* mensaje){
+
+	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1) return (t_packed *)-1;
+
 	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
+	paquete->id_cliente = servidor->id_cliente;
 
 	_agregar_string_a_paquete(paquete, mensaje);
 
 	_enviar_mensaje(socket,paquete);
 	_eliminar_mensaje(paquete);
+
+	t_packed* ack;
+	ack = _esperar_ack(socket);
+
+	cerrar_conexion(socket);
+
+	return ack;
 }
 
-void _enviar_catch_o_appeared_pokemon(int socket,
+int _enviar_catch_o_appeared_pokemon(int socket,
 							 uint32_t id_mensaje, 
 							 uint32_t id_correlacional, 
+							 uint32_t id_cliente,
 							 uint32_t cola_de_mensajes,
 							 t_appeared_pokemon* appeared_pokemon ){
+
 	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
 
 	paquete->id_mensaje = id_mensaje;
 	paquete->id_correlacional = id_correlacional;
 	paquete->cola_de_mensajes = cola_de_mensajes;
+	paquete->id_cliente = id_cliente;
 		
 	_agregar_uint32_t_a_paquete(paquete, appeared_pokemon->coordenadas.posx);
 	_agregar_uint32_t_a_paquete(paquete, appeared_pokemon->coordenadas.posy);
 	_agregar_uint32_t_a_paquete(paquete, strlen(appeared_pokemon->pokemon)+1);
 	_agregar_string_a_paquete(paquete, appeared_pokemon->pokemon);
 
-	_enviar_mensaje(socket, paquete);
+	int send_status = _enviar_mensaje(socket, paquete);
 	_eliminar_mensaje(paquete);
+
+	return send_status;
+
 }
 
-void enviar_appeared_pokemon(int socket,
-							 uint32_t id_mensaje, 
+t_packed* enviar_appeared_pokemon(t_servidor* servidor,
 							 uint32_t id_correlacional, 
 							 t_appeared_pokemon* appeared_pokemon ){
 
-	_enviar_catch_o_appeared_pokemon(socket,id_mensaje,id_correlacional,COLA_APPEARED_POKEMON,appeared_pokemon);
+    int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1) return (t_packed *)-1;
+
+	int send_status = distribuir_appeared_pokemon(socket,-1,id_correlacional,servidor->id_cliente,appeared_pokemon);
+
+	// printf("\nsend status appeared: %d",send_status);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		return (t_packed *) -1;
+	} 
+	
+	t_packed* ack;
+	
+	ack = _esperar_ack(socket);
+	
+    cerrar_conexion(socket);
+
+	return ack;
 
 }
 
-void enviar_catch_pokemon(int socket,
-							 uint32_t id_mensaje, 
+int distribuir_appeared_pokemon(int socket,
+								uint32_t id_mensaje, 
+								uint32_t id_correlacional,
+								uint32_t id_cliente,
+								t_appeared_pokemon* appeared_pokemon ){
+
+	int send_status = _enviar_catch_o_appeared_pokemon(socket,
+									 id_mensaje,
+									 id_correlacional,
+									 id_cliente,
+									 COLA_APPEARED_POKEMON,
+									 appeared_pokemon);
+	
+	return send_status;
+
+}
+
+t_packed* enviar_catch_pokemon(t_servidor* servidor,
 							 uint32_t id_correlacional, 
 							 t_catch_pokemon* catch_pokemon){
 
-	_enviar_catch_o_appeared_pokemon(socket,id_mensaje,id_correlacional,COLA_CATCH_POKEMON,catch_pokemon);
+    int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1) return (t_packed *)-1;
+
+	int send_status = distribuir_catch_pokemon(socket,-1,id_correlacional,servidor->id_cliente,catch_pokemon);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		return (t_packed *) -1;
+	} 
+    
+	t_packed* ack;
+	ack = _esperar_ack(socket);
+
+	cerrar_conexion(socket);
+
+	return ack;
+};
+
+int distribuir_catch_pokemon(int socket,
+							uint32_t id_mensaje, 
+							uint32_t id_correlacional,
+							uint32_t id_cliente,
+							t_catch_pokemon* catch_pokemon ){
+
+	int send_status = _enviar_catch_o_appeared_pokemon(socket,id_mensaje,id_correlacional,id_cliente,COLA_CATCH_POKEMON,catch_pokemon);
+
+	return send_status;
+};
+
+t_packed* enviar_new_pokemon(t_servidor* servidor,
+							 uint32_t id_correlacional, 
+							 t_new_pokemon* new_pokemon){
+
+    int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1) return (t_packed *)-1;
+
+	int send_status = distribuir_new_pokemon(socket,-1,id_correlacional,servidor->id_cliente,new_pokemon);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		return (t_packed *) -1;
+	} 
+
+	t_packed* ack;
+	ack = _esperar_ack(socket);
+
+	cerrar_conexion(socket);
+
+	return ack;
 
 };
 
-void enviar_new_pokemon(int socket,
+int distribuir_new_pokemon(int socket,
 							 uint32_t id_mensaje, 
 							 uint32_t id_correlacional, 
+							 uint32_t id_cliente,
 							 t_new_pokemon* new_pokemon){
+
 	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
 
 	paquete->id_mensaje = id_mensaje;
 	paquete->id_correlacional = id_correlacional;
 	paquete->cola_de_mensajes = COLA_NEW_POKEMON;
+	paquete->id_cliente = id_cliente;
 
 	_agregar_uint32_t_a_paquete(paquete, new_pokemon->coordenadas.posx);
 	_agregar_uint32_t_a_paquete(paquete, new_pokemon->coordenadas.posy);
@@ -268,59 +391,158 @@ void enviar_new_pokemon(int socket,
 	_agregar_uint32_t_a_paquete(paquete, strlen(new_pokemon->pokemon)+1);
 	_agregar_string_a_paquete(paquete, new_pokemon->pokemon);
 	
-	_enviar_mensaje(socket, paquete);
+	int send_status = _enviar_mensaje(socket, paquete);
 	_eliminar_mensaje(paquete);
+
+	return send_status;
 
 };
 
-void enviar_caught_pokemon(int socket,
-							 uint32_t id_mensaje, 
+t_packed* enviar_caught_pokemon(t_servidor* servidor,
 							 uint32_t id_correlacional, 
 							 t_caught_pokemon* caught_pokemon){
+
+	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1) return (t_packed *) -1;
+
+	int send_status = distribuir_caught_pokemon(socket,-1,id_correlacional,servidor->id_cliente,caught_pokemon);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		return (t_packed *) -1;
+	} 
+
+	t_packed* ack;
+	ack = _esperar_ack(socket);
+
+	cerrar_conexion(socket);
+
+	return ack;
+
+};
+
+int distribuir_caught_pokemon(int socket,
+							 uint32_t id_mensaje, 
+							 uint32_t id_correlacional, 
+							 uint32_t id_cliente,
+							 t_caught_pokemon* caught_pokemon){
+
 	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
 
 	paquete->id_mensaje = id_mensaje;
 	paquete->id_correlacional = id_correlacional;
 	paquete->cola_de_mensajes = COLA_CAUGHT_POKEMON;
+	paquete->id_cliente = id_cliente;
 
 	_agregar_uint32_t_a_paquete(paquete, caught_pokemon->status);
 	
-	_enviar_mensaje(socket, paquete);
+	int send_status = _enviar_mensaje(socket, paquete);
 	_eliminar_mensaje(paquete);
+
+	return send_status;
 
 };
 
-void enviar_get_pokemon(int socket,
+t_packed* enviar_get_pokemon(t_servidor* servidor,
+							 uint32_t id_correlacional,
+							 t_get_pokemon* get_pokemon){
+
+    int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1){
+		return (t_packed *) -1;
+	}	
+
+	int send_status = distribuir_get_pokemon(socket,-1,id_correlacional,servidor->id_cliente,get_pokemon);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		return (t_packed *) -1;
+	} 	
+
+	t_packed* ack;
+	ack = _esperar_ack(socket);
+
+	cerrar_conexion(socket);
+
+	return ack;
+
+};
+
+int distribuir_get_pokemon(int socket,
 							 uint32_t id_mensaje, 
 							 uint32_t id_correlacional, 
+							 uint32_t id_cliente,
 							 t_get_pokemon* get_pokemon){
+
 	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
 
 	paquete->id_mensaje = id_mensaje;
 	paquete->id_correlacional = id_correlacional;
 	paquete->cola_de_mensajes = COLA_GET_POKEMON;
+	paquete->id_cliente = id_cliente;
 
 	_agregar_uint32_t_a_paquete(paquete, strlen(get_pokemon->pokemon)+1);
 	_agregar_string_a_paquete(paquete, get_pokemon->pokemon);
 
-	_enviar_mensaje(socket, paquete);
+	int send_status = _enviar_mensaje(socket, paquete);
+
+	//printf("\nsend_status: %d\n",send_status);
+
 	_eliminar_mensaje(paquete);
+
+	return send_status;
 
 };
 
+int enviar_ack(t_servidor* servidor, uint32_t id_mensaje){
+
+	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1){
+		return -1;
+	}	
+
+	int send_status = distribuir_ack(socket, id_mensaje, servidor->id_cliente);
+
+	return send_status;
+};
+
+int distribuir_ack(int socket,uint32_t id_mensaje, uint32_t id_cliente){
+
+	t_packed* paquete;
+	paquete = _crear_paquete(ACK);
+
+	paquete->id_mensaje = id_mensaje;
+	paquete->id_correlacional = -1;
+	paquete->id_cliente = id_cliente;
+
+	int send_status = _enviar_mensaje(socket, paquete);
+
+	_eliminar_mensaje(paquete);
+
+	return send_status;
+};
+
 //TODO
-void enviar_localized_pokemon(int socket,
-							 uint32_t id_mensaje, 
+t_packed* enviar_localized_pokemon(t_servidor* servidor,
 							 uint32_t id_correlacional, 
 							 t_localized_pokemon* localized_pokemon){
-	/*t_packed* paquete;
+	/*
+	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1) return -1;
+
+	t_packed* paquete;
 	paquete = _crear_paquete(ENVIAR_MENSAJE);
 
 	paquete->id_mensaje = id_mensaje;
 	paquete->id_correlacional = id_correlacional;
 	paquete->cola_de_mensajes = COLA_LOCALIZED_POKEMON;
+	paquete->id_cliente = servidor->id_cliente;
 
 	_agregar_uint32_t_a_paquete(paquete, localized_pokemon->cantidad_coordenadas);
 	_agregar_uint32_t_a_paquete(paquete, strlen(localized_pokemon->pokemon)+1);
@@ -329,21 +551,80 @@ void enviar_localized_pokemon(int socket,
 	list_iterate(localized_pokemon->lista_coordenadas,(*_agregar_lista_a_paquete)(paquete))
 
 	_enviar_mensaje(socket, paquete);
-	_eliminar_mensaje(paquete);*/
+	_eliminar_mensaje(paquete);
+
+	t_packed* ack;
+	ack = _esperar_ack(socket);
+
+	cerrar_conexion(socket);*/
+
+	return (t_packed*)0;
 
 };
 
-void enviar_solicitud_suscripcion(int socket,uint32_t cola_de_mensajes, t_suscripcion* suscripcion){
+int distribuir_localized_pokemon(int socket,
+							 uint32_t id_mensaje, 
+							 uint32_t id_correlacional, 
+							 uint32_t id_cliente,
+							 t_localized_pokemon* localized_pokemon){
+	/*
+	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1) return -1;
+
+	t_packed* paquete;
+	paquete = _crear_paquete(ENVIAR_MENSAJE);
+
+	paquete->id_mensaje = id_mensaje;
+	paquete->id_correlacional = id_correlacional;
+	paquete->cola_de_mensajes = COLA_LOCALIZED_POKEMON;
+	paquete->id_cliente = id_cliente;
+
+	_agregar_uint32_t_a_paquete(paquete, localized_pokemon->cantidad_coordenadas);
+	_agregar_uint32_t_a_paquete(paquete, strlen(localized_pokemon->pokemon)+1);
+	_agregar_string_a_paquete(paquete, localized_pokemon->pokemon);
+	
+	list_iterate(localized_pokemon->lista_coordenadas,(*_agregar_lista_a_paquete)(paquete))
+
+	_enviar_mensaje(socket, paquete);
+	_eliminar_mensaje(paquete);
+
+	t_packed* ack;
+	ack = _esperar_ack(socket);
+
+	cerrar_conexion(socket);*/
+
+	return 1;
+
+};
+
+int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes, t_suscripcion* suscripcion){
+
+	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
+
+	if(socket == -1) return -1;
+
 	t_packed* paquete;
 	paquete = _crear_paquete(SUSCRIBIRSE_A_COLA);
 
 	paquete->cola_de_mensajes = cola_de_mensajes;
+	paquete->id_cliente = servidor->id_cliente;
 
 	_agregar_uint32_t_a_paquete(paquete, suscripcion->tipo_suscripcion);
 	_agregar_uint32_t_a_paquete(paquete, suscripcion->minutos_suscripcion);
 
-	_enviar_mensaje(socket, paquete);
+	int send_status = _enviar_mensaje(socket, paquete);
+
+	if(send_status == -1) {
+		cerrar_conexion(socket);
+		_eliminar_mensaje(paquete);
+		return -1;
+	} 
+
 	_eliminar_mensaje(paquete);	
+
+
+	return socket;
 
 }
 
@@ -362,16 +643,21 @@ void _recibir_mensaje_string(void *mensaje,t_packed *paquete){
 }
 
 void _recibir_catch_o_appeared_pokemon(void *mensaje,t_packed *paquete){
-	t_appeared_pokemon* aux;
 
-	aux 			 = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
-	paquete->mensaje = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
+	uint32_t _tamanio_string_pokemon;
+	int offset = 0;
+	t_appeared_pokemon *aux;
 
-	memcpy(aux,mensaje,sizeof(t_appeared_pokemon)-sizeof(aux->pokemon));
+	aux = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
 
-	aux->pokemon = (char*)malloc(aux->_tamanio_string_pokemon);
+	memcpy(aux,mensaje+offset,sizeof(t_coordenadas));
+	offset += sizeof(t_coordenadas);
 
-	memcpy(aux->pokemon,mensaje+sizeof(t_appeared_pokemon)-sizeof(aux->pokemon),aux->_tamanio_string_pokemon);
+	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
+	offset += sizeof(uint32_t);
+
+	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	memcpy(aux->pokemon,mensaje+offset,_tamanio_string_pokemon);
 
 	paquete->mensaje = aux;
 
@@ -381,16 +667,21 @@ void _recibir_catch_o_appeared_pokemon(void *mensaje,t_packed *paquete){
 }
 
 void _recibir_new_pokemon(void *mensaje,t_packed *paquete){
-	t_new_pokemon* aux;
 
-	aux 			 = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
-	paquete->mensaje = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+	int offset = 0;
+	uint32_t _tamanio_string_pokemon;
+	t_new_pokemon *aux;
 
-	memcpy(aux,mensaje,sizeof(t_new_pokemon)-sizeof(aux->pokemon));
+	aux = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));	
 
-	aux->pokemon = (char*)malloc(aux->_tamanio_string_pokemon);
+	memcpy(aux,mensaje+offset,sizeof(t_coordenadas)+sizeof(uint32_t));
+	offset += sizeof(t_coordenadas)+sizeof(uint32_t);
 
-	memcpy(aux->pokemon,mensaje+sizeof(t_new_pokemon)-sizeof(aux->pokemon),aux->_tamanio_string_pokemon);
+	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
+	offset += sizeof(uint32_t);
+
+	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	memcpy(aux->pokemon,mensaje+offset,_tamanio_string_pokemon);
 
 	paquete->mensaje = aux;
 
@@ -411,15 +702,18 @@ void _recibir_caught_pokemon(void *mensaje,t_packed *paquete){
 }
 
 void _recibir_get_pokemon(void *mensaje,t_packed *paquete){
+
+	int offset = 0;
+	uint32_t _tamanio_string_pokemon;
 	t_get_pokemon* aux;
 
-	aux 			 = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
-	paquete->mensaje = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
+	aux = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 
-	memcpy(aux,mensaje,sizeof(t_get_pokemon)-sizeof(aux->pokemon));
+	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
+	offset += sizeof(uint32_t);
 
-	aux->pokemon = (char*)malloc(aux->_tamanio_string_pokemon);
-	memcpy(aux->pokemon,mensaje+sizeof(t_get_pokemon)-sizeof(aux->pokemon),aux->_tamanio_string_pokemon);
+	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	memcpy(aux->pokemon,mensaje+offset,_tamanio_string_pokemon);
 
 	paquete->mensaje = aux;
 
@@ -440,8 +734,9 @@ void _recibir_solicitud_suscripcion(void *mensaje,t_packed *paquete){
 }
 
 //TODO
+
 void _recibir_localized_pokemon(void *mensaje,t_packed *paquete){
-	t_get_pokemon* aux;
+/*	t_get_pokemon* aux;
 
 	aux 			 = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 	paquete->mensaje = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
@@ -455,39 +750,34 @@ void _recibir_localized_pokemon(void *mensaje,t_packed *paquete){
 
 	free(mensaje);
 
-	return;
+	return;*/
 }
 
+t_packed* _esperar_ack(int socket){
 
+	bool ack_obtenido = false;
+	t_packed* ack;
 
+	while(!ack_obtenido){
+		
+		ack = recibir_mensaje(socket);
 
-/*
+		if(ack != (t_packed*)-1){
+		/*	printf("\n\nACK Recibido:\n");
+			printf("operacion: %d \n",ack->operacion);
+			printf("cola_de_mensajes: %d \n",ack->cola_de_mensajes);
+			printf("id_correlacional: %d  \n",ack->id_correlacional);
+			printf("id_mensaje: %d \n",ack->id_mensaje);
+			printf("id_cliente: %d \n",ack->id_cliente);
+			printf("tamanio_payload: %d \n",ack->tamanio_payload);*/
+			ack_obtenido = true;	
+		}	
 
-void enviar_modo_suscriptor(uint32_t cola_de_mensajes, uint32_t tiempo, int socket){
-	t_paquete* paquete = crear_paquete(SUSCRIPTOR);
-	agregar_uint32_t_a_paquete(paquete, cola_de_mensajes);
-	agregar_uint32_t_a_paquete(paquete, tiempo);
-	enviar_paquete(paquete, socket);
-	eliminar_paquete(paquete);
+	}
+
+	return ack;
+	
 }
-
-tp_modo_suscriptor recibir_modo_suscriptor(int paquete_size, int socket){
-	void * buffer = malloc(paquete_size);
-	recibir_mensaje(socket, buffer, paquete_size);
-	uint32_t cola_de_mensajes;
-	uint32_t tiempo;
-	int desplazamiento = 0;
-	memcpy(&cola_de_mensajes, buffer + desplazamiento, sizeof(uint32_t));
-	desplazamiento+=sizeof(uint32_t);
-	memcpy(&tiempo, buffer + desplazamiento, sizeof(uint32_t));
-	tp_modo_suscriptor contenido = malloc(sizeof(t_modo_suscriptor));
-	contenido->cola_de_mensajes=cola_de_mensajes;
-	contenido->tiempo=tiempo;
-	free(buffer);
-	return contenido;
-}
-
-
 
 /**************FUNCIONES PARA EL LOG*********************/
 void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer, char* log_colors[8], char* msj_salida){
