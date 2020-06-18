@@ -29,6 +29,7 @@
 
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <sys/time.h>
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -49,22 +50,22 @@ typedef struct{
 }t_bloque_memoria;
 
 
-t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes, t_list* lista_memoria); //LISTO
-t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes); //LISTO
+t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes); //LISTO
+t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes, void* mensaje); //LISTO
 
 //---ALGORITMOS DE MEMORIA----
-t_bloque_memoria* algoritmo_de_memoria( int tamanio_msje); //LISTO
-t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes);  //FALTA COMPACTAR CASI LISTO
-t_bloque_memoria* buddy_system( int tamanio_en_bytes); //EN PROCESO
+t_bloque_memoria* algoritmo_de_memoria( int tamanio_msje, void* mensaje); //LISTO
+t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes, void* mensaje);  //FALTA COMPACTAR CASI LISTO
+t_bloque_memoria* buddy_system( int tamanio_en_bytes, void* mensaje); //EN PROCESO
 
 
 //********Funciones de Algoritmos de memoria************
-t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti); //LISTO
-t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti); //LISTO
-t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes); //LISTO
+t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti, void* mensaje); //LISTO
+t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti, void* mensaje); //LISTO
+t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes, int tamanio_parti, void* mensaje); //LISTO
 void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros que son con opciones, si mandan una opcion por el archivo config que no es valida
-void algoritmo_fifo(); //LISTO , falta setear el cambio a la lista
-void algoritmo_lru(); //LISTO (creo) , falta setear el cambio a la lista
+void algoritmo_fifo(); //LISTO
+void algoritmo_lru(); //LISTO 
 
 
 //-----DUMP-----
@@ -76,12 +77,11 @@ void algoritmo_lru(); //LISTO (creo) , falta setear el cambio a la lista
 /* Las aclaraciones del uso de cada funcion estan en el archivo .c */
 
 bool puede_alojarse(int tamanio_en_bytes);
-t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, int tamanio_msje);
+t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, int tamanio_msje, void* mensaje);
 int obtener_indice_particion(t_bloque_memoria* bloque);
 int tamanio_a_alojar(int tamanio);
 
-void liberar_memoria_bloque(t_bloque_memoria* bloque, int indice); //FALTA SETEAR ESE BLOQUE VACIO EN EL LUGAR DEL ANTERIOR
-void settear_bloque_liberado_memoria(t_bloque_memoria* bloque, int indice); //EN PROCESO
+void liberar_bloque_memoria(t_bloque_memoria* bloque); //LISTO
 
 void compactar(); //empezando
 void consolidar(); //tengo que empezar 
