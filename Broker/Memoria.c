@@ -573,8 +573,57 @@ void compactar(){
 
 
 /* Se encarga de realizar la consolidacion en Particiones dinamicas*/
-void consolidar(){
+void consolidar(t_bloque_memoria* bloque){
     
+    int indice_bloque = obtener_indice_particion(bloque);
+
+    t_bloque_memoria* bloque_anterior = list_get(lista_memoria,(indice_bloque-1));
+
+    t_bloque_memoria* bloque_siguiente = list_get(lista_memoria,(indice_bloque+1));
+
+    //Me fijo si el bloque es el ultimo y si el anterior esta vacio
+    if(bloque_siguiente == NULL && bloque_anterior->esta_vacio == true){
+        consolidar_dos_bloques(bloque_anterior,bloque);
+    }
+    //Me fijo si el bloque es el primero y el siguiente esta vacio
+    if(bloque_anterior == NULL && bloque_siguiente->esta_vacio == true){
+        consolidar_dos_bloques(bloque,bloque_siguiente);
+    }
+    //Me fijo si los dos bloques son distintos de NULL
+    if(bloque_anterior != NULL && bloque_siguiente != NULL){
+
+        //Me fijo si los dos bloques estan vacios
+        if(bloque_anterior->esta_vacio == true && bloque_siguiente->esta_vacio){
+            consolidar_tres_bloques(bloque_anterior,bloque,bloque_siguiente);
+        }
+        else if(bloque_anterior->esta_vacio == true){
+            consolidar_dos_bloques(bloque_anterior,bloque);
+        }
+        else{
+            consolidar_dos_bloques(bloque, bloque_siguiente);
+        }
+
+    }    
+    //Me fijo si es el unico bloque ???
+
+    return ;
+}
+
+void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque){
+
+    primerBloque->tamanio_particion = primerBloque->tamanio_particion + segundoBloque->tamanio_particion;
+
+    //eliminar segundo bloque de la lista
+
+
+    return ;
+}
+
+void consolidar_tres_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque, t_bloque_memoria* tercerBloque){
+
+    primerBloque->tamanio_particion = primerBloque->tamanio_particion + segundoBloque->tamanio_particion + tercerBloque->tamanio_particion;
+
+    //eliminar segundo bloque y tercer bloque de la lista
 
     return ;
 }
