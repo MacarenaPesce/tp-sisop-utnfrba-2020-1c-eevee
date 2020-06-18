@@ -1,13 +1,14 @@
 #include "Conexion.h"
 
 extern t_cache_colas* cache_mensajes;
-extern enum SERVER_STATUS server_status; 
+extern enum SERVER_STATUS server_status;
+extern bool* debug_broker; 
 
 /* Setup de servidor */
 
 void iniciar_servidor(void){
 
-	printf("\n\n7) Iniciando servidor...");
+	if(debug_broker) log_debug(broker_logger, "7) Iniciando servidor...", NULL);
 	
 	int socket_servidor;
 	int bind_status;
@@ -22,25 +23,25 @@ void iniciar_servidor(void){
     getaddrinfo("127.0.0.1", "32587", &hints, &servinfo);
 
     for (p=servinfo; p != NULL; p = p->ai_next){
-		printf("\n\n8) Intentando bindear sever...");
+		if(debug_broker) log_debug(broker_logger, "8) Intentando bindear sever...", NULL);
 
         if ((socket_servidor = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1){
-			printf("\n\nError en socket broker");
+			log_error(broker_logger, "Error en socket broker", NULL);
             continue;
 		}
 
 		int flag = 1;  
 		if (-1 == setsockopt(socket_servidor, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag))) {  
-			printf("setsockopt fail");  
+			log_error(broker_logger, "Error al setear las opciones del socket", NULL);
 		}  
 
         if ((bind_status = bind(socket_servidor, p->ai_addr, p->ai_addrlen)) == -1) {
-			printf("\n\nError en bind broker: %d",bind_status);
-			printf("\nCodigo de error: %d \n", errno);
+			log_error(broker_logger, "Error en bind broker: %d", bind_status);
+			log_error(broker_logger, "Código de error: %d", errno);
             close(socket_servidor);
             continue;
         }
-		printf("\n\n9) Server bindeado correctamente!!!");
+		if(debug_broker) log_debug(broker_logger, "9) Server bindeado correctamente!!!", NULL);
         break;
     }
 
@@ -59,7 +60,7 @@ void iniciar_servidor(void){
 
 void* esperar_cliente(void* socket){
 
-	printf("\n\n10) Hilo del servidor cargado correctamente!!!");
+	if(debug_broker) log_debug(broker_logger, "10) Hilo del servidor cargado correctamente!!!", NULL);
 
 	while(1){
 
@@ -94,9 +95,10 @@ void* esperar_cliente(void* socket){
 
 void* esperar_mensajes(void* cliente){
 
-	printf("\nSe aceptó un nuevo cliente\n");
 
 	int socket_cliente = *(int*)cliente;
+
+	log_info(broker_logger, "Se aceptó un nuevo proceso en el socket %d", socket_cliente);
 
 	//Creo un paquete y recibo el mensaje
 	t_packed* paquete;
@@ -134,7 +136,7 @@ void* esperar_mensajes(void* cliente){
 					break;
 				
 				default:
-					printf("Error, operacion desconocida: %d\n",paquete->operacion);
+					log_error(broker_logger, "Error, operacion desconocida: %d", paquete->operacion);
 					break;
 			}
 
@@ -151,11 +153,11 @@ void* esperar_mensajes(void* cliente){
 
 void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 
-	printf("\nSe recibió un mensaje para la cola %d\n",paquete->cola_de_mensajes);
+	log_info(broker_logger, "El cliente %d envió un mensaje para la cola %d a través de socket %d", paquete->id_cliente, paquete->cola_de_mensajes,socket_cliente);
 
 	int id_mensaje = agregar_mensaje_a_cola(paquete);
 	
-	int send_status = distribuir_ack(socket_cliente,id_mensaje,-1);
+	distribuir_ack(socket_cliente,id_mensaje,-1);
 
 	free(paquete);
 
@@ -164,6 +166,8 @@ void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 }
 
 void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
+
+	log_info(broker_logger, "El cliente %d solicitó suscribirse a la cola %d a través del socket %d", paquete->id_cliente, paquete->cola_de_mensajes, socket_cliente);
 
 	agregar_suscriptor_a_cola(paquete->cola_de_mensajes, paquete->id_cliente, socket_cliente);
 	distribuir_ack(socket_cliente,-1,-1);

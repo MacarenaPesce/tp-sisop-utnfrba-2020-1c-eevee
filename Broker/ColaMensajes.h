@@ -20,6 +20,7 @@ void agregar_suscriptor_a_cola(int cola_de_mensajes, uint32_t id_cliente, int so
 void enviar_mensajes_cacheados_a_suscriptor(t_cola_mensajes* cola,int cliente);
 
 /* Flujo de ACK */
+void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente, int socket_cliente);
 
 /* Flujo de sender */
 void* sender_suscriptores(void* cola_mensajes);

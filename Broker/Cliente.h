@@ -4,5 +4,5 @@
 #include <Pokebola.h>
 #include <pthread.h>
 
-void esperar_mensajes(void* socket);
+void* esperar_mensajes(void* socket);
 #endif

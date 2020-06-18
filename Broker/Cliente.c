@@ -11,7 +11,7 @@ int main(){
 
 	servidor.ip = "127.0.0.1";
 	servidor.puerto = "32587";
-	servidor.id_cliente = 12333;
+	servidor.id_cliente = 123332;
 
 /* 
 	Para enviar solamente tengo que crear la estructura
@@ -54,7 +54,10 @@ int main(){
 	pthread_t hilo_espera_mensajes;
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
 
-	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
+	free(ack);
+
+	/*ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
 	free(ack);
@@ -63,7 +66,7 @@ int main(){
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
-	free(ack);
+	free(ack);*/
 
 	while(1){};
 
@@ -80,7 +83,7 @@ int main(){
 }
 
 
-void esperar_mensajes(void* socket){
+void* esperar_mensajes(void* socket){
 
 	int socket_server = *((int*) socket);
 
@@ -106,4 +109,6 @@ void esperar_mensajes(void* socket){
  		}
 		
 	}
+
+	return NULL;
 }

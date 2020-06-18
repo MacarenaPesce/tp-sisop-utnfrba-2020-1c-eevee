@@ -2,9 +2,15 @@
 
 int main(){
 
-	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
+	inicializar_logger();
 
-	printf("\n1) Inicializando cache de mensajes... \n");
+	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
+	
+	debug_broker = false;
+
+	if(debug_broker) log_debug(broker_logger, "1) Inicializando cache de mensajes...", NULL);
+
+	//printf("\n1) Inicializando cache de mensajes... \n");
 
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
@@ -30,19 +36,19 @@ int main(){
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
-	printf("\n2) Cache de mensajes lista!!! ");
-
-	printf("\n\n3) Inicializando archivo de configuracion...\n\n");
+	if(debug_broker) log_debug(broker_logger, "2) Cache de mensajes lista!!!", NULL);
+	
+	if(debug_broker) log_debug(broker_logger, "3) Inicializando archivo de configuracion...", NULL);
 
 	inicializar_archivo_de_configuracion();
 
-	printf("\n4) Configuraciones cargadas correctamente!!!");
-	
-	printf("\n\n5) Configurando signals...");
+	if(debug_broker) log_debug(broker_logger, "4) Configuraciones cargadas correctamente!!!", NULL);
+
+	if(debug_broker) log_debug(broker_logger, "5) Configurando signals...", NULL);
 
 	configurar_signals();
 
-	printf("\n\n6) Signals configuradas correctamente!!!");
+	if(debug_broker) log_debug(broker_logger, "6) Signals configuradas correctamente!!!", NULL);
 
 	iniciar_servidor();
 

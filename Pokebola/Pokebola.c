@@ -63,22 +63,27 @@ int enviar_paquete(int sock, void *paquete, int tamanio){
 	bytes_enviados = send(sock, paquete, tamanio, 0);
 
 	if (bytes_enviados <= 0) {
+		printf("Error en el send, %d bytes enviados a %d\n",bytes_enviados,sock);
 		perror("Error en el send");
 		return -1;
+	}else{
+		return bytes_enviados;
 	}
 
-	return bytes_enviados;
 }
 
 //Manejo de mensaje
 int _enviar_mensaje(int sock,
 				   t_packed *paquete){	
-	int envio_payload, envio_header;
+	int envio_payload=0, envio_header=0;
 
 	envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
 
+	//printf("\nEnvio header: %d bytes enviados a %d\n",envio_header,sock);
+
 	if(paquete->tamanio_payload > 0 && envio_header != -1){
 		envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+	//	printf("\nEnvio payload: %d\n",envio_header);
 	}
 
 	return envio_header || envio_payload;
@@ -274,7 +279,7 @@ t_packed* enviar_appeared_pokemon(t_servidor* servidor,
 
 	int send_status = distribuir_appeared_pokemon(socket,-1,id_correlacional,servidor->id_cliente,appeared_pokemon);
 
-	printf("\nsend status appeared: %d",send_status);
+	// printf("\nsend status appeared: %d",send_status);
 
 	if(send_status == -1) {
 		cerrar_conexion(socket);
@@ -484,6 +489,8 @@ int distribuir_get_pokemon(int socket,
 	_agregar_string_a_paquete(paquete, get_pokemon->pokemon);
 
 	int send_status = _enviar_mensaje(socket, paquete);
+
+	//printf("\nsend_status: %d\n",send_status);
 
 	_eliminar_mensaje(paquete);
 

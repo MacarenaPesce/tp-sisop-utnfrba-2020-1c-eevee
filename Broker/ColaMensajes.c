@@ -1,4 +1,4 @@
-#include "ColaMensajes.h";
+#include "ColaMensajes.h"
 
 extern t_cache_colas* cache_mensajes;
 
@@ -38,7 +38,7 @@ void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
 /* Flujo de suscripciones */
 void agregar_suscriptor_a_cola(int cola_de_mensajes, uint32_t id_cliente, int socket_cliente){
 
-	printf("\nRecibida suscripcion de cliente %d en socket %d\n",id_cliente,socket_cliente);
+	if(debug_broker) log_debug(broker_logger, "Recibida suscripcion de cliente %d en socket %d", id_cliente,socket_cliente);
 	
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
@@ -77,7 +77,7 @@ void enviar_mensajes_cacheados_a_suscriptor(t_cola_mensajes* cola,int cliente){
 
 void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente, int socket_cliente){
 
-	printf("\nSe recibió ACK del mensaje %d por parte del cliente %d\n",id_mensaje, id_cliente);
+	log_info(broker_logger, "El cliente %d envió confirmación del mensaje %d a través del socket %d ",id_cliente, id_mensaje, socket_cliente);
 
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
@@ -99,8 +99,6 @@ void* sender_suscriptores(void* cola_mensajes){
 
 	t_cola_mensajes* cola = (t_cola_mensajes*)cola_mensajes;
 
-	t_mensaje_cola* mensaje;
-
 	t_envio_pendiente* envio_pendiente;
 
 	while(server_status != ENDING){
@@ -109,7 +107,7 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		pthread_mutex_lock(&mutex_queue_mensajes);	
 
-		printf("\n\nLos pendientes tienen %d mensajes",(cola->envios_pendientes)->elements_count);
+		if(debug_broker) log_debug(broker_logger,"Los pendientes tienen %d mensajes",(cola->envios_pendientes)->elements_count);
 		
 		envio_pendiente = list_get(cola->envios_pendientes,0);
 
@@ -123,14 +121,15 @@ void* sender_suscriptores(void* cola_mensajes){
 												cliente->socket, 
 												mensaje->mensaje);
 
+
 		agregar_cliente_a_enviados(mensaje,cliente);
 
 		if(envio != -1){			
-			printf("\nEnviado correctamente mensaje de id %d de cola %d al cliente %d!!!",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
+			log_info(broker_logger, "Se envió mensaje %d perteneciente a la cola %d al cliente %d", envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
 			eliminar_mensaje_enviado(cola);
-            printf("\nLos pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
+            if(debug_broker) log_debug(broker_logger,"Los pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
         }else{
-			printf("\nFallo el envio del mensaje de id %d de cola %d al cliente %d!!! Se reintentará cuando se vuelva a suscribir",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
+			log_error(broker_logger,"Falló el envío del mensaje %d perteneciente a la cola %d al cliente %d. Se reintentará cuando se vuelva a suscribir",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
             eliminar_mensaje_enviado(cola);
 		}
 
@@ -175,7 +174,7 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 			break;			
 
 		default:
-			printf("Error, cola de mensajes desconocida: %d\n",cola_de_mensajes);
+			log_error(broker_logger,"Error, cola de mensajes desconocida: %d\n",cola_de_mensajes);
 			break;
 	}
 
@@ -189,13 +188,13 @@ t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket){
 	t_cliente* cliente = obtener_cliente_por_id(id_cliente);
 
 	if(cliente == NULL){
-		printf("\nCreando nuevo cliente %d en socket %d\n",id_cliente,socket);
+		if(debug_broker) log_debug(broker_logger,"\nCreando nuevo cliente %d en socket %d\n",id_cliente,socket);
 		cliente = crear_cliente(id_cliente, socket);
 		agregar_cliente_a_cache(cliente);
 		return cliente;
 	}
 
-	printf("\nActualizando socket del cliente %d al socket %d\n",id_cliente,socket);
+	if(debug_broker) log_debug(broker_logger,"Actualizando socket del cliente %d al socket %d",id_cliente,socket);
 
 	cliente->socket = socket;
 
@@ -342,7 +341,7 @@ void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cl
     envio_pendiente->id = id_mensaje;
     envio_pendiente->cliente = id_cliente;
 
-    printf("\n\n Agregado mensaje %d pendiente de envio a %d ",envio_pendiente->id,envio_pendiente->cliente);
+    if(debug_broker) log_debug(broker_logger,"Agregado mensaje %d pendiente de envio a %d",envio_pendiente->id,envio_pendiente->cliente);
     
     list_add(cola->envios_pendientes,(void*)envio_pendiente);
 
@@ -352,7 +351,7 @@ void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cl
 
 void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, t_cliente* cliente){
 
-	list_add(mensaje->suscriptores_enviados,cliente->id);
+	list_add(mensaje->suscriptores_enviados,(void*)&cliente->id);
 
 }
 
@@ -367,15 +366,14 @@ void eliminar_envio_pendiente(void* pendiente){
 
 void* print_operacion(void* mensaje){
 
-	printf("\n\n Mensaje: ");
-	printf("\n\n Cola: %d",((t_mensaje_cola*)mensaje)->cola_de_mensajes);
+	if(debug_broker) log_debug(broker_logger,"Cola: %d",((t_mensaje_cola*)mensaje)->cola_de_mensajes);
 
 	return NULL;
 }
 
 void* print_clientes(void* suscriptor){
 	
-	printf("\n\n id_cliente: %d\n",*((int*)suscriptor) );
+	if(debug_broker) log_debug(broker_logger,"id_cliente: %d",*((int*)suscriptor) );
 
 	return NULL;
 }
