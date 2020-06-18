@@ -83,6 +83,11 @@ void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente, int socket_
 
 	t_mensaje_cola* mensaje = obtener_mensaje_por_id(id_mensaje);
 
+	if(mensaje == NULL) {
+		pthread_mutex_unlock(&mutex_queue_mensajes);
+		return;
+	};
+
 	int* id_cliente_ptr = (int*)malloc(sizeof(int));
 
 	*id_cliente_ptr = id_cliente;
