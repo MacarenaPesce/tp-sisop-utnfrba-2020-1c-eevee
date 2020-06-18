@@ -106,4 +106,8 @@ void crearMetadataArchPoke(char* pokemon,t_list* listPok);
 
 void modificarPokemon(t_new_pokemon* poke);
 
+//viendo bitmap de nuevo
+
+int 	bitarrayfd;
+char* bitmapData;
 #endif /* FILESYSTEM_H_ */

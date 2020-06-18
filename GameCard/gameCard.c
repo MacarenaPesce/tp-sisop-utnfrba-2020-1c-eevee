@@ -109,6 +109,20 @@ int  main () {
 	free(picachu);
 	}
 
+
+	t_new_pokemon* charmander=charmanderHardcodeado();
+	abrirBitmap();
+
+	if(existePokemon(charmander->pokemon)){
+		log_info(gameCard_logger,"si, existe pokemon Charmander");
+	}
+	else { log_info(gameCard_logger, "no existe pokemon Charmander");
+	       log_info(gameCard_logger,"vamos a crearlo");
+
+	crearPokemon(charmander);
+	free(charmander);
+	}
+
 	//para probar repito este codigo
 
 	t_new_pokemon* picaModif=picachuHardcodeadoLineaExisteParaModif();
@@ -144,6 +158,17 @@ t_new_pokemon* picachuHardcodeado(){
 		poke->coordenadas.posx=120;
 		poke->coordenadas.posy=7000;
 		poke->cantidad=1023;
+
+		return poke;
+}
+
+t_new_pokemon* charmanderHardcodeado(){
+	t_new_pokemon* poke = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+
+		poke->pokemon="Charmander";
+		poke->coordenadas.posx=987;
+		poke->coordenadas.posy=55;
+		poke->cantidad=107;
 
 		return poke;
 }

@@ -49,7 +49,7 @@ int status= mkdir(rutas_fs->pathDirectorioMetadataFs, 0777); //analizar permisos
 	char* lineaMetadataMagicNumber=string_new();
 	string_append(&lineaMetadataMagicNumber,"MAGIC_NUMBER=");
 	string_append(&lineaMetadataMagicNumber,metadata_fs->magicNumber);
-	string_append(&lineaMetadataMagicNumber,"/0");
+	string_append(&lineaMetadataMagicNumber,"\0");
 
 
 	fwrite(lineaMetadataMagicNumber, string_length(lineaMetadataMagicNumber), 1,archivoMetadata);
@@ -139,17 +139,26 @@ void cargarMetadataFs(char *ruta) {
 
 void crearBitmap() {
 
+
 	log_info(gameCard_logger,"Iniciando creación del bitmap");
 
 	FILE *bitmapArch = fopen(rutas_fs->pathArchivoBitMap,"w");
 
 		int blocksChar = metadata_fs->cantidadBloques/8;
 
+		log_info(gameCard_logger,"cuanto se va a copiar encant: %d",blocksChar);
+
 		if (metadata_fs->cantidadBloques % 8 != 0) { blocksChar++;}
+
+		log_info(gameCard_logger,"cuanto se va a copiar encant: %d",blocksChar);
 
 		char* bitmapData = string_new();
 
 		bitmapData=string_repeat('0',blocksChar);
+
+		log_info(gameCard_logger,"mostrame el bit char: %s", bitmapData);
+
+		log_info(gameCard_logger,"mostrame la longitud de opiado: %d",(string_length(bitmapData)) );
 
 		fwrite(&bitmapData,sizeof(char),string_length(bitmapData),bitmapArch);
 
@@ -273,7 +282,11 @@ bool noHayEspacioParaPokemon(t_list* listaPokemon){
 
 	int espacioDisponible=(metadata_fs->tamanioBLoques)*cantBloquesLibres();
 
+	log_info(gameCard_logger,"aca queremos ver espcio Disponible: %d", espacioDisponible);
+	log_info(gameCard_logger,"aca queremos ver el espacio A ocupar %d", espacioPokemon(listaPokemon));
+
 	return espacioDisponible<espacioPokemon(listaPokemon);
+
 
 }
 
@@ -322,7 +335,7 @@ void marcarBloqueOcupado(int bloqueLibre){
 
 	bitarray_set_bit(bitarray,bloqueLibre);
 
-	msync(bmap, sizeof(bitarray), MS_SYNC);
+	msync(bitarray, sizeof(bitarray), MS_SYNC);
 
 }
 
