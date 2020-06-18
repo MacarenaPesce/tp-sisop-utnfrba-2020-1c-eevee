@@ -313,16 +313,18 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_msje, int tamanio_parti, void* 
 
 void algoritmo_de_reemplazo(){
 
+    t_bloque_memoria* bloque;
+
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
     if (strcmp( algoritmo_reemplazo, "LRU") == 1){
-        algoritmo_lru();
+        bloque = algoritmo_lru();
     }
     else{
-        algoritmo_fifo();
+        bloque = algoritmo_fifo();
     }
 
     //realizo la consolidacion siempre que corro el algoritmo de reemplazo
-    consolidar();
+    consolidar(bloque);
 
     return;
 
@@ -334,7 +336,7 @@ void algoritmo_de_reemplazo(){
 /* elije como victima a la pagina que esta cargada en memoria hace mas tiempo*/
 /* se puede implementar guardando el instante en el que la pagina fue cargada
     o con una cola fifo y se elige a la pagina que primero se agrego*/
-void algoritmo_fifo(){
+t_bloque_memoria* algoritmo_fifo(){
 
     t_bloque_memoria* elemento;
     t_bloque_memoria* bloque;
@@ -362,7 +364,7 @@ void algoritmo_fifo(){
     //libero la memoria de un determinado bloque de mi lista , y me lo devuelve
     liberar_bloque_memoria(bloque);
 
-    return ;
+    return bloque;
 }
 
 
@@ -374,7 +376,7 @@ void algoritmo_fifo(){
 /* se puede implementar guardando el instante de ultima referencia a la pagina 
     o con una pila con numeros de paginas, con cada referencia se coloca la pag
     superior, se elige como victima la pag de la parte inferior*/
-void algoritmo_lru(){
+t_bloque_memoria* algoritmo_lru(){
 
     t_bloque_memoria* elemento;
     t_bloque_memoria* bloque;
@@ -403,7 +405,7 @@ void algoritmo_lru(){
     liberar_bloque_memoria(bloque);
     
 
-    return ;
+    return bloque;
 }
 
 

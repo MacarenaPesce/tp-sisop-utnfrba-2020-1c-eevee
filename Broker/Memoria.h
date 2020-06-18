@@ -60,12 +60,12 @@ t_bloque_memoria* buddy_system( int tamanio_en_bytes, void* mensaje); //EN PROCE
 
 
 //********Funciones de Algoritmos de memoria************
-t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti, void* mensaje); //LISTO
+t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti, void* mensaje); //LISConsolidar en particiones dinamicasTO
 t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti, void* mensaje); //LISTO
 t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes, int tamanio_parti, void* mensaje); //LISTO
 void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros que son con opciones, si mandan una opcion por el archivo config que no es valida
-void algoritmo_fifo(); //LISTO
-void algoritmo_lru(); //LISTO 
+t_bloque_memoria* algoritmo_fifo(); //LISTO  fijarme si esta bien o si liberar_bloque_memoria me tiene que devolver el bloque o no hace falta
+t_bloque_memoria* algoritmo_lru(); //LISTO 
 
 
 //-----DUMP-----
@@ -83,8 +83,13 @@ int tamanio_a_alojar(int tamanio);
 
 void liberar_bloque_memoria(t_bloque_memoria* bloque); //LISTO
 
-void compactar(); //empezando
-void consolidar(); //tengo que empezar 
+void compactar();
+
+/***Para Particiones dinamicas***/
+void consolidar(t_bloque_memoria* bloque);
+void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque);
+void consolidar_tres_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque, t_bloque_memoria* tercerBloque);
+
 
 uint64_t get_timestamp();
 
