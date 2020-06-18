@@ -15,5 +15,11 @@ bool noCumpleConRutasfs();
 void crearFileSystemVacio();
 void crearMetadataDirectorios();
 
+/***********aux*********/
+t_new_pokemon* picachuHardcodeado();
+void liberarMemoria();
+t_new_pokemon* picachuHardcodeadoLineaExisteParaModif();
+t_new_pokemon* picachuHardcodeadoLineaExisteParaModif();
+
 #endif /* GAMECARD_H_ */
 

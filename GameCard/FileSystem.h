@@ -39,6 +39,8 @@ typedef struct {
 
 int32_t tamanioBitmap;
 
+char *bmap;
+int tamBmap;
 t_bitarray* bitarray;
 
 
@@ -82,6 +84,10 @@ int tamanioPokemon;
 char* listaPokemon;
 char* listAux;
 
+char* stringAux;
+void agregarAstring(void* elem);
+
+
 void medirTamanioLineaPokemon(void* pokemon);
 t_list*  cargarPokemon(t_new_pokemon* pokemon);
 void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar);
@@ -95,5 +101,9 @@ void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar);
 //manejo del ultimo elemento
 
 int cantElemPokemon;
+
+void crearMetadataArchPoke(char* pokemon,t_list* listPok);
+
+void modificarPokemon(t_new_pokemon* poke);
 
 #endif /* FILESYSTEM_H_ */

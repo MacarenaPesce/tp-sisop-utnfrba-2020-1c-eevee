@@ -89,34 +89,83 @@ int  main () {
 
 	cargarRutasFs();
 	cargarMetadataFs("gamecard.config");
+
 	if ( noCumpleConRutasfs()){
 		log_info(gameCard_logger,"No existe el FileSytem requerido");
 		log_info(gameCard_logger,"Creando estructura del FileSytem");
 		crearFileSystemVacio();
-
 		}
 
+	t_new_pokemon* picachu=picachuHardcodeado();
 	abrirBitmap();
-	if(existePokemon("Pikachu")){
+
+	if(existePokemon(picachu->pokemon)){
 		log_info(gameCard_logger,"si, existe pokemon Pikachu");
 	}
 	else { log_info(gameCard_logger, "no existe pokemon Pikachu");
-	log_info(gameCard_logger,"vamos a crearlo");
+	       log_info(gameCard_logger,"vamos a crearlo");
 
-	t_new_pokemon* poke = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
-
-	poke->pokemon="Picachu";
-	poke->coordenadas.posx=120;
-	poke->coordenadas.posy=7000;
-	poke->cantidad=1023;
-
-	crearPokemon(poke);
-
-	free(poke);
+	crearPokemon(picachu);
+	free(picachu);
 	}
 
+	//para probar repito este codigo
+
+	t_new_pokemon* picaModif=picachuHardcodeadoLineaExisteParaModif();
+
+	if(existePokemon(picaModif->pokemon)){
+			log_info(gameCard_logger,"si, existe pokemon: &",picaModif->pokemon);
+			log_info(gameCard_logger,"aca vamos a modificarlo");
+			modificarPokemon(picaModif);
+		}
 
 	terminar_game_card();
+	liberarMemoria();
+
+}
 
 
+void liberarMemoria(){
+
+	//aca empezar a liberar memoria
+		free(rutas_fs);
+		free(metadata_fs);
+		munmap(bmap,tamBmap);
+		bitarray_destroy(bitarray);
+		config_destroy(config_game_card);
+}
+
+//esto es solo para probar
+
+t_new_pokemon* picachuHardcodeado(){
+	t_new_pokemon* poke = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+
+		poke->pokemon="Picachu";
+		poke->coordenadas.posx=120;
+		poke->coordenadas.posy=7000;
+		poke->cantidad=1023;
+
+		return poke;
+}
+
+t_new_pokemon* picachuHardcodeadoLineaExisteParaModif(){
+	t_new_pokemon* poke = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+
+		poke->pokemon="Picachu";
+		poke->coordenadas.posx=120;
+		poke->coordenadas.posy=7000;
+		poke->cantidad=9;
+
+		return poke;
+}
+
+t_new_pokemon* picachuHardcodeadoLineaNoExisteParaModif(){
+	t_new_pokemon* poke = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
+
+		poke->pokemon="Picachu";
+		poke->coordenadas.posx=1;
+		poke->coordenadas.posy=100;
+		poke->cantidad=9;
+
+		return poke;
 }
