@@ -312,6 +312,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = "6009";
+	servidor->id_cliente = id;
 
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);

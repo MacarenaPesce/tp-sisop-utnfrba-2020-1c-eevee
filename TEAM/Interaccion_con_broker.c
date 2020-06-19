@@ -38,6 +38,7 @@ void enviar_get(){
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = "6009";
+	servidor->id_cliente = id;
 
 	int h = 0;
 	t_objetivo * objetivo;
@@ -100,6 +101,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = "6009";
+	servidor->id_cliente = id;
 
 	t_suscripcion * suscripcion = malloc(sizeof(t_suscripcion));
 	suscripcion->minutos_suscripcion = -1;

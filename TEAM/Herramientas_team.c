@@ -74,6 +74,7 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_CONFIG_IP_BROKER, config, obtener_la_ip_del_broker);
 		obtener_valor_config(KEY_CONFIG_PUERTO_BROKER, config, obtener_el_puerto_del_broker);
 		obtener_valor_config(KEY_CONFIG_LOG_FILE, config, obtener_el_log_file);
+		obtener_valor_config(KEY_CONFIG_ID, config, obtener_el_id);
 
 
 		log_info(team_logger,"Archivo de configuracion cargado correctamente :)\n");
@@ -89,69 +90,74 @@ void obtener_valor_config(char* key, t_config* file, void(*obtener)(void)){
 	}
 }
 
+void obtener_el_id(){
+	id = config_get_int_value(config, KEY_CONFIG_ID);
+	log_debug(team_logger,"Mi ID es: %d",id);
+}
+
 void obtener_las_posiciones_de_entrenadores(){
 	posiciones_entrenadores = config_get_array_value(config, KEY_CONFIG_POSICIONES_ENTRENADORES);
 	t_list * lista_aux = list_create();
 	string_iterate_lines_with_list(posiciones_entrenadores, lista_aux, separar_pokemones_de_entrenador);
 	MAXIMO_ENTRENADORES = list_size(lista_aux)/2;
 	//log_info(team_logger,"MAXIMO ENTRENADORES %d", MAXIMO_ENTRENADORES);
-	log_info(team_logger,"Las posiciones de entrenadores recuperadas");
+	log_debug(team_logger,"Las posiciones de entrenadores recuperadas");
 	list_destroy(lista_aux);
 }
 
 void obtener_los_pokemon_de_entrenadores(){
 	pokemon_entrenadores = config_get_array_value(config, KEY_CONFIG_POKEMON_ENTRENADORES);
-	log_info(team_logger,"Los pokemon de los entrenadores recuperados");
+	log_debug(team_logger,"Los pokemon de los entrenadores recuperados");
 }
 
 void obtener_los_objetivos_de_entrenadores(){
 	objetivos_entrenadores = config_get_array_value(config, KEY_CONFIG_OBJETIVOS_ENTRENADORES);
-	log_info(team_logger,"Los objetivos de los entrenadores recuperados");
+	log_debug(team_logger,"Los objetivos de los entrenadores recuperados");
 }
 
 void obtener_el_tiempo_de_reconexion(){
 	tiempo_reconexion = config_get_int_value(config, KEY_CONFIG_TIEMPO_RECONEXION);
-	log_info(team_logger,"El tiempo de reconexion es: %d",tiempo_reconexion);
+	log_debug(team_logger,"El tiempo de reconexion es: %d",tiempo_reconexion);
 }
 
 void obtener_el_alpha(){
 	alpha = config_get_int_value(config, KEY_CONFIG_ALPHA);
-	log_info(team_logger,"El alpha es: %d",alpha);
+	log_debug(team_logger,"El alpha es: %d",alpha);
 }
 
 void obtener_el_retardo_de_ciclo_de_cpu(){
     retardo_ciclo_cpu = config_get_int_value(config, KEY_CONFIG_RETARDO_CICLO_CPU);
-	log_info(team_logger,"El retardo de ciclo de cpu es: %d",retardo_ciclo_cpu);
+	log_debug(team_logger,"El retardo de ciclo de cpu es: %d",retardo_ciclo_cpu);
 }
 
 void obtener_el_algoritmo_de_planificacion(){
 	algoritmo_planificacion = strdup(config_get_string_value(config, KEY_CONFIG_ALGORITMO_PLANIFICACION));
-	log_info(team_logger,"El algoritmo de planificacion es: %s",algoritmo_planificacion);
+	log_debug(team_logger,"El algoritmo de planificacion es: %s",algoritmo_planificacion);
 }
 
 void obtener_el_quantum(){
 	quantum = config_get_int_value(config, KEY_CONFIG_QUANTUM);
-	log_info(team_logger,"El quantum es: %d",quantum);
+	log_debug(team_logger,"El quantum es: %d",quantum);
 }
 
 void obtener_la_estimacion_inicial(){
 	estimacion_inicial = config_get_int_value(config, KEY_CONFIG_ESTIMACION_INICIAL);
-	log_info(team_logger,"La estimacion_inicial es: %d",estimacion_inicial);
+	log_debug(team_logger,"La estimacion_inicial es: %d",estimacion_inicial);
 }
 
 void obtener_la_ip_del_broker(){
 	ip_broker = strdup(config_get_string_value(config, KEY_CONFIG_IP_BROKER));
-	log_info(team_logger,"La ip del broker es: %s",ip_broker);
+	log_debug(team_logger,"La ip del broker es: %s",ip_broker);
 }
 
 void obtener_el_puerto_del_broker(){
 	puerto_broker = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER));
-	log_info(team_logger,"El puerto del broker es: %s",puerto_broker);
+	log_debug(team_logger,"El puerto del broker es: %s",puerto_broker);
 }
 
 void obtener_el_log_file(){
 	log_file = strdup(config_get_string_value(config, KEY_CONFIG_LOG_FILE));
-	log_info(team_logger,"El log file es: %s",log_file);
+	log_debug(team_logger,"El log file es: %s",log_file);
 }
 
 void configurar_signals(void){
@@ -180,7 +186,7 @@ void capturar_signal(int signo){
 
     if(signo == SIGINT)
     {
-    	log_info(team_logger,"\n TEAM DEJA DE FUNCIONAR");
+    	log_warning(team_logger,"Team deja de funcionar");
     	GLOBAL_SEGUIR = 0;
     	terminar_team_correctamente();
     	exit(EXIT_FAILURE);

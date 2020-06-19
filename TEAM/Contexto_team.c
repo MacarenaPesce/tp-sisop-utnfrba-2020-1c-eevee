@@ -20,6 +20,7 @@ char* ip_broker;
 int estimacion_inicial;
 char* puerto_broker;
 char* log_file;
+int id;
 
 int GLOBAL_SEGUIR = 1;
 int ciclos_de_cpu = 0;
