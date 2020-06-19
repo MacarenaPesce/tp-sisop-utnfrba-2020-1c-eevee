@@ -13,6 +13,7 @@
 /*SETEOS INICIALES*/
 void inicializar_logger();
 void inicializar_semaforos();
+void inicializar_semaforos_deadlock();
 void inicializar_archivo_de_configuracion();
 void configurar_signals(void);
 void capturar_signal(int signo);
@@ -43,8 +44,10 @@ int destruir_objetivo(t_objetivo *);
 
 /*BUSQUEDA*/
 t_objetivo * buscar_pokemon_por_especie(t_list*, char*);
+t_objetivo_entrenador * buscar_pokemon_objetivo_por_especie(t_list*, char*);
 t_entrenador * buscar_entrenador_por_id(t_list*, int);
 t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon*);
+t_entrenador * buscar_entrenador_por_ubicacion(t_list*, uint32_t, uint32_t);
 t_mensaje_guardado * buscar_mensaje(uint32_t id);
 
 

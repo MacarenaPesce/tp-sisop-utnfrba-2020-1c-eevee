@@ -15,6 +15,7 @@
 #include "Funciones_de_conexion.h"
 #include "Interaccion_con_gameboy.h"
 #include "Interaccion_con_broker.h"
+#include "Deadlock.h"
 
 
 void operar_con_appeared_pokemon(t_pokemon *);
@@ -36,6 +37,6 @@ void consumir_un_ciclo_de_cpu();
 void llegar_a_el_pokemon(t_entrenador *);
 void * planificar();
 void crear_hilo_para_planificar();
-
+bool todos_bloqueados_por_cantidad_maxima();
 
 #endif /* TEAM_H_ */

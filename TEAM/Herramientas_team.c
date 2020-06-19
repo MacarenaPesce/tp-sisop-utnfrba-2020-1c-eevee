@@ -30,7 +30,9 @@ bool objetivo_global_cumplido(){
 				contador++;
 			}
 		}
-		return (contador == list_size(lista_objetivos)); //es verdadero y cumple esto y ademas no haya deadlock
+		chequear_deadlock();
+		return (contador == list_size(lista_objetivos) && !hayDeadlock);
+		//es verdadero y cumple esto y ademas no haya deadlock
 }
 
 void inicializar_logger(){
@@ -46,12 +48,23 @@ void inicializar_semaforos(){
 	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
 		sem_init(&array_semaforos[i], 0, 0);
 	}
-
+	pthread_mutex_init(&mutex_deadlock, NULL);
 	pthread_mutex_init(&mapa_mutex, NULL);
 	pthread_mutex_init(&llego_gameboy, NULL);
 	sem_init(&hay_un_pokemon_nuevo, 0, 0);
 	//sem_init(&llego_gameboy, 0, 0);
 	sem_init(&entrenadores_ubicados, 0, 0);
+	sem_init(&hay_interbloqueo, 0, 0);
+
+}
+
+void inicializar_semaforos_deadlock(){
+	semaforos_deadlock = (sem_t*)malloc(sizeof(sem_t)*CANTIDAD_EN_DEADLOCK);
+	for(int i = 0; i < CANTIDAD_EN_DEADLOCK; i++){
+		sem_init(&semaforos_deadlock[i], 0, 0);
+	}
+
+	sem_init(&semaforos_listos, 0, 0);
 
 }
 
@@ -318,9 +331,24 @@ t_objetivo * buscar_pokemon_por_especie(t_list* lista, char* especie){
 	return (list_find(lista,(void*)es_la_especie_buscada));
 }
 
+t_objetivo_entrenador * buscar_pokemon_objetivo_por_especie(t_list* lista, char* especie){
+
+	bool es_la_especie_buscada(t_objetivo_entrenador* pokemon){
+		return (string_equals_ignore_case(pokemon->especie, especie));
+	}
+	return (list_find(lista,(void*)es_la_especie_buscada));
+}
+
 t_entrenador * buscar_entrenador_por_id(t_list* lista, int id){
 	bool es_el_buscado(t_entrenador* entrenador){
 		return entrenador->id == id;
+	}
+	return (list_find(lista,(void*)es_el_buscado));
+}
+
+t_entrenador * buscar_entrenador_por_ubicacion(t_list* lista, uint32_t posx, uint32_t posy){
+	bool es_el_buscado(t_entrenador* entrenador){
+		return entrenador->posx == posx && entrenador->posy == posy;
 	}
 	return (list_find(lista,(void*)es_el_buscado));
 }

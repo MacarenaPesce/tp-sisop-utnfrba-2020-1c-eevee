@@ -15,7 +15,6 @@ void operar_con_appeared_pokemon(t_pokemon * pokemon){
 
 	agregar_pokemon_a_mapa(pokemon);
 	log_info(team_logger, "Agregue el pokemon al mapa\n");
-
 	sem_post(&hay_un_pokemon_nuevo);
 }
 
@@ -79,6 +78,7 @@ void operar_con_caught_pokemon(t_caught_pokemon * mensaje, uint32_t id){
 				}
 			}
 			free(catch_pokemon);
+			//chequear deadlock
 		} else {
 			log_info(team_logger,"No me importa este mensaje");
 		}
@@ -206,11 +206,28 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 }
 
 void * jugar_con_el_entrenador(t_entrenador * entrenador){
+
+
 	sem_wait(&array_semaforos[entrenador->id]);
 	log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
 	llegar_a_el_pokemon(entrenador);
 	atrapar(entrenador);
+
+	pthread_mutex_lock(&mutex_deadlock);
+	bool deadlock = hayDeadlock;
+	pthread_mutex_unlock(&mutex_deadlock);
+
+	if(deadlock){
+		sem_wait(&semaforos_deadlock[entrenador->id]);
+
+		log_info(team_logger, "Soy el entrenador que va a ejecutar para deadlock, mi id es: %d.", entrenador->id);
+		mover_entrenador_a_otra_posicion(entrenador);
+	}
+
+
+
+
 
 	return NULL;
 }
@@ -258,11 +275,13 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 }
 
 void chequear_si_fue_cumplido_el_objetivo_global(){
+
 	if(objetivo_global_cumplido()){
 		log_info(team_logger, "Objetivo global cumplido");
 		terminar_team_correctamente();
 	} else {
 		log_info(team_logger, "Aun no se cumplio el objetivo global");
+		planificar();
 	}
 }
 
@@ -275,11 +294,12 @@ void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_
 	if(objetivo_personal_cumplido(entrenador)){
 		entrenador->estado = FINALIZANDO;
 		list_add(lista_finalizar, entrenador);//ver que onda el hilo
-
+		log_info(team_logger, "Finalizo el entrenador %i", entrenador->id);
 		t_objetivo* pokemon_encontrado = buscar_pokemon_por_especie(lista_objetivos, catch_pokemon->pokemon);
 		pokemon_encontrado->cantidad_atrapada++; /*Busco la especie en la lista global y sumo uno a los atrapados*/
 
 		chequear_si_fue_cumplido_el_objetivo_global();
+
 
 	} else {
 
@@ -330,6 +350,11 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 
 	free(catch_pokemon);
 
+
+}
+
+bool todos_bloqueados_por_cantidad_maxima(){
+	return list_size(lista_bloqueados_esperando) == 0 && list_size(lista_bloqueados_cant_max_alcanzada) > 0;
 }
 
 void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list * lista){
@@ -354,16 +379,17 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 		log_info(team_logger,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 		log_info(team_logger_oficial,"El entrenador %i está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
+		chequear_deadlock();
 
 	}else{
 
 		entrenador->razon_de_bloqueo = ESPERANDO_POKEMON;
 		list_add(lista_bloqueados_esperando, (void*)entrenador);
 
-		log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
-		mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
+		//log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
+		//mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
 
-		log_info(team_logger_oficial, "El entrenador %i esta bloqueado esperando que aparezca un pokemon", entrenador->id);
+		//log_info(team_logger_oficial, "El entrenador %i esta bloqueado esperando que aparezca un pokemon", entrenador->id);
 
 	}
 }
@@ -455,9 +481,11 @@ int main(){
 	//Crea el socket cliente para conectarse al broker
 	enviar_get();
 
-	convertirse_en_suscriptor_global_del_broker();
+	//convertirse_en_suscriptor_global_del_broker();
+	crear_hilo_para_deadlock();
 	crear_hilo_para_planificar();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
+
 
 	close(serv_socket);
 

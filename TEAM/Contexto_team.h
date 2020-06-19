@@ -71,6 +71,7 @@ extern int GLOBAL_SEGUIR;
 extern int ciclos_de_cpu;
 extern int hilos_entrenadores_total;
 extern int MAXIMO_ENTRENADORES;
+extern int CANTIDAD_EN_DEADLOCK;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
@@ -94,6 +95,7 @@ extern t_list* mensajes;
 extern t_list* pokemones_bloqueados;
 extern t_list* lista_bloqueados_esperando;
 extern t_list* lista_bloqueados_cant_max_alcanzada;
+extern t_list* lista_bloqueados_deadlock;
 
 sem_t hay_un_pokemon_nuevo;
 sem_t * array_semaforos;
@@ -101,6 +103,13 @@ sem_t * array_semaforos;
 sem_t entrenadores_ubicados;
 pthread_mutex_t mapa_mutex;
 pthread_mutex_t llego_gameboy;
+
+sem_t * semaforos_deadlock;
+sem_t semaforos_listos;
+sem_t hay_interbloqueo;
+pthread_mutex_t mutex_deadlock;
+
+bool hayDeadlock;
 
 //Estructura de un entrenador
 enum ESTADO{
