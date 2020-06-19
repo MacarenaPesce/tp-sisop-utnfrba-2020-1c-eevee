@@ -97,7 +97,7 @@ int  main () {
 		}
 
 	t_new_pokemon* picachu=picachuHardcodeado();
-	abrirBitmap();
+	//abrirBitmap();
 
 	if(existePokemon(picachu->pokemon)){
 		log_info(gameCard_logger,"si, existe pokemon Pikachu");
@@ -111,7 +111,7 @@ int  main () {
 
 
 	t_new_pokemon* charmander=charmanderHardcodeado();
-	abrirBitmap();
+	//abrirBitmap();
 
 	if(existePokemon(charmander->pokemon)){
 		log_info(gameCard_logger,"si, existe pokemon Charmander");

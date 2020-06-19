@@ -142,28 +142,41 @@ void crearBitmap() {
 
 	log_info(gameCard_logger,"Iniciando creación del bitmap");
 
-	FILE *bitmapArch = fopen(rutas_fs->pathArchivoBitMap,"w");
+	//FILE* bitmapArch = fopen(rutas_fs->pathArchivoBitMap,"wb");
+
+	int bitmapArch=open(rutas_fs->pathArchivoBitMap,O_RDWR |O_CREAT);
 
 		int blocksChar = metadata_fs->cantidadBloques/8;
 
-		log_info(gameCard_logger,"cuanto se va a copiar encant: %d",blocksChar);
+		log_info(gameCard_logger,"tamanio para copiar en 0: %d",blocksChar);
 
 		if (metadata_fs->cantidadBloques % 8 != 0) { blocksChar++;}
 
-		log_info(gameCard_logger,"cuanto se va a copiar encant: %d",blocksChar);
+		log_info(gameCard_logger,"agrega 1 segun el numero: %d",blocksChar);
 
 		char* bitmapData = string_new();
 
 		bitmapData=string_repeat('0',blocksChar);
 
+
 		log_info(gameCard_logger,"mostrame el bit char: %s", bitmapData);
 
 		log_info(gameCard_logger,"mostrame la longitud de opiado: %d",(string_length(bitmapData)) );
 
-		fwrite(&bitmapData,sizeof(char),string_length(bitmapData),bitmapArch);
 
-		free(bitmapData);
-		fclose(bitmapArch);
+		write(bitmapArch,bitmapData,sizeof(char)*string_length(bitmapData));
+
+	 bitarray =	bitarray_create_with_mode(bitmapData, blocksChar, LSB_FIRST);
+
+
+				for(int i=0; i<=bitarray_get_max_bit(bitarray);i++){
+				//Seteo el bitmap en 0 para la posicion requerida
+				bitarray_clean_bit(bitarray,i);
+				}
+
+
+		log_info(gameCard_logger,"aca tengo el bitarray: %s", bitarray->bitarray);
+		//free(bitmapData);
 
 		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
 
@@ -333,7 +346,23 @@ void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar){
 
 void marcarBloqueOcupado(int bloqueLibre){
 
-	bitarray_set_bit(bitarray,bloqueLibre);
+	log_info(gameCard_logger," bloque libre va a pasar a ocupado");
+
+		bitarray_set_bit(bitarray,bloqueLibre);
+
+	log_info(gameCard_logger,"efectivamente paso a : %d",bitarray_test_bit(bitarray,bloqueLibre));
+
+	int blocksChar = (metadata_fs->tamanioBLoques/8);
+
+	if (metadata_fs->cantidadBloques % 8 != 0) { blocksChar++;}
+
+	log_info(gameCard_logger," cant de bloques: %d",blocksChar);
+
+	log_info(gameCard_logger,"cant de bitarray: %s", bitarray->bitarray);
+
+	bitmap = open(rutas_fs->pathArchivoBitMap,blocksChar);
+
+	write(bitmap, bitarray ->bitarray ,sizeof(char)* blocksChar);
 
 	msync(bitarray, sizeof(bitarray), MS_SYNC);
 
@@ -464,33 +493,133 @@ void copiarEnArchivo(int fd,char* dato,int tamanioDato){
 
 
 
+
 void abrirBitmap() {
 
-	log_info(gameCard_logger,"Cargando el bitmap");
 
-	int bitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR);
-	struct stat mystat;
-
-	fstat(bitmap, &mystat);
-
-	tamBmap=mystat.st_size;
-
-	bmap = mmap(NULL, tamBmap, PROT_WRITE | PROT_READ, MAP_SHARED,
-			bitmap, 0);
-
-	int bytesBitmap = metadata_fs->cantidadBloques / 8;
+/*	int bytesBitmap = metadata_fs->cantidadBloques / 8;
 
 	if (metadata_fs->cantidadBloques % 8 != 0){ bytesBitmap++;}
 
-	bitarray = bitarray_create_with_mode(bmap, bytesBitmap,MSB_FIRST);
+		FILE* f = fopen(rutas_fs->pathArchivoBitMap,"rb+");
+
+		//Si f no es null entonces el archivo ya existe
+		if(f == NULL){
+			log_info(gameCard_logger,"Error al querer obtenr el archivo bitmap");
+			return;
+		}
+		//Creo el array de bitmap
+		char* bitmapData = malloc(bytesBitmap*sizeof(char));
+		//Leo los bitmaps
+		fread(bitmapData, sizeof(char), bytesBitmap, f);
+		t_bitarray* bitarray =	bitarray_create_with_mode(bitmapData, bytesBitmap, LSB_FIRST);
+
+		log_info(gameCard_logger, "aca hay que ver medida bitarray: %s", bitarray_get_max_bit(bitarray));
+		for(int i=0; i<=bitarray_get_max_bit(bitarray);i++){
+		//Seteo el bitmap en 0 para la posicion requerida
+		bitarray_clean_bit(bitarray,i);
+		}
+		//Vuelvo a guardar
+		//rewind(f);
+		//fwrite(bitarray->bitarray,sizeof(char),bytesBitmap,f);
+		fclose(f);
+		//free(bitmapData);
+	//	bitarray_destroy(bitarray);*/
+
+	log_info(gameCard_logger,"ruta bitmap es :%s", rutas_fs->pathArchivoBitMap);
+
+	int bitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR);
+
+	if (bitmap==-1){
+		log_error(gameCard_logger, "Error al hacer open");
+	}
+
+	struct stat mystat;
+
+	if (fstat(bitmap, &mystat) < 0) {
+		log_error(gameCard_logger, "Error en el fstat\n");
+		close(bitmap);
+	}
+
+	char *bmap;
+	bmap = mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ, MAP_SHARED,
+			bitmap, 0);
+
+//	log_info(logger,"inicialicé mmap");
+
+	if (bmap == MAP_FAILED) {
+		log_error(gameCard_logger, "Fallo el mmap");
+	}
+
+	int bytesAEscribirAux = metadata_fs->tamanioBLoques / 8;
+
+	if (metadata_fs->tamanioBLoques % 8 != 0)
+		bytesAEscribirAux++;
+	bitarray = bitarray_create_with_mode(bmap, bytesAEscribirAux,
+			MSB_FIRST);
+
+
+
+	//log_info(gameCard_logger,"Cargando el bitmap");
+
+	//bitmap = open(rutas_fs->pathArchivoBitMap,"rb+");
+
+	//FILE* f = fopen(rutas_fs->pathArchivoBitMap,"rb+");
+
+	//struct stat estadoArch;
+
+	//stat(rutas_fs->pathArchivoBitMap,&estadoArch);
+
+	//tamBmap=estadoArch.st_size;
+
+//	log_info(gameCard_logger,"aca valido tamanio archivo bitmap: %d",tamBmap);
+
+	//bmap =(char*) mmap(NULL, tamBmap, PROT_WRITE | PROT_READ, MAP_SHARED,bitmap, 0);
+
+
+	//int bytesBitmap = metadata_fs->cantidadBloques / 8;
+
+	//if (metadata_fs->cantidadBloques % 8 != 0){ bytesBitmap++;}
+
+	//char* bitmapData = malloc(bytesBitmap*sizeof(char));
+
+	//log_info(gameCard_logger,"aca quiero ver bitmapData %s",bitmapData);
+
+
+	//bitarray =	bitarray_create_with_mode(bitmapData, bytesBitmap, LSB_FIRST);
+
+
+
+//	log_info(gameCard_logger,"valido el tamanio en bytes: %d",bytesBitmap);
+
+	//for (int i=1; i<=bitarray_get_max_bit(bitarray);i++){
+
+	//bitarray_clean_bit(bitarray,i);
+	//rewind(f);
+	//fwrite(bitarray->bitarray,sizeof(char),bytesBitmap,f);
+    //fclose(f);
+	//}
+
+	/*
+
+
+	//bitarray = bitarray_create_with_mode(bmap, bytesBitmap,MSB_FIRST);
+
+
+	log_info(gameCard_logger,"aca valido si hay maximo en bitarray %d",bitarray_get_max_bit(bitarray));
+
+	log_info(gameCard_logger,"aca valido contenido del bitarray %d",bitarray->bitarray);
 
 	for (int i=1; i<=bitarray_get_max_bit(bitarray);i++){
 
-		 bitarray_clean_bit(bitarray,i);}
+		log_info(gameCard_logger,"validando si entro en la pos %d", i);
+
+		log_info(gameCard_logger,"validando lo que hay en bitarray: %d", bitarray_test_bit(bitarray,i));}
 
 	msync(bmap, sizeof(bitarray), MS_SYNC);
 
 	log_info(gameCard_logger,"Bitmap abierto");
+	*/
 }
 
 
@@ -549,10 +678,6 @@ void modificarPokemon(t_new_pokemon* poke){
 	De esta manera, me aseguro que los bloques no excedan nunca del tamaño máximo,
 	 y también me aseguro de no que no exista fragmentación interna en los bloques,
 	 quedando espacios sin utilizar.
-
-
-	 /*
-	  *
 	  El tema del flag de Open, si, eso les puede dar un flag claro, el tema como bien comentaron
 	  es la posible condición de carrera al tocar ese mismo archivo de metadata (que no es lo mismo
 	  que operar con todos los bloques)
@@ -562,5 +687,4 @@ void modificarPokemon(t_new_pokemon* poke){
 	  2 hilos no van a ir a modificar el mismo set de bloques
 	  *
 	  * */
-
 }

@@ -42,7 +42,7 @@ int32_t tamanioBitmap;
 char *bmap;
 int tamBmap;
 t_bitarray* bitarray;
-
+int bitmap;
 
 void marcarBloqueOcupado(int bloqueLibre);
 void cargarRutasFs();
