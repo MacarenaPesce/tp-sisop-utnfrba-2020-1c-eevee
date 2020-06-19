@@ -79,10 +79,7 @@ void ordenar_lista_estimacion(t_list * lista){
 		return ( (entrenador1->estimacion_real < entrenador2->estimacion_real) || (entrenador1->estimacion_real == entrenador2->estimacion_real) );
 	}
 
-	/*
-	* El comparador devuelve si el primer parametro debe aparecer antes que el
-	* segundo en la lista
-	*/
+	/*El comparador devuelve si el primer parametro debe aparecer antes que el segundo en la lista*/
 
 	list_sort(lista, (void*)is_estimacion_menor);
 
@@ -101,11 +98,9 @@ void desalojar_ejecucion(void){
 
 int estimar_entrenador(t_entrenador * entrenador){
 
-	alpha = 50; //por darle un numero
 	entrenador->estimacion_anterior = entrenador->estimacion_real;
 
-	entrenador->estimacion_real = ( (alpha / 100) * entrenador->instruccion_actual ) +
-					  ( ( 1 - (alpha / 100) ) * entrenador->estimacion_real );
+	entrenador->estimacion_real = ((alpha/100)*entrenador->instruccion_actual) + ((1-(alpha/100))*entrenador->estimacion_real);
 
 	entrenador->estimacion_actual  = entrenador->estimacion_real;
 	entrenador->instruccion_actual = 0;
@@ -126,9 +121,9 @@ void obtener_proximo_ejecucion(void){
 	lista_aux = list_duplicate(lista_listos);
 	log_info(team_logger, "Planificando por FIFO");
 
-	//if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
-		//ordenar_lista_estimacion(lista_aux);
-	//}
+	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
+		ordenar_lista_estimacion(lista_aux);
+	}
 
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
 
