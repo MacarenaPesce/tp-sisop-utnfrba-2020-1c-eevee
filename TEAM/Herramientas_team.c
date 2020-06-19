@@ -48,12 +48,13 @@ void inicializar_semaforos(){
 	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
 		sem_init(&array_semaforos[i], 0, 0);
 	}
-
+	pthread_mutex_init(&mutex_deadlock, NULL);
 	pthread_mutex_init(&mapa_mutex, NULL);
 	pthread_mutex_init(&llego_gameboy, NULL);
 	sem_init(&hay_un_pokemon_nuevo, 0, 0);
 	//sem_init(&llego_gameboy, 0, 0);
 	sem_init(&entrenadores_ubicados, 0, 0);
+	sem_init(&hay_interbloqueo, 0, 0);
 
 }
 
@@ -62,6 +63,7 @@ void inicializar_semaforos_deadlock(){
 	for(int i = 0; i < CANTIDAD_EN_DEADLOCK; i++){
 		sem_init(&semaforos_deadlock[i], 0, 0);
 	}
+
 	sem_init(&semaforos_listos, 0, 0);
 
 }

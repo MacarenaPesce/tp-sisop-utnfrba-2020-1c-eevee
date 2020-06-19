@@ -214,13 +214,19 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 	llegar_a_el_pokemon(entrenador);
 	atrapar(entrenador);
 
+	pthread_mutex_lock(&mutex_deadlock);
+	bool deadlock = hayDeadlock;
+	pthread_mutex_unlock(&mutex_deadlock);
+
+	if(deadlock){
+		sem_wait(&semaforos_deadlock[entrenador->id]);
+
+		log_info(team_logger, "Soy el entrenador que va a ejecutar para deadlock, mi id es: %d.", entrenador->id);
+		mover_entrenador_a_otra_posicion(entrenador);
+	}
 
 
-	/*sem_wait(&semaforos_listos);
-	sem_wait(&semaforos_deadlock[entrenador->id]);
 
-	log_info(team_logger, "Soy el entrenador que va a ejecutar para deadlock, mi id es: %d.", entrenador->id);
-	mover_entrenador_a_otra_posicion(entrenador);*/
 
 
 	return NULL;
@@ -475,9 +481,10 @@ int main(){
 	enviar_get();
 
 	//convertirse_en_suscriptor_global_del_broker();
+	crear_hilo_para_deadlock();
 	crear_hilo_para_planificar();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
-	//crear_hilo_para_deadlock();
+
 
 	close(serv_socket);
 

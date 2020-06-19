@@ -9,26 +9,30 @@
 
 /***************DEALOCK***************/
 
-/*void crear_hilo_para_deadlock(){
+void crear_hilo_para_deadlock(){
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)interbloqueo, NULL);
-}*/
+}
 
 void chequear_deadlock(){
 	if(list_size(lista_entrenadores) == 0 && todos_bloqueados_por_cantidad_maxima()){
 		log_info(team_logger, "Deadlock detectado");
-		interbloqueo();
+		sem_post(&hay_interbloqueo);
 	}
 }
 
-void interbloqueo(){
-
+void * interbloqueo(){
+	sem_wait(&hay_interbloqueo);
+	pthread_mutex_lock(&mutex_deadlock);
 	hayDeadlock = false;
+
 	hayDeadlock = list_size(lista_bloqueados_cant_max_alcanzada) > 1;
+	pthread_mutex_unlock(&mutex_deadlock);
 	CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
 	log_info(team_logger,"La cantidad de entrenadores en deadlock en %i", CANTIDAD_EN_DEADLOCK);
 
 	inicializar_semaforos_deadlock();
+	sem_post(&semaforos_listos);
 
 
 	if(hayDeadlock){
@@ -53,8 +57,8 @@ void interbloqueo(){
 
 }
 
-void * planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenador2, t_objetivo_entrenador* pokemon){
-
+void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenador2, t_objetivo_entrenador* pokemon){
+	sem_wait(&semaforos_listos);
 	t_pokemon* pokemon_innecesario = malloc(sizeof(t_pokemon));
 	pokemon_innecesario->especie = pokemon->especie;
 	pokemon_innecesario->posx = entrenador2->posx;
@@ -78,17 +82,16 @@ void * planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrena
 	entre_a_ejecutar->estado = EJECUTANDO;
 
 	log_info(team_logger, "Planificando para resolver Deadlock");
-	//sem_post(&semaforos_listos);
 
-	//sem_post(&semaforos_deadlock[(int)entre_a_ejecutar->id]);
+
+	sem_post(&semaforos_deadlock[(int)entre_a_ejecutar->id]);
 
 	/*Estas dos funciones funciones que deberian manejarse en el hilo entrenador*/
 
 	log_info(team_logger, "Soy el entrenador que va a ejecutar para deadlock, mi id es: %d.", entre_a_ejecutar->id);
-	mover_entrenador_a_otra_posicion(entre_a_ejecutar);
-	realizar_intercambio(entrenador1);
+	/*mover_entrenador_a_otra_posicion(entre_a_ejecutar);
+	realizar_intercambio(entrenador1);*/
 
-	return NULL;
 
 }
 

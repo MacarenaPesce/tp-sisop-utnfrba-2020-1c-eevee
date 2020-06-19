@@ -104,6 +104,8 @@ pthread_mutex_t llego_gameboy;
 
 sem_t * semaforos_deadlock;
 sem_t semaforos_listos;
+sem_t hay_interbloqueo;
+pthread_mutex_t mutex_deadlock;
 
 bool hayDeadlock;
 
