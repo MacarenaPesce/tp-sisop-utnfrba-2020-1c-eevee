@@ -414,14 +414,6 @@ t_bloque_memoria* algoritmo_lru(){
 
 
 
-//----------------------------DUMP DE LA MEMORIA--------------------------
-
-
-
-//-----------------------------FIN DEL DUMP--------------------------------
-
-
-
 
 //-----------------------------AUXILIARES-----------------------------------
 
@@ -615,7 +607,17 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 
     primerBloque->tamanio_particion = primerBloque->tamanio_particion + segundoBloque->tamanio_particion;
 
+    int indice = obtener_indice_particion(segundoBloque);
+
     //eliminar segundo bloque de la lista
+
+	//@NAME: list_remove @DESC: Remueve un elemento de la lista de una determinada posicion y lo retorna.
+	
+	/*t_bloque_memoria* bloque = list_remove(lista_memoria, indice);
+    free(bloque);*/
+
+	//@NAME: list_remove_and_destroy_element @DESC: Remueve un elemento de la lista de una determinada posicion y libera la memoria.
+	list_remove_and_destroy_element(lista_memoria, indice, void(*element_destroyer)(void*));
 
 
     return ;
@@ -625,7 +627,12 @@ void consolidar_tres_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* s
 
     primerBloque->tamanio_particion = primerBloque->tamanio_particion + segundoBloque->tamanio_particion + tercerBloque->tamanio_particion;
 
+    int indiceUno = obtener_indice_particion(segundoBloque);
+    int indiceDos = obtener_indice_particion(tercerBloque);
+
     //eliminar segundo bloque y tercer bloque de la lista
+	list_remove_and_destroy_element(lista_memoria, indiceUno, void(*element_destroyer)(void*));
+	list_remove_and_destroy_element(lista_memoria, indiceDos, void(*element_destroyer)(void*));
 
     return ;
 }
@@ -679,3 +686,10 @@ int numero_potencia_dos(int tamanio_en_bytes){
 	return bytes;
 
 }
+
+
+//----------------------------DUMP DE LA MEMORIA--------------------------
+
+
+
+//-----------------------------FIN DEL DUMP--------------------------------
