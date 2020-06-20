@@ -89,13 +89,10 @@ void agregarAstring(void* elem);
 
 
 void medirTamanioLineaPokemon(void* pokemon);
-t_list*  cargarPokemon(t_new_pokemon* pokemon);
+char*  cargarPokemon(t_new_pokemon* pokemon);
 void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar);
 void marcarBloqueOcupado(int bloqueLibre);
 void agregarBloqueParaMetadataArchivo(int bloqueLibre);
-int espacioPokemon(t_list* listaPokemon);
-bool noHayEspacioParaPokemon(t_list* listaPokemon);
-t_list*  cargarPokemon(t_new_pokemon* pokemon);
 void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar);
 
 //manejo del ultimo elemento
@@ -110,4 +107,15 @@ void modificarPokemon(t_new_pokemon* poke);
 
 int 	bitarrayfd;
 char* bitmapData;
+
+//****************
+
+int espacioPokemon(char* lineaPoke);
+
+bool noHayEspacioParaPokemon(char* listaPokemon);
+
+bool entraEnBloque(char* lineaPokemon);
+
+int fdBitmap;
+
 #endif /* FILESYSTEM_H_ */

@@ -96,6 +96,8 @@ int  main () {
 		crearFileSystemVacio();
 		}
 
+	abrirBitmap();
+
 	t_new_pokemon* picachu=picachuHardcodeado();
 	//abrirBitmap();
 
@@ -109,7 +111,7 @@ int  main () {
 	free(picachu);
 	}
 
-
+/*
 	t_new_pokemon* charmander=charmanderHardcodeado();
 	//abrirBitmap();
 
@@ -132,7 +134,7 @@ int  main () {
 			log_info(gameCard_logger,"aca vamos a modificarlo");
 			modificarPokemon(picaModif);
 		}
-
+*/
 	terminar_game_card();
 	liberarMemoria();
 
