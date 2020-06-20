@@ -69,6 +69,9 @@ void capturar_signal(int signo){
 
     if(signo == SIGINT)
     {
+		
+		server_status = ENDING;
+
     	printf("\n Broker DEJA DE FUNCIONAR \n\n");
     	terminar_broker_correctamente();
 

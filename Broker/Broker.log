@@ -1,0 +1,392 @@
+[INFO] 17:18:49:813 Broker/(25272:25272): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 17:18:55:498 Broker/(25272:25290): Se aceptó un nuevo proceso en el socket 5
+[INFO] 17:18:55:503 Broker/(25272:25290): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 17:18:55:565 Broker/(25272:25291): Se aceptó un nuevo proceso en el socket 6
+[INFO] 17:18:55:568 Broker/(25272:25291): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 17:18:55:596 Broker/(25272:25276): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[INFO] 17:18:55:790 Broker/(25272:25292): Se aceptó un nuevo proceso en el socket 7
+[INFO] 17:18:55:791 Broker/(25272:25292): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 13:51:25:452 Broker/(27297:27297): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 13:51:41:926 Broker/(27297:27339): Se aceptó un nuevo proceso en el socket 5
+[INFO] 13:51:41:931 Broker/(27297:27339): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 13:51:41:993 Broker/(27297:27340): Se aceptó un nuevo proceso en el socket 6
+[INFO] 13:51:41:996 Broker/(27297:27340): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 13:51:42:17 Broker/(27297:27301): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[INFO] 13:51:42:220 Broker/(27297:27341): Se aceptó un nuevo proceso en el socket 7
+[INFO] 13:51:42:222 Broker/(27297:27341): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:08:48:907 Broker/(27652:27652): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 14:08:52:869 Broker/(27652:27668): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:08:52:875 Broker/(27652:27668): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 14:08:53:7 Broker/(27652:27670): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:08:53:9 Broker/(27652:27670): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:08:53:31 Broker/(27652:27656): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[INFO] 14:08:53:132 Broker/(27652:27671): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:08:53:133 Broker/(27652:27671): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:11:41:98 Broker/(27770:27770): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 14:11:43:643 Broker/(27770:27782): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:11:43:650 Broker/(27770:27782): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 14:11:43:718 Broker/(27770:27783): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:11:43:721 Broker/(27770:27783): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:11:43:752 Broker/(27770:27776): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[INFO] 14:11:43:984 Broker/(27770:27784): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:11:43:985 Broker/(27770:27784): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:12:42:845 Broker/(27886:27886): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 14:12:45:595 Broker/(27886:27905): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:12:45:623 Broker/(27886:27905): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 14:12:45:715 Broker/(27886:27907): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:12:45:718 Broker/(27886:27907): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:12:45:808 Broker/(27886:27890): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[INFO] 14:12:45:859 Broker/(27886:27908): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:12:45:860 Broker/(27886:27908): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:15:45:295 Broker/(28063:28063): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 14:15:49:633 Broker/(28063:28082): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:15:49:639 Broker/(28063:28082): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 14:15:49:770 Broker/(28063:28084): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:15:49:773 Broker/(28063:28084): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:15:49:861 Broker/(28063:28067): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[INFO] 14:15:49:965 Broker/(28063:28085): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:15:49:967 Broker/(28063:28085): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:17:55:342 Broker/(28196:28196): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 14:17:58:128 Broker/(28196:28214): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:17:58:134 Broker/(28196:28214): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 14:17:58:229 Broker/(28196:28216): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:17:58:232 Broker/(28196:28216): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:17:58:277 Broker/(28196:28200): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[INFO] 14:17:58:435 Broker/(28196:28217): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:17:58:436 Broker/(28196:28217): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:23:43:128 Broker/(28353:28353): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:23:43:240 Broker/(28353:28353): 1) Inicializando cache de mensajes...
+[DEBUG] 14:23:43:357 Broker/(28353:28353): 2) Cache de mensajes lista!!!
+[DEBUG] 14:23:43:372 Broker/(28353:28353): 3) Inicializando archivo de configuracion...
+[DEBUG] 14:23:43:472 Broker/(28353:28353): 4) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:23:43:481 Broker/(28353:28353): 5) Configurando signals...
+[DEBUG] 14:23:43:486 Broker/(28353:28353): 6) Signals configuradas correctamente!!!
+[DEBUG] 14:23:43:510 Broker/(28353:28353): 7) Iniciando servidor...
+[DEBUG] 14:23:43:516 Broker/(28353:28353): 8) Intentando bindear sever...
+[DEBUG] 14:23:43:519 Broker/(28353:28353): 9) Server bindeado correctamente!!!
+[DEBUG] 14:23:43:593 Broker/(28353:28361): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:23:49:453 Broker/(28353:28372): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:23:49:456 Broker/(28353:28372): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 14:23:49:459 Broker/(28353:28372): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 14:23:49:465 Broker/(28353:28372): 
+Creando nuevo cliente 123332 en socket 5
+
+[INFO] 14:23:49:550 Broker/(28353:28374): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:23:49:553 Broker/(28353:28374): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 14:23:49:564 Broker/(28353:28374): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:23:49:639 Broker/(28353:28357): Los pendientes tienen 1 mensajes
+[INFO] 14:23:49:644 Broker/(28353:28357): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:23:49:670 Broker/(28353:28357): Los pendientes quedaron con 0 mensajes
+[INFO] 14:23:49:776 Broker/(28353:28375): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:23:49:777 Broker/(28353:28375): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:28:25:651 Broker/(28533:28533): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:28:25:718 Broker/(28533:28533): 1) Inicializando cache de mensajes...
+[DEBUG] 14:28:25:800 Broker/(28533:28533): 2) Cache de mensajes lista!!!
+[DEBUG] 14:28:25:803 Broker/(28533:28533): 3) Inicializando archivo de configuracion...
+[DEBUG] 14:28:25:868 Broker/(28533:28533): 4) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:28:25:883 Broker/(28533:28533): 5) Configurando signals...
+[DEBUG] 14:28:25:886 Broker/(28533:28533): 6) Signals configuradas correctamente!!!
+[DEBUG] 14:28:25:888 Broker/(28533:28533): 7) Iniciando servidor...
+[DEBUG] 14:28:25:906 Broker/(28533:28533): 8) Intentando bindear sever...
+[DEBUG] 14:28:25:922 Broker/(28533:28533): 9) Server bindeado correctamente!!!
+[DEBUG] 14:28:25:960 Broker/(28533:28540): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:28:29:928 Broker/(28533:28553): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:28:29:934 Broker/(28533:28553): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 14:28:29:936 Broker/(28533:28553): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 14:28:29:938 Broker/(28533:28553): 
+Creando nuevo cliente 123332 en socket 5
+
+[INFO] 14:28:30:126 Broker/(28533:28555): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:28:30:130 Broker/(28533:28555): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 14:28:30:133 Broker/(28533:28555): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:28:30:169 Broker/(28533:28537): Los pendientes tienen 1 mensajes
+[INFO] 14:28:30:215 Broker/(28533:28537): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:28:30:219 Broker/(28533:28537): Los pendientes quedaron con 0 mensajes
+[INFO] 14:28:30:284 Broker/(28533:28556): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:28:30:285 Broker/(28533:28556): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:29:08:551 Broker/(28533:28663): Se aceptó un nuevo proceso en el socket 8
+[INFO] 14:29:08:614 Broker/(28533:28663): El cliente 1232332 solicitó suscribirse a la cola 3 a través del socket 8
+[DEBUG] 14:29:08:615 Broker/(28533:28663): Recibida suscripcion de cliente 1232332 en socket 8
+[DEBUG] 14:29:08:615 Broker/(28533:28663): 
+Creando nuevo cliente 1232332 en socket 8
+
+[DEBUG] 14:29:08:619 Broker/(28533:28663): Agregado mensaje 0 pendiente de envio a 1232332
+[INFO] 14:29:08:687 Broker/(28533:28665): Se aceptó un nuevo proceso en el socket 9
+[INFO] 14:29:08:688 Broker/(28533:28665): El cliente 1232332 envió un mensaje para la cola 3 a través de socket 9
+[DEBUG] 14:29:08:690 Broker/(28533:28665): Agregado mensaje 1 pendiente de envio a 123332
+[DEBUG] 14:29:08:691 Broker/(28533:28665): Agregado mensaje 1 pendiente de envio a 1232332
+[INFO] 14:33:07:397 Broker/(28808:28808): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:33:07:428 Broker/(28808:28808): 1) Inicializando cache de mensajes...
+[DEBUG] 14:33:07:507 Broker/(28808:28808): 2) Cache de mensajes lista!!!
+[DEBUG] 14:33:07:522 Broker/(28808:28808): 3) Inicializando archivo de configuracion...
+[DEBUG] 14:33:07:577 Broker/(28808:28808): 4) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:33:07:592 Broker/(28808:28808): 5) Configurando signals...
+[DEBUG] 14:33:07:595 Broker/(28808:28808): 6) Signals configuradas correctamente!!!
+[DEBUG] 14:33:07:596 Broker/(28808:28808): 7) Iniciando servidor...
+[DEBUG] 14:33:07:623 Broker/(28808:28808): 8) Intentando bindear sever...
+[DEBUG] 14:33:07:633 Broker/(28808:28808): 9) Server bindeado correctamente!!!
+[DEBUG] 14:33:07:639 Broker/(28808:28816): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:33:12:13 Broker/(28808:28826): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:33:12:36 Broker/(28808:28826): El cliente 1232332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 14:33:12:38 Broker/(28808:28826): Recibida suscripcion de cliente 1232332 en socket 5
+[DEBUG] 14:33:12:41 Broker/(28808:28826): 
+Creando nuevo cliente 1232332 en socket 5
+
+[INFO] 14:33:12:192 Broker/(28808:28828): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:33:12:195 Broker/(28808:28828): El cliente 1232332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 14:33:12:198 Broker/(28808:28828): Agregado mensaje 0 pendiente de envio a 1232332
+[DEBUG] 14:33:12:226 Broker/(28808:28813): Los pendientes tienen 1 mensajes
+[INFO] 14:33:12:268 Broker/(28808:28813): Se envió mensaje 0 perteneciente a la cola 3 al cliente 1232332
+[DEBUG] 14:33:12:271 Broker/(28808:28813): Los pendientes quedaron con 0 mensajes
+[INFO] 14:33:12:405 Broker/(28808:28829): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:33:12:406 Broker/(28808:28829): El cliente 1232332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:33:37:137 Broker/(28808:28905): Se aceptó un nuevo proceso en el socket 8
+[INFO] 14:33:37:208 Broker/(28808:28905): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 8
+[DEBUG] 14:33:37:209 Broker/(28808:28905): Recibida suscripcion de cliente 123332 en socket 8
+[DEBUG] 14:33:37:210 Broker/(28808:28905): 
+Creando nuevo cliente 123332 en socket 8
+
+[DEBUG] 14:33:37:212 Broker/(28808:28905): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:33:37:213 Broker/(28808:28813): Los pendientes tienen 1 mensajes
+[INFO] 14:33:37:213 Broker/(28808:28813): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:33:37:214 Broker/(28808:28813): Los pendientes quedaron con 0 mensajes
+[INFO] 14:33:37:303 Broker/(28808:28907): Se aceptó un nuevo proceso en el socket 9
+[INFO] 14:33:37:304 Broker/(28808:28907): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[DEBUG] 14:33:37:305 Broker/(28808:28907): Agregado mensaje 1 pendiente de envio a 1232332
+[DEBUG] 14:33:37:305 Broker/(28808:28907): Agregado mensaje 1 pendiente de envio a 123332
+[DEBUG] 14:33:37:306 Broker/(28808:28813): Los pendientes tienen 2 mensajes
+[INFO] 14:33:37:325 Broker/(28808:28908): Se aceptó un nuevo proceso en el socket 10
+[INFO] 14:33:37:353 Broker/(28808:28813): Se envió mensaje 1 perteneciente a la cola 3 al cliente 1232332
+[INFO] 14:33:37:354 Broker/(28808:28908): El cliente 123332 envió confirmación del mensaje 0 a través del socket 10 
+[DEBUG] 14:33:37:355 Broker/(28808:28813): Los pendientes quedaron con 1 mensajes
+[DEBUG] 14:33:37:357 Broker/(28808:28813): Los pendientes tienen 1 mensajes
+[INFO] 14:33:37:358 Broker/(28808:28813): Se envió mensaje 1 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:33:37:359 Broker/(28808:28813): Los pendientes quedaron con 0 mensajes
+[INFO] 14:33:37:463 Broker/(28808:28909): Se aceptó un nuevo proceso en el socket 11
+[INFO] 14:33:37:465 Broker/(28808:28909): El cliente 123332 envió confirmación del mensaje 1 a través del socket 11 
+[INFO] 14:37:24:570 Broker/(29082:29082): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:37:24:671 Broker/(29082:29082): 1) Inicializando cache de mensajes...
+[DEBUG] 14:37:24:769 Broker/(29082:29082): 2) Cache de mensajes lista!!!
+[DEBUG] 14:37:24:772 Broker/(29082:29082): 3) Inicializando archivo de configuracion...
+[DEBUG] 14:37:24:881 Broker/(29082:29082): 4) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:37:24:883 Broker/(29082:29082): 5) Configurando signals...
+[DEBUG] 14:37:24:887 Broker/(29082:29082): 6) Signals configuradas correctamente!!!
+[DEBUG] 14:37:24:891 Broker/(29082:29082): 7) Iniciando servidor...
+[DEBUG] 14:37:24:910 Broker/(29082:29082): 8) Intentando bindear sever...
+[DEBUG] 14:37:24:932 Broker/(29082:29082): 9) Server bindeado correctamente!!!
+[DEBUG] 14:37:24:948 Broker/(29082:29089): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:37:29:413 Broker/(29082:29103): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:37:29:416 Broker/(29082:29103): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 14:37:29:417 Broker/(29082:29103): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 14:37:29:424 Broker/(29082:29103): 
+Creando nuevo cliente 123332 en socket 5
+
+[INFO] 14:37:29:604 Broker/(29082:29105): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:37:29:608 Broker/(29082:29105): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 14:37:29:611 Broker/(29082:29105): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:37:29:639 Broker/(29082:29086): Los pendientes tienen 1 mensajes
+[INFO] 14:37:29:703 Broker/(29082:29086): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:37:29:706 Broker/(29082:29086): Los pendientes quedaron con 0 mensajes
+[INFO] 14:37:29:861 Broker/(29082:29106): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:37:29:863 Broker/(29082:29106): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:38:11:201 Broker/(29082:29187): Se aceptó un nuevo proceso en el socket 8
+[INFO] 14:38:11:258 Broker/(29082:29187): El cliente 12333 solicitó suscribirse a la cola 3 a través del socket 8
+[DEBUG] 14:38:11:258 Broker/(29082:29187): Recibida suscripcion de cliente 12333 en socket 8
+[DEBUG] 14:38:11:259 Broker/(29082:29187): 
+Creando nuevo cliente 12333 en socket 8
+
+[DEBUG] 14:38:11:262 Broker/(29082:29187): Agregado mensaje 0 pendiente de envio a 12333
+[DEBUG] 14:38:11:264 Broker/(29082:29086): Los pendientes tienen 1 mensajes
+[INFO] 14:38:11:265 Broker/(29082:29086): Se envió mensaje 0 perteneciente a la cola 3 al cliente 12333
+[DEBUG] 14:38:11:265 Broker/(29082:29086): Los pendientes quedaron con 0 mensajes
+[INFO] 14:38:11:331 Broker/(29082:29189): Se aceptó un nuevo proceso en el socket 9
+[INFO] 14:38:11:332 Broker/(29082:29189): El cliente 12333 envió un mensaje para la cola 3 a través de socket 9
+[DEBUG] 14:38:11:334 Broker/(29082:29189): Agregado mensaje 1 pendiente de envio a 123332
+[DEBUG] 14:38:11:334 Broker/(29082:29189): Agregado mensaje 1 pendiente de envio a 12333
+[DEBUG] 14:38:11:335 Broker/(29082:29086): Los pendientes tienen 2 mensajes
+[INFO] 14:38:11:337 Broker/(29082:29086): Se envió mensaje 1 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:38:11:337 Broker/(29082:29086): Los pendientes quedaron con 1 mensajes
+[DEBUG] 14:38:11:338 Broker/(29082:29086): Los pendientes tienen 1 mensajes
+[INFO] 14:38:11:339 Broker/(29082:29086): Se envió mensaje 1 perteneciente a la cola 3 al cliente 12333
+[DEBUG] 14:38:11:340 Broker/(29082:29086): Los pendientes quedaron con 0 mensajes
+[INFO] 14:38:11:422 Broker/(29082:29190): Se aceptó un nuevo proceso en el socket 10
+[INFO] 14:38:11:423 Broker/(29082:29190): El cliente 12333 envió confirmación del mensaje 0 a través del socket 10 
+[INFO] 14:38:11:452 Broker/(29082:29191): Se aceptó un nuevo proceso en el socket 11
+[INFO] 14:38:11:453 Broker/(29082:29191): El cliente 12333 envió confirmación del mensaje 1 a través del socket 11 
+[DEBUG] 14:42:01:304 Broker/(29082:29083): Los pendientes tienen 0 mensajes
+[INFO] 14:42:54:765 Broker/(29319:29319): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:42:54:817 Broker/(29319:29319): 1) Inicializando cache de mensajes...
+[DEBUG] 14:42:54:891 Broker/(29319:29319): 2) Cache de mensajes lista!!!
+[DEBUG] 14:42:54:893 Broker/(29319:29319): 3) Inicializando archivo de configuracion...
+[DEBUG] 14:42:54:951 Broker/(29319:29319): 4) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:42:54:968 Broker/(29319:29319): 5) Configurando signals...
+[DEBUG] 14:42:54:969 Broker/(29319:29319): 6) Signals configuradas correctamente!!!
+[DEBUG] 14:42:54:971 Broker/(29319:29319): 7) Iniciando servidor...
+[DEBUG] 14:42:54:994 Broker/(29319:29319): 8) Intentando bindear sever...
+[DEBUG] 14:42:54:4 Broker/(29319:29319): 9) Server bindeado correctamente!!!
+[DEBUG] 14:42:55:64 Broker/(29319:29326): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:42:58:721 Broker/(29319:29336): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:42:58:778 Broker/(29319:29336): El cliente 12333 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 14:42:58:779 Broker/(29319:29336): Recibida suscripcion de cliente 12333 en socket 5
+[DEBUG] 14:42:58:782 Broker/(29319:29336): 
+Creando nuevo cliente 12333 en socket 5
+
+[INFO] 14:42:58:861 Broker/(29319:29338): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:42:58:865 Broker/(29319:29338): El cliente 12333 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 14:42:58:932 Broker/(29319:29338): Agregado mensaje 0 pendiente de envio a 12333
+[DEBUG] 14:42:58:939 Broker/(29319:29323): Los pendientes tienen 1 mensajes
+[INFO] 14:42:58:967 Broker/(29319:29323): Se envió mensaje 0 perteneciente a la cola 3 al cliente 12333
+[DEBUG] 14:42:58:969 Broker/(29319:29323): Los pendientes quedaron con 0 mensajes
+[INFO] 14:42:59:84 Broker/(29319:29339): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:42:59:86 Broker/(29319:29339): El cliente 12333 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:43:13:823 Broker/(29319:29407): Se aceptó un nuevo proceso en el socket 8
+[INFO] 14:43:13:824 Broker/(29319:29407): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 8
+[DEBUG] 14:43:13:825 Broker/(29319:29407): Recibida suscripcion de cliente 123332 en socket 8
+[DEBUG] 14:43:13:825 Broker/(29319:29407): 
+Creando nuevo cliente 123332 en socket 8
+
+[DEBUG] 14:43:13:827 Broker/(29319:29407): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:43:13:828 Broker/(29319:29323): Los pendientes tienen 1 mensajes
+[INFO] 14:43:13:828 Broker/(29319:29323): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:43:13:828 Broker/(29319:29323): Los pendientes quedaron con 0 mensajes
+[INFO] 14:43:13:937 Broker/(29319:29409): Se aceptó un nuevo proceso en el socket 9
+[INFO] 14:43:13:939 Broker/(29319:29409): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[DEBUG] 14:43:13:940 Broker/(29319:29409): Agregado mensaje 1 pendiente de envio a 12333
+[DEBUG] 14:43:13:941 Broker/(29319:29409): Agregado mensaje 1 pendiente de envio a 123332
+[DEBUG] 14:43:13:941 Broker/(29319:29323): Los pendientes tienen 2 mensajes
+[INFO] 14:43:13:942 Broker/(29319:29323): Se envió mensaje 1 perteneciente a la cola 3 al cliente 12333
+[DEBUG] 14:43:13:942 Broker/(29319:29323): Los pendientes quedaron con 1 mensajes
+[DEBUG] 14:43:13:943 Broker/(29319:29323): Los pendientes tienen 1 mensajes
+[INFO] 14:43:13:943 Broker/(29319:29323): Se envió mensaje 1 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:43:13:944 Broker/(29319:29323): Los pendientes quedaron con 0 mensajes
+[INFO] 14:43:13:4 Broker/(29319:29410): Se aceptó un nuevo proceso en el socket 10
+[INFO] 14:43:13:5 Broker/(29319:29410): El cliente 123332 envió confirmación del mensaje 0 a través del socket 10 
+[INFO] 14:43:14:49 Broker/(29319:29413): Se aceptó un nuevo proceso en el socket 11
+[INFO] 14:43:14:50 Broker/(29319:29413): El cliente 123332 envió confirmación del mensaje 1 a través del socket 11 
+[INFO] 14:48:29:39 Broker/(29579:29579): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:48:30:105 Broker/(29579:29579): 1) Inicializando cache de mensajes...
+[DEBUG] 14:48:30:204 Broker/(29579:29579): 2) Cache de mensajes lista!!!
+[DEBUG] 14:48:30:207 Broker/(29579:29579): 3) Inicializando archivo de configuracion...
+[DEBUG] 14:48:30:311 Broker/(29579:29579): 4) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:48:30:313 Broker/(29579:29579): 5) Configurando signals...
+[DEBUG] 14:48:30:322 Broker/(29579:29579): 6) Signals configuradas correctamente!!!
+[DEBUG] 14:48:30:323 Broker/(29579:29579): 7) Iniciando servidor...
+[DEBUG] 14:48:30:331 Broker/(29579:29579): 8) Intentando bindear sever...
+[DEBUG] 14:48:30:333 Broker/(29579:29579): 9) Server bindeado correctamente!!!
+[DEBUG] 14:48:30:378 Broker/(29579:29586): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:48:34:719 Broker/(29579:29597): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:48:34:783 Broker/(29579:29597): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 14:48:34:785 Broker/(29579:29597): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 14:48:34:787 Broker/(29579:29597): 
+Creando nuevo cliente 123332 en socket 5
+
+[INFO] 14:48:34:844 Broker/(29579:29599): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:48:34:854 Broker/(29579:29599): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 14:48:34:881 Broker/(29579:29599): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:48:34:908 Broker/(29579:29583): Los pendientes tienen 1 mensajes
+[INFO] 14:48:35:66 Broker/(29579:29583): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:48:35:69 Broker/(29579:29583): Los pendientes quedaron con 0 mensajes
+[INFO] 14:48:35:192 Broker/(29579:29600): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:48:35:194 Broker/(29579:29600): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:50:10:150 Broker/(29743:29743): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:50:10:200 Broker/(29743:29743): 1) Inicializando cache de mensajes...
+[DEBUG] 14:50:10:374 Broker/(29743:29743): 2) Cache de mensajes lista!!!
+[DEBUG] 14:50:10:377 Broker/(29743:29743): 3) Inicializando archivo de configuracion...
+[DEBUG] 14:50:10:417 Broker/(29743:29743): 4) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:50:10:419 Broker/(29743:29743): 5) Configurando signals...
+[DEBUG] 14:50:10:420 Broker/(29743:29743): 6) Signals configuradas correctamente!!!
+[DEBUG] 14:50:10:422 Broker/(29743:29743): 7) Iniciando servidor...
+[DEBUG] 14:50:10:460 Broker/(29743:29743): 8) Intentando bindear sever...
+[DEBUG] 14:50:10:478 Broker/(29743:29743): 9) Server bindeado correctamente!!!
+[DEBUG] 14:50:10:493 Broker/(29743:29750): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:50:16:66 Broker/(29743:29761): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:50:16:137 Broker/(29743:29761): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 14:50:16:138 Broker/(29743:29761): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 14:50:16:140 Broker/(29743:29761): 
+Creando nuevo cliente 123332 en socket 5
+
+[INFO] 14:50:16:237 Broker/(29743:29763): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:50:16:243 Broker/(29743:29763): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 14:50:16:250 Broker/(29743:29763): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:50:16:303 Broker/(29743:29747): Los pendientes tienen 1 mensajes
+[INFO] 14:50:16:342 Broker/(29743:29747): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:50:16:346 Broker/(29743:29747): Los pendientes quedaron con 0 mensajes
+[INFO] 14:50:16:458 Broker/(29743:29769): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:50:16:481 Broker/(29743:29769): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:50:58:164 Broker/(29743:29866): Se aceptó un nuevo proceso en el socket 8
+[INFO] 14:50:58:222 Broker/(29743:29866): El cliente 1233322 solicitó suscribirse a la cola 3 a través del socket 8
+[DEBUG] 14:50:58:223 Broker/(29743:29866): Recibida suscripcion de cliente 1233322 en socket 8
+[DEBUG] 14:50:58:224 Broker/(29743:29866): 
+Creando nuevo cliente 1233322 en socket 8
+
+[DEBUG] 14:50:58:226 Broker/(29743:29866): Agregado mensaje 0 pendiente de envio a 1233322
+[DEBUG] 14:50:58:228 Broker/(29743:29747): Los pendientes tienen 1 mensajes
+[INFO] 14:50:58:229 Broker/(29743:29747): Se envió mensaje 0 perteneciente a la cola 3 al cliente 1233322
+[DEBUG] 14:50:58:230 Broker/(29743:29747): Los pendientes quedaron con 0 mensajes
+[INFO] 14:50:58:335 Broker/(29743:29868): Se aceptó un nuevo proceso en el socket 9
+[INFO] 14:50:58:337 Broker/(29743:29868): El cliente 1233322 envió un mensaje para la cola 3 a través de socket 9
+[DEBUG] 14:50:58:373 Broker/(29743:29868): Agregado mensaje 1 pendiente de envio a 123332
+[DEBUG] 14:50:58:420 Broker/(29743:29868): Agregado mensaje 1 pendiente de envio a 1233322
+[INFO] 14:50:58:419 Broker/(29743:29869): Se aceptó un nuevo proceso en el socket 10
+[DEBUG] 14:50:58:423 Broker/(29743:29747): Los pendientes tienen 2 mensajes
+[INFO] 14:50:58:425 Broker/(29743:29747): Se envió mensaje 1 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:50:58:426 Broker/(29743:29747): Los pendientes quedaron con 1 mensajes
+[DEBUG] 14:50:58:427 Broker/(29743:29747): Los pendientes tienen 1 mensajes
+[INFO] 14:50:58:429 Broker/(29743:29869): El cliente 1233322 envió confirmación del mensaje 0 a través del socket 10 
+[INFO] 14:50:58:439 Broker/(29743:29747): Se envió mensaje 1 perteneciente a la cola 3 al cliente 1233322
+[DEBUG] 14:50:58:535 Broker/(29743:29747): Los pendientes quedaron con 0 mensajes
+[INFO] 14:50:58:599 Broker/(29743:29871): Se aceptó un nuevo proceso en el socket 11
+[INFO] 14:50:58:601 Broker/(29743:29871): El cliente 123332 envió confirmación del mensaje 1 a través del socket 11 
+[INFO] 14:50:58:605 Broker/(29743:29872): Se aceptó un nuevo proceso en el socket 12
+[INFO] 14:50:58:632 Broker/(29743:29872): El cliente 1233322 envió confirmación del mensaje 1 a través del socket 12 
+[INFO] 14:55:10:56 Broker/(29999:29999): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:55:10:68 Broker/(29999:29999): 1) Inicializando cache de mensajes...
+[DEBUG] 14:55:10:174 Broker/(29999:29999): 2) Cache de mensajes lista!!!
+[DEBUG] 14:55:10:177 Broker/(29999:29999): 3) Inicializando archivo de configuracion...
+[DEBUG] 14:55:10:236 Broker/(29999:29999): 4) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:55:10:240 Broker/(29999:29999): 5) Configurando signals...
+[DEBUG] 14:55:10:243 Broker/(29999:29999): 6) Signals configuradas correctamente!!!
+[DEBUG] 14:55:10:248 Broker/(29999:29999): 7) Iniciando servidor...
+[DEBUG] 14:55:10:280 Broker/(29999:29999): 8) Intentando bindear sever...
+[DEBUG] 14:55:10:291 Broker/(29999:29999): 9) Server bindeado correctamente!!!
+[DEBUG] 14:55:10:315 Broker/(29999:30006): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:55:13:815 Broker/(29999:30016): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:55:13:823 Broker/(29999:30016): El cliente 1233322 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 14:55:13:928 Broker/(29999:30016): Recibida suscripcion de cliente 1233322 en socket 5
+[DEBUG] 14:55:13:931 Broker/(29999:30016): 
+Creando nuevo cliente 1233322 en socket 5
+
+[INFO] 14:55:14:2 Broker/(29999:30017): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:55:14:8 Broker/(29999:30017): El cliente 1233322 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 14:55:14:10 Broker/(29999:30017): Agregado mensaje 0 pendiente de envio a 1233322
+[DEBUG] 14:55:14:58 Broker/(29999:30003): Los pendientes tienen 1 mensajes
+[INFO] 14:55:14:67 Broker/(29999:30003): Se envió mensaje 0 perteneciente a la cola 3 al cliente 1233322
+[DEBUG] 14:55:14:72 Broker/(29999:30003): Los pendientes quedaron con 0 mensajes
+[INFO] 14:55:14:200 Broker/(29999:30018): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:55:14:202 Broker/(29999:30018): El cliente 1233322 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:55:27:824 Broker/(29999:30086): Se aceptó un nuevo proceso en el socket 8
+[INFO] 14:55:27:891 Broker/(29999:30086): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 8
+[DEBUG] 14:55:27:895 Broker/(29999:30086): Recibida suscripcion de cliente 123332 en socket 8
+[DEBUG] 14:55:27:897 Broker/(29999:30086): 
+Creando nuevo cliente 123332 en socket 8
+
+[DEBUG] 14:55:27:906 Broker/(29999:30086): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:55:27:969 Broker/(29999:30003): Los pendientes tienen 1 mensajes
+[INFO] 14:55:27:972 Broker/(29999:30003): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:55:27:978 Broker/(29999:30003): Los pendientes quedaron con 0 mensajes
+[INFO] 14:55:28:14 Broker/(29999:30089): Se aceptó un nuevo proceso en el socket 9
+[INFO] 14:55:28:117 Broker/(29999:30089): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[DEBUG] 14:55:28:118 Broker/(29999:30089): Agregado mensaje 1 pendiente de envio a 1233322
+[DEBUG] 14:55:28:120 Broker/(29999:30089): Agregado mensaje 1 pendiente de envio a 123332
+[DEBUG] 14:55:28:121 Broker/(29999:30003): Los pendientes tienen 2 mensajes
+[INFO] 14:55:28:122 Broker/(29999:30003): Se envió mensaje 1 perteneciente a la cola 3 al cliente 1233322
+[DEBUG] 14:55:28:125 Broker/(29999:30003): Los pendientes quedaron con 1 mensajes
+[DEBUG] 14:55:28:126 Broker/(29999:30003): Los pendientes tienen 1 mensajes
+[INFO] 14:55:28:212 Broker/(29999:30003): Se envió mensaje 1 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:55:28:214 Broker/(29999:30003): Los pendientes quedaron con 0 mensajes
+[INFO] 14:55:28:318 Broker/(29999:30092): Se aceptó un nuevo proceso en el socket 10
+[INFO] 14:55:28:320 Broker/(29999:30092): El cliente 123332 envió confirmación del mensaje 0 a través del socket 10 
+[INFO] 14:55:28:366 Broker/(29999:30093): Se aceptó un nuevo proceso en el socket 11
+[INFO] 14:55:28:368 Broker/(29999:30093): El cliente 1233322 envió confirmación del mensaje 1 a través del socket 11 
+[INFO] 14:55:28:440 Broker/(29999:30094): Se aceptó un nuevo proceso en el socket 12
+[INFO] 14:55:28:442 Broker/(29999:30094): El cliente 123332 envió confirmación del mensaje 1 a través del socket 12 

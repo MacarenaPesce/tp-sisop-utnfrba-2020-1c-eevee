@@ -6,7 +6,7 @@ int main(){
 
 	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
 	
-	debug_broker = false;
+	debug_broker = true;
 
 	if(debug_broker) log_debug(broker_logger, "1) Inicializando cache de mensajes...", NULL);
 
@@ -46,7 +46,7 @@ int main(){
 
 	if(debug_broker) log_debug(broker_logger, "5) Configurando signals...", NULL);
 
-	configurar_signals();
+	//configurar_signals();
 
 	if(debug_broker) log_debug(broker_logger, "6) Signals configuradas correctamente!!!", NULL);
 

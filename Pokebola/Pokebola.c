@@ -48,11 +48,14 @@ void cerrar_conexion(int sock){
 
 //Envio y recepcion
 int recibir_paquete(int sock, void *mensaje, int tamanio){
+
 	int bytes_recibidos;
+
 	if((bytes_recibidos = recv(sock, mensaje, tamanio, 0)) < 0) {
 		perror("Error en el recv.\n");
 		return -1;
 	}
+	
 	return bytes_recibidos;
 }
 
@@ -63,8 +66,6 @@ int enviar_paquete(int sock, void *paquete, int tamanio){
 	bytes_enviados = send(sock, paquete, tamanio, 0);
 
 	if (bytes_enviados <= 0) {
-		printf("Error en el send, %d bytes enviados a %d\n",bytes_enviados,sock);
-		perror("Error en el send");
 		return -1;
 	}else{
 		return bytes_enviados;
@@ -79,7 +80,7 @@ int _enviar_mensaje(int sock,
 
 	envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
 
-	//printf("\nEnvio header: %d bytes enviados a %d\n",envio_header,sock);
+	printf("\nEnvio header: %d bytes enviados a %d\n",envio_header,sock);
 
 	if(paquete->tamanio_payload > 0 && envio_header != -1){
 		envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
@@ -100,7 +101,7 @@ t_packed* recibir_mensaje(int sock){
 
 	if(size <= 0) return (t_packed *)-1;
 
-	paquete = (t_packed*)malloc(sizeof(t_packed));
+	paquete = (t_packed*)malloc(sizeof(t_packed));paquete = (t_packed*)malloc(sizeof(t_packed));
 	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
 
 	if(paquete->tamanio_payload <= 0) {

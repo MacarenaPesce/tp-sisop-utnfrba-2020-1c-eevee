@@ -18,7 +18,6 @@ float* primer_bloque;
 t_list* lista_memoria; 
 int socket_servidor;
 enum SERVER_STATUS server_status;
-t_log* broker_logger;
 bool* debug_broker;
 
 static pthread_mutex_t mutex_queue_mensajes = PTHREAD_MUTEX_INITIALIZER;
