@@ -207,27 +207,18 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 
 void * jugar_con_el_entrenador(t_entrenador * entrenador){
 
-
 	sem_wait(&array_semaforos[entrenador->id]);
 	log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
 	llegar_a_el_pokemon(entrenador);
 	atrapar(entrenador);
 
-	pthread_mutex_lock(&mutex_deadlock);
-	bool deadlock = hayDeadlock;
-	pthread_mutex_unlock(&mutex_deadlock);
+	sem_wait(&hay_interbloqueo_avisar_a_entrenador);
+	sem_wait(&semaforos_deadlock[entrenador->id]);
+	log_info(team_logger, "Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: %d.", entrenador->id);
 
-	if(deadlock){
-		sem_wait(&semaforos_deadlock[entrenador->id]);
-
-		log_info(team_logger, "Soy el entrenador que va a ejecutar para deadlock, mi id es: %d.", entrenador->id);
-		mover_entrenador_a_otra_posicion(entrenador);
-	}
-
-
-
-
+	mover_entrenador_a_otra_posicion(entrenador);
+	//realizar_intercambio(entrenador);
 
 	return NULL;
 }
@@ -332,6 +323,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = "6009";
+	servidor->id_cliente = id;
 
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);

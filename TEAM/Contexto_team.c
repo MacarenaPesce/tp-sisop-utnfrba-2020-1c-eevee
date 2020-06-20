@@ -20,13 +20,14 @@ char* ip_broker;
 int estimacion_inicial;
 char* puerto_broker;
 char* log_file;
+int id;
 
 int GLOBAL_SEGUIR = 1;
 int ciclos_de_cpu = 0;
 int MAXIMO_ENTRENADORES;
 int CANTIDAD_EN_DEADLOCK;
 
-bool hayDeadlock;
+bool hayDeadlock = false;
 
 t_log* team_logger;
 t_log* team_logger_oficial;

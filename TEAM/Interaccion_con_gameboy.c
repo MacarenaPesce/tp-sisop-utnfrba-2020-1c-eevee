@@ -36,8 +36,8 @@ void * atender_a_gameboy(void * serv_socket){
 
 		//Acepta la nueva conexion
 		int new_client_sock = accept(*(int*)serv_socket, (struct sockaddr *)&client_addr, &client_len);
-
-		log_info(team_logger, "Se aceptó un nuevo gameboy");
+		printf("\n");
+		log_debug(team_logger, "Se aceptó un nuevo gameboy");
 
 		escuchar_mensajes_entrantes(new_client_sock);
 	}
@@ -51,8 +51,7 @@ void crear_hilo_de_escucha_para_gameboy(int serv_socket){
 }
 
 void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon * mensaje){
-	log_info(team_logger,"Voy a recibir un pokemon y coordenadas desde gameboy");
-	log_info(team_logger,"Me llego este pokemon: %s, coordenada x %d, coordenada y %d", mensaje->pokemon, mensaje->coordenadas.posx, mensaje->coordenadas.posy);
+	log_info(team_logger,"Me llego este pokemon: %s, en la posicion de coordenadas (%d, %d)", mensaje->pokemon, mensaje->coordenadas.posx, mensaje->coordenadas.posy);
 
 	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
 	pokemon->especie = mensaje->pokemon;

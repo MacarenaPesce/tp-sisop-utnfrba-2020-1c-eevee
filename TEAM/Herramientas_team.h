@@ -21,6 +21,7 @@ void capturar_signal(int signo);
 
 /*PROPIAS DEL ARCHIVO DE CONFIGURACION*/
 void obtener_valor_config(char* key, t_config* file, void(*obtener)(void));
+void obtener_el_id();
 void obtener_las_posiciones_de_entrenadores();
 void obtener_los_pokemon_de_entrenadores();
 void obtener_los_objetivos_de_entrenadores();

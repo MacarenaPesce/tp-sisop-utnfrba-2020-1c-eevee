@@ -14,7 +14,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include<netdb.h>
+#include <netdb.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -23,7 +23,7 @@
 #include <commons/collections/list.h>
 #include <commons/string.h>
 #include <sys/ioctl.h>
-
+#include <semaphore.h>
 
 /*** Enums log***/
 enum type_log {
@@ -84,6 +84,7 @@ typedef struct{
 } t_coordenadas;
 
 typedef struct{
+	uint32_t id_cliente __attribute__((packed));
 	char* ip;
 	char* puerto;
 } t_servidor;
@@ -93,6 +94,8 @@ typedef struct{
 	uint32_t id_mensaje __attribute__((packed));
 
 	uint32_t id_correlacional __attribute__((packed));
+	
+	uint32_t id_cliente __attribute__((packed));
 
 	uint32_t tamanio_payload __attribute__((packed));
 
@@ -146,6 +149,43 @@ void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
  */
 
 /**************************************************************************************/
+/* Typedef Broker */
+
+typedef struct{
+    uint32_t id_mensaje __attribute__((packed));
+    uint32_t id_correlacional __attribute__((packed));
+    enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
+    t_list* suscriptores_enviados;
+    t_list* suscriptores_ack;
+    void* mensaje;
+}t_mensaje_cola;
+
+typedef struct{
+ t_list* mensajes;
+ t_list* colas; 
+ t_list* clientes;
+ int proximo_id_mensaje;
+}t_cache_colas;
+
+typedef struct{
+    int id;
+    int cliente;
+}t_envio_pendiente;
+
+typedef struct{
+    enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
+    t_list* envios_pendientes;
+    t_list* suscriptores;
+    sem_t* producciones; 
+}t_cola_mensajes;
+
+typedef struct{
+	uint32_t id __attribute__((packed));
+	int socket __attribute__((packed));
+}t_cliente;
+
+/*  */
+
 
 int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
@@ -154,7 +194,6 @@ void eliminar_mensaje(t_packed* paquete);
 void logger(int tipo_esc, int tipo_log, const char* mensaje, ...);
 
 
-int enviar_ack(int socket,uint32_t id_mensaje, uint32_t id_correlacional);
 t_packed* enviar_mensaje_string(t_servidor* servidor, char* mensaje);
 t_packed* enviar_appeared_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );
 t_packed* enviar_catch_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_catch_pokemon* catch_pokemon);
@@ -164,14 +203,16 @@ t_packed* enviar_get_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_
 t_packed* enviar_localized_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
 t_packed* distribuir_mensaje_string(int socket, char* mensaje);
 int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes, t_suscripcion* suscripcion);
+int enviar_ack(t_servidor* servidor, uint32_t id_mensaje);
 /**************************************************************************************/
 
-int distribuir_appeared_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );
-int distribuir_catch_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_catch_pokemon* catch_pokemon);
-int distribuir_new_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_new_pokemon* new_pokemon);
-int distribuir_caught_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_caught_pokemon* caught_pokemon);
-int distribuir_get_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_get_pokemon* get_pokemon);
-int distribuir_localized_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
+int distribuir_appeared_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_appeared_pokemon* appeared_pokemon );
+int distribuir_catch_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_catch_pokemon* catch_pokemon);
+int distribuir_new_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_new_pokemon* new_pokemon);
+int distribuir_caught_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_caught_pokemon* caught_pokemon);
+int distribuir_get_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_get_pokemon* get_pokemon);
+int distribuir_localized_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_localized_pokemon* localized_pokemon);
+int distribuir_ack(int socket,uint32_t id_mensaje, uint32_t id_cliente);
 
 /*************************************************************************************/
 

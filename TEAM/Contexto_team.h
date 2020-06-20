@@ -46,6 +46,7 @@
 #define KEY_CONFIG_PUERTO_BROKER "PUERTO_BROKER"
 #define KEY_CONFIG_LOG_FILE "LOG_FILE"
 #define KEY_CONFIG_ALPHA "ALPHA"
+#define KEY_CONFIG_ID "ID"
 
 #define NO_SOCKET -1
 #define IP "127.0.0.2"
@@ -64,6 +65,7 @@ extern char* ip_broker;
 extern int estimacion_inicial;
 extern char* puerto_broker;
 extern char* log_file;
+extern int id;
 
 extern int GLOBAL_SEGUIR;
 extern int ciclos_de_cpu;
@@ -105,9 +107,10 @@ pthread_mutex_t llego_gameboy;
 sem_t * semaforos_deadlock;
 sem_t semaforos_listos;
 sem_t hay_interbloqueo;
+sem_t hay_interbloqueo_avisar_a_entrenador;
 pthread_mutex_t mutex_deadlock;
 
-bool hayDeadlock;
+extern bool hayDeadlock;
 
 //Estructura de un entrenador
 enum ESTADO{
