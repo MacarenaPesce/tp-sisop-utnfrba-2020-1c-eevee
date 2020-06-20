@@ -52,9 +52,10 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&mapa_mutex, NULL);
 	pthread_mutex_init(&llego_gameboy, NULL);
 	sem_init(&hay_un_pokemon_nuevo, 0, 0);
-	//sem_init(&llego_gameboy, 0, 0);
 	sem_init(&entrenadores_ubicados, 0, 0);
 	sem_init(&hay_interbloqueo, 0, 0);
+	sem_init(&hay_interbloqueo_avisar_a_entrenador, 0, 0);
+	sem_init(&semaforos_listos, 0, 0);
 
 }
 
@@ -64,8 +65,7 @@ void inicializar_semaforos_deadlock(){
 		sem_init(&semaforos_deadlock[i], 0, 0);
 	}
 
-	sem_init(&semaforos_listos, 0, 0);
-
+	sem_post(&semaforos_listos);
 }
 
 void inicializar_archivo_de_configuracion(){

@@ -45,7 +45,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	if(entrenador_mas_cercano == NULL){
 		log_info(team_logger, "No hay mas entrenadores disponibles");
 	} else {
-		log_info(team_logger,"El entrenador %d paso a la lista de Listos por ser el mas cercano a %s\n", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
+		log_info(team_logger,"El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
 	}
 }
 
@@ -119,7 +119,9 @@ void obtener_proximo_ejecucion(void){
 	/* SJF debe copiar la lista de listos a una lista auxiliar, ordenarla por estimacion mas corta, tomar el primero, destruir la lista auxiliar. Eso para ambos casos */
 
 	lista_aux = list_duplicate(lista_listos);
-	log_info(team_logger, "Planificando por FIFO");
+
+	log_info(team_logger, "Planificando por %s", algoritmo_planificacion);
+	printf("\n");
 
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
 		ordenar_lista_estimacion(lista_aux);

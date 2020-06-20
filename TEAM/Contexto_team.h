@@ -107,9 +107,10 @@ pthread_mutex_t llego_gameboy;
 sem_t * semaforos_deadlock;
 sem_t semaforos_listos;
 sem_t hay_interbloqueo;
+sem_t hay_interbloqueo_avisar_a_entrenador;
 pthread_mutex_t mutex_deadlock;
 
-bool hayDeadlock;
+extern bool hayDeadlock;
 
 //Estructura de un entrenador
 enum ESTADO{
