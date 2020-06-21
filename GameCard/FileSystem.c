@@ -539,38 +539,6 @@ bool entraEnBloque(char* lineaPokemon){
 }
 
 
-t_list* obtenerBloquesPokemon(char* poke){
-
-	log_info(gameCard_logger, "accediendo a la metadata del pokemon: %s", poke);
-
-	char* rutaMetadataPokemon=string_new();
-
-	string_append(&rutaMetadataPokemon, rutas_fs->pathDirectorioFilesMetadata);
-	string_append(&rutaMetadataPokemon,"/");
-	string_append(&rutaMetadataPokemon,poke);
-	string_append(&rutaMetadataPokemon,".bin");
-
-
-		//el archivo metadata.bin se parece al archivo de configuracion
-		//se reutilizan estructuras
-		t_config* metadataPokemon = config_create(rutaMetadataPokemon);
-
-
-		char** listaBloques=config_get_array_value(metadataPokemon,"BLOCKS");
-
-		string_iterate_lines(listaBloques,copiarPokemonEnMemoria);
-
-		char** lineas=string_split(pokemon,"\n");
-
-
-
-		log_info(gameCard_logger,"Se ha cargado correctamente la metadata del FileSystem");
-
-		config_destroy(metadataPokemon);
-
-
-}
-
 void copiarPokemonEnMemoria(char* unBloque){
 
 	char* rutaBloque;
@@ -593,19 +561,86 @@ void copiarPokemonEnMemoria(char* unBloque){
 			fdBloq, 0);
 
 
-	string_append(pokemon,contenidoBloque);
+	string_append(pokemonEnMemoria,contenidoBloque);
 }
 
+
+char** getBloquesPoke(char* poke){
+
+	log_info(gameCard_logger, "accediendo a la metadata del pokemon: %s", poke);
+
+		char* rutaMetadataPokemon=string_new();
+
+		string_append(&rutaMetadataPokemon, rutas_fs->pathDirectorioFilesMetadata);
+		string_append(&rutaMetadataPokemon,"/");
+		string_append(&rutaMetadataPokemon,poke);
+		string_append(&rutaMetadataPokemon,".bin");
+
+
+			//el archivo metadata.bin se parece al archivo de configuracion
+			//se reutilizan estructuras
+			t_config* metadataPokemon = config_create(rutaMetadataPokemon);
+
+
+			char** listaBloques=config_get_array_value(metadataPokemon,"BLOCKS");
+
+			config_destroy(metadataPokemon);
+
+			return listaBloques;
+
+}
 //valido antes de existia o no pokemon aca asumo que existe pokemon y hay que modificarlo
-void modificarPokemon(t_new_pokemon* poke){
+void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
-	t_list* bloquesMetadataPokemon= list_create();
-	pokemon=string_new();
-	bloquesMetadataPokemon=obtenerBloquesPokemon(poke->pokemon);
+	nuevaPos=string_new();
+	string_append(&nuevaPos,string_itoa(pokemonAeditar->coordenadas->posx));
+	string_append(&nuevaPos,"-");
+	string_append(&nuevaPos,string_itoa(pokemonAeditar->coordenadas->posy));
+	string_append(&nuevaPos,"=");
 
+	nuevaCant=pokemonAeditar->cantidad;
+	tamanioNuevaPos=string_length(nuevaPos);
+
+	pokemonEnMemoria=string_new();
+	//obtengo los bloques que ocupa el pokemon
+	char** bloquesDelPokemon=getBloquesPoke(pokemonAeditar->pokemon);
+
+	string_iterate_lines(bloquesDelPokemon,copiarPokemonEnMemoria);
+
+	pokemonAguardar=string_new();
+
+	posValidas=string_new();
+
+	if(string_contains(pokemonEnMemoria,nuevaPos)==1){
+
+		char** posiciones=string_split(pokemonEnMemoria,"\n");
+
+		string_iterate_lines(posiciones,operarPosiciones);
+	}
+
+
+	//aca copiar la estructura obtenida de operar posiciones copiar en los bloque que ya tengo
+	//si no me entra voy a buscar un bloque libre y termino copiando alli
 
 }
 
+void operarPosiciones(char* posicion){
+
+	if(string_starts_with(posicion,nuevaPos)==1){
+
+		nuevaCant=nuevaCant+atoi(string_substring_from(posicion,tamanioNuevaPos));
+
+		string_append(&posValidas,nuevaPos);
+		string_append(&posValidas,string_itoa(nuevaCant));
+		string_append(&posValidas,"\n");
+
+	}
+	else{
+
+		string_append(&posValidas,posicion);
+		string_append(&posValidas,"\n");
+	}
+}
 
 /*levantar el archivo completo a memoria, calcular lo que tengan que calcular y
 después bajarlo a los archivos de bloques (agregando o eliminando si hace falta)
