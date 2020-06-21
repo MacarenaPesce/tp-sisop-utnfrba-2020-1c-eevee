@@ -102,10 +102,9 @@ int  main () {
 	//abrirBitmap();
 
 	if(existePokemon(picachu->pokemon)){
-		log_info(gameCard_logger,"si, existe pokemon Pikachu");
+		log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
 	}
-	else { log_info(gameCard_logger, "no existe pokemon Pikachu");
-	       log_info(gameCard_logger,"vamos a crearlo");
+	else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
 
 	crearPokemon(picachu);
 	free(picachu);
@@ -135,8 +134,9 @@ int  main () {
 			modificarPokemon(picaModif);
 		}
 */
-	terminar_game_card();
+
 	liberarMemoria();
+	terminar_game_card();
 
 }
 

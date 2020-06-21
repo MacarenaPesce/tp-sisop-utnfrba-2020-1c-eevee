@@ -111,6 +111,9 @@ void capturar_signal(int signo){
 }
 
 void terminar_game_card(){
+	log_info(gameCard_logger,"llegando al final");
+	log_info(gameCard_logger,"liberando recursos");
+	log_info(gameCard_logger,"finalizando GameCard");
 	log_destroy(gameCard_logger);
 	exit(EXIT_SUCCESS);
 }

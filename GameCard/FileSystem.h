@@ -99,7 +99,7 @@ void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar);
 
 int cantElemPokemon;
 
-void crearMetadataArchPoke(char* pokemon,t_list* listPok);
+void crearMetadataArchPoke(char* pokemon, char* lineaPoke);
 
 void modificarPokemon(t_new_pokemon* poke);
 
@@ -117,5 +117,7 @@ bool noHayEspacioParaPokemon(char* listaPokemon);
 bool entraEnBloque(char* lineaPokemon);
 
 int fdBitmap;
+
+int tamanioPokemon;
 
 #endif /* FILESYSTEM_H_ */
