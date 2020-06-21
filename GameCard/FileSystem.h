@@ -138,4 +138,10 @@ int tamanioNuevaPos;
 
 int nuevaCant;
 
+/******/
+void operarPosiciones(char* posicion);
+
+//para manejar bloques libres del pokemon
+int cantBloquesOcupadosPorPoke;
+
 #endif /* FILESYSTEM_H_ */

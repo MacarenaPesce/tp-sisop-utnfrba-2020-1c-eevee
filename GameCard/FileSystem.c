@@ -408,7 +408,7 @@ void crearMetadataArchPoke(char* pokemon, char* lineaPoke){
 
 			if(i != (tamanioMaxList-1)){
 
-				string_append(&lineaBloquesOcupados,',');
+				string_append(&lineaBloquesOcupados,",");
 
 			}
 
@@ -561,7 +561,7 @@ void copiarPokemonEnMemoria(char* unBloque){
 			fdBloq, 0);
 
 
-	string_append(pokemonEnMemoria,contenidoBloque);
+	string_append(&pokemonEnMemoria,contenidoBloque);
 }
 
 
@@ -593,9 +593,12 @@ char** getBloquesPoke(char* poke){
 void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 	nuevaPos=string_new();
-	string_append(&nuevaPos,string_itoa(pokemonAeditar->coordenadas->posx));
+
+	int posx=pokemonAeditar->coordenadas.posx;
+	int posy=pokemonAeditar->coordenadas.posy;
+	string_append(&nuevaPos,string_itoa(posx));
 	string_append(&nuevaPos,"-");
-	string_append(&nuevaPos,string_itoa(pokemonAeditar->coordenadas->posy));
+	string_append(&nuevaPos,string_itoa(posy));
 	string_append(&nuevaPos,"=");
 
 	nuevaCant=pokemonAeditar->cantidad;
@@ -611,16 +614,28 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 	posValidas=string_new();
 
+	cantBloquesOcupadosPorPoke=0;
+
 	if(string_contains(pokemonEnMemoria,nuevaPos)==1){
 
 		char** posiciones=string_split(pokemonEnMemoria,"\n");
 
 		string_iterate_lines(posiciones,operarPosiciones);
+
+		string_iterate_lines(bloquesDelPokemon,cantBloquesOcupadosPorPoke);
+
+
 	}
 
 
 	//aca copiar la estructura obtenida de operar posiciones copiar en los bloque que ya tengo
 	//si no me entra voy a buscar un bloque libre y termino copiando alli
+
+}
+
+
+void agregarPokemon(char** bloquesDelPokemon,char* posValidas){
+
 
 }
 
@@ -663,3 +678,16 @@ De esta manera, me aseguro que los bloques no excedan nunca del tamaño máximo,
   * */
 
 
+void cantBloquesOcupadosPorPoke(char* bloque){
+
+	 cantBloquesOcupadosPorPoke=cantBloquesOcupadosPorPoke+1;
+}
+
+
+void pensarNombre(char* posValidas){
+
+	 if (string_length(posValidas)> cantBloquesOcupadosPorPoke*metadata_fs->tamanioBLoques){
+
+	 }
+
+}
