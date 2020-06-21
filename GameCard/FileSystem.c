@@ -616,6 +616,7 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 	cantBloquesOcupadosPorPoke=0;
 
+	//estoy pensando que linea existe y que se va a modificar
 	if(string_contains(pokemonEnMemoria,nuevaPos)==1){
 
 		char** posiciones=string_split(pokemonEnMemoria,"\n");
@@ -623,6 +624,13 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 		string_iterate_lines(posiciones,operarPosiciones);
 
 		string_iterate_lines(bloquesDelPokemon,cantBloquesOcupadosPorPoke);
+
+		if(noHayESpacioParaModificaciones(posValidas)){
+
+		log_error(gameCard_logger, "No hay espacio suficientes para la modificacion");
+		exit(-1);
+				 }
+
 
 
 	}
@@ -684,10 +692,25 @@ void cantBloquesOcupadosPorPoke(char* bloque){
 }
 
 
-void pensarNombre(char* posValidas){
+bool noHayESpacioParaModificaciones(char* posValidas){
 
-	 if (string_length(posValidas)> cantBloquesOcupadosPorPoke*metadata_fs->tamanioBLoques){
+	int espacioDisponible=(cantBloquesOcupadosPorPoke+ cantBLoquesLibres())*metadata_fs->tamanioBLoques;
+
+	 return string_length(posValidas)>espacioDisponible;
+
 
 	 }
 
+int cantBloquesLibres(){
+
+	int cantBloquesLibres=0;
+
+	for(int i=1;i<=bitarray_get_max_bit(bitarray);i++){
+
+		if(bitarray_test_bit(bitarray,i)==0){
+
+		cantBloquesLibres=cantBloquesLibres+1;
+	}
+
+}
 }
