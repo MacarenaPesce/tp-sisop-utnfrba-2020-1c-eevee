@@ -538,37 +538,93 @@ bool entraEnBloque(char* lineaPokemon){
 	return metadata_fs->tamanioBLoques>=string_length(lineaPokemon);
 }
 
+
+t_list* obtenerBloquesPokemon(char* poke){
+
+	log_info(gameCard_logger, "accediendo a la metadata del pokemon: %s", poke);
+
+	char* rutaMetadataPokemon=string_new();
+
+	string_append(&rutaMetadataPokemon, rutas_fs->pathDirectorioFilesMetadata);
+	string_append(&rutaMetadataPokemon,"/");
+	string_append(&rutaMetadataPokemon,poke);
+	string_append(&rutaMetadataPokemon,".bin");
+
+
+		//el archivo metadata.bin se parece al archivo de configuracion
+		//se reutilizan estructuras
+		t_config* metadataPokemon = config_create(rutaMetadataPokemon);
+
+
+		char** listaBloques=config_get_array_value(metadataPokemon,"BLOCKS");
+
+		string_iterate_lines(listaBloques,copiarPokemonEnMemoria);
+
+		char** lineas=string_split(pokemon,"\n");
+
+
+
+		log_info(gameCard_logger,"Se ha cargado correctamente la metadata del FileSystem");
+
+		config_destroy(metadataPokemon);
+
+
+}
+
+void copiarPokemonEnMemoria(char* unBloque){
+
+	char* rutaBloque;
+
+	string_append(&rutaBloque, rutas_fs->pathDirectorioBloques);
+	string_append(&rutaBloque,"/");
+	string_append(&rutaBloque,unBloque);
+	string_append(&rutaBloque,".bin");
+
+	int fdBloq=open(rutaBloque,O_RDWR);
+
+	struct stat mystat;
+
+			if (fstat(fdBloq, &mystat) < 0) {
+				log_error(gameCard_logger, "Error en el fstat\n");
+				close(fdBloq);}
+
+
+	char* contenidoBloque= mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ, MAP_SHARED,
+			fdBloq, 0);
+
+
+	string_append(pokemon,contenidoBloque);
+}
+
 //valido antes de existia o no pokemon aca asumo que existe pokemon y hay que modificarlo
 void modificarPokemon(t_new_pokemon* poke){
 
-	/*int tamanioPokemon=0;
-		listaPokemon=string_new();
-		bloquesMetadataPokemon=list_create();
-		listAux=string_new();
-		cantElemPokemon=list_size(pokemonACargar);
-		list_iterate(pokemonACargar,medirTamanioLineaPokemon);
-		log_info(gameCard_logger," comienza a crear la metadata del pokemon");
-		crearMetadataArchPoke(poke->pokemon,pokemonACargar);
+	t_list* bloquesMetadataPokemon= list_create();
+	pokemon=string_new();
+	bloquesMetadataPokemon=obtenerBloquesPokemon(poke->pokemon);
 
-	*/
 
-	/*levantar el archivo completo a memoria, calcular lo que tengan que calcular y
-	después bajarlo a los archivos de bloques (agregando o eliminando si hace falta)
-	cada vez que agrego/elimino/actualizo alguna posición reescribo todos los bloques
-	(archivos .bin de la carpeta Blocks) del Pokemon afectado. Siempre reutilizando
-	los mismos bloques que el Pokemon tiene asignados (para evitar liberar
-	y pedir nuevos bloques), y agregando en caso de que necesite mas bloques, o
-	quitando en caso de que necesite menos bloques.
-	De esta manera, me aseguro que los bloques no excedan nunca del tamaño máximo,
-	 y también me aseguro de no que no exista fragmentación interna en los bloques,
-	 quedando espacios sin utilizar.
-	  El tema del flag de Open, si, eso les puede dar un flag claro, el tema como bien comentaron
-	  es la posible condición de carrera al tocar ese mismo archivo de metadata (que no es lo mismo
-	  que operar con todos los bloques)
-	  Ahí esta bien la idea de agregar un semáforo del metadata para que 2 hilos
-	  no hagan cambios sobre el metadata al mismo tiempo,
-	  una vez cambiado el metadata no deberían tener mas problemas ya que
-	  2 hilos no van a ir a modificar el mismo set de bloques
-	  *
-	  * */
 }
+
+
+/*levantar el archivo completo a memoria, calcular lo que tengan que calcular y
+después bajarlo a los archivos de bloques (agregando o eliminando si hace falta)
+cada vez que agrego/elimino/actualizo alguna posición reescribo todos los bloques
+(archivos .bin de la carpeta Blocks) del Pokemon afectado. Siempre reutilizando
+los mismos bloques que el Pokemon tiene asignados (para evitar liberar
+y pedir nuevos bloques), y agregando en caso de que necesite mas bloques, o
+quitando en caso de que necesite menos bloques.
+De esta manera, me aseguro que los bloques no excedan nunca del tamaño máximo,
+ y también me aseguro de no que no exista fragmentación interna en los bloques,
+ quedando espacios sin utilizar.
+  El tema del flag de Open, si, eso les puede dar un flag claro, el tema como bien comentaron
+  es la posible condición de carrera al tocar ese mismo archivo de metadata (que no es lo mismo
+  que operar con todos los bloques)
+  Ahí esta bien la idea de agregar un semáforo del metadata para que 2 hilos
+  no hagan cambios sobre el metadata al mismo tiempo,
+  una vez cambiado el metadata no deberían tener mas problemas ya que
+  2 hilos no van a ir a modificar el mismo set de bloques
+  *
+  * */
+
+

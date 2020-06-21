@@ -120,4 +120,9 @@ int fdBitmap;
 
 int tamanioPokemon;
 
+char* pokemon;
+//modificar pokemon
+
+t_list* obtenerBloquesPokemon(char* poke);
+
 #endif /* FILESYSTEM_H_ */
