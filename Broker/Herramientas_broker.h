@@ -21,14 +21,11 @@ void obtener_el_log_file();
 
 void configurar_signals(void);
 void capturar_signal(int signo);
+
 void terminar_broker_correctamente();
 
 
-
-
-
 #endif /* HERRAMIENTAS_BROKER_H_ */
-
 
 
 /*

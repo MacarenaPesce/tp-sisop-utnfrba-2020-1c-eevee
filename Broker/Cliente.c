@@ -1,25 +1,32 @@
-#include <Pokebola.h>
+#include "Cliente.h"
+
+t_servidor servidor;
+
 
 int main(){
 
-	int socket =  conectar_a_server("127.0.0.1","6009");
+/* 
+	Creo un server donde voy a mandar mensajes (Broker)
+*/
 
-	//enviar_mensaje_string(socket, "hola_broker");
+	servidor.ip = "127.0.0.1";
+	servidor.puerto = "32587";
+	servidor.id_cliente = 123332;
 
-	/* Appeared/Catch Pokemon*/
-	/*t_catch_pokemon appeared_pokemon;
+/* 
+	Para enviar solamente tengo que crear la estructura
+	y llamar a la funcion de envio correspondiente pasandole
+	un puntero a la misma
+*/	
+
+	/* Appeared/Catch Pokemon */
+	t_catch_pokemon appeared_pokemon;
 
 	appeared_pokemon.coordenadas.posx = 10;
 	appeared_pokemon.coordenadas.posy = 20;
 	appeared_pokemon.pokemon = "pikachu";
 
-	enviar_catch_pokemon(socket, -1, -1, &appeared_pokemon);*/
-
-	/* New Pokemon*/
-	
-	/* Para enviar solamente tengo que crear la estructura
-	   y llamar a la funcion de envio correspondiente pasandole
-	   un puntero a la misma*/
+	/* New Pokemon*/	
 	t_new_pokemon new_pokemon;
 
 	new_pokemon.coordenadas.posx = 10;
@@ -27,24 +34,81 @@ int main(){
 	new_pokemon.cantidad = 7;
 	new_pokemon.pokemon = "pikachu";
 
-	enviar_new_pokemon(socket,-1,-1,&new_pokemon);
-
 	/* Caught Pokemon*/
-	/*t_caught_pokemon caught_pokemon;
-
+	t_caught_pokemon caught_pokemon;
 	caught_pokemon.status = 1;
 
-	enviar_caught_pokemon(socket,-1,-1,&caught_pokemon);*/
-	
-	/* 
+	/* Get Pokemon*/
 	t_get_pokemon get_pokemon;
-	get_pokemon.pokemon = "pepe_el_dino";*/
-	
+	get_pokemon.pokemon = "pepe_el_dino";
 
-/*
+	/* Suscripcion */
 	t_suscripcion suscripcion;
 	suscripcion.minutos_suscripcion = -1;
 	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
-	enviar_solicitud_suscripcion(socket,COLA_CATCH_POKEMON,&suscripcion);*/
+
+	t_packed* ack;	
+
+	int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_GET_POKEMON,&suscripcion);
+
+	pthread_t hilo_espera_mensajes;
+	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
+
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
+	free(ack);
+
+	/*ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
+	free(ack);
+	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
+	free(ack);
+	ack = enviar_catch_pokemon(&servidor,-1, &appeared_pokemon);
+	free(ack);
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
+	free(ack);
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
+	free(ack);*/
+
+	while(1){};
+
+
+
 	
+	
+	//enviar_mensaje_string(socket, "hola_broker");	
+	 
+	/*esperar_mensajes(socket_get_pokemon);*/
+
+
+
+}
+
+
+void* esperar_mensajes(void* socket){
+
+	int socket_server = *((int*) socket);
+
+	while(1){
+		//Creo un paquete y recibo el mensaje
+		t_packed* paquete;
+		paquete = recibir_mensaje(socket_server);
+
+		if(paquete != (t_packed*)-1){
+			//Esto me devuelve el paquete con todos los datos
+			/* El nro de operacion y cola de mensajes indican el 
+			tipo de estructura que contiene el paquete */
+			printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
+			printf("operacion: %d \n",paquete->operacion);
+			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
+			printf("id_correlacional: %d  \n",paquete->id_correlacional);
+			printf("id_mensaje: %d \n",paquete->id_mensaje);
+			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+			if(paquete->operacion == 0) {
+				enviar_ack(&servidor,paquete->id_mensaje);
+			}
+			free(paquete);
+ 		}
+		
+	}
+
+	return NULL;
 }

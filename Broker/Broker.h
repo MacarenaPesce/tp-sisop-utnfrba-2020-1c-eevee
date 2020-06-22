@@ -1,6 +1,14 @@
 #ifndef BROKER_H_
 #define BROKER_H_
 
+
+#include "Contexto_broker.h"
+#include "Herramientas_broker.h"
+#include <Pokebola.h>
+#include <semaphore.h>
+#include <pthread.h>
+#include "ColaMensajes.h"
+#include "Conexion.h"
 #include "includes.h"
 //#include "memoria.h"
 
@@ -9,19 +17,14 @@ int espacio_vacio;
 int q_bloques_ocupados;
 int q_bloques_vacios;
 float* primer_bloque;
-t_list* lista_memoria;
+t_list* lista_memoria; 
+int socket_servidor;
+enum SERVER_STATUS server_status;
+t_log* broker_logger;
+bool* debug_broker;
 
-typedef struct{
-    uint32_t id;
-    uint32_t tipo_mensaje;
-    uint32_t id_correlacion;
-    t_list* lista_suscriptores_enviados;
-    t_list* lista_suscriptores_ack;
-}t_mensaje;
+static pthread_mutex_t mutex_queue_mensajes = PTHREAD_MUTEX_INITIALIZER;
 
-void recibir_mensaje_de_texto(int, int);
-void iniciar_servidor(void);
-void esperar_cliente(int);
-
+t_cache_colas* cache_mensajes;
 
 #endif

@@ -1,6 +1,24 @@
 #ifndef CONTEXTO_BROKER_H_
 #define CONTEXTO_BROKER_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <commons/log.h>
+#include <signal.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include <netdb.h>
+#include <commons/log.h>
+#include <commons/collections/list.h>
+#include <commons/config.h>
+#include <commons/bitarray.h>
+#include <string.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <Pokebola.h>
 #include "includes.h"
 
 /* Keys config file*/
