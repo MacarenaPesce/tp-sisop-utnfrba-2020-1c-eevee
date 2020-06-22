@@ -1,4 +1,7 @@
-#include "Memoria.h"
+#include "includes.h"
+
+//--------------- ADMINISTRACION DE MEMORIA-------------------
+
 
 void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
     
@@ -6,7 +9,7 @@ void* AsignarMemoriaInicial(int tamanio_en_bytes, t_list* lista_memoria){
     void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
     memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
    
-    /* Genero el bloque de memoria */
+    /* Genero el bloque de memoria inicial*/
     t_bloque_memoria *bloque;
     bloque->tamanio = tamanio_en_bytes;
     bloque->esta_vacio = true;
@@ -31,6 +34,9 @@ void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
 
 void* AsignarBloqueMemoria(t_list* lista_memoria, int tamanio_en_bytes){
     
+    //Asigno un bloque segun el algoritmo de memoria que utilicemos
+    algoritmo_memoria(lista_memoria, tamanio_en_bytes);
+
 }
 
 void LiberarBloqueMemoria(t_bloque_memoria *bloque){
@@ -87,3 +93,164 @@ int CalcularTamanioBloqueMemoria(char* inicio_del_bloque, int tamanio_en_bytes){
 
 }
 
+//----------------------------ALGORITMOS DE MEMORIA-------------------------
+void* algoritmo_memoria(t_list* lista_memoria, int tamanio_en_bytes){
+
+    //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
+
+    if (algoritmo_memoria == "BD"){
+        buddy_system(t_list* lista_memoria, int tamanio_en_bytes);
+    }
+    else{
+        particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes);
+    }
+
+    return ;
+}
+
+//---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
+void particiones_dinamicas(t_list* lista_memoria, int tamanio_en_bytes){
+
+    
+
+}
+//-------------------------FIN DE PARTICIONES DINAMICAS-------------------------
+
+
+
+//------------------------------BUDDY SYSTEM----------------------------------
+void buddy_system(t_list* lista_memoria, int tamanio_en_bytes){
+
+}
+//----------------------------FIN BUDDY SYSTEM----------------------------------
+
+
+//---------------------------FIN DE ALGORITMOS DE MEMORIA-----------------------
+
+
+
+
+//----------------------------ELIMINAR UNA PARTICION-----------------------
+
+void* algoritmo_reemplazo(){
+
+    return;
+}
+//------------------------------FIFO--------------------------------
+
+
+//------------------------------FIN DE FIFO--------------------------------
+
+
+//------------------------------LRU--------------------------------
+
+//--------------------------FIN DE LRU--------------------------------
+
+//------------------------FIN ELIMINAR UNA PARTICION-----------------------
+
+
+
+
+
+//-----------------------------ELECCION DE PARTICION LIBRE--------------------
+
+void* algoritmo_particion_libre(){
+    
+    return;
+
+}
+
+//------------------------------FIRST FIT------------------------------------
+
+void* algoritmo_first(){
+
+    return;
+
+}
+
+/*
+    Recorrer la memoria o la lista?
+    Buscar la primer particion libre --- buscarParticion()
+    fijarme si entra --- la ocupo o sigo buscando
+    si no entra, hago una compactacion
+    vuelvo a fijarme si entra, si no entra borro algo ---- que se borra?
+*/
+
+//----------------------------FIN FIRST FIT----------------------------------
+
+//------------------------------BEST FIT-------------------------------------
+
+void* algoritmo_best(){
+
+
+    return;
+
+}
+//----------------------------FIN DE BEST FIT---------------------------------
+
+//------------------------------FIN DE ELECCION DE PARTICION------------------
+
+
+
+
+
+//----------------------------DUMP DE LA MEMORIA--------------------------
+
+
+
+//-----------------------------FIN DEL DUMP--------------------------------
+
+
+/*
+uint32_t muse_alloc_mem(int programId, uint32_t tam) {
+    // ajusta la memoria solicitada como múltiplo entero del tamaño de la página
+    int cantPaginas = tam / MEMORIA.tamPagina + !!(tam % MEMORIA.tamPagina);
+    tam = cantPaginas * MEMORIA.tamPagina;
+    Segmento *s = MEMORIA.tabla;
+    Bloque *b = NULL;
+    // intenta asignar en el primer segmento
+    if(!s->progId || s->progId == programId) {
+        b = alojarBloque(s, tam);
+    }
+    // mientras no logre asignar y haya segmentos más adelante
+    while(s->next && !b) {
+        while(s->next->progId && s->next->progId != programId) {
+            s = s->next;
+        }
+        if(s->next) {
+            s = s->next;
+            b = alojarBloque(s, tam);
+        }
+    }
+    // s apunta ahora al segmento donde fue asignado el bloque
+    // o al último segmento de la lista, si no fue asignado
+    if(b) { // si el bloque fue asignado
+            // establece el programa como propietario del segmento
+        s->progId = programId;
+    } else {    // si no pudo ser asignado
+        // calcula hasta dónde llegará un nuevo segmento a continuación del último
+    	uint32_t mem = s->mem + s->tam + METAD + tam;
+        // si hay espacio crea el nuevo segmento y le asigna el bloque
+        if(mem < MEMORIA.tamMemoria) {
+            s->next = nuevoSegmento(programId, s->mem + s->tam, s->next);
+            s = s->next;
+            b = alojarBloque(s, tam);
+            s->progId = programId;
+        }
+    }
+    s->memLiberada = 0;
+    free(s);
+    // si no logra asignar el bloque es porque se agotó la memoria disponible
+    if(b){
+    	funMem = iniciar_logger_fun();
+    	log_info(funMem, "Alloc realizado con exito. Proceso: %d", programId);
+    	free(funMem);
+    	return b->data;
+    }else{
+    	return 0; //sacar al resolver el tema de clock
+    	//activar clock moficado wachines
+    }
+    //return b ? b->data : 0; //si retorna 0 es segmentation fault
+}
+
+*/
