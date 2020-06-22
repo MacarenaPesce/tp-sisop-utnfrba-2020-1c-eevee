@@ -5,11 +5,11 @@ extern t_cache_colas* cache_mensajes;
 /* Flujo de mensajes */
 int agregar_mensaje_a_cola(t_packed* paquete){	
 
+	pthread_mutex_lock(&mutex_queue_mensajes);
+	
 	t_mensaje_cola* mensaje = crear_mensaje(paquete->cola_de_mensajes,
                                             paquete->id_correlacional,
                                             paquete->mensaje);
-
-	pthread_mutex_lock(&mutex_queue_mensajes);
 
     agregar_mensaje_a_cache(mensaje);
 
@@ -106,7 +106,7 @@ void* sender_suscriptores(void* cola_mensajes){
 
 	t_envio_pendiente* envio_pendiente;
 
-	while(server_status != ENDING){
+	while(1){
 
 		sem_wait(cola->producciones);	
 
@@ -139,6 +139,10 @@ void* sender_suscriptores(void* cola_mensajes){
 		}
 
 		pthread_mutex_unlock(&mutex_queue_mensajes);
+
+		if(server_status == ENDING){
+			break;
+		}
 	
 	}
 
@@ -246,10 +250,12 @@ t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, void* 
     
 	mensaje->cola_de_mensajes = cola_de_mensajes;
 	mensaje->id_correlacional = id_correlacional;
-	mensaje->mensaje = mensaje_recibido;
 	mensaje->suscriptores_enviados = list_create();
 	mensaje->suscriptores_ack = list_create();
 
+	//ESTA LINEA VA A LA MEMORIA CACHEADA
+	mensaje->mensaje = mensaje_recibido;
+	
     return mensaje;
 }
 
