@@ -308,7 +308,7 @@ char*  cargarPokemon(t_new_pokemon* pokemon){
 
 void copiarEnBloque(char* bloqueLibre,char* lineaAcopiar){
 
-	log_info(gameCard_logger, "accediendo al bloque %d.bin", bloqueLibre);
+	log_info(gameCard_logger, "accediendo al bloque %s.bin", bloqueLibre);
 
 	    char* rutaBloqueLibre=string_new();
 
@@ -323,7 +323,7 @@ void copiarEnBloque(char* bloqueLibre,char* lineaAcopiar){
 		fwrite(lineaAcopiar,string_length(lineaAcopiar),1,bloque);
 		fclose(bloque);
 
-		log_info(gameCard_logger,"se ha copiado el pokemon correctamente");
+		log_info(gameCard_logger,"se ha copiado correctamente");
 }
 
 void marcarBloqueOcupado(int bloqueLibre){
@@ -665,9 +665,10 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 		string_iterate_lines(bloquesDelPokemon,cantBloquesOcupadosPorPokemon);
 
-		desde=1;
+		desde=0;
 		copiado=0;
 		hasta=0;
+
 		string_iterate_lines(bloquesDelPokemon, persistirCambiosEnBloquesPropios);
 
 		if(copiado <string_length(posValidas)){
@@ -716,11 +717,15 @@ char** obtenerBloquesNuevos(int cantBloqNecesarios){
 
 void	persistirCambiosEnBloquesPropios(char* bloque){
 
+	log_info(gameCard_logger,"aca dame bloque : %s",bloque);
+
 	log_info(gameCard_logger,"aca se va a persistir pokemon");
 
 	char* lineaPoke=string_new();
 
+
 	int aCopiar=string_length(posValidas);
+
 
 	log_info(gameCard_logger,"aca lo que se quier copiar en total: %d",aCopiar);
 
@@ -735,17 +740,23 @@ void	persistirCambiosEnBloquesPropios(char* bloque){
 		log_info(gameCard_logger,"aca dame el hasta %d",hasta);
 	}
 
+
 	string_append(&lineaPoke,string_substring(posValidas,desde,hasta));
 	copiarEnBloque(bloque,lineaPoke);
 
+	log_info(gameCard_logger,"hasta después de copiar en un bloque llega ok");
+
 	list_add(bloquesMetadataPokemon,bloque);
 
+	log_info(gameCard_logger,"llega hasta despues de copiar en lista un bloque");
 
-	copiado=copiado+(desde-hasta+1);
-	desde=desde+(hasta-desde+1);
 
-	log_info(gameCard_logger,"mostrame el copiado %s",copiado);
-	log_info(gameCard_logger,"mostrame el desde: %d",desde);
+		log_info(gameCard_logger,"mostrame el copiado %d",copiado);
+		log_info(gameCard_logger,"mostrame el desde: %d",desde);
+		log_info(gameCard_logger,"mostrame el hasta %d",hasta);
+
+		copiado=copiado+(hasta-desde);
+		desde=desde+(hasta-desde);
 }
 
 

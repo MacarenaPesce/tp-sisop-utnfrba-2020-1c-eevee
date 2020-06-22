@@ -125,7 +125,7 @@ int  main () {
 		free(pokis);
 		}
 
-
+/*
 	t_new_pokemon* pic=picachuHardcodeado("Pikachu",1,2,33);
 		//abrirBitmap();
 
