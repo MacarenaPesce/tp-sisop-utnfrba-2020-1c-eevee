@@ -15,6 +15,7 @@ void obtener_tiempo_reintento_operacion();
 void obtener_punto_montaje_tallgrass();
 void obtener_ip_broker();
 void obtener_puerto_broker();
+void obtener_tiempo_retardo_operacion();
 void capturar_signal(int);
 void configurar_signal_gc();
 

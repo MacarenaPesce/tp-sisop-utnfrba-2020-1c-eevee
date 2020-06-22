@@ -1,6 +1,7 @@
 #ifndef BROKER_H_
 #define BROKER_H_
 
+
 #include "Contexto_broker.h"
 #include "Herramientas_broker.h"
 #include <Pokebola.h>
@@ -8,6 +9,7 @@
 #include <pthread.h>
 #include "ColaMensajes.h"
 #include "Conexion.h"
+#include "includes.h"
 //#include "memoria.h"
 
 int espacio_total;
