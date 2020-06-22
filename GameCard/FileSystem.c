@@ -306,21 +306,20 @@ char*  cargarPokemon(t_new_pokemon* pokemon){
 
 }
 
-void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar){
+void copiarEnBloque(char* bloqueLibre,char* lineaAcopiar){
 
 	log_info(gameCard_logger, "accediendo al bloque %d.bin", bloqueLibre);
 
 	    char* rutaBloqueLibre=string_new();
-		char* nombreBloque=string_new();
 
 		string_append(&rutaBloqueLibre, rutas_fs->pathDirectorioBloques);
 		string_append(&rutaBloqueLibre,"/");
-		string_append(&nombreBloque,(string_itoa(bloqueLibre)));
-		string_append(&rutaBloqueLibre,nombreBloque);
+		string_append(&rutaBloqueLibre,bloqueLibre);
 		string_append(&rutaBloqueLibre, ".bin");
 		FILE *bloque = fopen(rutaBloqueLibre, "wb");
 
-		log_info(gameCard_logger,"copiando pokemon en el bloque %d.bin",bloqueLibre);
+		log_info(gameCard_logger,"copiando pokemon en el bloque %s.bin",bloqueLibre);
+		fseek(bloque,0,SEEK_SET);
 		fwrite(lineaAcopiar,string_length(lineaAcopiar),1,bloque);
 		fclose(bloque);
 
@@ -341,9 +340,9 @@ void marcarBloqueOcupado(int bloqueLibre){
 
 }
 
-void agregarBloqueParaMetadataArchivo(int bloqueLibre){
+void agregarBloqueParaMetadataArchivo(char* bloqueLibre){
 
-	list_add(bloquesMetadataPokemon,string_itoa(bloqueLibre));
+	list_add(bloquesMetadataPokemon,bloqueLibre);
 }
 
 
@@ -353,7 +352,7 @@ void copiarPersistiendoPokemon(){
 
 		log_info(gameCard_logger,"el primer bloque libre es: %d",bloqueLibre);
 
-		copiarEnBloqueLibre(bloqueLibre,listaPokemon);
+		copiarEnBloque(bloqueLibre,listaPokemon);
 
 		log_info(gameCard_logger, "se ha copiado  correctamente en el bloque %d",bloqueLibre);
 
@@ -364,7 +363,7 @@ void copiarPersistiendoPokemon(){
 
 
 
-void crearMetadataArchPoke(char* pokemon, char* lineaPoke){
+void crearMetadataArchPoke(char* pokemon, int tamanio){
 
 	log_info(gameCard_logger,"Creando el directorio Pokemon : %s", pokemon);
 
@@ -391,11 +390,12 @@ void crearMetadataArchPoke(char* pokemon, char* lineaPoke){
 		char* lineaDirectorio=string_new();
 		string_append(&lineaDirectorio,"DIRECTORY=N");
 		string_append(&lineaDirectorio,	"\n");
+		rewind(metadataPoke);
 		fwrite(lineaDirectorio, string_length(lineaDirectorio), 1,metadataPoke);
 
 		char* lineaSize=string_new();
 		string_append(&lineaSize,"SIZE=");
-		string_append(&lineaSize, (string_itoa(espacioPokemon(lineaPoke))));
+		string_append(&lineaSize, (string_itoa(tamanio)));
 		string_append(&lineaSize,"\n");
 		fwrite(lineaSize, string_length(lineaSize), 1,metadataPoke);
 
@@ -512,23 +512,28 @@ void crearPokemon(t_new_pokemon* poke){
 
 	if(entraEnBloque(lineaPoke)){
 
+		char* bloque=string_new();
 		int bloqueLibre=obtenerPrimerBloqueLibre();
+
+		string_append(&bloque,bloqueLibre);
 
 		log_info(gameCard_logger,"el primer bloque libre es: %d",bloqueLibre);
 
-		copiarEnBloqueLibre(bloqueLibre,lineaPoke);
+		copiarEnBloque(bloque,lineaPoke);
 
 		log_info(gameCard_logger, "se ha copiado pokemon correctamente en el bloque %d",bloqueLibre);
 
 		marcarBloqueOcupado(bloqueLibre);
 
-		agregarBloqueParaMetadataArchivo(bloqueLibre);
+		agregarBloqueParaMetadataArchivo(bloque);
 
-		crearMetadataArchPoke(poke->pokemon,lineaPoke);
+		crearMetadataArchPoke(poke->pokemon,string_length(lineaPoke));
 	}
 
 	else {log_error(gameCard_logger, "el bloque no tiene espacio suficiente");
 	         exit(-1);}
+
+
 
 
 }
@@ -592,6 +597,9 @@ char** getBloquesPoke(char* poke){
 //valido antes de existia o no pokemon aca asumo que existe pokemon y hay que modificarlo
 void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
+
+	bloquesMetadataPokemon=list_create();
+	//me traigo la linea que pasa new_pokemon
 	nuevaPos=string_new();
 
 	int posx=pokemonAeditar->coordenadas.posx;
@@ -605,9 +613,11 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 	tamanioNuevaPos=string_length(nuevaPos);
 
 	pokemonEnMemoria=string_new();
+
 	//obtengo los bloques que ocupa el pokemon
 	char** bloquesDelPokemon=getBloquesPoke(pokemonAeditar->pokemon);
 
+	//traigo poke a memoria
 	string_iterate_lines(bloquesDelPokemon,copiarPokemonEnMemoria);
 
 	pokemonAguardar=string_new();
@@ -616,24 +626,95 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 	cantBloquesOcupadosPorPoke=0;
 
-	//estoy pensando que linea existe y que se va a modificar
+	//estoy pensando que la linea existe y que se va a modificar
 	if(string_contains(pokemonEnMemoria,nuevaPos)==1){
+
+		//separo cada elemento por salto de linea
 
 		char** posiciones=string_split(pokemonEnMemoria,"\n");
 
+		//a cada elemento que no coincida lo pongo para formar u string
+		//el que coincide le agrega la cantidad indicada por lo que llego del new pokemon
+		//y lo copia en el string
 		string_iterate_lines(posiciones,operarPosiciones);
+
+		//aca obtengo cantidad deBloques que ocupa mi pokemon
+		string_iterate_lines(bloquesDelPokemon,cantBloquesOcupadosPorPokemon);
+
+		//para validar espacio disponible
+		//como minimo ocupa lo mismo, o ocupa más
+
+		if(noHayEspacioParaModificaciones(posValidas)){
+		log_error(gameCard_logger, "No hay espacio suficientes para la modificacion");
+		exit(-1);
+		}
 
 		string_iterate_lines(bloquesDelPokemon,cantBloquesOcupadosPorPoke);
 
-		if(noHayESpacioParaModificaciones(posValidas)){
+		desde=1;
+		copiado=0;
+		hasta=0;
+		string_iterate_lines(bloquesDelPokemon, persistirCambiosEnBloquesPropios);
 
-		log_error(gameCard_logger, "No hay espacio suficientes para la modificacion");
-		exit(-1);
-				 }
+		if(copiado <string_length(posValidas)){
 
 
+			int cantBloquesNecesarios=cantBloquesOcupadosPorPoke-list_size(bloquesMetadataPokemon);
+			char** bloquesNuevos= obtenerBloquesNuevos(cantBloquesNecesarios);
+
+			string_iterate_lines(bloquesNuevos, persistirCambiosEnBloquesNuevos);
+		}
+
+		crearMetadataArchPoke(pokemonAeditar->pokemon,string_length(posValidas));
 
 	}
+
+
+void persistirCambiosEnBloquesNuevos(char* bloqueNuevo){
+
+
+		persistirCambiosEnBloquesPropios(bloqueNuevo);
+
+		marcarBloqueOcupado(atoi(bloqueNuevo));
+
+}
+
+char** obtenerBloquesNuevos(int cantBloqNecesarios){
+
+	char* bloquesLibres;
+	bloquesLibres=string_new();
+
+	while(cantBloqNecesarios!=0){
+	string_append(bloquesLibres,string_itoa(obtenerPrimerBloqueLibre()));
+	cantBloqNecesarios=cantBloqNecesarios-1;
+	}
+
+	return bloquesLibres;
+}
+
+void	persistirCambiosEnBloquesPropios(char* bloque){
+
+	char* lineaPoke=string_new();
+
+	int aCopiar=string_length(posValidas);
+	if((aCopiar-copiado)<metadata_fs->tamanioBLoques){
+
+		hasta=hasta+(aCopiar-copiado);
+	}
+
+	else {
+		hasta=hasta+metadata_fs->tamanioBLoques;
+	}
+
+	string_append(&lineaPoke,string_substring(posValidas,desde,hasta));
+	copiarEnBloque(bloque,lineaPoke);
+
+	list_add(bloquesMetadataPokemon,bloque);
+
+	copiado=copiado+(desde-hasta+1);
+	desde=desde+(hasta-desde+1);
+
+}
 
 
 	//aca copiar la estructura obtenida de operar posiciones copiar en los bloque que ya tengo
@@ -642,10 +723,7 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 }
 
 
-void agregarPokemon(char** bloquesDelPokemon,char* posValidas){
 
-
-}
 
 void operarPosiciones(char* posicion){
 
@@ -686,13 +764,13 @@ De esta manera, me aseguro que los bloques no excedan nunca del tamaño máximo,
   * */
 
 
-void cantBloquesOcupadosPorPoke(char* bloque){
+void cantBloquesOcupadosPorPokemon(char* bloque){
 
 	 cantBloquesOcupadosPorPoke=cantBloquesOcupadosPorPoke+1;
 }
 
 
-bool noHayESpacioParaModificaciones(char* posValidas){
+bool noHayEspacioParaModificaciones(char* posValidas){
 
 	int espacioDisponible=(cantBloquesOcupadosPorPoke+ cantBLoquesLibres())*metadata_fs->tamanioBLoques;
 

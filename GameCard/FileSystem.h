@@ -90,10 +90,10 @@ void agregarAstring(void* elem);
 
 void medirTamanioLineaPokemon(void* pokemon);
 char*  cargarPokemon(t_new_pokemon* pokemon);
-void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar);
+void copiarEnBloque(int bloqueLibre,char* lineaAcopiar);
 void marcarBloqueOcupado(int bloqueLibre);
 void agregarBloqueParaMetadataArchivo(int bloqueLibre);
-void copiarEnBloqueLibre(int bloqueLibre,char* lineaAcopiar);
+void copiarEnBloque(int bloqueLibre,char* lineaAcopiar);
 
 //manejo del ultimo elemento
 
@@ -143,5 +143,11 @@ void operarPosiciones(char* posicion);
 
 //para manejar bloques libres del pokemon
 int cantBloquesOcupadosPorPoke;
+
+void persistirCambiosEnBloquesPropios(char* bloque);
+
+int copiado, desde, hasta;
+
+void persistirCambiosEnBloquesNuevos(char* bloqueNuevo);
 
 #endif /* FILESYSTEM_H_ */
