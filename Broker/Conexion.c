@@ -13,7 +13,7 @@ void iniciar_servidor(void){
 	int socket_servidor;
 	int bind_status;
 	
-    struct addrinfo hints, *servinfo, *p;
+    struct addrinfo hints, *servinfo, *p; /* REVISAR DE LIBERAR AL FINAL DEL SERVER  */
 
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;
@@ -77,13 +77,9 @@ void* esperar_cliente(void* socket){
 
 			pthread_t hilo_cliente;
 
-			void *cliente = (void*)malloc(sizeof(int));
+			pthread_create(&hilo_cliente,NULL,esperar_mensajes,(void *)&socket_cliente);
 
-			cliente = &socket_cliente;
-
-			pthread_create(&hilo_cliente,NULL,esperar_mensajes,cliente);
-
-			pthread_join(hilo_cliente,NULL);
+			pthread_detach(hilo_cliente);
 
 		}
 	
@@ -95,8 +91,7 @@ void* esperar_cliente(void* socket){
 
 void* esperar_mensajes(void* cliente){
 
-
-	int socket_cliente = *(int*)cliente;
+	int socket_cliente = *((int*)cliente);
 
 	log_info(broker_logger, "Se aceptó un nuevo proceso en el socket %d", socket_cliente);
 
@@ -141,6 +136,7 @@ void* esperar_mensajes(void* cliente){
 			}
 
 			break;
+
 		}
 
 	}
