@@ -90,16 +90,14 @@ void agregarAstring(void* elem);
 
 void medirTamanioLineaPokemon(void* pokemon);
 char*  cargarPokemon(t_new_pokemon* pokemon);
-void copiarEnBloque(int bloqueLibre,char* lineaAcopiar);
 void marcarBloqueOcupado(int bloqueLibre);
-void agregarBloqueParaMetadataArchivo(int bloqueLibre);
-void copiarEnBloque(int bloqueLibre,char* lineaAcopiar);
+void agregarBloqueParaMetadataArchivo(char* bloqueLibre);
+void copiarEnBloque(char* bloqueLibre,char* lineaAcopiar);
+void crearMetadataArchPoke(char* pokemon, int tamanio);
 
 //manejo del ultimo elemento
 
 int cantElemPokemon;
-
-void crearMetadataArchPoke(char* pokemon, char* lineaPoke);
 
 void modificarPokemon(t_new_pokemon* poke);
 
@@ -149,5 +147,13 @@ void persistirCambiosEnBloquesPropios(char* bloque);
 int copiado, desde, hasta;
 
 void persistirCambiosEnBloquesNuevos(char* bloqueNuevo);
+
+char** obtenerBloquesNuevos(int cantBloqNecesarios);
+
+bool noHayEspacioParaModificaciones(char* posValidas);
+
+int cantBloquesLibres();
+
+void cantBloquesOcupadosPorPokemon(char* bloque);
 
 #endif /* FILESYSTEM_H_ */

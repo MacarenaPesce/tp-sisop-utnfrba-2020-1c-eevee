@@ -21,6 +21,7 @@ void liberarMemoria();
 t_new_pokemon* picachuHardcodeadoLineaExisteParaModif();
 t_new_pokemon* picachuHardcodeadoLineaExisteParaModif();
 t_new_pokemon* charmanderHardcodeado();
+t_new_pokemon* picachuHardcodeado(char* pokemon,int posx,int posy,int cantidad);
 
 #endif /* GAMECARD_H_ */
 

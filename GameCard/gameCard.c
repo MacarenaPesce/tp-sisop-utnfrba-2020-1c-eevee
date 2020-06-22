@@ -98,7 +98,7 @@ int  main () {
 
 	abrirBitmap();
 
-	t_new_pokemon* picachu=picachuHardcodeado();
+	t_new_pokemon* picachu=picachuHardcodeado("Pikachu",1,2,3);
 	//abrirBitmap();
 
 	if(existePokemon(picachu->pokemon)){
@@ -109,6 +109,73 @@ int  main () {
 	crearPokemon(picachu);
 	free(picachu);
 	}
+
+
+	t_new_pokemon* pokis=picachuHardcodeado("Pikachu",1,2,37);
+		//abrirBitmap();
+
+		if(existePokemon(pokis->pokemon)){
+			log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
+			log_info(gameCard_logger,"Se lo va a modificar!");
+			modificarPokemon(pokis);
+		}
+		else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
+
+		crearPokemon(pokis);
+		free(pokis);
+		}
+
+
+	t_new_pokemon* pic=picachuHardcodeado("Pikachu",1,2,33);
+		//abrirBitmap();
+
+		if(existePokemon(pic->pokemon)){
+			log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
+		}
+		else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
+
+		modificarPokemon(pic);
+		free(pic);
+		}
+
+
+		t_new_pokemon* picac=picachuHardcodeado("Pikachu",11,22,33);
+				//abrirBitmap();
+
+		if(existePokemon(picac->pokemon)){
+			log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
+				}
+		else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
+
+			crearPokemon(picac);
+			free(picac);
+			}
+
+
+		t_new_pokemon* picach=picachuHardcodeado("Pikachu",111,222,333);
+				//abrirBitmap();
+
+				if(existePokemon(picach->pokemon)){
+					log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
+				}
+				else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
+
+				crearPokemon(picach);
+				free(picach);
+				}
+
+
+		t_new_pokemon* pi=picachuHardcodeado("Pikachu",111,222,333);
+						//abrirBitmap();
+
+		if(existePokemon(pi->pokemon)){
+			log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
+						}
+		else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
+
+		crearPokemon(pi);
+		free(pi);
+				}
 
 /*
 	t_new_pokemon* charmander=charmanderHardcodeado();
@@ -153,13 +220,13 @@ void liberarMemoria(){
 
 //esto es solo para probar
 
-t_new_pokemon* picachuHardcodeado(){
+t_new_pokemon* picachuHardcodeado(char* pokemon,int posx,int posy,int cantidad){
 	t_new_pokemon* poke = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
 
-		poke->pokemon="Picachu";
-		poke->coordenadas.posx=120;
-		poke->coordenadas.posy=7000;
-		poke->cantidad=1023;
+		poke->pokemon=pokemon;
+		poke->coordenadas.posx=posx;
+		poke->coordenadas.posy=posy;
+		poke->cantidad=cantidad;
 
 		return poke;
 }
