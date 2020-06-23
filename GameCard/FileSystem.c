@@ -568,15 +568,24 @@ bool entraEnBloque(char* lineaPokemon){
 
 void copiarPokemonEnMemoria(char* unBloque){
 
+
+	log_info(gameCard_logger,"aca se va a abrir el bloque del poke");
+
 	char* rutaBloque;
 	rutaBloque=string_new();
+
+	log_info(gameCard_logger,"aca me llega el bloque: %s",unBloque);
 
 	string_append(&rutaBloque, rutas_fs->pathDirectorioBloques);
 	string_append(&rutaBloque,"/");
 	string_append(&rutaBloque,unBloque);
 	string_append(&rutaBloque,".bin");
 
+	log_info(gameCard_logger,"aca quiero ver ruta: %s",rutaBloque);
+
 	int fdBloq=open(rutaBloque,O_RDWR);
+
+	if (fdBloq<=-1){log_error(gameCard_logger,"Error al abrir el archivo");}
 
 	struct stat mystat;
 
@@ -589,7 +598,7 @@ void copiarPokemonEnMemoria(char* unBloque){
 			fdBloq, 0);
 
 
-	string_append(&pokemonEnMemoria,contenidoBloque);
+	string_append(&pokemonEnMemoria,contenidoBloque);;
 }
 
 
@@ -717,18 +726,20 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 log_info(gameCard_logger,"si entras aca es porque se va agregar nueva linea");
 
+pokemonEnMemoria=string_new();
+
 	string_iterate_lines(bloquesDelPokemon,obtenerCantBloques);
 
 	char* ultimoBloque=string_new();
 
-	ultimoBloque=bloquesDelPokemon[cantBloquesPoke];
+	ultimoBloque=bloquesDelPokemon[cantBloquesPoke-1];
 
+	log_info(gameCard_logger,"el último bloque es : %s", ultimoBloque);
 	pokemonEnMemoria=string_new();
 
 	copiarPokemonEnMemoria(ultimoBloque);
 
-	string_append(&nuevaPos,nuevaCant);
-
+	string_append(&nuevaPos,string_itoa(nuevaCant));
 
 	if((metadata_fs->tamanioBLoques- string_length(pokemonEnMemoria))>string_length(nuevaPos)){
 
@@ -767,9 +778,11 @@ void cambiarTamanioMetadata(char* pokemon,int tamanioAgregar){
 
 	configPoke=config_create(rutaPoke);
 
+	log_info(gameCard_logger,"aca quiero chequear ruta %s",rutaPoke);
+
 	int cantidadNueva=config_get_int_value(configPoke,"SIZE")+tamanioAgregar;
 
-	config_set_value(configPoke,"SIZE" ,cantidadNueva);
+	config_set_value(configPoke,"SIZE" ,string_itoa(cantidadNueva));
 
 	config_save_in_file(configPoke,rutaPoke);
 
@@ -794,16 +807,19 @@ void persistirCambiosEnBloquesNuevos(char* bloqueNuevo){
 
 char* obtenerBloquesNuevos(int cantBloqNecesarios){
 
+	log_info(gameCard_logger, "aca tengo que obtener bloques nuevos");
 	char* bloquesLibres;
 	bloquesLibres=string_new();
 
 	while(cantBloqNecesarios!=0){
+		log_info(gameCard_logger,"aca la cant de nec: %d",cantBloqNecesarios);
 		char* bloqLib=string_new();
 		bloqLib	=string_itoa(obtenerPrimerBloqueLibre());
 	string_append(&bloquesLibres,bloqLib);
 	cantBloqNecesarios=cantBloqNecesarios-1;
 	}
 
+	log_info(log_info,"salió del while y dio : %s",bloquesLibres);
 	return bloquesLibres;
 }
 
