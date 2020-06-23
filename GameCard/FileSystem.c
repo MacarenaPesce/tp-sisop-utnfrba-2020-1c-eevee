@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <commons/collections/list.h>
+#include <commons/config.h>
 
 bool noCumpleConRutasfs() {
 	return (abrir_ruta(rutas_fs->pathDirectorioMetadataFs) < 0)
@@ -504,13 +505,13 @@ void crearPokemon(t_new_pokemon* poke){
 
 	log_info(gameCard_logger,"iniciando creacion de un pokemon");
 
-
 	if (noHayEspacioParaPokemon(lineaPoke)){
 		     log_error(gameCard_logger,"No hay espacio para un nuevo Pokemon");
 		     exit(-1);
 			}
 
-	if(entraEnBloque(lineaPoke)){
+
+	/*if(entraEnBloque(lineaPoke)){
 
 		char* bloque=string_new();
 		int bloqueLibre=string_itoa(obtenerPrimerBloqueLibre());
@@ -534,7 +535,7 @@ void crearPokemon(t_new_pokemon* poke){
 	         exit(-1);}
 
 
-
+*/
 
 }
 
@@ -663,7 +664,7 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 		exit(-1);
 		}
 
-		string_iterate_lines(bloquesDelPokemon,cantBloquesOcupadosPorPokemon);
+		//string_iterate_lines(bloquesDelPokemon,cantBloquesOcupadosPorPokemon);
 
 		desde=0;
 		copiado=0;
@@ -673,10 +674,13 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 		if(copiado <string_length(posValidas)){
 
-log_info(gameCard_logger,"se llego hasta aca es porque me faltan bloques");
+			log_info(gameCard_logger,"se llego hasta aca es porque me faltan bloques");
 
-			int cantBloquesNecesarios=cantBloquesOcupadosPorPoke-list_size(bloquesMetadataPokemon);
-			char** bloquesNuevos= obtenerBloquesNuevos(cantBloquesNecesarios);
+			int cantBloquesNecesarios=(copiado-string_length(posValidas))/metadata_fs->tamanioBLoques;
+
+			if ( ((copiado-string_length(posValidas)) % metadata_fs->tamanioBLoques )!=0){cantBloquesNecesarios++;};
+
+			char* bloquesNuevos= obtenerBloquesNuevos(cantBloquesNecesarios);
 
 			log_info(gameCard_logger,"aqui hay más bloques %s",bloquesNuevos);
 			string_iterate_lines(bloquesNuevos, persistirCambiosEnBloquesNuevos);
@@ -685,10 +689,72 @@ log_info(gameCard_logger,"se llego hasta aca es porque me faltan bloques");
 		crearMetadataArchPoke(pokemonAeditar->pokemon,string_length(posValidas));
 
 
+	}
 
+	else {
+
+	string_iterate_lines(bloquesDelPokemon,obtenerCantBloques);
+
+	char* ultimoBloque=string_new();
+
+	ultimoBloque=bloquesDelPokemon[cantBloquesPoke];
+
+	pokemonEnMemoria=string_new();
+
+	copiarPokemonEnMemoria(ultimoBloque);
+
+	string_append(&nuevaPos,nuevaCant);
+
+	if((metadata_fs->tamanioBLoques- string_length(pokemonEnMemoria))>string_length(nuevaPos)){
+
+
+		string_append(&pokemonEnMemoria,nuevaPos);
+
+		copiarEnBloque(ultimoBloque,pokemonEnMemoria);
+
+		cambiarTamanioMetadata(pokemon,string_length(nuevaPos));
+
+	} else{
+
+
+	//copiar hasta donde entre
+	//copiar en otro bloque
+
+	//asi hasta el final
+
+		}
 	}
 
 	log_info(gameCard_logger,"finalizando modificación del pokemon");
+}
+
+
+
+void cambiarTamanioMetadata(char* pokemon,int tamanioAgregar){
+
+	t_config* configPoke;
+
+	char* rutaPoke=string_new();
+	string_append(&rutaPoke,rutas_fs->pathDirectorioFilesMetadata);
+	string_append(&rutaPoke,"/");
+	string_append(&rutaPoke,pokemon);
+	string_append(&rutaPoke,"/metadata.bin");
+
+	configPoke=config_create(rutaPoke);
+
+	int cantidadNueva=config_get_int_value(configPoke,"SIZE")+tamanioAgregar;
+
+	config_set_value(configPoke,"SIZE" ,cantidadNueva);
+
+	config_save_in_file(configPoke,rutaPoke);
+
+}
+
+
+
+void obtenerCantBloques(char* bloque){
+
+	cantBloquesPoke=cantBloquesPoke+1;
 }
 
 
@@ -701,7 +767,7 @@ void persistirCambiosEnBloquesNuevos(char* bloqueNuevo){
 
 }
 
-char** obtenerBloquesNuevos(int cantBloqNecesarios){
+char* obtenerBloquesNuevos(int cantBloqNecesarios){
 
 	char* bloquesLibres;
 	bloquesLibres=string_new();

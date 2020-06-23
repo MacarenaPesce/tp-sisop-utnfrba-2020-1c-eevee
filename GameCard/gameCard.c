@@ -111,7 +111,7 @@ int  main () {
 	}
 
 
-	t_new_pokemon* pokis=picachuHardcodeado("Pikachu",1,2,37);
+	t_new_pokemon* pokis=picachuHardcodeado("Pikachu",1,3,37);
 		//abrirBitmap();
 
 		if(existePokemon(pokis->pokemon)){
