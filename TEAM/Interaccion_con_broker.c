@@ -83,7 +83,7 @@ void convertirse_en_suscriptor_global_del_broker(){
 
 	for(int i = 0; i < 3; i++){
 		paquete_suscripcion->cola = colas_a_suscribirse[i];
-		paquete_suscripcion->operacion = &operacion[i];
+		paquete_suscripcion->operacion = (void*)&operacion[i];
 
 		pthread_t hilo;
 		pthread_create(&hilo,NULL,(void*)suscribirse_a_cola, (void*)paquete_suscripcion);

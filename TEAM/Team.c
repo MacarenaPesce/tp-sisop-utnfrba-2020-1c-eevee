@@ -214,11 +214,17 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 	atrapar(entrenador);
 
 	sem_wait(&hay_interbloqueo_avisar_a_entrenador);
-	sem_wait(&semaforos_deadlock[entrenador->id]);
-	log_info(team_logger, "Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: %d.", entrenador->id);
 
-	mover_entrenador_a_otra_posicion(entrenador);
-	//realizar_intercambio(entrenador);
+	while(1){
+		log_error(team_logger, "ID ENTRENADOR HILO ENTRENADOR %d", entrenador->id);
+		t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entrenador->id);
+		sem_wait(sem_entrenador_deadlock->semaforo);
+
+		log_info(team_logger, "Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: %d.", entrenador->id);
+
+		mover_entrenador_a_otra_posicion(entrenador);
+		realizar_intercambio(entrenador);
+	}
 
 	return NULL;
 }
@@ -290,7 +296,6 @@ void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_
 		pokemon_encontrado->cantidad_atrapada++; /*Busco la especie en la lista global y sumo uno a los atrapados*/
 
 		chequear_si_fue_cumplido_el_objetivo_global();
-
 
 	} else {
 

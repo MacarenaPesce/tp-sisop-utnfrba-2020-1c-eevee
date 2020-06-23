@@ -51,6 +51,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&mutex_deadlock, NULL);
 	pthread_mutex_init(&mapa_mutex, NULL);
 	pthread_mutex_init(&llego_gameboy, NULL);
+
 	sem_init(&hay_un_pokemon_nuevo, 0, 0);
 	sem_init(&entrenadores_ubicados, 0, 0);
 	sem_init(&hay_interbloqueo, 0, 0);
@@ -59,13 +60,38 @@ void inicializar_semaforos(){
 
 }
 
-void inicializar_semaforos_deadlock(){
-	semaforos_deadlock = (sem_t*)malloc(sizeof(sem_t)*CANTIDAD_EN_DEADLOCK);
-	for(int i = 0; i < CANTIDAD_EN_DEADLOCK; i++){
-		sem_init(&semaforos_deadlock[i], 0, 0);
+t_semaforo_deadlock * obtener_semaforo_deadlock_por_id(int id){
+	bool buscar_sem_entrenador(void * sem){
+		return ((t_semaforo_deadlock*)sem)->id_entrenador == id;
 	}
 
-	sem_post(&semaforos_listos);
+	t_semaforo_deadlock * semaforo =  list_find(semaforos_deadlock, buscar_sem_entrenador);
+	return semaforo;
+}
+
+void destruir_semaforos_deadlock(void * semaforo){
+	free(((t_semaforo_deadlock*)semaforo)->semaforo);
+	free(semaforo);
+}
+
+void inicializar_semaforos_deadlock(){
+	semaforos_deadlock = list_create();
+
+	void inicializar_sem(void*entrenador){
+
+		t_semaforo_deadlock * semaforo_deadlock = (t_semaforo_deadlock*)malloc(sizeof(t_semaforo_deadlock));
+		sem_t * sem_deadlock = (sem_t *)malloc(sizeof(sem_t));
+		sem_init(sem_deadlock, 0, 0);
+
+		semaforo_deadlock->semaforo = sem_deadlock;
+		semaforo_deadlock->id_entrenador = ((t_entrenador*)entrenador)->id;
+
+		log_error(team_logger, "ID ENTRENADOR %d", semaforo_deadlock->id_entrenador);
+
+		list_add(semaforos_deadlock, (void*)semaforo_deadlock);
+	}
+
+	list_iterate(lista_bloqueados_cant_max_alcanzada, inicializar_sem);
 }
 
 void inicializar_archivo_de_configuracion(){
@@ -189,10 +215,7 @@ void configurar_signals(void){
 	if (sigaction(SIGINT, &signal_struct, NULL) < 0) {
 		log_info(team_logger, " SIGACTION error ");
 	}
-	sigaddset(&signal_struct.sa_mask, SIGSEGV);
-	if (sigaction(SIGINT, &signal_struct, NULL) < 0) {
-		log_info(team_logger, " SIGACTION error ");
-	}
+
 }
 
 void capturar_signal(int signo){
@@ -209,10 +232,6 @@ void capturar_signal(int signo){
     {
     	log_info(team_logger,"Desconectado");
     }
-    else if(signo == SIGSEGV)
-	{
-		log_info(team_logger,"SEGMENTATION FAULT");
-	}
 
 }
 
