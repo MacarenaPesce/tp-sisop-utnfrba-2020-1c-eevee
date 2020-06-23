@@ -510,6 +510,27 @@ void crearPokemon(t_new_pokemon* poke){
 		     exit(-1);
 			}
 
+	log_info(gameCard_logger,"aca empeizan los cambio refactor de crear pokemon");
+	int cantBloquesNecesarios=(string_length(lineaPoke))/metadata_fs->tamanioBLoques;
+
+	if ( (string_length(lineaPoke)) % metadata_fs->tamanioBLoques !=0){cantBloquesNecesarios++;}
+
+	char* bloquesNuevos= obtenerBloquesNuevos(cantBloquesNecesarios);
+
+
+	log_info(gameCard_logger,"aqui bloques libres para el pokemon: %s",bloquesNuevos);
+
+	posValidas=string_new();
+
+	string_append(&posValidas,lineaPoke);
+
+	for(int i=1;i<=atoi(bloquesNuevos);i++){
+
+		persistirCambiosEnBloquesNuevos(bloquesNuevos);
+	}
+
+
+	crearMetadataArchPoke(poke->pokemon,string_length(lineaPoke));
 
 	/*if(entraEnBloque(lineaPoke)){
 
@@ -678,7 +699,8 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 			int cantBloquesNecesarios=(copiado-string_length(posValidas))/metadata_fs->tamanioBLoques;
 
-			if ( ((copiado-string_length(posValidas)) % metadata_fs->tamanioBLoques )!=0){cantBloquesNecesarios++;};
+			if ( ((copiado-string_length(posValidas)) % metadata_fs->tamanioBLoques
+					)!=0){cantBloquesNecesarios++;};
 
 			char* bloquesNuevos= obtenerBloquesNuevos(cantBloquesNecesarios);
 
@@ -693,6 +715,8 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 	else {
 
+log_info(gameCard_logger,"si entras aca es porque se va agregar nueva linea");
+
 	string_iterate_lines(bloquesDelPokemon,obtenerCantBloques);
 
 	char* ultimoBloque=string_new();
@@ -704,6 +728,7 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 	copiarPokemonEnMemoria(ultimoBloque);
 
 	string_append(&nuevaPos,nuevaCant);
+
 
 	if((metadata_fs->tamanioBLoques- string_length(pokemonEnMemoria))>string_length(nuevaPos)){
 
@@ -773,8 +798,9 @@ char* obtenerBloquesNuevos(int cantBloqNecesarios){
 	bloquesLibres=string_new();
 
 	while(cantBloqNecesarios!=0){
-		char* bloqLib=string_itoa(obtenerPrimerBloqueLibre());
-	string_append(bloquesLibres,bloqLib);
+		char* bloqLib=string_new();
+		bloqLib	=string_itoa(obtenerPrimerBloqueLibre());
+	string_append(&bloquesLibres,bloqLib);
 	cantBloqNecesarios=cantBloqNecesarios-1;
 	}
 
