@@ -559,11 +559,6 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque){
 /* Se encarga de realizar la compactacion en particiones dinamicas*/
 void compactar(){
 
-    /*Recorrer la lista, ver si la particion esta libre
-        si esta libre borrarla de lista memoria
-        y guardar en una variable acumuladora la cant de memoria que vamos liberando
-        Si no esta libre dejarla en la lista, luego de haber recorrido la lista ir modificando los payload o los modifico mientras voy recorriendo??*/
-
     t_bloque_memoria* elemento;
     t_bloque_memoria* nuevoBloque;
     t_bloque_memoria* primerBloque = list_get(lista_memoria, 0);//obtengo el primer bloque para sacar la direccion inicial del payload
