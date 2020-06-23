@@ -18,26 +18,26 @@ void chequear_deadlock(){
 	if(list_size(lista_entrenadores) == 0 && todos_bloqueados_por_cantidad_maxima() && list_size(lista_listos) == 0){
 		printf("\n");
 		log_warning(team_logger, "Deadlock detectado");
+
 		sem_post(&hay_interbloqueo);
-		sem_post(&hay_interbloqueo_avisar_a_entrenador);
 	}
 }
 
 void * interbloqueo(){
 	sem_wait(&hay_interbloqueo);
 
+	CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
+	log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
+
+	inicializar_semaforos_deadlock();
+	sem_post(&hay_interbloqueo_avisar_a_entrenador);
+
 	pthread_mutex_lock(&mutex_deadlock);
 	hayDeadlock = false;
 	hayDeadlock = list_size(lista_bloqueados_cant_max_alcanzada) > 1;
 	pthread_mutex_unlock(&mutex_deadlock);
 
-	CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
-	log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
-
-	inicializar_semaforos_deadlock();
-
 	if(hayDeadlock){
-		//sem_wait(&semaforos_listos);
 		t_entrenador* entrenador1 = list_get(lista_bloqueados_cant_max_alcanzada, 0);
 
 		t_entrenador* entrenador2;
@@ -73,19 +73,17 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	list_add(lista_bloqueados_deadlock, entrenador2);
 	log_info(team_logger, "El entrenador %d pasó a la lista de bloqueados esperando deadlock", entrenador2->id);
 
-
 	sacar_entrenador_de_lista_pid(lista_bloqueados_cant_max_alcanzada,entrenador1->id);
 	list_add(lista_listos, entrenador1);
 	log_info(team_logger, "El entrenador %d pasó a la lista de listos para resolucion de deadlock", entrenador1->id);
 
-	//hayDeadlock = true;
-	//obtener_proximo_ejecucion();
 	t_entrenador* entre_a_ejecutar;
 	entrenador_en_ejecucion = NULL;
 	entre_a_ejecutar = list_remove(lista_listos,0);
 	entre_a_ejecutar->estado = EJECUTANDO;
 
-	sem_post(&semaforos_deadlock[(int)entre_a_ejecutar->id]);
+	t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entre_a_ejecutar->id);
+	sem_post(sem_entrenador_deadlock->semaforo);
 
 	log_trace(team_logger, "Planificando para resolver Deadlock");
 }
@@ -158,26 +156,26 @@ void realizar_intercambio(t_entrenador* entrenador1){
 		list_add(lista_finalizar, entrenador1);
 		log_debug(team_logger, "El entrenador %d finalizo", entrenador1->id);
 	} else {
+		sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador1->id);
 		list_add(lista_bloqueados_cant_max_alcanzada, entrenador1);
 		log_info(team_logger, "El entrenador %d paso a la lista de bloqueados con cantidad maxima", entrenador1->id);
 	}
 
 	if(objetivo_personal_cumplido(entrenador2)){
-			entrenador2->estado = FINALIZANDO;
-			list_add(lista_finalizar, entrenador2);
-			log_debug(team_logger, "El entrenador %d finalizo", entrenador2->id);
-		} else {
-			sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador2->id);
-			list_add(lista_bloqueados_cant_max_alcanzada, entrenador2);
-			log_info(team_logger, "El entrenador %d paso a la lista de bloqueados con cantidad maxima", entrenador2->id);
-		}
+		entrenador2->estado = FINALIZANDO;
+		list_add(lista_finalizar, entrenador2);
+		log_debug(team_logger, "El entrenador %d finalizo", entrenador2->id);
+	} else {
+		sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador2->id);
+		list_add(lista_bloqueados_cant_max_alcanzada, entrenador2);
+		log_info(team_logger, "El entrenador %d paso a la lista de bloqueados con cantidad maxima", entrenador2->id);
+	}
 
 	if(list_size(lista_bloqueados_cant_max_alcanzada) > 0){
 		list_clean(lista_bloqueados_deadlock);
 
+		list_destroy_and_destroy_elements(semaforos_deadlock, destruir_semaforos_deadlock);
 		sem_post(&hay_interbloqueo);
-		sem_post(&hay_interbloqueo_avisar_a_entrenador);
-
 		interbloqueo(); //si todavia hay entrenadores bloqueados entre sí, vuelvo a llamar a la función
 	} else {
 		terminar_team_correctamente();

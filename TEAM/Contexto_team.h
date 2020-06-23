@@ -104,7 +104,8 @@ sem_t entrenadores_ubicados;
 pthread_mutex_t mapa_mutex;
 pthread_mutex_t llego_gameboy;
 
-sem_t * semaforos_deadlock;
+t_list * semaforos_deadlock;
+
 sem_t semaforos_listos;
 sem_t hay_interbloqueo;
 sem_t hay_interbloqueo_avisar_a_entrenador;
@@ -172,6 +173,11 @@ typedef struct {
 	int cola;
 	void *(*operacion)(void*);
 }t_suscripcion_a_broker;
+
+typedef struct {
+	int id_entrenador;
+	sem_t * semaforo;
+}t_semaforo_deadlock;
 
 t_entrenador * entrenador_en_ejecucion;
 

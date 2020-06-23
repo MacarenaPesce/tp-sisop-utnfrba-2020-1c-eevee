@@ -10,6 +10,9 @@
 
 #include "Contexto_team.h"
 
+void destruir_semaforos_deadlock(void *);
+t_semaforo_deadlock * obtener_semaforo_deadlock_por_id(int);
+
 /*SETEOS INICIALES*/
 void inicializar_logger();
 void inicializar_semaforos();
