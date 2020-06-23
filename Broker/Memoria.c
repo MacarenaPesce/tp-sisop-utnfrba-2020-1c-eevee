@@ -559,6 +559,53 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque){
 /* Se encarga de realizar la compactacion en particiones dinamicas*/
 void compactar(){
 
+    /*Recorrer la lista, ver si la particion esta libre
+        si esta libre borrarla de lista memoria
+        y guardar en una variable acumuladora la cant de memoria que vamos liberando
+        Si no esta libre dejarla en la lista, luego de haber recorrido la lista ir modificando los payload o los modifico mientras voy recorriendo??*/
+
+    t_bloque_memoria* elemento;
+    t_bloque_memoria* nuevoBloque;
+    t_bloque_memoria* primerBloque = list_get(lista_memoria, 0);//obtengo el primer bloque para sacar la direccion inicial del payload
+    int acumulador_libre = 0; //sumo la cant de espacio libre para la nueva particion
+    float* payload_acu = primerBloque->payload;
+
+
+    //recorro la lista para ver que particiones estan libres y voy borrandolas de aca
+    for(int i=0; i< list_size(lista_memoria); i++){
+
+        elemento = list_get(lista_memoria, i);
+
+        //me fijo si el bloque actual en el que estoy, esta vacio
+        if(elemento->esta_vacio == true){//si el bloque esta vacio:
+
+            //sumo el tamaño de particion al acumulador libre
+            acumulador_libre += elemento->tamanio_particion;
+
+            //borro la particion de la lista
+            elemento = list_remove_and_destroy_element(lista_memoria, i, void(*element_destroyer)(void*) );
+        }
+        else{ //si el bloque esta ocupado
+
+            //sumo el tamaño de particion al acumulador ocupado
+            acumulador_ocupado += elemento->tamanio_particion;
+
+        }
+    }
+
+    //ahora cambio el payload de las que quedaron ocupadas y hay que moverlas
+    //modificar_base();
+
+    //Creo el nuevo bloque con el tamaño de todas las particiones libres
+    nuevoBloque->tamanio_particion = acumulador_libre;
+    nuevoBloque->tamanio_mensaje = 0;
+    nuevoBloque->esta_vacio = true;
+    nuevoBloque->payload = payload_acu + 1;
+	nuevoBloque->timestamp = 0;
+	nuevoBloque->last_time = 0;
+    
+    //Agrego el nuevo bloque a la lista de memoria
+    list_add(lista_memoria,nuevoBloque);
 
 	return ;
 }
