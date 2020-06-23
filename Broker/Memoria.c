@@ -652,12 +652,6 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
     int indice = obtener_indice_particion(segundoBloque);
 
     //eliminar segundo bloque de la lista
-
-	//@NAME: list_remove @DESC: Remueve un elemento de la lista de una determinada posicion y lo retorna.
-	
-	/*t_bloque_memoria* bloque = list_remove(lista_memoria, indice);
-    free(bloque);*/
-
 	//@NAME: list_remove_and_destroy_element @DESC: Remueve un elemento de la lista de una determinada posicion y libera la memoria.
 	list_remove_and_destroy_element(lista_memoria, indice, void(*element_destroyer)(void*));
 
