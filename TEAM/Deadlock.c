@@ -9,12 +9,13 @@
 
 void crear_hilo_para_deadlock(){
 	pthread_t hilo;
-	pthread_create(&hilo,NULL,(void*)interbloqueo, NULL);
+	pthread_create(&hilo,NULL,(void*)chequear_deadlock, NULL);
 }
 
-void * interbloqueo(){
-	while(1){
+void * chequear_deadlock(){
+	log_warning(team_logger, "HILO DEADLOCK CREADO");
 
+	while(GLOBAL_SEGUIR){
 		pthread_mutex_lock(&lista_entrenadores_mutex);
 		int cant_nuevos = list_size(lista_entrenadores);
 		pthread_mutex_unlock(&lista_entrenadores_mutex);
@@ -24,36 +25,38 @@ void * interbloqueo(){
 		pthread_mutex_unlock(&lista_listos_mutex);
 
 		if(cant_nuevos == 0 && todos_bloqueados_por_cantidad_maxima() && cant_ready == 0){
+			sem_post(&hay_interbloqueo);
+			interbloqueo();
 			printf("\n");
-
-			log_warning(team_logger, "Deadlock detectado");
-
-			pthread_mutex_lock(&lista_bloq_max_mutex);
-			CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
-			pthread_mutex_unlock(&lista_bloq_max_mutex);
-
-			log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
-
-			inicializar_semaforos_deadlock();
-
-			sem_post(&hay_interbloqueo_avisar_a_entrenador);
-
-			pthread_mutex_lock(&mutex_deadlock);
-			hayDeadlock = false;
-
-			pthread_mutex_lock(&lista_bloq_max_mutex);
-			hayDeadlock = list_size(lista_bloqueados_cant_max_alcanzada) > 1;
-			pthread_mutex_unlock(&lista_bloq_max_mutex);
-
-			pthread_mutex_unlock(&mutex_deadlock);
-
-			ver_entre_quienes_hay_deadlock_y_resolverlo();
-
 		}
-
 	}
 
 	return NULL;
+}
+
+void interbloqueo(){
+	sem_wait(&hay_interbloqueo);
+
+	log_warning(team_logger, "Deadlock detectado");
+
+	pthread_mutex_lock(&lista_bloq_max_mutex);
+	CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
+	pthread_mutex_unlock(&lista_bloq_max_mutex);
+
+	log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
+
+	inicializar_semaforos_deadlock();
+
+	pthread_mutex_lock(&mutex_deadlock);
+	hayDeadlock = false;
+
+	pthread_mutex_lock(&lista_bloq_max_mutex);
+	hayDeadlock = list_size(lista_bloqueados_cant_max_alcanzada) > 1;
+	pthread_mutex_unlock(&lista_bloq_max_mutex);
+
+	pthread_mutex_unlock(&mutex_deadlock);
+
+	ver_entre_quienes_hay_deadlock_y_resolverlo();
 
 }
 
@@ -117,6 +120,8 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	pthread_mutex_unlock(&lista_listos_mutex);
 	entre_a_ejecutar->estado = EJECUTANDO;
 
+
+	sem_post(&hay_interbloqueo_avisar_a_entrenador);
 	t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entre_a_ejecutar->id);
 
 	log_info(team_logger, "Haciendo el intercambio");
@@ -152,7 +157,7 @@ void verificar_si_entrenador_sigue_bloqueado(t_entrenador* entrenador){
 
 		list_add(lista_finalizar, entrenador);
 
-		sem_post(&array_semaforos_finalizar[(int)entrenador->id]);
+		sem_post(&array_semaforos_finalizar[entrenador->id]);
 		log_info(team_logger, "El entrenador %d finalizo HILO DEADLOCK", entrenador->id);
 
 	} else {
@@ -174,6 +179,7 @@ void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
 
 	if(CANTIDAD_EN_DEADLOCK > 0){
 		list_clean(lista_bloqueados_deadlock);
+		list_clean(lista_listos);
 		list_destroy_and_destroy_elements(semaforos_deadlock, destruir_semaforos_deadlock);
 
 		sem_post(&hay_interbloqueo);

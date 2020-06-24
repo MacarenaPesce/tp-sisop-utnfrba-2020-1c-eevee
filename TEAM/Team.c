@@ -243,6 +243,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	/*CREO UN HILO POR ENTRENADOR*/
 	pthread_t entre;
 	pthread_create(&entre,NULL,(void*)jugar_con_el_entrenador,(void*)entrenador);
+	pthread_detach(entre);
 }
 
 void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* entrenador){

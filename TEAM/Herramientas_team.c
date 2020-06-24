@@ -172,7 +172,6 @@ void obtener_las_posiciones_de_entrenadores(){
 	t_list * lista_aux = list_create();
 	string_iterate_lines_with_list(posiciones_entrenadores, lista_aux, separar_pokemones_de_entrenador);
 	MAXIMO_ENTRENADORES = list_size(lista_aux)/2;
-	//log_info(team_logger,"MAXIMO ENTRENADORES %d", MAXIMO_ENTRENADORES);
 	log_debug(team_logger,"Las posiciones de entrenadores recuperadas");
 	list_destroy(lista_aux);
 }
