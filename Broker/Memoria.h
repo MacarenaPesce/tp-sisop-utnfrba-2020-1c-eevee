@@ -55,16 +55,16 @@ t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes, void* mensaje
 
 //---ALGORITMOS DE MEMORIA----
 t_bloque_memoria* algoritmo_de_memoria( int tamanio_msje, void* mensaje); //LISTO
-t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes, void* mensaje);  //FALTA COMPACTAR CASI LISTO
+t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes, void* mensaje);  //LISTO
 t_bloque_memoria* buddy_system( int tamanio_en_bytes, void* mensaje); //EN PROCESO
 
 
 //********Funciones de Algoritmos de memoria************
-t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti, void* mensaje); //LISConsolidar en particiones dinamicasTO
+t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti, void* mensaje); //LISTO
 t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti, void* mensaje); //LISTO
 t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes, int tamanio_parti, void* mensaje); //LISTO
 void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros que son con opciones, si mandan una opcion por el archivo config que no es valida
-t_bloque_memoria* algoritmo_fifo(); //LISTO  fijarme si esta bien o si liberar_bloque_memoria me tiene que devolver el bloque o no hace falta
+t_bloque_memoria* algoritmo_fifo(); //LISTO
 t_bloque_memoria* algoritmo_lru(); //LISTO 
 
 
@@ -83,16 +83,17 @@ int tamanio_a_alojar(int tamanio);
 
 void liberar_bloque_memoria(t_bloque_memoria* bloque); //LISTO
 
-void compactar();
-
 /***Para Particiones dinamicas***/
+//Consolidacion
 void consolidar(t_bloque_memoria* bloque);
 void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque);
 void consolidar_tres_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque, t_bloque_memoria* tercerBloque);
+//Compactacion
+void compactar();
+void modificar_base();
 
-
+//Auxiliar para LRU y FIFO
 uint64_t get_timestamp();
-
 
 
 //*****************Auxiliares especificas Buddy System******************************
