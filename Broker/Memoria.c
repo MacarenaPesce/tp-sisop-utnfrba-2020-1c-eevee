@@ -19,14 +19,17 @@ extern t_config* config;
 //--------------------------- ADMINISTRACION DE MEMORIA-------------------
 
 /*Dado el valor de memoria inicial, asigno un bloque para la memoria inicial y lo retorno*/
-t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes){
+void asignar_memoria_inicial(int tamanio_en_bytes){
 
-    log_info(broker_logger, "Por asignar la memoria inicial");
+    //log_info(broker_logger, "Por asignar la memoria inicial");
 
     /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
     void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
     memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
    
+    printf("Se asigno la memoria inicial");
+    printf("La direccion inicial de memoria es %p", memoria_inicial);
+
     /* Genero el bloque de memoria inicial*/
     t_bloque_memoria *bloque;
     bloque = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
@@ -39,14 +42,15 @@ t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes){
 	bloque->timestamp = 0;
 	bloque->last_time = 0;
 
-  
+    printf("Particion de memoria inicial creada con %i", bloque->tamanio_particion );
+
     /* Agrego el bloque a la lista */
     list_add(lista_memoria,bloque);
 
-    log_info(broker_logger, "Ya asigne la memoria inicial y cree el primer bloque");
+    //log_info(broker_logger, "Ya asigne la memoria inicial y cree el primer bloque");
 
     /* Retorno la variable inicial para guardarla en la global */
-    return bloque;
+    return ;
 }
 
 
