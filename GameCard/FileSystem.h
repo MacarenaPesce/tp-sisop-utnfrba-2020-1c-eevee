@@ -159,4 +159,7 @@ void cantBloquesOcupadosPorPokemon(char* bloque);
 int cantBloquesPoke;
 
 void obtenerCantBloques(char* bloque);
+
+char** obtenerbloquesMetadata(char* pokemon);
+
 #endif /* FILESYSTEM_H_ */

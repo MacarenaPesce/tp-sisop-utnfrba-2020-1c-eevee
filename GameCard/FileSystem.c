@@ -669,6 +669,12 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 	//copiando poke a memoria
 	string_iterate_lines(bloquesDelPokemon,copiarPokemonEnMemoria);
 
+int cantBloquesOcupados=string_length(pokemonEnMemoria)/metadata_fs->tamanioBLoques;
+
+if(string_length(pokemonEnMemoria) %metadata_fs->tamanioBLoques!=0){cantBloquesOcupados++;}
+
+log_info(gameCard_logger,"dame lo que consumis de bloques %d",cantBloquesOcupados);
+
 	//estoy pensando que la linea existe y que se va a modificar
 	if(string_contains(pokemonEnMemoria,nuevaPos)==1){
 
@@ -730,6 +736,9 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar){
 
 	else {
 
+		//aca bloques que ocupa pokemon
+
+
 		//aca la linea ni existia , por lo tanto se agrega
 
 log_info(gameCard_logger,"si entras aca es porque se va agregar nueva linea");
@@ -737,13 +746,13 @@ log_info(gameCard_logger,"si entras aca es porque se va agregar nueva linea");
 pokemonEnMemoria=string_new();
 
 //aca obtengo cantidad de bloques ocupados por el pokemon
-	string_iterate_lines(bloquesDelPokemon,obtenerCantBloques);
+	//string_iterate_lines(bloquesDelPokemon,obtenerCantBloques);
 
 	char* ultimoBloque=string_new();
 
+	log_info(gameCard_logger,"dame pos querida: %d",cantBloquesOcupados-1);
 	//aca obtengo el ultimo bloque
-
-	ultimoBloque=bloquesDelPokemon[cantBloquesPoke-1];
+	ultimoBloque=bloquesDelPokemon[cantBloquesOcupados-1];
 
 	log_info(gameCard_logger,"el último bloque es : %s", ultimoBloque);
 	pokemonEnMemoria=string_new();
@@ -753,9 +762,11 @@ pokemonEnMemoria=string_new();
 
 	string_append(&nuevaPos,string_itoa(nuevaCant));
 
+	string_append(&nuevaPos,"\n");
 	if((metadata_fs->tamanioBLoques- string_length(pokemonEnMemoria))>string_length(nuevaPos)){
 
 
+		log_info(log_info,"si entras aca es porque tenes espacio de copiar en un bloque existente");
 		//si alacanza espacio de bloque lo cambia y listo
 		string_append(&pokemonEnMemoria,nuevaPos);
 
@@ -765,16 +776,23 @@ pokemonEnMemoria=string_new();
 
 	} else{
 
+		log_info(gameCard_logger,"aqui entras porque necesitas otro bloque");
+
 		char* auxPoke=string_new();
 
 		string_append(&auxPoke,pokemonEnMemoria);
 		string_append(&auxPoke,nuevaPos);
 
+		int cantBloquesUsados=(string_length(pokemonEnMemoria))/metadata_fs->tamanioBLoques;
+
+					if ( (string_length(pokemonEnMemoria)) % metadata_fs->tamanioBLoques !=0){
+						cantBloquesUsados++;}
+
 			int cantBloquesNecesarios=(string_length(auxPoke))/metadata_fs->tamanioBLoques;
 
 			if ( (string_length(auxPoke)) % metadata_fs->tamanioBLoques !=0){cantBloquesNecesarios++;}
 
-			int cantBloquesFaltantes=cantBloquesNecesarios-cantBloquesPoke;
+			int cantBloquesFaltantes=cantBloquesNecesarios-cantBloquesUsados;
 
 			char* bloquesNuevos= obtenerBloquesNuevos(cantBloquesFaltantes);
 
@@ -974,5 +992,23 @@ bool noHayEspacioParaModificaciones(char* posValidas){
 
 void eliminarLineaPokemon(t_new_pokemon* poke){
 
+
+}
+
+char** obtenerbloquesMetadata(char* pokemon){
+
+	t_config* configPoke;
+
+		char* rutaPoke=string_new();
+		string_append(&rutaPoke,rutas_fs->pathDirectorioFilesMetadata);
+		string_append(&rutaPoke,"/");
+		string_append(&rutaPoke,pokemon);
+		string_append(&rutaPoke,"/Metadata.bin");
+
+		configPoke=config_create(rutaPoke);
+
+		char** bloques = config_get_array_value(configPoke,"BLOCKS");
+
+		return bloques;
 
 }

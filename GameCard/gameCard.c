@@ -119,63 +119,36 @@ int  main () {
 			log_info(gameCard_logger,"Se lo va a modificar!");
 			modificarPokemon(pokis);
 		}
-		else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
+		else { log_info(gameCard_logger, "no existe pokemon Pikachu");
 
-		crearPokemon(pokis);
 		free(pokis);
 		}
 
-/*
-	t_new_pokemon* pic=picachuHardcodeado("Pikachu",1,2,33);
+
+	t_new_pokemon* pic=picachuHardcodeado("Pikachu",1033,2333,5633);
 		//abrirBitmap();
 
 		if(existePokemon(pic->pokemon)){
 			log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
+			modificarPokemon(pic);
 		}
 		else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
 
-		modificarPokemon(pic);
 		free(pic);
 		}
 
-
-		t_new_pokemon* picac=picachuHardcodeado("Pikachu",11,22,33);
+		t_new_pokemon* pichi=picachuHardcodeado("Pikachu",1987,2987,3553);
 				//abrirBitmap();
 
-		if(existePokemon(picac->pokemon)){
-			log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
-				}
-		else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
-
-			crearPokemon(picac);
-			free(picac);
-			}
-
-
-		t_new_pokemon* picach=picachuHardcodeado("Pikachu",111,222,333);
-				//abrirBitmap();
-
-				if(existePokemon(picach->pokemon)){
+				if(existePokemon(pichi->pokemon)){
 					log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
+					modificarPokemon(pichi);
 				}
 				else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
 
-				crearPokemon(picach);
-				free(picach);
+				free(pichi);
 				}
 
-
-		t_new_pokemon* pi=picachuHardcodeado("Pikachu",111,222,333);
-						//abrirBitmap();
-
-		if(existePokemon(pi->pokemon)){
-			log_info(gameCard_logger,"Existe pokemon Pikachu, no se lo va a crear");
-						}
-		else { log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
-
-		crearPokemon(pi);
-		free(pi);
-				}
 
 /*
 	t_new_pokemon* charmander=charmanderHardcodeado();
