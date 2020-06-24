@@ -90,7 +90,7 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 void consolidar_tres_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque, t_bloque_memoria* tercerBloque);
 //Compactacion
 void compactar();
-void modificar_base();
+//void compactar_payload();
 
 //Auxiliar para LRU y FIFO
 uint64_t get_timestamp();

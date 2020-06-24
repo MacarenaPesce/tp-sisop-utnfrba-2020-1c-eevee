@@ -589,7 +589,21 @@ void compactar(){
     }
 
     //ahora cambio el payload de las que quedaron ocupadas y hay que moverlas
-    //modificar_base();
+    //compactar_payload();
+    for(int i=0; i< list_size(lista_memoria); i++){
+
+        elemento = list_get(lista_memoria, i);
+
+        /*if((payload_acu == elemento->payload) && (elemento->esta_vacio == false)){
+            payload_acu += elemento->tamanio_particion
+        }*/
+
+        elemento->payload = payload_acu;
+
+        payload_acu = payload_acu + elemento->tamanio_particion + 1;
+
+    }
+
 
     //Creo el nuevo bloque con el tamaño de todas las particiones libres
     nuevoBloque->tamanio_particion = acumulador_libre;
