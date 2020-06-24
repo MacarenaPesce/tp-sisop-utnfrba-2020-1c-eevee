@@ -111,7 +111,9 @@ int  main () {
 	}
 
 
-	t_new_pokemon* pokis=picachuHardcodeado("Pikachu",1,3,37);
+
+
+	 t_new_pokemon* pokis=picachuHardcodeado("Pikachu",1,3,37);
 		//abrirBitmap();
 
 		if(existePokemon(pokis->pokemon)){
@@ -123,6 +125,7 @@ int  main () {
 
 		free(pokis);
 		}
+
 
 
 	t_new_pokemon* pic=picachuHardcodeado("Pikachu",1033,2333,5633);
@@ -150,8 +153,8 @@ int  main () {
 				}
 
 
-/*
-	t_new_pokemon* charmander=charmanderHardcodeado();
+
+				/***t_new_pokemon* charmander=charmanderHardcodeado();
 	//abrirBitmap();
 
 	if(existePokemon(charmander->pokemon)){

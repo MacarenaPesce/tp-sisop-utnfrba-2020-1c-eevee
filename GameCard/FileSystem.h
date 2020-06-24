@@ -148,7 +148,7 @@ int copiado, desde, hasta;
 
 void persistirCambiosEnBloquesNuevos(char* bloqueNuevo);
 
-char* obtenerBloquesNuevos(int cantBloqNecesarios);
+//char* obtenerBloquesNuevos(int cantBloqNecesarios);
 
 bool noHayEspacioParaModificaciones(char* posValidas);
 
@@ -161,5 +161,15 @@ int cantBloquesPoke;
 void obtenerCantBloques(char* bloque);
 
 char** obtenerbloquesMetadata(char* pokemon);
+
+t_list* obtenerBloquesNuevos(int cantBloqNecesarios);
+
+t_list* bloquesNuevos;
+
+void copiarEnBloques(void* bloque);
+
+int cantBlok;
+
+void sumameBloques(char* bloq);
 
 #endif /* FILESYSTEM_H_ */
