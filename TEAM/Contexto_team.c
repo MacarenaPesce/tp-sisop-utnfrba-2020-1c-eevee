@@ -51,3 +51,4 @@ t_list* mensajes;
 t_list* lista_bloqueados_esperando;
 t_list* lista_bloqueados_cant_max_alcanzada;
 t_list* lista_bloqueados_deadlock;
+t_list* pokemones_que_llegan_nuevos;

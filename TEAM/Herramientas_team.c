@@ -8,6 +8,28 @@
 #include "Herramientas_team.h"
 #include "Funciones_para_listas.h"
 
+bool todos_bloqueados_por_cantidad_maxima(){
+	pthread_mutex_lock(&lista_bloq_max_mutex);
+	int cant = list_size(lista_bloqueados_cant_max_alcanzada);
+	pthread_mutex_unlock(&lista_bloq_max_mutex);
+
+	return list_size(lista_bloqueados_esperando) == 0 && cant > 0;
+}
+
+void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list * lista){
+	int k = 0;
+	t_objetivo_entrenador * objetivo = malloc(sizeof(t_objetivo));
+	while(!list_is_empty(lista)){
+		objetivo = list_get(lista, k);
+		if(objetivo == NULL){
+			break;
+		}
+		log_info(team_logger,"Un objetivo es de la especie %s, cantidad necesitada %d", objetivo->especie, objetivo->cantidad);
+		k++;
+	}
+	free(objetivo);
+}
+
 bool objetivo_personal_cumplido(t_entrenador* entrenador){
 	int contador = 0;
 	if(entrenador->objetivo == NULL){
@@ -30,7 +52,6 @@ bool objetivo_global_cumplido(){
 				contador++;
 			}
 		}
-		chequear_deadlock();
 		return (contador == list_size(lista_objetivos) && !hayDeadlock);
 		//es verdadero y cumple esto y ademas no haya deadlock
 }
@@ -48,16 +69,28 @@ void inicializar_semaforos(){
 	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
 		sem_init(&array_semaforos[i], 0, 0);
 	}
+
+	array_semaforos_finalizar = (sem_t*)malloc(sizeof(sem_t)*MAXIMO_ENTRENADORES);
+	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
+		sem_init(&array_semaforos_finalizar[i], 0, 0);
+	}
+
 	pthread_mutex_init(&mutex_deadlock, NULL);
 	pthread_mutex_init(&mapa_mutex, NULL);
 	pthread_mutex_init(&llego_gameboy, NULL);
+	pthread_mutex_init(&lista_bloq_max_mutex, NULL);
+	pthread_mutex_init(&lista_entrenadores_mutex, NULL);
+	pthread_mutex_init(&lista_listos_mutex, NULL);
 
-	sem_init(&hay_un_pokemon_nuevo, 0, 0);
 	sem_init(&entrenadores_ubicados, 0, 0);
 	sem_init(&hay_interbloqueo, 0, 0);
 	sem_init(&hay_interbloqueo_avisar_a_entrenador, 0, 0);
 	sem_init(&semaforos_listos, 0, 0);
-
+	sem_init(&operar_con_localized, 0, 0);
+	sem_init(&operar_con_appeared, 0, 0);
+	sem_init(&operar_con_caught, 0, 0);
+	sem_init(&orden_para_planificar, 0, 0);
+	sem_init(&aviso_entrenador_hizo_intercambio, 0, 0);
 }
 
 t_semaforo_deadlock * obtener_semaforo_deadlock_por_id(int id){
@@ -86,12 +119,12 @@ void inicializar_semaforos_deadlock(){
 		semaforo_deadlock->semaforo = sem_deadlock;
 		semaforo_deadlock->id_entrenador = ((t_entrenador*)entrenador)->id;
 
-		log_error(team_logger, "ID ENTRENADOR %d", semaforo_deadlock->id_entrenador);
-
 		list_add(semaforos_deadlock, (void*)semaforo_deadlock);
 	}
 
+	pthread_mutex_lock(&lista_bloq_max_mutex);
 	list_iterate(lista_bloqueados_cant_max_alcanzada, inicializar_sem);
+	pthread_mutex_unlock(&lista_bloq_max_mutex);
 }
 
 void inicializar_archivo_de_configuracion(){

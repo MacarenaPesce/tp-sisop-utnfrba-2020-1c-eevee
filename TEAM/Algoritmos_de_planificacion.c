@@ -7,6 +7,39 @@
 
 #include "Algoritmos_de_planificacion.h"
 
+void * planificar(){
+	/*Cada entrenador al iniciar en el sistema entrará en estado New. ------- ESTO YA ESTA! CUANDO SE ORDENA LA LISTA DE ENTRENADORES */
+
+	/*A medida que el Team empiece a recibir distintos Pokémon en el mapa despertará a los distintos entrenadores en estado New o en
+	Blocked (que estén esperando para procesar) pasandolos a Ready. */
+
+	/*Siempre se planificará aquel entrenador que se encuentre sin estar realizando ninguna operación activamente y, en caso de
+existir más de uno, sea el que más cerca se encuentre del objetivo. A medida que cada entrenador se planifique (ya sea para moverse, intercambiar o atrapar un
+Pokémon) entrarán en estado exec. En el contexto de nuestro trabajo practico no contemplaremos el multiprocesamiento, esto implica que solo UN entrenador
+podrá estar en estado Exec en determinado tiempo. Cuando un entrenador en estado Exec finalice su recorrido y su ejecución planificada entrará en un estado bloqueados.
+Este estado implica que el entrenador no tiene más tareas para realizar momentáneamente. Cuando un entrenador en estado Exec cumpla todos sus objetivos, pasará a estado Exit.
+Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team cumplió el objetivo global. */
+
+	while(1){
+		sem_wait(&orden_para_planificar);
+
+		pthread_mutex_lock(&mapa_mutex);
+		t_pokemon * pokemon = list_get(lista_mapa, 0);
+		pthread_mutex_unlock(&mapa_mutex);
+
+		seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+		obtener_proximo_ejecucion();
+	}
+
+	return NULL;
+}
+
+void crear_hilo_para_planificar(){
+	sem_wait(&entrenadores_ubicados);
+	pthread_t hilo;
+	pthread_create(&hilo,NULL,(void*)planificar, NULL);
+}
+
 void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	//Para poder planificar un entrenador, se seleccionará el hilo del entrenador más cercano al Pokémon.
 
@@ -25,8 +58,14 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 		i++;
 		if(i == cantidad_entrenadores){
 			entrenador_mas_cercano->objetivo_actual = pokemon;
+
+			pthread_mutex_lock(&lista_listos_mutex);
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
+			pthread_mutex_unlock(&lista_listos_mutex);
+
+			pthread_mutex_lock(&lista_entrenadores_mutex);
 			sacar_entrenador_de_lista_pid(lista_entrenadores, entrenador_mas_cercano->id);
+			pthread_mutex_unlock(&lista_entrenadores_mutex);
 			break;
 		}
 		otro_entrenador = list_get(lista_aux, i);
@@ -36,10 +75,8 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 		mas_cerca = esta_mas_cerca(entrenador_mas_cercano, otro_entrenador, pokemon);
 		if(!mas_cerca){
 			entrenador_mas_cercano = otro_entrenador;
-			//list_add(lista_listos, (void*)entrenador_mas_cercano);
 		}
 	}
-
 
 	list_destroy(lista_aux);
 	if(entrenador_mas_cercano == NULL){
@@ -52,11 +89,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 bool esta_mas_cerca(t_entrenador* entrenador1, t_entrenador* entrenador2, t_pokemon* pokemon){
 	int distancia_entrenador1 = distancia_a_pokemon(entrenador1, pokemon);
 	int distancia_entrenador2 = distancia_a_pokemon(entrenador2, pokemon);
-	if(distancia_entrenador1 < distancia_entrenador2){
-		return true;
-	} else {
-		return false;
-	}
+	return distancia_entrenador1 < distancia_entrenador2;
 }
 
 int distancia_a_pokemon(t_entrenador* entrenador, t_pokemon* pokemon){
@@ -70,7 +103,6 @@ t_entrenador * sacar_entrenador_de_lista_pid(t_list* lista,int pid){
 	bool is_pid_entrenador(t_entrenador * entrenador){
 		return (entrenador->id==pid);
 	}
-
 	return (list_remove_by_condition(lista,(void*)is_pid_entrenador));
 }
 
@@ -80,19 +112,15 @@ void ordenar_lista_estimacion(t_list * lista){
 	}
 
 	/*El comparador devuelve si el primer parametro debe aparecer antes que el segundo en la lista*/
-
 	list_sort(lista, (void*)is_estimacion_menor);
-
 	return;
 }
 
 void desalojar_ejecucion(void){
-
 	if(entrenador_en_ejecucion!=NULL){
 		estimar_entrenador(entrenador_en_ejecucion);
 		entrenador_en_ejecucion = NULL;
 	}
-
 	return;
 }
 
@@ -132,7 +160,10 @@ void obtener_proximo_ejecucion(void){
 	entrenador_en_ejecucion = list_remove(lista_aux,0);
 
 	if(!list_is_empty(lista_listos)){
+		pthread_mutex_lock(&lista_listos_mutex);
 		entrenador_en_ejecucion = sacar_entrenador_de_lista_pid(lista_listos, entrenador_en_ejecucion->id);
+		pthread_mutex_unlock(&lista_listos_mutex);
+
 		entrenador_en_ejecucion->estado = EJECUTANDO;
 		sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);
 	}
