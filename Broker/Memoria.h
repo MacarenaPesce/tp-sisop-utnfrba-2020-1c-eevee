@@ -50,7 +50,7 @@ typedef struct{
 }t_bloque_memoria;
 
 
-t_bloque_memoria* asignar_memoria_inicial(int tamanio_en_bytes); //LISTO
+void asignar_memoria_inicial(int tamanio_en_bytes); //LISTO
 t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes, void* mensaje); //LISTO
 
 //---ALGORITMOS DE MEMORIA----

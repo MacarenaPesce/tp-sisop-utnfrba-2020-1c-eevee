@@ -11,4 +11,6 @@ int main(){
 
 	asignar_memoria_inicial(8000);
 
+	//t_bloque_memoria* primerBloque = asignar_particion_memoria();
+
 }

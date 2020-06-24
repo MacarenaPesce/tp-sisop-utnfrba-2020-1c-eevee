@@ -28,7 +28,7 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
    
     printf("Se asigno la memoria inicial");
-    printf("La direccion inicial de memoria es %p", memoria_inicial);
+    printf("La direccion inicial de memoria es: %p \n", memoria_inicial);
 
     /* Genero el bloque de memoria inicial*/
     t_bloque_memoria *bloque;
@@ -42,7 +42,7 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 	bloque->timestamp = 0;
 	bloque->last_time = 0;
 
-    printf("Particion de memoria inicial creada con %i", bloque->tamanio_particion );
+    printf("Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
 
     /* Agrego el bloque a la lista */
     list_add(lista_memoria,bloque);
@@ -61,14 +61,14 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 	Esta deberia ser la que tiene que llamar la cola de mensajes*/
 t_bloque_memoria* asignar_particion_memoria(int tamanio_msje, void* mensaje){
     
-    log_info(broker_logger, "Por asignar memoria a mi particion");
+    //log_info(broker_logger, "Por asignar memoria a mi particion");
 
     //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
     t_bloque_memoria* nuevaParticion;
     //Asigno un bloque segun el algoritmo de memoria que utilicemos
     nuevaParticion = algoritmo_de_memoria(tamanio_msje, mensaje);
 
-    log_info(broker_logger, "Ya le asigne memoria a mi particion!");
+    //log_info(broker_logger, "Ya le asigne memoria a mi particion!");
 
     return nuevaParticion;
 }
@@ -104,12 +104,18 @@ t_bloque_memoria* algoritmo_de_memoria(int tamanio_msje, void* mensaje){
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
 t_bloque_memoria* particiones_dinamicas( int tamanio_msje, void* mensaje){
 
-    log_info(broker_logger, "Ejecutando particiones dinamicas");
+    //log_info(broker_logger, "Ejecutando particiones dinamicas");
+
+    printf("Particiones dinamicas \n");
+    printf("Alojar: %i \n", tamanio_msje );
 
     t_bloque_memoria* particionNueva;
+    //particionNueva = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
 
     //me fijo si el tamaño del mensaje es menor al minimo tamaño de particion
     int tamanio_parti = tamanio_a_alojar(tamanio_msje);
+    printf("Por alojar particion de: %i \n", tamanio_parti );
+
 
     //me fijo si la particion puede alojarse a la primera
     bool sePuedeAlojar = puede_alojarse(tamanio_parti);
@@ -567,6 +573,7 @@ void compactar(){
     t_bloque_memoria* nuevoBloque;
     t_bloque_memoria* primerBloque = list_get(lista_memoria, 0);//obtengo el primer bloque para sacar la direccion inicial del payload
     int acumulador_libre = 0; //sumo la cant de espacio libre para la nueva particion
+    int acumulador_ocupado = 0; //sumo la cant de espacio ocupado para desp validar
     float* payload_acu = primerBloque->payload;
 
 
@@ -582,7 +589,7 @@ void compactar(){
             acumulador_libre += elemento->tamanio_particion;
 
             //borro la particion de la lista
-            elemento = list_remove_and_destroy_element(lista_memoria, i, void(*element_destroyer)(void*) );
+            list_remove_and_destroy_element(lista_memoria, i, (void*)free );
         }
         else{ //si el bloque esta ocupado
 
@@ -608,6 +615,9 @@ void compactar(){
 
     }
 
+    if( list_size(lista_memoria)==acumulador_ocupado){
+        printf("se realizo bien la compactación ");
+    }
 
     //Creo el nuevo bloque con el tamaño de todas las particiones libres
     nuevoBloque->tamanio_particion = acumulador_libre;
@@ -671,7 +681,7 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 
     //eliminar segundo bloque de la lista
 	//@NAME: list_remove_and_destroy_element @DESC: Remueve un elemento de la lista de una determinada posicion y libera la memoria.
-	list_remove_and_destroy_element(lista_memoria, indice, void(*element_destroyer)(void*));
+	list_remove_and_destroy_element(lista_memoria, indice, (void*)free);
 
 
     return ;
@@ -685,8 +695,8 @@ void consolidar_tres_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* s
     int indiceDos = obtener_indice_particion(tercerBloque);
 
     //eliminar segundo bloque y tercer bloque de la lista
-	list_remove_and_destroy_element(lista_memoria, indiceUno, void(*element_destroyer)(void*));
-	list_remove_and_destroy_element(lista_memoria, indiceDos, void(*element_destroyer)(void*));
+	list_remove_and_destroy_element(lista_memoria, indiceUno, (void*)free);
+	list_remove_and_destroy_element(lista_memoria, indiceDos, (void*)free);
 
     return ;
 }
