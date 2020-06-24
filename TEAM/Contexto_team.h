@@ -91,10 +91,12 @@ extern t_list* lista_config; //lista auxiliar para cargar la info del archivo de
 extern t_list* pokemones_ordenada; //lista auxiliar para calcular el objetivo global
 extern t_list* lista_mapa;
 extern t_list* lista_pokemon_atrapado;
-extern t_list* mensajes;
+extern t_list* mensajes_catch;
+extern t_list* mensajes_get;
 extern t_list* pokemones_bloqueados;
 extern t_list* lista_bloqueados_esperando;
 extern t_list* lista_bloqueados_cant_max_alcanzada;
+extern t_list* lista_bloqueados_esperando_caught;
 extern t_list* lista_bloqueados_deadlock;
 
 sem_t hay_un_pokemon_nuevo;
@@ -167,7 +169,9 @@ typedef struct { //estructura del objetivo de un entrenador
 typedef struct {
 	uint32_t id;
 	t_pokemon pokemon;
+	t_entrenador * entrenador;
 }t_mensaje_guardado;
+
 
 typedef struct {
 	int cola;
