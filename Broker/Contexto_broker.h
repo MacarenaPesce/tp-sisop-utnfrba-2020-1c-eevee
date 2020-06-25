@@ -1,7 +1,32 @@
 #ifndef CONTEXTO_BROKER_H_
 #define CONTEXTO_BROKER_H_
 
-#include "includes.h"
+/* Includes externo */
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <stdint.h>
+#include <signal.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include <netdb.h>
+#include <commons/log.h>
+#include <commons/collections/list.h>
+#include <commons/config.h>
+#include <commons/bitarray.h>
+#include <commons/string.h>
+#include <string.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <Pokebola.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
+/* Includes propios */
+#include "Memoria.h"
 
 /* Keys config file*/
 #define KEY_CONFIG_TAMANIO_MEMORIA "TAMANIO_MEMORIA"
