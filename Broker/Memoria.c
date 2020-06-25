@@ -539,21 +539,21 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 /*Obtengo el indice de un determinado, recorriendo toda la lista y comparando los payload*/
 int obtener_indice_particion(t_bloque_memoria* bloque){
 
-	int indice;
-	t_bloque_memoria* elemento ;
+	int indice=0;
 
-	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
+    bool buscar_bloque(void* _bloque){
 
-		elemento = list_get(cache_mensajes->memoria, i);
+        t_bloque_memoria* bloque_memoria = (t_bloque_memoria*) _bloque;
 
-		if(elemento->payload == bloque->payload){
-			indice=i;
-			i = list_size(cache_mensajes->memoria);
-			break;
-		}
-		
-	}
+        indice++;
 
+        if(bloque_memoria->esta_vacio) return false;
+
+        return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje;
+
+    }
+
+    list_find(cache_mensajes->memoria, buscar_bloque);
 
 	return indice;
 }
@@ -631,7 +631,6 @@ void compactar(){
     }
 
     //ahora cambio el payload de las que quedaron ocupadas y hay que moverlas
-    //compactar_payload();
     for(int i=0; i< list_size(cache_mensajes->memoria); i++){
 
         elemento = list_get(cache_mensajes->memoria, i);
@@ -642,7 +641,7 @@ void compactar(){
 
         elemento->payload = payload_acu;
 
-        payload_acu = payload_acu + elemento->tamanio_particion + 1;
+        payload_acu += elemento->tamanio_particion + 1;
 
     }
 
@@ -676,58 +675,23 @@ void consolidar(t_bloque_memoria* bloque){
 
     t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria,(indice_bloque+1));
 
-    //Me fijo si el bloque es el ultimo y si el anterior esta vacio
-    if(bloque_siguiente == NULL && bloque_anterior->esta_vacio == true){
-        consolidar_dos_bloques(bloque_anterior,bloque);
-    }
-    //Me fijo si el bloque es el primero y el siguiente esta vacio
-    if(bloque_anterior == NULL && bloque_siguiente->esta_vacio == true){
+    if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true){
         consolidar_dos_bloques(bloque,bloque_siguiente);
     }
-    //Me fijo si los dos bloques son distintos de NULL
-    if(bloque_anterior != NULL && bloque_siguiente != NULL){
-
-        //Me fijo si los dos bloques estan vacios
-        if(bloque_anterior->esta_vacio == true && bloque_siguiente->esta_vacio){
-            consolidar_tres_bloques(bloque_anterior,bloque,bloque_siguiente);
-        }
-        else if(bloque_anterior->esta_vacio == true){
-            consolidar_dos_bloques(bloque_anterior,bloque);
-        }
-        else{
-            consolidar_dos_bloques(bloque, bloque_siguiente);
-        }
-
-    }    
-    //Me fijo si es el unico bloque ???
+    if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true){
+        consolidar_dos_bloques(bloque_anterior,bloque);
+    }
 
     return ;
 }
 
 void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque){
 
-    primerBloque->tamanio_particion = primerBloque->tamanio_particion + segundoBloque->tamanio_particion;
+    primerBloque->tamanio_particion += segundoBloque->tamanio_particion;
 
     int indice = obtener_indice_particion(segundoBloque);
 
-    //eliminar segundo bloque de la lista
-	//@NAME: list_remove_and_destroy_element @DESC: Remueve un elemento de la lista de una determinada posicion y libera la memoria.
 	list_remove_and_destroy_element(cache_mensajes->memoria, indice, (void*)free);
-
-
-    return ;
-}
-
-void consolidar_tres_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque, t_bloque_memoria* tercerBloque){
-
-    primerBloque->tamanio_particion = primerBloque->tamanio_particion + segundoBloque->tamanio_particion + tercerBloque->tamanio_particion;
-
-    int indiceUno = obtener_indice_particion(segundoBloque);
-    int indiceDos = obtener_indice_particion(tercerBloque);
-
-    //eliminar segundo bloque y tercer bloque de la lista
-	list_remove_and_destroy_element(cache_mensajes->memoria, indiceUno, (void*)free);
-	list_remove_and_destroy_element(cache_mensajes->memoria, indiceDos, (void*)free);
 
     return ;
 }

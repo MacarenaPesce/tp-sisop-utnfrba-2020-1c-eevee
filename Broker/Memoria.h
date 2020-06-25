@@ -79,10 +79,9 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque); //LISTO
 //Consolidacion
 void consolidar(t_bloque_memoria* bloque);
 void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque);
-void consolidar_tres_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque, t_bloque_memoria* tercerBloque);
 //Compactacion
 void compactar();
-//void compactar_payload();
+
 
 //Auxiliar para LRU y FIFO
 uint64_t get_timestamp();
