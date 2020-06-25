@@ -115,7 +115,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 	int broker_socket = enviar_solicitud_suscripcion(servidor,paquete_suscripcion->cola, suscripcion);
 
-	while(1){
+	while(GLOBAL_SEGUIR){
 
 		if(broker_socket <= 0){
 			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola");

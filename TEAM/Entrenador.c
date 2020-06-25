@@ -15,22 +15,30 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 	llegar_a_el_pokemon(entrenador);
 	atrapar(entrenador);
 
-	sem_wait(&hay_interbloqueo_avisar_a_entrenador);
+	sem_wait(&hay_interbloqueo);
+
 	t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entrenador->id);
 
-	log_error(team_logger, "El puto semaforo corresponde al entrenador %d", entrenador->id);
+	if(sem_entrenador_deadlock == NULL){
+		sem_wait(&array_semaforos_finalizar[entrenador->id]);
+		log_info(team_logger, "El entrenador %d finalizo", entrenador->id);
+		printf("\n");
+		sem_post(&hay_interbloqueo);
+		return NULL;
 
-	sem_wait(sem_entrenador_deadlock->semaforo);
+	}else{
+		sem_wait(sem_entrenador_deadlock->semaforo);
+		log_info(team_logger, "Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: %d.", entrenador->id);
+		mover_entrenador_a_otra_posicion(entrenador);
+		realizar_intercambio(entrenador);
 
-	log_info(team_logger, "Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: %d.", entrenador->id);
+		sem_wait(&array_semaforos_finalizar[entrenador->id]);
+		log_info(team_logger, "El entrenador %d finalizo", entrenador->id);
+		printf("\n");
 
-	mover_entrenador_a_otra_posicion(entrenador);
-	realizar_intercambio(entrenador);
+		return NULL;
+	}
 
-	sem_wait(&array_semaforos_finalizar[entrenador->id]);
-
-	log_info(team_logger, "El entrenador %d finalizo", entrenador->id);
-	return NULL;
 }
 
 void llegar_a_el_pokemon(t_entrenador * entrenador){
@@ -90,41 +98,45 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	sem_post(&operar_con_catch);
 	operar_con_catch_pokemon(ack, entrenador, catch_pokemon);
 
+	free(servidor);
+
 }
 
 void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 
-	t_entrenador* entrenador2 = list_get(lista_bloqueados_deadlock, 0);
+	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
+	entrenador2 = list_get(lista_bloqueados_deadlock, 0);
 
 	log_info(team_logger, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
-		//Primero me muevo por izq
-		while(entrenador1->posx < entrenador1->objetivo_actual->posx){
-			consumir_un_ciclo_de_cpu();
-			entrenador1->posx = entrenador1->posx + 1;
-		}
+	//Primero me muevo por izq
+	while(entrenador1->posx < entrenador1->objetivo_actual->posx){
+		consumir_un_ciclo_de_cpu();
+		entrenador1->posx = entrenador1->posx + 1;
+	}
 
-		//Despues me muevo por derecha
-		while(entrenador1->posx > entrenador1->objetivo_actual->posx){
-			consumir_un_ciclo_de_cpu();
-			entrenador1->posx = entrenador1->posx - 1;
-		}
+	//Despues me muevo por derecha
+	while(entrenador1->posx > entrenador1->objetivo_actual->posx){
+		consumir_un_ciclo_de_cpu();
+		entrenador1->posx = entrenador1->posx - 1;
+	}
 
-		//Despues me muevo por arriba
-		while(entrenador1->posy > entrenador1->objetivo_actual->posy){
-			consumir_un_ciclo_de_cpu();
-			entrenador1->posy = entrenador1->posy - 1;
-		}
+	//Despues me muevo por arriba
+	while(entrenador1->posy > entrenador1->objetivo_actual->posy){
+		consumir_un_ciclo_de_cpu();
+		entrenador1->posy = entrenador1->posy - 1;
+	}
 
-		//Despues me muevo por abajo
-		while(entrenador1->posy < entrenador1->objetivo_actual->posy){
-			consumir_un_ciclo_de_cpu();
-			entrenador1->posy = entrenador1->posy + 1;
-		}
+	//Despues me muevo por abajo
+	while(entrenador1->posy < entrenador1->objetivo_actual->posy){
+		consumir_un_ciclo_de_cpu();
+		entrenador1->posy = entrenador1->posy + 1;
+	}
 
-		if(entrenador1->posy == entrenador1->objetivo_actual->posy  && entrenador1->posx == entrenador1->objetivo_actual->posx){
-			log_info(team_logger, "El entrenador de id %d llegó a la posicion del entrenador de id %d", entrenador1->id, entrenador2->id);
+	if(entrenador1->posy == entrenador1->objetivo_actual->posy  && entrenador1->posx == entrenador1->objetivo_actual->posx){
+		log_info(team_logger, "El entrenador de id %d llegó a la posicion del entrenador de id %d", entrenador1->id, entrenador2->id);
 
-		}
+	}
+
 }
 
 t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
@@ -151,7 +163,8 @@ void realizar_intercambio(t_entrenador* entrenador1){
 		consumir_un_ciclo_de_cpu();
 	}
 
-	t_entrenador* entrenador2 = list_get(lista_bloqueados_deadlock, 0); //entrenador con quien hago el intercambio
+	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
+	entrenador2 = list_get(lista_bloqueados_deadlock, 0); //entrenador con quien hago el intercambio
 	t_objetivo_entrenador* pokemon2 = elegir_pokemon_innecesario(entrenador2); //pokemon innecesario de E2
 
 	//pokemon1 es el pokemon innecesario de E1
@@ -174,10 +187,10 @@ void realizar_intercambio(t_entrenador* entrenador1){
 	list_add(entrenador2->pokemones, pokemon1); //si no lo necesitaba lo agrego
 
 	log_info(team_logger, "Se intercambiaron los pokemones %s y %s entre los entrenadores %d y %d", pokemon1->especie, pokemon2->especie, entrenador1->id, entrenador2->id);
-	printf("\n");
+
+	sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador2->id);
 
 	//AVISAR A DEADLOCK
 	sem_post(&aviso_entrenador_hizo_intercambio);
-
 
 }

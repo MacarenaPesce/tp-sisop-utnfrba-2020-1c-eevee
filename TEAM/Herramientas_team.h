@@ -10,6 +10,7 @@
 
 #include "Contexto_team.h"
 
+int destruir_pokemon(t_pokemon *);
 void destruir_semaforos_finalizar(void *);
 void destruir_semaforos_deadlock(void *);
 t_semaforo_deadlock * obtener_semaforo_deadlock_por_id(int);

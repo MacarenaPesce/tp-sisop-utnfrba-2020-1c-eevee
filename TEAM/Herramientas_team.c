@@ -257,7 +257,6 @@ void capturar_signal(int signo){
     	log_warning(team_logger,"Team deja de funcionar");
     	GLOBAL_SEGUIR = 0;
     	terminar_team_correctamente();
-    	exit(EXIT_FAILURE);
 
     }
     else if(signo == SIGPIPE)
@@ -267,84 +266,19 @@ void capturar_signal(int signo){
 
 }
 
-int destruir_entrenador(t_entrenador * entrenador){
-	/*if(entrenador->objetivo!=NULL){
-		free(entrenador->objetivo);
-		entrenador->objetivo = NULL;
-	}*/
-	free(entrenador);
-
-	return 0;
-}
-
-int destruir_objetivo(t_objetivo * objetivo){
-	/*if(objetivo->especie!=NULL){
-		free(objetivo->especie);
-		objetivo->especie = NULL;
-	}*/
-	free(objetivo);
-
-	return 0;
-}
-
-int destruir_objetivo_entrenador(t_objetivo_entrenador * objetivo){
-	/*if(objetivo->especie!=NULL){
-		free(objetivo->especie);
-		objetivo->especie = NULL;
-	}*/
-	free(objetivo);
-
-	return 0;
-}
-
 int destruir_pokemon(t_pokemon * pokemon){
-	/*if(pokemon->especie!=NULL){
-		free(pokemon->especie);
-		pokemon->especie = NULL;
-	}*/
 	free(pokemon);
-
 	return 0;
 }
 
 void terminar_team_correctamente(){
+	GLOBAL_SEGUIR = 0;
 	log_info(team_logger,"Cerrando team...");
-/*
-	list_destroy(lista_entrenadores);
-	list_destroy(lista_objetivos);
-	list_destroy(lista_listos);
-	list_destroy(lista_finalizar);
-	list_destroy(lista_bloqueados);
+
+	/*HAY QUE DESTRUIR TODAS LAS LISTAS*/
 	list_destroy_and_destroy_elements(lista_mapa,(void*)destruir_pokemon);
-	//list_destroy_and_destroy_elements(lista_pokemones_objetivos,(void*)destruir_objetivo_entrenador);
-	//list_destroy_and_destroy_elements(lista_pokemones_de_entrenador,(void*)destruir_objetivo_entrenador);
-	//list_destroy_and_destroy_elements(lista_objetivos_de_entrenador,(void*)destruir_objetivo_entrenador);
 
-
-
-	if(entrenador_en_ejecucion!=NULL){
-		destruir_entrenador(entrenador_en_ejecucion);
-	}
-
-	//log_destroy(team_logger);
-	 *
-	if(posiciones_entrenadores!=NULL)
-	{
-		free(posiciones_entrenadores);
-		posiciones_entrenadores = NULL;
-	}
-
-	if(pokemon_entrenadores!=NULL)
-	{
-		free(pokemon_entrenadores);
-		pokemon_entrenadores = NULL;
-	}
-
-	if(objetivos_entrenadores!=NULL)
-	{
-		free(objetivos_entrenadores);
-		objetivos_entrenadores = NULL;
-	}*/
+	log_destroy(team_logger);
 
 	if(log_file!=NULL)
 	{
@@ -370,7 +304,8 @@ void terminar_team_correctamente(){
 		algoritmo_planificacion = NULL;
 	}
 
-	return;
+	//return;
+	exit(EXIT_SUCCESS);
 
 }
 

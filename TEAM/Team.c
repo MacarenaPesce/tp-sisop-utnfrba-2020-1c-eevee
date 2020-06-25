@@ -108,7 +108,7 @@ void operar_con_caught_pokemon(t_caught_pokemon * mensaje, uint32_t id){
 				}
 			}
 			free(catch_pokemon);
-			//chequear deadlock
+
 		} else {
 			log_info(team_logger,"No me importa este mensaje");
 		}
