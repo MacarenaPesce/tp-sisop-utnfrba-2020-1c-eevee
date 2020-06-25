@@ -164,7 +164,7 @@ typedef struct{
 typedef struct{    
     int tamanio_particion __attribute__((packed));
     bool esta_vacio;
-    t_mensaje_cola* estructura_mensaje;
+    t_mensaje_cola* estructura_mensaje; //EN CASO QUE esta_vacio SEA TRUE, ESTO APUNTA AL PAYLOAD DIRECTO
     uint64_t timestamp;
     uint64_t last_time;    
 }t_bloque_memoria;
