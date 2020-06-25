@@ -92,7 +92,6 @@ void medirTamanioLineaPokemon(void* pokemon);
 char*  cargarPokemon(t_new_pokemon* pokemon);
 void marcarBloqueOcupado(int bloqueLibre);
 void agregarBloqueParaMetadataArchivo(char* bloqueLibre);
-void copiarEnBloque(char* bloqueLibre,char* lineaAcopiar);
 void crearMetadataArchPoke(char* pokemon, int tamanio);
 
 //manejo del ultimo elemento
@@ -137,7 +136,7 @@ int tamanioNuevaPos;
 int nuevaCant;
 
 /******/
-void operarPosiciones(char* posicion);
+void agregarCantidadNuevaAposicion(char* posicion);
 
 //para manejar bloques libres del pokemon
 int cantBloquesOcupadosPorPoke;
@@ -171,5 +170,35 @@ void copiarEnBloques(void* bloque);
 int cantBlok;
 
 void sumameBloques(char* bloq);
+
+int ultimoBloque(char* pokeCompleto);
+
+char* pokemon;
+
+int cantElem;
+
+char* copiarSinSaltoUltimo;
+
+int cantBloquesNecesariosPara(char* pokeCompleto);
+
+void quitarSaltoDeLinea(char* texto);
+
+void cantidadElementos(char* text);
+
+void cantidadElementos(char* text);
+
+void copiarSinUltimoSalto(char* text);
+
+void contardorDeBloquesOcupadosPorPokemon(char** bloksOcupadosPorPokemon);
+
+void copiarPokemonAmemoria(char** bloksOcupadosPorPokemon);
+
+bool estaPosicionEnMemoria(char* pokemonEnMemoria, char* nuevaPos);
+
+void copiarEnBloque(char* bloqueLibre,char* lineaAcopiar);
+
+void agregarBloqueParaMetadataArchivo(char* bloqueLibre);
+
+void cambiarTamanioMetadata(char* pokemon,int tamanioAgregar);
 
 #endif /* FILESYSTEM_H_ */

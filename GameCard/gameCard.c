@@ -140,7 +140,7 @@ int  main () {
 		free(pic);
 		}
 
-		t_new_pokemon* pichi=picachuHardcodeado("Pikachu",1987,2987,3553);
+	t_new_pokemon* pichi=picachuHardcodeado("Pikachu",1987,2987,3553);
 				//abrirBitmap();
 
 				if(existePokemon(pichi->pokemon)){
@@ -151,7 +151,6 @@ int  main () {
 
 				free(pichi);
 				}
-
 
 
 				/***t_new_pokemon* charmander=charmanderHardcodeado();
