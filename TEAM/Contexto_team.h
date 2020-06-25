@@ -72,10 +72,13 @@ extern int ciclos_de_cpu;
 extern int hilos_entrenadores_total;
 extern int MAXIMO_ENTRENADORES;
 extern int CANTIDAD_EN_DEADLOCK;
+extern bool hayPokeNuevo;
+extern uint32_t quantum_actual;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
 extern t_config* config;
+
 
 extern t_list* lista_entrenadores; //lista de entrenadores cargada.
 extern t_list* lista_objetivos;
@@ -106,6 +109,8 @@ pthread_mutex_t llego_gameboy;
 pthread_mutex_t lista_bloq_max_mutex;
 pthread_mutex_t lista_entrenadores_mutex;
 pthread_mutex_t lista_listos_mutex;
+
+
 
 t_list * semaforos_deadlock;
 
@@ -191,5 +196,6 @@ typedef struct {
 }t_semaforo_deadlock;
 
 t_entrenador * entrenador_en_ejecucion;
+t_entrenador * entrenador_desalojado;
 
 #endif /* CONTEXTO_TEAM_H_ */

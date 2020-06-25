@@ -23,11 +23,20 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 	while(1){
 		sem_wait(&orden_para_planificar);
 
-		pthread_mutex_lock(&mapa_mutex);
-		t_pokemon * pokemon = list_get(lista_mapa, 0);
-		pthread_mutex_unlock(&mapa_mutex);
+		if(hayPokeNuevo){
+			pthread_mutex_lock(&mapa_mutex);
+			t_pokemon * pokemon = list_get(lista_mapa, 0);
+			pthread_mutex_unlock(&mapa_mutex);
+			hayPokeNuevo = false;
+			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 
-		seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+			if(entrenador_desalojado != NULL){
+				list_add(lista_listos, entrenador_desalojado);
+			}
+		} else {
+			log_info(team_logger, "El entrenador %i acabo su quantum", entrenador_en_ejecucion->id);
+			list_add(lista_listos, entrenador_desalojado);
+		}
 		obtener_proximo_ejecucion();
 	}
 
@@ -152,11 +161,17 @@ void obtener_proximo_ejecucion(void){
 	printf("\n");
 
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
-		ordenar_lista_estimacion(lista_aux);
+		ordenar_lista_estimacion(lista_aux);\
+
+	} else if((!strcmp(algoritmo_planificacion, "RR"))){
+		if(quantum_actual == 0){
+			quantum_actual = quantum;
+			//quantum_cero = false;
+		}
 	}
 
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
-
+	entrenador_desalojado = NULL;
 	entrenador_en_ejecucion = list_remove(lista_aux,0);
 
 	if(!list_is_empty(lista_listos)){
