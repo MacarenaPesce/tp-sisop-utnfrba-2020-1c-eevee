@@ -9,6 +9,7 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 	
 	t_mensaje_cola* mensaje = crear_mensaje(paquete->cola_de_mensajes,
                                             paquete->id_correlacional,
+											paquete->tamanio_payload,
                                             paquete->mensaje);
 
     agregar_mensaje_a_cache(mensaje);
@@ -19,7 +20,7 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 
 	return mensaje->id_mensaje;
 
-}
+t_mensaje_cola}
 
 void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
 
@@ -240,7 +241,7 @@ t_cliente* crear_cliente(uint32_t id_cliente, int socket){
 
 }
 
-t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, void* mensaje_recibido){
+t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* mensaje_recibido){
 
     t_mensaje_cola* mensaje;
 	mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
@@ -250,12 +251,12 @@ t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, void* 
     
 	mensaje->cola_de_mensajes = cola_de_mensajes;
 	mensaje->id_correlacional = id_correlacional;
+	mensaje->tamanio_mensaje = tamanio_payload;
 	mensaje->suscriptores_enviados = list_create();
 	mensaje->suscriptores_ack = list_create();
 
-	//ESTA LINEA VA A LA MEMORIA CACHEADA
 	mensaje->mensaje = mensaje_recibido;
-	
+
     return mensaje;
 }
 
@@ -272,12 +273,13 @@ t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes){
 
 t_mensaje_cola* obtener_mensaje_por_id(int id_mensaje){
   
-    bool es_mensaje_buscado(void* mensaje){
-        return ((t_mensaje_cola*)mensaje)->id_mensaje == id_mensaje;
+    bool es_mensaje_buscado(void* bloque){
+        return ((t_bloque_memoria*)bloque)->estructura_mensaje->id_mensaje == id_mensaje;
     }
 
-    return list_find(cache_mensajes->mensajes,es_mensaje_buscado);
+    t_bloque_memoria* bloque = list_find(cache_mensajes->memoria,es_mensaje_buscado);
 
+	return bloque != NULL ? bloque->estructura_mensaje : NULL;
 }
 
 t_cliente* obtener_cliente_por_id(int id_cliente){
@@ -292,14 +294,37 @@ t_cliente* obtener_cliente_por_id(int id_cliente){
 
 t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 
-   	bool filtro_mensajes(void* mensaje){
-		return ((t_mensaje_cola*)mensaje)->cola_de_mensajes == cola->cola_de_mensajes;
-	}
+	t_list* mensajes = list_create();
 
-	t_list* mensajes = list_filter(cache_mensajes->mensajes, filtro_mensajes);
+   	void listar_mensajes(void* _bloque){
+
+		t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+		if(es_memoria_de_cola(bloque,cola)){
+			list_add(mensajes,(void*) bloque->estructura_mensaje);
+		}
+
+	}		
+
+	list_iterate(cache_mensajes->memoria,listar_mensajes);
 
     return mensajes;
 
+}
+
+t_list* obtener_memoria_de_cola(t_cola_mensajes* cola){
+
+	bool filtro_mensajes(void* bloque){
+		return ((t_bloque_memoria*)bloque)->estructura_mensaje->cola_de_mensajes == cola->cola_de_mensajes;
+	}
+
+	t_list* memoria = list_filter(cache_mensajes->memoria, filtro_mensajes);
+
+	return memoria;
+}
+
+bool es_memoria_de_cola(t_bloque_memoria* bloque, t_cola_mensajes* cola){
+	return bloque->estructura_mensaje->cola_de_mensajes == cola->cola_de_mensajes;
 }
 
 bool es_suscriptor_de(int id_cliente, t_cola_mensajes* cola){
@@ -326,7 +351,9 @@ bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente){
 }
 
 void agregar_mensaje_a_cache(t_mensaje_cola* mensaje){
-    list_add(cache_mensajes->mensajes,(void*)mensaje);
+
+	asignar_particion_memoria(mensaje);
+
 }
 
 void agregar_cliente_a_cache(t_cliente* cliente){

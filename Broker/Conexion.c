@@ -107,13 +107,13 @@ void* esperar_mensajes(void* cliente){
 			tipo de estructura que contiene el paquete */
 
 			
-		/* 	printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
+		 	/* printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
 			printf("operacion: %d \n",paquete->operacion);
 			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
 			printf("id_correlacional: %d  \n",paquete->id_correlacional);
 			printf("id_mensaje: %d \n",paquete->id_mensaje);
 			printf("id_cliente: %d \n",paquete->id_cliente);
-			printf("tamanio_payload: %d \n",paquete->tamanio_payload); */		
+			printf("tamanio_payload: %d \n",paquete->tamanio_payload);	 */
 
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:
@@ -155,7 +155,7 @@ void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 	
 	distribuir_ack(socket_cliente,id_mensaje,-1);
 
-	free(paquete);
+	_eliminar_mensaje(paquete);
 
 	return;
 
@@ -174,5 +174,7 @@ void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
 void recibir_ack(t_packed *paquete,int socket_cliente){
 
 	agregar_ack_a_mensaje(paquete->id_mensaje, paquete->id_cliente, socket_cliente);
+
+	_eliminar_mensaje(paquete);
 
 }

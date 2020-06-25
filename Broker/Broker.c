@@ -1,4 +1,5 @@
-#include "includes.h"
+#include "Broker.h"
+
 
 int main(){
 
@@ -10,12 +11,12 @@ int main(){
 
 	if(debug_broker) log_debug(broker_logger, "1) Inicializando cache de mensajes...", NULL);
 
-	//printf("\n1) Inicializando cache de mensajes... \n");
-
 	pthread_mutex_lock(&mutex_queue_mensajes);
+	
+	//TODO: levantame de config
+	asignar_memoria_inicial(8000);
 
 	cache_mensajes = (t_cache_colas*)malloc(sizeof(t_cache_colas));
-	cache_mensajes->mensajes = list_create();
 	cache_mensajes->colas = list_create();
 	cache_mensajes->proximo_id_mensaje = 0;
 	cache_mensajes->clientes = list_create();
@@ -46,18 +47,16 @@ int main(){
 
 	if(debug_broker) log_debug(broker_logger, "5) Configurando signals...", NULL);
 
-	//configurar_signals();
+	configurar_signals();
 
 	if(debug_broker) log_debug(broker_logger, "6) Signals configuradas correctamente!!!", NULL);
 
 	iniciar_servidor();
 
-	/* TODO: Obtener este valor desde la config */
-	int tamanio_memoria_inicial = 8000;
-
 	//primer_bloque = AsignarMemoriaInicial(tamanio_memoria_inicial,lista_memoria);
 	while(server_status != ENDING){
 	
 	}
+
 
 }

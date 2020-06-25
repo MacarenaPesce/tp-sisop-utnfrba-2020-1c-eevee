@@ -97,7 +97,7 @@ int _enviar_mensaje(int sock,
 
 	envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
 
-	printf("\nEnvio header: %d bytes enviados a %d\n",envio_header,sock);
+	//printf("\nEnvio header: %d bytes enviados a %d\n",envio_header,sock);
 
 	if(paquete->tamanio_payload > 0 && envio_header != -1){
 		envio_payload = enviar_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
