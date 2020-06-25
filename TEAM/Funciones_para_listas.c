@@ -44,11 +44,9 @@ void inicializar_listas(){
 	lista_entrenadores = list_create();
 	lista_mapa = list_create();
 	pokemones_ordenada = list_create();
-	mensajes_catch = list_create();
-	mensajes_get = list_create();
+	mensajes = list_create();
 	lista_bloqueados_esperando = list_create();
 	lista_bloqueados_cant_max_alcanzada = list_create();
-	lista_bloqueados_esperando_caught = list_create();
 	lista_bloqueados_deadlock = list_create();
 
 }

@@ -19,7 +19,7 @@
 
 
 void operar_con_appeared_pokemon(t_pokemon *);
-void operar_con_localized_pokemon(t_localized_pokemon *, uint32_t);
+void operar_con_localized_pokemon(t_localized_pokemon *);
 void operar_con_caught_pokemon(t_caught_pokemon *, uint32_t);
 void agregar_pokemon_a_mapa(t_pokemon *);
 void definir_objetivo_global();

@@ -384,16 +384,9 @@ t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_poke
 	return (list_find(lista_bloqueados,(void*)es_el_buscado));
 }
 
-t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* mensajes){
+t_mensaje_guardado * buscar_mensaje(uint32_t id){
 	bool es_el_buscado(t_mensaje_guardado* mensaje){
-		return mensaje->id == id_correlativo;
-	}
-	return (list_find(mensajes,(void*)es_el_buscado));
-}
-
-t_mensaje_guardado * buscar_mensaje_por_especie(char * especie, uint32_t id_correlativo, t_list* mensajes){
-	bool es_el_buscado(t_mensaje_guardado* mensaje){
-		return mensaje->pokemon.especie == especie && mensaje->id != id_correlativo;
+		return mensaje->id == id;
 	}
 	return (list_find(mensajes,(void*)es_el_buscado));
 }

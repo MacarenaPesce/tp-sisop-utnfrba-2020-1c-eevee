@@ -62,10 +62,6 @@ void enviar_get(){
 			if(ack->operacion == ACK){
 				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
 				log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
-				t_mensaje_guardado * mensaje_get = malloc(sizeof(t_mensaje_guardado*));
-				mensaje_get->id = ack->id_mensaje;
-				mensaje_get->pokemon.especie = objetivo->especie;
-				list_add(mensajes_get, mensaje_get);
 			}
 
 		}else{
@@ -128,7 +124,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			if(paquete != (t_packed*)-1){
 				//Quedo a la espera de recibir notificaciones
 				if(paquete->operacion == ENVIAR_MENSAJE){
-					(paquete_suscripcion->operacion)(paquete);
+					(paquete_suscripcion->operacion)(paquete->mensaje);
 				}
 			}
 		}

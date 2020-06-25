@@ -18,37 +18,30 @@ void operar_con_appeared_pokemon(t_pokemon * pokemon){
 	sem_post(&hay_un_pokemon_nuevo);
 }
 
-void operar_con_localized_pokemon(t_localized_pokemon * mensaje, uint32_t id_correlativo){
+void operar_con_localized_pokemon(t_localized_pokemon * mensaje){
 	/*
 	 * El proceso Team se suscribirá de manera global a esta cola de mensajes. Al recibir uno de los mismos deberá realizar los siguientes pasos:
 		1. Verificar si ya recibió en algún momento un mensaje de la especie del Pokémon asociado al mensaje. Si es así, descarta el mensaje (ya sea Appeared o Localized).
 		2. En caso de que nunca lo haya recibido, realiza las mismas operatorias que para APPEARED_POKEMON por cada coordenada del pokemon.
 	 */
 
-	t_mensaje_guardado * mensaje_recibido_localized = buscar_mensaje_por_id(id_correlativo, mensajes_get);//me devuelve un mensaje de localized
-
-	if(mensaje_recibido_localized != NULL){
-
-		t_mensaje_guardado * mensaje_recibido_appeared = buscar_mensaje_por_especie(mensaje_recibido_localized->pokemon.especie, id_correlativo, mensajes_get);
-
-		if(mensaje_recibido_appeared == NULL){
-			t_list* lista_coordenadas = mensaje->lista_coordenadas;
-			int longitud = list_size((t_list*)lista_coordenadas);
-			for(int i = 0; i < longitud; i++){
-				t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-				t_coordenadas* coordenadas = list_get(lista_coordenadas, i);
-				pokemon->especie = mensaje->pokemon;
-				pokemon->posx = coordenadas->posx;
-				pokemon->posy = coordenadas->posy;
-				agregar_pokemon_a_mapa(pokemon);
-				//free(pokemon);
-			}
-		}
+	//char* especie = mensaje->pokemon;
+	/*verificar aca si ya se recibio en algun momento un mensaje de esta especie de pokemon asociado al mensaje*/
+	/*t_list* lista_coordenadas = mensaje->lista_coordenadas;
+	for(int i = 0; i < list_size(lista_coordenadas); i++){
+		t_pokemon * pokemon = malloc(sizeof(t_pokemon));
+		t_coordenadas* coordenadas = list_get(lista_coordenadas, i);
+		pokemon->especie = mensaje->pokemon;
+		pokemon->posx = coordenadas->posx;
+		pokemon->posy = coordenadas->posy;
+		agregar_pokemon_a_mapa(pokemon);
+		free(pokemon);
 	}
 
+	planificar();*/
 }
 
-void operar_con_caught_pokemon(t_caught_pokemon * mensaje, uint32_t id_correlativo){
+void operar_con_caught_pokemon(t_caught_pokemon * mensaje, uint32_t id){
 	/*
 	 * El proceso Team se suscribirá de manera global a esta cola de mensajes. Al recibir uno de los mismos deberá realizar los siguientes pasos:
 		1. Validar si el id de mensaje correlativo del mensaje corresponde a uno pendiente de respuesta generado por la la instrucción CATCH_POKEMON antes descrita.
@@ -57,15 +50,15 @@ void operar_con_caught_pokemon(t_caught_pokemon * mensaje, uint32_t id_correlati
 		Si es así se debe asignar al entrenador bloqueado el Pokémon y habilitarlo a poder volver operar.
 	 */
 
-	t_mensaje_guardado* mensaje_guardado_catch = buscar_mensaje_por_id(id_correlativo, mensajes_catch);
+	t_mensaje_guardado* mensaje_guardado = buscar_mensaje(id);
 
-	if(mensaje_guardado_catch != NULL){
+	if(mensaje_guardado != NULL){
 		if(mensaje->status == OK){
 			t_catch_pokemon* catch_pokemon = malloc(sizeof(t_catch_pokemon));
-			catch_pokemon->pokemon = mensaje_guardado_catch->pokemon.especie;
-			catch_pokemon->coordenadas.posx = mensaje_guardado_catch->pokemon.posx;
-			catch_pokemon->coordenadas.posy = mensaje_guardado_catch->pokemon.posy;
-			t_entrenador * entrenador = mensaje_guardado_catch->entrenador;
+			catch_pokemon->pokemon = mensaje_guardado->pokemon.especie;
+			catch_pokemon->coordenadas.posx = mensaje_guardado->pokemon.posx;
+			catch_pokemon->coordenadas.posy = mensaje_guardado->pokemon.posy;
+			t_entrenador* entrenador = buscar_entrenador_por_objetivo_actual(catch_pokemon);
 
 			actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
 
@@ -315,18 +308,6 @@ void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_
 }
 
 void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_packed * ack, t_entrenador * entrenador){
-
-	t_mensaje_guardado * mensaje_guardado_catch = malloc(sizeof(t_mensaje_guardado*));
-	mensaje_guardado_catch->id = ack->id_mensaje;
-	mensaje_guardado_catch->pokemon.especie = entrenador->objetivo_actual->especie;
-	mensaje_guardado_catch->pokemon.posx = entrenador->objetivo_actual->posx;
-	mensaje_guardado_catch->pokemon.posy = entrenador->objetivo_actual->posy;
-	mensaje_guardado_catch->entrenador = entrenador;
-
-	list_add(mensajes_catch, mensaje_guardado_catch);
-	entrenador->estado = BLOQUEADO;
-	entrenador->razon_de_bloqueo = ESPERANDO_MENSAJE_CAUGHT;
-	list_add(lista_bloqueados_esperando_caught, entrenador);
 
 	//TODO RECIBIR ID Y GUARDARLO
 	//TODO BLOQUEAR AL ENTRENADOR CON SEMAFOROS Y CAMBIARLE EL ESTADO A BLOQUEADO
