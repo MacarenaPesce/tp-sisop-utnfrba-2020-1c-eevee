@@ -233,7 +233,7 @@ t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola
     log_info(broker_logger, "Por ejecutar algoritmo de particion libre");
 
     if( strcmp( algoritmo_particion_libre, "FF") == 1){
-        bloque = algoritmoestructura_mensaje_first_fit(tamanio_parti, estructura_mensaje);
+        bloque = algoritmo_first_fit(tamanio_parti, estructura_mensaje);
     }
     else{
         bloque = algoritmo_best_fit(tamanio_parti, estructura_mensaje);
