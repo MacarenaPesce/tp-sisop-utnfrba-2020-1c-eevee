@@ -20,27 +20,18 @@ podrá estar en estado Exec en determinado tiempo. Cuando un entrenador en estad
 Este estado implica que el entrenador no tiene más tareas para realizar momentáneamente. Cuando un entrenador en estado Exec cumpla todos sus objetivos, pasará a estado Exit.
 Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team cumplió el objetivo global. */
 
-	while(1){
-		sem_wait(&orden_para_planificar);
+	while(GLOBAL_SEGUIR){
+			sem_wait(&orden_para_planificar);
 
-		if(hayPokeNuevo){
 			pthread_mutex_lock(&mapa_mutex);
 			t_pokemon * pokemon = list_get(lista_mapa, 0);
 			pthread_mutex_unlock(&mapa_mutex);
-			hayPokeNuevo = false;
+
 			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-
-			if(entrenador_desalojado != NULL){
-				list_add(lista_listos, entrenador_desalojado);
-			}
-		} else {
-			log_info(team_logger, "El entrenador %i acabo su quantum", entrenador_en_ejecucion->id);
-			list_add(lista_listos, entrenador_desalojado);
+			obtener_proximo_ejecucion();
 		}
-		obtener_proximo_ejecucion();
-	}
 
-	return NULL;
+		return NULL;
 }
 
 void crear_hilo_para_planificar(){
