@@ -21,17 +21,19 @@ Este estado implica que el entrenador no tiene más tareas para realizar moment�
 Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team cumplió el objetivo global. */
 
 	while(GLOBAL_SEGUIR){
-		sem_wait(&orden_para_planificar);
 
-		pthread_mutex_lock(&mapa_mutex);
-		t_pokemon * pokemon = list_get(lista_mapa, 0);
-		pthread_mutex_unlock(&mapa_mutex);
+			sem_wait(&orden_para_planificar);
 
-		seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-		obtener_proximo_ejecucion();
-	}
 
-	return NULL;
+			pthread_mutex_lock(&mapa_mutex);
+			t_pokemon * pokemon = list_get(lista_mapa, 0);
+			pthread_mutex_unlock(&mapa_mutex);
+
+			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+			obtener_proximo_ejecucion();
+		}
+
+		return NULL;
 }
 
 void crear_hilo_para_planificar(){
@@ -152,11 +154,17 @@ void obtener_proximo_ejecucion(void){
 	printf("\n");
 
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
-		ordenar_lista_estimacion(lista_aux);
+		ordenar_lista_estimacion(lista_aux);\
+
+	} else if((!strcmp(algoritmo_planificacion, "RR"))){
+		if(quantum_actual == 0){
+			quantum_actual = quantum;
+			//quantum_cero = false;
+		}
 	}
 
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
-
+	entrenador_desalojado = NULL;
 	entrenador_en_ejecucion = list_remove(lista_aux,0);
 
 	if(!list_is_empty(lista_listos)){

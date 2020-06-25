@@ -43,7 +43,7 @@ void operar_con_appeared_pokemon(){
 	list_remove_by_condition(pokemones_que_llegan_nuevos, (void*)is_pokemon);
 
 	log_info(team_logger, "Agregue el pokemon al mapa\n");
-
+	hayPokeNuevo = true;
 	sem_post(&orden_para_planificar);
 }
 
