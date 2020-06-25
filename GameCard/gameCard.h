@@ -9,8 +9,8 @@
 void recibir_get_pokemon_desde_gameboy(t_get_pokemon *);
 void recibir_new_pokemon_desde_gameboy(t_new_pokemon *);
 void recibir_catch_pokemon_desde_gameboy(t_catch_pokemon *);
-void iniciar_servidor(void);
-void esperar_cliente(int);
+//void iniciar_servidor(void);
+//void esperar_cliente(int);
 bool noCumpleConRutasfs();
 void crearFileSystemVacio();
 void crearMetadataDirectorios();

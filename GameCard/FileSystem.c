@@ -566,11 +566,18 @@ void copiarPokemonEnMemoria(char* unBloque){
 				close(fdBloq);}
 
 
-	char* contenidoBloque= mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ, MAP_SHARED,
+	char* contenidoBloque= string_new();
+
+	contenidoBloque= mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ, MAP_SHARED,
 			fdBloq, 0);
 
 
-	string_append(&pokemonEnMemoria,contenidoBloque);;
+	string_append(&pokemonEnMemoria,contenidoBloque);
+
+	if(!string_ends_with(pokemonEnMemoria,"\n")){
+
+		string_append(&pokemonEnMemoria,"\n");
+	}
 }
 
 
@@ -702,6 +709,8 @@ if(estaPosicionEnMemoria(pokemonEnMemoria,nuevaPos)){
 
 	else{
 
+
+
 		log_info(gameCard_logger,"copio hasta donde entre en bloques ocupados");
 		log_info(gameCard_logger,"aca vailidame hasta donde copio");
 
@@ -714,6 +723,7 @@ if(estaPosicionEnMemoria(pokemonEnMemoria,nuevaPos)){
 		t_list* bloquesNuevos= obtenerBloquesNuevos(cantBloqNec);
 
 	list_iterate(bloquesNuevos, persistirCambiosEnBloquesNuevos);
+
 
 	}
 	}
@@ -729,7 +739,9 @@ pokemonEnMemoria=string_new();
 
 char* ultimoBloque=string_new();
 
-ultimoBloque=  bloksOcupadosPorPokemon [cantBloquesOcupados-1];
+log_info(gameCard_logger,"dame cant de ocupados %d",cantBlok);
+
+ultimoBloque=  bloksOcupadosPorPokemon [cantBlok-1];
 
 log_info(gameCard_logger,"hay que evaluar espacio en ultimo bloque: %s", ultimoBloque);
 
@@ -762,30 +774,48 @@ if (espacioLibre > espacioAocupar){
 	string_append(&nuevaPos,"\n");
 	log_info(gameCard_logger, "dame la nueva Pos con salto de linea: %s",nuevaPos);
 
-	log_info(gameCard_logger,"dame poke en memoria: %s",pokemonEnMemoria);
+	log_info(gameCard_logger,"dame poke en memoria antes agregar nueva pos: %s",pokemonEnMemoria);
 
+
+	if (!string_ends_with(pokemonEnMemoria,"\n")){
+
+		log_info(gameCard_logger,"aca inidca que no tenia salto de linea y lo agrego");
+		string_append(&pokemonEnMemoria,"\n");
+	}
 	string_append(&pokemonEnMemoria,nuevaPos);
+
+	log_info(gameCard_logger,"dame poke en memoria con nueva pos: %s",pokemonEnMemoria);
 
 	string_append(&posValidas,pokemonEnMemoria);
 
 	log_info(gameCard_logger,"pos Validas: %s", posValidas);
+
 string_iterate_lines( bloksOcupadosPorPokemon, persistirCambiosEnBloquesPropios)	;
 
 		}
 
-else{
+ else{
 
 	log_info(gameCard_logger,"no entra pokemon en el ultimo bloque");
 	log_info(gameCard_logger,"hay que buscar otro bloque");
 
+	log_info(gameCard_logger,"pero hay que copiar hasta donde entre");
+
+	log_info(gameCard_logger,"hay que ver nueva Pos %s", nuevaPos);
 	string_append(&pokemonEnMemoria,nuevaPos);
 
-	string_append(&posValidas,pokemonEnMemoria);
+	log_info(gameCard_logger,"aca mostrame poke en memo : %s",pokemonEnMemoria);
+	//string_append(&posValidas,string_substring_until());
+
+	log_info(gameCard_logger,"aca mostrame poke de posValidas: %s", posValidas);
 
 	int cantBloq=cantBloquesNecesariosPara(posValidas);
 
 	int cantNecBlok=cantBloq-cantBloquesOcupados;
 
+	log_info(gameCard_logger,"aca persiste en bloques popios");
+
+	log_info(gameCard_logger,"tal vez deba tomar ultimo y ahi modificarlo");
 	string_iterate_lines(bloksOcupadosPorPokemon,persistirCambiosEnBloquesPropios);
 
 	if(copiado <string_length(posValidas)){
@@ -794,18 +824,18 @@ else{
 
 list_iterate(bloquesNuevos, persistirCambiosEnBloquesNuevos);
 
+
 }
 }
 
 crearMetadataArchPoke(pokemon,string_length(posValidas));
 
-
+log_info(gameCard_logger,"finalizando modificación del pokemon");
 
 	}
 
-
-	log_info(gameCard_logger,"finalizando modificación del pokemon");
 }
+
 
 
 bool estaPosicionEnMemoria(char* pokemonEnMemoria, char* nuevaPos){
@@ -941,13 +971,15 @@ void	persistirCambiosEnBloquesPropios(char* bloque){
 
 	log_info(gameCard_logger,"llega hasta despues de copiar en lista un bloque");
 
+	copiado=copiado+(hasta-desde);
+	desde=desde+(hasta-desde);
+
 
 		log_info(gameCard_logger,"mostrame el copiado %d",copiado);
 		log_info(gameCard_logger,"mostrame el desde: %d",desde);
 		log_info(gameCard_logger,"mostrame el hasta %d",hasta);
 
-		copiado=copiado+(hasta-desde);
-		desde=desde+(hasta-desde);
+
 }
 
 
