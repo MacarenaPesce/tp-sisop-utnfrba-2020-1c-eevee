@@ -43,10 +43,12 @@ t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes);
 t_mensaje_cola* obtener_mensaje_por_id(int id_mensaje);
 t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola);
 t_cliente* obtener_cliente_por_id(int id_cliente);
+t_list* obtener_memoria_de_cola(t_cola_mensajes* cola);
 
 // Validación
 bool es_suscriptor_de(int id_cliente, t_cola_mensajes* cola);
 bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente);
+bool es_memoria_de_cola(t_bloque_memoria* bloque, t_cola_mensajes* cola);
 
 // Creación
 void agregar_mensaje_a_cache(t_mensaje_cola* mensaje);

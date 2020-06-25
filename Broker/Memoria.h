@@ -43,10 +43,10 @@
 
 
 void asignar_memoria_inicial(int tamanio_en_bytes); //LISTO
-t_bloque_memoria* asignar_particion_memoria( int tamanio_en_bytes, void* mensaje); //LISTO
+t_bloque_memoria* asignar_particion_memoria(t_mensaje_cola* estructura_mensaje); //LISTO
 
 //---ALGORITMOS DE MEMORIA----
-t_bloque_memoria* algoritmo_de_memoria( int tamanio_msje, void* mensaje); //LISTO
+t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje); //LISTO
 t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes, void* mensaje);  //LISTO
 t_bloque_memoria* buddy_system( int tamanio_en_bytes, void* mensaje); //EN PROCESO
 

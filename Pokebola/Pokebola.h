@@ -153,7 +153,6 @@ void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
 
 typedef struct{    
     int tamanio_particion __attribute__((packed));
-    int tamanio_mensaje __attribute__((packed));
     bool esta_vacio;
     t_mensaje_cola* estructura_mensaje;
     uint64_t timestamp;
@@ -171,7 +170,7 @@ typedef struct{
 }t_mensaje_cola;
 
 typedef struct{
- t_list* mensajes;
+ t_list* memoria;
  t_list* colas; 
  t_list* clientes;
  int proximo_id_mensaje;

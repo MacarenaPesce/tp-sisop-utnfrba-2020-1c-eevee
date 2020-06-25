@@ -271,19 +271,17 @@ t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes){
     return cola;
 }
 
-
-//CAMBIAR
 t_mensaje_cola* obtener_mensaje_por_id(int id_mensaje){
   
-    bool es_mensaje_buscado(void* mensaje){
-        return ((t_mensaje_cola*)mensaje)->id_mensaje == id_mensaje;
+    bool es_mensaje_buscado(void* bloque){
+        return ((t_bloque_memoria*)bloque)->estructura_mensaje->id_mensaje == id_mensaje;
     }
 
-    return list_find(cache_mensajes->mensajes,es_mensaje_buscado);
+    t_bloque_memoria* bloque = list_find(cache_mensajes->memoria,es_mensaje_buscado);
 
+	return bloque != NULL ? bloque->estructura_mensaje : NULL;
 }
 
-//CAMBIAR
 t_cliente* obtener_cliente_por_id(int id_cliente){
   
     bool es_cliente_buscado(void* cliente){
@@ -294,17 +292,39 @@ t_cliente* obtener_cliente_por_id(int id_cliente){
 
 }
 
-//CAMBIAR
 t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 
-   	bool filtro_mensajes(void* mensaje){
-		return ((t_mensaje_cola*)mensaje)->cola_de_mensajes == cola->cola_de_mensajes;
-	}
+	t_list* mensajes = list_create();
 
-	t_list* mensajes = list_filter(cache_mensajes->mensajes, filtro_mensajes);
+   	void listar_mensajes(void* _bloque){
+
+		t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+		if(es_memoria_de_cola(bloque,cola)){
+			list_add(mensajes,(void*) bloque->estructura_mensaje);
+		}
+
+	}		
+
+	list_iterate(cache_mensajes->memoria,listar_mensajes);
 
     return mensajes;
 
+}
+
+t_list* obtener_memoria_de_cola(t_cola_mensajes* cola){
+
+	bool filtro_mensajes(void* bloque){
+		return ((t_bloque_memoria*)bloque)->estructura_mensaje->cola_de_mensajes == cola->cola_de_mensajes;
+	}
+
+	t_list* memoria = list_filter(cache_mensajes->memoria, filtro_mensajes);
+
+	return memoria;
+}
+
+bool es_memoria_de_cola(t_bloque_memoria* bloque, t_cola_mensajes* cola){
+	return bloque->estructura_mensaje->cola_de_mensajes == cola->cola_de_mensajes;
 }
 
 bool es_suscriptor_de(int id_cliente, t_cola_mensajes* cola){
@@ -319,7 +339,6 @@ bool es_suscriptor_de(int id_cliente, t_cola_mensajes* cola){
 
 }
 
-//CAMBIAR
 bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente){
 
 	bool es_cliente_buscado(void* cliente){
@@ -331,16 +350,16 @@ bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente){
     return cliente != NULL;
 }
 
-//CAMBIAR
 void agregar_mensaje_a_cache(t_mensaje_cola* mensaje){
-    list_add(cache_mensajes->mensajes,(void*)mensaje);
+
+	asignar_particion_memoria(mensaje);
+
 }
 
 void agregar_cliente_a_cache(t_cliente* cliente){
 	list_add(cache_mensajes->clientes,(void*)cliente);
 }
 
-//CAMBIAR
 void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, t_cliente* cliente){
 
 	if(es_suscriptor_de(cliente->id, cola)) return;
@@ -353,7 +372,6 @@ void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, t_cliente* cliente){
 
 }
 
-//CAMBIAR
 void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cliente){
 		
     t_envio_pendiente* envio_pendiente = (t_envio_pendiente*)malloc(sizeof(t_envio_pendiente));
@@ -369,14 +387,12 @@ void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cl
 
 }
 
-//CAMBIAR
 void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, t_cliente* cliente){
 
 	list_add(mensaje->suscriptores_enviados,(void*)&cliente->id);
 
 }
 
-//CAMBIAR
 void eliminar_mensaje_enviado(t_cola_mensajes* cola){
     list_remove_and_destroy_element(cola->envios_pendientes,0,eliminar_envio_pendiente);
 }

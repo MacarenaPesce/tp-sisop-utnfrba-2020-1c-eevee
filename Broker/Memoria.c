@@ -12,6 +12,8 @@ extern char* log_file;
 extern t_log* broker_logger;
 extern t_config* config;
 
+extern cache_mensajes;
+
 //ASCII boquitas en hexa
 //control + shift + u 3e y 3c 
 
@@ -23,7 +25,7 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 
     //log_info(broker_logger, "Por asignar la memoria inicial");
 
-    lista_memoria = list_create();
+    cache_mensajes->memoria = list_create();
 
     /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
     void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
@@ -47,7 +49,7 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     printf("Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
 
     /* Agrego el bloque a la lista */
-    list_add(lista_memoria,bloque);
+    list_add(cache_mensajes->memoria,bloque);
 
     //log_info(broker_logger, "Ya asigne la memoria inicial y cree el primer bloque");
 
@@ -61,14 +63,14 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 /*Dado un tamaño de particion, devuelvo el bloque asignado y derivo segun el algoritmo de memoria 
 	Ya corri todos los algoritmos aca. 
 	Esta deberia ser la que tiene que llamar la cola de mensajes*/
-t_bloque_memoria* asignar_particion_memoria(int tamanio_msje, void* mensaje){
+t_bloque_memoria* asignar_particion_memoria(t_mensaje_cola* estructura_mensaje){
     
     //log_info(broker_logger, "Por asignar memoria a mi particion");
 
     //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
     t_bloque_memoria* nuevaParticion;
     //Asigno un bloque segun el algoritmo de memoria que utilicemos
-    nuevaParticion = algoritmo_de_memoria(tamanio_msje, mensaje);
+    nuevaParticion = algoritmo_de_memoria(estructura_mensaje);
 
     //log_info(broker_logger, "Ya le asigne memoria a mi particion!");
 
@@ -82,7 +84,7 @@ t_bloque_memoria* asignar_particion_memoria(int tamanio_msje, void* mensaje){
 
 /*Segun el algoritmo que me pasa el archivo de configuracion, designo con esta funcion
     que algoritmo se va a usar y le paso la lista y el tamaño de bytes*/
-t_bloque_memoria* algoritmo_de_memoria(int tamanio_msje, void* mensaje){
+t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
 
     //Creo una nueva particion, que es donde se van a guardar los datos de la particion alojada
     //y la particion que voy a retornar
@@ -233,13 +235,13 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti, void*
     log_info(broker_logger, "Ejecutando first fit");
 
     //obtengo el primer bloque donde quepa mi particion nueva
-	for(int i=0; i< list_size(lista_memoria); i++){
+	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
 
-        aux = list_get(lista_memoria, i);
+        aux = list_get(cache_mensajes->memoria, i);
 
         if((aux->tamanio_particion >= tamanio_parti) && (aux->esta_vacio == true)){
             bloque = aux;
-            i = list_size(lista_memoria);
+            i = list_size(cache_mensajes->memoria);
             break;
         }
 
@@ -278,10 +280,10 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_msje, int tamanio_parti, void* 
 
 
     //obtengo el primer bloque donde quepa mi particion nueva
-	for(int i=0; i<list_size(lista_memoria); i++){
+	for(int i=0; i<list_size(cache_mensajes->memoria); i++){
 
         //Obtengo el bloque en la posicion de la lista que estamos
-        aux = list_get(lista_memoria, i);
+        aux = list_get(cache_mensajes->memoria, i);
 
         //me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no 
         if((aux->esta_vacio == true) && (aux->tamanio_particion >= tamanio_parti)){
@@ -354,9 +356,9 @@ t_bloque_memoria* algoritmo_fifo(){
     t_bloque_memoria* bloque;
     uint64_t min_time = get_timestamp();
 
-	for(int i=0; i< list_size(lista_memoria); i++){
+	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
 
-        elemento = list_get(lista_memoria, i);
+        elemento = list_get(cache_mensajes->memoria, i);
 
         //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero
         if( (elemento->esta_vacio == false) && (elemento->timestamp > 0) ){
@@ -394,9 +396,9 @@ t_bloque_memoria* algoritmo_lru(){
     t_bloque_memoria* bloque;
     uint64_t min_time = get_timestamp();
 
-	for(int i=0; i< list_size(lista_memoria); i++){
+	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
 
-        elemento = list_get(lista_memoria, i);
+        elemento = list_get(cache_mensajes->memoria, i);
 
         //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero
         if( (elemento->esta_vacio == false) && (elemento->timestamp > 0) ){
@@ -438,16 +440,16 @@ bool puede_alojarse(int tamanio_bytes){
 
 
 	//recorro la lista de memoria, hasta encontrar una particion que este vacia y entre mi tamaño de particion nueva
-	for(int i=0; i< list_size(lista_memoria); i++){
+	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
 
 		//Obtengo el elemento de la lista en la posicion i
-		elemento = list_get(lista_memoria, i);
+		elemento = list_get(cache_mensajes->memoria, i);
 
 		//Me fijo si el elemento esta vacio y a su vez entra mi particion
 		//Si entra, cambio el valor de puedeEntrar, y corto el for.
 		if((elemento->esta_vacio == true) && (elemento->tamanio_particion >= tamanio_bytes)){
 			puedeEntrar= true;
-			i = list_size(lista_memoria);
+			i = list_size(cache_mensajes->memoria);
 			break;
 		}
 
@@ -471,7 +473,7 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
     log_info(broker_logger, "Por particionar...");
 
     /* Obtengo el nodo del bloque a particionar por su indice */
-    bloque_inicial = list_get(lista_memoria, indice_nodo_particionar);
+    bloque_inicial = list_get(cache_mensajes->memoria, indice_nodo_particionar);
 
     /* Si me sobra espacio lo separo en un nuevo nodo */
     if(bloque_inicial->tamanio_particion - tamanio_parti > 0){ 
@@ -484,7 +486,7 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 		bloque_restante->last_time = 0;
 
 
-        list_add_in_index(lista_memoria, indice_nodo_particionar + 1, bloque_restante);    
+        list_add_in_index(cache_mensajes->memoria, indice_nodo_particionar + 1, bloque_restante);    
 
     }
 
@@ -510,13 +512,13 @@ int obtener_indice_particion(t_bloque_memoria* bloque){
 	int indice;
 	t_bloque_memoria* elemento ;
 
-	for(int i=0; i< list_size(lista_memoria); i++){
+	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
 
-		elemento = list_get(lista_memoria, i);
+		elemento = list_get(cache_mensajes->memoria, i);
 
 		if(elemento->payload == bloque->payload){
 			indice=i;
-			i = list_size(lista_memoria);
+			i = list_size(cache_mensajes->memoria);
 			break;
 		}
 		
@@ -573,16 +575,16 @@ void compactar(){
 
     t_bloque_memoria* elemento;
     t_bloque_memoria* nuevoBloque;
-    t_bloque_memoria* primerBloque = list_get(lista_memoria, 0);//obtengo el primer bloque para sacar la direccion inicial del payload
+    t_bloque_memoria* primerBloque = list_get(cache_mensajes->memoria, 0);//obtengo el primer bloque para sacar la direccion inicial del payload
     int acumulador_libre = 0; //sumo la cant de espacio libre para la nueva particion
     int acumulador_ocupado = 0; //sumo la cant de espacio ocupado para desp validar
     float* payload_acu = primerBloque->payload;
 
 
     //recorro la lista para ver que particiones estan libres y voy borrandolas de aca
-    for(int i=0; i< list_size(lista_memoria); i++){
+    for(int i=0; i< list_size(cache_mensajes->memoria); i++){
 
-        elemento = list_get(lista_memoria, i);
+        elemento = list_get(cache_mensajes->memoria, i);
 
         //me fijo si el bloque actual en el que estoy, esta vacio
         if(elemento->esta_vacio == true){//si el bloque esta vacio:
@@ -591,7 +593,7 @@ void compactar(){
             acumulador_libre += elemento->tamanio_particion;
 
             //borro la particion de la lista
-            list_remove_and_destroy_element(lista_memoria, i, (void*)free );
+            list_remove_and_destroy_element(cache_mensajes->memoria, i, (void*)free );
         }
         else{ //si el bloque esta ocupado
 
@@ -603,9 +605,9 @@ void compactar(){
 
     //ahora cambio el payload de las que quedaron ocupadas y hay que moverlas
     //compactar_payload();
-    for(int i=0; i< list_size(lista_memoria); i++){
+    for(int i=0; i< list_size(cache_mensajes->memoria); i++){
 
-        elemento = list_get(lista_memoria, i);
+        elemento = list_get(cache_mensajes->memoria, i);
 
         /*if((payload_acu == elemento->payload) && (elemento->esta_vacio == false)){
             payload_acu += elemento->tamanio_particion
@@ -617,7 +619,7 @@ void compactar(){
 
     }
 
-    if( list_size(lista_memoria)==acumulador_ocupado){
+    if( list_size(cache_mensajes->memoria)==acumulador_ocupado){
         printf("se realizo bien la compactación ");
     }
 
@@ -630,7 +632,7 @@ void compactar(){
 	nuevoBloque->last_time = 0;
     
     //Agrego el nuevo bloque a la lista de memoria
-    list_add(lista_memoria,nuevoBloque);
+    list_add(cache_mensajes->memoria,nuevoBloque);
 
 	return ;
 }
@@ -643,9 +645,9 @@ void consolidar(t_bloque_memoria* bloque){
     
     int indice_bloque = obtener_indice_particion(bloque);
 
-    t_bloque_memoria* bloque_anterior = list_get(lista_memoria,(indice_bloque-1));
+    t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria,(indice_bloque-1));
 
-    t_bloque_memoria* bloque_siguiente = list_get(lista_memoria,(indice_bloque+1));
+    t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria,(indice_bloque+1));
 
     //Me fijo si el bloque es el ultimo y si el anterior esta vacio
     if(bloque_siguiente == NULL && bloque_anterior->esta_vacio == true){
@@ -683,7 +685,7 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 
     //eliminar segundo bloque de la lista
 	//@NAME: list_remove_and_destroy_element @DESC: Remueve un elemento de la lista de una determinada posicion y libera la memoria.
-	list_remove_and_destroy_element(lista_memoria, indice, (void*)free);
+	list_remove_and_destroy_element(cache_mensajes->memoria, indice, (void*)free);
 
 
     return ;
@@ -697,8 +699,8 @@ void consolidar_tres_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* s
     int indiceDos = obtener_indice_particion(tercerBloque);
 
     //eliminar segundo bloque y tercer bloque de la lista
-	list_remove_and_destroy_element(lista_memoria, indiceUno, (void*)free);
-	list_remove_and_destroy_element(lista_memoria, indiceDos, (void*)free);
+	list_remove_and_destroy_element(cache_mensajes->memoria, indiceUno, (void*)free);
+	list_remove_and_destroy_element(cache_mensajes->memoria, indiceDos, (void*)free);
 
     return ;
 }

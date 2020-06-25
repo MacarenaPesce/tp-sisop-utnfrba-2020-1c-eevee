@@ -9,16 +9,14 @@ int main(){
 	
 	debug_broker = true;
 
-	//asignar_memoria_inicial(8000);
-
 	if(debug_broker) log_debug(broker_logger, "1) Inicializando cache de mensajes...", NULL);
 
-	//printf("\n1) Inicializando cache de mensajes... \n");
-
 	pthread_mutex_lock(&mutex_queue_mensajes);
+	
+	//TODO: levantame de config
+	asignar_memoria_inicial(8000);
 
 	cache_mensajes = (t_cache_colas*)malloc(sizeof(t_cache_colas));
-	cache_mensajes->mensajes = list_create();
 	cache_mensajes->colas = list_create();
 	cache_mensajes->proximo_id_mensaje = 0;
 	cache_mensajes->clientes = list_create();
