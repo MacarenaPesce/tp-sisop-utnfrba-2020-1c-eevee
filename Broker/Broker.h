@@ -9,7 +9,6 @@
 #include <pthread.h>
 #include "ColaMensajes.h"
 #include "Conexion.h"
-#include "includes.h"
 #include "Memoria.h"
 
 
