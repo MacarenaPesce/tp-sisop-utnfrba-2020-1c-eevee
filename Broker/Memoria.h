@@ -47,14 +47,14 @@ t_bloque_memoria* asignar_particion_memoria(t_mensaje_cola* estructura_mensaje);
 
 //---ALGORITMOS DE MEMORIA----
 t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje); //LISTO
-t_bloque_memoria* particiones_dinamicas( int tamanio_en_bytes, void* mensaje);  //LISTO
-t_bloque_memoria* buddy_system( int tamanio_en_bytes, void* mensaje); //EN PROCESO
+t_bloque_memoria* particiones_dinamicas( t_mensaje_cola* estructura_mensaje);  //LISTO
+t_bloque_memoria* buddy_system( t_mensaje_cola* estructura_mensaje); //EN PROCESO
 
 
 //********Funciones de Algoritmos de memoria************
-t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti, void* mensaje); //LISTO
-t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti, void* mensaje); //LISTO
-t_bloque_memoria* algoritmo_best_fit(int tamanio_bytes, int tamanio_parti, void* mensaje); //LISTO
+t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
+t_bloque_memoria* algoritmo_first_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
+t_bloque_memoria* algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
 void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros que son con opciones, si mandan una opcion por el archivo config que no es valida
 t_bloque_memoria* algoritmo_fifo(); //LISTO
 t_bloque_memoria* algoritmo_lru(); //LISTO 
@@ -69,7 +69,7 @@ t_bloque_memoria* algoritmo_lru(); //LISTO
 /* Las aclaraciones del uso de cada funcion estan en el archivo .c */
 
 bool puede_alojarse(int tamanio_en_bytes);
-t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, int tamanio_msje, void* mensaje);
+t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, t_mensaje_cola* estructura_mensaje);
 int obtener_indice_particion(t_bloque_memoria* bloque);
 int tamanio_a_alojar(int tamanio);
 

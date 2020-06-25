@@ -12,10 +12,36 @@ extern char* log_file;
 extern t_log* broker_logger;
 extern t_config* config;
 
-extern cache_mensajes;
+extern t_cache_colas* cache_mensajes;
 
 //ASCII boquitas en hexa
 //control + shift + u 3e y 3c 
+
+/* 
+
+    Lucas 23/6:
+    - Cambie lista_memoria por cache_mensajes->memoria (es la lista de bloques que tiene que quedar)
+    - Cambie los parametros tamanio_mensaje y mensaje por estructura_mensaje en las fn:
+        - particionar_bloque
+        - algoritmo_de_memoria
+        - particiones_dinamicas
+        - buddy_system
+        - algoritmo_de_particion_libre
+        - algoritmo_first_fit
+        - algoritmo_best_fit
+    - Cambie los headers segun los cambios de las fn del punto anterior
+    - Cambie la asignacion y copia del mensaje en la fn 'particionar_bloque'
+    - Agregue un malloc que faltaba al crear la particion restante en la fn 'particionar_bloque' 
+    - Quite el '+1' en el calculo de particion restante en la fn 'particionar_bloque'
+    - Cambie varios bloque->payload por bloque->estructura_mensaje
+    - Cambie varios bloque->tamanio_mensaje por bloque->estructura_mensaje->tamanio_mensaje
+   
+    * Quedan a revisar las fn 'obtener_indice_particion' y 'compactar' que no estaba muy convencido
+      de que hacen y prefiero que las veamos juntos.
+    
+    PD: No me mates D:
+
+*/
 
 
 //--------------------------- ADMINISTRACION DE MEMORIA-------------------
@@ -37,14 +63,13 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     /* Genero el bloque de memoria inicial*/
     t_bloque_memoria *bloque;
     bloque = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
-
+    
     //bloque->id = 0;
     bloque->tamanio_particion = tamanio_en_bytes;
-    bloque->tamanio_mensaje = 0;
     bloque->esta_vacio = true;
-    bloque->payload = memoria_inicial;
 	bloque->timestamp = 0;
 	bloque->last_time = 0;
+    bloque->estructura_mensaje = memoria_inicial;
 
     printf("Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
 
@@ -93,10 +118,10 @@ t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
     if (  strcmp( algoritmo_memoria, "BD") == 1){
-        particionNueva= buddy_system(tamanio_msje, mensaje);
+        particionNueva= buddy_system(estructura_mensaje);
     }
     else{
-        particionNueva= particiones_dinamicas(tamanio_msje, mensaje);
+        particionNueva= particiones_dinamicas(estructura_mensaje);
     }
 
     return particionNueva;
@@ -106,18 +131,18 @@ t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
 
 
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
-t_bloque_memoria* particiones_dinamicas( int tamanio_msje, void* mensaje){
+t_bloque_memoria* particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
     //log_info(broker_logger, "Ejecutando particiones dinamicas");
 
     printf("Particiones dinamicas \n");
-    printf("Alojar: %i \n", tamanio_msje );
+    printf("Alojar: %i \n", estructura_mensaje->tamanio_mensaje );
 
     t_bloque_memoria* particionNueva;
     //particionNueva = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
 
     //me fijo si el tamaño del mensaje es menor al minimo tamaño de particion
-    int tamanio_parti = tamanio_a_alojar(tamanio_msje);
+    int tamanio_parti = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
     printf("Por alojar particion de: %i \n", tamanio_parti );
 
 
@@ -135,7 +160,7 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_msje, void* mensaje){
         //me fijo si puedo alojarla a la primera
         if(sePuedeAlojar == true){ 
             //si puede alojarse a la primera llamo al algoritmo de particion libre
-            particionNueva = algoritmo_de_particion_libre(tamanio_msje, tamanio_parti, mensaje);
+            particionNueva = algoritmo_de_particion_libre( tamanio_parti, estructura_mensaje);
 
             log_info(broker_logger, "Aloje la nueva particion , PD");
 
@@ -180,7 +205,7 @@ t_bloque_memoria* particiones_dinamicas( int tamanio_msje, void* mensaje){
 
 
 //------------------------------BUDDY SYSTEM----------------------------------
-t_bloque_memoria* buddy_system( int tamanio_en_bytes, void* mensaje){
+t_bloque_memoria* buddy_system( t_mensaje_cola* estructura_mensaje){
 
     log_info(broker_logger, "Ejecutando buddy system");
 
@@ -201,17 +226,17 @@ t_bloque_memoria* buddy_system( int tamanio_en_bytes, void* mensaje){
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
 
 
-t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_parti, void* mensaje){
+t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
     
     t_bloque_memoria* bloque;
 
     log_info(broker_logger, "Por ejecutar algoritmo de particion libre");
 
     if( strcmp( algoritmo_particion_libre, "FF") == 1){
-        bloque = algoritmo_first_fit(tamanio_msje, tamanio_parti, mensaje);
+        bloque = algoritmoestructura_mensaje_first_fit(tamanio_parti, estructura_mensaje);
     }
     else{
-        bloque = algoritmo_best_fit(tamanio_msje, tamanio_parti, mensaje);
+        bloque = algoritmo_best_fit(tamanio_parti, estructura_mensaje);
     }
 
     log_info(broker_logger, "Algoritmo de particion libre ejecutado!");
@@ -225,7 +250,7 @@ t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_msje, int tamanio_par
 /* Busco el primer hueco donde puedo alojar una nueva particion y la alojo.
     NOTA: para esto ya esta chequeado que puede alojarse
     NOTA2: recibo el tamaño correcto, ya chequeado si es el minimo a alojar o no.*/
-t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti, void* mensaje){
+t_bloque_memoria* algoritmo_first_fit(int tamanio_parti,t_mensaje_cola* estructura_mensaje){
 
     t_bloque_memoria* bloque;
     t_bloque_memoria* aux;
@@ -253,7 +278,7 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti, void*
     log_info(broker_logger, "Por particionar el bloque, ya encontre mi bloque adecuado");
 
     //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
-    bloque_final = particionar_bloque(tamanio_parti,indice,tamanio_msje,mensaje);
+    bloque_final = particionar_bloque(tamanio_parti,indice,estructura_mensaje);
 
     log_info(broker_logger, "Ya ejecute el algoritmo fist fit");
 
@@ -268,7 +293,7 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_msje, int tamanio_parti, void*
 /* Busco el huevo mas pequeño donde quepa la nueva particion a alojar, y la alojo.
     NOTA: para esto ya esta chequeado que puede alojarse
     NOTA2: recibo el tamaño correcto, ya chequeado si es el minimo a alojar o no.*/
-t_bloque_memoria* algoritmo_best_fit(int tamanio_msje, int tamanio_parti, void* mensaje){
+t_bloque_memoria* algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
 
     t_bloque_memoria* bloque;
     t_bloque_memoria* aux;
@@ -309,7 +334,7 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_msje, int tamanio_parti, void* 
     log_info(broker_logger, "Por particionar el bloque, ya encontre mi bloque adecuado");
 
     //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
-    bloque_final = particionar_bloque(tamanio_parti,indice,tamanio_msje,mensaje);
+    bloque_final = particionar_bloque(tamanio_parti,indice,estructura_mensaje);
 
     log_info(broker_logger, "Ya ejecute best fit");
 
@@ -465,7 +490,7 @@ bool puede_alojarse(int tamanio_bytes){
 /*Dado un indice y un tamaño en byte, alojo la particion en el indice, y creo el nuevo bloque con lo restante en el caso
 	que haya algo restante. La idea de esta funcion es que sea llamada por el algoritmo de asignacion.
 	Se usaria una vez encontrado el lugar en memoria que ocuparia mi nueva particion */
-t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, int tamanio_msje, void* mensaje){
+t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, t_mensaje_cola* estructura_mensaje){
 
     t_bloque_memoria *bloque_restante;
 	t_bloque_memoria *bloque_inicial;
@@ -478,10 +503,11 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
     /* Si me sobra espacio lo separo en un nuevo nodo */
     if(bloque_inicial->tamanio_particion - tamanio_parti > 0){ 
 
+        bloque_restante = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
+
         bloque_restante->tamanio_particion = bloque_inicial->tamanio_particion - tamanio_parti;
-        bloque_restante->tamanio_mensaje = 0;
 		bloque_restante->esta_vacio = true;
-        bloque_restante->payload = bloque_inicial->payload + tamanio_parti + 1;
+        bloque_restante->estructura_mensaje = bloque_inicial->estructura_mensaje + tamanio_parti;
 		bloque_restante->timestamp = 0;
 		bloque_restante->last_time = 0;
 
@@ -492,11 +518,15 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 
     /* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
     bloque_inicial->tamanio_particion = tamanio_parti;
-    bloque_inicial->tamanio_mensaje = tamanio_msje;
-    memcpy(bloque_inicial->payload,mensaje,tamanio_msje);
     bloque_inicial->esta_vacio = false;
 	bloque_inicial->timestamp = get_timestamp();
 	bloque_inicial->last_time = get_timestamp();
+
+    /* Copio el mensaje a MP y apunto a la estructura_mensaje */
+    void* aux_mensaje = bloque_inicial->estructura_mensaje;
+    bloque_inicial->estructura_mensaje = estructura_mensaje;
+    memcpy(aux_mensaje,estructura_mensaje->mensaje,estructura_mensaje->tamanio_mensaje);
+    bloque_inicial->estructura_mensaje->mensaje = aux_mensaje;    
 
     log_info(broker_logger, "Bloque particionado...");
 
@@ -559,9 +589,6 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque){
 	/* Vacio el last_time del bloque*/
 	bloque->last_time = 0;
 
-	/* Vacio el tamaño del mensaje del bloque */
-	bloque->tamanio_mensaje = 0;   
-
     return ;
 
 }
@@ -578,7 +605,7 @@ void compactar(){
     t_bloque_memoria* primerBloque = list_get(cache_mensajes->memoria, 0);//obtengo el primer bloque para sacar la direccion inicial del payload
     int acumulador_libre = 0; //sumo la cant de espacio libre para la nueva particion
     int acumulador_ocupado = 0; //sumo la cant de espacio ocupado para desp validar
-    float* payload_acu = primerBloque->payload;
+    void* payload_acu = primerBloque->payload;
 
 
     //recorro la lista para ver que particiones estan libres y voy borrandolas de aca
