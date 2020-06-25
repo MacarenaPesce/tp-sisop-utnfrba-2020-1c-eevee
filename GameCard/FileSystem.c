@@ -745,11 +745,13 @@ log_info(gameCard_logger,"la linea a copiar: %s",nuevaPos);
 
 log_info(gameCard_logger,"lo que ocupa pos: %d",string_length(nuevaPos));
 
-int dif=(metadata_fs->tamanioBLoques - string_length(pokemonEnMemoria));
+int espacioAocupar=string_length(nuevaPos);
 
-log_info(gameCard_logger,"la diferencia entre espacio en max bloque \n y contenido de memoria: %d", dif);
+int espacioLibre=(metadata_fs->tamanioBLoques - string_length(pokemonEnMemoria));
 
-if ((metadata_fs->tamanioBLoques- string_length(pokemonEnMemoria))<string_length(nuevaPos)){
+log_info(gameCard_logger,"la diferencia entre espacio en max bloque \n y contenido de memoria: %d", espacioLibre);
+
+if (espacioLibre > espacioAocupar){
 
 	posValidas=string_new();
 	desde=hasta=0;
@@ -757,9 +759,12 @@ if ((metadata_fs->tamanioBLoques- string_length(pokemonEnMemoria))<string_length
 
 	log_info(gameCard_logger, "dame la nueva Pos: %s",nuevaPos);;
 
+	string_append(&nuevaPos,"\n");
 	log_info(gameCard_logger, "dame la nueva Pos con salto de linea: %s",nuevaPos);
 
 	log_info(gameCard_logger,"dame poke en memoria: %s",pokemonEnMemoria);
+
+	string_append(&pokemonEnMemoria,nuevaPos);
 
 	string_append(&posValidas,pokemonEnMemoria);
 
@@ -772,37 +777,32 @@ else{
 
 	log_info(gameCard_logger,"no entra pokemon en el ultimo bloque");
 	log_info(gameCard_logger,"hay que buscar otro bloque");
-if((metadata_fs->tamanioBLoques- string_length(pokemonEnMemoria))==string_length(nuevaPos)){
 
-	log_info(log_info,"si entras aca es porque tenes espacio justo de copiar en un bloque existente");
-		//si alacanza espacio de bloque lo cambia y listo
-		string_append(&pokemonEnMemoria,nuevaPos);
+	string_append(&pokemonEnMemoria,nuevaPos);
 
-		copiarEnBloque(ultimoBloque,pokemonEnMemoria);
+	string_append(&posValidas,pokemonEnMemoria);
 
-		agregarBloqueParaMetadataArchivo(ultimoBloque);
+	int cantBloq=cantBloquesNecesariosPara(posValidas);
 
-		cambiarTamanioMetadata(pokemon,string_length(nuevaPos));
+	int cantNecBlok=cantBloq-cantBloquesOcupados;
+
+	string_iterate_lines(bloksOcupadosPorPokemon,persistirCambiosEnBloquesPropios);
+
+	if(copiado <string_length(posValidas)){
+
+	t_list* bloquesNuevos= obtenerBloquesNuevos(cantNecBlok);
+
+list_iterate(bloquesNuevos, persistirCambiosEnBloquesNuevos);
+
+}
+}
+
+crearMetadataArchPoke(pokemon,string_length(posValidas));
+
+
 
 	}
 
-if ((metadata_fs->tamanioBLoques- string_length(pokemonEnMemoria))>string_length(nuevaPos)){
-
-	log_info(log_info,"si entras aca es porque tenes espacio justo de copiar en un bloque existente");
-			//si alacanza espacio de bloque lo cambia y listo
-
-			string_append(&nuevaPos,"\n");
-
-			string_append(&pokemonEnMemoria,nuevaPos);
-
-			copiarEnBloque(ultimoBloque,pokemonEnMemoria);
-
-			cambiarTamanioMetadata(pokemon,string_length(nuevaPos));
-
-}
-
-}
-	}
 
 	log_info(gameCard_logger,"finalizando modificación del pokemon");
 }
