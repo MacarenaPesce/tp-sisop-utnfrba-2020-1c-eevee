@@ -338,6 +338,8 @@ void bloquear_entrenador(t_entrenador* entrenador){
 		list_add(lista_bloqueados_cant_max_alcanzada, (void*)entrenador);
 		pthread_mutex_unlock(&lista_bloq_max_mutex);
 
+		sacar_entrenador_de_lista_pid(lista_bloqueados_esperando, entrenador->id);
+
 		log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 		log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
@@ -364,6 +366,9 @@ int main(){
 	inicializar_semaforos();
 	configurar_signals();
 	inicializar_listas();//sacar los leaks
+
+	hayDeadlock = false;
+
 	definir_objetivo_global();//sacar los leaks
 	localizar_entrenadores_en_mapa();
 	sem_post(&entrenadores_ubicados);

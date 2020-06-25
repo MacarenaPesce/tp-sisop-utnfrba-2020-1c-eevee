@@ -27,7 +27,7 @@ int ciclos_de_cpu = 0;
 int MAXIMO_ENTRENADORES;
 int CANTIDAD_EN_DEADLOCK;
 
-bool hayDeadlock = false;
+bool hayDeadlock;
 
 t_log* team_logger;
 t_log* team_logger_oficial;

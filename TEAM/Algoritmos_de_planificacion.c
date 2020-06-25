@@ -20,7 +20,7 @@ podrá estar en estado Exec en determinado tiempo. Cuando un entrenador en estad
 Este estado implica que el entrenador no tiene más tareas para realizar momentáneamente. Cuando un entrenador en estado Exec cumpla todos sus objetivos, pasará a estado Exit.
 Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team cumplió el objetivo global. */
 
-	while(1){
+	while(GLOBAL_SEGUIR){
 		sem_wait(&orden_para_planificar);
 
 		pthread_mutex_lock(&mapa_mutex);

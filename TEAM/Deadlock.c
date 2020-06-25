@@ -65,12 +65,9 @@ void * chequear_deadlock(){
 void interbloqueo(t_entrenador * entrenador1){
 
 	pthread_mutex_lock(&mutex_deadlock);
-	hayDeadlock = false;
-
 	pthread_mutex_lock(&lista_bloq_max_mutex);
 	hayDeadlock = list_size(lista_bloqueados_cant_max_alcanzada) > 1;
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
-
 	pthread_mutex_unlock(&mutex_deadlock);
 
 	ver_entre_quienes_hay_deadlock_y_resolverlo(entrenador1);
