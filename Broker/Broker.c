@@ -1,4 +1,5 @@
-#include "includes.h"
+#include "Broker.h"
+
 
 int main(){
 
@@ -7,6 +8,8 @@ int main(){
 	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
 	
 	debug_broker = true;
+
+	asignar_memoria_inicial(8000);
 
 	if(debug_broker) log_debug(broker_logger, "1) Inicializando cache de mensajes...", NULL);
 
@@ -52,12 +55,10 @@ int main(){
 
 	iniciar_servidor();
 
-	/* TODO: Obtener este valor desde la config */
-	int tamanio_memoria_inicial = 8000;
-
 	//primer_bloque = AsignarMemoriaInicial(tamanio_memoria_inicial,lista_memoria);
 	while(server_status != ENDING){
 	
 	}
+
 
 }
