@@ -206,6 +206,7 @@ t_new_pokemon* picachuHardcodeado(char* pokemon,int posx,int posy,int cantidad){
 		return poke;
 }
 
+
 t_new_pokemon* charmanderHardcodeado(){
 	t_new_pokemon* poke = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));
 
