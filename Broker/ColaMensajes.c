@@ -273,8 +273,12 @@ t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes){
 
 t_mensaje_cola* obtener_mensaje_por_id(int id_mensaje){
   
-    bool es_mensaje_buscado(void* bloque){
-        return ((t_bloque_memoria*)bloque)->estructura_mensaje->id_mensaje == id_mensaje;
+    bool es_mensaje_buscado(void* _bloque){
+		t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+		if(bloque->esta_vacio) return false;
+
+        return bloque->estructura_mensaje->id_mensaje == id_mensaje;
     }
 
     t_bloque_memoria* bloque = list_find(cache_mensajes->memoria,es_mensaje_buscado);
@@ -300,9 +304,11 @@ t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 
 		t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
 
-		if(es_memoria_de_cola(bloque,cola)){
-			list_add(mensajes,(void*) bloque->estructura_mensaje);
-		}
+		if(!bloque->esta_vacio){
+			if(es_memoria_de_cola(bloque,cola)){
+				list_add(mensajes,(void*) bloque->estructura_mensaje);
+			}
+		}		
 
 	}		
 
@@ -314,7 +320,12 @@ t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 
 t_list* obtener_memoria_de_cola(t_cola_mensajes* cola){
 
-	bool filtro_mensajes(void* bloque){
+	bool filtro_mensajes(void* _bloque){
+
+		t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+		if(bloque->esta_vacio) return false;
+
 		return ((t_bloque_memoria*)bloque)->estructura_mensaje->cola_de_mensajes == cola->cola_de_mensajes;
 	}
 
