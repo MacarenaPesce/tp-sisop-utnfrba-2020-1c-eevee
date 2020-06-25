@@ -151,14 +151,6 @@ void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
 /**************************************************************************************/
 /* Typedef Broker */
 
-typedef struct{    
-    int tamanio_particion __attribute__((packed));
-    bool esta_vacio;
-    t_mensaje_cola* estructura_mensaje;
-    uint64_t timestamp;
-    uint64_t last_time;    
-}t_bloque_memoria;
-
 typedef struct{
 	uint32_t id_mensaje __attribute__((packed));
     uint32_t id_correlacional __attribute__((packed));
@@ -168,6 +160,14 @@ typedef struct{
     t_list* suscriptores_ack;
     void* mensaje;
 }t_mensaje_cola;
+
+typedef struct{    
+    int tamanio_particion __attribute__((packed));
+    bool esta_vacio;
+    t_mensaje_cola* estructura_mensaje;
+    uint64_t timestamp;
+    uint64_t last_time;    
+}t_bloque_memoria;
 
 typedef struct{
  t_list* memoria;
