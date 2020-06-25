@@ -96,13 +96,16 @@ extern t_list* pokemones_bloqueados;
 extern t_list* lista_bloqueados_esperando;
 extern t_list* lista_bloqueados_cant_max_alcanzada;
 extern t_list* lista_bloqueados_deadlock;
+extern t_list* pokemones_que_llegan_nuevos;
 
-sem_t hay_un_pokemon_nuevo;
 sem_t * array_semaforos;
-//sem_t llego_gameboy;
+sem_t * array_semaforos_finalizar;
 sem_t entrenadores_ubicados;
 pthread_mutex_t mapa_mutex;
 pthread_mutex_t llego_gameboy;
+pthread_mutex_t lista_bloq_max_mutex;
+pthread_mutex_t lista_entrenadores_mutex;
+pthread_mutex_t lista_listos_mutex;
 
 t_list * semaforos_deadlock;
 
@@ -110,6 +113,14 @@ sem_t semaforos_listos;
 sem_t hay_interbloqueo;
 sem_t hay_interbloqueo_avisar_a_entrenador;
 pthread_mutex_t mutex_deadlock;
+
+sem_t operar_con_catch;
+sem_t operar_con_appeared;
+sem_t operar_con_localized;
+sem_t operar_con_caught;
+sem_t orden_para_planificar;
+sem_t aviso_entrenador_hizo_intercambio;
+sem_t se_hizo_el_intercambio;
 
 extern bool hayDeadlock;
 

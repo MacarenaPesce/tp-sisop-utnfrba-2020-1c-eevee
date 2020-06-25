@@ -16,6 +16,7 @@ void * recibir_appeared_pokemon_desde_broker(t_appeared_pokemon * mensaje){
 	pokemon->posx = mensaje->coordenadas.posx;
 	pokemon->posy = mensaje->coordenadas.posy;
 
+	sem_post(&operar_con_appeared);
 	operar_con_appeared_pokemon(pokemon);
 
 	return NULL;
@@ -23,6 +24,8 @@ void * recibir_appeared_pokemon_desde_broker(t_appeared_pokemon * mensaje){
 
 void * recibir_localized_pokemon_desde_broker(t_localized_pokemon * mensaje){
 	log_info(team_logger,"Voy a recibir un pokemon y coordenadas desde broker para localized pokemon %s", mensaje->pokemon);
+
+	sem_post(&operar_con_localized);
 	//operar_con_localized_pokemon();
 	return NULL;
 }
@@ -30,6 +33,7 @@ void * recibir_localized_pokemon_desde_broker(t_localized_pokemon * mensaje){
 void * recibir_caught_pokemon_desde_broker(t_caught_pokemon * mensaje){
 	log_info(team_logger,"Voy a recibir un status desde broker para caught pokemon %d", mensaje->status);
 
+	sem_post(&operar_con_caught);
 	//operar_con_caught_pokemon();
 	return NULL;
 }
@@ -62,6 +66,8 @@ void enviar_get(){
 			if(ack->operacion == ACK){
 				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
 				log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
+
+				//GUARDAR ID
 			}
 
 		}else{
@@ -109,7 +115,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 	int broker_socket = enviar_solicitud_suscripcion(servidor,paquete_suscripcion->cola, suscripcion);
 
-	while(1){
+	while(GLOBAL_SEGUIR){
 
 		if(broker_socket <= 0){
 			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola");

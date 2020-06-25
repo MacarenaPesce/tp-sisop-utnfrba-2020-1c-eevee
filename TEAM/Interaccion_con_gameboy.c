@@ -27,6 +27,8 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 }
 
 void * atender_a_gameboy(void * serv_socket){
+	pokemones_que_llegan_nuevos = list_create();
+
 	while(GLOBAL_SEGUIR){
 		struct sockaddr_in client_addr;
 
@@ -53,11 +55,9 @@ void crear_hilo_de_escucha_para_gameboy(int serv_socket){
 void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon * mensaje){
 	log_info(team_logger,"Me llego este pokemon: %s, en la posicion de coordenadas (%d, %d)", mensaje->pokemon, mensaje->coordenadas.posx, mensaje->coordenadas.posy);
 
-	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-	pokemon->especie = mensaje->pokemon;
-	pokemon->posx = mensaje->coordenadas.posx;
-	pokemon->posy = mensaje->coordenadas.posy;
-
-	operar_con_appeared_pokemon(pokemon);
+	//LLAMAR A TEAM
+	list_add(pokemones_que_llegan_nuevos, (void*)mensaje);
+	sem_post(&operar_con_appeared);
+	operar_con_appeared_pokemon();
 
 }
