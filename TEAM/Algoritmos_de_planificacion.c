@@ -21,7 +21,9 @@ Este estado implica que el entrenador no tiene más tareas para realizar moment�
 Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team cumplió el objetivo global. */
 
 	while(GLOBAL_SEGUIR){
+
 			sem_wait(&orden_para_planificar);
+
 
 			pthread_mutex_lock(&mapa_mutex);
 			t_pokemon * pokemon = list_get(lista_mapa, 0);

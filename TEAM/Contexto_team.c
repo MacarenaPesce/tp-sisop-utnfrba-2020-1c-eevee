@@ -27,7 +27,6 @@ int ciclos_de_cpu = 0;
 int MAXIMO_ENTRENADORES;
 int CANTIDAD_EN_DEADLOCK;
 
-
 bool hayPokeNuevo = false;
 uint32_t quantum_actual = 0;
 

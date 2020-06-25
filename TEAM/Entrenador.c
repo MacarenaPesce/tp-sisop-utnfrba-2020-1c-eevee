@@ -9,23 +9,35 @@
 
 void * jugar_con_el_entrenador(t_entrenador * entrenador){
 
-	sem_wait(&array_semaforos[entrenador->id]);
-	log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
+	while(GLOBAL_SEGUIR){
+		sem_wait(&array_semaforos[entrenador->id]);
+		log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
+
+		llegar_a_el_pokemon(entrenador);
+		atrapar(entrenador);
 
 
-	llegar_a_el_pokemon(entrenador);
+		if(objetivo_personal_cumplido(entrenador)){
+			list_add(lista_finalizar, entrenador);
+			log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+			return NULL;
+		}
 
-	//atrapar(entrenador);
+		if(entrenador->cant_maxima_objetivos == 0){
+			break;
+		}
+	}
 
+	//HAY INTERBLOQUEO
 	sem_wait(&hay_interbloqueo);
 
 	t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entrenador->id);
 
 	if(sem_entrenador_deadlock == NULL){
 		sem_wait(&array_semaforos_finalizar[entrenador->id]);
-		log_info(team_logger, "El entrenador %d finalizo", entrenador->id);
-		printf("\n");
 		sem_post(&hay_interbloqueo);
+
+		log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
 		return NULL;
 
 	}else{
@@ -35,9 +47,8 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		realizar_intercambio(entrenador);
 
 		sem_wait(&array_semaforos_finalizar[entrenador->id]);
-		log_info(team_logger, "El entrenador %d finalizo", entrenador->id);
-		printf("\n");
 
+		log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
 		return NULL;
 	}
 
