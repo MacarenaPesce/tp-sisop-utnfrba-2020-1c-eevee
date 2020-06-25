@@ -34,7 +34,7 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 
 // Instanciación
 t_cola_mensajes* crear_cola_mensajes(int cola_mensajes);
-t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, void* mensaje_recibido);
+t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* mensaje_recibido);
 t_cliente* crear_cliente(uint32_t id_cliente, int socket);
 t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket);
 

@@ -23,6 +23,8 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 
     //log_info(broker_logger, "Por asignar la memoria inicial");
 
+    lista_memoria = list_create();
+
     /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
     void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
     memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));

@@ -68,7 +68,6 @@ void obtener_algoritmo_particion_libre(){
 	logger(escribir_loguear,l_debug,"El algoritmo para particiones libre es: %s",algoritmo_particion_libre);
 }
 
-
 void obtener_la_ip_del_broker(){
 	ip_broker = strdup(config_get_string_value(config, KEY_CONFIG_IP_BROKER));
 }

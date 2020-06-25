@@ -39,15 +39,7 @@
 
 
 //Estructura para reservar la memoria inicial
-typedef struct{
-    //int id_particion;
-    int tamanio_particion;
-    int tamanio_mensaje;
-    bool esta_vacio;
-    float* payload; //puntero a ubicacion en memoria
-    uint64_t timestamp;
-    uint64_t last_time;    
-}t_bloque_memoria;
+
 
 
 void asignar_memoria_inicial(int tamanio_en_bytes); //LISTO

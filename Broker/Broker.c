@@ -9,7 +9,7 @@ int main(){
 	
 	debug_broker = true;
 
-	asignar_memoria_inicial(8000);
+	//asignar_memoria_inicial(8000);
 
 	if(debug_broker) log_debug(broker_logger, "1) Inicializando cache de mensajes...", NULL);
 
@@ -49,7 +49,7 @@ int main(){
 
 	if(debug_broker) log_debug(broker_logger, "5) Configurando signals...", NULL);
 
-	//configurar_signals();
+	configurar_signals();
 
 	if(debug_broker) log_debug(broker_logger, "6) Signals configuradas correctamente!!!", NULL);
 
