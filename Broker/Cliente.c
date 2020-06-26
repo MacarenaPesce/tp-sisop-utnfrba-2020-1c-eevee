@@ -104,6 +104,10 @@ void* esperar_mensajes(void* socket){
 			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
 			if(paquete->operacion == 0) {
 				enviar_ack(&servidor,paquete->id_mensaje);
+				if(paquete->cola_de_mensajes == COLA_GET_POKEMON){
+					t_get_pokemon* get_pokemon = (t_get_pokemon*) paquete->mensaje;
+					printf("recibi el pokemon %s que me envió el broker \n",get_pokemon->pokemon);
+				}
 			}
 			free(paquete);
  		}

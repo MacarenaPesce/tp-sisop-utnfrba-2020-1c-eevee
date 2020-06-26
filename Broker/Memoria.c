@@ -48,6 +48,9 @@ extern t_cache_colas* cache_mensajes;
 /*Dado el valor de memoria inicial, asigno un bloque para la memoria inicial y lo retorno*/
 void asignar_memoria_inicial(int tamanio_en_bytes){
 
+    
+    printf("la direccion de memoria en memoria l51 es: %d \n",cache_mensajes);
+
     //log_info(broker_logger, "Por asignar la memoria inicial");
     cache_mensajes->memoria = list_create();
 
@@ -55,7 +58,7 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
     memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
    
-    printf("Se asigno la memoria inicial");
+    printf("Se asigno la memoria inicial\n");
     printf("La direccion inicial de memoria es: %p \n", memoria_inicial);
 
     /* Genero el bloque de memoria inicial*/
@@ -115,7 +118,10 @@ t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
     
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
-    if (  strcmp( algoritmo_memoria, "BD") == 1){
+    //printf("algo mem l121: %s\n",algoritmo_memoria);
+    //if (  strcmp( algoritmo_memoria, "BS") == 1){
+
+    if(0){
         particionNueva= buddy_system(estructura_mensaje);
     }
     else{
@@ -228,9 +234,11 @@ t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola
     
     t_bloque_memoria* bloque;
 
-    log_info(broker_logger, "Por ejecutar algoritmo de particion libre");
+    //log_info(broker_logger, "Por ejecutar algoritmo de particion libre %s",algoritmo_particion_libre);
 
-    if( strcmp( algoritmo_particion_libre, "FF") == 1){
+    //if( strcmp( algoritmo_particion_libre, "FF") == 1){
+    if(0){
+
         bloque = algoritmo_first_fit(tamanio_parti, estructura_mensaje);
     }
     else{
@@ -264,14 +272,11 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_parti,t_mensaje_cola* estructu
 
         if((aux->tamanio_particion >= tamanio_parti) && (aux->esta_vacio == true)){
             bloque = aux;
-            i = list_size(cache_mensajes->memoria);
+            indice = i;
             break;
         }
 
     }
-
-    //obtengo el indice del bloque que voy a particionar
-    indice = obtener_indice_particion(bloque);
 
     log_info(broker_logger, "Por particionar el bloque, ya encontre mi bloque adecuado");
 
@@ -458,28 +463,18 @@ t_bloque_memoria* algoritmo_lru(){
 	o si hay que correr el algoritmo de eliminacion*/ 
 bool puede_alojarse(int tamanio_bytes){
 
-	bool puedeEntrar = false;
-	t_bloque_memoria* elemento;
+    bool tiene_espacio_suficiente(void* _bloque){
 
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
 
-	//recorro la lista de memoria, hasta encontrar una particion que este vacia y entre mi tamaño de particion nueva
-	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
+        return bloque->tamanio_particion >= tamanio_bytes && bloque->esta_vacio;
 
-		//Obtengo el elemento de la lista en la posicion i
-		elemento = list_get(cache_mensajes->memoria, i);
+    }
 
-		//Me fijo si el elemento esta vacio y a su vez entra mi particion
-		//Si entra, cambio el valor de puedeEntrar, y corto el for.
-		if((elemento->esta_vacio == true) && (elemento->tamanio_particion >= tamanio_bytes)){
-			puedeEntrar= true;
-			i = list_size(cache_mensajes->memoria);
-			break;
-		}
+    t_bloque_memoria *bloque_posible = list_find(cache_mensajes->memoria,tiene_espacio_suficiente);
 
-	}
+    return bloque_posible != NULL;
 
-
-	return puedeEntrar;
 }
 
 
@@ -490,6 +485,8 @@ bool puede_alojarse(int tamanio_bytes){
 	Se usaria una vez encontrado el lugar en memoria que ocuparia mi nueva particion */
 t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, t_mensaje_cola* estructura_mensaje){
 
+
+    log_debug(broker_logger,"indice a particionar %d",indice_nodo_particionar);
     t_bloque_memoria *bloque_restante;
 	t_bloque_memoria *bloque_inicial;
 
@@ -520,10 +517,13 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 	bloque_inicial->timestamp = get_timestamp();
 	bloque_inicial->last_time = get_timestamp();
 
+
     /* Copio el mensaje a MP y apunto a la estructura_mensaje */
     void* aux_mensaje = bloque_inicial->estructura_mensaje;
     bloque_inicial->estructura_mensaje = estructura_mensaje;
+
     memcpy(aux_mensaje,estructura_mensaje->mensaje,estructura_mensaje->tamanio_mensaje);
+
     bloque_inicial->estructura_mensaje->mensaje = aux_mensaje;    
 
     log_info(broker_logger, "Bloque particionado...");
@@ -541,19 +541,25 @@ int obtener_indice_particion(t_bloque_memoria* bloque){
 
     bool buscar_bloque(void* _bloque){
 
-        t_bloque_memoria* bloque_memoria = (t_bloque_memoria*) _bloque;
+        t_bloque_memoria* bloque_memoria = (t_bloque_memoria*) _bloque;        
 
-        indice++;
+        if(bloque_memoria->esta_vacio) {
+            indice++;
+            return false;
+        }
 
-        if(bloque_memoria->esta_vacio) return false;
+        if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje){
+            indice++;
+        }
 
         return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje;
 
     }
 
     list_find(cache_mensajes->memoria, buscar_bloque);
+    log_debug(broker_logger,"El id malo es: %d",indice);
 
-	return indice;
+	return indice-1;
 }
 
 

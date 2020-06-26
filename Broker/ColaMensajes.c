@@ -198,7 +198,7 @@ t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket){
 	t_cliente* cliente = obtener_cliente_por_id(id_cliente);
 
 	if(cliente == NULL){
-		if(debug_broker) log_debug(broker_logger,"\nCreando nuevo cliente %d en socket %d\n",id_cliente,socket);
+		if(debug_broker) log_debug(broker_logger,"Creando nuevo cliente %d en socket %d\n",id_cliente,socket);
 		cliente = crear_cliente(id_cliente, socket);
 		agregar_cliente_a_cache(cliente);
 		return cliente;
@@ -308,11 +308,11 @@ t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 			if(es_memoria_de_cola(bloque,cola)){
 				list_add(mensajes,(void*) bloque->estructura_mensaje);
 			}
-		}		
+		}	
 
 	}		
 
-	list_iterate(cache_mensajes->memoria,listar_mensajes);
+	list_iterate((cache_mensajes->memoria),listar_mensajes);
 
     return mensajes;
 
@@ -326,12 +326,11 @@ t_list* obtener_memoria_de_cola(t_cola_mensajes* cola){
 
 		if(bloque->esta_vacio) return false;
 
-		return ((t_bloque_memoria*)bloque)->estructura_mensaje->cola_de_mensajes == cola->cola_de_mensajes;
+		return (bloque->estructura_mensaje)->cola_de_mensajes == cola->cola_de_mensajes;
 	}
 
-	t_list* memoria = list_filter(cache_mensajes->memoria, filtro_mensajes);
+	return list_filter(cache_mensajes->memoria, filtro_mensajes);
 
-	return memoria;
 }
 
 bool es_memoria_de_cola(t_bloque_memoria* bloque, t_cola_mensajes* cola){
