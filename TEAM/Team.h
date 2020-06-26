@@ -17,10 +17,12 @@
 #include "Interaccion_con_broker.h"
 #include "Deadlock.h"
 
+void crear_hilo_para_tratamiento_de_mensajes();
+void * tratamiento_de_mensajes();
 void operar_con_catch_pokemon(t_packed *, t_entrenador*, t_catch_pokemon*);
 void operar_con_appeared_pokemon();
 void operar_con_localized_pokemon(t_localized_pokemon *);
-void operar_con_caught_pokemon(t_caught_pokemon *, uint32_t);
+void operar_con_caught_pokemon(uint32_t, uint32_t);
 void agregar_pokemon_a_mapa(char *, t_coordenadas);
 void definir_objetivo_global();
 void localizar_entrenadores_en_mapa();

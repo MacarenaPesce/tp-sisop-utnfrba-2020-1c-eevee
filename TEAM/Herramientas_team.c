@@ -81,6 +81,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&lista_bloq_max_mutex, NULL);
 	pthread_mutex_init(&lista_entrenadores_mutex, NULL);
 	pthread_mutex_init(&lista_listos_mutex, NULL);
+	pthread_mutex_init(&mensaje_nuevo_mutex, NULL);
 
 
 	sem_init(&entrenadores_ubicados, 0, 0);
@@ -357,6 +358,13 @@ t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_poke
 t_mensaje_guardado * buscar_mensaje(uint32_t id){
 	bool es_el_buscado(t_mensaje_guardado* mensaje){
 		return mensaje->id == id;
+	}
+	return (list_find(mensajes,(void*)es_el_buscado));
+}
+
+t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* mensajes){
+	bool es_el_buscado(t_mensaje_guardado* mensaje){
+		return mensaje->id == id_correlativo;
 	}
 	return (list_find(mensajes,(void*)es_el_buscado));
 }

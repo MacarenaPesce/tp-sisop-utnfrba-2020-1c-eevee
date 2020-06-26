@@ -16,18 +16,16 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 		if(paquete != (t_packed*)-1){
 
 			pthread_mutex_lock(&llego_gameboy);
-			recibir_appeared_pokemon_desde_gameboy(paquete->mensaje);
+			recibir_appeared_pokemon_desde_gameboy(paquete);
 			pthread_mutex_unlock(&llego_gameboy);
 
 			close(new_client_sock);
-			free(paquete);
 			break;
 		}
 	}
 }
 
 void * atender_a_gameboy(void * serv_socket){
-	pokemones_que_llegan_nuevos = list_create();
 
 	while(GLOBAL_SEGUIR){
 		struct sockaddr_in client_addr;
@@ -52,12 +50,21 @@ void crear_hilo_de_escucha_para_gameboy(int serv_socket){
 	pthread_join(hilo1, NULL);
 }
 
-void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon * mensaje){
-	log_info(team_logger,"Me llego este pokemon: %s, en la posicion de coordenadas (%d, %d)", mensaje->pokemon, mensaje->coordenadas.posx, mensaje->coordenadas.posy);
+void recibir_appeared_pokemon_desde_gameboy(t_packed * paquete){
+	t_appeared_pokemon * appeared = paquete->mensaje;
 
-	//LLAMAR A TEAM
-	list_add(pokemones_que_llegan_nuevos, (void*)mensaje);
-	sem_post(&operar_con_appeared);
-	operar_con_appeared_pokemon();
+	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
+	mensaje->id = paquete->id_mensaje;
+	mensaje->id_correlacional = paquete->id_correlacional;
+	mensaje->operacion = APPEARED;
+	mensaje->contenido = appeared;
 
+
+	pthread_mutex_lock(&mensaje_nuevo_mutex);
+	list_add(mensajes_que_llegan_nuevos, mensaje);
+	pthread_mutex_unlock(&mensaje_nuevo_mutex);
+
+	sem_post(&mensaje_nuevo_disponible);
+
+	free(paquete);
 }

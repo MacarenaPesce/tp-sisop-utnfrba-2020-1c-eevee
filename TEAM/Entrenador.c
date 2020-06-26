@@ -14,8 +14,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
 		llegar_a_el_pokemon(entrenador);
-		atrapar(entrenador);
-
+		//atrapar(entrenador);
 
 		if(objetivo_personal_cumplido(entrenador)){
 			list_add(lista_finalizar, entrenador);
@@ -95,7 +94,7 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 		}
 	}
 
-	/************************************ROUND ROBIN************************************/
+	/************************************ROUND ROBIN************************************
 
 	else if((!strcmp(algoritmo_planificacion, "RR"))){
 		log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
@@ -104,7 +103,6 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 			if(quantum_actual == 0){
 				entrenador_desalojado = entrenador;
 				sem_post(&orden_para_planificar);
-				break;
 			}
 				consumir_un_ciclo_de_cpu();
 				entrenador->posx = entrenador->posx + 1;
@@ -112,54 +110,51 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 				quantum_actual--;
 			}
 
-			//Despues me muevo por derecha
-			while(entrenador->posx > entrenador->objetivo_actual->posx){
-				if(quantum_actual == 0){
-					entrenador_desalojado = entrenador;
-					sem_post(&orden_para_planificar);
-					break;
-				}
-				consumir_un_ciclo_de_cpu();
-				entrenador->posx = entrenador->posx - 1;
-				log_info(team_logger, "Soy %i Me movi una posición por der", entrenador->id);
-				quantum_actual--;
-			}
-
-			//Despues me muevo por arriba
-			while(entrenador->posy > entrenador->objetivo_actual->posy){
-				if(quantum_actual == 0){
-					entrenador_desalojado = entrenador;
-					sem_post(&orden_para_planificar);
-					break;
-				}
-				consumir_un_ciclo_de_cpu();
-				entrenador->posy = entrenador->posy - 1;
-				log_info(team_logger, "Soy %i Me movi una posición arriba", entrenador->id);
-				quantum_actual--;
-			}
-
-			//Despues me muevo por abajo
-			while(entrenador->posy < entrenador->objetivo_actual->posy){
-				if(quantum_actual == 0){
-					entrenador_desalojado = entrenador;
-					sem_post(&orden_para_planificar);
-					break;
-				}
-				consumir_un_ciclo_de_cpu();
-				entrenador->posy = entrenador->posy + 1;
-				log_info(team_logger, "Soy %i Me movi una posición abajo", entrenador->id);
-				quantum_actual--;
-			}
-
-			if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
-				log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
-				atrapar(entrenador);
-			} else {
+		//Despues me muevo por derecha
+		while(entrenador->posx > entrenador->objetivo_actual->posx){
+			if(quantum_actual == 0){
+				entrenador_desalojado = entrenador;
 				sem_post(&orden_para_planificar);
 			}
+			consumir_un_ciclo_de_cpu();
+			entrenador->posx = entrenador->posx - 1;
+			log_info(team_logger, "Soy %i Me movi una posición por der", entrenador->id);
+			quantum_actual--;
+		}
+
+		//Despues me muevo por arriba
+		while(entrenador->posy > entrenador->objetivo_actual->posy){
+			if(quantum_actual == 0){
+				entrenador_desalojado = entrenador;
+				sem_post(&orden_para_planificar);
+			}
+			consumir_un_ciclo_de_cpu();
+			entrenador->posy = entrenador->posy - 1;
+			log_info(team_logger, "Soy %i Me movi una posición arriba", entrenador->id);
+			quantum_actual--;
+		}
+
+		//Despues me muevo por abajo
+		while(entrenador->posy < entrenador->objetivo_actual->posy){
+			if(quantum_actual == 0){
+				entrenador_desalojado = entrenador;
+				sem_post(&orden_para_planificar);
+			}
+			consumir_un_ciclo_de_cpu();
+			entrenador->posy = entrenador->posy + 1;
+			log_info(team_logger, "Soy %i Me movi una posición abajo", entrenador->id);
+			quantum_actual--;
+		}
+
+		if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
+			log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
+			atrapar(entrenador);
+		} else {
+			sem_post(&orden_para_planificar);
+		}
 
 	}
-
+*/
 }
 
 void atrapar(t_entrenador * entrenador){
