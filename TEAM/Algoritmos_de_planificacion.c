@@ -7,27 +7,6 @@
 
 #include "Algoritmos_de_planificacion.h"
 
-
-
-/*
- * *
-			 * Si el algoritmo es con desalojo, (solo SJF) debo chequear si la estimacion del esi nuevo es
-			 * menor a la rafaga pendiente del que esta en ejecucion, si lo es reemplazarlo por el nuevo.
-			 *
-			if(!strcmp(config.algoritmo, "SJF-CD"))
-			{
-				if((esi_en_ejecucion!=NULL) && (nuevo_esi->estimacion_real < esi_en_ejecucion->estimacion_actual))
-				{
-					logger_planificador(escribir_loguear,l_info,"El ESI nuevo de PID %d debe desalojar al ESI en ejecucion!",nuevo_esi->pid);
-					desalojo_en_ejecucion++;
-					esi_por_desalojar = nuevo_esi;
-					logger_planificador(escribir_loguear,l_info,"Esperando a que ESI %d termine su sentencia\n",esi_en_ejecucion->pid);
-				}
-			}
-
-
- */
-
 void * planificar(){
 	/*A medida que el Team empiece a recibir distintos Pokémon en el mapa despertará a los distintos entrenadores en estado New o en
 	Blocked (que estén esperando para procesar) pasandolos a Ready. */
@@ -206,9 +185,9 @@ void obtener_proximo_ejecucion(void){
 	list_destroy(lista_aux);
 
 	//Si hubo un cambio en el entrenador en ejecucion, debo avisarle al nuevo entrenador en ejecucion que es su turno
-		if((entrenador_en_ejecucion != NULL) && (ejec_ant != entrenador_en_ejecucion)){
-			//log_info(team_logger,"Aca le debo avisar al entrenador %d que es su turno\n", entrenador_en_ejecucion->id);
-		}
+	if((entrenador_en_ejecucion != NULL) && (ejec_ant != entrenador_en_ejecucion)){
+		//log_info(team_logger,"Aca le debo avisar al entrenador %d que es su turno\n", entrenador_en_ejecucion->id);
+	}
 
 	return;
 }

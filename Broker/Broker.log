@@ -2050,3 +2050,9 @@
 [INFO] 03:02:26:2 Broker/(16758:17208): El cliente 7 solicitó suscribirse a la cola 5 a través del socket 11
 [INFO] 03:03:03:680 Broker/(16758:17290): Se aceptó un nuevo proceso en el socket 12
 [INFO] 03:03:03:696 Broker/(16758:17290): El cliente 7 solicitó suscribirse a la cola 5 a través del socket 12
+[INFO] 17:35:19:978 Broker/(7926:7926): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 17:38:07:128 Broker/(7926:8142): Se aceptó un nuevo proceso en el socket 5
+[INFO] 17:38:07:128 Broker/(7926:8142): El cliente 7 solicitó suscribirse a la cola 1 a través del socket 5
+[INFO] 17:38:54:894 Broker/(7926:8147): Se aceptó un nuevo proceso en el socket 7
+[INFO] 17:38:54:894 Broker/(7926:8147): El cliente 7 envió un mensaje para la cola 1 a través de socket 7
+[INFO] 17:38:54:894 Broker/(7926:7928): Se envió mensaje 0 perteneciente a la cola 1 al cliente 7

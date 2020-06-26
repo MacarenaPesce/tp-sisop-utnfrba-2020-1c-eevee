@@ -14,7 +14,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
 		llegar_a_el_pokemon(entrenador);
-		//atrapar(entrenador);
+		atrapar(entrenador);
 
 		if(objetivo_personal_cumplido(entrenador)){
 			list_add(lista_finalizar, entrenador);
@@ -89,8 +89,6 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 
 		if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
 			log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
-			atrapar(entrenador);
-
 		}
 	}
 
@@ -177,8 +175,26 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
 
-	sem_post(&operar_con_catch);
-	operar_con_catch_pokemon(ack, entrenador, catch_pokemon);
+	if(ack == (t_packed*) -1){
+		hacer_procedimiento_para_atrapar_default(catch_pokemon, entrenador);
+	}else{
+		//Recibo ACK
+		if(ack->operacion == ACK){
+			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", entrenador->objetivo_actual->especie);
+			log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
+
+			t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
+			mensaje->id = ack->id_mensaje;
+			mensaje->operacion = CATCH;
+			mensaje->contenido = catch_pokemon;
+
+			pthread_mutex_lock(&mensaje_chequear_id_mutex);
+			list_add(mensajes_para_chequear_id, mensaje);
+			pthread_mutex_unlock(&mensaje_chequear_id_mutex);
+
+			hacer_procedimiento_para_atrapar_pokemon_con_broker(entrenador);
+		}
+	}
 
 	free(servidor);
 

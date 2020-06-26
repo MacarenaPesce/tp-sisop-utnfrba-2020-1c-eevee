@@ -16,25 +16,18 @@ void * recibir_appeared_pokemon_desde_broker(t_appeared_pokemon * mensaje){
 	pokemon->posx = mensaje->coordenadas.posx;
 	pokemon->posy = mensaje->coordenadas.posy;
 
-	sem_post(&operar_con_appeared);
-	operar_con_appeared_pokemon(pokemon);
-
 	return NULL;
 }
 
 void * recibir_localized_pokemon_desde_broker(t_localized_pokemon * mensaje){
 	log_info(team_logger,"Voy a recibir un pokemon y coordenadas desde broker para localized pokemon %s", mensaje->pokemon);
 
-	sem_post(&operar_con_localized);
-	//operar_con_localized_pokemon();
 	return NULL;
 }
 
 void * recibir_caught_pokemon_desde_broker(t_caught_pokemon * mensaje){
 	log_info(team_logger,"Voy a recibir un status desde broker para caught pokemon %d", mensaje->status);
 
-	sem_post(&operar_con_caught);
-	//operar_con_caught_pokemon();
 	return NULL;
 }
 
@@ -67,7 +60,15 @@ void enviar_get(){
 				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
 				log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
 
-				//GUARDAR ID
+				t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
+				mensaje->id = ack->id_mensaje;
+				mensaje->operacion = GET;
+				mensaje->contenido = get_pokemon;
+
+				pthread_mutex_lock(&mensaje_chequear_id_mutex);
+				list_add(mensajes_para_chequear_id, mensaje);
+				pthread_mutex_unlock(&mensaje_chequear_id_mutex);
+
 			}
 
 		}else{

@@ -49,6 +49,8 @@ void inicializar_listas(){
 	lista_bloqueados_cant_max_alcanzada = list_create();
 	lista_bloqueados_deadlock = list_create();
 	mensajes_que_llegan_nuevos = list_create();
+	mensajes_para_chequear_id = list_create();
+	lista_bloqueados_esperando_caught = list_create();
 
 }
 

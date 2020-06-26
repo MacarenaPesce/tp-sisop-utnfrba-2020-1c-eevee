@@ -17,28 +17,21 @@
 #include "Interaccion_con_broker.h"
 #include "Deadlock.h"
 
-void crear_hilo_para_tratamiento_de_mensajes();
-void * tratamiento_de_mensajes();
-void operar_con_catch_pokemon(t_packed *, t_entrenador*, t_catch_pokemon*);
-void operar_con_appeared_pokemon();
-void operar_con_localized_pokemon(t_localized_pokemon *);
+void operar_con_appeared_pokemon(t_appeared_pokemon *);
 void operar_con_caught_pokemon(uint32_t, uint32_t);
 void agregar_pokemon_a_mapa(char *, t_coordenadas);
 void definir_objetivo_global();
 void localizar_entrenadores_en_mapa();
 void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*, t_list*);
-void * jugar_con_el_entrenador(t_entrenador *);
+void ver_razon_de_bloqueo(t_entrenador *);
 void actualizar_mapa_y_entrenador(t_catch_pokemon*, t_entrenador*);
 void chequear_si_fue_cumplido_el_objetivo_global();
 void hacer_procedimiento_para_atrapar_default(t_catch_pokemon*, t_entrenador *);
-void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_packed * ack, t_entrenador *);
-void atrapar(t_entrenador *);
-void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list *);
+void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_entrenador *);
 void bloquear_entrenador(t_entrenador*);
 void consumir_un_ciclo_de_cpu();
-void llegar_a_el_pokemon(t_entrenador *);
-void * planificar();
-void crear_hilo_para_planificar();
-bool todos_bloqueados_por_cantidad_maxima();
+void crear_hilo_para_tratamiento_de_mensajes();
+bool chequear_si_recibi_appeared_de_especie_antes(char *);
+void * tratamiento_de_mensajes();
 
 #endif /* TEAM_H_ */

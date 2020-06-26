@@ -82,6 +82,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&lista_entrenadores_mutex, NULL);
 	pthread_mutex_init(&lista_listos_mutex, NULL);
 	pthread_mutex_init(&mensaje_nuevo_mutex, NULL);
+	pthread_mutex_init(&mensaje_chequear_id_mutex, NULL);
 
 
 	sem_init(&entrenadores_ubicados, 0, 0);
@@ -284,29 +285,29 @@ void terminar_team_correctamente(){
 
 	log_destroy(team_logger);
 
-	if(log_file!=NULL)
-	{
+	if(log_file!=NULL){
 		free(log_file);
 		log_file = NULL;
 	}
 
-	if(puerto_broker!=NULL)
-	{
+	if(puerto_broker!=NULL){
 		free(puerto_broker);
 		puerto_broker = NULL;
 	}
 
-	if(ip_broker!=NULL)
-	{
+	if(ip_broker!=NULL){
 		free(ip_broker);
 		ip_broker = NULL;
 	}
 
-	if(algoritmo_planificacion!=NULL)
-	{
+	if(algoritmo_planificacion!=NULL){
 		free(algoritmo_planificacion);
 		algoritmo_planificacion = NULL;
 	}
+
+	/*
+	 * REVISAR QUE TODOS LOS ENTRENADORES ESTEN FINALIZADOS
+	 */
 
 	//return;
 	exit(EXIT_SUCCESS);
@@ -352,7 +353,7 @@ t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_poke
 	bool es_el_buscado(t_entrenador* entrenador){
 		return entrenador->objetivo_actual == pokemon;
 	}
-	return (list_find(lista_bloqueados,(void*)es_el_buscado));
+	return (list_find(lista_bloqueados_esperando_caught,(void*)es_el_buscado));
 }
 
 t_mensaje_guardado * buscar_mensaje(uint32_t id){
