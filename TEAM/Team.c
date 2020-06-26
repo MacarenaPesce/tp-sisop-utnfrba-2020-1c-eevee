@@ -312,6 +312,10 @@ bool chequear_si_recibi_appeared_de_especie_antes(char * pokemon){
 	return true;
 }
 
+void fijarme_si_debo_atraparlo_usando_el_objetivo_global(char * pokemon){
+
+}
+
 void * tratamiento_de_mensajes(){
 
 	while(GLOBAL_SEGUIR){
@@ -325,6 +329,8 @@ void * tratamiento_de_mensajes(){
 
 		if(mensaje->operacion == APPEARED){
 			t_appeared_pokemon * contenido = mensaje->contenido;
+
+			fijarme_si_debo_atraparlo_usando_el_objetivo_global(contenido->pokemon);
 
 			t_pokemon * pokemon = malloc(sizeof(t_pokemon));
 			pokemon->especie = contenido->pokemon;

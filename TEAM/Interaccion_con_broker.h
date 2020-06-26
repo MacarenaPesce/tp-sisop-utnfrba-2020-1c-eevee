@@ -11,9 +11,9 @@
 #include "Contexto_team.h"
 #include "Team.h"
 
-void * recibir_appeared_pokemon_desde_broker(t_appeared_pokemon *);
-void * recibir_localized_pokemon_desde_broker(t_localized_pokemon *);
-void * recibir_caught_pokemon_desde_broker(t_caught_pokemon *);
+void * recibir_appeared_pokemon_desde_broker(t_packed *);
+void * recibir_localized_pokemon_desde_broker(t_packed *);
+void * recibir_caught_pokemon_desde_broker(t_packed *);
 void enviar_get();
 void convertirse_en_suscriptor_global_del_broker();
 void hacer_intento_de_reconexion();
