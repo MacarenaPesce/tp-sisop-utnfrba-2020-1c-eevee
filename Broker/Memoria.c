@@ -614,37 +614,36 @@ void compactar(){
         //si el bloque siguiente esta vacio
         if(bloque_siguiente->esta_vacio){
             consolidar_dos_bloques(bloque, bloque_siguiente);
-        }
-        
-        else {
+        }else {
 
+            /* clonar bloque memoria */
             t_bloque_memoria* bloque_auxiliar = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria))
             memcpy(bloque_auxiliar,bloque_siguiente,sizeof(t_bloque_memoria));
             bloque_auxiliar->estructura_mensaje = bloque_siguiente->estructura_mensaje;
 
+            /* clonar mensaje de memoria principal */
             void* auxiliar_mensaje = malloc(sizeof(bloque_siguiente->tamanio_particion));
             memcpy(auxiliar_mensaje, bloque_siguiente->estructura_mensaje->mensaje,bloque_siguiente->tamanio_particion);
+            
+            /* reapuntar estructuras de mensajes */
+            bloque_siguiente->estructura_mensaje = bloque_siguiente->estructura_mensaje->mensaje;
+            bloque_auxiliar->estructura_mensaje->mensaje = auxiliar_mensaje;
 
-            liberar_bloque_memoria(bloque);
+            /* liberar el siguiente bloque y consolida */
             liberar_bloque_memoria(bloque_siguiente);
             consolidar_dos_bloques(bloque, bloque_siguiente);
 
+            /* particiona el bloque resultante de consolidar, reinsertando los datos a izq */
             particionar_bloque(bloque_auxiliar->tamanio_particion,indice, bloque_auxiliar->estructura_mensaje);
             
-            /*
-            bloque_siguiente->estructura_mensaje->mensaje;
-            bloque_siguiente->estructura_mensaje->mensaje = bloque->estructura_mensaje;
-            bloque->estructura_mensaje= bloque_siguiente->estructura_mensaje;
-            bloque_siguiente->estructura_mensaje = auxiliar;*/
-
-            //bloque->esta_vacio = false;
-            //siguiente->esta_vacio = true;
-
+            /* obtengo el nuevo bloque y seteo los viejos timestamp*/
+            bloque = list_get(cache_mensajes->memoria,indice);
             bloque->timestamp = bloque_auxiliar->timestamp;
             bloque->last_time = bloque_auxiliar->last_time;
 
-            //bloque_siguiente->timestamp = 0;
-            //bloque_siguiente->last_time = 0;
+            /* libero los auxiliares */
+            free(auxiliar_mensaje);
+            free(bloque_auxiliar);
         
         }
 
