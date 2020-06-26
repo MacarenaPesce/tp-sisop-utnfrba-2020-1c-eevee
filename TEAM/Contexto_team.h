@@ -99,7 +99,9 @@ extern t_list* pokemones_bloqueados;
 extern t_list* lista_bloqueados_esperando;
 extern t_list* lista_bloqueados_cant_max_alcanzada;
 extern t_list* lista_bloqueados_deadlock;
-extern t_list* pokemones_que_llegan_nuevos;
+extern t_list* mensajes_que_llegan_nuevos;
+extern t_list* mensajes_para_chequear_id;
+extern t_list* lista_bloqueados_esperando_caught;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_finalizar;
@@ -109,8 +111,10 @@ pthread_mutex_t llego_gameboy;
 pthread_mutex_t lista_bloq_max_mutex;
 pthread_mutex_t lista_entrenadores_mutex;
 pthread_mutex_t lista_listos_mutex;
+pthread_mutex_t mensaje_chequear_id_mutex;
 
-
+pthread_mutex_t mensaje_nuevo_mutex;
+sem_t mensaje_nuevo_disponible;
 
 t_list * semaforos_deadlock;
 
@@ -138,6 +142,14 @@ enum ESTADO{
 	FINALIZANDO
 };
 
+enum OPERACION{
+	LOCALIZED,
+	APPEARED,
+	CAUGHT,
+	GET,
+	CATCH
+};
+
 enum RAZON_BLOQUEO{
 	ESPERANDO_MENSAJE_CAUGHT,
 	ESPERANDO_DEADLOCK,
@@ -161,7 +173,6 @@ typedef struct {
 	t_list *pokemones;
 	uint32_t cant_maxima_objetivos;
 	t_pokemon* objetivo_actual;
-	char * pokemon_bloqueo;
 	float estimacion_real;//sjf
 	float estimacion_actual;//sjf
 	float estimacion_anterior;//sjf
@@ -182,8 +193,17 @@ typedef struct { //estructura del objetivo de un entrenador
 
 typedef struct {
 	uint32_t id;
-	t_pokemon pokemon;
+	uint32_t id_correlacional;
+	void * contenido;
+	enum OPERACION operacion;
 }t_mensaje_guardado;
+
+typedef struct {
+	uint32_t id;
+	uint32_t id_correlacional;
+	void * contenido;
+	enum OPERACION operacion;
+}t_mensaje_ver_id;
 
 typedef struct {
 	int cola;

@@ -136,7 +136,7 @@ typedef struct{
 typedef struct{
 	uint32_t cantidad_coordenadas __attribute__((packed));
 	char * pokemon;
-	t_list lista_coordenadas;
+	t_list * lista_coordenadas;
 } t_localized_pokemon;
 
 

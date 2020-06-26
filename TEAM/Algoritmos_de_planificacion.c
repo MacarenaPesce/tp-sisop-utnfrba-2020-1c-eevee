@@ -8,8 +8,6 @@
 #include "Algoritmos_de_planificacion.h"
 
 void * planificar(){
-	/*Cada entrenador al iniciar en el sistema entrará en estado New. ------- ESTO YA ESTA! CUANDO SE ORDENA LA LISTA DE ENTRENADORES */
-
 	/*A medida que el Team empiece a recibir distintos Pokémon en el mapa despertará a los distintos entrenadores en estado New o en
 	Blocked (que estén esperando para procesar) pasandolos a Ready. */
 
@@ -22,18 +20,22 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 
 	while(GLOBAL_SEGUIR){
 
-			sem_wait(&orden_para_planificar);
+		sem_wait(&orden_para_planificar);
 
+		/*if(!strcmp(config.algoritmo, "SJF-CD")){
+			if((esi_en_ejecucion!=NULL) && (nuevo_esi->estimacion_real < esi_en_ejecucion->estimacion_actual))
+			{
+				logger_planificador(escribir_loguear,l_info,"El ESI nuevo de PID %d debe desalojar al ESI en ejecucion!",nuevo_esi->pid);
+				desalojo_en_ejecucion++;
+				esi_por_desalojar = nuevo_esi;
+				logger_planificador(escribir_loguear,l_info,"Esperando a que ESI %d termine su sentencia\n",esi_en_ejecucion->pid);
+			}
+		}*/
 
-			pthread_mutex_lock(&mapa_mutex);
-			t_pokemon * pokemon = list_get(lista_mapa, 0);
-			pthread_mutex_unlock(&mapa_mutex);
+		obtener_proximo_ejecucion();
+	}
 
-			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-			obtener_proximo_ejecucion();
-		}
-
-		return NULL;
+	return NULL;
 }
 
 void crear_hilo_para_planificar(){
@@ -143,8 +145,10 @@ void obtener_proximo_ejecucion(void){
 	 *se desconoce la próxima rafaga, por lo que se deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos los entrenadore
 	 *se s será la misma y deberá poder ser modificable por archivo de configuración */
 
-	entrenador_en_ejecucion = NULL;
+	t_entrenador * ejec_ant;
 	t_list * lista_aux;
+
+	ejec_ant = entrenador_en_ejecucion;
 
 	/* SJF debe copiar la lista de listos a una lista auxiliar, ordenarla por estimacion mas corta, tomar el primero, destruir la lista auxiliar. Eso para ambos casos */
 
@@ -154,13 +158,11 @@ void obtener_proximo_ejecucion(void){
 	printf("\n");
 
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
-		ordenar_lista_estimacion(lista_aux);\
+		ordenar_lista_estimacion(lista_aux);
+	}
 
-	} else if((!strcmp(algoritmo_planificacion, "RR"))){
-		if(quantum_actual == 0){
-			quantum_actual = quantum;
-			//quantum_cero = false;
-		}
+	if((!strcmp(algoritmo_planificacion, "RR"))){
+		quantum_actual = quantum;
 	}
 
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
@@ -181,6 +183,11 @@ void obtener_proximo_ejecucion(void){
 	}
 
 	list_destroy(lista_aux);
+
+	//Si hubo un cambio en el entrenador en ejecucion, debo avisarle al nuevo entrenador en ejecucion que es su turno
+	if((entrenador_en_ejecucion != NULL) && (ejec_ant != entrenador_en_ejecucion)){
+		//log_info(team_logger,"Aca le debo avisar al entrenador %d que es su turno\n", entrenador_en_ejecucion->id);
+	}
 
 	return;
 }
