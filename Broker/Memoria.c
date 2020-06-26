@@ -600,65 +600,58 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque){
 /* Se encarga de realizar la compactacion en particiones dinamicas*/
 void compactar(){
 
-    t_bloque_memoria* elemento;
-    t_bloque_memoria* nuevoBloque;
-    t_bloque_memoria* primerBloque = list_get(cache_mensajes->memoria, 0);//obtengo el primer bloque para sacar la direccion inicial del payload
-    int acumulador_libre = 0; //sumo la cant de espacio libre para la nueva particion
-    int acumulador_ocupado = 0; //sumo la cant de espacio ocupado para desp validar
-    void* payload_acu = primerBloque->payload;
+    void compactar_bloque(void* _bloque){
 
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
 
-    //recorro la lista para ver que particiones estan libres y voy borrandolas de aca
-    for(int i=0; i< list_size(cache_mensajes->memoria); i++){
+        //si el bloqu no esta vacio no hago nada
+        if(!bloque->esta_vacio) return ;
 
-        elemento = list_get(cache_mensajes->memoria, i);
+        int indice = obtener_indice_particion(bloque);
 
-        //me fijo si el bloque actual en el que estoy, esta vacio
-        if(elemento->esta_vacio == true){//si el bloque esta vacio:
+        t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria,indice+1);
 
-            //sumo el tamaño de particion al acumulador libre
-            acumulador_libre += elemento->tamanio_particion;
-
-            //borro la particion de la lista
-            list_remove_and_destroy_element(cache_mensajes->memoria, i, (void*)free );
+        //si el bloque siguiente esta vacio
+        if(bloque_siguiente->esta_vacio){
+            consolidar_dos_bloques(bloque, bloque_siguiente);
         }
-        else{ //si el bloque esta ocupado
+        
+        else {
 
-            //sumo el tamaño de particion al acumulador ocupado
-            acumulador_ocupado += elemento->tamanio_particion;
+            t_bloque_memoria* bloque_auxiliar = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria))
+            memcpy(bloque_auxiliar,bloque_siguiente,sizeof(t_bloque_memoria));
+            bloque_auxiliar->estructura_mensaje = bloque_siguiente->estructura_mensaje;
 
+            void* auxiliar_mensaje = malloc(sizeof(bloque_siguiente->tamanio_particion));
+            memcpy(auxiliar_mensaje, bloque_siguiente->estructura_mensaje->mensaje,bloque_siguiente->tamanio_particion);
+
+            liberar_bloque_memoria(bloque);
+            liberar_bloque_memoria(bloque_siguiente);
+            consolidar_dos_bloques(bloque, bloque_siguiente);
+
+            particionar_bloque(bloque_auxiliar->tamanio_particion,indice, bloque_auxiliar->estructura_mensaje);
+            
+            /*
+            bloque_siguiente->estructura_mensaje->mensaje;
+            bloque_siguiente->estructura_mensaje->mensaje = bloque->estructura_mensaje;
+            bloque->estructura_mensaje= bloque_siguiente->estructura_mensaje;
+            bloque_siguiente->estructura_mensaje = auxiliar;*/
+
+            //bloque->esta_vacio = false;
+            //siguiente->esta_vacio = true;
+
+            bloque->timestamp = bloque_auxiliar->timestamp;
+            bloque->last_time = bloque_auxiliar->last_time;
+
+            //bloque_siguiente->timestamp = 0;
+            //bloque_siguiente->last_time = 0;
+        
         }
-    }
 
-    //ahora cambio el payload de las que quedaron ocupadas y hay que moverlas
-    for(int i=0; i< list_size(cache_mensajes->memoria); i++){
 
-        elemento = list_get(cache_mensajes->memoria, i);
+    }    
 
-        /*if((payload_acu == elemento->payload) && (elemento->esta_vacio == false)){
-            payload_acu += elemento->tamanio_particion
-        }*/
-
-        elemento->payload = payload_acu;
-
-        payload_acu += elemento->tamanio_particion + 1;
-
-    }
-
-    if( list_size(cache_mensajes->memoria)==acumulador_ocupado){
-        printf("se realizo bien la compactación ");
-    }
-
-    //Creo el nuevo bloque con el tamaño de todas las particiones libres
-    nuevoBloque->tamanio_particion = acumulador_libre;
-    nuevoBloque->tamanio_mensaje = 0;
-    nuevoBloque->esta_vacio = true;
-    nuevoBloque->payload = payload_acu + 1;
-	nuevoBloque->timestamp = 0;
-	nuevoBloque->last_time = 0;
-    
-    //Agrego el nuevo bloque a la lista de memoria
-    list_add(cache_mensajes->memoria,nuevoBloque);
+    list_iterate(cache_mensajes->memoria, compactar_bloque);
 
 	return ;
 }
