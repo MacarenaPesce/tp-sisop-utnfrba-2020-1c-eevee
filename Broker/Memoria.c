@@ -6,7 +6,6 @@ extern char* algoritmo_reemplazo;
 extern char* algoritmo_particion_libre;
 extern char* ip_broker;
 extern int frecuencia_compactacion;
-extern int puerto_broker;
 extern char* log_file;
 
 extern t_log* broker_logger;
@@ -50,7 +49,6 @@ extern t_cache_colas* cache_mensajes;
 void asignar_memoria_inicial(int tamanio_en_bytes){
 
     //log_info(broker_logger, "Por asignar la memoria inicial");
-
     cache_mensajes->memoria = list_create();
 
     /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
@@ -617,7 +615,7 @@ void compactar(){
         }else {
 
             /* clonar bloque memoria */
-            t_bloque_memoria* bloque_auxiliar = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria))
+            t_bloque_memoria* bloque_auxiliar = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
             memcpy(bloque_auxiliar,bloque_siguiente,sizeof(t_bloque_memoria));
             bloque_auxiliar->estructura_mensaje = bloque_siguiente->estructura_mensaje;
 

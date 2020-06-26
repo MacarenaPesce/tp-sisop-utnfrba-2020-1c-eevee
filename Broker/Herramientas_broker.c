@@ -44,27 +44,27 @@ void obtener_valor_config(char* key, t_config* file, void(*obtener)(void)){
 }
 
 void obtener_tamanio_memoria(){
-	tamanio_memoria = config_get_array_value(config, KEY_CONFIG_TAMANIO_MEMORIA);
+	tamanio_memoria = config_get_int_value(config, KEY_CONFIG_TAMANIO_MEMORIA);
 	logger(escribir_loguear,l_debug,"El tamaño inicial de memoria: %d",tamanio_memoria);
 }
 
 void obtener_tamanio_minimo_particion(){
-	tamanio_minimo_particion = config_get_array_value(config, KEY_CONFIG_TAMANIO_MINIMO_PARTICION);
+	tamanio_minimo_particion = config_get_int_value(config, KEY_CONFIG_TAMANIO_MINIMO_PARTICION);
 	logger(escribir_loguear,l_debug,"El tamaño minimo de particion: %d",tamanio_minimo_particion);
 }
 
 void obtener_algoritmo_memoria(){
-	algoritmo_memoria = config_get_array_value(config, KEY_CONFIG_ALGORITMO_MEMORIA);
+	algoritmo_memoria = config_get_string_value(config, KEY_CONFIG_ALGORITMO_MEMORIA);
 	logger(escribir_loguear,l_debug,"El algoritmo de memoria es: %s",algoritmo_memoria);
 }
 
 void obtener_algoritmo_reemplazo(){
-	algoritmo_reemplazo = config_get_int_value(config, KEY_CONFIG_ALGORITMO_REEMPLAZO);
+	algoritmo_reemplazo = config_get_string_value(config, KEY_CONFIG_ALGORITMO_REEMPLAZO);
 	logger(escribir_loguear,l_debug,"El algoritmo de reemplazo es: %s",algoritmo_reemplazo);
 }
 
 void obtener_algoritmo_particion_libre(){
-    algoritmo_particion_libre = config_get_int_value(config, KEY_CONFIG_ALGORITMO_PARTICION_LIBRE);
+    algoritmo_particion_libre = config_get_string_value(config, KEY_CONFIG_ALGORITMO_PARTICION_LIBRE);
 	logger(escribir_loguear,l_debug,"El algoritmo para particiones libre es: %s",algoritmo_particion_libre);
 }
 
@@ -77,7 +77,7 @@ void obtener_el_puerto_del_broker(){
 }
 
 void obtener_frecuencia_compactacion(){
-	frecuencia_compactacion = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER));
+	frecuencia_compactacion = strdup(config_get_int_value(config, KEY_CONFIG_PUERTO_BROKER));
 	logger(escribir_loguear,l_debug,"La frecuencia de compactacion es: %d",frecuencia_compactacion);
 }
 

@@ -20,7 +20,7 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 
 	return mensaje->id_mensaje;
 
-t_mensaje_cola}
+}
 
 void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
 
