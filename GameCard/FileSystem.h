@@ -121,7 +121,7 @@ char* pokeLinea;
 //modificar pokemon
 
 //t_list* obtenerBloquesPokemon(char* poke);
-char** getBloquesPoke(char* pok);
+void llenarListaBloquesPoke(char* pok);
 
 char* pokemonEnMemoria;
 
@@ -129,7 +129,7 @@ char* pokemonAguardar;
 
 char* nuevaPos;
 
-char* posValidas;
+char* posAcopiar;
 
 int tamanioNuevaPos;
 
@@ -191,7 +191,7 @@ void copiarSinUltimoSalto(char* text);
 
 void contardorDeBloquesOcupadosPorPokemon(char** bloksOcupadosPorPokemon);
 
-void copiarPokemonAmemoria(char** bloksOcupadosPorPokemon);
+void copiarPokemonAmemoria(t_list* bloksOcupadosPorPokemon);
 
 bool estaPosicionEnMemoria(char* pokemonEnMemoria, char* nuevaPos);
 
@@ -200,5 +200,13 @@ void copiarEnBloque(char* bloqueLibre,char* lineaAcopiar);
 void agregarBloqueParaMetadataArchivo(char* bloqueLibre);
 
 void cambiarTamanioMetadata(char* pokemon,int tamanioAgregar);
+
+void modificarBloquesMetadata(char* poke, char** bloquesPokemon);
+
+void modificarPosicion(nuevaPos,cantidad,pokemonEnMemoria);
+
+void agregarNuevaPosicion(nuevaPos,cantidad,pokemonEnMemoria);
+
+void agregarAlista(char* bloque);
 
 #endif /* FILESYSTEM_H_ */
