@@ -23,14 +23,17 @@ void * chequear_deadlock(){
 		int cant_ready = list_size(lista_listos);
 		pthread_mutex_unlock(&lista_listos_mutex);
 
+		log_info(team_logger_oficial, "Inicio del algoritmo de detección de Deadlock");
 		if(cant_nuevos == 0 && todos_bloqueados_por_cantidad_maxima() && cant_ready == 0){
 			printf("\n");
 			log_warning(team_logger, "Deadlock detectado");
+			log_info(team_logger_oficial, "Deadlock detectado");
 
 			pthread_mutex_lock(&lista_bloq_max_mutex);
 			CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
 			pthread_mutex_unlock(&lista_bloq_max_mutex);
 
+			log_info(team_logger_oficial, "La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
 			log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
 
 			inicializar_semaforos_deadlock();
@@ -53,7 +56,7 @@ void * chequear_deadlock(){
 	entrenador1 = sacar_entrenador_de_lista_pid(lista_listos, entrenador1->id);
 	pthread_mutex_unlock(&lista_listos_mutex);
 	log_info(team_logger, "El entrenador %d pasó a la lista de listos para resolucion de deadlock", entrenador1->id);
-
+	log_info(team_logger_oficial, "El entrenador %d pasó a la lista de listos para resolucion de deadlock", entrenador1->id);
 	entrenador1->estado = EJECUTANDO;
 
 	interbloqueo(entrenador1);

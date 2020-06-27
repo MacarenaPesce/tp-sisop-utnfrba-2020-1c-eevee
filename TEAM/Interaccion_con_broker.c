@@ -18,6 +18,7 @@ void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 	mensaje->contenido = appeared;
 
 	log_debug(team_logger, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
+	log_info(team_logger_oficial, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
 	list_add(mensajes_que_llegan_nuevos, mensaje);
@@ -41,6 +42,7 @@ void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 	mensaje->contenido = localized;
 
 	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON");
+	log_debug(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
 	list_add(mensajes_que_llegan_nuevos, mensaje);
@@ -64,6 +66,7 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 	mensaje->contenido = caught;
 
 	log_debug(team_logger, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> %d y status %d", paquete->id_correlacional, caught->status);
+	log_debug(team_logger_oficial, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> %d y status %d", paquete->id_correlacional, caught->status);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
 	list_add(mensajes_que_llegan_nuevos, mensaje);
@@ -145,6 +148,7 @@ void convertirse_en_suscriptor_global_del_broker(){
 }
 
 void hacer_intento_de_reconexion(){
+	log_info(team_logger_oficial, "Haciendo intento de reconexión");
 	log_info(team_logger, "Haciendo intento de reconexión");
 	sleep(tiempo_reconexion);
 }
@@ -165,6 +169,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 		if(broker_socket <= 0){
 			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola");
+			log_info(team_logger_oficial, "No se pudo mandar al broker la solicitud de suscripcion para la cola");
 			hacer_intento_de_reconexion();
 			suscribirse_a_cola(paquete_suscripcion);
 

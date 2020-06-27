@@ -55,7 +55,6 @@ bool objetivo_global_cumplido(){
 			}
 		}
 		return (contador == list_size(lista_objetivos) && !hayDeadlock);
-		//es verdadero y cumple esto y ademas no haya deadlock
 }
 
 void inicializar_logger(){

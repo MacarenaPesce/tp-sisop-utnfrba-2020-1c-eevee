@@ -271,6 +271,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 		case ESPERANDO_POKEMON:
 
 			list_add(lista_bloqueados_esperando, (void*)entrenador);
+			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
 			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
 			break;
@@ -278,6 +279,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 		case ESPERANDO_MENSAJE_CAUGHT:
 
 			list_add(lista_bloqueados_esperando_caught, (void*)entrenador);
+			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando que llegue mensaje Caught", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught");
 			break;
 
@@ -316,8 +318,6 @@ bool chequear_si_recibi_appeared_de_especie_antes(char * pokemon){
 bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char * pokemon){
 	t_objetivo * objetivo = buscar_pokemon_por_especie(lista_objetivos, pokemon);
 		return objetivo != NULL && objetivo->cantidad_necesitada > objetivo->cantidad_atrapada;
-
-
 }
 
 void * tratamiento_de_mensajes(){

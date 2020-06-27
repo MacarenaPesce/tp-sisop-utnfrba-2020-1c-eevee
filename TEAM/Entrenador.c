@@ -19,6 +19,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		if(objetivo_personal_cumplido(entrenador)){
 			list_add(lista_finalizar, entrenador);
 			log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 			return NULL;
 		}
 
@@ -37,6 +38,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		sem_post(&hay_interbloqueo);
 
 		log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+		log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 		return NULL;
 
 	}else{
@@ -48,6 +50,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		sem_wait(&array_semaforos_finalizar[entrenador->id]);
 
 		log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+		log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 		return NULL;
 	}
 
@@ -206,6 +209,7 @@ void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 	entrenador2 = list_get(lista_bloqueados_deadlock, 0);
 
 	log_info(team_logger, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
+	log_info(team_logger_oficial, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
 	//Primero me muevo por izq
 	while(entrenador1->posx < entrenador1->objetivo_actual->posx){
 		consumir_un_ciclo_de_cpu();
@@ -263,6 +267,10 @@ void realizar_intercambio(t_entrenador* entrenador1){
 
 	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
 	entrenador2 = list_get(lista_bloqueados_deadlock, 0); //entrenador con quien hago el intercambio
+
+	log_info(team_logger_oficial, "Se va a realizar un intercambio entre el entrenador %i y %i", entrenador1->id, entrenador2->id);
+
+
 	t_objetivo_entrenador* pokemon2 = elegir_pokemon_innecesario(entrenador2); //pokemon innecesario de E2
 
 	//pokemon1 es el pokemon innecesario de E1
