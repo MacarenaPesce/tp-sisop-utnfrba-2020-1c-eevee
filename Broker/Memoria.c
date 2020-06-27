@@ -70,7 +70,7 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     bloque->esta_vacio = true;
 	bloque->timestamp = 0;
 	bloque->last_time = 0;
-    bloque->estructura_mensaje = memoria_inicial;
+    bloque->estructura_mensaje = (t_mensaje_cola*) memoria_inicial;
 
     printf("Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
 
@@ -118,10 +118,8 @@ t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
     
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
-    //printf("algo mem l121: %s\n",algoritmo_memoria);
-    //if (  strcmp( algoritmo_memoria, "BS") == 1){
+    if (  strcmp( algoritmo_memoria, "BS") == 1){
 
-    if(0){
         particionNueva= buddy_system(estructura_mensaje);
     }
     else{
@@ -236,9 +234,7 @@ t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola
 
     //log_info(broker_logger, "Por ejecutar algoritmo de particion libre %s",algoritmo_particion_libre);
 
-    //if( strcmp( algoritmo_particion_libre, "FF") == 1){
-    if(0){
-
+    if( strcmp( algoritmo_particion_libre, "FF") == 1){
         bloque = algoritmo_first_fit(tamanio_parti, estructura_mensaje);
     }
     else{
@@ -477,9 +473,6 @@ bool puede_alojarse(int tamanio_bytes){
 
 }
 
-
-
-
 /*Dado un indice y un tamaño en byte, alojo la particion en el indice, y creo el nuevo bloque con lo restante en el caso
 	que haya algo restante. La idea de esta funcion es que sea llamada por el algoritmo de asignacion.
 	Se usaria una vez encontrado el lugar en memoria que ocuparia mi nueva particion */
@@ -498,14 +491,10 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
     /* Si me sobra espacio lo separo en un nuevo nodo */
     if(bloque_inicial->tamanio_particion - tamanio_parti > 0){ 
 
-        bloque_restante = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
+        int tamanio_restante = bloque_inicial->tamanio_particion - tamanio_parti;
+        void* particion_restante = bloque_inicial->estructura_mensaje + tamanio_parti;
 
-        bloque_restante->tamanio_particion = bloque_inicial->tamanio_particion - tamanio_parti;
-		bloque_restante->esta_vacio = true;
-        bloque_restante->estructura_mensaje = bloque_inicial->estructura_mensaje + tamanio_parti;
-		bloque_restante->timestamp = 0;
-		bloque_restante->last_time = 0;
-
+        bloque_restante = crear_bloque_vacio(tamanio_restante, particion_restante);
 
         list_add_in_index(cache_mensajes->memoria, indice_nodo_particionar + 1, bloque_restante);    
 
@@ -518,11 +507,15 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 	bloque_inicial->last_time = get_timestamp();
 
 
-    /* Copio el mensaje a MP y apunto a la estructura_mensaje */
-    void* aux_mensaje = bloque_inicial->estructura_mensaje;
-    bloque_inicial->estructura_mensaje = estructura_mensaje;
+    /* Copio el mensaje a MP y apunto a la estructura_mensaje */      
 
-    memcpy(aux_mensaje,estructura_mensaje->mensaje,estructura_mensaje->tamanio_mensaje);
+    log_debug(broker_logger,"el tamanio es: %d",estructura_mensaje->tamanio_mensaje);
+    log_info(broker_logger,"memdir: %p",(bloque_inicial->estructura_mensaje));
+
+    memcpy((void*)(bloque_inicial->estructura_mensaje),estructura_mensaje->mensaje,estructura_mensaje->tamanio_mensaje);
+
+    void* aux_mensaje = bloque_inicial->estructura_mensaje; 
+    bloque_inicial->estructura_mensaje = estructura_mensaje;
 
     bloque_inicial->estructura_mensaje->mensaje = aux_mensaje;    
 
@@ -531,7 +524,19 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
     return bloque_inicial;
 }
 
+t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 
+    t_bloque_memoria* bloque = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
+
+    bloque->tamanio_particion = tamanio_particion;
+    bloque->esta_vacio = true;
+    bloque->estructura_mensaje = particion;
+    bloque->timestamp = 0;
+    bloque->last_time = 0;
+
+    return bloque;
+
+}
 
 
 /*Obtengo el indice de un determinado, recorriendo toda la lista y comparando los payload*/

@@ -59,10 +59,10 @@ int recibir_paquete(int sock, void *mensaje, int tamanio){
 
 	//validación
 	// no recibe la cantidad esperada
-			if (bytes_recibidos < tamanio){
-				perror("No se recibió el mensaje completo");
-						return -1;
-			}
+	if (bytes_recibidos < tamanio){
+		perror("No se recibió el mensaje completo");
+		return -1;
+	}
 
 	return bytes_recibidos;
 }
@@ -118,13 +118,15 @@ t_packed* recibir_mensaje(int sock){
 
 	if(size <= 0) return (t_packed *)-1;
 
-	paquete = (t_packed*)malloc(sizeof(t_packed));paquete = (t_packed*)malloc(sizeof(t_packed));
+	/* Obtengo el header */
+	paquete = (t_packed*)malloc(sizeof(t_packed));
 	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
 
 	if(paquete->tamanio_payload <= 0) {
 		return paquete;
 	}
 
+	/* Obtener payload */
 	mensaje = (void*)malloc(paquete->tamanio_payload);
 	recibir_paquete(sock, mensaje, paquete->tamanio_payload);
 
@@ -646,7 +648,6 @@ int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes,
 
 }
 
-
 //Implementaciones Recepcion
 void _recibir_mensaje_string(void *mensaje,t_packed *paquete){
 
@@ -673,6 +674,7 @@ void _recibir_catch_o_appeared_pokemon(void *mensaje,t_packed *paquete){
 
 	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
 	offset += sizeof(uint32_t);
+	paquete->tamanio_payload -= sizeof(uint32_t);
 
 	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
 	memcpy(aux->pokemon,mensaje+offset,_tamanio_string_pokemon);
@@ -697,6 +699,7 @@ void _recibir_new_pokemon(void *mensaje,t_packed *paquete){
 
 	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
 	offset += sizeof(uint32_t);
+	paquete->tamanio_payload -= sizeof(uint32_t);
 
 	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
 	memcpy(aux->pokemon,mensaje+offset,_tamanio_string_pokemon);
@@ -729,6 +732,7 @@ void _recibir_get_pokemon(void *mensaje,t_packed *paquete){
 
 	memcpy(&_tamanio_string_pokemon,mensaje+offset,sizeof(uint32_t));
 	offset += sizeof(uint32_t);
+	paquete->tamanio_payload -= sizeof(uint32_t);
 
 	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
 	memcpy(aux->pokemon,mensaje+offset,_tamanio_string_pokemon);

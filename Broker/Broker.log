@@ -1140,3 +1140,1238 @@ Creando nuevo cliente 123332 en socket 5
 [INFO] 01:28:05:192 Broker/(13797:13822): Se aceptó un nuevo proceso en el socket 7
 [DEBUG] 01:28:05:301 Broker/(13797:13802): Los pendientes quedaron con 0 mensajes
 [INFO] 01:28:05:308 Broker/(13797:13822): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 01:49:15:58 Broker/(14767:14767): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 01:49:15:77 Broker/(14767:14767): 1) Cache de mensajes lista!!!
+[DEBUG] 01:49:15:78 Broker/(14767:14767): 2) Inicializando archivo de configuracion...
+[DEBUG] 01:49:15:101 Broker/(14767:14767): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 01:49:15:101 Broker/(14767:14767): 4) Configurando signals...
+[DEBUG] 01:49:15:103 Broker/(14767:14767): 5) Signals configuradas correctamente!!!
+[DEBUG] 01:49:15:104 Broker/(14767:14767): 6) Inicializando cache de mensajes...
+[DEBUG] 01:49:15:128 Broker/(14767:14767): 7) Iniciando servidor...
+[DEBUG] 01:49:15:133 Broker/(14767:14767): 8) Intentando bindear sever...
+[DEBUG] 01:49:15:136 Broker/(14767:14767): 9) Server bindeado correctamente!!!
+[DEBUG] 01:49:15:211 Broker/(14767:14776): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 01:49:20:497 Broker/(14767:14792): Se aceptó un nuevo proceso en el socket 5
+[INFO] 01:49:20:500 Broker/(14767:14794): Se aceptó un nuevo proceso en el socket 6
+[INFO] 01:49:20:504 Broker/(14767:14792): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 01:49:21:206 Broker/(14767:14792): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 01:49:21:209 Broker/(14767:14792): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 01:49:21:211 Broker/(14767:14794): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 01:49:21:265 Broker/(14767:14794): Ejecutando best fit
+[DEBUG] 01:49:21:267 Broker/(14767:14794): El id malo es: 1
+[INFO] 01:49:21:295 Broker/(14767:14794): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:49:21:296 Broker/(14767:14794): indice a particionar 0
+[INFO] 01:49:21:296 Broker/(14767:14794): Por particionar...
+[INFO] 01:49:21:317 Broker/(14767:14794): Bloque particionado...
+[INFO] 01:49:21:343 Broker/(14767:14794): Ya ejecute best fit
+[INFO] 01:49:21:344 Broker/(14767:14794): Algoritmo de particion libre ejecutado!
+[INFO] 01:49:21:344 Broker/(14767:14794): Aloje la nueva particion , PD
+[DEBUG] 01:49:21:346 Broker/(14767:14794): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 01:49:21:349 Broker/(14767:14773): Los pendientes tienen 1 mensajes
+[INFO] 01:49:21:355 Broker/(14767:14773): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 01:49:21:403 Broker/(14767:14773): Los pendientes quedaron con 0 mensajes
+[INFO] 01:49:21:454 Broker/(14767:14798): Se aceptó un nuevo proceso en el socket 7
+[INFO] 01:49:21:495 Broker/(14767:14798): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 01:50:20:585 Broker/(14942:14942): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 01:50:20:606 Broker/(14942:14942): 1) Cache de mensajes lista!!!
+[DEBUG] 01:50:20:608 Broker/(14942:14942): 2) Inicializando archivo de configuracion...
+[DEBUG] 01:50:20:671 Broker/(14942:14942): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 01:50:20:673 Broker/(14942:14942): 4) Configurando signals...
+[DEBUG] 01:50:20:676 Broker/(14942:14942): 5) Signals configuradas correctamente!!!
+[DEBUG] 01:50:20:684 Broker/(14942:14942): 6) Inicializando cache de mensajes...
+[DEBUG] 01:50:20:742 Broker/(14942:14942): 7) Iniciando servidor...
+[DEBUG] 01:50:20:767 Broker/(14942:14942): 8) Intentando bindear sever...
+[DEBUG] 01:50:20:769 Broker/(14942:14942): 9) Server bindeado correctamente!!!
+[DEBUG] 01:50:20:772 Broker/(14942:14950): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 01:50:26:566 Broker/(14942:14964): Se aceptó un nuevo proceso en el socket 6
+[INFO] 01:50:26:786 Broker/(14942:14964): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 01:50:26:787 Broker/(14942:14965): Se aceptó un nuevo proceso en el socket 6
+[INFO] 01:50:26:875 Broker/(14942:14964): Ejecutando best fit
+[DEBUG] 01:50:26:877 Broker/(14942:14964): El id malo es: 1
+[INFO] 01:50:26:877 Broker/(14942:14964): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:50:26:881 Broker/(14942:14964): indice a particionar 0
+[INFO] 01:50:26:882 Broker/(14942:14964): Por particionar...
+[INFO] 01:50:26:886 Broker/(14942:14964): Bloque particionado...
+[INFO] 01:50:26:887 Broker/(14942:14964): Ya ejecute best fit
+[INFO] 01:50:26:887 Broker/(14942:14964): Algoritmo de particion libre ejecutado!
+[INFO] 01:50:26:888 Broker/(14942:14964): Aloje la nueva particion , PD
+[INFO] 13:51:54:217 Broker/(5287:5287): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 13:51:54:255 Broker/(5287:5287): 1) Cache de mensajes lista!!!
+[DEBUG] 13:51:54:256 Broker/(5287:5287): 2) Inicializando archivo de configuracion...
+[DEBUG] 13:51:54:280 Broker/(5287:5287): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 13:51:54:280 Broker/(5287:5287): 4) Configurando signals...
+[DEBUG] 13:51:54:282 Broker/(5287:5287): 5) Signals configuradas correctamente!!!
+[DEBUG] 13:51:54:283 Broker/(5287:5287): 6) Inicializando cache de mensajes...
+[DEBUG] 13:51:54:319 Broker/(5287:5287): 7) Iniciando servidor...
+[DEBUG] 13:51:54:324 Broker/(5287:5287): 8) Intentando bindear sever...
+[DEBUG] 13:51:54:326 Broker/(5287:5287): 9) Server bindeado correctamente!!!
+[DEBUG] 13:51:54:417 Broker/(5287:5295): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 13:51:58:243 Broker/(5287:5307): Se aceptó un nuevo proceso en el socket 5
+[INFO] 13:51:58:245 Broker/(5287:5307): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 13:51:58:246 Broker/(5287:5307): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 13:51:58:248 Broker/(5287:5307): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 13:51:58:314 Broker/(5287:5309): Se aceptó un nuevo proceso en el socket 6
+[INFO] 13:51:58:459 Broker/(5287:5309): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 13:51:58:880 Broker/(5287:5309): Ejecutando best fit
+[DEBUG] 13:51:59:130 Broker/(5287:5309): El id malo es: 1
+[INFO] 13:51:59:130 Broker/(5287:5309): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 13:51:59:131 Broker/(5287:5309): indice a particionar 0
+[INFO] 13:51:59:173 Broker/(5287:5309): Por particionar...
+[INFO] 13:51:59:245 Broker/(5287:5309): Bloque particionado...
+[INFO] 13:51:59:246 Broker/(5287:5309): Ya ejecute best fit
+[INFO] 13:51:59:251 Broker/(5287:5309): Algoritmo de particion libre ejecutado!
+[INFO] 13:51:59:252 Broker/(5287:5309): Aloje la nueva particion , PD
+[DEBUG] 13:51:59:254 Broker/(5287:5309): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 13:51:59:347 Broker/(5287:5292): Los pendientes tienen 1 mensajes
+[INFO] 13:51:59:351 Broker/(5287:5292): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 13:51:59:362 Broker/(5287:5292): Los pendientes quedaron con 0 mensajes
+[INFO] 13:51:59:757 Broker/(5287:5313): Se aceptó un nuevo proceso en el socket 7
+[INFO] 13:51:59:864 Broker/(5287:5313): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 13:55:25:533 Broker/(5728:5728): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 13:55:25:563 Broker/(5728:5728): 1) Cache de mensajes lista!!!
+[DEBUG] 13:55:25:567 Broker/(5728:5728): 2) Inicializando archivo de configuracion...
+[DEBUG] 13:55:25:592 Broker/(5728:5728): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 13:55:25:593 Broker/(5728:5728): 4) Configurando signals...
+[DEBUG] 13:55:25:595 Broker/(5728:5728): 5) Signals configuradas correctamente!!!
+[DEBUG] 13:55:25:595 Broker/(5728:5728): 6) Inicializando cache de mensajes...
+[DEBUG] 13:55:25:620 Broker/(5728:5728): 7) Iniciando servidor...
+[DEBUG] 13:55:25:626 Broker/(5728:5728): 8) Intentando bindear sever...
+[DEBUG] 13:55:25:627 Broker/(5728:5728): 9) Server bindeado correctamente!!!
+[DEBUG] 13:55:25:655 Broker/(5728:5736): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 13:55:28:542 Broker/(5728:5751): Se aceptó un nuevo proceso en el socket 6
+[INFO] 13:55:28:564 Broker/(5728:5752): Se aceptó un nuevo proceso en el socket 6
+[INFO] 13:55:48:832 Broker/(5790:5790): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 13:55:48:851 Broker/(5790:5790): 1) Cache de mensajes lista!!!
+[DEBUG] 13:55:48:853 Broker/(5790:5790): 2) Inicializando archivo de configuracion...
+[DEBUG] 13:55:48:875 Broker/(5790:5790): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 13:55:48:875 Broker/(5790:5790): 4) Configurando signals...
+[DEBUG] 13:55:48:877 Broker/(5790:5790): 5) Signals configuradas correctamente!!!
+[DEBUG] 13:55:48:878 Broker/(5790:5790): 6) Inicializando cache de mensajes...
+[DEBUG] 13:55:48:899 Broker/(5790:5790): 7) Iniciando servidor...
+[DEBUG] 13:55:48:904 Broker/(5790:5790): 8) Intentando bindear sever...
+[DEBUG] 13:55:48:906 Broker/(5790:5790): 9) Server bindeado correctamente!!!
+[DEBUG] 13:55:48:918 Broker/(5790:5798): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 13:55:52:222 Broker/(5790:5813): Se aceptó un nuevo proceso en el socket 6
+[INFO] 13:55:52:528 Broker/(5790:5812): Se aceptó un nuevo proceso en el socket 6
+[INFO] 13:55:52:533 Broker/(5790:5813): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 13:55:52:558 Broker/(5790:5813): Ejecutando best fit
+[DEBUG] 13:55:52:570 Broker/(5790:5813): El id malo es: 1
+[INFO] 13:55:52:598 Broker/(5790:5813): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 13:55:52:599 Broker/(5790:5813): indice a particionar 0
+[INFO] 13:55:52:621 Broker/(5790:5813): Por particionar...
+[DEBUG] 13:55:52:664 Broker/(5790:5813): el pokemon es: pepe_el_dino
+[DEBUG] 13:55:52:669 Broker/(5790:5813): el tamanio es: 17
+[INFO] 13:55:52:680 Broker/(5790:5813): Bloque particionado...
+[INFO] 13:55:52:711 Broker/(5790:5813): Ya ejecute best fit
+[INFO] 13:55:52:765 Broker/(5790:5813): Algoritmo de particion libre ejecutado!
+[INFO] 13:55:52:793 Broker/(5790:5813): Aloje la nueva particion , PD
+[INFO] 14:01:24:469 Broker/(6294:6294): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:01:24:488 Broker/(6294:6294): 1) Cache de mensajes lista!!!
+[DEBUG] 14:01:24:490 Broker/(6294:6294): 2) Inicializando archivo de configuracion...
+[DEBUG] 14:01:24:526 Broker/(6294:6294): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:01:24:527 Broker/(6294:6294): 4) Configurando signals...
+[DEBUG] 14:01:24:532 Broker/(6294:6294): 5) Signals configuradas correctamente!!!
+[DEBUG] 14:01:24:532 Broker/(6294:6294): 6) Inicializando cache de mensajes...
+[DEBUG] 14:01:24:631 Broker/(6294:6294): 7) Iniciando servidor...
+[DEBUG] 14:01:24:657 Broker/(6294:6294): 8) Intentando bindear sever...
+[DEBUG] 14:01:24:661 Broker/(6294:6294): 9) Server bindeado correctamente!!!
+[DEBUG] 14:01:24:762 Broker/(6294:6303): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:01:28:863 Broker/(6294:6322): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:01:28:873 Broker/(6294:6323): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:01:29:344 Broker/(6294:6322): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:01:29:585 Broker/(6294:6322): Ejecutando best fit
+[DEBUG] 14:01:29:615 Broker/(6294:6322): El id malo es: 1
+[INFO] 14:01:29:631 Broker/(6294:6322): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 14:01:29:643 Broker/(6294:6322): indice a particionar 0
+[INFO] 14:01:29:709 Broker/(6294:6322): Por particionar...
+[DEBUG] 14:01:29:773 Broker/(6294:6322): el pokemon es: pepe_el_dino
+[DEBUG] 14:01:29:774 Broker/(6294:6322): el tamanio es: 13
+[INFO] 14:01:29:818 Broker/(6294:6322): Bloque particionado...
+[INFO] 14:01:29:819 Broker/(6294:6322): Ya ejecute best fit
+[INFO] 14:01:29:819 Broker/(6294:6322): Algoritmo de particion libre ejecutado!
+[INFO] 14:01:29:855 Broker/(6294:6322): Aloje la nueva particion , PD
+[INFO] 14:06:58:966 Broker/(6531:6531): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:06:58:992 Broker/(6531:6531): 1) Cache de mensajes lista!!!
+[DEBUG] 14:06:58:994 Broker/(6531:6531): 2) Inicializando archivo de configuracion...
+[DEBUG] 14:06:59:30 Broker/(6531:6531): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:06:59:31 Broker/(6531:6531): 4) Configurando signals...
+[DEBUG] 14:06:59:33 Broker/(6531:6531): 5) Signals configuradas correctamente!!!
+[DEBUG] 14:06:59:34 Broker/(6531:6531): 6) Inicializando cache de mensajes...
+[DEBUG] 14:06:59:96 Broker/(6531:6531): 7) Iniciando servidor...
+[DEBUG] 14:06:59:103 Broker/(6531:6531): 8) Intentando bindear sever...
+[DEBUG] 14:06:59:105 Broker/(6531:6531): 9) Server bindeado correctamente!!!
+[DEBUG] 14:06:59:209 Broker/(6531:6544): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:07:03:309 Broker/(6531:6556): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:07:03:330 Broker/(6531:6558): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:07:03:333 Broker/(6531:6556): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 14:07:03:834 Broker/(6531:6556): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 14:07:03:836 Broker/(6531:6556): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 14:07:03:352 Broker/(6531:6558): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:07:03:885 Broker/(6531:6558): Ejecutando best fit
+[DEBUG] 14:07:03:887 Broker/(6531:6558): El id malo es: 1
+[INFO] 14:07:03:887 Broker/(6531:6558): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 14:07:03:888 Broker/(6531:6558): indice a particionar 0
+[INFO] 14:07:03:889 Broker/(6531:6558): Por particionar...
+[DEBUG] 14:07:04:409 Broker/(6531:6558): el pokemon es: pepe_el_dino
+[DEBUG] 14:07:04:409 Broker/(6531:6558): el tamanio es: 13
+[INFO] 14:07:04:410 Broker/(6531:6558): Bloque particionado...
+[INFO] 14:07:04:411 Broker/(6531:6558): Ya ejecute best fit
+[INFO] 14:07:04:411 Broker/(6531:6558): Algoritmo de particion libre ejecutado!
+[INFO] 14:07:04:411 Broker/(6531:6558): Aloje la nueva particion , PD
+[DEBUG] 14:07:04:413 Broker/(6531:6558): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:07:04:933 Broker/(6531:6541): Los pendientes tienen 1 mensajes
+[INFO] 14:07:05:162 Broker/(6531:6541): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:07:05:164 Broker/(6531:6541): Los pendientes quedaron con 0 mensajes
+[INFO] 14:07:05:180 Broker/(6531:6563): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:07:05:663 Broker/(6531:6563): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 14:09:00:572 Broker/(6860:6860): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:09:00:591 Broker/(6860:6860): 1) Cache de mensajes lista!!!
+[DEBUG] 14:09:00:605 Broker/(6860:6860): 2) Inicializando archivo de configuracion...
+[DEBUG] 14:09:00:659 Broker/(6860:6860): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:09:00:660 Broker/(6860:6860): 4) Configurando signals...
+[DEBUG] 14:09:00:663 Broker/(6860:6860): 5) Signals configuradas correctamente!!!
+[DEBUG] 14:09:00:664 Broker/(6860:6860): 6) Inicializando cache de mensajes...
+[DEBUG] 14:09:00:690 Broker/(6860:6860): 7) Iniciando servidor...
+[DEBUG] 14:09:00:695 Broker/(6860:6860): 8) Intentando bindear sever...
+[DEBUG] 14:09:00:698 Broker/(6860:6860): 9) Server bindeado correctamente!!!
+[DEBUG] 14:09:00:729 Broker/(6860:6868): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:09:03:965 Broker/(6860:6885): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:09:03:970 Broker/(6860:6885): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 14:09:04:181 Broker/(6860:6888): Se aceptó un nuevo proceso en el socket 6
+[DEBUG] 14:09:04:183 Broker/(6860:6885): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 14:09:04:486 Broker/(6860:6885): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 14:09:05:83 Broker/(6860:6888): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:09:05:315 Broker/(6860:6888): Ejecutando best fit
+[DEBUG] 14:09:05:778 Broker/(6860:6888): El id malo es: 1
+[INFO] 14:09:05:778 Broker/(6860:6888): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 14:09:05:781 Broker/(6860:6888): indice a particionar 0
+[INFO] 14:09:05:781 Broker/(6860:6888): Por particionar...
+[DEBUG] 14:09:05:784 Broker/(6860:6888): el pokemon es: pepe_el_dino
+[DEBUG] 14:09:05:785 Broker/(6860:6888): el tamanio es: 13
+[INFO] 14:12:23:762 Broker/(7183:7183): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:12:23:788 Broker/(7183:7183): 1) Cache de mensajes lista!!!
+[DEBUG] 14:12:23:796 Broker/(7183:7183): 2) Inicializando archivo de configuracion...
+[DEBUG] 14:12:23:850 Broker/(7183:7183): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:12:23:851 Broker/(7183:7183): 4) Configurando signals...
+[DEBUG] 14:12:23:863 Broker/(7183:7183): 5) Signals configuradas correctamente!!!
+[DEBUG] 14:12:23:864 Broker/(7183:7183): 6) Inicializando cache de mensajes...
+[DEBUG] 14:12:23:898 Broker/(7183:7183): 7) Iniciando servidor...
+[DEBUG] 14:12:23:904 Broker/(7183:7183): 8) Intentando bindear sever...
+[DEBUG] 14:12:23:906 Broker/(7183:7183): 9) Server bindeado correctamente!!!
+[DEBUG] 14:12:24:537 Broker/(7183:7192): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:12:30:837 Broker/(7183:7213): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:12:30:843 Broker/(7183:7213): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:12:30:843 Broker/(7183:7214): Se aceptó un nuevo proceso en el socket 6
+[INFO] 14:12:30:908 Broker/(7183:7213): Ejecutando best fit
+[DEBUG] 14:12:30:932 Broker/(7183:7213): El id malo es: 1
+[INFO] 14:12:30:935 Broker/(7183:7213): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 14:12:30:937 Broker/(7183:7213): indice a particionar 0
+[INFO] 14:12:30:938 Broker/(7183:7213): Por particionar...
+[DEBUG] 14:12:30:943 Broker/(7183:7213): el pokemon es: pepe_el_dino
+[DEBUG] 14:12:30:944 Broker/(7183:7213): el tamanio es: 13
+[INFO] 14:12:30:955 Broker/(7183:7213): Bloque particionado...
+[INFO] 14:12:30:960 Broker/(7183:7213): Ya ejecute best fit
+[INFO] 14:12:30:961 Broker/(7183:7213): Algoritmo de particion libre ejecutado!
+[INFO] 14:12:30:962 Broker/(7183:7213): Aloje la nueva particion , PD
+[INFO] 14:46:11:81 Broker/(9317:9317): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 14:46:11:101 Broker/(9317:9317): 1) Cache de mensajes lista!!!
+[DEBUG] 14:46:11:102 Broker/(9317:9317): 2) Inicializando archivo de configuracion...
+[DEBUG] 14:46:11:140 Broker/(9317:9317): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 14:46:11:141 Broker/(9317:9317): 4) Configurando signals...
+[DEBUG] 14:46:11:143 Broker/(9317:9317): 5) Signals configuradas correctamente!!!
+[DEBUG] 14:46:11:144 Broker/(9317:9317): 6) Inicializando cache de mensajes...
+[DEBUG] 14:46:11:167 Broker/(9317:9317): 7) Iniciando servidor...
+[DEBUG] 14:46:11:173 Broker/(9317:9317): 8) Intentando bindear sever...
+[DEBUG] 14:46:11:175 Broker/(9317:9317): 9) Server bindeado correctamente!!!
+[DEBUG] 14:46:11:188 Broker/(9317:9325): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 14:46:17:885 Broker/(9317:9343): Se aceptó un nuevo proceso en el socket 5
+[INFO] 14:46:17:960 Broker/(9317:9343): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 14:46:17:970 Broker/(9317:9344): Se aceptó un nuevo proceso en el socket 6
+[DEBUG] 14:46:18:23 Broker/(9317:9343): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 14:46:18:113 Broker/(9317:9343): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 14:46:18:128 Broker/(9317:9344): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 14:46:18:132 Broker/(9317:9344): Ejecutando best fit
+[DEBUG] 14:46:18:169 Broker/(9317:9344): El id malo es: 1
+[INFO] 14:46:18:169 Broker/(9317:9344): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 14:46:18:170 Broker/(9317:9344): indice a particionar 0
+[INFO] 14:46:18:170 Broker/(9317:9344): Por particionar...
+[DEBUG] 14:46:18:192 Broker/(9317:9344): el pokemon es: pepe_el_dino
+[DEBUG] 14:46:18:193 Broker/(9317:9344): el tamanio es: 13
+[INFO] 14:46:18:194 Broker/(9317:9344): Bloque particionado...
+[INFO] 14:46:18:194 Broker/(9317:9344): Ya ejecute best fit
+[INFO] 14:46:18:195 Broker/(9317:9344): Algoritmo de particion libre ejecutado!
+[INFO] 14:46:18:195 Broker/(9317:9344): Aloje la nueva particion , PD
+[DEBUG] 14:46:18:197 Broker/(9317:9344): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 14:46:18:221 Broker/(9317:9322): Los pendientes tienen 1 mensajes
+[INFO] 14:46:18:225 Broker/(9317:9322): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 14:46:18:227 Broker/(9317:9322): Los pendientes quedaron con 0 mensajes
+[INFO] 14:46:18:889 Broker/(9317:9351): Se aceptó un nuevo proceso en el socket 7
+[INFO] 14:46:18:957 Broker/(9317:9351): El cliente 123332 envió confirmación del mensaje 0 a través del socket 7 
+[INFO] 15:00:00:55 Broker/(10101:10101): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:00:00:74 Broker/(10101:10101): 1) Cache de mensajes lista!!!
+[DEBUG] 15:00:00:75 Broker/(10101:10101): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:00:00:97 Broker/(10101:10101): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:00:00:97 Broker/(10101:10101): 4) Configurando signals...
+[DEBUG] 15:00:00:99 Broker/(10101:10101): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:00:00:100 Broker/(10101:10101): 6) Inicializando cache de mensajes...
+[DEBUG] 15:00:00:118 Broker/(10101:10101): 7) Iniciando servidor...
+[DEBUG] 15:00:00:127 Broker/(10101:10101): 8) Intentando bindear sever...
+[DEBUG] 15:00:00:129 Broker/(10101:10101): 9) Server bindeado correctamente!!!
+[DEBUG] 15:00:00:206 Broker/(10101:10110): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:00:03:622 Broker/(10101:10124): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:00:03:997 Broker/(10101:10123): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:00:03:2 Broker/(10101:10124): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 15:00:04:24 Broker/(10101:10124): Ejecutando best fit
+[DEBUG] 15:00:04:26 Broker/(10101:10124): El id malo es: 1
+[INFO] 15:00:04:28 Broker/(10101:10124): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:00:04:30 Broker/(10101:10124): indice a particionar 0
+[INFO] 15:00:04:32 Broker/(10101:10124): Por particionar...
+[DEBUG] 15:00:04:35 Broker/(10101:10124): el pokemon es: pepe_el_dino
+[DEBUG] 15:00:04:36 Broker/(10101:10124): el tamanio es: 13
+[INFO] 15:00:04:37 Broker/(10101:10124): Bloque particionado...
+[INFO] 15:00:04:37 Broker/(10101:10124): Ya ejecute best fit
+[INFO] 15:00:04:44 Broker/(10101:10124): Algoritmo de particion libre ejecutado!
+[INFO] 15:00:04:44 Broker/(10101:10124): Aloje la nueva particion , PD
+[INFO] 15:10:14:642 Broker/(10665:10665): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:10:14:660 Broker/(10665:10665): 1) Cache de mensajes lista!!!
+[DEBUG] 15:10:14:662 Broker/(10665:10665): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:10:14:698 Broker/(10665:10665): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:10:14:700 Broker/(10665:10665): 4) Configurando signals...
+[DEBUG] 15:10:14:702 Broker/(10665:10665): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:10:14:702 Broker/(10665:10665): 6) Inicializando cache de mensajes...
+[DEBUG] 15:10:14:746 Broker/(10665:10665): 7) Iniciando servidor...
+[DEBUG] 15:10:14:758 Broker/(10665:10665): 8) Intentando bindear sever...
+[DEBUG] 15:10:14:762 Broker/(10665:10665): 9) Server bindeado correctamente!!!
+[DEBUG] 15:10:14:798 Broker/(10665:10673): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:10:17:970 Broker/(10665:10686): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:10:17:986 Broker/(10665:10686): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 15:10:17:971 Broker/(10665:10685): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:10:18:18 Broker/(10665:10686): Ejecutando best fit
+[DEBUG] 15:10:18:38 Broker/(10665:10686): El id malo es: 1
+[INFO] 15:10:18:39 Broker/(10665:10686): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:10:18:40 Broker/(10665:10686): indice a particionar 0
+[INFO] 15:10:18:40 Broker/(10665:10686): Por particionar...
+[INFO] 15:10:18:44 Broker/(10665:10686): Bloque particionado...
+[INFO] 15:10:18:44 Broker/(10665:10686): Ya ejecute best fit
+[INFO] 15:10:18:56 Broker/(10665:10686): Algoritmo de particion libre ejecutado!
+[INFO] 15:10:18:76 Broker/(10665:10686): Aloje la nueva particion , PD
+[INFO] 15:14:48:485 Broker/(11080:11080): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:14:48:503 Broker/(11080:11080): 1) Cache de mensajes lista!!!
+[DEBUG] 15:14:48:505 Broker/(11080:11080): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:14:48:529 Broker/(11080:11080): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:14:48:530 Broker/(11080:11080): 4) Configurando signals...
+[DEBUG] 15:14:48:532 Broker/(11080:11080): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:14:48:532 Broker/(11080:11080): 6) Inicializando cache de mensajes...
+[DEBUG] 15:14:48:552 Broker/(11080:11080): 7) Iniciando servidor...
+[DEBUG] 15:14:48:560 Broker/(11080:11080): 8) Intentando bindear sever...
+[DEBUG] 15:14:48:562 Broker/(11080:11080): 9) Server bindeado correctamente!!!
+[DEBUG] 15:14:48:800 Broker/(11080:11097): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:14:53:367 Broker/(11080:11108): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:14:53:368 Broker/(11080:11109): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:14:53:373 Broker/(11080:11108): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 15:14:53:378 Broker/(11080:11108): Ejecutando best fit
+[DEBUG] 15:14:53:379 Broker/(11080:11108): El id malo es: 1
+[INFO] 15:14:53:454 Broker/(11080:11108): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:14:53:455 Broker/(11080:11108): indice a particionar 0
+[INFO] 15:14:53:706 Broker/(11080:11108): Por particionar...
+[INFO] 15:14:53:710 Broker/(11080:11108): memdir: 0x423df88
+[INFO] 15:14:53:712 Broker/(11080:11108): Bloque particionado...
+[INFO] 15:14:53:712 Broker/(11080:11108): Ya ejecute best fit
+[INFO] 15:14:53:712 Broker/(11080:11108): Algoritmo de particion libre ejecutado!
+[INFO] 15:14:53:713 Broker/(11080:11108): Aloje la nueva particion , PD
+[INFO] 15:23:24:721 Broker/(11621:11621): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:23:24:740 Broker/(11621:11621): 1) Cache de mensajes lista!!!
+[DEBUG] 15:23:24:742 Broker/(11621:11621): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:23:24:765 Broker/(11621:11621): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:23:24:765 Broker/(11621:11621): 4) Configurando signals...
+[DEBUG] 15:23:24:767 Broker/(11621:11621): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:23:24:768 Broker/(11621:11621): 6) Inicializando cache de mensajes...
+[DEBUG] 15:23:24:786 Broker/(11621:11621): 7) Iniciando servidor...
+[DEBUG] 15:23:24:791 Broker/(11621:11621): 8) Intentando bindear sever...
+[DEBUG] 15:23:24:795 Broker/(11621:11621): 9) Server bindeado correctamente!!!
+[DEBUG] 15:23:24:846 Broker/(11621:11629): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:23:38:747 Broker/(11621:11647): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:23:38:754 Broker/(11621:11646): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:23:38:791 Broker/(11621:11647): El cliente 123332 envió un mensaje para la cola 0 a través de socket 6
+[INFO] 15:23:38:795 Broker/(11621:11647): Ejecutando best fit
+[DEBUG] 15:23:38:800 Broker/(11621:11647): El id malo es: 1
+[INFO] 15:23:38:830 Broker/(11621:11647): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:23:38:892 Broker/(11621:11647): indice a particionar 0
+[INFO] 15:23:38:898 Broker/(11621:11647): Por particionar...
+[INFO] 15:24:43:405 Broker/(11769:11769): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:24:43:424 Broker/(11769:11769): 1) Cache de mensajes lista!!!
+[DEBUG] 15:24:43:426 Broker/(11769:11769): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:24:43:461 Broker/(11769:11769): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:24:43:466 Broker/(11769:11769): 4) Configurando signals...
+[DEBUG] 15:24:43:488 Broker/(11769:11769): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:24:43:491 Broker/(11769:11769): 6) Inicializando cache de mensajes...
+[DEBUG] 15:24:43:592 Broker/(11769:11769): 7) Iniciando servidor...
+[DEBUG] 15:24:43:610 Broker/(11769:11769): 8) Intentando bindear sever...
+[DEBUG] 15:24:43:620 Broker/(11769:11769): 9) Server bindeado correctamente!!!
+[DEBUG] 15:24:43:637 Broker/(11769:11777): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:24:47:53 Broker/(11769:11788): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:24:47:54 Broker/(11769:11789): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:24:47:141 Broker/(11769:11788): El cliente 123332 envió un mensaje para la cola 0 a través de socket 6
+[INFO] 15:24:47:236 Broker/(11769:11788): Ejecutando best fit
+[DEBUG] 15:24:47:239 Broker/(11769:11788): El id malo es: 1
+[INFO] 15:24:47:241 Broker/(11769:11788): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:24:47:243 Broker/(11769:11788): indice a particionar 0
+[INFO] 15:24:47:244 Broker/(11769:11788): Por particionar...
+[INFO] 15:29:29:437 Broker/(12291:12291): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:29:29:461 Broker/(12291:12291): 1) Cache de mensajes lista!!!
+[DEBUG] 15:29:29:462 Broker/(12291:12291): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:29:29:546 Broker/(12291:12291): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:29:29:547 Broker/(12291:12291): 4) Configurando signals...
+[DEBUG] 15:29:29:550 Broker/(12291:12291): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:29:29:551 Broker/(12291:12291): 6) Inicializando cache de mensajes...
+[DEBUG] 15:29:29:599 Broker/(12291:12291): 7) Iniciando servidor...
+[DEBUG] 15:29:29:609 Broker/(12291:12291): 8) Intentando bindear sever...
+[DEBUG] 15:29:29:611 Broker/(12291:12291): 9) Server bindeado correctamente!!!
+[DEBUG] 15:29:29:635 Broker/(12291:12306): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:29:33:390 Broker/(12291:12310): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:29:33:395 Broker/(12291:12310): El cliente 123332 envió un mensaje para la cola 0 a través de socket 6
+[INFO] 15:29:33:401 Broker/(12291:12311): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:29:34:67 Broker/(12291:12310): Ejecutando best fit
+[DEBUG] 15:29:34:94 Broker/(12291:12310): El id malo es: 1
+[INFO] 15:29:34:244 Broker/(12291:12310): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:29:34:355 Broker/(12291:12310): indice a particionar 0
+[INFO] 15:29:34:356 Broker/(12291:12310): Por particionar...
+[DEBUG] 15:29:34:369 Broker/(12291:12310): el tamanio es: 16
+[INFO] 15:29:34:370 Broker/(12291:12310): memdir: 0x423df88
+[INFO] 15:29:34:371 Broker/(12291:12310): Bloque particionado...
+[INFO] 15:29:34:372 Broker/(12291:12310): Ya ejecute best fit
+[INFO] 15:29:34:379 Broker/(12291:12310): Algoritmo de particion libre ejecutado!
+[INFO] 15:29:34:379 Broker/(12291:12310): Aloje la nueva particion , PD
+[INFO] 15:29:34:409 Broker/(12291:12315): Se aceptó un nuevo proceso en el socket 7
+[INFO] 15:29:34:410 Broker/(12291:12315): El cliente 123332 envió un mensaje para la cola 1 a través de socket 7
+[INFO] 15:29:34:411 Broker/(12291:12315): Ejecutando best fit
+[DEBUG] 15:29:34:412 Broker/(12291:12315): El id malo es: 2
+[INFO] 15:29:34:412 Broker/(12291:12315): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:29:34:412 Broker/(12291:12315): indice a particionar 1
+[INFO] 15:29:34:412 Broker/(12291:12315): Por particionar...
+[DEBUG] 15:29:34:412 Broker/(12291:12315): el tamanio es: 20
+[INFO] 15:29:34:413 Broker/(12291:12315): memdir: 0x423e148
+[INFO] 15:29:34:413 Broker/(12291:12315): Bloque particionado...
+[INFO] 15:29:34:413 Broker/(12291:12315): Ya ejecute best fit
+[INFO] 15:29:34:413 Broker/(12291:12315): Algoritmo de particion libre ejecutado!
+[INFO] 15:29:34:413 Broker/(12291:12315): Aloje la nueva particion , PD
+[INFO] 15:29:34:503 Broker/(12291:12316): Se aceptó un nuevo proceso en el socket 8
+[INFO] 15:29:34:503 Broker/(12291:12316): El cliente 123332 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 15:29:34:504 Broker/(12291:12316): Ejecutando best fit
+[DEBUG] 15:29:34:504 Broker/(12291:12316): El id malo es: 3
+[INFO] 15:29:34:506 Broker/(12291:12316): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:29:34:506 Broker/(12291:12316): indice a particionar 2
+[INFO] 15:29:34:507 Broker/(12291:12316): Por particionar...
+[DEBUG] 15:29:34:507 Broker/(12291:12316): el tamanio es: 16
+[INFO] 15:29:34:507 Broker/(12291:12316): memdir: 0x423e378
+[INFO] 15:29:34:507 Broker/(12291:12316): Bloque particionado...
+[INFO] 15:29:34:507 Broker/(12291:12316): Ya ejecute best fit
+[INFO] 15:29:34:508 Broker/(12291:12316): Algoritmo de particion libre ejecutado!
+[INFO] 15:29:34:508 Broker/(12291:12316): Aloje la nueva particion , PD
+[INFO] 15:29:34:515 Broker/(12291:12318): Se aceptó un nuevo proceso en el socket 9
+[INFO] 15:29:34:528 Broker/(12291:12318): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[INFO] 15:29:34:528 Broker/(12291:12318): Ejecutando best fit
+[DEBUG] 15:29:34:528 Broker/(12291:12318): El id malo es: 4
+[INFO] 15:29:34:529 Broker/(12291:12318): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:29:34:529 Broker/(12291:12318): indice a particionar 3
+[INFO] 15:29:34:534 Broker/(12291:12318): Por particionar...
+[DEBUG] 15:29:34:584 Broker/(12291:12318): el tamanio es: 13
+[INFO] 15:29:34:586 Broker/(12291:12318): memdir: 0x423e538
+[INFO] 15:29:34:597 Broker/(12291:12318): Bloque particionado...
+[INFO] 15:29:34:602 Broker/(12291:12318): Ya ejecute best fit
+[INFO] 15:29:34:603 Broker/(12291:12318): Algoritmo de particion libre ejecutado!
+[INFO] 15:29:34:606 Broker/(12291:12318): Aloje la nueva particion , PD
+[INFO] 15:29:34:685 Broker/(12291:12326): Se aceptó un nuevo proceso en el socket 10
+[INFO] 15:29:34:698 Broker/(12291:12326): El cliente 123332 envió un mensaje para la cola 4 a través de socket 10
+[INFO] 15:29:34:715 Broker/(12291:12326): Ejecutando best fit
+[DEBUG] 15:29:34:720 Broker/(12291:12326): El id malo es: 5
+[INFO] 15:29:34:722 Broker/(12291:12326): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:29:34:722 Broker/(12291:12326): indice a particionar 4
+[INFO] 15:29:34:739 Broker/(12291:12326): Por particionar...
+[DEBUG] 15:29:34:753 Broker/(12291:12326): el tamanio es: 4
+[INFO] 15:29:34:769 Broker/(12291:12326): memdir: 0x423e6a4
+[INFO] 15:29:34:770 Broker/(12291:12326): Bloque particionado...
+[INFO] 15:29:34:778 Broker/(12291:12326): Ya ejecute best fit
+[INFO] 15:29:34:778 Broker/(12291:12326): Algoritmo de particion libre ejecutado!
+[INFO] 15:29:34:794 Broker/(12291:12326): Aloje la nueva particion , PD
+[INFO] 15:31:49:209 Broker/(12488:12488): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:31:49:227 Broker/(12488:12488): 1) Cache de mensajes lista!!!
+[DEBUG] 15:31:49:229 Broker/(12488:12488): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:31:49:253 Broker/(12488:12488): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:31:49:254 Broker/(12488:12488): 4) Configurando signals...
+[DEBUG] 15:31:49:255 Broker/(12488:12488): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:31:49:256 Broker/(12488:12488): 6) Inicializando cache de mensajes...
+[DEBUG] 15:31:49:279 Broker/(12488:12488): 7) Iniciando servidor...
+[DEBUG] 15:31:49:288 Broker/(12488:12488): 8) Intentando bindear sever...
+[DEBUG] 15:31:49:290 Broker/(12488:12488): 9) Server bindeado correctamente!!!
+[DEBUG] 15:31:49:300 Broker/(12488:12496): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:31:52:349 Broker/(12488:12519): Se aceptó un nuevo proceso en el socket 5
+[INFO] 15:31:52:498 Broker/(12488:12519): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 15:31:52:738 Broker/(12488:12519): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 15:31:52:823 Broker/(12488:12519): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 15:31:52:831 Broker/(12488:12520): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:31:52:984 Broker/(12488:12520): El cliente 123332 envió un mensaje para la cola 0 a través de socket 6
+[INFO] 15:31:52:989 Broker/(12488:12520): Ejecutando best fit
+[DEBUG] 15:31:53:23 Broker/(12488:12520): El id malo es: 1
+[INFO] 15:31:53:23 Broker/(12488:12520): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:31:53:23 Broker/(12488:12520): indice a particionar 0
+[INFO] 15:31:53:24 Broker/(12488:12520): Por particionar...
+[DEBUG] 15:31:53:27 Broker/(12488:12520): el tamanio es: 16
+[INFO] 15:31:53:28 Broker/(12488:12520): memdir: 0x423df88
+[INFO] 15:31:53:28 Broker/(12488:12520): Bloque particionado...
+[INFO] 15:31:53:29 Broker/(12488:12520): Ya ejecute best fit
+[INFO] 15:31:53:29 Broker/(12488:12520): Algoritmo de particion libre ejecutado!
+[INFO] 15:31:53:30 Broker/(12488:12520): Aloje la nueva particion , PD
+[INFO] 15:31:53:225 Broker/(12488:12523): Se aceptó un nuevo proceso en el socket 7
+[INFO] 15:31:53:562 Broker/(12488:12523): El cliente 123332 envió un mensaje para la cola 1 a través de socket 7
+[INFO] 15:31:53:670 Broker/(12488:12523): Ejecutando best fit
+[DEBUG] 15:31:53:671 Broker/(12488:12523): El id malo es: 2
+[INFO] 15:31:53:671 Broker/(12488:12523): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:31:53:671 Broker/(12488:12523): indice a particionar 1
+[INFO] 15:31:53:672 Broker/(12488:12523): Por particionar...
+[DEBUG] 15:31:53:672 Broker/(12488:12523): el tamanio es: 20
+[INFO] 15:31:53:672 Broker/(12488:12523): memdir: 0x423e148
+[INFO] 15:31:53:672 Broker/(12488:12523): Bloque particionado...
+[INFO] 15:31:53:673 Broker/(12488:12523): Ya ejecute best fit
+[INFO] 15:31:53:692 Broker/(12488:12523): Algoritmo de particion libre ejecutado!
+[INFO] 15:31:53:692 Broker/(12488:12523): Aloje la nueva particion , PD
+[INFO] 15:31:53:719 Broker/(12488:12525): Se aceptó un nuevo proceso en el socket 8
+[INFO] 15:31:54:281 Broker/(12488:12525): El cliente 123332 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 15:31:55:7 Broker/(12488:12525): Ejecutando best fit
+[DEBUG] 15:31:55:22 Broker/(12488:12525): El id malo es: 3
+[INFO] 15:31:55:22 Broker/(12488:12525): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:31:55:22 Broker/(12488:12525): indice a particionar 2
+[INFO] 15:31:55:23 Broker/(12488:12525): Por particionar...
+[DEBUG] 15:31:55:23 Broker/(12488:12525): el tamanio es: 16
+[INFO] 15:31:55:23 Broker/(12488:12525): memdir: 0x423e378
+[INFO] 15:31:55:24 Broker/(12488:12525): Bloque particionado...
+[INFO] 15:31:55:24 Broker/(12488:12525): Ya ejecute best fit
+[INFO] 15:31:55:24 Broker/(12488:12525): Algoritmo de particion libre ejecutado!
+[INFO] 15:31:55:24 Broker/(12488:12525): Aloje la nueva particion , PD
+[INFO] 15:31:55:749 Broker/(12488:12529): Se aceptó un nuevo proceso en el socket 9
+[INFO] 15:31:55:750 Broker/(12488:12529): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[INFO] 15:31:55:750 Broker/(12488:12529): Ejecutando best fit
+[DEBUG] 15:31:55:751 Broker/(12488:12529): El id malo es: 4
+[INFO] 15:31:55:751 Broker/(12488:12529): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:31:55:769 Broker/(12488:12529): indice a particionar 3
+[INFO] 15:31:55:770 Broker/(12488:12529): Por particionar...
+[DEBUG] 15:31:55:773 Broker/(12488:12529): el tamanio es: 13
+[INFO] 15:31:55:814 Broker/(12488:12529): memdir: 0x423e538
+[INFO] 15:31:55:817 Broker/(12488:12529): Bloque particionado...
+[INFO] 15:31:55:818 Broker/(12488:12529): Ya ejecute best fit
+[INFO] 15:31:55:818 Broker/(12488:12529): Algoritmo de particion libre ejecutado!
+[INFO] 15:31:55:818 Broker/(12488:12529): Aloje la nueva particion , PD
+[DEBUG] 15:31:55:819 Broker/(12488:12529): Agregado mensaje 3 pendiente de envio a 123332
+[DEBUG] 15:31:55:822 Broker/(12488:12493): Los pendientes tienen 1 mensajes
+[INFO] 15:31:55:830 Broker/(12488:12493): Se envió mensaje 3 perteneciente a la cola 3 al cliente 123332
+[INFO] 15:31:55:834 Broker/(12488:12531): Se aceptó un nuevo proceso en el socket 11
+[INFO] 15:31:55:834 Broker/(12488:12532): Se aceptó un nuevo proceso en el socket 11
+[DEBUG] 15:31:55:837 Broker/(12488:12493): Los pendientes quedaron con 0 mensajes
+[INFO] 15:31:55:849 Broker/(12488:12531): El cliente 123332 envió confirmación del mensaje 3 a través del socket 11 
+[INFO] 15:39:18:276 Broker/(12971:12971): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:39:18:296 Broker/(12971:12971): 1) Cache de mensajes lista!!!
+[DEBUG] 15:39:18:298 Broker/(12971:12971): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:39:18:321 Broker/(12971:12971): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:39:18:322 Broker/(12971:12971): 4) Configurando signals...
+[DEBUG] 15:39:18:324 Broker/(12971:12971): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:39:18:324 Broker/(12971:12971): 6) Inicializando cache de mensajes...
+[DEBUG] 15:39:18:362 Broker/(12971:12971): 7) Iniciando servidor...
+[DEBUG] 15:39:18:368 Broker/(12971:12971): 8) Intentando bindear sever...
+[DEBUG] 15:39:18:370 Broker/(12971:12971): 9) Server bindeado correctamente!!!
+[DEBUG] 15:39:18:527 Broker/(12971:12979): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:39:21:828 Broker/(12971:13002): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:39:21:832 Broker/(12971:13002): El cliente 123332 envió un mensaje para la cola 0 a través de socket 6
+[INFO] 15:39:21:880 Broker/(12971:13003): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:39:21:899 Broker/(12971:13002): Ejecutando best fit
+[DEBUG] 15:39:21:901 Broker/(12971:13002): El id malo es: 1
+[INFO] 15:39:21:902 Broker/(12971:13002): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:39:21:902 Broker/(12971:13002): indice a particionar 0
+[INFO] 15:39:21:905 Broker/(12971:13002): Por particionar...
+[DEBUG] 15:39:21:933 Broker/(12971:13002): el tamanio es: 16
+[INFO] 15:39:21:934 Broker/(12971:13002): memdir: 0x423df88
+[INFO] 15:39:21:935 Broker/(12971:13002): Bloque particionado...
+[INFO] 15:39:21:935 Broker/(12971:13002): Ya ejecute best fit
+[INFO] 15:39:21:937 Broker/(12971:13002): Algoritmo de particion libre ejecutado!
+[INFO] 15:39:21:937 Broker/(12971:13002): Aloje la nueva particion , PD
+[INFO] 15:39:21:946 Broker/(12971:13005): Se aceptó un nuevo proceso en el socket 7
+[INFO] 15:39:21:947 Broker/(12971:13005): El cliente 123332 envió un mensaje para la cola 1 a través de socket 7
+[INFO] 15:39:21:947 Broker/(12971:13005): Ejecutando best fit
+[DEBUG] 15:39:21:948 Broker/(12971:13005): El id malo es: 2
+[INFO] 15:39:21:948 Broker/(12971:13005): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:39:21:949 Broker/(12971:13005): indice a particionar 1
+[INFO] 15:39:21:949 Broker/(12971:13005): Por particionar...
+[DEBUG] 15:39:21:950 Broker/(12971:13005): el tamanio es: 20
+[INFO] 15:39:21:950 Broker/(12971:13005): memdir: 0x423e148
+[INFO] 15:39:21:950 Broker/(12971:13005): Bloque particionado...
+[INFO] 15:39:21:950 Broker/(12971:13005): Ya ejecute best fit
+[INFO] 15:39:21:950 Broker/(12971:13005): Algoritmo de particion libre ejecutado!
+[INFO] 15:39:21:951 Broker/(12971:13005): Aloje la nueva particion , PD
+[INFO] 15:39:21:974 Broker/(12971:13006): Se aceptó un nuevo proceso en el socket 8
+[INFO] 15:39:21:985 Broker/(12971:13006): El cliente 123332 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 15:39:22:187 Broker/(12971:13006): Ejecutando best fit
+[DEBUG] 15:39:22:346 Broker/(12971:13006): El id malo es: 3
+[INFO] 15:39:22:430 Broker/(12971:13006): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:39:22:441 Broker/(12971:13006): indice a particionar 2
+[INFO] 15:39:22:446 Broker/(12971:13006): Por particionar...
+[DEBUG] 15:39:22:461 Broker/(12971:13006): el tamanio es: 16
+[INFO] 15:39:22:509 Broker/(12971:13006): memdir: 0x423e378
+[INFO] 15:39:22:509 Broker/(12971:13006): Bloque particionado...
+[INFO] 15:39:22:510 Broker/(12971:13006): Ya ejecute best fit
+[INFO] 15:39:22:510 Broker/(12971:13006): Algoritmo de particion libre ejecutado!
+[INFO] 15:39:22:510 Broker/(12971:13006): Aloje la nueva particion , PD
+[INFO] 15:39:22:519 Broker/(12971:13008): Se aceptó un nuevo proceso en el socket 9
+[INFO] 15:39:22:520 Broker/(12971:13008): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[INFO] 15:39:22:547 Broker/(12971:13008): Ejecutando best fit
+[DEBUG] 15:39:22:553 Broker/(12971:13008): El id malo es: 4
+[INFO] 15:39:22:553 Broker/(12971:13008): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:39:22:622 Broker/(12971:13008): indice a particionar 3
+[INFO] 15:39:22:622 Broker/(12971:13008): Por particionar...
+[DEBUG] 15:39:22:628 Broker/(12971:13008): el tamanio es: 13
+[INFO] 15:39:22:652 Broker/(12971:13008): memdir: 0x423e538
+[INFO] 15:39:22:662 Broker/(12971:13008): Bloque particionado...
+[INFO] 15:39:22:663 Broker/(12971:13008): Ya ejecute best fit
+[INFO] 15:39:22:664 Broker/(12971:13008): Algoritmo de particion libre ejecutado!
+[INFO] 15:39:22:664 Broker/(12971:13008): Aloje la nueva particion , PD
+[INFO] 15:39:23:107 Broker/(12971:13009): Se aceptó un nuevo proceso en el socket 10
+[INFO] 15:39:23:110 Broker/(12971:13009): El cliente 123332 envió un mensaje para la cola 4 a través de socket 10
+[INFO] 15:39:23:110 Broker/(12971:13009): Ejecutando best fit
+[DEBUG] 15:39:23:111 Broker/(12971:13009): El id malo es: 5
+[INFO] 15:39:23:111 Broker/(12971:13009): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:39:23:111 Broker/(12971:13009): indice a particionar 4
+[INFO] 15:39:23:111 Broker/(12971:13009): Por particionar...
+[DEBUG] 15:39:23:111 Broker/(12971:13009): el tamanio es: 4
+[INFO] 15:39:23:112 Broker/(12971:13009): memdir: 0x423e6a4
+[INFO] 15:39:23:112 Broker/(12971:13009): Bloque particionado...
+[INFO] 15:39:23:112 Broker/(12971:13009): Ya ejecute best fit
+[INFO] 15:39:23:112 Broker/(12971:13009): Algoritmo de particion libre ejecutado!
+[INFO] 15:39:23:112 Broker/(12971:13009): Aloje la nueva particion , PD
+[INFO] 15:43:05:909 Broker/(13450:13450): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:43:05:927 Broker/(13450:13450): 1) Cache de mensajes lista!!!
+[DEBUG] 15:43:05:929 Broker/(13450:13450): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:43:05:950 Broker/(13450:13450): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:43:05:951 Broker/(13450:13450): 4) Configurando signals...
+[DEBUG] 15:43:05:953 Broker/(13450:13450): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:43:05:954 Broker/(13450:13450): 6) Inicializando cache de mensajes...
+[DEBUG] 15:43:05:976 Broker/(13450:13450): 7) Iniciando servidor...
+[DEBUG] 15:43:05:981 Broker/(13450:13450): 8) Intentando bindear sever...
+[DEBUG] 15:43:05:988 Broker/(13450:13450): 9) Server bindeado correctamente!!!
+[DEBUG] 15:43:06:145 Broker/(13450:13458): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:43:09:413 Broker/(13450:13475): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:43:09:745 Broker/(13450:13476): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:43:09:752 Broker/(13450:13475): El cliente 123332 envió un mensaje para la cola 0 a través de socket 6
+[INFO] 15:43:10:698 Broker/(13450:13475): Ejecutando best fit
+[DEBUG] 15:43:10:700 Broker/(13450:13475): El id malo es: 1
+[INFO] 15:43:10:701 Broker/(13450:13475): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:43:10:701 Broker/(13450:13475): indice a particionar 0
+[INFO] 15:43:10:702 Broker/(13450:13475): Por particionar...
+[DEBUG] 15:43:10:705 Broker/(13450:13475): el tamanio es: 16
+[INFO] 15:43:10:705 Broker/(13450:13475): memdir: 0x423df88
+[INFO] 15:43:10:709 Broker/(13450:13475): Bloque particionado...
+[INFO] 15:43:10:717 Broker/(13450:13475): Ya ejecute best fit
+[INFO] 15:43:10:718 Broker/(13450:13475): Algoritmo de particion libre ejecutado!
+[INFO] 15:43:10:718 Broker/(13450:13475): Aloje la nueva particion , PD
+[INFO] 15:43:10:863 Broker/(13450:13480): Se aceptó un nuevo proceso en el socket 7
+[INFO] 15:43:10:895 Broker/(13450:13480): El cliente 123332 envió un mensaje para la cola 1 a través de socket 7
+[INFO] 15:43:10:896 Broker/(13450:13480): Ejecutando best fit
+[DEBUG] 15:43:11:44 Broker/(13450:13480): El id malo es: 2
+[INFO] 15:43:11:53 Broker/(13450:13480): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:43:11:53 Broker/(13450:13480): indice a particionar 1
+[INFO] 15:43:11:54 Broker/(13450:13480): Por particionar...
+[DEBUG] 15:43:11:54 Broker/(13450:13480): el tamanio es: 20
+[INFO] 15:43:11:56 Broker/(13450:13480): memdir: 0x423e148
+[INFO] 15:43:11:56 Broker/(13450:13480): Bloque particionado...
+[INFO] 15:43:11:57 Broker/(13450:13480): Ya ejecute best fit
+[INFO] 15:43:11:57 Broker/(13450:13480): Algoritmo de particion libre ejecutado!
+[INFO] 15:43:11:59 Broker/(13450:13480): Aloje la nueva particion , PD
+[INFO] 15:43:11:167 Broker/(13450:13481): Se aceptó un nuevo proceso en el socket 8
+[INFO] 15:43:11:539 Broker/(13450:13481): El cliente 123332 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 15:43:11:634 Broker/(13450:13481): Ejecutando best fit
+[DEBUG] 15:43:12:145 Broker/(13450:13481): El id malo es: 3
+[INFO] 15:43:12:241 Broker/(13450:13481): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:43:12:545 Broker/(13450:13481): indice a particionar 2
+[INFO] 15:43:12:609 Broker/(13450:13481): Por particionar...
+[DEBUG] 15:43:12:976 Broker/(13450:13481): el tamanio es: 16
+[INFO] 15:43:12:993 Broker/(13450:13481): memdir: 0x423e378
+[INFO] 15:43:12:993 Broker/(13450:13481): Bloque particionado...
+[INFO] 15:43:12:993 Broker/(13450:13481): Ya ejecute best fit
+[INFO] 15:43:12:993 Broker/(13450:13481): Algoritmo de particion libre ejecutado!
+[INFO] 15:43:12:994 Broker/(13450:13481): Aloje la nueva particion , PD
+[INFO] 15:43:13:32 Broker/(13450:13486): Se aceptó un nuevo proceso en el socket 9
+[INFO] 15:43:13:50 Broker/(13450:13486): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[INFO] 15:43:13:53 Broker/(13450:13486): Ejecutando best fit
+[DEBUG] 15:43:13:54 Broker/(13450:13486): El id malo es: 4
+[INFO] 15:43:13:54 Broker/(13450:13486): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:43:13:54 Broker/(13450:13486): indice a particionar 3
+[INFO] 15:43:13:55 Broker/(13450:13486): Por particionar...
+[DEBUG] 15:43:13:56 Broker/(13450:13486): el tamanio es: 13
+[INFO] 15:43:13:56 Broker/(13450:13486): memdir: 0x423e538
+[INFO] 15:43:13:56 Broker/(13450:13486): Bloque particionado...
+[INFO] 15:43:13:58 Broker/(13450:13486): Ya ejecute best fit
+[INFO] 15:43:13:59 Broker/(13450:13486): Algoritmo de particion libre ejecutado!
+[INFO] 15:43:13:60 Broker/(13450:13486): Aloje la nueva particion , PD
+[INFO] 15:43:13:114 Broker/(13450:13487): Se aceptó un nuevo proceso en el socket 10
+[INFO] 15:43:13:129 Broker/(13450:13487): El cliente 123332 envió un mensaje para la cola 4 a través de socket 10
+[INFO] 15:43:13:146 Broker/(13450:13487): Ejecutando best fit
+[DEBUG] 15:43:13:158 Broker/(13450:13487): El id malo es: 5
+[INFO] 15:43:13:177 Broker/(13450:13487): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:43:13:215 Broker/(13450:13487): indice a particionar 4
+[INFO] 15:43:13:249 Broker/(13450:13487): Por particionar...
+[DEBUG] 15:43:13:252 Broker/(13450:13487): el tamanio es: 4
+[INFO] 15:43:13:254 Broker/(13450:13487): memdir: 0x423e6a4
+[INFO] 15:43:13:259 Broker/(13450:13487): Bloque particionado...
+[INFO] 15:43:13:264 Broker/(13450:13487): Ya ejecute best fit
+[INFO] 15:43:13:271 Broker/(13450:13487): Algoritmo de particion libre ejecutado!
+[INFO] 15:43:13:276 Broker/(13450:13487): Aloje la nueva particion , PD
+[INFO] 15:48:03:287 Broker/(13972:13972): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:48:03:306 Broker/(13972:13972): 1) Cache de mensajes lista!!!
+[DEBUG] 15:48:03:308 Broker/(13972:13972): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:48:03:367 Broker/(13972:13972): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:48:03:368 Broker/(13972:13972): 4) Configurando signals...
+[DEBUG] 15:48:03:372 Broker/(13972:13972): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:48:03:373 Broker/(13972:13972): 6) Inicializando cache de mensajes...
+[DEBUG] 15:48:03:422 Broker/(13972:13972): 7) Iniciando servidor...
+[DEBUG] 15:48:03:435 Broker/(13972:13972): 8) Intentando bindear sever...
+[DEBUG] 15:48:03:441 Broker/(13972:13972): 9) Server bindeado correctamente!!!
+[DEBUG] 15:48:03:460 Broker/(13972:13981): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:48:07:16 Broker/(13972:13991): Se aceptó un nuevo proceso en el socket 5
+[INFO] 15:48:07:29 Broker/(13972:13991): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 15:48:07:171 Broker/(13972:13991): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 15:48:07:205 Broker/(13972:13991): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 15:48:07:171 Broker/(13972:13993): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:48:07:373 Broker/(13972:13993): El cliente 123332 envió un mensaje para la cola 0 a través de socket 6
+[INFO] 15:48:07:377 Broker/(13972:13993): Ejecutando best fit
+[DEBUG] 15:48:07:378 Broker/(13972:13993): El id malo es: 1
+[INFO] 15:48:07:379 Broker/(13972:13993): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:48:07:379 Broker/(13972:13993): indice a particionar 0
+[INFO] 15:48:07:380 Broker/(13972:13993): Por particionar...
+[DEBUG] 15:48:07:391 Broker/(13972:13993): el tamanio es: 16
+[INFO] 15:48:07:392 Broker/(13972:13993): memdir: 0x423df88
+[INFO] 15:48:07:392 Broker/(13972:13993): Bloque particionado...
+[INFO] 15:48:07:475 Broker/(13972:13993): Ya ejecute best fit
+[INFO] 15:48:07:779 Broker/(13972:13993): Algoritmo de particion libre ejecutado!
+[INFO] 15:48:07:780 Broker/(13972:13993): Aloje la nueva particion , PD
+[INFO] 15:48:07:802 Broker/(13972:13997): Se aceptó un nuevo proceso en el socket 7
+[INFO] 15:48:07:857 Broker/(13972:13997): El cliente 123332 envió un mensaje para la cola 1 a través de socket 7
+[INFO] 15:48:07:857 Broker/(13972:13997): Ejecutando best fit
+[DEBUG] 15:48:07:858 Broker/(13972:13997): El id malo es: 2
+[INFO] 15:48:07:858 Broker/(13972:13997): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:48:07:859 Broker/(13972:13997): indice a particionar 1
+[INFO] 15:48:07:880 Broker/(13972:13997): Por particionar...
+[DEBUG] 15:48:07:881 Broker/(13972:13997): el tamanio es: 20
+[INFO] 15:48:07:881 Broker/(13972:13997): memdir: 0x423e148
+[INFO] 15:48:07:881 Broker/(13972:13997): Bloque particionado...
+[INFO] 15:48:07:882 Broker/(13972:13997): Ya ejecute best fit
+[INFO] 15:48:07:882 Broker/(13972:13997): Algoritmo de particion libre ejecutado!
+[INFO] 15:48:07:882 Broker/(13972:13997): Aloje la nueva particion , PD
+[INFO] 15:48:07:930 Broker/(13972:13998): Se aceptó un nuevo proceso en el socket 8
+[INFO] 15:48:08:191 Broker/(13972:13998): El cliente 123332 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 15:48:08:571 Broker/(13972:13998): Ejecutando best fit
+[DEBUG] 15:48:08:591 Broker/(13972:13998): El id malo es: 3
+[INFO] 15:48:08:894 Broker/(13972:13998): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:48:09:606 Broker/(13972:13998): indice a particionar 2
+[INFO] 15:48:10:514 Broker/(13972:13998): Por particionar...
+[DEBUG] 15:48:10:963 Broker/(13972:13998): el tamanio es: 16
+[INFO] 15:48:11:115 Broker/(13972:13998): memdir: 0x423e378
+[INFO] 15:48:11:267 Broker/(13972:13998): Bloque particionado...
+[INFO] 15:48:11:379 Broker/(13972:13998): Ya ejecute best fit
+[INFO] 15:48:11:954 Broker/(13972:13998): Algoritmo de particion libre ejecutado!
+[INFO] 15:48:12:782 Broker/(13972:13998): Aloje la nueva particion , PD
+[INFO] 15:48:13:591 Broker/(13972:14007): Se aceptó un nuevo proceso en el socket 9
+[INFO] 15:48:13:656 Broker/(13972:14007): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[INFO] 15:48:13:657 Broker/(13972:14007): Ejecutando best fit
+[DEBUG] 15:48:14:91 Broker/(13972:14007): El id malo es: 4
+[INFO] 15:48:14:91 Broker/(13972:14007): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:48:14:92 Broker/(13972:14007): indice a particionar 3
+[INFO] 15:48:14:92 Broker/(13972:14007): Por particionar...
+[DEBUG] 15:48:14:92 Broker/(13972:14007): el tamanio es: 13
+[INFO] 15:48:14:150 Broker/(13972:14007): memdir: 0x423e538
+[INFO] 15:48:14:193 Broker/(13972:14007): Bloque particionado...
+[INFO] 15:48:14:197 Broker/(13972:14007): Ya ejecute best fit
+[INFO] 15:48:14:215 Broker/(13972:14007): Algoritmo de particion libre ejecutado!
+[INFO] 15:48:14:242 Broker/(13972:14007): Aloje la nueva particion , PD
+[DEBUG] 15:48:14:252 Broker/(13972:14007): Agregado mensaje 3 pendiente de envio a 123332
+[DEBUG] 15:48:14:281 Broker/(13972:13978): Los pendientes tienen 1 mensajes
+[INFO] 15:48:14:286 Broker/(13972:13978): Se envió mensaje 3 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 15:48:14:287 Broker/(13972:13978): Los pendientes quedaron con 0 mensajes
+[INFO] 15:48:14:290 Broker/(13972:14009): Se aceptó un nuevo proceso en el socket 11
+[INFO] 15:48:14:293 Broker/(13972:14009): El cliente 123332 envió confirmación del mensaje 3 a través del socket 11 
+[INFO] 15:48:14:295 Broker/(13972:14008): Se aceptó un nuevo proceso en el socket 11
+[INFO] 15:50:02:454 Broker/(14153:14153): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 15:50:02:473 Broker/(14153:14153): 1) Cache de mensajes lista!!!
+[DEBUG] 15:50:02:475 Broker/(14153:14153): 2) Inicializando archivo de configuracion...
+[DEBUG] 15:50:02:504 Broker/(14153:14153): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 15:50:02:505 Broker/(14153:14153): 4) Configurando signals...
+[DEBUG] 15:50:02:506 Broker/(14153:14153): 5) Signals configuradas correctamente!!!
+[DEBUG] 15:50:02:507 Broker/(14153:14153): 6) Inicializando cache de mensajes...
+[DEBUG] 15:50:02:555 Broker/(14153:14153): 7) Iniciando servidor...
+[DEBUG] 15:50:02:566 Broker/(14153:14153): 8) Intentando bindear sever...
+[DEBUG] 15:50:02:568 Broker/(14153:14153): 9) Server bindeado correctamente!!!
+[DEBUG] 15:50:02:571 Broker/(14153:14160): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 15:50:07:311 Broker/(14153:14172): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:50:07:339 Broker/(14153:14172): El cliente 123332 envió un mensaje para la cola 0 a través de socket 6
+[INFO] 15:50:07:344 Broker/(14153:14172): Ejecutando best fit
+[DEBUG] 15:50:07:345 Broker/(14153:14172): El id malo es: 1
+[INFO] 15:50:07:346 Broker/(14153:14172): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:50:07:346 Broker/(14153:14172): indice a particionar 0
+[INFO] 15:50:07:347 Broker/(14153:14172): Por particionar...
+[DEBUG] 15:50:07:350 Broker/(14153:14172): el tamanio es: 16
+[INFO] 15:50:07:350 Broker/(14153:14172): memdir: 0x423df88
+[INFO] 15:50:07:324 Broker/(14153:14171): Se aceptó un nuevo proceso en el socket 6
+[INFO] 15:50:07:353 Broker/(14153:14172): Bloque particionado...
+[INFO] 15:50:07:354 Broker/(14153:14172): Ya ejecute best fit
+[INFO] 15:50:07:354 Broker/(14153:14172): Algoritmo de particion libre ejecutado!
+[INFO] 15:50:07:354 Broker/(14153:14172): Aloje la nueva particion , PD
+[INFO] 15:50:07:453 Broker/(14153:14173): Se aceptó un nuevo proceso en el socket 7
+[INFO] 15:50:07:454 Broker/(14153:14173): El cliente 123332 envió un mensaje para la cola 1 a través de socket 7
+[INFO] 15:50:07:454 Broker/(14153:14173): Ejecutando best fit
+[DEBUG] 15:50:07:455 Broker/(14153:14173): El id malo es: 2
+[INFO] 15:50:07:455 Broker/(14153:14173): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:50:07:654 Broker/(14153:14173): indice a particionar 1
+[INFO] 15:50:07:655 Broker/(14153:14173): Por particionar...
+[DEBUG] 15:50:07:655 Broker/(14153:14173): el tamanio es: 20
+[INFO] 15:50:07:656 Broker/(14153:14173): memdir: 0x423e148
+[INFO] 15:50:07:656 Broker/(14153:14173): Bloque particionado...
+[INFO] 15:50:07:659 Broker/(14153:14173): Ya ejecute best fit
+[INFO] 15:50:07:659 Broker/(14153:14173): Algoritmo de particion libre ejecutado!
+[INFO] 15:50:07:660 Broker/(14153:14173): Aloje la nueva particion , PD
+[INFO] 15:50:07:671 Broker/(14153:14174): Se aceptó un nuevo proceso en el socket 8
+[INFO] 15:50:07:847 Broker/(14153:14174): El cliente 123332 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 15:50:07:848 Broker/(14153:14174): Ejecutando best fit
+[DEBUG] 15:50:07:848 Broker/(14153:14174): El id malo es: 3
+[INFO] 15:50:07:848 Broker/(14153:14174): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:50:07:849 Broker/(14153:14174): indice a particionar 2
+[INFO] 15:50:07:849 Broker/(14153:14174): Por particionar...
+[DEBUG] 15:50:07:849 Broker/(14153:14174): el tamanio es: 16
+[INFO] 15:50:07:851 Broker/(14153:14174): memdir: 0x423e378
+[INFO] 15:50:07:851 Broker/(14153:14174): Bloque particionado...
+[INFO] 15:50:07:852 Broker/(14153:14174): Ya ejecute best fit
+[INFO] 15:50:07:853 Broker/(14153:14174): Algoritmo de particion libre ejecutado!
+[INFO] 15:50:07:853 Broker/(14153:14174): Aloje la nueva particion , PD
+[INFO] 15:50:07:855 Broker/(14153:14175): Se aceptó un nuevo proceso en el socket 9
+[INFO] 15:50:07:860 Broker/(14153:14175): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[INFO] 15:50:07:873 Broker/(14153:14175): Ejecutando best fit
+[DEBUG] 15:50:08:301 Broker/(14153:14175): El id malo es: 4
+[INFO] 15:50:08:360 Broker/(14153:14175): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:50:08:368 Broker/(14153:14175): indice a particionar 3
+[INFO] 15:50:08:368 Broker/(14153:14175): Por particionar...
+[DEBUG] 15:50:08:368 Broker/(14153:14175): el tamanio es: 13
+[INFO] 15:50:08:368 Broker/(14153:14175): memdir: 0x423e538
+[INFO] 15:50:08:369 Broker/(14153:14175): Bloque particionado...
+[INFO] 15:50:08:369 Broker/(14153:14175): Ya ejecute best fit
+[INFO] 15:50:08:369 Broker/(14153:14175): Algoritmo de particion libre ejecutado!
+[INFO] 15:50:08:369 Broker/(14153:14175): Aloje la nueva particion , PD
+[INFO] 15:50:08:371 Broker/(14153:14176): Se aceptó un nuevo proceso en el socket 10
+[INFO] 15:50:08:374 Broker/(14153:14176): El cliente 123332 envió un mensaje para la cola 4 a través de socket 10
+[INFO] 15:50:08:389 Broker/(14153:14176): Ejecutando best fit
+[DEBUG] 15:50:08:390 Broker/(14153:14176): El id malo es: 5
+[INFO] 15:50:08:390 Broker/(14153:14176): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 15:50:08:390 Broker/(14153:14176): indice a particionar 4
+[INFO] 15:50:08:390 Broker/(14153:14176): Por particionar...
+[DEBUG] 15:50:08:391 Broker/(14153:14176): el tamanio es: 4
+[INFO] 15:50:08:392 Broker/(14153:14176): memdir: 0x423e6a4
+[INFO] 15:50:08:392 Broker/(14153:14176): Bloque particionado...
+[INFO] 15:50:08:393 Broker/(14153:14176): Ya ejecute best fit
+[INFO] 15:50:08:393 Broker/(14153:14176): Algoritmo de particion libre ejecutado!
+[INFO] 15:50:08:394 Broker/(14153:14176): Aloje la nueva particion , PD
+[INFO] 16:00:18:731 Broker/(14889:14889): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:00:18:750 Broker/(14889:14889): 1) Cache de mensajes lista!!!
+[DEBUG] 16:00:18:752 Broker/(14889:14889): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:00:18:786 Broker/(14889:14889): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:00:18:787 Broker/(14889:14889): 4) Configurando signals...
+[DEBUG] 16:00:18:789 Broker/(14889:14889): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:00:18:790 Broker/(14889:14889): 6) Inicializando cache de mensajes...
+[DEBUG] 16:00:18:816 Broker/(14889:14889): 7) Iniciando servidor...
+[DEBUG] 16:00:18:821 Broker/(14889:14889): 8) Intentando bindear sever...
+[DEBUG] 16:00:18:823 Broker/(14889:14889): 9) Server bindeado correctamente!!!
+[DEBUG] 16:00:18:877 Broker/(14889:14896): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:00:22:434 Broker/(14889:14905): Se aceptó un nuevo proceso en el socket 5
+[INFO] 16:00:22:440 Broker/(14889:14905): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 16:00:22:450 Broker/(14889:14907): Se aceptó un nuevo proceso en el socket 6
+[DEBUG] 16:00:22:451 Broker/(14889:14905): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 16:00:22:453 Broker/(14889:14905): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 16:00:22:497 Broker/(14889:14907): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 16:00:22:504 Broker/(14889:14907): Ejecutando best fit
+[DEBUG] 16:00:22:506 Broker/(14889:14907): El id malo es: 1
+[INFO] 16:00:22:863 Broker/(14889:14907): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:00:22:871 Broker/(14889:14907): indice a particionar 0
+[INFO] 16:00:22:898 Broker/(14889:14907): Por particionar...
+[DEBUG] 16:00:22:918 Broker/(14889:14907): el tamanio es: 13
+[INFO] 16:00:22:919 Broker/(14889:14907): memdir: 0x423df88
+[INFO] 16:00:22:920 Broker/(14889:14907): Bloque particionado...
+[INFO] 16:00:22:920 Broker/(14889:14907): Ya ejecute best fit
+[INFO] 16:00:22:921 Broker/(14889:14907): Algoritmo de particion libre ejecutado!
+[INFO] 16:00:23:529 Broker/(14889:14907): Aloje la nueva particion , PD
+[DEBUG] 16:00:23:583 Broker/(14889:14907): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 16:00:23:612 Broker/(14889:14893): Los pendientes tienen 1 mensajes
+[INFO] 16:00:23:619 Broker/(14889:14893): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 16:00:23:621 Broker/(14889:14893): Los pendientes quedaron con 0 mensajes
+[INFO] 16:00:23:641 Broker/(14889:14908): Se aceptó un nuevo proceso en el socket 7
+[INFO] 16:01:35:756 Broker/(15032:15032): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:01:35:775 Broker/(15032:15032): 1) Cache de mensajes lista!!!
+[DEBUG] 16:01:35:777 Broker/(15032:15032): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:01:35:836 Broker/(15032:15032): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:01:35:837 Broker/(15032:15032): 4) Configurando signals...
+[DEBUG] 16:01:35:839 Broker/(15032:15032): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:01:35:840 Broker/(15032:15032): 6) Inicializando cache de mensajes...
+[DEBUG] 16:01:35:873 Broker/(15032:15032): 7) Iniciando servidor...
+[DEBUG] 16:01:35:879 Broker/(15032:15032): 8) Intentando bindear sever...
+[DEBUG] 16:01:35:881 Broker/(15032:15032): 9) Server bindeado correctamente!!!
+[DEBUG] 16:01:35:928 Broker/(15032:15039): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:01:38:551 Broker/(15032:15051): Se aceptó un nuevo proceso en el socket 5
+[INFO] 16:01:38:705 Broker/(15032:15052): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:01:38:786 Broker/(15032:15052): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 16:01:38:803 Broker/(15032:15052): Ejecutando best fit
+[DEBUG] 16:01:38:805 Broker/(15032:15052): El id malo es: 1
+[INFO] 16:01:38:806 Broker/(15032:15052): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:01:38:806 Broker/(15032:15052): indice a particionar 0
+[INFO] 16:01:38:806 Broker/(15032:15052): Por particionar...
+[DEBUG] 16:01:38:809 Broker/(15032:15052): el tamanio es: 17
+[INFO] 16:01:38:829 Broker/(15032:15052): memdir: 0x423df88
+[INFO] 16:01:38:830 Broker/(15032:15052): Bloque particionado...
+[INFO] 16:01:38:930 Broker/(15032:15051): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 16:01:38:953 Broker/(15032:15051): Recibida suscripcion de cliente 123332 en socket 5
+[INFO] 16:01:38:954 Broker/(15032:15052): Ya ejecute best fit
+[INFO] 16:01:38:961 Broker/(15032:15052): Algoritmo de particion libre ejecutado!
+[INFO] 16:01:38:967 Broker/(15032:15052): Aloje la nueva particion , PD
+[DEBUG] 16:01:39:58 Broker/(15032:15051): Creando nuevo cliente 123332 en socket 5
+
+[DEBUG] 16:01:39:480 Broker/(15032:15051): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 16:01:39:503 Broker/(15032:15036): Los pendientes tienen 1 mensajes
+[INFO] 16:01:39:506 Broker/(15032:15036): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 16:01:39:508 Broker/(15032:15036): Los pendientes quedaron con 0 mensajes
+[INFO] 16:01:39:757 Broker/(15032:15054): Se aceptó un nuevo proceso en el socket 7
+[INFO] 16:02:46:550 Broker/(15250:15250): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:02:46:569 Broker/(15250:15250): 1) Cache de mensajes lista!!!
+[DEBUG] 16:02:46:570 Broker/(15250:15250): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:02:46:598 Broker/(15250:15250): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:02:46:598 Broker/(15250:15250): 4) Configurando signals...
+[DEBUG] 16:02:46:600 Broker/(15250:15250): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:02:46:600 Broker/(15250:15250): 6) Inicializando cache de mensajes...
+[DEBUG] 16:02:46:661 Broker/(15250:15250): 7) Iniciando servidor...
+[DEBUG] 16:02:46:682 Broker/(15250:15250): 8) Intentando bindear sever...
+[DEBUG] 16:02:46:694 Broker/(15250:15250): 9) Server bindeado correctamente!!!
+[DEBUG] 16:02:46:749 Broker/(15250:15267): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:02:51:374 Broker/(15250:15329): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:02:51:401 Broker/(15250:15327): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:02:51:560 Broker/(15250:15329): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 16:02:51:564 Broker/(15250:15329): Ejecutando best fit
+[DEBUG] 16:02:51:567 Broker/(15250:15329): El id malo es: 1
+[INFO] 16:02:51:567 Broker/(15250:15329): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:02:51:568 Broker/(15250:15329): indice a particionar 0
+[INFO] 16:02:51:569 Broker/(15250:15329): Por particionar...
+[DEBUG] 16:02:51:573 Broker/(15250:15329): el tamanio es: 17
+[INFO] 16:02:51:573 Broker/(15250:15329): memdir: 0x423df88
+[INFO] 16:02:51:574 Broker/(15250:15329): Bloque particionado...
+[INFO] 16:02:51:575 Broker/(15250:15329): Ya ejecute best fit
+[INFO] 16:02:51:575 Broker/(15250:15329): Algoritmo de particion libre ejecutado!
+[INFO] 16:02:51:576 Broker/(15250:15329): Aloje la nueva particion , PD
+[INFO] 16:06:20:759 Broker/(15570:15570): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:06:20:779 Broker/(15570:15570): 1) Cache de mensajes lista!!!
+[DEBUG] 16:06:20:780 Broker/(15570:15570): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:06:20:802 Broker/(15570:15570): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:06:20:803 Broker/(15570:15570): 4) Configurando signals...
+[DEBUG] 16:06:20:805 Broker/(15570:15570): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:06:20:805 Broker/(15570:15570): 6) Inicializando cache de mensajes...
+[DEBUG] 16:06:20:827 Broker/(15570:15570): 7) Iniciando servidor...
+[DEBUG] 16:06:20:832 Broker/(15570:15570): 8) Intentando bindear sever...
+[DEBUG] 16:06:20:834 Broker/(15570:15570): 9) Server bindeado correctamente!!!
+[DEBUG] 16:06:20:849 Broker/(15570:15577): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:06:23:651 Broker/(15570:15579): Se aceptó un nuevo proceso en el socket 5
+[INFO] 16:06:23:726 Broker/(15570:15581): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:06:24:560 Broker/(15570:15581): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 16:06:24:569 Broker/(15570:15581): Ejecutando best fit
+[DEBUG] 16:06:24:575 Broker/(15570:15581): El id malo es: 1
+[INFO] 16:06:24:575 Broker/(15570:15581): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:06:24:642 Broker/(15570:15581): indice a particionar 0
+[INFO] 16:06:24:659 Broker/(15570:15579): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 16:06:24:751 Broker/(15570:15581): Por particionar...
+[DEBUG] 16:06:24:751 Broker/(15570:15579): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 16:06:24:755 Broker/(15570:15581): el tamanio es: 13
+[INFO] 16:06:24:755 Broker/(15570:15581): memdir: 0x423df88
+[INFO] 16:06:24:756 Broker/(15570:15581): Bloque particionado...
+[INFO] 16:06:24:756 Broker/(15570:15581): Ya ejecute best fit
+[INFO] 16:06:24:757 Broker/(15570:15581): Algoritmo de particion libre ejecutado!
+[INFO] 16:06:24:757 Broker/(15570:15581): Aloje la nueva particion , PD
+[DEBUG] 16:06:24:763 Broker/(15570:15579): Creando nuevo cliente 123332 en socket 5
+
+[DEBUG] 16:06:24:771 Broker/(15570:15579): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 16:06:24:815 Broker/(15570:15574): Los pendientes tienen 1 mensajes
+[INFO] 16:06:24:820 Broker/(15570:15574): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 16:06:24:822 Broker/(15570:15574): Los pendientes quedaron con 0 mensajes
+[INFO] 16:06:24:910 Broker/(15570:15591): Se aceptó un nuevo proceso en el socket 7
+[INFO] 16:19:46:408 Broker/(16174:16174): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:19:46:426 Broker/(16174:16174): 1) Cache de mensajes lista!!!
+[DEBUG] 16:19:46:428 Broker/(16174:16174): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:19:46:450 Broker/(16174:16174): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:19:46:451 Broker/(16174:16174): 4) Configurando signals...
+[DEBUG] 16:19:46:452 Broker/(16174:16174): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:19:46:453 Broker/(16174:16174): 6) Inicializando cache de mensajes...
+[DEBUG] 16:19:46:482 Broker/(16174:16174): 7) Iniciando servidor...
+[DEBUG] 16:19:46:489 Broker/(16174:16174): 8) Intentando bindear sever...
+[DEBUG] 16:19:46:492 Broker/(16174:16174): 9) Server bindeado correctamente!!!
+[DEBUG] 16:19:46:501 Broker/(16174:16185): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:19:49:536 Broker/(16174:16193): Se aceptó un nuevo proceso en el socket 5
+[INFO] 16:19:49:565 Broker/(16174:16195): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:19:50:132 Broker/(16174:16193): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 16:19:50:268 Broker/(16174:16193): Recibida suscripcion de cliente 123332 en socket 5
+[INFO] 16:19:50:328 Broker/(16174:16195): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[INFO] 16:19:50:333 Broker/(16174:16195): Ejecutando best fit
+[DEBUG] 16:19:50:334 Broker/(16174:16195): El id malo es: 1
+[INFO] 16:19:50:337 Broker/(16174:16195): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:19:50:380 Broker/(16174:16195): indice a particionar 0
+[INFO] 16:19:50:428 Broker/(16174:16195): Por particionar...
+[DEBUG] 16:19:50:433 Broker/(16174:16195): el tamanio es: 13
+[INFO] 16:19:50:434 Broker/(16174:16195): memdir: 0x423df88
+[INFO] 16:19:50:460 Broker/(16174:16195): Bloque particionado...
+[INFO] 16:19:50:520 Broker/(16174:16195): Ya ejecute best fit
+[INFO] 16:19:50:546 Broker/(16174:16195): Algoritmo de particion libre ejecutado!
+[INFO] 16:19:50:749 Broker/(16174:16195): Aloje la nueva particion , PD
+[DEBUG] 16:19:50:824 Broker/(16174:16193): Creando nuevo cliente 123332 en socket 5
+
+[DEBUG] 16:19:50:827 Broker/(16174:16193): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 16:19:50:856 Broker/(16174:16180): Los pendientes tienen 1 mensajes
+[INFO] 16:19:50:860 Broker/(16174:16180): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 16:19:50:862 Broker/(16174:16180): Los pendientes quedaron con 0 mensajes
+[INFO] 16:19:50:982 Broker/(16174:16196): Se aceptó un nuevo proceso en el socket 7
+[INFO] 16:24:18:605 Broker/(16657:16657): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:24:18:624 Broker/(16657:16657): 1) Cache de mensajes lista!!!
+[DEBUG] 16:24:18:627 Broker/(16657:16657): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:24:18:659 Broker/(16657:16657): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:24:18:659 Broker/(16657:16657): 4) Configurando signals...
+[DEBUG] 16:24:18:669 Broker/(16657:16657): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:24:18:670 Broker/(16657:16657): 6) Inicializando cache de mensajes...
+[DEBUG] 16:24:18:704 Broker/(16657:16657): 7) Iniciando servidor...
+[DEBUG] 16:24:18:719 Broker/(16657:16657): 8) Intentando bindear sever...
+[DEBUG] 16:24:18:721 Broker/(16657:16657): 9) Server bindeado correctamente!!!
+[DEBUG] 16:24:18:746 Broker/(16657:16666): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:24:22:401 Broker/(16657:16669): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:24:22:414 Broker/(16657:16670): Se aceptó un nuevo proceso en el socket 6
+[DEBUG] 16:24:22:718 Broker/(16657:16669): el mensaje esta en conexion : 0x42419d0
+[INFO] 16:24:22:742 Broker/(16657:16669): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 16:24:22:743 Broker/(16657:16669): el mensaje esta en : 0x42419d0
+[INFO] 16:24:23:177 Broker/(16657:16669): Ejecutando best fit
+[DEBUG] 16:24:23:291 Broker/(16657:16669): El id malo es: 1
+[INFO] 16:24:23:291 Broker/(16657:16669): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:24:23:402 Broker/(16657:16669): indice a particionar 0
+[INFO] 16:24:23:683 Broker/(16657:16669): Por particionar...
+[DEBUG] 16:24:23:718 Broker/(16657:16669): el tamanio es: 13
+[INFO] 16:24:23:776 Broker/(16657:16669): memdir: 0x423df88
+[INFO] 16:24:23:801 Broker/(16657:16669): Bloque particionado...
+[INFO] 16:24:23:802 Broker/(16657:16669): Ya ejecute best fit
+[INFO] 16:24:23:803 Broker/(16657:16669): Algoritmo de particion libre ejecutado!
+[INFO] 16:24:23:822 Broker/(16657:16669): Aloje la nueva particion , PD
+[INFO] 16:26:51:895 Broker/(16830:16830): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:26:51:917 Broker/(16830:16830): 1) Cache de mensajes lista!!!
+[DEBUG] 16:26:51:919 Broker/(16830:16830): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:26:51:943 Broker/(16830:16830): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:26:51:944 Broker/(16830:16830): 4) Configurando signals...
+[DEBUG] 16:26:51:946 Broker/(16830:16830): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:26:51:946 Broker/(16830:16830): 6) Inicializando cache de mensajes...
+[DEBUG] 16:26:51:992 Broker/(16830:16830): 7) Iniciando servidor...
+[DEBUG] 16:26:51:997 Broker/(16830:16830): 8) Intentando bindear sever...
+[DEBUG] 16:26:51:999 Broker/(16830:16830): 9) Server bindeado correctamente!!!
+[DEBUG] 16:26:52:16 Broker/(16830:16837): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:26:55:45 Broker/(16830:16852): Se aceptó un nuevo proceso en el socket 5
+[INFO] 16:26:55:54 Broker/(16830:16853): Se aceptó un nuevo proceso en el socket 6
+[DEBUG] 16:26:55:658 Broker/(16830:16853): el mensaje esta en conexion : 0x4241f48
+[INFO] 16:26:55:679 Broker/(16830:16853): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 16:26:55:681 Broker/(16830:16853): el mensaje esta en : 0x4241f48
+[INFO] 16:26:55:727 Broker/(16830:16853): Ejecutando best fit
+[DEBUG] 16:26:55:729 Broker/(16830:16853): El id malo es: 1
+[DEBUG] 16:26:55:730 Broker/(16830:16852): el mensaje esta en conexion : 0x4241d20
+[INFO] 16:26:55:794 Broker/(16830:16852): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[INFO] 16:26:55:795 Broker/(16830:16853): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:26:55:798 Broker/(16830:16853): indice a particionar 0
+[DEBUG] 16:26:55:796 Broker/(16830:16852): Recibida suscripcion de cliente 123332 en socket 5
+[INFO] 16:26:55:823 Broker/(16830:16853): Por particionar...
+[DEBUG] 16:26:55:839 Broker/(16830:16853): el tamanio es: 13
+[INFO] 16:26:55:839 Broker/(16830:16853): memdir: 0x423df88
+[INFO] 16:26:55:840 Broker/(16830:16853): Bloque particionado...
+[INFO] 16:26:55:840 Broker/(16830:16853): Ya ejecute best fit
+[INFO] 16:26:55:840 Broker/(16830:16853): Algoritmo de particion libre ejecutado!
+[INFO] 16:26:55:841 Broker/(16830:16853): Aloje la nueva particion , PD
+[DEBUG] 16:26:55:843 Broker/(16830:16852): Creando nuevo cliente 123332 en socket 5
+
+[DEBUG] 16:26:55:847 Broker/(16830:16852): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 16:26:55:859 Broker/(16830:16834): Los pendientes tienen 1 mensajes
+[INFO] 16:26:55:863 Broker/(16830:16834): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 16:26:55:865 Broker/(16830:16834): Los pendientes quedaron con 0 mensajes
+[INFO] 16:26:56:11 Broker/(16830:16855): Se aceptó un nuevo proceso en el socket 7
+[INFO] 16:29:25:463 Broker/(16978:16978): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:29:25:497 Broker/(16978:16978): 1) Cache de mensajes lista!!!
+[DEBUG] 16:29:25:498 Broker/(16978:16978): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:29:25:537 Broker/(16978:16978): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:29:25:538 Broker/(16978:16978): 4) Configurando signals...
+[DEBUG] 16:29:25:541 Broker/(16978:16978): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:29:25:541 Broker/(16978:16978): 6) Inicializando cache de mensajes...
+[DEBUG] 16:29:25:575 Broker/(16978:16978): 7) Iniciando servidor...
+[DEBUG] 16:29:25:586 Broker/(16978:16978): 8) Intentando bindear sever...
+[DEBUG] 16:29:25:588 Broker/(16978:16978): 9) Server bindeado correctamente!!!
+[DEBUG] 16:29:25:654 Broker/(16978:16992): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:29:30:935 Broker/(16978:17004): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:29:30:946 Broker/(16978:17006): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:29:31:6 Broker/(16978:17004): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 16:29:31:7 Broker/(16978:17004): el mensaje esta en : 0x4241e88
+[INFO] 16:29:31:41 Broker/(16978:17004): Ejecutando best fit
+[DEBUG] 16:29:31:113 Broker/(16978:17004): El id malo es: 1
+[INFO] 16:29:31:133 Broker/(16978:17004): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:29:31:186 Broker/(16978:17004): indice a particionar 0
+[INFO] 16:29:31:189 Broker/(16978:17004): Por particionar...
+[DEBUG] 16:29:31:203 Broker/(16978:17004): el tamanio es: 13
+[INFO] 16:29:31:204 Broker/(16978:17004): memdir: 0x423df88
+[INFO] 16:29:31:205 Broker/(16978:17004): Bloque particionado...
+[INFO] 16:29:31:206 Broker/(16978:17004): Ya ejecute best fit
+[INFO] 16:29:31:230 Broker/(16978:17004): Algoritmo de particion libre ejecutado!
+[INFO] 16:29:31:231 Broker/(16978:17004): Aloje la nueva particion , PD
+[INFO] 16:33:08:695 Broker/(17408:17408): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:33:08:714 Broker/(17408:17408): 1) Cache de mensajes lista!!!
+[DEBUG] 16:33:08:718 Broker/(17408:17408): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:33:08:739 Broker/(17408:17408): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:33:08:740 Broker/(17408:17408): 4) Configurando signals...
+[DEBUG] 16:33:08:743 Broker/(17408:17408): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:33:08:743 Broker/(17408:17408): 6) Inicializando cache de mensajes...
+[DEBUG] 16:33:08:768 Broker/(17408:17408): 7) Iniciando servidor...
+[DEBUG] 16:33:08:774 Broker/(17408:17408): 8) Intentando bindear sever...
+[DEBUG] 16:33:08:776 Broker/(17408:17408): 9) Server bindeado correctamente!!!
+[DEBUG] 16:33:08:786 Broker/(17408:17415): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:33:13:12 Broker/(17408:17425): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:33:13:13 Broker/(17408:17426): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:33:13:701 Broker/(17408:17425): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 16:33:14:122 Broker/(17408:17425): el mensaje esta en : 0x4241e88
+[INFO] 16:33:14:128 Broker/(17408:17425): Ejecutando best fit
+[DEBUG] 16:33:15:631 Broker/(17408:17425): El id malo es: 1
+[INFO] 16:33:15:970 Broker/(17408:17425): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:33:16:162 Broker/(17408:17425): indice a particionar 0
+[INFO] 16:33:16:162 Broker/(17408:17425): Por particionar...
+[DEBUG] 16:33:16:292 Broker/(17408:17425): el tamanio es: 13
+[INFO] 16:33:16:658 Broker/(17408:17425): memdir: 0x423df88
+[INFO] 16:33:16:658 Broker/(17408:17425): Bloque particionado...
+[INFO] 16:33:16:659 Broker/(17408:17425): Ya ejecute best fit
+[INFO] 16:33:16:659 Broker/(17408:17425): Algoritmo de particion libre ejecutado!
+[INFO] 16:33:16:660 Broker/(17408:17425): Aloje la nueva particion , PD
+[INFO] 16:35:42:87 Broker/(17574:17574): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:35:42:106 Broker/(17574:17574): 1) Cache de mensajes lista!!!
+[DEBUG] 16:35:42:108 Broker/(17574:17574): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:35:42:137 Broker/(17574:17574): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:35:42:138 Broker/(17574:17574): 4) Configurando signals...
+[DEBUG] 16:35:42:142 Broker/(17574:17574): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:35:42:142 Broker/(17574:17574): 6) Inicializando cache de mensajes...
+[DEBUG] 16:35:42:166 Broker/(17574:17574): 7) Iniciando servidor...
+[DEBUG] 16:35:42:171 Broker/(17574:17574): 8) Intentando bindear sever...
+[DEBUG] 16:35:42:180 Broker/(17574:17574): 9) Server bindeado correctamente!!!
+[DEBUG] 16:35:42:208 Broker/(17574:17585): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:35:45:184 Broker/(17574:17590): Se aceptó un nuevo proceso en el socket 5
+[INFO] 16:35:45:558 Broker/(17574:17590): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 16:35:45:559 Broker/(17574:17590): Recibida suscripcion de cliente 123332 en socket 5
+[INFO] 16:35:45:558 Broker/(17574:17592): Se aceptó un nuevo proceso en el socket 6
+[DEBUG] 16:35:45:689 Broker/(17574:17590): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 16:35:45:694 Broker/(17574:17592): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 16:35:45:712 Broker/(17574:17592): el mensaje esta en : 0x4242cf8
+[INFO] 16:35:45:717 Broker/(17574:17592): Ejecutando best fit
+[DEBUG] 16:35:45:719 Broker/(17574:17592): El id malo es: 1
+[INFO] 16:35:45:721 Broker/(17574:17592): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:35:45:759 Broker/(17574:17592): indice a particionar 0
+[INFO] 16:35:45:760 Broker/(17574:17592): Por particionar...
+[DEBUG] 16:35:45:763 Broker/(17574:17592): el tamanio es: 13
+[INFO] 16:35:45:783 Broker/(17574:17592): memdir: 0x423df78
+[INFO] 16:35:45:783 Broker/(17574:17592): Bloque particionado...
+[INFO] 16:35:45:784 Broker/(17574:17592): Ya ejecute best fit
+[INFO] 16:35:45:785 Broker/(17574:17592): Algoritmo de particion libre ejecutado!
+[INFO] 16:35:45:785 Broker/(17574:17592): Aloje la nueva particion , PD
+[DEBUG] 16:35:45:786 Broker/(17574:17592): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 16:35:45:792 Broker/(17574:17582): Los pendientes tienen 1 mensajes
+[INFO] 16:35:45:799 Broker/(17574:17582): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 16:35:45:834 Broker/(17574:17582): Los pendientes quedaron con 0 mensajes
+[INFO] 16:35:45:850 Broker/(17574:17602): Se aceptó un nuevo proceso en el socket 7
+[INFO] 16:36:18:466 Broker/(17682:17682): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:36:18:485 Broker/(17682:17682): 1) Cache de mensajes lista!!!
+[DEBUG] 16:36:18:487 Broker/(17682:17682): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:36:18:512 Broker/(17682:17682): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:36:18:512 Broker/(17682:17682): 4) Configurando signals...
+[DEBUG] 16:36:18:515 Broker/(17682:17682): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:36:18:515 Broker/(17682:17682): 6) Inicializando cache de mensajes...
+[DEBUG] 16:36:18:547 Broker/(17682:17682): 7) Iniciando servidor...
+[DEBUG] 16:36:18:554 Broker/(17682:17682): 8) Intentando bindear sever...
+[DEBUG] 16:36:18:555 Broker/(17682:17682): 9) Server bindeado correctamente!!!
+[DEBUG] 16:36:18:562 Broker/(17682:17697): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:36:20:852 Broker/(17682:17702): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:36:21:26 Broker/(17682:17703): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:36:21:40 Broker/(17682:17702): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 16:36:21:41 Broker/(17682:17702): el mensaje esta en : 0x42419d0
+[INFO] 16:36:21:99 Broker/(17682:17702): Ejecutando best fit
+[DEBUG] 16:36:21:100 Broker/(17682:17702): El id malo es: 1
+[INFO] 16:36:21:101 Broker/(17682:17702): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:36:21:102 Broker/(17682:17702): indice a particionar 0
+[INFO] 16:36:21:102 Broker/(17682:17702): Por particionar...
+[DEBUG] 16:36:21:106 Broker/(17682:17702): el tamanio es: 13
+[INFO] 16:36:21:107 Broker/(17682:17702): memdir: 0x423df88
+[INFO] 16:36:21:110 Broker/(17682:17702): Bloque particionado...
+[INFO] 16:36:21:218 Broker/(17682:17702): Ya ejecute best fit
+[INFO] 16:36:21:218 Broker/(17682:17702): Algoritmo de particion libre ejecutado!
+[INFO] 16:36:21:219 Broker/(17682:17702): Aloje la nueva particion , PD
+[INFO] 16:46:30:225 Broker/(18444:18444): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:46:30:225 Broker/(18444:18444): 1) Cache de mensajes lista!!!
+[DEBUG] 16:46:30:225 Broker/(18444:18444): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:46:30:225 Broker/(18444:18444): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:46:30:225 Broker/(18444:18444): 4) Configurando signals...
+[DEBUG] 16:46:30:225 Broker/(18444:18444): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:46:30:225 Broker/(18444:18444): 6) Inicializando cache de mensajes...
+[DEBUG] 16:46:30:226 Broker/(18444:18444): 7) Iniciando servidor...
+[DEBUG] 16:46:30:226 Broker/(18444:18444): 8) Intentando bindear sever...
+[DEBUG] 16:46:30:226 Broker/(18444:18444): 9) Server bindeado correctamente!!!
+[DEBUG] 16:46:30:226 Broker/(18444:18451): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 16:46:35:887 Broker/(18444:18471): Se aceptó un nuevo proceso en el socket 5
+[INFO] 16:46:35:892 Broker/(18444:18471): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 16:46:35:892 Broker/(18444:18471): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 16:46:35:892 Broker/(18444:18471): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 16:46:35:901 Broker/(18444:18473): Se aceptó un nuevo proceso en el socket 6
+[INFO] 16:46:35:903 Broker/(18444:18473): El cliente 123332 envió un mensaje para la cola 3 a través de socket 6
+[DEBUG] 16:46:35:903 Broker/(18444:18473): el mensaje esta en : 0xb3200518
+[INFO] 16:46:35:903 Broker/(18444:18473): Ejecutando best fit
+[DEBUG] 16:46:35:903 Broker/(18444:18473): El id malo es: 1
+[INFO] 16:46:35:903 Broker/(18444:18473): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 16:46:35:903 Broker/(18444:18473): indice a particionar 0
+[INFO] 16:46:35:903 Broker/(18444:18473): Por particionar...
+[DEBUG] 16:46:35:903 Broker/(18444:18473): el tamanio es: 13
+[INFO] 16:46:35:903 Broker/(18444:18473): memdir: 0x8538e80
+[INFO] 16:46:35:903 Broker/(18444:18473): Bloque particionado...
+[INFO] 16:46:35:903 Broker/(18444:18473): Ya ejecute best fit
+[INFO] 16:46:35:903 Broker/(18444:18473): Algoritmo de particion libre ejecutado!
+[INFO] 16:46:35:903 Broker/(18444:18473): Aloje la nueva particion , PD
+[DEBUG] 16:46:35:903 Broker/(18444:18473): Agregado mensaje 0 pendiente de envio a 123332
+[DEBUG] 16:46:35:904 Broker/(18444:18448): Los pendientes tienen 1 mensajes
+[INFO] 16:46:35:904 Broker/(18444:18448): Se envió mensaje 0 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 16:46:35:904 Broker/(18444:18448): Los pendientes quedaron con 0 mensajes
+[INFO] 16:46:35:983 Broker/(18444:18474): Se aceptó un nuevo proceso en el socket 7
+[INFO] 16:46:47:986 Broker/(18484:18484): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 16:46:48:4 Broker/(18484:18484): 1) Cache de mensajes lista!!!
+[DEBUG] 16:46:48:6 Broker/(18484:18484): 2) Inicializando archivo de configuracion...
+[DEBUG] 16:46:48:40 Broker/(18484:18484): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 16:46:48:40 Broker/(18484:18484): 4) Configurando signals...
+[DEBUG] 16:46:48:43 Broker/(18484:18484): 5) Signals configuradas correctamente!!!
+[DEBUG] 16:46:48:44 Broker/(18484:18484): 6) Inicializando cache de mensajes...
+[DEBUG] 16:46:48:81 Broker/(18484:18484): 7) Iniciando servidor...
+[DEBUG] 16:46:48:87 Broker/(18484:18484): 8) Intentando bindear sever...
+[DEBUG] 16:46:48:88 Broker/(18484:18484): 9) Server bindeado correctamente!!!
+[DEBUG] 16:46:48:380 Broker/(18484:18491): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 17:22:22:693 Broker/(21888:21888): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 17:22:22:717 Broker/(21888:21888): 1) Cache de mensajes lista!!!
+[DEBUG] 17:22:22:719 Broker/(21888:21888): 2) Inicializando archivo de configuracion...
+[DEBUG] 17:22:22:761 Broker/(21888:21888): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 17:22:22:762 Broker/(21888:21888): 4) Configurando signals...
+[DEBUG] 17:22:22:770 Broker/(21888:21888): 5) Signals configuradas correctamente!!!
+[DEBUG] 17:22:22:771 Broker/(21888:21888): 6) Inicializando cache de mensajes...
+[DEBUG] 17:22:22:813 Broker/(21888:21888): 7) Iniciando servidor...
+[DEBUG] 17:22:22:826 Broker/(21888:21888): 8) Intentando bindear sever...
+[DEBUG] 17:22:22:827 Broker/(21888:21888): 9) Server bindeado correctamente!!!
+[DEBUG] 17:22:22:897 Broker/(21888:21897): 10) Hilo del servidor cargado correctamente!!!

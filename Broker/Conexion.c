@@ -107,13 +107,14 @@ void* esperar_mensajes(void* cliente){
 			tipo de estructura que contiene el paquete */
 
 			
-		 	/* printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
+		 	printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
 			printf("operacion: %d \n",paquete->operacion);
 			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
 			printf("id_correlacional: %d  \n",paquete->id_correlacional);
 			printf("id_mensaje: %d \n",paquete->id_mensaje);
 			printf("id_cliente: %d \n",paquete->id_cliente);
-			printf("tamanio_payload: %d \n",paquete->tamanio_payload);	 */
+			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+			printf("pokemon: %s \n",((t_get_pokemon*)(paquete->mensaje))->pokemon);
 
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:

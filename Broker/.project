@@ -3,6 +3,7 @@
 	<name>Broker</name>
 	<comment></comment>
 	<projects>
+		<project>Pokebola</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

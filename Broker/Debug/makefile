@@ -22,21 +22,25 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: libPokebola.so
+all: Broker
+
+dependents:
+	-cd /home/utnso/tp-2020-1c-eevee/Pokebola/Debug && $(MAKE) all
 
 # Tool invocations
-libPokebola.so: $(OBJS) $(USER_OBJS)
+Broker: $(OBJS) $(USER_OBJS) /home/utnso/tp-2020-1c-eevee/Pokebola/Debug/libPokebola.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -shared -o "libPokebola.so" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "Broker" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(LIBRARIES)$(OBJS)$(C_DEPS) libPokebola.so
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) Broker
 	-@echo ' '
 
 .PHONY: all clean dependents
+/home/utnso/tp-2020-1c-eevee/Pokebola/Debug/libPokebola.so:
 
 -include ../makefile.targets

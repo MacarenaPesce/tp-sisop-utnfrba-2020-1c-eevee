@@ -255,7 +255,10 @@ t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32
 	mensaje->suscriptores_enviados = list_create();
 	mensaje->suscriptores_ack = list_create();
 
-	mensaje->mensaje = mensaje_recibido;
+	log_debug(broker_logger,"el mensaje esta en : %p",mensaje_recibido);
+
+	mensaje->mensaje = malloc(tamanio_payload);
+	memcpy(mensaje->mensaje,mensaje_recibido,tamanio_payload);
 
     return mensaje;
 }

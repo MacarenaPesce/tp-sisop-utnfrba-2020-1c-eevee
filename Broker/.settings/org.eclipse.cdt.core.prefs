@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.config.gnu.exe.debug.542111965/LD_LIBRARY_PATH/delimiter=\:
+environment/project/cdt.managedbuild.config.gnu.exe.debug.542111965/LD_LIBRARY_PATH/operation=append
+environment/project/cdt.managedbuild.config.gnu.exe.debug.542111965/LD_LIBRARY_PATH/value=${LD_LIBRARY_PATH}//home/utnsso/tp-2020-eevee/Pokebola/Debug
+environment/project/cdt.managedbuild.config.gnu.exe.debug.542111965/append=true
+environment/project/cdt.managedbuild.config.gnu.exe.debug.542111965/appendContributed=true
+environment/project/cdt.managedbuild.toolchain.gnu.base.725649953/LD_LIBRARY_PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.base.725649953/LD_LIBRARY_PATH/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.base.725649953/LD_LIBRARY_PATH/value=${LD_LIBRARY_PATH}/home/utnso/tp-2020-1c-eevee/Broker/Dist
+environment/project/cdt.managedbuild.toolchain.gnu.base.725649953/append=true
+environment/project/cdt.managedbuild.toolchain.gnu.base.725649953/appendContributed=true
