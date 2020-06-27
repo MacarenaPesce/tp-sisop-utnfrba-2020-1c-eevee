@@ -60,6 +60,7 @@ t_mensaje_guardado * buscar_mensaje(uint32_t id);
 /*CHEQUEOS CON BOOL*/
 bool objetivo_personal_cumplido(t_entrenador* entrenador);
 bool objetivo_global_cumplido();
+bool todos_bloqueados_por_cantidad_maxima();
 
 
 #endif /* HERRAMIENTAS_TEAM_H_ */

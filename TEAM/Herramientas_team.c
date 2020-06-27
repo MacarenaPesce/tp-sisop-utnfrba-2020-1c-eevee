@@ -24,7 +24,9 @@ void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list * lista){
 		if(objetivo == NULL){
 			break;
 		}
-		log_info(team_logger,"Un objetivo es de la especie %s, cantidad necesitada %d", objetivo->especie, objetivo->cantidad);
+		if(objetivo->cantidad > 0){
+			log_info(team_logger,"Un objetivo es de la especie %s, cantidad necesitada %d", objetivo->especie, objetivo->cantidad);
+		}
 		k++;
 	}
 	free(objetivo);

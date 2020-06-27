@@ -18,6 +18,7 @@ void ordenar_lista_estimacion(t_list *);
 void desalojar_ejecucion(void);
 int estimar_entrenador(t_entrenador *);
 void obtener_proximo_ejecucion(void);
+void crear_hilo_para_planificar();
 
 
 #endif /* ALGORITMOS_DE_PLANIFICACION_H_ */

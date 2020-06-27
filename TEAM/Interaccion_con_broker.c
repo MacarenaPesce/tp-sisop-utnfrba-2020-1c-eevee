@@ -7,26 +7,71 @@
 
 #include "Interaccion_con_broker.h"
 
-void * recibir_appeared_pokemon_desde_broker(t_appeared_pokemon * mensaje){
-	log_info(team_logger,"Voy a recibir un pokemon y coordenadas desde broker");
-	log_info(team_logger,"Me llego este pokemon: %s, coordenada x %d, coordenada y %d", mensaje->pokemon, mensaje->coordenadas.posx, mensaje->coordenadas.posy);
+void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 
-	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-	pokemon->especie = mensaje->pokemon;
-	pokemon->posx = mensaje->coordenadas.posx;
-	pokemon->posy = mensaje->coordenadas.posy;
+	t_appeared_pokemon * appeared = paquete->mensaje;
+
+	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
+	mensaje->id = paquete->id_mensaje;
+	mensaje->id_correlacional = paquete->id_correlacional;
+	mensaje->operacion = APPEARED;
+	mensaje->contenido = appeared;
+
+	log_debug(team_logger, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
+
+	pthread_mutex_lock(&mensaje_nuevo_mutex);
+	list_add(mensajes_que_llegan_nuevos, mensaje);
+	pthread_mutex_unlock(&mensaje_nuevo_mutex);
+
+	sem_post(&mensaje_nuevo_disponible);
+
+	free(paquete);
 
 	return NULL;
 }
 
-void * recibir_localized_pokemon_desde_broker(t_localized_pokemon * mensaje){
-	log_info(team_logger,"Voy a recibir un pokemon y coordenadas desde broker para localized pokemon %s", mensaje->pokemon);
+void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
+
+	t_localized_pokemon * localized = paquete->mensaje;
+
+	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
+	mensaje->id = paquete->id_mensaje;
+	mensaje->id_correlacional = paquete->id_correlacional;
+	mensaje->operacion = LOCALIZED;
+	mensaje->contenido = localized;
+
+	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON");
+
+	pthread_mutex_lock(&mensaje_nuevo_mutex);
+	list_add(mensajes_que_llegan_nuevos, mensaje);
+	pthread_mutex_unlock(&mensaje_nuevo_mutex);
+
+	sem_post(&mensaje_nuevo_disponible);
+
+	free(paquete);
 
 	return NULL;
 }
 
-void * recibir_caught_pokemon_desde_broker(t_caught_pokemon * mensaje){
-	log_info(team_logger,"Voy a recibir un status desde broker para caught pokemon %d", mensaje->status);
+void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
+
+	t_caught_pokemon * caught = paquete->mensaje;
+
+	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
+	mensaje->id = paquete->id_mensaje;
+	mensaje->id_correlacional = paquete->id_correlacional;
+	mensaje->operacion = CAUGHT;
+	mensaje->contenido = caught;
+
+	log_debug(team_logger, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> %d y status %d", paquete->id_correlacional, caught->status);
+
+	pthread_mutex_lock(&mensaje_nuevo_mutex);
+	list_add(mensajes_que_llegan_nuevos, mensaje);
+	pthread_mutex_unlock(&mensaje_nuevo_mutex);
+
+	sem_post(&mensaje_nuevo_disponible);
+
+	free(paquete);
 
 	return NULL;
 }
@@ -131,7 +176,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			if(paquete != (t_packed*)-1){
 				//Quedo a la espera de recibir notificaciones
 				if(paquete->operacion == ENVIAR_MENSAJE){
-					(paquete_suscripcion->operacion)(paquete->mensaje);
+					(paquete_suscripcion->operacion)(paquete);
 				}
 			}
 		}

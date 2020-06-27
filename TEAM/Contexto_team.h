@@ -207,7 +207,7 @@ typedef struct {
 
 typedef struct {
 	int cola;
-	void *(*operacion)(void*);
+	void *(*operacion)(t_packed*);
 }t_suscripcion_a_broker;
 
 typedef struct {
