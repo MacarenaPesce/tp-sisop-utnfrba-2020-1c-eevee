@@ -74,6 +74,7 @@ extern int MAXIMO_ENTRENADORES;
 extern int CANTIDAD_EN_DEADLOCK;
 extern bool hayPokeNuevo;
 extern uint32_t quantum_actual;
+extern bool desalojo_en_ejecucion;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
@@ -216,6 +217,7 @@ typedef struct {
 }t_semaforo_deadlock;
 
 t_entrenador * entrenador_en_ejecucion;
-t_entrenador * entrenador_desalojado;
+t_entrenador * entrenador_por_desalojar;
+t_entrenador * nuevo_entrenador;
 
 #endif /* CONTEXTO_TEAM_H_ */

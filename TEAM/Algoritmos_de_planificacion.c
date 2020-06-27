@@ -22,13 +22,12 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 
 		sem_wait(&orden_para_planificar);
 
-		/*if(!strcmp(config.algoritmo, "SJF-CD")){
-			if((esi_en_ejecucion!=NULL) && (nuevo_esi->estimacion_real < esi_en_ejecucion->estimacion_actual))
+		/*if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
+			if(true/*(entrenador_en_ejecucion!=NULL) && (nuevo_entrenador->estimacion_real < entrenador_en_ejecucion->estimacion_actual))
 			{
-				logger_planificador(escribir_loguear,l_info,"El ESI nuevo de PID %d debe desalojar al ESI en ejecucion!",nuevo_esi->pid);
+				log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
 				desalojo_en_ejecucion++;
-				esi_por_desalojar = nuevo_esi;
-				logger_planificador(escribir_loguear,l_info,"Esperando a que ESI %d termine su sentencia\n",esi_en_ejecucion->pid);
+				entrenador_por_desalojar = nuevo_entrenador;
 			}
 		}*/
 
@@ -64,9 +63,10 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 			entrenador_mas_cercano->objetivo_actual = pokemon;
 
 			pthread_mutex_lock(&lista_listos_mutex);
+			entrenador_mas_cercano->instruccion_actual = distancia_a_pokemon(entrenador_mas_cercano, pokemon);
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
 			pthread_mutex_unlock(&lista_listos_mutex);
-
+			nuevo_entrenador = entrenador_mas_cercano;
 			pthread_mutex_lock(&lista_entrenadores_mutex);
 			sacar_entrenador_de_lista_pid(lista_entrenadores, entrenador_mas_cercano->id);
 			pthread_mutex_unlock(&lista_entrenadores_mutex);
@@ -167,7 +167,7 @@ void obtener_proximo_ejecucion(void){
 	}
 
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
-	entrenador_desalojado = NULL;
+	//entrenador_desalojado = NULL;
 	entrenador_en_ejecucion = list_remove(lista_aux,0);
 
 	if(!list_is_empty(lista_listos)){

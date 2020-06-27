@@ -26,6 +26,7 @@ int GLOBAL_SEGUIR = 1;
 int ciclos_de_cpu = 0;
 int MAXIMO_ENTRENADORES;
 int CANTIDAD_EN_DEADLOCK;
+bool desalojo_en_ejecucion = 0;
 
 bool hayPokeNuevo = false;
 uint32_t quantum_actual = 0;

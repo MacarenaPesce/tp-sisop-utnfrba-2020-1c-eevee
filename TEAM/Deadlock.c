@@ -23,7 +23,6 @@ void * chequear_deadlock(){
 		int cant_ready = list_size(lista_listos);
 		pthread_mutex_unlock(&lista_listos_mutex);
 
-		log_info(team_logger_oficial, "Inicio del algoritmo de detección de Deadlock");
 		if(cant_nuevos == 0 && todos_bloqueados_por_cantidad_maxima() && cant_ready == 0){
 			printf("\n");
 			log_warning(team_logger, "Deadlock detectado");

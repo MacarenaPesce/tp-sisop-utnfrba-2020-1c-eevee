@@ -64,7 +64,7 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 
 	/************************************FIFO************************************/
 
-	if((!strcmp(algoritmo_planificacion, "FIFO"))) {
+	if((!strcmp(algoritmo_planificacion, "FIFO")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))) {
 
 		//Primero me muevo por izq
 		while(entrenador->posx < entrenador->objetivo_actual->posx){

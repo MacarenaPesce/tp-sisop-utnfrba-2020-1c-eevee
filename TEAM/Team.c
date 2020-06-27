@@ -302,7 +302,30 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 void consumir_un_ciclo_de_cpu(){
 	ciclos_de_cpu++;
+	//log_info(team_logger, "Me movi 1");
 	sleep(retardo_ciclo_cpu);
+	/*if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+		if(desalojo_en_ejecucion){
+			confirmar_desalojo_en_ejecucion();
+		}
+	}*/
+
+}
+
+void confirmar_desalojo_en_ejecucion(void){
+	/*if(entrenador_por_desalojar!=NULL) {
+
+			entrenador_en_ejecucion->estado = LISTO;
+
+			list_add(lista_listos, entrenador_en_ejecucion);
+			sem_wait(&array_semaforos[entrenador_en_ejecucion->id]);
+			entrenador_en_ejecucion = NULL;
+
+			entrenador_por_desalojar = NULL;
+			desalojo_en_ejecucion = false;
+
+			sem_post(&orden_para_planificar);
+		}*/
 }
 
 void crear_hilo_para_tratamiento_de_mensajes(){
