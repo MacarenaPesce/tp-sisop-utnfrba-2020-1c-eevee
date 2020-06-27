@@ -34,6 +34,6 @@ void crear_hilo_para_tratamiento_de_mensajes();
 bool chequear_si_recibi_appeared_de_especie_antes(char *);
 void * tratamiento_de_mensajes();
 void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list *);
-void fijarme_si_debo_atraparlo_usando_el_objetivo_global(char *);
+bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char *);
 
 #endif /* TEAM_H_ */

@@ -371,3 +371,10 @@ t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* mens
 	}
 	return (list_find(mensajes,(void*)es_el_buscado));
 }
+
+t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char* especie, t_list* mensajes){
+	bool es_el_buscado(t_mensaje_guardado* mensaje){
+		return mensaje->operacion == APPEARED && (((t_appeared_pokemon *)(mensaje->contenido))->pokemon == especie);
+	}
+	return (list_find(mensajes,(void*)es_el_buscado));
+}

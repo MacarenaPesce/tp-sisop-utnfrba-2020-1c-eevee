@@ -55,6 +55,7 @@ t_entrenador * buscar_entrenador_por_id(t_list*, int);
 t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon*);
 t_entrenador * buscar_entrenador_por_ubicacion(t_list*, uint32_t, uint32_t);
 t_mensaje_guardado * buscar_mensaje(uint32_t id);
+t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char*, t_list*);
 
 
 /*CHEQUEOS CON BOOL*/
