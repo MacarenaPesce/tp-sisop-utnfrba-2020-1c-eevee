@@ -141,7 +141,7 @@ void agregarCantidadNuevaAposicion(char* posicion);
 //para manejar bloques libres del pokemon
 int cantBloquesOcupadosPorPoke;
 
-void persistirCambiosEnBloquesPropios(char* bloque);
+void persistirCambiosEnBloquesPropios(void* bloque);
 
 int copiado, desde, hasta;
 
@@ -208,5 +208,7 @@ void modificarPosicion(nuevaPos,cantidad,pokemonEnMemoria);
 void agregarNuevaPosicion(nuevaPos,cantidad,pokemonEnMemoria);
 
 void agregarAlista(char* bloque);
+
+char* contenidoBloque;
 
 #endif /* FILESYSTEM_H_ */
