@@ -692,7 +692,7 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 
     int indice = obtener_indice_particion(segundoBloque);
 
-	list_remove_and_destroy_element(cache_mensajes->memoria, indice, (void*)free);
+	//list_remove_and_destroy_element(cache_mensajes->memoria, indice, (void*)free);
 
     return ;
 }

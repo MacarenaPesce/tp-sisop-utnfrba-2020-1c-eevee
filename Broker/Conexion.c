@@ -99,7 +99,7 @@ void* esperar_mensajes(void* cliente){
 	t_packed* paquete;
 
 	while(1){
-		paquete = recibir_mensaje(socket_cliente);
+		paquete = recibir_mensaje_serealizado(socket_cliente);
 
 		if(paquete != (t_packed*)-1){
 			//Esto me devuelve el paquete con todos los datos
@@ -114,7 +114,6 @@ void* esperar_mensajes(void* cliente){
 			printf("id_mensaje: %d \n",paquete->id_mensaje);
 			printf("id_cliente: %d \n",paquete->id_cliente);
 			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
-			printf("pokemon: %s \n",((t_get_pokemon*)(paquete->mensaje))->pokemon);
 
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:

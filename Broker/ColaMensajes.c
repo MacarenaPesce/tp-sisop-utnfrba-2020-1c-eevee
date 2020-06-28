@@ -125,6 +125,7 @@ void* sender_suscriptores(void* cola_mensajes){
 												mensaje->id_correlacional, 
 												cola->cola_de_mensajes, 
 												cliente->socket, 
+												mensaje->tamanio_mensaje,
 												mensaje->mensaje);
 
 
@@ -154,39 +155,23 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 								int id_correlacional, 
 								enum COLA_DE_MENSAJES cola_de_mensajes, 
 								int cliente, 
+								int tamanio_mensaje,
 								void* mensaje){
 	int send_status = -1;
 
-	switch(cola_de_mensajes){
+	t_packed* paquete = (t_packed*)malloc(sizeof(t_packed));
 
-		case COLA_CATCH_POKEMON:
-			send_status = distribuir_catch_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_catch_pokemon*)mensaje);
-			break;
- 
-		case COLA_APPEARED_POKEMON:
-			send_status = distribuir_appeared_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_appeared_pokemon*)mensaje);
-			break;
+	paquete->id_mensaje = id_mensaje;
+	paquete->id_correlacional = id_correlacional;
+	paquete->id_cliente = -1;
+	paquete->tamanio_payload = tamanio_mensaje;
+	paquete->cola_de_mensajes = cola_de_mensajes;
+	paquete->operacion = ENVIAR_MENSAJE;
+	paquete->mensaje = mensaje;
 
-		case COLA_NEW_POKEMON:
-			send_status = distribuir_new_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_new_pokemon*)mensaje);
-			break;
-		
-		case COLA_CAUGHT_POKEMON:
-			send_status = distribuir_caught_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_caught_pokemon*)mensaje);
-			break;
-		
-		case COLA_GET_POKEMON:
-			send_status = distribuir_get_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_get_pokemon*)mensaje);
-			break;
+	send_status = _enviar_mensaje(cliente,paquete);
 
-		case COLA_LOCALIZED_POKEMON:
-			//send_status = enviar_localized_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_localized_pokemon*)mensaje);
-			break;			
-
-		default:
-			log_error(broker_logger,"Error, cola de mensajes desconocida: %d\n",cola_de_mensajes);
-			break;
-	}
+	free(paquete);
 
 	return send_status;
 
@@ -254,11 +239,7 @@ t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32
 	mensaje->tamanio_mensaje = tamanio_payload;
 	mensaje->suscriptores_enviados = list_create();
 	mensaje->suscriptores_ack = list_create();
-
-	log_debug(broker_logger,"el mensaje esta en : %p",mensaje_recibido);
-
-	mensaje->mensaje = malloc(tamanio_payload);
-	memcpy(mensaje->mensaje,mensaje_recibido,tamanio_payload);
+	mensaje->mensaje = mensaje_recibido;
 
     return mensaje;
 }

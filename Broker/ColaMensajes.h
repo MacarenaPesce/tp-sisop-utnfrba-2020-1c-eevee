@@ -28,6 +28,7 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 								int id_correlacional, 
 								enum COLA_DE_MENSAJES cola_de_mensajes, 
 								int cliente, 
+								int tamanio_mensaje,
 								void* mensaje);
 
 /* Genericas */
