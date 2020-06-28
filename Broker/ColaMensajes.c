@@ -45,7 +45,7 @@ void agregar_suscriptor_a_cola(int cola_de_mensajes, uint32_t id_cliente, int so
 
 	t_cola_mensajes* cola = obtener_cola_mensajes(cola_de_mensajes);
 
-	t_cliente* cliente = crear_o_actualizar_cliente(id_cliente,socket_cliente);
+	t_cliente* cliente = crear_o_actualizar_cliente(id_cliente,socket_cliente,cola_de_mensajes);
 
 	agregar_cliente_a_suscriptores(cola,cliente);
 
@@ -121,10 +121,12 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		t_cliente* cliente = obtener_cliente_por_id(envio_pendiente->cliente);
 
+		t_socket_cliente* socket_cliente = obtener_socket_cliente_de_cola(cliente,cola->cola_de_mensajes);
+
 		int envio = enviar_mensaje_a_suscriptor(envio_pendiente->id,
 												mensaje->id_correlacional, 
 												cola->cola_de_mensajes, 
-												cliente->socket, 
+												socket_cliente->socket, 
 												mensaje->tamanio_mensaje,
 												mensaje->mensaje);
 
@@ -178,20 +180,35 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 }
 
 /* Genericas */
-t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket){
+t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket, int cola){
 
 	t_cliente* cliente = obtener_cliente_por_id(id_cliente);
 
 	if(cliente == NULL){
-		if(debug_broker) log_debug(broker_logger,"Creando nuevo cliente %d en socket %d\n",id_cliente,socket);
-		cliente = crear_cliente(id_cliente, socket);
+		
+		if(debug_broker) log_debug(broker_logger,"Creando nuevo cliente %d para la cola %s en socket %d",id_cliente,obtener_nombre_cola(cola),socket);
+		
+		cliente = crear_cliente(id_cliente, socket, cola);
+		
 		agregar_cliente_a_cache(cliente);
+		
 		return cliente;
 	}
 
-	if(debug_broker) log_debug(broker_logger,"Actualizando socket del cliente %d al socket %d",id_cliente,socket);
+	t_socket_cliente* socket_cliente = obtener_socket_cliente_de_cola(cliente,cola);
 
-	cliente->socket = socket;
+	if(socket_cliente == NULL){
+
+		if(debug_broker) log_debug(broker_logger,"Agregado nuevo socket al cliente %d para la cola %s en socket %d",id_cliente,obtener_nombre_cola(cola),socket);
+
+		agregar_socket_cliente(cliente,socket,cola);
+
+		return cliente;
+	}
+
+	if(debug_broker) log_debug(broker_logger,"Actualizando socket del cliente %d para la cola %s al socket %d",id_cliente,obtener_nombre_cola(cola),socket);
+
+	actualizar_socket_cliente(cliente,socket,cola);
 
 	return cliente;
 }
@@ -215,14 +232,28 @@ t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
 
 }
 
-t_cliente* crear_cliente(uint32_t id_cliente, int socket){
+t_cliente* crear_cliente(uint32_t id_cliente, int socket, int cola_de_mensajes){
 
 	t_cliente* cliente = (t_cliente*)malloc(sizeof(t_cliente));
+	t_socket_cliente* socket_cliente = crear_socket_cliente(socket,cola_de_mensajes);
 
 	cliente->id = id_cliente;
-	cliente->socket = socket;
+	cliente->sockets = list_create();
+
+	list_add(cliente->sockets,socket_cliente);
 
 	return cliente;
+
+}
+
+t_socket_cliente* crear_socket_cliente(int socket, int cola_de_mensajes){
+
+	t_socket_cliente* socket_cliente = (t_socket_cliente*)malloc(sizeof(t_socket_cliente));
+
+	socket_cliente->socket = socket;
+	socket_cliente->cola_de_mensajes = cola_de_mensajes;
+
+	return socket_cliente;
 
 }
 
@@ -278,6 +309,19 @@ t_cliente* obtener_cliente_por_id(int id_cliente){
 
     return list_find(cache_mensajes->clientes,es_cliente_buscado);
 
+}
+
+t_socket_cliente* obtener_socket_cliente_de_cola(t_cliente* cliente, int cola_de_mensajes){
+
+	bool buscar_socket_cliente(void* _socket){
+
+		t_socket_cliente* socket = (t_socket_cliente*) _socket;
+
+		return socket->cola_de_mensajes == cola_de_mensajes;
+
+	}
+
+	return list_find(cliente->sockets, buscar_socket_cliente);
 }
 
 t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
@@ -354,6 +398,14 @@ void agregar_cliente_a_cache(t_cliente* cliente){
 	list_add(cache_mensajes->clientes,(void*)cliente);
 }
 
+void agregar_socket_cliente(t_cliente* cliente, int socket, int cola_de_mensajes){
+
+	t_socket_cliente* socket_cliente = crear_socket_cliente(socket,cola_de_mensajes);
+
+	list_add(cliente->sockets, (void*) socket_cliente);
+
+}
+
 void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, t_cliente* cliente){
 
 	if(es_suscriptor_de(cliente->id, cola)) return;
@@ -384,6 +436,14 @@ void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cl
 void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, t_cliente* cliente){
 
 	list_add(mensaje->suscriptores_enviados,(void*)&cliente->id);
+
+}
+
+void actualizar_socket_cliente(t_cliente* cliente, int socket, int cola){
+
+	t_socket_cliente* socket_cliente = obtener_socket_cliente_de_cola(cliente,cola);
+
+	socket_cliente->socket = socket;
 
 }
 
