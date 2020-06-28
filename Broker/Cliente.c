@@ -49,15 +49,15 @@ int main(){
 
 	t_packed* ack;
 
-	//int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_GET_POKEMON,&suscripcion);
+	int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_GET_POKEMON,&suscripcion);
 
-//	pthread_t hilo_espera_mensajes;
-	//pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
+	pthread_t hilo_espera_mensajes;
+	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
 
-	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
-	free(ack);
+/* 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
+	free(ack); */
 
-/* 	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
+	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
 	free(ack);
@@ -66,7 +66,7 @@ int main(){
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
-	free(ack); */
+	free(ack);
 
 	while(1){};
 

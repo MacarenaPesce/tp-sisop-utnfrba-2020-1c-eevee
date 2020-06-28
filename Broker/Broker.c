@@ -1,4 +1,5 @@
 #include "Broker.h"
+extern int tamanio_memoria;
 
 
 int main(){
@@ -48,9 +49,9 @@ int main(){
 		
 	}
 
-	asignar_memoria_inicial(8000);
+	//if(debug_broker) log_debug(broker_logger,"El espacio de memoria principal es: %d",tamanio_memoria);
 
-	printf("la direccion de memoria de cache en broker l53 es %d\n",&(cache_mensajes->memoria));
+	asignar_memoria_inicial(2048);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);	
 

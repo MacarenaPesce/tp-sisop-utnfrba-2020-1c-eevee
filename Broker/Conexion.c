@@ -107,13 +107,13 @@ void* esperar_mensajes(void* cliente){
 			tipo de estructura que contiene el paquete */
 
 			
-		 	printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
-			printf("operacion: %d \n",paquete->operacion);
-			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
-			printf("id_correlacional: %d  \n",paquete->id_correlacional);
-			printf("id_mensaje: %d \n",paquete->id_mensaje);
-			printf("id_cliente: %d \n",paquete->id_cliente);
-			printf("tamanio_payload: %d \n",paquete->tamanio_payload);
+		 	log_debug(broker_logger,"Mensaje Recibido:",NULL);
+			log_debug(broker_logger,"operacion: %d ",paquete->operacion);
+			log_debug(broker_logger,"cola_de_mensajes: %d ",paquete->cola_de_mensajes);
+			log_debug(broker_logger,"id_correlacional: %d  ",paquete->id_correlacional);
+			log_debug(broker_logger,"id_mensaje: %d ",paquete->id_mensaje);
+			log_debug(broker_logger,"id_cliente: %d ",paquete->id_cliente);
+			log_debug(broker_logger,"tamanio_payload: %d ",paquete->tamanio_payload);
 
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:
@@ -175,6 +175,6 @@ void recibir_ack(t_packed *paquete,int socket_cliente){
 
 	agregar_ack_a_mensaje(paquete->id_mensaje, paquete->id_cliente, socket_cliente);
 
-	_eliminar_mensaje(paquete);
+	eliminar_mensaje(paquete);
 
 }
