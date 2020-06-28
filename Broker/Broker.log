@@ -1,0 +1,163 @@
+[INFO] 17:40:03:800 Broker/(8797:8797): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 17:40:03:822 Broker/(8797:8797): 1) Cache de mensajes lista!!!
+[DEBUG] 17:40:03:829 Broker/(8797:8797): 2) Inicializando archivo de configuracion...
+[DEBUG] 17:40:03:873 Broker/(8797:8797): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 17:40:03:873 Broker/(8797:8797): 4) Configurando signals...
+[DEBUG] 17:40:03:876 Broker/(8797:8797): 5) Signals configuradas correctamente!!!
+[DEBUG] 17:40:03:877 Broker/(8797:8797): 6) Inicializando cache de mensajes...
+[DEBUG] 17:40:03:906 Broker/(8797:8797): la direccion de memoria en memoria l51 es: 69456624 
+[DEBUG] 17:40:03:909 Broker/(8797:8797): Se asigno la memoria inicial
+[DEBUG] 17:40:03:910 Broker/(8797:8797): La direccion inicial de memoria es: 0x423e400
+[DEBUG] 17:40:03:911 Broker/(8797:8797): Particion de memoria inicial creada con: 2048 
+
+[DEBUG] 17:40:03:912 Broker/(8797:8797): 7) Iniciando servidor...
+[DEBUG] 17:40:03:917 Broker/(8797:8797): 8) Intentando bindear sever...
+[DEBUG] 17:40:03:919 Broker/(8797:8797): 9) Server bindeado correctamente!!!
+[DEBUG] 17:40:03:928 Broker/(8797:8805): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 17:43:37:394 Broker/(9300:9300): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 17:43:37:415 Broker/(9300:9300): 1) Cache de mensajes lista!!!
+[DEBUG] 17:43:37:418 Broker/(9300:9300): 2) Inicializando archivo de configuracion...
+[DEBUG] 17:43:37:443 Broker/(9300:9300): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 17:43:37:443 Broker/(9300:9300): 4) Configurando signals...
+[DEBUG] 17:43:37:448 Broker/(9300:9300): 5) Signals configuradas correctamente!!!
+[DEBUG] 17:43:37:450 Broker/(9300:9300): 6) Inicializando cache de mensajes...
+[DEBUG] 17:43:37:466 Broker/(9300:9300): la direccion de memoria en memoria l51 es: 69456624 
+[DEBUG] 17:43:37:468 Broker/(9300:9300): Se asigno la memoria inicial
+[DEBUG] 17:43:37:470 Broker/(9300:9300): La direccion inicial de memoria es: 0x423e400
+[DEBUG] 17:43:37:470 Broker/(9300:9300): Particion de memoria inicial creada con: 2048 
+
+[DEBUG] 17:43:37:471 Broker/(9300:9300): 7) Iniciando servidor...
+[DEBUG] 17:43:37:476 Broker/(9300:9300): 8) Intentando bindear sever...
+[DEBUG] 17:43:37:478 Broker/(9300:9300): 9) Server bindeado correctamente!!!
+[DEBUG] 17:43:37:479 Broker/(9300:9300): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 17:44:20:405 Broker/(9403:9403): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 17:44:20:430 Broker/(9403:9403): 1) Cache de mensajes lista!!!
+[DEBUG] 17:44:20:432 Broker/(9403:9403): 2) Inicializando archivo de configuracion...
+[DEBUG] 17:44:20:454 Broker/(9403:9403): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 17:44:20:454 Broker/(9403:9403): 4) Configurando signals...
+[DEBUG] 17:44:20:456 Broker/(9403:9403): 5) Signals configuradas correctamente!!!
+[DEBUG] 17:44:20:457 Broker/(9403:9403): 6) Inicializando cache de mensajes...
+[DEBUG] 17:44:20:472 Broker/(9403:9403): la direccion de memoria en memoria l51 es: 69456624 
+[DEBUG] 17:44:20:477 Broker/(9403:9403): Se asigno la memoria inicial
+[DEBUG] 17:44:20:478 Broker/(9403:9403): La direccion inicial de memoria es: 0x423e400
+[DEBUG] 17:44:20:479 Broker/(9403:9403): Particion de memoria inicial creada con: 2048 
+
+[DEBUG] 17:44:20:480 Broker/(9403:9403): 7) Iniciando servidor...
+[DEBUG] 17:44:20:485 Broker/(9403:9403): 8) Intentando bindear sever...
+[DEBUG] 17:44:20:487 Broker/(9403:9403): 9) Server bindeado correctamente!!!
+[DEBUG] 17:44:20:488 Broker/(9403:9403): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 17:44:26:818 Broker/(9403:9416): Se aceptó un nuevo proceso en el socket 5
+[DEBUG] 17:44:26:822 Broker/(9403:9416): Mensaje Recibido:
+[DEBUG] 17:44:26:822 Broker/(9403:9416): operacion: 1 
+[DEBUG] 17:44:26:823 Broker/(9403:9416): cola_de_mensajes: 3 
+[DEBUG] 17:44:26:823 Broker/(9403:9416): id_correlacional: -1  
+[DEBUG] 17:44:26:824 Broker/(9403:9416): id_mensaje: -1 
+[DEBUG] 17:44:26:824 Broker/(9403:9416): id_cliente: 123332 
+[DEBUG] 17:44:26:825 Broker/(9403:9416): tamanio_payload: 8 
+[INFO] 17:44:26:825 Broker/(9403:9416): El cliente 123332 solicitó suscribirse a la cola 3 a través del socket 5
+[DEBUG] 17:44:26:826 Broker/(9403:9416): Recibida suscripcion de cliente 123332 en socket 5
+[DEBUG] 17:44:26:827 Broker/(9403:9416): Creando nuevo cliente 123332 en socket 5
+
+[INFO] 17:44:26:837 Broker/(9403:9418): Se aceptó un nuevo proceso en el socket 6
+[DEBUG] 17:44:26:837 Broker/(9403:9418): Mensaje Recibido:
+[DEBUG] 17:44:26:838 Broker/(9403:9418): operacion: 0 
+[DEBUG] 17:44:26:838 Broker/(9403:9418): cola_de_mensajes: 0 
+[DEBUG] 17:44:26:838 Broker/(9403:9418): id_correlacional: -1  
+[DEBUG] 17:44:26:838 Broker/(9403:9418): id_mensaje: -1 
+[DEBUG] 17:44:26:838 Broker/(9403:9418): id_cliente: 123332 
+[DEBUG] 17:44:26:839 Broker/(9403:9418): tamanio_payload: 20 
+[INFO] 17:44:26:839 Broker/(9403:9418): El cliente 123332 envió un mensaje para la cola 0 a través de socket 6
+[INFO] 17:44:26:842 Broker/(9403:9418): Ejecutando best fit
+[DEBUG] 17:44:26:844 Broker/(9403:9418): El id malo es: 1
+[INFO] 17:44:26:845 Broker/(9403:9418): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 17:44:26:845 Broker/(9403:9418): indice a particionar 0
+[INFO] 17:44:26:846 Broker/(9403:9418): Por particionar...
+[INFO] 17:44:26:850 Broker/(9403:9418): Bloque particionado...
+[INFO] 17:44:26:850 Broker/(9403:9418): Ya ejecute best fit
+[INFO] 17:44:26:850 Broker/(9403:9418): Algoritmo de particion libre ejecutado!
+[INFO] 17:44:26:851 Broker/(9403:9418): Aloje la nueva particion , PD
+[INFO] 17:44:26:854 Broker/(9403:9419): Se aceptó un nuevo proceso en el socket 7
+[DEBUG] 17:44:26:855 Broker/(9403:9419): Mensaje Recibido:
+[DEBUG] 17:44:26:856 Broker/(9403:9419): operacion: 0 
+[DEBUG] 17:44:26:856 Broker/(9403:9419): cola_de_mensajes: 1 
+[DEBUG] 17:44:26:856 Broker/(9403:9419): id_correlacional: -1  
+[DEBUG] 17:44:26:856 Broker/(9403:9419): id_mensaje: -1 
+[DEBUG] 17:44:26:856 Broker/(9403:9419): id_cliente: 123332 
+[DEBUG] 17:44:26:857 Broker/(9403:9419): tamanio_payload: 24 
+[INFO] 17:44:26:857 Broker/(9403:9419): El cliente 123332 envió un mensaje para la cola 1 a través de socket 7
+[INFO] 17:44:26:857 Broker/(9403:9419): Ejecutando best fit
+[DEBUG] 17:44:26:858 Broker/(9403:9419): El id malo es: 2
+[INFO] 17:44:26:858 Broker/(9403:9419): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 17:44:26:858 Broker/(9403:9419): indice a particionar 1
+[INFO] 17:44:26:858 Broker/(9403:9419): Por particionar...
+[INFO] 17:44:26:859 Broker/(9403:9419): Bloque particionado...
+[INFO] 17:44:26:859 Broker/(9403:9419): Ya ejecute best fit
+[INFO] 17:44:26:859 Broker/(9403:9419): Algoritmo de particion libre ejecutado!
+[INFO] 17:44:26:859 Broker/(9403:9419): Aloje la nueva particion , PD
+[INFO] 17:44:26:861 Broker/(9403:9420): Se aceptó un nuevo proceso en el socket 8
+[DEBUG] 17:44:26:861 Broker/(9403:9420): Mensaje Recibido:
+[DEBUG] 17:44:26:862 Broker/(9403:9420): operacion: 0 
+[DEBUG] 17:44:26:862 Broker/(9403:9420): cola_de_mensajes: 2 
+[DEBUG] 17:44:26:862 Broker/(9403:9420): id_correlacional: -1  
+[DEBUG] 17:44:26:862 Broker/(9403:9420): id_mensaje: -1 
+[DEBUG] 17:44:26:862 Broker/(9403:9420): id_cliente: 123332 
+[DEBUG] 17:44:26:863 Broker/(9403:9420): tamanio_payload: 20 
+[INFO] 17:44:26:863 Broker/(9403:9420): El cliente 123332 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 17:44:26:863 Broker/(9403:9420): Ejecutando best fit
+[DEBUG] 17:44:26:863 Broker/(9403:9420): El id malo es: 3
+[INFO] 17:44:26:863 Broker/(9403:9420): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 17:44:26:864 Broker/(9403:9420): indice a particionar 2
+[INFO] 17:44:26:864 Broker/(9403:9420): Por particionar...
+[INFO] 17:44:26:864 Broker/(9403:9420): Bloque particionado...
+[INFO] 17:44:26:864 Broker/(9403:9420): Ya ejecute best fit
+[INFO] 17:44:26:864 Broker/(9403:9420): Algoritmo de particion libre ejecutado!
+[INFO] 17:44:26:864 Broker/(9403:9420): Aloje la nueva particion , PD
+[INFO] 17:44:26:869 Broker/(9403:9421): Se aceptó un nuevo proceso en el socket 9
+[DEBUG] 17:44:26:869 Broker/(9403:9421): Mensaje Recibido:
+[DEBUG] 17:44:26:869 Broker/(9403:9421): operacion: 0 
+[DEBUG] 17:44:26:870 Broker/(9403:9421): cola_de_mensajes: 3 
+[DEBUG] 17:44:26:870 Broker/(9403:9421): id_correlacional: -1  
+[DEBUG] 17:44:26:870 Broker/(9403:9421): id_mensaje: -1 
+[DEBUG] 17:44:26:870 Broker/(9403:9421): id_cliente: 123332 
+[DEBUG] 17:44:26:871 Broker/(9403:9421): tamanio_payload: 17 
+[INFO] 17:44:26:871 Broker/(9403:9421): El cliente 123332 envió un mensaje para la cola 3 a través de socket 9
+[INFO] 17:44:26:871 Broker/(9403:9421): Ejecutando best fit
+[DEBUG] 17:44:26:871 Broker/(9403:9421): El id malo es: 4
+[INFO] 17:44:26:871 Broker/(9403:9421): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 17:44:26:872 Broker/(9403:9421): indice a particionar 3
+[INFO] 17:44:26:872 Broker/(9403:9421): Por particionar...
+[INFO] 17:44:26:872 Broker/(9403:9421): Bloque particionado...
+[INFO] 17:44:26:873 Broker/(9403:9421): Ya ejecute best fit
+[INFO] 17:44:26:873 Broker/(9403:9421): Algoritmo de particion libre ejecutado!
+[INFO] 17:44:26:873 Broker/(9403:9421): Aloje la nueva particion , PD
+[DEBUG] 17:44:26:874 Broker/(9403:9421): Agregado mensaje 3 pendiente de envio a 123332
+[DEBUG] 17:44:26:876 Broker/(9403:9409): Los pendientes tienen 1 mensajes
+[INFO] 17:44:26:879 Broker/(9403:9409): Se envió mensaje 3 perteneciente a la cola 3 al cliente 123332
+[DEBUG] 17:44:26:881 Broker/(9403:9409): Los pendientes quedaron con 0 mensajes
+[INFO] 17:44:26:882 Broker/(9403:9422): Se aceptó un nuevo proceso en el socket 10
+[INFO] 17:44:26:886 Broker/(9403:9423): Se aceptó un nuevo proceso en el socket 11
+[DEBUG] 17:44:26:886 Broker/(9403:9423): Mensaje Recibido:
+[DEBUG] 17:44:26:887 Broker/(9403:9423): operacion: 0 
+[DEBUG] 17:44:26:889 Broker/(9403:9423): cola_de_mensajes: 4 
+[DEBUG] 17:44:26:889 Broker/(9403:9423): id_correlacional: -1  
+[DEBUG] 17:44:26:889 Broker/(9403:9423): id_mensaje: -1 
+[DEBUG] 17:44:26:889 Broker/(9403:9423): id_cliente: 123332 
+[DEBUG] 17:44:26:889 Broker/(9403:9423): tamanio_payload: 4 
+[INFO] 17:44:26:890 Broker/(9403:9423): El cliente 123332 envió un mensaje para la cola 4 a través de socket 11
+[INFO] 17:44:26:890 Broker/(9403:9423): Ejecutando best fit
+[DEBUG] 17:44:26:890 Broker/(9403:9423): El id malo es: 5
+[INFO] 17:44:26:890 Broker/(9403:9423): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 17:44:26:891 Broker/(9403:9423): indice a particionar 4
+[DEBUG] 17:44:26:892 Broker/(9403:9422): Mensaje Recibido:
+[INFO] 17:44:26:893 Broker/(9403:9423): Por particionar...
+[INFO] 17:44:26:893 Broker/(9403:9423): Bloque particionado...
+[INFO] 17:44:26:894 Broker/(9403:9423): Ya ejecute best fit
+[INFO] 17:44:26:894 Broker/(9403:9423): Algoritmo de particion libre ejecutado!
+[INFO] 17:44:26:894 Broker/(9403:9423): Aloje la nueva particion , PD
+[DEBUG] 17:44:26:899 Broker/(9403:9422): operacion: 2 
+[DEBUG] 17:44:26:899 Broker/(9403:9422): cola_de_mensajes: -1 
+[DEBUG] 17:44:26:900 Broker/(9403:9422): id_correlacional: -1  
+[DEBUG] 17:44:26:900 Broker/(9403:9422): id_mensaje: 3 
+[DEBUG] 17:44:26:900 Broker/(9403:9422): id_cliente: 123332 
+[DEBUG] 17:44:26:901 Broker/(9403:9422): tamanio_payload: 0 
+[INFO] 17:44:26:902 Broker/(9403:9422): El cliente 123332 envió confirmación del mensaje 3 a través del socket 10 

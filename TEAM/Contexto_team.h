@@ -50,7 +50,7 @@
 
 #define NO_SOCKET -1
 #define IP "127.0.0.2"
-#define PUERTO "32500"
+#define PUERTO "5002"
 #define MAX_CLIENTES 20
 
 extern char** posiciones_entrenadores;

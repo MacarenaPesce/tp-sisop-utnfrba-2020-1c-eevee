@@ -20,7 +20,7 @@ void iniciar_servidor(void){
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
 
-    getaddrinfo("127.0.0.1", "32587", &hints, &servinfo);
+    getaddrinfo("127.0.0.1", "5003", &hints, &servinfo);
 
     for (p=servinfo; p != NULL; p = p->ai_next){
 		if(debug_broker) log_debug(broker_logger, "8) Intentando bindear sever...", NULL);
@@ -51,10 +51,13 @@ void iniciar_servidor(void){
 
 	memcpy(socket,&socket_servidor,sizeof(int));
 
-	pthread_t hilo_sockets;
+
+	esperar_cliente((void*)socket);
+
+/* 	pthread_t hilo_sockets;
 
 	pthread_create(&hilo_sockets,NULL,esperar_cliente,(void*)socket);
-	pthread_detach(hilo_sockets);
+	pthread_detach(hilo_sockets); */
 	
 }
 
