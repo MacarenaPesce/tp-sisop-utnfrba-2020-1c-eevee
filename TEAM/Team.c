@@ -361,15 +361,10 @@ void * tratamiento_de_mensajes(){
 
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				operar_con_appeared_pokemon(mensaje->contenido);
+
 			} else {
 				log_info(team_logger, "No necesito a este pokemon");
 			}
-			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-
-
-
-			operar_con_appeared_pokemon(mensaje->contenido);
-
 		}
 
 		if(mensaje->operacion == LOCALIZED){
