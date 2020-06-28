@@ -58,9 +58,6 @@ int main(){
 	iniciar_servidor();
 
 	//primer_bloque = AsignarMemoriaInicial(tamanio_memoria_inicial,lista_memoria);
-	while(server_status != ENDING){
-	
-	}
 
 
 }
