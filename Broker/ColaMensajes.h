@@ -28,13 +28,14 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 								int id_correlacional, 
 								enum COLA_DE_MENSAJES cola_de_mensajes, 
 								int cliente, 
+								int tamanio_mensaje,
 								void* mensaje);
 
 /* Genericas */
 
 // Instanciación
 t_cola_mensajes* crear_cola_mensajes(int cola_mensajes);
-t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, void* mensaje_recibido);
+t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* mensaje_recibido);
 t_cliente* crear_cliente(uint32_t id_cliente, int socket);
 t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket);
 
@@ -43,10 +44,12 @@ t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes);
 t_mensaje_cola* obtener_mensaje_por_id(int id_mensaje);
 t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola);
 t_cliente* obtener_cliente_por_id(int id_cliente);
+t_list* obtener_memoria_de_cola(t_cola_mensajes* cola);
 
 // Validación
 bool es_suscriptor_de(int id_cliente, t_cola_mensajes* cola);
 bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente);
+bool es_memoria_de_cola(t_bloque_memoria* bloque, t_cola_mensajes* cola);
 
 // Creación
 void agregar_mensaje_a_cache(t_mensaje_cola* mensaje);

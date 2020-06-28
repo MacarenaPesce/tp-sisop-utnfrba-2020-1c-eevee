@@ -13,7 +13,7 @@ void iniciar_servidor(void){
 	int socket_servidor;
 	int bind_status;
 	
-    struct addrinfo hints, *servinfo, *p;
+    struct addrinfo hints, *servinfo, *p; /* REVISAR DE LIBERAR AL FINAL DEL SERVER  */
 
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;
@@ -77,13 +77,9 @@ void* esperar_cliente(void* socket){
 
 			pthread_t hilo_cliente;
 
-			void *cliente = (void*)malloc(sizeof(int));
+			pthread_create(&hilo_cliente,NULL,esperar_mensajes,(void *)&socket_cliente);
 
-			cliente = &socket_cliente;
-
-			pthread_create(&hilo_cliente,NULL,esperar_mensajes,cliente);
-
-			pthread_join(hilo_cliente,NULL);
+			pthread_detach(hilo_cliente);
 
 		}
 	
@@ -95,8 +91,7 @@ void* esperar_cliente(void* socket){
 
 void* esperar_mensajes(void* cliente){
 
-
-	int socket_cliente = *(int*)cliente;
+	int socket_cliente = *((int*)cliente);
 
 	log_info(broker_logger, "Se aceptó un nuevo proceso en el socket %d", socket_cliente);
 
@@ -104,7 +99,7 @@ void* esperar_mensajes(void* cliente){
 	t_packed* paquete;
 
 	while(1){
-		paquete = recibir_mensaje(socket_cliente);
+		paquete = recibir_mensaje_serealizado(socket_cliente);
 
 		if(paquete != (t_packed*)-1){
 			//Esto me devuelve el paquete con todos los datos
@@ -112,13 +107,13 @@ void* esperar_mensajes(void* cliente){
 			tipo de estructura que contiene el paquete */
 
 			
-		/* 	printf("\n\nMensaje Recibido: %d \n",paquete->operacion);
-			printf("operacion: %d \n",paquete->operacion);
-			printf("cola_de_mensajes: %d \n",paquete->cola_de_mensajes);
-			printf("id_correlacional: %d  \n",paquete->id_correlacional);
-			printf("id_mensaje: %d \n",paquete->id_mensaje);
-			printf("id_cliente: %d \n",paquete->id_cliente);
-			printf("tamanio_payload: %d \n",paquete->tamanio_payload); */		
+		 	log_debug(broker_logger,"Mensaje Recibido:",NULL);
+			log_debug(broker_logger,"operacion: %d ",paquete->operacion);
+			log_debug(broker_logger,"cola_de_mensajes: %d ",paquete->cola_de_mensajes);
+			log_debug(broker_logger,"id_correlacional: %d  ",paquete->id_correlacional);
+			log_debug(broker_logger,"id_mensaje: %d ",paquete->id_mensaje);
+			log_debug(broker_logger,"id_cliente: %d ",paquete->id_cliente);
+			log_debug(broker_logger,"tamanio_payload: %d ",paquete->tamanio_payload);
 
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:
@@ -141,6 +136,7 @@ void* esperar_mensajes(void* cliente){
 			}
 
 			break;
+
 		}
 
 	}
@@ -159,7 +155,7 @@ void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 	
 	distribuir_ack(socket_cliente,id_mensaje,-1);
 
-	free(paquete);
+	_eliminar_mensaje(paquete);
 
 	return;
 
@@ -178,5 +174,7 @@ void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
 void recibir_ack(t_packed *paquete,int socket_cliente){
 
 	agregar_ack_a_mensaje(paquete->id_mensaje, paquete->id_cliente, socket_cliente);
+
+	eliminar_mensaje(paquete);
 
 }

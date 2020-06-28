@@ -1,12 +1,14 @@
 #ifndef CONTEXTO_BROKER_H_
 #define CONTEXTO_BROKER_H_
 
+/* Includes externo */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <commons/log.h>
+#include <sys/types.h>
+#include <stdint.h>
 #include <signal.h>
 #include <stdarg.h>
 #include <unistd.h>
@@ -15,37 +17,38 @@
 #include <commons/collections/list.h>
 #include <commons/config.h>
 #include <commons/bitarray.h>
+#include <commons/string.h>
 #include <string.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <Pokebola.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
+/* Includes propios */
+#include "Memoria.h"
 
 /* Keys config file*/
-#define KEY_CONFIG_POSICIONES_ENTRENADORES "POSICIONES_ENTRENADORES"
-#define KEY_CONFIG_POKEMON_ENTRENADORES "POKEMON_ENTRENADORES"
-#define KEY_CONFIG_OBJETIVOS_ENTRENADORES "OBJETIVOS_ENTRENADORES"
-#define KEY_CONFIG_TIEMPO_RECONEXION "TIEMPO_RECONEXION"
-#define KEY_CONFIG_RETARDO_CICLO_CPU "RETARDO_CICLO_CPU"
-#define KEY_CONFIG_ALGORITMO_PLANIFICACION "ALGORITMO_PLANIFICACION"
-#define KEY_CONFIG_QUANTUM "QUANTUM"
-#define KEY_CONFIG_ESTIMACION_INICIAL "ESTIMACION_INICIAL"
+#define KEY_CONFIG_TAMANIO_MEMORIA "TAMANIO_MEMORIA"
+#define KEY_CONFIG_TAMANIO_MINIMO_PARTICION "TAMANIO_MINIMO_PARTICION"
+#define KEY_CONFIG_ALGORITMO_MEMORIA "ALGORITMO_MEMORIA"
+#define KEY_CONFIG_ALGORITMO_REEMPLAZO "ALGORITMO_REEMPLAZO"
+#define KEY_CONFIG_ALGORITMO_PARTICION_LIBRE "ALGORITMO_PARTICION_LIBRE"
 #define KEY_CONFIG_IP_BROKER "IP_BROKER"
 #define KEY_CONFIG_PUERTO_BROKER "PUERTO_BROKER"
+#define KEY_CONFIG_FRECUENCIA_COMPACTACION "RECUENCIA_COMPACTACION"
 #define KEY_CONFIG_LOG_FILE "LOG_FILE"
 
 #define IP "127.0.0.2"
 #define PUERTO "5002"
 
-extern char** posiciones_entrenadores;
-extern char** pokemon_entrenadores;
-extern char** objetivos_entrenadores;
-extern int tiempo_reconexion;
-extern int retardo_ciclo_cpu;
-extern char* algoritmo_planificacion;
-extern int quantum;
+extern int tamanio_memoria;
+extern int tamanio_minimo_particion;
+extern char* algoritmo_memoria;
+extern char* algoritmo_reemplazo;
+extern char* algoritmo_particion_libre;
 extern char* ip_broker;
-extern int estimacion_inicial;
+extern int frecuencia_compactacion;
 extern char* puerto_broker;
 extern char* log_file;
 
