@@ -10,7 +10,7 @@ int main(){
 */
 
 	servidor.ip = "127.0.0.1";
-	servidor.puerto = "32587";
+	servidor.puerto = "5003";
 	servidor.id_cliente = 123332;
 
 /*
