@@ -49,7 +49,7 @@ extern char* algoritmo_reemplazo;
 extern char* algoritmo_particion_libre;
 extern char* ip_broker;
 extern int frecuencia_compactacion;
-extern int puerto_broker;
+extern char* puerto_broker;
 extern char* log_file;
 
 extern t_log* broker_logger;

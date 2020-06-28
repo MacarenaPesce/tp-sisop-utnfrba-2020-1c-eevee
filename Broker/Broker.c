@@ -1,4 +1,5 @@
 #include "Broker.h"
+extern int tamanio_memoria;
 
 
 int main(){
@@ -9,12 +10,25 @@ int main(){
 	
 	debug_broker = true;
 
-	if(debug_broker) log_debug(broker_logger, "1) Inicializando cache de mensajes...", NULL);
+	if(debug_broker) log_debug(broker_logger, "1) Cache de mensajes lista!!!", NULL);
+	
+	if(debug_broker) log_debug(broker_logger, "2) Inicializando archivo de configuracion...", NULL);
+
+	inicializar_archivo_de_configuracion();
+
+	if(debug_broker) log_debug(broker_logger, "3) Configuraciones cargadas correctamente!!!", NULL);
+
+	if(debug_broker) log_debug(broker_logger, "4) Configurando signals...", NULL);
+
+	configurar_signals();
+
+	if(debug_broker) log_debug(broker_logger, "5) Signals configuradas correctamente!!!", NULL);
+
+	if(debug_broker) log_debug(broker_logger, "6) Inicializando cache de mensajes...", NULL);
 
 	pthread_mutex_lock(&mutex_queue_mensajes);
-	
+
 	//TODO: levantame de config
-	asignar_memoria_inicial(8000);
 
 	cache_mensajes = (t_cache_colas*)malloc(sizeof(t_cache_colas));
 	cache_mensajes->colas = list_create();
@@ -35,21 +49,11 @@ int main(){
 		
 	}
 
-	pthread_mutex_unlock(&mutex_queue_mensajes);
+	//if(debug_broker) log_debug(broker_logger,"El espacio de memoria principal es: %d",tamanio_memoria);
 
-	if(debug_broker) log_debug(broker_logger, "2) Cache de mensajes lista!!!", NULL);
-	
-	if(debug_broker) log_debug(broker_logger, "3) Inicializando archivo de configuracion...", NULL);
+	asignar_memoria_inicial(2048);
 
-	inicializar_archivo_de_configuracion();
-
-	if(debug_broker) log_debug(broker_logger, "4) Configuraciones cargadas correctamente!!!", NULL);
-
-	if(debug_broker) log_debug(broker_logger, "5) Configurando signals...", NULL);
-
-	configurar_signals();
-
-	if(debug_broker) log_debug(broker_logger, "6) Signals configuradas correctamente!!!", NULL);
+	pthread_mutex_unlock(&mutex_queue_mensajes);	
 
 	iniciar_servidor();
 

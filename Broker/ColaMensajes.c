@@ -20,7 +20,7 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 
 	return mensaje->id_mensaje;
 
-t_mensaje_cola}
+}
 
 void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
 
@@ -125,6 +125,7 @@ void* sender_suscriptores(void* cola_mensajes){
 												mensaje->id_correlacional, 
 												cola->cola_de_mensajes, 
 												cliente->socket, 
+												mensaje->tamanio_mensaje,
 												mensaje->mensaje);
 
 
@@ -154,39 +155,23 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 								int id_correlacional, 
 								enum COLA_DE_MENSAJES cola_de_mensajes, 
 								int cliente, 
+								int tamanio_mensaje,
 								void* mensaje){
 	int send_status = -1;
 
-	switch(cola_de_mensajes){
+	t_packed* paquete = (t_packed*)malloc(sizeof(t_packed));
 
-		case COLA_CATCH_POKEMON:
-			send_status = distribuir_catch_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_catch_pokemon*)mensaje);
-			break;
- 
-		case COLA_APPEARED_POKEMON:
-			send_status = distribuir_appeared_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_appeared_pokemon*)mensaje);
-			break;
+	paquete->id_mensaje = id_mensaje;
+	paquete->id_correlacional = id_correlacional;
+	paquete->id_cliente = -1;
+	paquete->tamanio_payload = tamanio_mensaje;
+	paquete->cola_de_mensajes = cola_de_mensajes;
+	paquete->operacion = ENVIAR_MENSAJE;
+	paquete->mensaje = mensaje;
 
-		case COLA_NEW_POKEMON:
-			send_status = distribuir_new_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_new_pokemon*)mensaje);
-			break;
-		
-		case COLA_CAUGHT_POKEMON:
-			send_status = distribuir_caught_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_caught_pokemon*)mensaje);
-			break;
-		
-		case COLA_GET_POKEMON:
-			send_status = distribuir_get_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_get_pokemon*)mensaje);
-			break;
+	send_status = _enviar_mensaje(cliente,paquete);
 
-		case COLA_LOCALIZED_POKEMON:
-			//send_status = enviar_localized_pokemon(cliente,id_mensaje,id_correlacional,-1,(t_localized_pokemon*)mensaje);
-			break;			
-
-		default:
-			log_error(broker_logger,"Error, cola de mensajes desconocida: %d\n",cola_de_mensajes);
-			break;
-	}
+	free(paquete);
 
 	return send_status;
 
@@ -198,7 +183,7 @@ t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket){
 	t_cliente* cliente = obtener_cliente_por_id(id_cliente);
 
 	if(cliente == NULL){
-		if(debug_broker) log_debug(broker_logger,"\nCreando nuevo cliente %d en socket %d\n",id_cliente,socket);
+		if(debug_broker) log_debug(broker_logger,"Creando nuevo cliente %d en socket %d\n",id_cliente,socket);
 		cliente = crear_cliente(id_cliente, socket);
 		agregar_cliente_a_cache(cliente);
 		return cliente;
@@ -254,7 +239,6 @@ t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32
 	mensaje->tamanio_mensaje = tamanio_payload;
 	mensaje->suscriptores_enviados = list_create();
 	mensaje->suscriptores_ack = list_create();
-
 	mensaje->mensaje = mensaje_recibido;
 
     return mensaje;
@@ -273,8 +257,12 @@ t_cola_mensajes* obtener_cola_mensajes(int cola_de_mensajes){
 
 t_mensaje_cola* obtener_mensaje_por_id(int id_mensaje){
   
-    bool es_mensaje_buscado(void* bloque){
-        return ((t_bloque_memoria*)bloque)->estructura_mensaje->id_mensaje == id_mensaje;
+    bool es_mensaje_buscado(void* _bloque){
+		t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+		if(bloque->esta_vacio) return false;
+
+        return bloque->estructura_mensaje->id_mensaje == id_mensaje;
     }
 
     t_bloque_memoria* bloque = list_find(cache_mensajes->memoria,es_mensaje_buscado);
@@ -300,13 +288,15 @@ t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 
 		t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
 
-		if(es_memoria_de_cola(bloque,cola)){
-			list_add(mensajes,(void*) bloque->estructura_mensaje);
-		}
+		if(!bloque->esta_vacio){
+			if(es_memoria_de_cola(bloque,cola)){
+				list_add(mensajes,(void*) bloque->estructura_mensaje);
+			}
+		}	
 
 	}		
 
-	list_iterate(cache_mensajes->memoria,listar_mensajes);
+	list_iterate((cache_mensajes->memoria),listar_mensajes);
 
     return mensajes;
 
@@ -314,13 +304,17 @@ t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 
 t_list* obtener_memoria_de_cola(t_cola_mensajes* cola){
 
-	bool filtro_mensajes(void* bloque){
-		return ((t_bloque_memoria*)bloque)->estructura_mensaje->cola_de_mensajes == cola->cola_de_mensajes;
+	bool filtro_mensajes(void* _bloque){
+
+		t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+		if(bloque->esta_vacio) return false;
+
+		return (bloque->estructura_mensaje)->cola_de_mensajes == cola->cola_de_mensajes;
 	}
 
-	t_list* memoria = list_filter(cache_mensajes->memoria, filtro_mensajes);
+	return list_filter(cache_mensajes->memoria, filtro_mensajes);
 
-	return memoria;
 }
 
 bool es_memoria_de_cola(t_bloque_memoria* bloque, t_cola_mensajes* cola){

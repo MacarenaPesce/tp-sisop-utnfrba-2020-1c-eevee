@@ -9,7 +9,7 @@ char* algoritmo_reemplazo;
 char* algoritmo_particion_libre;
 char* ip_broker;
 int frecuencia_compactacion;
-int puerto_broker;
+char* puerto_broker;
 char* log_file;
 
 t_log* broker_logger;
