@@ -1,0 +1,737 @@
+[INFO] 11:15:54:359 Team/(8108:8108): Hi, bienvenido a Team
+[INFO] 11:15:54:361 Team/(8108:8108): Cargando el archivo de configuracion...
+[INFO] 11:15:54:361 Team/(8108:8108): Las posiciones de entrenadores recuperadas
+[INFO] 11:15:54:361 Team/(8108:8108): Los pokemon de los entrenadores recuperados
+[INFO] 11:15:54:361 Team/(8108:8108): Los objetivos de los entrenadores recuperados
+[INFO] 11:15:54:361 Team/(8108:8108): El tiempo de reconexion es: 30
+[INFO] 11:15:54:361 Team/(8108:8108): El retardo de ciclo de cpu es: 2
+[INFO] 11:15:54:362 Team/(8108:8108): El algoritmo de planificacion es: RR
+[INFO] 11:15:54:362 Team/(8108:8108): El quantum es: 2
+[INFO] 11:15:54:362 Team/(8108:8108): La estimacion_inicial es: 0
+[INFO] 11:15:54:362 Team/(8108:8108): La ip del broker es: 127.0.0.1
+[INFO] 11:15:54:362 Team/(8108:8108): El puerto del broker es: 5003
+[INFO] 11:15:54:362 Team/(8108:8108): El log file es: /home/utnso/log_team1.txt
+[INFO] 11:15:54:362 Team/(8108:8108): Archivo de configuracion cargado correctamente :)
+[INFO] 11:15:54:362 Team/(8108:8108): Cargando el objetivo global... 
+
+[INFO] 11:15:54:362 Team/(8108:8108): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 11:15:54:362 Team/(8108:8108): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 11:15:54:362 Team/(8108:8108): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 11:15:54:362 Team/(8108:8108): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 11:15:54:362 Team/(8108:8108): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 11:15:54:362 Team/(8108:8108): Objetivo global cargado
+
+[INFO] 11:15:54:362 Team/(8108:8108): 
+Socket servidor (5) escuchando
+[INFO] 11:15:54:362 Team/(8108:8108): Error al intentar conectar al broker
+
+[INFO] 11:15:54:362 Team/(8108:8108): Haciendo intento de reconexion...
+
+[INFO] 11:56:56:191 Team/(9367:9367): Hi, bienvenido a Team
+[INFO] 11:56:56:195 Team/(9367:9367): Cargando el archivo de configuracion...
+[INFO] 11:56:56:195 Team/(9367:9367): Las posiciones de entrenadores recuperadas
+[INFO] 11:56:56:195 Team/(9367:9367): Los pokemon de los entrenadores recuperados
+[INFO] 11:56:56:195 Team/(9367:9367): Los objetivos de los entrenadores recuperados
+[INFO] 11:56:56:196 Team/(9367:9367): El tiempo de reconexion es: 30
+[INFO] 11:56:56:196 Team/(9367:9367): El retardo de ciclo de cpu es: 2
+[INFO] 11:56:56:196 Team/(9367:9367): El algoritmo de planificacion es: RR
+[INFO] 11:56:56:196 Team/(9367:9367): El quantum es: 2
+[INFO] 11:56:56:196 Team/(9367:9367): La estimacion_inicial es: 0
+[INFO] 11:56:56:196 Team/(9367:9367): La ip del broker es: 127.0.0.1
+[INFO] 11:56:56:196 Team/(9367:9367): El puerto del broker es: 5003
+[INFO] 11:56:56:203 Team/(9367:9367): El log file es: /home/utnso/log_team1.txt
+[INFO] 11:56:56:203 Team/(9367:9367): Archivo de configuracion cargado correctamente :)
+[INFO] 11:56:56:203 Team/(9367:9367): Cargando el objetivo global... 
+
+[INFO] 11:56:56:203 Team/(9367:9367): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 11:56:56:203 Team/(9367:9367): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 11:56:56:203 Team/(9367:9367): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 11:56:56:203 Team/(9367:9367): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 11:56:56:203 Team/(9367:9367): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 11:56:56:203 Team/(9367:9367): Objetivo global cargado
+
+[INFO] 11:56:56:207 Team/(9367:9367): 
+Socket servidor (5) escuchando
+[INFO] 11:56:56:207 Team/(9367:9367): Error al intentar conectar al broker
+
+[INFO] 11:56:56:208 Team/(9367:9367): Haciendo intento de reconexion...
+
+[INFO] 11:56:56:210 Team/(9367:9367): broker -1
+
+[INFO] 12:12:42:154 Team/(9827:9827): Hi, bienvenido a Team
+[INFO] 12:12:44:301 Team/(9827:9827): Cargando el archivo de configuracion...
+[INFO] 12:12:44:301 Team/(9827:9827): Las posiciones de entrenadores recuperadas
+[INFO] 12:12:44:301 Team/(9827:9827): Los pokemon de los entrenadores recuperados
+[INFO] 12:12:44:301 Team/(9827:9827): Los objetivos de los entrenadores recuperados
+[INFO] 12:12:44:301 Team/(9827:9827): El tiempo de reconexion es: 30
+[INFO] 12:12:44:301 Team/(9827:9827): El retardo de ciclo de cpu es: 2
+[INFO] 12:12:44:301 Team/(9827:9827): El algoritmo de planificacion es: RR
+[INFO] 12:12:44:301 Team/(9827:9827): El quantum es: 2
+[INFO] 12:12:44:301 Team/(9827:9827): La estimacion_inicial es: 0
+[INFO] 12:12:44:301 Team/(9827:9827): La ip del broker es: 127.0.0.1
+[INFO] 12:12:44:301 Team/(9827:9827): El puerto del broker es: 5003
+[INFO] 12:12:44:301 Team/(9827:9827): El log file es: /home/utnso/log_team1.txt
+[INFO] 12:12:44:301 Team/(9827:9827): Archivo de configuracion cargado correctamente :)
+[INFO] 12:12:58:411 Team/(9827:9827): Cargando el objetivo global... 
+
+[INFO] 12:12:58:411 Team/(9827:9827): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 12:12:58:411 Team/(9827:9827): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 12:12:58:411 Team/(9827:9827): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 12:12:58:411 Team/(9827:9827): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 12:12:58:411 Team/(9827:9827): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 12:12:58:411 Team/(9827:9827): Objetivo global cargado
+
+[INFO] 12:14:20:161 Team/(9933:9933): Hi, bienvenido a Team
+[INFO] 12:14:20:895 Team/(9933:9933): Cargando el archivo de configuracion...
+[INFO] 12:14:20:895 Team/(9933:9933): Las posiciones de entrenadores recuperadas
+[INFO] 12:14:20:895 Team/(9933:9933): Los pokemon de los entrenadores recuperados
+[INFO] 12:14:20:895 Team/(9933:9933): Los objetivos de los entrenadores recuperados
+[INFO] 12:14:20:895 Team/(9933:9933): El tiempo de reconexion es: 30
+[INFO] 12:14:20:895 Team/(9933:9933): El retardo de ciclo de cpu es: 2
+[INFO] 12:14:20:895 Team/(9933:9933): El algoritmo de planificacion es: RR
+[INFO] 12:14:20:896 Team/(9933:9933): El quantum es: 2
+[INFO] 12:14:20:896 Team/(9933:9933): La estimacion_inicial es: 0
+[INFO] 12:14:20:896 Team/(9933:9933): La ip del broker es: 127.0.0.1
+[INFO] 12:14:20:896 Team/(9933:9933): El puerto del broker es: 5003
+[INFO] 12:14:20:896 Team/(9933:9933): El log file es: /home/utnso/log_team1.txt
+[INFO] 12:14:20:896 Team/(9933:9933): Archivo de configuracion cargado correctamente :)
+[INFO] 12:14:26:453 Team/(9933:9933): Cargando el objetivo global... 
+
+[INFO] 12:14:26:453 Team/(9933:9933): Un tipo de pokemon es: Squirtle y la cantidad es 2
+[INFO] 12:14:26:453 Team/(9933:9933): Un tipo de pokemon es: Pikachu y la cantidad es 1
+[INFO] 12:14:26:453 Team/(9933:9933): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 12:14:26:453 Team/(9933:9933): Un tipo de pokemon es: Charmander y la cantidad es 1
+[INFO] 12:14:26:453 Team/(9933:9933): Un tipo de pokemon es: Bulbasaur y la cantidad es 1
+[INFO] 12:14:26:453 Team/(9933:9933): Objetivo global cargado
+
+[INFO] 16:06:17:174 Team/(25080:25080): Hi, bienvenido a Team
+[INFO] 16:06:18:171 Team/(25080:25080): Cargando el archivo de configuracion...
+[INFO] 16:06:18:171 Team/(25080:25080): Las posiciones de entrenadores recuperadas
+[INFO] 16:06:18:171 Team/(25080:25080): Los pokemon de los entrenadores recuperados
+[INFO] 16:06:18:172 Team/(25080:25080): Los objetivos de los entrenadores recuperados
+[INFO] 16:06:18:172 Team/(25080:25080): El tiempo de reconexion es: 30
+[INFO] 16:06:18:172 Team/(25080:25080): El retardo de ciclo de cpu es: 2
+[INFO] 16:06:18:172 Team/(25080:25080): El algoritmo de planificacion es: RR
+[INFO] 16:06:18:172 Team/(25080:25080): El quantum es: 2
+[INFO] 16:06:18:172 Team/(25080:25080): La estimacion_inicial es: 0
+[INFO] 16:06:18:172 Team/(25080:25080): La ip del broker es: 127.0.0.1
+[INFO] 16:06:18:172 Team/(25080:25080): El puerto del broker es: 5003
+[INFO] 16:06:18:172 Team/(25080:25080): El log file es: /home/utnso/log_team1.txt
+[INFO] 16:06:18:172 Team/(25080:25080): Archivo de configuracion cargado correctamente :)
+[INFO] 16:07:17:899 Team/(25080:25080): Cargando el objetivo global... 
+
+[INFO] 16:11:41:424 Team/(25080:25080): Un tipo de pokemon es: Squirtle y la cantidad es 1
+[INFO] 16:13:06:359 Team/(25080:25080): Un tipo de pokemon es: Pikachu y la cantidad es 2
+[INFO] 16:13:58:552 Team/(25080:25080): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 16:14:24:14 Team/(25080:25080): Un tipo de pokemon es: Charmander y la cantidad es 3
+[INFO] 16:14:46:171 Team/(25080:25080): Un tipo de pokemon es: Bulbasaur y la cantidad es 2
+[INFO] 16:14:53:177 Team/(25080:25080): Objetivo global cargado
+
+[INFO] 16:15:19:381 Team/(25080:25803): Error al intentar conectar al broker
+
+[INFO] 16:15:19:382 Team/(25080:25803): Haciendo intento de reconexion...
+
+[INFO] 16:15:19:383 Team/(25080:25080): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:15:19:383 Team/(25080:25080): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:15:19:383 Team/(25080:25080): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:15:19:383 Team/(25080:25080): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:15:19:383 Team/(25080:25080): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:16:02:776 Team/(25872:25872): Hi, bienvenido a Team
+[INFO] 16:16:03:346 Team/(25872:25872): Cargando el archivo de configuracion...
+[INFO] 16:16:03:346 Team/(25872:25872): Las posiciones de entrenadores recuperadas
+[INFO] 16:16:03:346 Team/(25872:25872): Los pokemon de los entrenadores recuperados
+[INFO] 16:16:03:346 Team/(25872:25872): Los objetivos de los entrenadores recuperados
+[INFO] 16:16:03:347 Team/(25872:25872): El tiempo de reconexion es: 30
+[INFO] 16:16:03:347 Team/(25872:25872): El retardo de ciclo de cpu es: 2
+[INFO] 16:16:03:347 Team/(25872:25872): El algoritmo de planificacion es: RR
+[INFO] 16:16:03:347 Team/(25872:25872): El quantum es: 2
+[INFO] 16:16:03:347 Team/(25872:25872): La estimacion_inicial es: 0
+[INFO] 16:16:03:347 Team/(25872:25872): La ip del broker es: 127.0.0.1
+[INFO] 16:16:03:347 Team/(25872:25872): El puerto del broker es: 5003
+[INFO] 16:16:03:348 Team/(25872:25872): El log file es: /home/utnso/log_team1.txt
+[INFO] 16:16:03:348 Team/(25872:25872): Archivo de configuracion cargado correctamente :)
+[INFO] 16:16:06:118 Team/(25872:25872): Cargando el objetivo global... 
+
+[INFO] 16:16:11:925 Team/(25872:25872): Un tipo de pokemon es: Squirtle y la cantidad es 1
+[INFO] 16:16:16:285 Team/(25872:25872): Un tipo de pokemon es: Pikachu y la cantidad es 2
+[INFO] 16:16:18:341 Team/(25872:25872): Un tipo de pokemon es: Pidgey y la cantidad es 1
+[INFO] 16:16:23:177 Team/(25872:25872): Un tipo de pokemon es: Charmander y la cantidad es 3
+[INFO] 16:16:26:742 Team/(25872:25872): Un tipo de pokemon es: Bulbasaur y la cantidad es 2
+[INFO] 16:16:27:340 Team/(25872:25872): Objetivo global cargado
+
+[INFO] 16:16:32:178 Team/(25872:25994): Error al intentar conectar al broker
+
+[INFO] 16:16:32:178 Team/(25872:25994): Haciendo intento de reconexion...
+
+[INFO] 16:17:10:787 Team/(25872:25994): Error al intentar conectar al broker
+
+[INFO] 16:17:10:787 Team/(25872:25994): Haciendo intento de reconexion...
+
+[INFO] 16:17:10:790 Team/(25872:25872): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:17:53:87 Team/(25872:25994): Error al intentar conectar al broker
+
+[INFO] 16:17:53:87 Team/(25872:25994): Haciendo intento de reconexion...
+
+[INFO] 16:17:53:96 Team/(25872:25872): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:18:37:903 Team/(25872:25994): Error al intentar conectar al broker
+
+[INFO] 16:18:37:907 Team/(25872:25994): Haciendo intento de reconexion...
+
+[INFO] 16:18:41:886 Team/(25872:25872): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:19:00:126 Team/(25872:25872): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:19:05:78 Team/(25872:25872): No existen locaciones para la especie requerida: Bulbasaur, cant 2
+
+[INFO] 16:19:08:710 Team/(25872:25994): Error al intentar conectar al broker
+
+[INFO] 16:19:08:710 Team/(25872:25994): Haciendo intento de reconexion...
+
+[INFO] 16:19:17:779 Team/(25872:25872): EL BROKER ESTA CAIDO, NO SE PUEDE MANDAR EL MENSAJE DE SUSCRIPCION AHORA
+[INFO] 16:19:19:432 Team/(25872:25872): 
+Socket servidor (5) escuchando
+[INFO] 21:31:14:667 Team/(8931:8931): Hi, bienvenido a Team
+[INFO] 21:31:15:836 Team/(8931:8931): Cargando el archivo de configuracion...
+[INFO] 21:31:15:837 Team/(8931:8931): Las posiciones de entrenadores recuperadas
+[INFO] 21:31:15:837 Team/(8931:8931): Los pokemon de los entrenadores recuperados
+[INFO] 21:31:15:837 Team/(8931:8931): Los objetivos de los entrenadores recuperados
+[INFO] 21:31:15:837 Team/(8931:8931): El tiempo de reconexion es: 30
+[INFO] 21:31:15:837 Team/(8931:8931): El retardo de ciclo de cpu es: 2
+[INFO] 21:31:15:837 Team/(8931:8931): El algoritmo de planificacion es: RR
+[INFO] 21:31:15:837 Team/(8931:8931): El quantum es: 2
+[INFO] 21:31:15:837 Team/(8931:8931): La estimacion_inicial es: 0
+[INFO] 21:31:15:837 Team/(8931:8931): La ip del broker es: 127.0.0.1
+[INFO] 21:31:15:837 Team/(8931:8931): El puerto del broker es: 5003
+[INFO] 21:31:15:837 Team/(8931:8931): El log file es: /home/utnso/log_team1.txt
+[INFO] 21:31:15:837 Team/(8931:8931): Archivo de configuracion cargado correctamente :)
+
+[INFO] 21:31:19:474 Team/(8931:8931): Cargando el objetivo global...
+[INFO] 21:31:19:474 Team/(8931:8931): Objetivo global cargado
+
+[INFO] 21:31:21:448 Team/(8931:8964): ID entrenador del hilo 1...
+[INFO] 21:31:21:450 Team/(8931:8965): ID entrenador del hilo 2...
+[INFO] 21:31:21:456 Team/(8931:8931): Entrenadores ubicados
+
+[INFO] 21:31:26:841 Team/(8931:8966): ID entrenador del hilo 3...
+[INFO] 21:32:02:22 Team/(8931:8931): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 21:32:04:459 Team/(8931:8931): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 21:32:04:459 Team/(8931:8931): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 21:32:04:459 Team/(8931:8931): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 21:32:04:459 Team/(8931:8931): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 21:32:04:459 Team/(8931:8931): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 21:33:13:415 Team/(8931:8931): Se aceptó un nuevo gameboy
+[INFO] 21:33:15:250 Team/(8931:9149): Gameboy conectado, esperando mensajes...
+[INFO] 21:33:15:255 Team/(8931:9149): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 21:33:15:255 Team/(8931:9149): Me llego este pokemon: TETE
+[INFO] 21:33:15:255 Team/(8931:9149): La coordenada X es: 1
+[INFO] 21:33:15:255 Team/(8931:9149): La coordenada Y es: 2
+
+[INFO] 21:33:15:255 Team/(8931:9149): El objetivo es nulo
+[INFO] 21:34:14:42 Team/(9260:9260): Hi, bienvenido a Team
+[INFO] 21:34:14:504 Team/(9260:9260): Cargando el archivo de configuracion...
+[INFO] 21:34:14:504 Team/(9260:9260): Las posiciones de entrenadores recuperadas
+[INFO] 21:34:14:504 Team/(9260:9260): Los pokemon de los entrenadores recuperados
+[INFO] 21:34:14:504 Team/(9260:9260): Los objetivos de los entrenadores recuperados
+[INFO] 21:34:14:504 Team/(9260:9260): El tiempo de reconexion es: 30
+[INFO] 21:34:14:504 Team/(9260:9260): El retardo de ciclo de cpu es: 2
+[INFO] 21:34:14:504 Team/(9260:9260): El algoritmo de planificacion es: RR
+[INFO] 21:34:14:504 Team/(9260:9260): El quantum es: 2
+[INFO] 21:34:14:504 Team/(9260:9260): La estimacion_inicial es: 0
+[INFO] 21:34:14:504 Team/(9260:9260): La ip del broker es: 127.0.0.1
+[INFO] 21:34:14:504 Team/(9260:9260): El puerto del broker es: 5003
+[INFO] 21:34:14:504 Team/(9260:9260): El log file es: /home/utnso/log_team1.txt
+[INFO] 21:34:14:506 Team/(9260:9260): Archivo de configuracion cargado correctamente :)
+
+[INFO] 21:34:16:191 Team/(9260:9260): Cargando el objetivo global...
+[INFO] 21:34:16:191 Team/(9260:9260): Objetivo global cargado
+
+[INFO] 21:34:17:34 Team/(9260:9278): ID entrenador del hilo 1...
+[INFO] 21:34:17:39 Team/(9260:9279): ID entrenador del hilo 2...
+[INFO] 21:34:17:42 Team/(9260:9260): Entrenadores ubicados
+
+[INFO] 21:34:18:26 Team/(9260:9280): ID entrenador del hilo 3...
+[INFO] 21:34:34:122 Team/(9260:9260): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 21:34:35:525 Team/(9260:9260): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 21:34:35:525 Team/(9260:9260): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 21:34:35:525 Team/(9260:9260): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 21:34:35:525 Team/(9260:9260): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 21:34:35:525 Team/(9260:9260): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 21:35:01:922 Team/(9260:9260): Se aceptó un nuevo gameboy
+[INFO] 21:35:04:331 Team/(9260:9311): Gameboy conectado, esperando mensajes...
+[INFO] 21:35:04:331 Team/(9260:9311): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 21:35:04:331 Team/(9260:9311): Me llego este pokemon: PIKACHU
+[INFO] 21:35:04:331 Team/(9260:9311): La coordenada X es: 1
+[INFO] 21:35:04:331 Team/(9260:9311): La coordenada Y es: 2
+
+[INFO] 21:35:04:331 Team/(9260:9311): Agregue el pokemon al mapa
+
+[INFO] 21:35:04:331 Team/(9260:9311): El entrenador mas cercano es el de id 1 y su objetivo es PIKACHU
+
+[INFO] 21:35:04:331 Team/(9260:9311): Entrenador mas cercano seleccionado
+[INFO] 21:35:04:331 Team/(9260:9311): Planificando por FIFO, AUNQUE TENDRIA QUE SER POR RR...
+[INFO] 21:35:04:331 Team/(9260:9311): id hilo de ejecucion en planif 1...
+[INFO] 21:35:25:339 Team/(9260:9278): ID entrenador del hilo 1...
+[INFO] 21:35:25:339 Team/(9260:9278): Soy el entrenador que va a ejecutar CARAJOOOOOO
+[INFO] 21:37:04:540 Team/(9390:9390): Hi, bienvenido a Team
+[INFO] 21:37:05:35 Team/(9390:9390): Cargando el archivo de configuracion...
+[INFO] 21:37:05:35 Team/(9390:9390): Las posiciones de entrenadores recuperadas
+[INFO] 21:37:05:35 Team/(9390:9390): Los pokemon de los entrenadores recuperados
+[INFO] 21:37:05:35 Team/(9390:9390): Los objetivos de los entrenadores recuperados
+[INFO] 21:37:05:35 Team/(9390:9390): El tiempo de reconexion es: 30
+[INFO] 21:37:05:35 Team/(9390:9390): El retardo de ciclo de cpu es: 2
+[INFO] 21:37:05:35 Team/(9390:9390): El algoritmo de planificacion es: RR
+[INFO] 21:37:05:35 Team/(9390:9390): El quantum es: 2
+[INFO] 21:37:05:35 Team/(9390:9390): La estimacion_inicial es: 0
+[INFO] 21:37:05:35 Team/(9390:9390): La ip del broker es: 127.0.0.1
+[INFO] 21:37:05:35 Team/(9390:9390): El puerto del broker es: 5003
+[INFO] 21:37:05:35 Team/(9390:9390): El log file es: /home/utnso/log_team1.txt
+[INFO] 21:37:05:35 Team/(9390:9390): Archivo de configuracion cargado correctamente :)
+
+[INFO] 21:37:06:299 Team/(9390:9390): Cargando el objetivo global...
+[INFO] 21:37:06:299 Team/(9390:9390): Objetivo global cargado
+
+[INFO] 21:37:07:614 Team/(9390:9390): Entrenadores ubicados
+
+[INFO] 21:37:22:499 Team/(9390:9415): ID entrenador del hilo 1...
+[INFO] 21:37:29:596 Team/(9390:9416): ID entrenador del hilo 2...
+[INFO] 21:37:36:590 Team/(9390:9418): ID entrenador del hilo 3...
+[INFO] 21:40:12:309 Team/(9671:9671): Hi, bienvenido a Team
+[INFO] 21:40:12:804 Team/(9671:9671): Cargando el archivo de configuracion...
+[INFO] 21:40:12:805 Team/(9671:9671): Las posiciones de entrenadores recuperadas
+[INFO] 21:40:12:805 Team/(9671:9671): Los pokemon de los entrenadores recuperados
+[INFO] 21:40:12:805 Team/(9671:9671): Los objetivos de los entrenadores recuperados
+[INFO] 21:40:12:805 Team/(9671:9671): El tiempo de reconexion es: 30
+[INFO] 21:40:12:805 Team/(9671:9671): El retardo de ciclo de cpu es: 2
+[INFO] 21:40:12:805 Team/(9671:9671): El algoritmo de planificacion es: RR
+[INFO] 21:40:12:805 Team/(9671:9671): El quantum es: 2
+[INFO] 21:40:12:805 Team/(9671:9671): La estimacion_inicial es: 0
+[INFO] 21:40:12:805 Team/(9671:9671): La ip del broker es: 127.0.0.1
+[INFO] 21:40:12:805 Team/(9671:9671): El puerto del broker es: 5003
+[INFO] 21:40:12:805 Team/(9671:9671): El log file es: /home/utnso/log_team1.txt
+[INFO] 21:40:12:805 Team/(9671:9671): Archivo de configuracion cargado correctamente :)
+
+[INFO] 21:40:13:470 Team/(9671:9671): Cargando el objetivo global...
+[INFO] 21:40:13:470 Team/(9671:9671): Objetivo global cargado
+
+[INFO] 21:40:14:302 Team/(9671:9671): Entrenadores ubicados
+
+[INFO] 21:40:14:304 Team/(9671:9671): 
+Falló la creación del socket servidor
+[INFO] 21:40:14:304 Team/(9671:9671): Cerrando team...
+[INFO] 03:34:32:277 Team/(22051:22051): Hi, bienvenido a Team
+[INFO] 03:34:32:935 Team/(22051:22051): Cargando el archivo de configuracion...
+[INFO] 03:34:32:936 Team/(22051:22051): Las posiciones de entrenadores recuperadas
+[INFO] 03:34:32:936 Team/(22051:22051): Los pokemon de los entrenadores recuperados
+[INFO] 03:34:32:936 Team/(22051:22051): Los objetivos de los entrenadores recuperados
+[INFO] 03:34:32:936 Team/(22051:22051): El tiempo de reconexion es: 30
+[INFO] 03:34:32:936 Team/(22051:22051): El retardo de ciclo de cpu es: 2
+[INFO] 03:34:32:936 Team/(22051:22051): El algoritmo de planificacion es: RR
+[INFO] 03:34:32:936 Team/(22051:22051): El quantum es: 2
+[INFO] 03:34:32:936 Team/(22051:22051): La estimacion_inicial es: 0
+[INFO] 03:34:32:936 Team/(22051:22051): La ip del broker es: 127.0.0.1
+[INFO] 03:34:32:936 Team/(22051:22051): El puerto del broker es: 5003
+[INFO] 03:34:32:936 Team/(22051:22051): El log file es: /home/utnso/log_team1.txt
+[INFO] 03:34:32:936 Team/(22051:22051): Archivo de configuracion cargado correctamente :)
+
+[INFO] 03:34:39:890 Team/(22051:22051): Cargando el objetivo global...
+[INFO] 03:34:39:890 Team/(22051:22051): Objetivo global cargado
+
+[INFO] 03:34:46:647 Team/(22051:22051): Entrenadores ubicados
+
+[INFO] 03:34:50:27 Team/(22051:22051): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 03:34:55:264 Team/(22051:22051): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 03:34:55:265 Team/(22051:22051): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 03:34:55:265 Team/(22051:22051): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 03:34:55:265 Team/(22051:22051): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 03:34:55:265 Team/(22051:22051): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 03:35:08:604 Team/(22051:22051): Se aceptó un nuevo gameboy
+[INFO] 03:35:11:586 Team/(22051:22093): Gameboy conectado, esperando mensajes...
+[INFO] 03:35:11:586 Team/(22051:22093): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 03:35:11:586 Team/(22051:22093): Me llego este pokemon: PIKACHU
+[INFO] 03:35:11:586 Team/(22051:22093): La coordenada X es: 6
+[INFO] 03:35:11:586 Team/(22051:22093): La coordenada Y es: 6
+
+[INFO] 03:35:11:586 Team/(22051:22093): Agregue el pokemon al mapa
+
+[INFO] 03:35:11:586 Team/(22051:22093): El entrenador 2 paso a la lista de Listos por ser el mas cercano a PIKACHU
+
+[INFO] 03:35:11:586 Team/(22051:22093): Planificando por FIFO, AUNQUE TENDRIA QUE SER POR RR...
+[INFO] 03:35:11:586 Team/(22051:22079): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 03:36:05:550 Team/(22051:22079): LLEGUE AL POKEMON
+[INFO] 03:36:05:550 Team/(22051:22079): El pokemon PIKACHU ha sido atrapado con exito
+[INFO] 03:36:05:551 Team/(22051:22079): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones
+[INFO] 03:36:05:551 Team/(22051:22079): Entrenador de id 2 bloqueado
+[INFO] 03:36:38:275 Team/(22051:22051): Se aceptó un nuevo gameboy
+[INFO] 03:36:38:281 Team/(22051:22125): Gameboy conectado, esperando mensajes...
+[INFO] 03:36:38:281 Team/(22051:22125): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 03:36:38:281 Team/(22051:22125): Me llego este pokemon: PIKACHU
+[INFO] 03:36:38:282 Team/(22051:22125): La coordenada X es: 6
+[INFO] 03:36:38:282 Team/(22051:22125): La coordenada Y es: 6
+
+[INFO] 03:36:38:282 Team/(22051:22125): Agregue el pokemon al mapa
+
+[INFO] 03:37:45:812 Team/(22051:22125): El entrenador 2 paso a la lista de Listos por ser el mas cercano a PIKACHU
+
+[INFO] 03:37:51:847 Team/(22051:22125): Planificando por FIFO, AUNQUE TENDRIA QUE SER POR RR...
+[INFO] 03:41:32:9 Team/(22226:22226): Hi, bienvenido a Team
+[INFO] 03:41:32:257 Team/(22226:22226): Cargando el archivo de configuracion...
+[INFO] 03:41:32:257 Team/(22226:22226): Las posiciones de entrenadores recuperadas
+[INFO] 03:41:32:257 Team/(22226:22226): Los pokemon de los entrenadores recuperados
+[INFO] 03:41:32:257 Team/(22226:22226): Los objetivos de los entrenadores recuperados
+[INFO] 03:41:32:257 Team/(22226:22226): El tiempo de reconexion es: 30
+[INFO] 03:41:32:257 Team/(22226:22226): El retardo de ciclo de cpu es: 2
+[INFO] 03:41:32:257 Team/(22226:22226): El algoritmo de planificacion es: RR
+[INFO] 03:41:32:257 Team/(22226:22226): El quantum es: 2
+[INFO] 03:41:32:257 Team/(22226:22226): La estimacion_inicial es: 0
+[INFO] 03:41:32:257 Team/(22226:22226): La ip del broker es: 127.0.0.1
+[INFO] 03:41:32:257 Team/(22226:22226): El puerto del broker es: 5003
+[INFO] 03:41:32:257 Team/(22226:22226): El log file es: /home/utnso/log_team1.txt
+[INFO] 03:41:32:257 Team/(22226:22226): Archivo de configuracion cargado correctamente :)
+
+[INFO] 03:41:35:75 Team/(22226:22226): Cargando el objetivo global...
+[INFO] 03:41:35:75 Team/(22226:22226): Objetivo global cargado
+
+[INFO] 03:41:37:778 Team/(22226:22226): Entrenadores ubicados
+
+[INFO] 03:41:39:505 Team/(22226:22226): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 03:41:39:506 Team/(22226:22226): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 03:41:39:506 Team/(22226:22226): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 03:41:39:506 Team/(22226:22226): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 03:41:39:506 Team/(22226:22226): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 03:41:39:506 Team/(22226:22226): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 03:41:47:293 Team/(22226:22226): Se aceptó un nuevo gameboy
+[INFO] 03:41:47:299 Team/(22226:22252): Gameboy conectado, esperando mensajes...
+[INFO] 03:41:47:299 Team/(22226:22252): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 03:41:47:299 Team/(22226:22252): Me llego este pokemon: PIKACHU
+[INFO] 03:41:47:299 Team/(22226:22252): La coordenada X es: 6
+[INFO] 03:41:47:299 Team/(22226:22252): La coordenada Y es: 6
+
+[INFO] 03:41:47:299 Team/(22226:22252): Agregue el pokemon al mapa
+
+[INFO] 03:43:08:954 Team/(22226:22252): El entrenador 2 paso a la lista de Listos por ser el mas cercano a PIKACHU
+
+[INFO] 03:43:27:561 Team/(22226:22252): Planificando por FIFO, AUNQUE TENDRIA QUE SER POR RR...
+[INFO] 03:46:33:323 Team/(22422:22422): Hi, bienvenido a Team
+[INFO] 03:46:33:852 Team/(22422:22422): Cargando el archivo de configuracion...
+[INFO] 03:46:33:852 Team/(22422:22422): Las posiciones de entrenadores recuperadas
+[INFO] 03:46:33:852 Team/(22422:22422): Los pokemon de los entrenadores recuperados
+[INFO] 03:46:33:852 Team/(22422:22422): Los objetivos de los entrenadores recuperados
+[INFO] 03:46:33:852 Team/(22422:22422): El tiempo de reconexion es: 30
+[INFO] 03:46:33:852 Team/(22422:22422): El retardo de ciclo de cpu es: 2
+[INFO] 03:46:33:852 Team/(22422:22422): El algoritmo de planificacion es: RR
+[INFO] 03:46:33:852 Team/(22422:22422): El quantum es: 2
+[INFO] 03:46:33:853 Team/(22422:22422): La estimacion_inicial es: 0
+[INFO] 03:46:33:853 Team/(22422:22422): La ip del broker es: 127.0.0.1
+[INFO] 03:46:33:853 Team/(22422:22422): El puerto del broker es: 5003
+[INFO] 03:46:33:853 Team/(22422:22422): El log file es: /home/utnso/log_team1.txt
+[INFO] 03:46:33:853 Team/(22422:22422): Archivo de configuracion cargado correctamente :)
+
+[INFO] 03:46:36:588 Team/(22422:22422): Cargando el objetivo global...
+[INFO] 03:46:36:588 Team/(22422:22422): Objetivo global cargado
+
+[INFO] 03:46:38:516 Team/(22422:22422): Entrenadores ubicados
+
+[INFO] 03:46:39:447 Team/(22422:22422): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 03:46:39:448 Team/(22422:22422): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 03:46:39:448 Team/(22422:22422): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 03:46:39:448 Team/(22422:22422): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 03:46:39:448 Team/(22422:22422): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 03:46:39:448 Team/(22422:22422): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 03:46:47:146 Team/(22422:22422): Se aceptó un nuevo gameboy
+[INFO] 03:46:47:167 Team/(22422:22453): Gameboy conectado, esperando mensajes...
+[INFO] 03:46:47:168 Team/(22422:22453): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 03:46:47:168 Team/(22422:22453): Me llego este pokemon: PIKACHU
+[INFO] 03:46:47:168 Team/(22422:22453): La coordenada X es: 6
+[INFO] 03:46:47:168 Team/(22422:22453): La coordenada Y es: 6
+
+[INFO] 03:46:47:168 Team/(22422:22453): Agregue el pokemon al mapa
+
+[INFO] 03:46:55:790 Team/(22422:22453): El entrenador 2 paso a la lista de Listos por ser el mas cercano a PIKACHU
+
+[INFO] 03:46:55:790 Team/(22422:22453): Planificando por FIFO, AUNQUE TENDRIA QUE SER POR RR...
+[INFO] 03:47:06:830 Team/(22422:22449): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 03:47:12:534 Team/(22422:22449): LLEGUE AL POKEMON
+[INFO] 03:47:12:534 Team/(22422:22449): El pokemon PIKACHU ha sido atrapado con exito
+[INFO] 03:47:12:534 Team/(22422:22449): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones
+[INFO] 03:47:12:534 Team/(22422:22449): Entrenador de id 2 bloqueado
+[INFO] 03:47:24:820 Team/(22422:22422): Se aceptó un nuevo gameboy
+[INFO] 03:47:24:839 Team/(22422:22471): Gameboy conectado, esperando mensajes...
+[INFO] 03:47:24:839 Team/(22422:22471): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 03:47:24:839 Team/(22422:22471): Me llego este pokemon: PIKACHU
+[INFO] 03:47:24:839 Team/(22422:22471): La coordenada X es: 6
+[INFO] 03:47:24:840 Team/(22422:22471): La coordenada Y es: 6
+
+[INFO] 03:47:24:840 Team/(22422:22471): Agregue el pokemon al mapa
+
+[INFO] 03:47:58:782 Team/(22422:22471): El entrenador 2 paso a la lista de Listos por ser el mas cercano a PIKACHU
+
+[INFO] 03:47:58:783 Team/(22422:22471): Planificando por FIFO, AUNQUE TENDRIA QUE SER POR RR...
+[INFO] 15:34:53:992 Team/(596:596): Hi, bienvenido a Team
+[INFO] 15:34:59:882 Team/(596:596): Cargando el archivo de configuracion...
+[INFO] 15:35:01:666 Team/(596:596): Las posiciones de entrenadores recuperadas
+[INFO] 15:35:02:353 Team/(596:596): Los pokemon de los entrenadores recuperados
+[INFO] 15:35:02:1 Team/(596:596): Los objetivos de los entrenadores recuperados
+[INFO] 15:35:03:625 Team/(596:596): El tiempo de reconexion es: 30
+[INFO] 15:35:04:114 Team/(596:596): El retardo de ciclo de cpu es: 2
+[INFO] 15:35:04:618 Team/(596:596): El algoritmo de planificacion es: RR
+[INFO] 15:35:05:633 Team/(596:596): El quantum es: 2
+[INFO] 15:35:06:121 Team/(596:596): La estimacion_inicial es: 0
+[INFO] 15:35:06:601 Team/(596:596): La ip del broker es: 127.0.0.1
+[INFO] 15:35:07:129 Team/(596:596): El puerto del broker es: 5003
+[INFO] 15:35:07:913 Team/(596:596): El log file es: /home/utnso/log_team1.txt
+[INFO] 15:35:09:593 Team/(596:596): Archivo de configuracion cargado correctamente :)
+
+[INFO] 15:35:56:478 Team/(596:596): Cargando el objetivo global...
+[INFO] 15:35:56:478 Team/(596:596): Objetivo global cargado
+
+[INFO] 15:36:06:518 Team/(596:596): Entrenadores ubicados
+
+[INFO] 15:36:08:126 Team/(596:596): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 15:36:08:127 Team/(596:596): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 15:36:08:127 Team/(596:596): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 15:36:08:127 Team/(596:596): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 15:36:08:127 Team/(596:596): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 15:36:08:127 Team/(596:596): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 15:36:39:481 Team/(596:686): Se aceptó un nuevo gameboy
+[INFO] 15:36:39:481 Team/(596:686): Gameboy conectado, esperando mensajes...
+[INFO] 16:01:28:6 Team/(1871:1871): Hi, bienvenido a Team
+[INFO] 16:01:28:986 Team/(1871:1871): Cargando el archivo de configuracion...
+[INFO] 16:01:28:987 Team/(1871:1871): Las posiciones de entrenadores recuperadas
+[INFO] 16:01:28:987 Team/(1871:1871): Los pokemon de los entrenadores recuperados
+[INFO] 16:01:28:987 Team/(1871:1871): Los objetivos de los entrenadores recuperados
+[INFO] 16:01:28:987 Team/(1871:1871): El tiempo de reconexion es: 30
+[INFO] 16:01:28:987 Team/(1871:1871): El retardo de ciclo de cpu es: 2
+[INFO] 16:01:28:987 Team/(1871:1871): El algoritmo de planificacion es: RR
+[INFO] 16:01:28:987 Team/(1871:1871): El quantum es: 2
+[INFO] 16:01:28:987 Team/(1871:1871): La estimacion_inicial es: 0
+[INFO] 16:01:28:987 Team/(1871:1871): La ip del broker es: 127.0.0.1
+[INFO] 16:01:28:987 Team/(1871:1871): El puerto del broker es: 5003
+[INFO] 16:01:28:988 Team/(1871:1871): El log file es: /home/utnso/log_team1.txt
+[INFO] 16:01:28:988 Team/(1871:1871): Archivo de configuracion cargado correctamente :)
+
+[INFO] 16:01:34:938 Team/(1871:1871): Cargando el objetivo global...
+[INFO] 16:01:34:938 Team/(1871:1871): Objetivo global cargado
+
+[INFO] 16:01:43:33 Team/(1871:1871): Entrenadores ubicados
+
+[INFO] 16:01:45:465 Team/(1871:1871): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 16:01:45:465 Team/(1871:1871): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 16:01:45:465 Team/(1871:1871): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 16:01:45:465 Team/(1871:1871): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 16:01:45:465 Team/(1871:1871): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 16:01:45:465 Team/(1871:1871): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 16:01:45:471 Team/(1871:1897): No se pudo mandar al broker la solicitud para la cola appeared
+[INFO] 16:01:45:473 Team/(1871:1897): Haciendo intento de reconexión
+[INFO] 16:01:45:479 Team/(1871:1898): No se pudo mandar al broker la solicitud para la cola localized
+[INFO] 16:01:45:479 Team/(1871:1898): Haciendo intento de reconexión
+[INFO] 16:01:45:483 Team/(1871:1899): No se pudo mandar al broker la solicitud para la cola caught
+[INFO] 16:01:45:483 Team/(1871:1899): Haciendo intento de reconexión
+[INFO] 16:01:56:172 Team/(1871:1901): Se aceptó un nuevo gameboy
+[INFO] 16:01:56:172 Team/(1871:1901): Gameboy conectado, esperando mensajes...
+[INFO] 16:03:33:451 Team/(1998:1998): Hi, bienvenido a Team
+[INFO] 16:03:33:999 Team/(1998:1998): Cargando el archivo de configuracion...
+[INFO] 16:03:33:999 Team/(1998:1998): Las posiciones de entrenadores recuperadas
+[INFO] 16:03:33:999 Team/(1998:1998): Los pokemon de los entrenadores recuperados
+[INFO] 16:03:33:999 Team/(1998:1998): Los objetivos de los entrenadores recuperados
+[INFO] 16:03:33:999 Team/(1998:1998): El tiempo de reconexion es: 30
+[INFO] 16:03:33:999 Team/(1998:1998): El retardo de ciclo de cpu es: 2
+[INFO] 16:03:33:999 Team/(1998:1998): El algoritmo de planificacion es: RR
+[INFO] 16:03:33:999 Team/(1998:1998): El quantum es: 2
+[INFO] 16:03:33:999 Team/(1998:1998): La estimacion_inicial es: 0
+[INFO] 16:03:33:999 Team/(1998:1998): La ip del broker es: 127.0.0.1
+[INFO] 16:03:33:999 Team/(1998:1998): El puerto del broker es: 5003
+[INFO] 16:03:33:999 Team/(1998:1998): El log file es: /home/utnso/log_team1.txt
+[INFO] 16:03:33:999 Team/(1998:1998): Archivo de configuracion cargado correctamente :)
+
+[INFO] 16:03:36:278 Team/(1998:1998): Cargando el objetivo global...
+[INFO] 16:03:36:279 Team/(1998:1998): Objetivo global cargado
+
+[INFO] 16:03:37:286 Team/(1998:1998): Entrenadores ubicados
+
+[INFO] 16:03:37:894 Team/(1998:1998): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 16:03:37:895 Team/(1998:1998): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 16:03:37:895 Team/(1998:1998): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 16:03:37:895 Team/(1998:1998): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 16:03:37:895 Team/(1998:1998): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 16:03:37:895 Team/(1998:1998): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 16:03:37:899 Team/(1998:2022): No se pudo mandar al broker la solicitud para la cola appeared
+[INFO] 16:03:37:900 Team/(1998:2022): Haciendo intento de reconexión
+[INFO] 16:03:37:903 Team/(1998:2023): No se pudo mandar al broker la solicitud para la cola localized
+[INFO] 16:03:37:903 Team/(1998:2023): Haciendo intento de reconexión
+[INFO] 16:03:37:905 Team/(1998:2024): No se pudo mandar al broker la solicitud para la cola caught
+[INFO] 16:03:37:905 Team/(1998:2024): Haciendo intento de reconexión
+[INFO] 16:03:53:863 Team/(1998:2026): Se aceptó un nuevo gameboy
+[INFO] 16:04:04:856 Team/(1998:2026): Gameboy conectado, esperando mensajes...
+[INFO] 16:04:08:414 Team/(1998:2024): No se pudo mandar al broker la solicitud para la cola caught
+[INFO] 16:04:08:414 Team/(1998:2023): No se pudo mandar al broker la solicitud para la cola localized
+[INFO] 16:04:08:414 Team/(1998:2024): Haciendo intento de reconexión
+[INFO] 16:04:08:414 Team/(1998:2022): No se pudo mandar al broker la solicitud para la cola appeared
+[INFO] 16:04:08:414 Team/(1998:2022): Haciendo intento de reconexión
+[INFO] 16:04:08:414 Team/(1998:2023): Haciendo intento de reconexión
+[INFO] 16:04:38:652 Team/(1998:2023): No se pudo mandar al broker la solicitud para la cola localized
+[INFO] 16:04:38:652 Team/(1998:2022): No se pudo mandar al broker la solicitud para la cola appeared
+[INFO] 16:04:38:652 Team/(1998:2024): No se pudo mandar al broker la solicitud para la cola caught
+[INFO] 16:04:38:652 Team/(1998:2023): Haciendo intento de reconexión
+[INFO] 16:04:38:653 Team/(1998:2024): Haciendo intento de reconexión
+[INFO] 16:04:38:653 Team/(1998:2022): Haciendo intento de reconexión
+[INFO] 16:05:54:518 Team/(2160:2160): Hi, bienvenido a Team
+[INFO] 16:05:55:22 Team/(2160:2160): Cargando el archivo de configuracion...
+[INFO] 16:05:55:22 Team/(2160:2160): Las posiciones de entrenadores recuperadas
+[INFO] 16:05:55:23 Team/(2160:2160): Los pokemon de los entrenadores recuperados
+[INFO] 16:05:55:23 Team/(2160:2160): Los objetivos de los entrenadores recuperados
+[INFO] 16:05:55:23 Team/(2160:2160): El tiempo de reconexion es: 30
+[INFO] 16:05:55:23 Team/(2160:2160): El retardo de ciclo de cpu es: 2
+[INFO] 16:05:55:23 Team/(2160:2160): El algoritmo de planificacion es: RR
+[INFO] 16:05:55:23 Team/(2160:2160): El quantum es: 2
+[INFO] 16:05:55:23 Team/(2160:2160): La estimacion_inicial es: 0
+[INFO] 16:05:55:23 Team/(2160:2160): La ip del broker es: 127.0.0.1
+[INFO] 16:05:55:23 Team/(2160:2160): El puerto del broker es: 5003
+[INFO] 16:05:55:23 Team/(2160:2160): El log file es: /home/utnso/log_team1.txt
+[INFO] 16:05:55:23 Team/(2160:2160): Archivo de configuracion cargado correctamente :)
+
+[INFO] 16:05:58:458 Team/(2160:2160): Cargando el objetivo global...
+[INFO] 16:05:58:458 Team/(2160:2160): Objetivo global cargado
+
+[INFO] 16:06:04:801 Team/(2160:2160): Entrenadores ubicados
+
+[INFO] 16:06:08:868 Team/(2160:2160): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 16:06:08:868 Team/(2160:2160): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 16:06:08:868 Team/(2160:2160): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 16:06:08:868 Team/(2160:2160): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 16:06:08:868 Team/(2160:2160): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 16:06:08:868 Team/(2160:2160): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 16:07:12:393 Team/(2160:2186): Se aceptó un nuevo gameboy
+[INFO] 16:07:20:644 Team/(2160:2186): Gameboy conectado, esperando mensajes...
+[INFO] 16:09:00:635 Team/(2160:2186): Se aceptó un nuevo gameboy
+[INFO] 16:09:07:427 Team/(2160:2186): Gameboy conectado, esperando mensajes...
+[INFO] 16:09:44:282 Team/(2160:2186): Se aceptó un nuevo gameboy
+[INFO] 17:39:06:475 Team/(4819:4819): Hi, bienvenido a Team
+[INFO] 17:39:06:995 Team/(4819:4819): Cargando el archivo de configuracion...
+[INFO] 17:39:06:995 Team/(4819:4819): Las posiciones de entrenadores recuperadas
+[INFO] 17:39:06:995 Team/(4819:4819): Los pokemon de los entrenadores recuperados
+[INFO] 17:39:06:996 Team/(4819:4819): Los objetivos de los entrenadores recuperados
+[INFO] 17:39:06:996 Team/(4819:4819): El tiempo de reconexion es: 30
+[INFO] 17:39:06:996 Team/(4819:4819): El retardo de ciclo de cpu es: 2
+[INFO] 17:39:06:996 Team/(4819:4819): El algoritmo de planificacion es: RR
+[INFO] 17:39:06:996 Team/(4819:4819): El quantum es: 2
+[INFO] 17:39:06:996 Team/(4819:4819): La estimacion_inicial es: 0
+[INFO] 17:39:06:996 Team/(4819:4819): La ip del broker es: 127.0.0.1
+[INFO] 17:39:06:996 Team/(4819:4819): El puerto del broker es: 5003
+[INFO] 17:39:06:996 Team/(4819:4819): El log file es: /home/utnso/log_team1.txt
+[INFO] 17:39:06:996 Team/(4819:4819): Archivo de configuracion cargado correctamente :)
+
+[INFO] 17:39:10:257 Team/(4819:4819): Cargando el objetivo global...
+[INFO] 17:39:10:257 Team/(4819:4819): Objetivo global cargado
+
+[INFO] 17:39:14:99 Team/(4819:4819): Entrenadores ubicados
+
+[INFO] 17:39:15:409 Team/(4819:4819): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 17:39:26:467 Team/(4819:4844): Se aceptó un nuevo gameboy
+[INFO] 17:39:36:578 Team/(4819:4844): Gameboy conectado, esperando mensajes...
+[INFO] 17:39:57:959 Team/(4819:4844): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 17:39:59:370 Team/(4819:4844): Me llego este pokemon: Pikachu, coordenada x 1, coordenada y 1
+[INFO] 17:41:10:774 Team/(4819:4844): Agregue el pokemon al mapa
+
+[INFO] 17:41:26:997 Team/(4819:4843): El entrenador 0 paso a la lista de Listos por ser el mas cercano a Pikachu
+
+[INFO] 17:41:29:197 Team/(4819:4843): Planificando por FIFO
+[INFO] 17:41:37:902 Team/(4819:4837): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 17:41:45:901 Team/(4819:4837): LLEGUE AL POKEMON
+[INFO] 17:42:52:842 Team/(4819:4837): El pokemon Pikachu ha sido atrapado con exito
+[INFO] 17:42:52:843 Team/(4819:4837): El entrenador 0 esta bloqueado esperando que aparezca un pokemon
+[INFO] 17:42:52:843 Team/(4819:4837): Entrenador de id 0 bloqueado
+[INFO] 17:50:13:925 Team/(5198:5198): Hi, bienvenido a Team
+[INFO] 17:50:14:474 Team/(5198:5198): Cargando el archivo de configuracion...
+[INFO] 17:50:14:474 Team/(5198:5198): Las posiciones de entrenadores recuperadas
+[INFO] 17:50:14:474 Team/(5198:5198): Los pokemon de los entrenadores recuperados
+[INFO] 17:50:14:474 Team/(5198:5198): Los objetivos de los entrenadores recuperados
+[INFO] 17:50:14:474 Team/(5198:5198): El tiempo de reconexion es: 30
+[INFO] 17:50:14:474 Team/(5198:5198): El retardo de ciclo de cpu es: 2
+[INFO] 17:50:14:474 Team/(5198:5198): El algoritmo de planificacion es: RR
+[INFO] 17:50:14:474 Team/(5198:5198): El quantum es: 2
+[INFO] 17:50:14:475 Team/(5198:5198): La estimacion_inicial es: 0
+[INFO] 17:50:14:475 Team/(5198:5198): La ip del broker es: 127.0.0.1
+[INFO] 17:50:14:475 Team/(5198:5198): El puerto del broker es: 5003
+[INFO] 17:50:14:475 Team/(5198:5198): El log file es: /home/utnso/log_team1.txt
+[INFO] 17:50:14:475 Team/(5198:5198): Archivo de configuracion cargado correctamente :)
+
+[INFO] 17:50:17:740 Team/(5198:5198): Cargando el objetivo global...
+[INFO] 17:50:17:740 Team/(5198:5198): Objetivo global cargado
+
+[INFO] 17:50:42:441 Team/(5198:5198): Entrenadores ubicados
+
+[INFO] 17:50:46:153 Team/(5198:5198): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 17:51:38:737 Team/(5198:5234): Se aceptó un nuevo gameboy
+[INFO] 17:51:42:633 Team/(5198:5234): Gameboy conectado, esperando mensajes...
+[INFO] 17:52:07:239 Team/(5198:5234): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 17:52:07:239 Team/(5198:5234): Me llego este pokemon: Pikachu, coordenada x 1, coordenada y 1
+[INFO] 17:52:07:239 Team/(5198:5234): Agregue el pokemon al mapa
+
+[INFO] 17:52:24:927 Team/(5198:5231): El entrenador 0 paso a la lista de Listos por ser el mas cercano a Pikachu
+
+[INFO] 17:52:28:78 Team/(5198:5231): Planificando por FIFO
+[INFO] 17:52:36:648 Team/(5198:5217): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 17:52:40:375 Team/(5198:5217): LLEGUE AL POKEMON
+[INFO] 17:52:40:394 Team/(5198:5217): El pokemon Pikachu ha sido atrapado con exito
+[INFO] 17:52:40:394 Team/(5198:5217): El entrenador 0 esta bloqueado esperando que aparezca un pokemon
+[INFO] 17:52:40:394 Team/(5198:5217): Entrenador de id 0 bloqueado
+[INFO] 17:52:59:941 Team/(5198:5234): Se aceptó un nuevo gameboy
+[INFO] 17:53:01:605 Team/(5198:5234): Gameboy conectado, esperando mensajes...
+[INFO] 17:53:03:126 Team/(5198:5234): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 17:53:03:126 Team/(5198:5234): Me llego este pokemon: Pikachu, coordenada x 1, coordenada y 1
+[INFO] 17:53:03:126 Team/(5198:5234): Agregue el pokemon al mapa
+
+[INFO] 17:25:20:481 Team/(7066:7066): Hi, bienvenido a Team
+[INFO] 17:25:21:953 Team/(7066:7066): Cargando el archivo de configuracion...
+[INFO] 17:25:21:953 Team/(7066:7066): Las posiciones de entrenadores recuperadas
+[INFO] 17:25:21:953 Team/(7066:7066): Los pokemon de los entrenadores recuperados
+[INFO] 17:25:21:954 Team/(7066:7066): Los objetivos de los entrenadores recuperados
+[INFO] 17:25:21:954 Team/(7066:7066): El tiempo de reconexion es: 30
+[INFO] 17:25:21:954 Team/(7066:7066): El retardo de ciclo de cpu es: 2
+[INFO] 17:25:21:954 Team/(7066:7066): El algoritmo de planificacion es: RR
+[INFO] 17:25:21:954 Team/(7066:7066): El quantum es: 2
+[INFO] 17:25:21:954 Team/(7066:7066): La estimacion_inicial es: 0
+[INFO] 17:25:21:954 Team/(7066:7066): La ip del broker es: 127.0.0.1
+[INFO] 17:25:21:954 Team/(7066:7066): El puerto del broker es: 5003
+[INFO] 17:25:21:954 Team/(7066:7066): El log file es: /home/utnso/log_team1.txt
+[INFO] 17:25:21:954 Team/(7066:7066): Archivo de configuracion cargado correctamente :)
+
+[INFO] 17:25:27:491 Team/(7066:7066): Cargando el objetivo global...
+[INFO] 17:25:27:491 Team/(7066:7066): Objetivo global cargado
+
+[INFO] 17:25:31:86 Team/(7066:7066): Entrenadores ubicados
+
+[INFO] 17:25:33:770 Team/(7066:7066): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 17:25:58:524 Team/(7066:7097): Se aceptó un nuevo gameboy
+[INFO] 17:26:09:476 Team/(7066:7097): Gameboy conectado, esperando mensajes...
+[INFO] 17:26:10:84 Team/(7066:7097): Voy a recibir un pokemon y coordenadas desde gameboy
+[INFO] 17:26:10:84 Team/(7066:7097): Me llego este pokemon: Pikachu, coordenada x 1, coordenada y 1
+[INFO] 17:26:10:84 Team/(7066:7097): Agregue el pokemon al mapa
+
+[INFO] 17:26:33:177 Team/(7066:7094): El entrenador 0 paso a la lista de Listos por ser el mas cercano a Pikachu
+
+[INFO] 17:26:37:71 Team/(7066:7094): Planificando por FIFO
+[INFO] 17:26:52:511 Team/(7066:7086): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 17:26:56:35 Team/(7066:7086): LLEGUE AL POKEMON
+[INFO] 17:26:59:206 Team/(7066:7086): El pokemon Pikachu ha sido atrapado con exito
+[INFO] 17:26:59:206 Team/(7066:7086): El entrenador 0 esta bloqueado esperando que aparezca un pokemon
+[INFO] 17:26:59:206 Team/(7066:7086): Entrenador de id 0 bloqueado

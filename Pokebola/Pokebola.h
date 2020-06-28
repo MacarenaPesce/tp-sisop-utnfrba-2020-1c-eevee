@@ -136,7 +136,7 @@ typedef struct{
 typedef struct{
 	uint32_t cantidad_coordenadas __attribute__((packed));
 	char * pokemon;
-	t_list lista_coordenadas;
+	t_list * lista_coordenadas;
 } t_localized_pokemon;
 
 
@@ -229,7 +229,7 @@ int distribuir_localized_pokemon(int socket, uint32_t id_mensaje, uint32_t id_co
 int distribuir_ack(int socket,uint32_t id_mensaje, uint32_t id_cliente);
 t_packed* _esperar_ack(int socket);
 
-/**************************************************************************************/
+/*************************************************************************************/
 
 void _recuperar_mensaje(t_packed *paquete);
 void _recibir_solicitud_suscripcion(t_packed *paquete);
