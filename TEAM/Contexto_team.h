@@ -114,6 +114,7 @@ pthread_mutex_t lista_entrenadores_mutex;
 pthread_mutex_t lista_listos_mutex;
 pthread_mutex_t mensaje_chequear_id_mutex;
 pthread_mutex_t moverse;
+pthread_mutex_t mutex_para_colas;
 
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
@@ -134,6 +135,7 @@ sem_t operar_con_caught;
 sem_t orden_para_planificar;
 sem_t aviso_entrenador_hizo_intercambio;
 sem_t se_hizo_el_intercambio;
+sem_t chequeo_de_deadlock;
 
 extern bool hayDeadlock;
 extern bool me_desalojaron;

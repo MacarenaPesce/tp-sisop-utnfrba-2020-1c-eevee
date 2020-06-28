@@ -15,6 +15,8 @@ void crear_hilo_para_deadlock(){
 void * chequear_deadlock(){
 
 	while(GLOBAL_SEGUIR){
+		sem_wait(&chequeo_de_deadlock);
+
 		pthread_mutex_lock(&lista_entrenadores_mutex);
 		int cant_nuevos = list_size(lista_entrenadores);
 		pthread_mutex_unlock(&lista_entrenadores_mutex);

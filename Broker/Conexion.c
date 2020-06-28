@@ -104,6 +104,7 @@ void* esperar_mensajes(void* cliente){
 	while(1){
 		paquete = recibir_mensaje_serealizado(socket_cliente);
 
+
 		if(paquete != (t_packed*)-1){
 			//Esto me devuelve el paquete con todos los datos
 			/* El nro de operacion y cola de mensajes indican el 
