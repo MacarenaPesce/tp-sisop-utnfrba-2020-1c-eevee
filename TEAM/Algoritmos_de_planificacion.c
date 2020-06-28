@@ -60,9 +60,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 		i++;
 		if(i == cantidad_entrenadores){
 			entrenador_mas_cercano->objetivo_actual = pokemon;
-
 			pthread_mutex_lock(&lista_listos_mutex);
-			entrenador_mas_cercano->instruccion_actual = distancia_a_pokemon(entrenador_mas_cercano, pokemon);
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
 			pthread_mutex_unlock(&lista_listos_mutex);
 			nuevo_entrenador = entrenador_mas_cercano;
