@@ -31,6 +31,7 @@
 /* Keys config file*/
 #define KEY_TIEMPO_DE_REINTENTO_CONEXION "TIEMPO_DE_REINTENTO_CONEXION"
 #define KEY_TIEMPO_DE_REINTENTO_OPERACION "TIEMPO_DE_REINTENTO_DE_OPERACION"
+#define KEY_TIEMPO_RETARDO_OPERACION "TIEMPO_RETARDO_OPERACION​"
 #define KEY_PUNTO_MONTAJE_TALLGRASS "PUNTO_DE_MONTAJE_TALLGRASS"
 #define KEY_IP_BROKER "IP_BROKER"
 #define KEY_PUERTO_BROKER "PUERTO_BROKER"
@@ -40,6 +41,7 @@
 
 extern int tiempo_reintento_conexion;
 extern int tiempo_reintento_operacion;
+extern int tiempo_retardo_operacion;
 extern char* punto_montaje_fs;
 extern char* ip_broker;
 extern char* puerto_broker;
