@@ -55,7 +55,6 @@ bool objetivo_global_cumplido(){
 			}
 		}
 		return (contador == list_size(lista_objetivos) && !hayDeadlock);
-		//es verdadero y cumple esto y ademas no haya deadlock
 }
 
 void inicializar_logger(){
@@ -63,7 +62,6 @@ void inicializar_logger(){
 	log_info(team_logger,"Hi, bienvenido a Team");
 
 	team_logger_oficial = log_create("/home/utnso/log_team1", "Team", 0, LOG_LEVEL_DEBUG);
-	log_info(team_logger_oficial,"Bienvenido a Team, este es el archivo de log oficial");
 }
 
 void inicializar_semaforos(){
@@ -85,6 +83,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&lista_listos_mutex, NULL);
 	pthread_mutex_init(&mensaje_nuevo_mutex, NULL);
 	pthread_mutex_init(&mensaje_chequear_id_mutex, NULL);
+	pthread_mutex_init(&moverse, NULL);
 
 
 	sem_init(&entrenadores_ubicados, 0, 0);
@@ -96,6 +95,7 @@ void inicializar_semaforos(){
 	sem_init(&operar_con_caught, 0, 0);
 	sem_init(&orden_para_planificar, 0, 0);
 	sem_init(&aviso_entrenador_hizo_intercambio, 0, 0);
+	sem_init(&ejecucion, 0, 0);
 
 
 }
@@ -368,6 +368,13 @@ t_mensaje_guardado * buscar_mensaje(uint32_t id){
 t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* mensajes){
 	bool es_el_buscado(t_mensaje_guardado* mensaje){
 		return mensaje->id == id_correlativo;
+	}
+	return (list_find(mensajes,(void*)es_el_buscado));
+}
+
+t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char* especie, t_list* mensajes){
+	bool es_el_buscado(t_mensaje_guardado* mensaje){
+		return mensaje->operacion == APPEARED && (((t_appeared_pokemon *)(mensaje->contenido))->pokemon == especie);
 	}
 	return (list_find(mensajes,(void*)es_el_buscado));
 }

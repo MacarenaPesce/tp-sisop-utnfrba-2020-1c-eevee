@@ -11,14 +11,32 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 
 	while(GLOBAL_SEGUIR){
 		sem_wait(&array_semaforos[entrenador->id]);
+		//necesito los mutex porque la orden de planificar venia solo de nuevos pokes. Y ahora necesito planificar
+		//aunque no haya pokes nuevos y no tengo otra forma de que los entrenadores se ejecuten al mismo tiempo.
+		//pthread_mutex_lock(&moverse);
 		log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
 		llegar_a_el_pokemon(entrenador);
-		atrapar(entrenador);
+		//pthread_mutex_unlock(&moverse);
+
+		if(!entrenador->desalojado){
+			//pthread_mutex_lock(&moverse);
+			consumir_un_ciclo_de_cpu();
+			atrapar(entrenador);
+			//pthread_mutex_unlock(&moverse);
+			entrenador_por_desalojar = NULL;
+		}
+
+		entrenador->desalojado = false;
+		while(me_desalojaron && entrenador_por_desalojar == NULL){
+			me_desalojaron = false;
+			sem_post(&orden_para_planificar);
+		}
 
 		if(objetivo_personal_cumplido(entrenador)){
 			list_add(lista_finalizar, entrenador);
 			log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 			return NULL;
 		}
 
@@ -37,6 +55,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		sem_post(&hay_interbloqueo);
 
 		log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+		log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 		return NULL;
 
 	}else{
@@ -48,6 +67,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		sem_wait(&array_semaforos_finalizar[entrenador->id]);
 
 		log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+		log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 		return NULL;
 	}
 
@@ -58,6 +78,13 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 	 * Para simular más a la realidad esta funcionalidad, se deberá agregar un retardo de X segundos configurado por archivo de configuración.*/
 
 	log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
+	log_info(team_logger, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
+
+	/************************************FIFO************************************/
+
+	if((!strcmp(algoritmo_planificacion, "FIFO")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))) {
+
+		while(!me_desalojaron) {
 
 		//Primero me muevo por izq
 		while(entrenador->posx < entrenador->objetivo_actual->posx){
@@ -65,27 +92,141 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 			entrenador->posx = entrenador->posx + 1;
 		}
 
+
+			//Primero me muevo por izq
+			while(entrenador->posx < entrenador->objetivo_actual->posx){
+				consumir_un_ciclo_de_cpu();
+				entrenador->posx = entrenador->posx + 1;
+			}
+
+			if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+				if(me_desalojaron){
+					entrenador->desalojado = true;
+					break;
+				}
+			}
+
+			//Despues me muevo por derecha
+			while(entrenador->posx > entrenador->objetivo_actual->posx){
+				consumir_un_ciclo_de_cpu();
+				entrenador->posx = entrenador->posx - 1;
+			}
+
+			if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+				if(me_desalojaron){
+					entrenador->desalojado = true;
+					break;
+				}
+			}
+
+			//Despues me muevo por arriba
+			while(entrenador->posy > entrenador->objetivo_actual->posy){
+				consumir_un_ciclo_de_cpu();
+				entrenador->posy = entrenador->posy - 1;
+			}
+
+			if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+				if(me_desalojaron){
+					entrenador->desalojado = true;
+					break;
+				}
+			}
+
+			//Despues me muevo por abajo
+			while(entrenador->posy < entrenador->objetivo_actual->posy){
+				consumir_un_ciclo_de_cpu();
+				entrenador->posy = entrenador->posy + 1;
+			}
+
+			if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+				if(me_desalojaron){
+					entrenador->desalojado = true;
+					break;
+				}
+			}
+
+			if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
+				log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
+				me_desalojaron = false;
+				/*TODO comprobacion por si justo lo desalojaron en su ultimo movimiento y todavia le queda
+				ejecutar para atrapar al pokemon, que consume un ciclo. En ese caso entrandor->desalojado seria true*/
+				entrenador->desalojado = false;
+				break;
+			}
+		}
+
+		if(entrenador->desalojado){
+			pthread_mutex_lock(&lista_listos_mutex);
+			//TODO Estimar entrenador antes de meterlo a Ready
+			list_add(lista_listos, entrenador);
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+			pthread_mutex_unlock(&lista_listos_mutex);
+		}
+
+
+	}
+
+	/************************************ROUND ROBIN************************************
+
+	else if((!strcmp(algoritmo_planificacion, "RR"))){
+		log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
+		//Primero me muevo por izq
+		while(entrenador->posx < entrenador->objetivo_actual->posx){
+			if(quantum_actual == 0){
+				entrenador_desalojado = entrenador;
+				sem_post(&orden_para_planificar);
+			}
+				consumir_un_ciclo_de_cpu();
+				entrenador->posx = entrenador->posx + 1;
+				log_info(team_logger, "Soy %i Me movi una posición por izq", entrenador->id);
+				quantum_actual--;
+			}
+
 		//Despues me muevo por derecha
 		while(entrenador->posx > entrenador->objetivo_actual->posx){
+			if(quantum_actual == 0){
+				entrenador_desalojado = entrenador;
+				sem_post(&orden_para_planificar);
+			}
 			consumir_un_ciclo_de_cpu();
 			entrenador->posx = entrenador->posx - 1;
+			log_info(team_logger, "Soy %i Me movi una posición por der", entrenador->id);
+			quantum_actual--;
 		}
 
 		//Despues me muevo por arriba
 		while(entrenador->posy > entrenador->objetivo_actual->posy){
+			if(quantum_actual == 0){
+				entrenador_desalojado = entrenador;
+				sem_post(&orden_para_planificar);
+			}
 			consumir_un_ciclo_de_cpu();
 			entrenador->posy = entrenador->posy - 1;
+			log_info(team_logger, "Soy %i Me movi una posición arriba", entrenador->id);
+			quantum_actual--;
 		}
 
 		//Despues me muevo por abajo
 		while(entrenador->posy < entrenador->objetivo_actual->posy){
+			if(quantum_actual == 0){
+				entrenador_desalojado = entrenador;
+				sem_post(&orden_para_planificar);
+			}
 			consumir_un_ciclo_de_cpu();
 			entrenador->posy = entrenador->posy + 1;
+			log_info(team_logger, "Soy %i Me movi una posición abajo", entrenador->id);
+			quantum_actual--;
 		}
 
 		if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
 			log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
+			atrapar(entrenador);
+		} else {
+			sem_post(&orden_para_planificar);
 		}
+
+	}
+*/
 }
 
 void atrapar(t_entrenador * entrenador){
@@ -105,6 +246,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	servidor->puerto = "6009";
 	servidor->id_cliente = id;
 
+	//consumir_un_ciclo_de_cpu();
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
 
@@ -139,6 +281,7 @@ void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 	entrenador2 = list_get(lista_bloqueados_deadlock, 0);
 
 	log_info(team_logger, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
+	log_info(team_logger_oficial, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
 	//Primero me muevo por izq
 	while(entrenador1->posx < entrenador1->objetivo_actual->posx){
 		consumir_un_ciclo_de_cpu();
@@ -196,6 +339,10 @@ void realizar_intercambio(t_entrenador* entrenador1){
 
 	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
 	entrenador2 = list_get(lista_bloqueados_deadlock, 0); //entrenador con quien hago el intercambio
+
+	log_info(team_logger_oficial, "Se va a realizar un intercambio entre el entrenador %i y %i", entrenador1->id, entrenador2->id);
+
+
 	t_objetivo_entrenador* pokemon2 = elegir_pokemon_innecesario(entrenador2); //pokemon innecesario de E2
 
 	//pokemon1 es el pokemon innecesario de E1

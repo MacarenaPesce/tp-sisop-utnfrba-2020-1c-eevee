@@ -74,6 +74,7 @@ extern int MAXIMO_ENTRENADORES;
 extern int CANTIDAD_EN_DEADLOCK;
 extern bool hayPokeNuevo;
 extern uint32_t quantum_actual;
+extern bool desalojo_en_ejecucion;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
@@ -112,6 +113,7 @@ pthread_mutex_t lista_bloq_max_mutex;
 pthread_mutex_t lista_entrenadores_mutex;
 pthread_mutex_t lista_listos_mutex;
 pthread_mutex_t mensaje_chequear_id_mutex;
+pthread_mutex_t moverse;
 
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
@@ -123,6 +125,8 @@ sem_t hay_interbloqueo;
 sem_t hay_interbloqueo_avisar_a_entrenador;
 pthread_mutex_t mutex_deadlock;
 
+sem_t ejecucion;
+
 sem_t operar_con_catch;
 sem_t operar_con_appeared;
 sem_t operar_con_localized;
@@ -132,6 +136,7 @@ sem_t aviso_entrenador_hizo_intercambio;
 sem_t se_hizo_el_intercambio;
 
 extern bool hayDeadlock;
+extern bool me_desalojaron;
 
 //Estructura de un entrenador
 enum ESTADO{
@@ -178,6 +183,7 @@ typedef struct {
 	float estimacion_anterior;//sjf
 	int instruccion_actual;//sjf
 	int ejec_anterior;//sjf
+	bool desalojado;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
@@ -216,6 +222,7 @@ typedef struct {
 }t_semaforo_deadlock;
 
 t_entrenador * entrenador_en_ejecucion;
-t_entrenador * entrenador_desalojado;
+t_entrenador * entrenador_por_desalojar;
+t_entrenador * nuevo_entrenador;
 
 #endif /* CONTEXTO_TEAM_H_ */
