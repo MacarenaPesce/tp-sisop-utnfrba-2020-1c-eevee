@@ -91,8 +91,7 @@ int enviar_paquete(int sock, void *paquete, int tamanio){
 }
 
 //Manejo de mensaje
-int _enviar_mensaje(int sock,
-				   t_packed *paquete){	
+int _enviar_mensaje(int sock, t_packed *paquete){	
 	int envio_payload=0, envio_header=0;
 
 	envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
@@ -792,6 +791,29 @@ t_packed* _esperar_ack(int socket){
 
 	return ack;
 	
+}
+
+char* obtener_nombre_cola(int cola_de_mensajes){
+
+	switch(cola_de_mensajes){
+
+		case COLA_APPEARED_POKEMON:
+			return "APPEARED_POKEMON";
+		case COLA_CATCH_POKEMON:
+			return "CATCH_POKEMON";
+		case COLA_CAUGHT_POKEMON:
+			return "CAUGHT_POKEMON";
+		case COLA_GET_POKEMON:
+			return "GET_POKEMON";
+		case COLA_LOCALIZED_POKEMON:
+			return "LOCALIZED_POKEMON";
+		case COLA_NEW_POKEMON:
+			return "NEW_POKEMON";
+		default:
+			printf("Cola %d no reconocida\n",cola_de_mensajes);
+			return "";
+
+	}
 }
 
 /**************FUNCIONES PARA EL LOG*********************/

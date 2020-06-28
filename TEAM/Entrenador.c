@@ -243,7 +243,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
-	servidor->puerto = "6009";
+	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
 	//consumir_un_ciclo_de_cpu();
@@ -251,12 +251,12 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
 
 	if(ack == (t_packed*) -1){
+		log_info(team_logger, "ALGO LE PASO AL BROKER");
 		hacer_procedimiento_para_atrapar_default(catch_pokemon, entrenador);
 	}else{
 		//Recibo ACK
 		if(ack->operacion == ACK){
 			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", entrenador->objetivo_actual->especie);
-			log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
 
 			t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
 			mensaje->id = ack->id_mensaje;

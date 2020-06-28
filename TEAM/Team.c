@@ -281,7 +281,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 			list_add(lista_bloqueados_esperando_caught, (void*)entrenador);
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando que llegue mensaje Caught", entrenador->id);
-			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught");
+			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught", entrenador->id);
 			break;
 
 		case CANTIDAD_MAXIMA_ALCANZADA:
@@ -295,8 +295,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
-			//chequear_deadlock;
-
+			sem_post(&chequeo_de_deadlock);
 			break;
 		default:
 			break;
