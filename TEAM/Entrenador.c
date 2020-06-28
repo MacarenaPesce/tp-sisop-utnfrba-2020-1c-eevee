@@ -141,6 +141,8 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 			if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
 				log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
 				me_desalojaron = false;
+				/*TODO comprobacion por si justo lo desalojaron en su ultimo movimiento y todavia le queda
+				ejecutar para atrapar al pokemon, que consume un ciclo. En ese caso entrandor->desalojado seria true*/
 				entrenador->desalojado = false;
 				break;
 			}
