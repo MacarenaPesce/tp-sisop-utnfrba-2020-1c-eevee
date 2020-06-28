@@ -107,7 +107,7 @@ int main() {
 
 	abrirBitmap();
 
-/*+	t_new_pokemon* picachu = picachuHardcodeado("Pikachu", 1, 2, 3);
+	/*t_new_pokemon* picachu = picachuHardcodeado("Pikachu", 1, 2, 3);
 	//abrirBitmap();
 
 	if (existePokemon(picachu->pokemon)) {
@@ -119,7 +119,7 @@ int main() {
 		crearPokemon(picachu);
 		free(picachu);
 	}
-*/
+
 
 t_new_pokemon* pokis = picachuHardcodeado("Pikachu", 1, 2, 37);
 	//abrirBitmap();
@@ -134,7 +134,7 @@ t_new_pokemon* pokis = picachuHardcodeado("Pikachu", 1, 2, 37);
 
 		free(pokis);
 	}
-/*
+*/
 	t_new_pokemon* pic = picachuHardcodeado("Pikachu", 10, 33, 590);
 	//abrirBitmap();
 
@@ -225,7 +225,7 @@ void liberarMemoria() {
 	//aca empezar a liberar memoria
 	free(rutas_fs);
 	free(metadata_fs);
-	munmap(bmap, tamBmap);
+	//munmap(bmap, tamBmap);
 	bitarray_destroy(bitarray);
 	config_destroy(config_game_card);
 }
