@@ -11,18 +11,22 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 
 	while(GLOBAL_SEGUIR){
 		sem_wait(&array_semaforos[entrenador->id]);
-		//necesito esto porque la orden de planificar venia solo de nuevos pokes. Y ahora necesito planificar
-		//aunque no haya pokes nuevos.
-		pthread_mutex_lock(&moverse);
+		//necesito los mutex porque la orden de planificar venia solo de nuevos pokes. Y ahora necesito planificar
+		//aunque no haya pokes nuevos y no tengo otra forma de que los entrenadores se ejecuten al mismo tiempo.
+		//pthread_mutex_lock(&moverse);
 		log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
-
 		llegar_a_el_pokemon(entrenador);
+		//pthread_mutex_unlock(&moverse);
+
 		if(!entrenador->desalojado){
+			//pthread_mutex_lock(&moverse);
+			consumir_un_ciclo_de_cpu();
 			atrapar(entrenador);
+			//pthread_mutex_unlock(&moverse);
 			entrenador_por_desalojar = NULL;
 		}
-		pthread_mutex_unlock(&moverse);
+
 		entrenador->desalojado = false;
 		while(me_desalojaron && entrenador_por_desalojar == NULL){
 			me_desalojaron = false;
@@ -232,7 +236,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	servidor->puerto = "6009";
 	servidor->id_cliente = id;
 
-	consumir_un_ciclo_de_cpu();
+	//consumir_un_ciclo_de_cpu();
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
 
