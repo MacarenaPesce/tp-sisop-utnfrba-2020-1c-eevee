@@ -83,6 +83,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&lista_listos_mutex, NULL);
 	pthread_mutex_init(&mensaje_nuevo_mutex, NULL);
 	pthread_mutex_init(&mensaje_chequear_id_mutex, NULL);
+	pthread_mutex_init(&moverse, NULL);
 
 
 	sem_init(&entrenadores_ubicados, 0, 0);
@@ -94,6 +95,7 @@ void inicializar_semaforos(){
 	sem_init(&operar_con_caught, 0, 0);
 	sem_init(&orden_para_planificar, 0, 0);
 	sem_init(&aviso_entrenador_hizo_intercambio, 0, 0);
+	sem_init(&ejecucion, 0, 0);
 
 
 }

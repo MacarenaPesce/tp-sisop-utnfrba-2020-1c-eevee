@@ -22,18 +22,17 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 
 		sem_wait(&orden_para_planificar);
 
-		/*if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
-			if(true/*(entrenador_en_ejecucion!=NULL) && (nuevo_entrenador->estimacion_real < entrenador_en_ejecucion->estimacion_actual))
+		if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
+			if(entrenador_en_ejecucion!=NULL) /*nuevo_entrenador->estimacion_real < entrenador_en_ejecucion->estimacion_actual))*/
 			{
 				log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
-				desalojo_en_ejecucion++;
+				desalojo_en_ejecucion = true;
 				entrenador_por_desalojar = nuevo_entrenador;
 			}
-		}*/
-
+		}
+		entrenador_por_desalojar = nuevo_entrenador;
 		obtener_proximo_ejecucion();
 	}
-
 	return NULL;
 }
 
@@ -169,7 +168,6 @@ void obtener_proximo_ejecucion(void){
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
 	//entrenador_desalojado = NULL;
 	entrenador_en_ejecucion = list_remove(lista_aux,0);
-
 	if(!list_is_empty(lista_listos)){
 		pthread_mutex_lock(&lista_listos_mutex);
 		entrenador_en_ejecucion = sacar_entrenador_de_lista_pid(lista_listos, entrenador_en_ejecucion->id);

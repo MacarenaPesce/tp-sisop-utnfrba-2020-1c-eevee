@@ -113,6 +113,7 @@ pthread_mutex_t lista_bloq_max_mutex;
 pthread_mutex_t lista_entrenadores_mutex;
 pthread_mutex_t lista_listos_mutex;
 pthread_mutex_t mensaje_chequear_id_mutex;
+pthread_mutex_t moverse;
 
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
@@ -124,6 +125,8 @@ sem_t hay_interbloqueo;
 sem_t hay_interbloqueo_avisar_a_entrenador;
 pthread_mutex_t mutex_deadlock;
 
+sem_t ejecucion;
+
 sem_t operar_con_catch;
 sem_t operar_con_appeared;
 sem_t operar_con_localized;
@@ -133,6 +136,7 @@ sem_t aviso_entrenador_hizo_intercambio;
 sem_t se_hizo_el_intercambio;
 
 extern bool hayDeadlock;
+extern bool me_desalojaron;
 
 //Estructura de un entrenador
 enum ESTADO{
@@ -179,6 +183,7 @@ typedef struct {
 	float estimacion_anterior;//sjf
 	int instruccion_actual;//sjf
 	int ejec_anterior;//sjf
+	bool desalojado;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global

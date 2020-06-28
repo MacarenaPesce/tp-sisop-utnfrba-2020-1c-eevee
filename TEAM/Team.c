@@ -156,6 +156,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->estimacion_real = estimacion_inicial;
 	entrenador->instruccion_actual = 0;
 	entrenador->estado = NUEVO;
+	entrenador->desalojado = false;
 
 	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
 	entrenador->pokemones = list_create();
@@ -302,30 +303,22 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 void consumir_un_ciclo_de_cpu(){
 	ciclos_de_cpu++;
-	//log_info(team_logger, "Me movi 1");
 	sleep(retardo_ciclo_cpu);
-	/*if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+	if(!strcmp(algoritmo_planificacion, "SJF-CD")){
 		if(desalojo_en_ejecucion){
 			confirmar_desalojo_en_ejecucion();
+			me_desalojaron = true;
 		}
-	}*/
-
+	}
 }
 
 void confirmar_desalojo_en_ejecucion(void){
-	/*if(entrenador_por_desalojar!=NULL) {
-
-			entrenador_en_ejecucion->estado = LISTO;
-
-			list_add(lista_listos, entrenador_en_ejecucion);
-			sem_wait(&array_semaforos[entrenador_en_ejecucion->id]);
-			entrenador_en_ejecucion = NULL;
-
-			entrenador_por_desalojar = NULL;
-			desalojo_en_ejecucion = false;
-
-			sem_post(&orden_para_planificar);
-		}*/
+	if(entrenador_por_desalojar!=NULL) {
+		entrenador_en_ejecucion->estado = LISTO;
+		entrenador_en_ejecucion = NULL;
+		entrenador_por_desalojar = NULL;
+		desalojo_en_ejecucion = false;
+	}
 }
 
 void crear_hilo_para_tratamiento_de_mensajes(){

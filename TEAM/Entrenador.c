@@ -11,10 +11,23 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 
 	while(GLOBAL_SEGUIR){
 		sem_wait(&array_semaforos[entrenador->id]);
+		//necesito esto porque la orden de planificar venia solo de nuevos pokes. Y ahora necesito planificar
+		//aunque no haya pokes nuevos.
+		pthread_mutex_lock(&moverse);
 		log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 
+
 		llegar_a_el_pokemon(entrenador);
-		atrapar(entrenador);
+		if(!entrenador->desalojado){
+			atrapar(entrenador);
+			entrenador_por_desalojar = NULL;
+		}
+		pthread_mutex_unlock(&moverse);
+		entrenador->desalojado = false;
+		while(me_desalojaron && entrenador_por_desalojar == NULL){
+			me_desalojaron = false;
+			sem_post(&orden_para_planificar);
+		}
 
 		if(objetivo_personal_cumplido(entrenador)){
 			list_add(lista_finalizar, entrenador);
@@ -61,38 +74,82 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 	 * Para simular más a la realidad esta funcionalidad, se deberá agregar un retardo de X segundos configurado por archivo de configuración.*/
 
 	log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
+	log_info(team_logger, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 
 	/************************************FIFO************************************/
 
 	if((!strcmp(algoritmo_planificacion, "FIFO")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))) {
 
-		//Primero me muevo por izq
-		while(entrenador->posx < entrenador->objetivo_actual->posx){
-			consumir_un_ciclo_de_cpu();
-			entrenador->posx = entrenador->posx + 1;
+		while(!me_desalojaron) {
+
+			//Primero me muevo por izq
+			while(entrenador->posx < entrenador->objetivo_actual->posx){
+				consumir_un_ciclo_de_cpu();
+				entrenador->posx = entrenador->posx + 1;
+			}
+
+			if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+				if(me_desalojaron){
+					entrenador->desalojado = true;
+					break;
+				}
+			}
+
+			//Despues me muevo por derecha
+			while(entrenador->posx > entrenador->objetivo_actual->posx){
+				consumir_un_ciclo_de_cpu();
+				entrenador->posx = entrenador->posx - 1;
+			}
+
+			if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+				if(me_desalojaron){
+					entrenador->desalojado = true;
+					break;
+				}
+			}
+
+			//Despues me muevo por arriba
+			while(entrenador->posy > entrenador->objetivo_actual->posy){
+				consumir_un_ciclo_de_cpu();
+				entrenador->posy = entrenador->posy - 1;
+			}
+
+			if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+				if(me_desalojaron){
+					entrenador->desalojado = true;
+					break;
+				}
+			}
+
+			//Despues me muevo por abajo
+			while(entrenador->posy < entrenador->objetivo_actual->posy){
+				consumir_un_ciclo_de_cpu();
+				entrenador->posy = entrenador->posy + 1;
+			}
+
+			if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+				if(me_desalojaron){
+					entrenador->desalojado = true;
+					break;
+				}
+			}
+
+			if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
+				log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
+				me_desalojaron = false;
+				entrenador->desalojado = false;
+				break;
+			}
+		}
+		if(entrenador->desalojado){
+			pthread_mutex_lock(&lista_listos_mutex);
+			//TODO Estimar entrenador antes de meterlo a Ready
+			list_add(lista_listos, entrenador);
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+			pthread_mutex_unlock(&lista_listos_mutex);
 		}
 
-		//Despues me muevo por derecha
-		while(entrenador->posx > entrenador->objetivo_actual->posx){
-			consumir_un_ciclo_de_cpu();
-			entrenador->posx = entrenador->posx - 1;
-		}
 
-		//Despues me muevo por arriba
-		while(entrenador->posy > entrenador->objetivo_actual->posy){
-			consumir_un_ciclo_de_cpu();
-			entrenador->posy = entrenador->posy - 1;
-		}
-
-		//Despues me muevo por abajo
-		while(entrenador->posy < entrenador->objetivo_actual->posy){
-			consumir_un_ciclo_de_cpu();
-			entrenador->posy = entrenador->posy + 1;
-		}
-
-		if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
-			log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
-		}
 	}
 
 	/************************************ROUND ROBIN************************************
@@ -175,6 +232,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	servidor->puerto = "6009";
 	servidor->id_cliente = id;
 
+	consumir_un_ciclo_de_cpu();
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
 
