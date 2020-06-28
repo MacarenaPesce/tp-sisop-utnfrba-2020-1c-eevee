@@ -8,15 +8,6 @@
 #include "Algoritmos_de_planificacion.h"
 
 void * planificar(){
-	/*A medida que el Team empiece a recibir distintos Pokémon en el mapa despertará a los distintos entrenadores en estado New o en
-	Blocked (que estén esperando para procesar) pasandolos a Ready. */
-
-	/*Siempre se planificará aquel entrenador que se encuentre sin estar realizando ninguna operación activamente y, en caso de
-existir más de uno, sea el que más cerca se encuentre del objetivo. A medida que cada entrenador se planifique (ya sea para moverse, intercambiar o atrapar un
-Pokémon) entrarán en estado exec. En el contexto de nuestro trabajo practico no contemplaremos el multiprocesamiento, esto implica que solo UN entrenador
-podrá estar en estado Exec en determinado tiempo. Cuando un entrenador en estado Exec finalice su recorrido y su ejecución planificada entrará en un estado bloqueados.
-Este estado implica que el entrenador no tiene más tareas para realizar momentáneamente. Cuando un entrenador en estado Exec cumpla todos sus objetivos, pasará a estado Exit.
-Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se considera que el proceso Team cumplió el objetivo global. */
 
 	while(GLOBAL_SEGUIR){
 
@@ -31,6 +22,7 @@ Cuando todos los entrenadores dentro de un Team se encuentren en Exit, se consid
 			}
 		}
 		entrenador_por_desalojar = nuevo_entrenador;
+
 		obtener_proximo_ejecucion();
 	}
 	return NULL;
@@ -78,6 +70,9 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 			entrenador_mas_cercano = otro_entrenador;
 		}
 	}
+
+
+
 
 	list_destroy(lista_aux);
 	if(entrenador_mas_cercano == NULL){
@@ -172,6 +167,7 @@ void obtener_proximo_ejecucion(void){
 		pthread_mutex_unlock(&lista_listos_mutex);
 
 		entrenador_en_ejecucion->estado = EJECUTANDO;
+
 		sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);
 	}
 	else{
@@ -180,11 +176,6 @@ void obtener_proximo_ejecucion(void){
 	}
 
 	list_destroy(lista_aux);
-
-	//Si hubo un cambio en el entrenador en ejecucion, debo avisarle al nuevo entrenador en ejecucion que es su turno
-	if((entrenador_en_ejecucion != NULL) && (ejec_ant != entrenador_en_ejecucion)){
-		//log_info(team_logger,"Aca le debo avisar al entrenador %d que es su turno\n", entrenador_en_ejecucion->id);
-	}
 
 	return;
 }

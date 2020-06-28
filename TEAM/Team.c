@@ -295,6 +295,8 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
+			//chequear_deadlock;
+
 			break;
 		default:
 			break;
@@ -356,11 +358,18 @@ void * tratamiento_de_mensajes(){
 				pokemon->posx = contenido->coordenadas.posx;
 				pokemon->posy = contenido->coordenadas.posy;
 
+
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				operar_con_appeared_pokemon(mensaje->contenido);
 			} else {
 				log_info(team_logger, "No necesito a este pokemon");
 			}
+			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+
+
+
+			operar_con_appeared_pokemon(mensaje->contenido);
+
 		}
 
 		if(mensaje->operacion == LOCALIZED){

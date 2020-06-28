@@ -86,6 +86,13 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 
 		while(!me_desalojaron) {
 
+		//Primero me muevo por izq
+		while(entrenador->posx < entrenador->objetivo_actual->posx){
+			consumir_un_ciclo_de_cpu();
+			entrenador->posx = entrenador->posx + 1;
+		}
+
+
 			//Primero me muevo por izq
 			while(entrenador->posx < entrenador->objetivo_actual->posx){
 				consumir_un_ciclo_de_cpu();
@@ -147,6 +154,7 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 				break;
 			}
 		}
+
 		if(entrenador->desalojado){
 			pthread_mutex_lock(&lista_listos_mutex);
 			//TODO Estimar entrenador antes de meterlo a Ready
