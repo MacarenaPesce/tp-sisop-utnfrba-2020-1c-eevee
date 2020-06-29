@@ -46,6 +46,7 @@ enum SERVER_STATUS server_status;
 bool* debug_broker;
 
 static pthread_mutex_t mutex_queue_mensajes = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t mutex_recibir_mensajes = PTHREAD_MUTEX_INITIALIZER;
 
 t_cache_colas* cache_mensajes;
 

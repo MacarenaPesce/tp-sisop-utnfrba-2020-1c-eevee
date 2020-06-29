@@ -23,7 +23,7 @@ void mostrar_localized_pokemon(t_localized_pokemon *);
 void mostrar_get_pokemon(t_get_pokemon *);
 void mostrar_new_pokemon(t_new_pokemon *);
 void mostrar_catch_pokemon(t_catch_pokemon *);
-void * tiempo_suscripto(t_suscripcion_gameboy *);
+//void * tiempo_suscripto(t_suscripcion_gameboy *);
 void consola_suscriptor(char*, char*);
 
 #endif /* COMUNICACION_CON_BROKER_H_ */

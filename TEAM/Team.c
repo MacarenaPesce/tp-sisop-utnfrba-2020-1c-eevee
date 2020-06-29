@@ -35,14 +35,16 @@ void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
 	t_catch_pokemon* catch_pokemon = malloc(sizeof(t_catch_pokemon));
 	catch_pokemon = mensaje_guardado_catch->contenido;
 
-	if(mensaje_guardado_catch != NULL){
+	if(catch_pokemon->pokemon != NULL){
 		if(status == OK){
 			t_entrenador * entrenador = malloc(sizeof(t_entrenador));
 			entrenador = buscar_entrenador_por_objetivo_actual(catch_pokemon);
 
-			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando_caught, entrenador->id);
+			log_info(team_logger, "El entrenador que estaba esperando ese mensaje caught es el %d", entrenador->id);
+			printf("\n");
+			sem_post(&array_semaforos_caught[entrenador->id]);
 
-			actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
+			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando_caught, entrenador->id);
 		}
 	}
 }
@@ -247,7 +249,16 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 
 void chequear_si_fue_cumplido_el_objetivo_global(){
 	if(objetivo_global_cumplido()){
-		log_info(team_logger, "Objetivo global cumplido");
+		for(int i=0; i < MAXIMO_ENTRENADORES; i++){
+			sem_wait(&todos_los_entrenadores_finalizaron);
+		}
+
+		printf("************************************************************************************************************");
+		printf("\n");
+		log_info(team_logger, "Objetivo global cumplido!!!!! :D");
+		printf("************************************************************************************************************");
+		printf("\n");
+
 		terminar_team_correctamente();
 	}
 }
@@ -281,7 +292,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 			list_add(lista_bloqueados_esperando_caught, (void*)entrenador);
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando que llegue mensaje Caught", entrenador->id);
-			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught", entrenador->id);
+			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught\n", entrenador->id);
 			break;
 
 		case CANTIDAD_MAXIMA_ALCANZADA:
@@ -305,11 +316,40 @@ void bloquear_entrenador(t_entrenador* entrenador){
 void consumir_un_ciclo_de_cpu(){
 	ciclos_de_cpu++;
 	sleep(retardo_ciclo_cpu);
+}
+
+void consumir_un_ciclo_de_cpu_mientras_planificamos(){
+
+	if((!strcmp(algoritmo_planificacion, "FIFO"))){
+		ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+	}
+
+	if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
+		ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+
+		entrenador_en_ejecucion->instruccion_actual++;
+		entrenador_en_ejecucion->estimacion_actual--;
+		entrenador_en_ejecucion->ejec_anterior = 0;
+	}
+
 	if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+		ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+
+		entrenador_en_ejecucion->instruccion_actual++;
+		entrenador_en_ejecucion->estimacion_actual--;
+		entrenador_en_ejecucion->ejec_anterior = 0;
+
 		if(desalojo_en_ejecucion){
 			confirmar_desalojo_en_ejecucion();
 			me_desalojaron = true;
 		}
+	}
+
+	if(!strcmp(algoritmo_planificacion, "RR")){
+		//TODO
 	}
 }
 
@@ -381,7 +421,7 @@ void * tratamiento_de_mensajes(){
 						 //con esto me fijo de no operar con mas pokemones de esta especie de los que necesito
 						if(objetivo->cantidad_necesitada > contador){
 
-							//por cada elemento de la lista de coordenadas agrego un pokemon
+							//Por cada elemento de la lista de coordenadas agrego un pokemon
 							t_pokemon * pokemon = malloc(sizeof(t_pokemon));
 							pokemon->especie = ((t_localized_pokemon *)(mensaje->contenido))->pokemon;
 							pokemon->posx = coord->posx;
@@ -397,7 +437,6 @@ void * tratamiento_de_mensajes(){
 							operar_con_appeared_pokemon(appeared_p);
 						}
 					}
-
 				}
 			}
 		}
@@ -420,11 +459,11 @@ int main(){
 	inicializar_archivo_de_configuracion();
 	inicializar_semaforos();
 	configurar_signals();
-	inicializar_listas();//sacar los leaks
+	inicializar_listas();
 
 	hayDeadlock = false;
 
-	definir_objetivo_global();//sacar los leaks
+	definir_objetivo_global();
 	localizar_entrenadores_en_mapa();
 	sem_post(&entrenadores_ubicados);
 
@@ -437,12 +476,9 @@ int main(){
 	crear_hilo_para_tratamiento_de_mensajes();
 	crear_hilo_para_planificar();
 	crear_hilo_para_deadlock();
-	//convertirse_en_suscriptor_global_del_broker();
+	convertirse_en_suscriptor_global_del_broker();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 
-
 	close(serv_socket);
-
-	terminar_team_correctamente();
 	return 0;
 }

@@ -51,7 +51,6 @@
 #define NO_SOCKET -1
 #define IP "127.0.0.2"
 #define PUERTO "5002"
-#define MAX_CLIENTES 20
 
 extern char** posiciones_entrenadores;
 extern char** pokemon_entrenadores;
@@ -106,6 +105,7 @@ extern t_list* lista_bloqueados_esperando_caught;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_finalizar;
+sem_t * array_semaforos_caught;
 sem_t entrenadores_ubicados;
 pthread_mutex_t mapa_mutex;
 pthread_mutex_t llego_gameboy;
@@ -136,6 +136,7 @@ sem_t orden_para_planificar;
 sem_t aviso_entrenador_hizo_intercambio;
 sem_t se_hizo_el_intercambio;
 sem_t chequeo_de_deadlock;
+sem_t todos_los_entrenadores_finalizaron;
 
 extern bool hayDeadlock;
 extern bool me_desalojaron;
