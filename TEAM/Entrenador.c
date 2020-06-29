@@ -188,7 +188,9 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	servidor->id_cliente = id;
 
 	consumir_un_ciclo_de_cpu_mientras_planificamos();
+
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
+
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
 
 	if(ack == (t_packed*) -1){
@@ -198,6 +200,7 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 		//Recibo ACK
 		if(ack->operacion == ACK){
 			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", entrenador->objetivo_actual->especie);
+			log_debug(team_logger, "ID DE MENSAJE CATCH: %d\n", ack->id_mensaje);
 
 			t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
 			mensaje->id = ack->id_mensaje;
@@ -209,6 +212,13 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 			pthread_mutex_unlock(&mensaje_chequear_id_mutex);
 
 			hacer_procedimiento_para_atrapar_pokemon_con_broker(entrenador);
+
+			sem_wait(&array_semaforos_caught[entrenador->id]);
+
+			log_info(team_logger, "Soy el entrenador %d de nuevo, y voy a atrapar al pokemon para el cual esperaba el OK y me lo dieron!", entrenador->id);
+			log_info(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
+
+			actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
 		}
 	}
 

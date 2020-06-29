@@ -157,11 +157,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
-	t_suscripcion * suscripcion = malloc(sizeof(t_suscripcion));
-	suscripcion->minutos_suscripcion = -1;
-	suscripcion->tipo_suscripcion = SUSCRIPCION_GLOBAL;
-
-	int broker_socket = enviar_solicitud_suscripcion(servidor,paquete_suscripcion->cola, suscripcion);
+	int broker_socket = enviar_solicitud_suscripcion(servidor,paquete_suscripcion->cola);
 
 	while(GLOBAL_SEGUIR){
 
@@ -172,12 +168,11 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			suscribirse_a_cola(paquete_suscripcion);
 
 		}else{
-
 			//Recibo ACK
 			t_packed * paquete = recibir_mensaje(broker_socket);
 
 			if(paquete != (t_packed*)-1){
-				log_info(team_logger, "Me suscribi a la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
+				//log_info(team_logger, "Me suscribi a la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
 
 				//Quedo a la espera de recibir notificaciones
 				if(paquete->operacion == ENVIAR_MENSAJE){
@@ -202,7 +197,6 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 	}
 
 	free(servidor);
-	free(suscripcion);
 	free(paquete_suscripcion);
 
 

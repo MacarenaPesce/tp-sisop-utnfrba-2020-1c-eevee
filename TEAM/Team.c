@@ -35,14 +35,16 @@ void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
 	t_catch_pokemon* catch_pokemon = malloc(sizeof(t_catch_pokemon));
 	catch_pokemon = mensaje_guardado_catch->contenido;
 
-	if(mensaje_guardado_catch != NULL){
+	if(catch_pokemon->pokemon != NULL){
 		if(status == OK){
 			t_entrenador * entrenador = malloc(sizeof(t_entrenador));
 			entrenador = buscar_entrenador_por_objetivo_actual(catch_pokemon);
 
-			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando_caught, entrenador->id);
+			log_info(team_logger, "El entrenador que estaba esperando ese mensaje caught es el %d", entrenador->id);
+			printf("\n");
+			sem_post(&array_semaforos_caught[entrenador->id]);
 
-			actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
+			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando_caught, entrenador->id);
 		}
 	}
 }
@@ -290,7 +292,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 			list_add(lista_bloqueados_esperando_caught, (void*)entrenador);
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando que llegue mensaje Caught", entrenador->id);
-			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught", entrenador->id);
+			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught\n", entrenador->id);
 			break;
 
 		case CANTIDAD_MAXIMA_ALCANZADA:
@@ -474,7 +476,7 @@ int main(){
 	crear_hilo_para_tratamiento_de_mensajes();
 	crear_hilo_para_planificar();
 	crear_hilo_para_deadlock();
-	//convertirse_en_suscriptor_global_del_broker();
+	convertirse_en_suscriptor_global_del_broker();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 
 	close(serv_socket);

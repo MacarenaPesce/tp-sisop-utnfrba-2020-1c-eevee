@@ -91,7 +91,7 @@ void broker_catch_pokemon(char * pokemon, char* posx, char* posy){
 
 void broker_caught_pokemon(char * id_mensaje_correlativo, char *ok_or_fail){
 	validar_parametros_dos_argumentos(id_mensaje_correlativo, ok_or_fail);
-	log_info(gameboy_logger,"Le voy a mandar a broker los parametros para un caught pokemon %s");
+	log_info(gameboy_logger,"Le voy a mandar a broker los parametros para un caught pokemon id mensaje %s, status %s", id_mensaje_correlativo, ok_or_fail);
 
 	t_caught_pokemon* caught_pokemon = malloc(sizeof(t_caught_pokemon));
 	caught_pokemon->status = (uint32_t)atoi(ok_or_fail);
@@ -225,26 +225,22 @@ void mostrar_catch_pokemon(t_catch_pokemon * pokemon){
 	log_info(gameboy_logger,"Coordenada x: %d", pokemon->coordenadas.posx);
 	log_info(gameboy_logger,"Coordenada y: %d", pokemon->coordenadas.posy);
 }
-
+/*
 void * tiempo_suscripto(t_suscripcion_gameboy * info){
 	sleep(atoi(info->tiempo));
 	free(info);
 	log_info(gameboy_logger,"Se acabo el tiempo de suscripcion");
 	terminar_gameboy_correctamente();
 	return NULL;
-}
+}*/
 
 void consola_suscriptor(char* cola_de_mensajes, char* tiempo){
-	pthread_t hilo;
+	/*pthread_t hilo;
 
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = (uint32_t)id;
-
-	t_suscripcion * suscripcion = malloc(sizeof(t_suscripcion));
-	suscripcion->tipo_suscripcion = SUSCRIPCION_GLOBAL;
-	suscripcion->minutos_suscripcion = (uint32_t)atoi(tiempo);
 
 	t_suscripcion_gameboy * info_para_hilo = malloc(sizeof(t_suscripcion_gameboy));
 	info_para_hilo->servidor = servidor;
@@ -316,6 +312,6 @@ void consola_suscriptor(char* cola_de_mensajes, char* tiempo){
 			log_info(gameboy_logger,"Pedido de solicitud de suscripcion a la cola LOCALIZED_POKEMON enviado correctamente");
 			mostrar_contenido_del_mensaje(solicitud);
 		}
-	}
+	}*/
 }
 

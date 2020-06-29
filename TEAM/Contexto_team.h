@@ -105,6 +105,7 @@ extern t_list* lista_bloqueados_esperando_caught;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_finalizar;
+sem_t * array_semaforos_caught;
 sem_t entrenadores_ubicados;
 pthread_mutex_t mapa_mutex;
 pthread_mutex_t llego_gameboy;
