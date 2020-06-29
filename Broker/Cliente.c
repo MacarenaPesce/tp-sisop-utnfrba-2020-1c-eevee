@@ -11,7 +11,7 @@ int main(){
 
 	servidor.ip = "127.0.0.1";
 	servidor.puerto = "5003";
-	servidor.id_cliente = 123332;
+	servidor.id_cliente = 12332;
 
 /*
 	Para enviar solamente tengo que crear la estructura
@@ -42,33 +42,42 @@ int main(){
 	t_get_pokemon get_pokemon;
 	get_pokemon.pokemon = "pepe_el_dino";
 
-	/* Suscripcion */
-	t_suscripcion suscripcion;
-	suscripcion.minutos_suscripcion = -1;
-	suscripcion.tipo_suscripcion = SUSCRIPCION_GLOBAL;
 
 	t_packed* ack;
 
-	int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_GET_POKEMON,&suscripcion);
+	int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_LOCALIZED_POKEMON);
+	int socket_get_pokemon2 = enviar_solicitud_suscripcion(&servidor,COLA_APPEARED_POKEMON);
+	int socket_get_pokemon3 = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON);
+	socket_get_pokemon3 = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON); 
+/* 	sleep(2); */
+/* 
+	esperar_mensajes(&socket_get_pokemon);  */
 
-	pthread_t hilo_espera_mensajes;
+
+/* 	pthread_t hilo_espera_mensajes;
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
+ */
 
-/* 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
-	free(ack); */
+
+ 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
+	free(ack); 
 
 	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
+
 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
 	free(ack);
+
 	ack = enviar_catch_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
+
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
+
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
 	free(ack);
 
-	while(1){};
+
 
 
 
@@ -91,6 +100,8 @@ void* esperar_mensajes(void* socket){
 		//Creo un paquete y recibo el mensaje
 		t_packed* paquete;
 		paquete = recibir_mensaje(socket_server);
+		if(paquete == (t_packed*)-2) break;
+
 
 		if(paquete != (t_packed*)-1){
 			//Esto me devuelve el paquete con todos los datos

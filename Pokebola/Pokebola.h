@@ -118,10 +118,7 @@ typedef struct{
 	uint32_t status __attribute__((packed)); //OK o FAIL
 } t_caught_pokemon;
 
-typedef struct{
-	enum TIPOS_SUSCRIPCION tipo_suscripcion __attribute__((packed));	 
-	uint32_t minutos_suscripcion __attribute__((packed)); //OK o FAIL
-} t_suscripcion;
+
 
 typedef struct{
 	t_coordenadas coordenadas;
@@ -206,7 +203,7 @@ char* obtener_nombre_cola(int cola_de_mensajes);
 int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
 t_packed* recibir_mensaje(int sock);
-t_packed* recibir_mensaje_serealizado(int sock);
+t_packed* recibir_mensaje_serializado(int sock);
 void deserializar_paquete(t_packed* paquete);
 
 void eliminar_mensaje(t_packed* paquete);
@@ -222,7 +219,7 @@ t_packed* enviar_caught_pokemon(t_servidor* servidor, uint32_t id_correlacional,
 t_packed* enviar_get_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_get_pokemon* get_pokemon);
 t_packed* enviar_localized_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
 t_packed* distribuir_mensaje_string(int socket, char* mensaje);
-int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes, t_suscripcion* suscripcion);
+int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes);
 int enviar_ack(t_servidor* servidor, uint32_t id_mensaje);
 /**************************************************************************************/
 
