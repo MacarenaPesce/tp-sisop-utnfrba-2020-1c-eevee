@@ -326,27 +326,6 @@ void copiarPokemonEnMemoria(char* unBloque) {
 
 		log_error(gameCard_logger, "hay error aca memo");
 	}
-
-	/*if(contenido==NULL){
-
-	 log_error(gameCard_logger,"hay error aca");}
-
-	 if(pokemonEnMemoria==NULL){
-
-	 log_error(gameCard_logger,"hay error aca memo");}
-
-	 pokemonEnMemoria=string_new();
-
-	 //string_append(&pokemonEnMemoria,contenido);
-
-	 string_append(pokemonEnMemoria,contenido);
-
-	 log_info(gameCard_logger,"mostrame memo : %s", pokemonEnMemoria);
-
-	 if(!string_ends_with(pokemonEnMemoria,"\n")){
-
-	 string_append(&pokemonEnMemoria,"\n");
-	 }*/
 }
 
 void llenarListaBloquesPoke(char* poke) {
@@ -475,7 +454,8 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar) {
 
 	if (estaPosicionEnMemoria(pokemonEnMemoria, nuevaPos)) {
 
-		log_info(gameCard_logger, "La posicion existe en el archivo, hay que modificarla");
+		log_info(gameCard_logger,
+				"La posicion existe en el archivo, hay que modificarla");
 
 		modificarPosicion(nuevaPos, nuevaCant, pokemonEnMemoria);
 	}
@@ -497,7 +477,8 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar) {
 
 		bloqEnMemo = traerAmemoriaUltimoBloque(ultBloque);
 
-		log_info(gameCard_logger, "mostrame que tiene ult blok: %s", bloqEnMemo);
+		log_info(gameCard_logger, "mostrame que tiene ult blok: %s",
+				bloqEnMemo);
 
 		log_info(gameCard_logger, "ACA ya leiste arch: %s", ultBloque);
 
@@ -511,7 +492,8 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar) {
 
 		int espacioOcupadoBloque = string_length(bloqEnMemo);
 
-		int espacioEnBloque = metadata_fs->tamanioBLoques - espacioOcupadoBloque;
+		int espacioEnBloque = metadata_fs->tamanioBLoques
+				- espacioOcupadoBloque;
 
 		int espacioNuevaLinea = string_length(nuevaPos);
 
@@ -528,23 +510,26 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar) {
 
 		string_append(&stringAcopiar, nuevaPos);
 
-		log_info(gameCard_logger, "aca pasame string a copia: %s", stringAcopiar);
+		log_info(gameCard_logger, "aca pasame string a copia: %s",
+				stringAcopiar);
 
-		if (espacioEnBloque >= espacioNuevaLinea){
+		if (espacioEnBloque >= espacioNuevaLinea) {
 
-			agregarPosicionEnUltimoBLoque(ultBloque,stringAcopiar,espacioNuevaLinea);
+			agregarPosicionEnUltimoBLoque(ultBloque, stringAcopiar,
+					espacioNuevaLinea);
 
-		}
-		else{
+		} else {
 
 			if (espacioLibreEnfs() == 0) {
 
-				agregarPosicionSinSaltoDeLinea(espacioEnBloque,espacioNuevaLinea, ultBloque);
+				agregarPosicionSinSaltoDeLinea(espacioEnBloque,
+						espacioNuevaLinea, ultBloque);
 
-			}
-			else{
+			} else {
 
-			agregarPosicionPokemonAbloquesNuevos(ultBloque,stringAcopiar,espacioOcupadoBloque, espacioEnBloque, espacioNuevaLinea);
+				agregarPosicionPokemonAbloquesNuevos(ultBloque, stringAcopiar,
+						espacioOcupadoBloque, espacioEnBloque,
+						espacioNuevaLinea);
 			}
 		}
 
@@ -552,34 +537,36 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar) {
 
 }
 
-void agregarPosicionSinSaltoDeLinea(int espacioEnBloque,int espacioNuevaLinea, char* ultBloque) {
+void agregarPosicionSinSaltoDeLinea(int espacioEnBloque, int espacioNuevaLinea,
+		char* ultBloque) {
 
-			if (string_ends_with(nuevaPos, "\n")) {
+	if (string_ends_with(nuevaPos, "\n")) {
 
-				char* nuevaPosSinSaltoDeLinea = string_substring(nuevaPos, 1,
-						string_length(nuevaPos) - 1);
+		char* nuevaPosSinSaltoDeLinea = string_substring(nuevaPos, 1,
+				string_length(nuevaPos) - 1);
 
-				char* copiarPos = string_new();
+		char* copiarPos = string_new();
 
-				string_append(&copiarPos, bloqEnMemo);
+		string_append(&copiarPos, bloqEnMemo);
 
-				string_append(&copiarPos, nuevaPosSinSaltoDeLinea);
+		string_append(&copiarPos, nuevaPosSinSaltoDeLinea);
 
-				espacioNuevaLinea = string_length(nuevaPosSinSaltoDeLinea);
+		espacioNuevaLinea = string_length(nuevaPosSinSaltoDeLinea);
 
-				if (espacioEnBloque == espacioNuevaLinea) {
+		if (espacioEnBloque == espacioNuevaLinea) {
 
-					agregarPosicionEnUltimoBLoque(ultBloque,copiarPos,espacioNuevaLinea);
+			agregarPosicionEnUltimoBLoque(ultBloque, copiarPos,
+					espacioNuevaLinea);
 
-				}
-
-				else {
-
-					log_error(gameCard_logger,
-							"no hay espacio para agregar nueva posicion");
-				}
-			}
 		}
+
+		else {
+
+			log_error(gameCard_logger,
+					"no hay espacio para agregar nueva posicion");
+		}
+	}
+}
 
 void modificarPosicion(char* nuevaPos, int cantidad, char* pokemonEnMemoria) {
 
@@ -741,112 +728,112 @@ char* traerAmemoriaUltimoBloque(char* ultBloque) {
 
 }
 
-void agregarPosicionEnUltimoBLoque(char* ultBloq,char* stringAcopiar,int espacioNuevaLinea) {
+void agregarPosicionEnUltimoBLoque(char* ultBloq, char* stringAcopiar,
+		int espacioNuevaLinea) {
 
-		log_info(gameCard_logger, "Se copia en el último bloque : %s", ultBloq);
+	log_info(gameCard_logger, "Se copia en el último bloque : %s", ultBloq);
 
-		if (stringAcopiar == NULL) {
+	if (stringAcopiar == NULL) {
 
-			log_error(gameCard_logger, "Error en los datos a copiar");
+		log_error(gameCard_logger, "Error en los datos a copiar");
+	}
+
+	copiarEnBloque(ultBloq, stringAcopiar);
+
+	cambiarTamanioMetadata(pokemon, espacioNuevaLinea);
+
+	log_info(gameCard_logger, "Se agrego correctamente la posicion");
+
+}
+
+void agregarPosicionPokemonAbloquesNuevos(char* ultBloque, char* stringAcopiar,
+		int espacioOcupadoBloque, int espacioEnBloque, int espacioNuevaLinea) {
+
+	char* copiarEnUltBloque = string_new();
+
+	string_append(&copiarEnUltBloque, bloqEnMemo);
+
+	if (espacioEnBloque == 0 & !string_ends_with(copiarEnUltBloque, "\n")) {
+
+		string_append(&copiarEnUltBloque, "\n");
+
+		espacioNuevaLinea = espacioNuevaLinea + 1;
+	}
+
+	string_append(&copiarEnUltBloque,
+			string_substring(stringAcopiar, espacioOcupadoBloque,
+					espacioEnBloque));
+
+	copiarEnBloque(ultBloque, copiarEnUltBloque);
+
+	int cantBloquesNecesarios = cantBloquesNecesariosPara(
+			string_substring(stringAcopiar, espacioEnBloque,
+					espacioNuevaLinea - espacioEnBloque));
+
+	log_info(gameCard_logger, "cantidad de bloques que necesita: %d",
+			cantBloquesNecesarios);
+
+	bloquesNuevos = list_create();
+
+	bloquesNuevos = obtenerBloquesNuevos(cantBloquesNecesarios);
+
+	log_info(gameCard_logger, "mostrame size de BLOC NUEVOS",
+			list_size(bloquesNuevos));
+
+	copiado = desde = 0;
+
+	log_info(gameCard_logger, "mostrame que tenes bloques nuevos: %d",
+			list_size(bloquesNuevos));
+
+	//list_iterate(bloquesNuevos,persistirCambiosEnBloquesPropios);
+
+	for (int i = 0; i < list_size(bloquesNuevos); i++) {
+
+		copiado = 0;
+		int aCopiar = string_length(
+				string_substring(nuevaPos, espacioEnBloque,
+						espacioNuevaLinea - espacioEnBloque));
+
+		//log_info(gameCard_logger,"aca mostrame aCopiar: %s ", aCopiar);
+		if ((aCopiar - copiado) < metadata_fs->tamanioBLoques) {
+
+			log_info(gameCard_logger, "mostrame que va a copiar: %s",
+					string_substring(nuevaPos, espacioEnBloque,
+							espacioNuevaLinea - espacioEnBloque));
+			log_info(gameCard_logger,
+					"aca mostrame desde: %d y aCopiar-desde : %d ", desde,
+					aCopiar - desde);
+
+			log_info(gameCard_logger, "mostrame que vas a copiar",
+					string_substring(
+							string_substring(nuevaPos, espacioEnBloque,
+									espacioNuevaLinea - espacioEnBloque), desde,
+							aCopiar - desde));
+			copiarEnBloque(list_get(bloquesNuevos, i),
+					string_substring(
+							string_substring(nuevaPos, espacioEnBloque,
+									espacioNuevaLinea - espacioEnBloque), desde,
+							aCopiar - desde));
 		}
 
-		copiarEnBloque(ultBloq, stringAcopiar);
+		else {
+
+			copiarEnBloque(list_get(bloquesNuevos, i),
+					string_substring(posAcopiar, desde,
+							metadata_fs->tamanioBLoques));
+
+			desde = desde + metadata_fs->tamanioBLoques;
+
+		}
+
+		int tamanioNuevo = espacioNuevaLinea;
 
 		cambiarTamanioMetadata(pokemon, espacioNuevaLinea);
 
-		log_info(gameCard_logger,"Se agrego correctamente la posicion");
+		modificarBloquesMetadata(pokemon, bloquesMetadataPokemon);
 
 	}
-
-
-void agregarPosicionPokemonAbloquesNuevos(char* ultBloque,char* stringAcopiar,int espacioOcupadoBloque, int espacioEnBloque, int espacioNuevaLinea ) {
-
-		char* copiarEnUltBloque = string_new();
-
-		string_append(&copiarEnUltBloque, bloqEnMemo);
-
-		if (espacioEnBloque==0 & !string_ends_with(copiarEnUltBloque,"\n")) {
-
-			string_append(&copiarEnUltBloque,"\n");
-
-			espacioNuevaLinea=espacioNuevaLinea+1;
-		}
-
-		string_append(&copiarEnUltBloque,
-				string_substring(stringAcopiar, espacioOcupadoBloque,
-						espacioEnBloque));
-
-		copiarEnBloque(ultBloque, copiarEnUltBloque);
-
-		int cantBloquesNecesarios = cantBloquesNecesariosPara(
-				string_substring(stringAcopiar, espacioEnBloque,
-						espacioNuevaLinea - espacioEnBloque));
-
-		log_info(gameCard_logger, "cantidad de bloques que necesita: %d",
-				cantBloquesNecesarios);
-
-		bloquesNuevos = list_create();
-
-		bloquesNuevos = obtenerBloquesNuevos(cantBloquesNecesarios);
-
-		log_info(gameCard_logger, "mostrame size de BLOC NUEVOS",
-				list_size(bloquesNuevos));
-
-		copiado = desde = 0;
-
-		log_info(gameCard_logger, "mostrame que tenes bloques nuevos: %d",
-				list_size(bloquesNuevos));
-
-		//list_iterate(bloquesNuevos,persistirCambiosEnBloquesPropios);
-
-		for (int i = 0; i < list_size(bloquesNuevos); i++) {
-
-			copiado = 0;
-			int aCopiar = string_length(
-					string_substring(nuevaPos, espacioEnBloque,
-							espacioNuevaLinea - espacioEnBloque));
-
-			//log_info(gameCard_logger,"aca mostrame aCopiar: %s ", aCopiar);
-			if ((aCopiar - copiado) < metadata_fs->tamanioBLoques) {
-
-				log_info(gameCard_logger, "mostrame que va a copiar: %s",
-						string_substring(nuevaPos, espacioEnBloque,
-								espacioNuevaLinea - espacioEnBloque));
-				log_info(gameCard_logger,
-						"aca mostrame desde: %d y aCopiar-desde : %d ", desde,
-						aCopiar - desde);
-
-				log_info(gameCard_logger, "mostrame que vas a copiar",
-						string_substring(
-								string_substring(nuevaPos, espacioEnBloque,
-										espacioNuevaLinea - espacioEnBloque),
-								desde, aCopiar - desde));
-				copiarEnBloque(list_get(bloquesNuevos, i),
-						string_substring(
-								string_substring(nuevaPos, espacioEnBloque,
-										espacioNuevaLinea - espacioEnBloque),
-								desde, aCopiar - desde));
-			}
-
-			else {
-
-				copiarEnBloque(list_get(bloquesNuevos, i),
-						string_substring(posAcopiar, desde,
-								metadata_fs->tamanioBLoques));
-
-				desde = desde + metadata_fs->tamanioBLoques;
-
-			}
-
-			int tamanioNuevo = espacioNuevaLinea;
-
-			cambiarTamanioMetadata(pokemon, espacioNuevaLinea);
-
-			modificarBloquesMetadata(pokemon, bloquesMetadataPokemon);
-
-		}
-	}
-
+}
 
 bool estaPosicionEnMemoria(char* pokemonEnMemoria, char* nuevaPos) {
 
@@ -1142,3 +1129,184 @@ void modificarBloquesMetadata(char* poke, t_list* bloquesPokemon) {
 
 }
 
+bool estaAbiertoArchivo(char* pokemon) {
+
+	t_config* configPoke;
+
+	char* rutaPoke = string_new();
+	string_append(&rutaPoke, rutas_fs->pathDirectorioFilesMetadata);
+	string_append(&rutaPoke, "/");
+	string_append(&rutaPoke, pokemon);
+	string_append(&rutaPoke, "/Metadata.bin");
+
+	configPoke = config_create(rutaPoke);
+
+	char* estadoArchivo = config_get_string_value(configPoke, "OPEN");
+
+	return string_equals_ignore_case(estadoArchivo, "Y");
+
+}
+
+void abrirArchivo(char* poke) {
+
+	t_config* configPoke;
+
+	char* rutaPoke = string_new();
+	string_append(&rutaPoke, rutas_fs->pathDirectorioFilesMetadata);
+	string_append(&rutaPoke, "/");
+	string_append(&rutaPoke, poke);
+	string_append(&rutaPoke, "/Metadata.bin");
+
+	configPoke = config_create(rutaPoke);
+
+	log_info(gameCard_logger, "aca quiero chequear ruta %s", rutaPoke);
+
+	config_set_value(configPoke, "OPEN", "Y");
+
+	config_save_in_file(configPoke, rutaPoke);
+
+	log_info(gameCard_logger, " se ha abierto el archivo del pokemon: %s",
+			poke);
+}
+
+void cerrarArchivo(char* poke) {
+
+	t_config* configPoke;
+
+	char* rutaPoke = string_new();
+	string_append(&rutaPoke, rutas_fs->pathDirectorioFilesMetadata);
+	string_append(&rutaPoke, "/");
+	string_append(&rutaPoke, poke);
+	string_append(&rutaPoke, "/Metadata.bin");
+
+	configPoke = config_create(rutaPoke);
+
+	config_set_value(configPoke, "OPEN", "N");
+
+	config_save_in_file(configPoke, rutaPoke);
+}
+
+void capturarPokemon(t_appeared_pokemon* pokeAatrapar) {
+
+	pokemonEnMemoria = string_new();
+
+	bloquesMetadataPokemon = list_create();
+
+	pokeAmodificarInicializate(pokeAatrapar);
+
+	log_info(gameCard_logger, "mostrame nueva pos %s", nuevaPos);
+
+	llenarListaBloquesPoke(pokemon);
+
+	log_info(gameCard_logger, "CANT BLOQUES METADATA: %d",
+			list_size(bloquesMetadataPokemon));
+
+	copiarPokemonAmemoria(bloquesMetadataPokemon);
+
+	log_info(gameCard_logger, "ACA poke en memoria %s", pokemonEnMemoria);
+
+	log_info(gameCard_logger, "ACA nueva Pos!!! %s", nuevaPos);
+
+	if (estaPosicionEnMemoria(pokemonEnMemoria, nuevaPos)) {
+
+		posAcopiar=string_new();
+
+		int cantBloqOcupados=cantBloquesNecesariosPara(pokemonEnMemoria);
+
+		char** posiciones = string_split(pokemonEnMemoria, "\n");
+
+		string_iterate_lines(posiciones,capturarPokeEnPos );
+
+		int cantBloqSinPosicion=cantBloquesNecesariosPara(posAcopiar);
+
+		if(cantBloqSinPosicion==0){
+
+			marcarBloquesLibres(bloquesMetadataPokemon);
+			vaciarBloques(bloquesMetadataPokemon);
+			//elimino metadata
+			//elimo directorio pokemon
+
+
+		}
+
+
+	}
+
+	else {
+
+		log_error(gameCard_logger, "No existe posicion");
+	}
+}
+
+
+void marcarBLoquesLibres(t_list* bloquesOcupados){
+
+	for( int i=0; i < list_size(bloquesOcupados);i++){
+
+		liberararBloque(atoi(list_get(bloquesOcupados,i)));
+
+	}
+
+}
+
+void liberarBloque(int numBloque){
+
+	bitarray_clean_bit(bitarray,numBloque);
+
+	msync(bitarray, sizeof(bitarray), MS_SYNC);
+
+}
+void capturarPokeEnPos(char* posicion) {
+
+	log_info(gameCard_logger, "mostrame posicion : %s",posicion);
+
+	if ( string_starts_with(posicion, nuevaPos)) {
+
+		tamanioNuevaPos = string_length(nuevaPos);
+
+int cantEnPos=atoi(string_substring_from(posicion, tamanioNuevaPos));
+
+if(cantEnPos>1){
+
+	cantEnPos=cantEnPos-1;
+
+		log_info(gameCard_logger, "aca mostrame cantidad: %d", cantEnPos);
+
+		string_append(&posAcopiar, nuevaPos);
+		string_append(&posAcopiar, string_itoa(cantEnPos));
+		string_append(&posAcopiar, "\n");
+	}
+}
+}
+
+void vaciarBloques(t_list* bloquesMetadataPokemon){
+
+	for(int i=0 ; i < list_size(bloquesMetadataPokemon); i++){
+
+	char* stringVacio=string_new();
+
+	char* bloq=string_new();
+
+	string_append(&bloq, list_get(bloquesMetadataPokemon,i));
+
+		log_info(gameCard_logger, "bloque accedido es : %s", bloq);
+
+		char* rutaBloque = string_new();
+
+		string_append(&rutaBloque, rutas_fs->pathDirectorioBloques);
+		string_append(&rutaBloque, "/");
+		string_append(&rutaBloque, bloq);
+		string_append(&rutaBloque, ".bin");
+		FILE *bloque = fopen(rutaBloque, "wb");
+
+		log_info(gameCard_logger, "copiando pokemon en el bloque %s.bin",bloq);
+		fseek(bloque, 0, SEEK_SET);
+		fwrite(stringVacio,metadata_fs->tamanioBLoques, 1, bloque);
+		//fclose(bloque);
+
+		log_info(gameCard_logger, "se ha borrado coentenido correctamente");
+
+	}
+}
+
+void eliminarMetadataPokemon(){}

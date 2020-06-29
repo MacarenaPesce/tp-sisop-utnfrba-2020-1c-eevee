@@ -156,5 +156,10 @@ void agregarPosicionEnUltimoBLoque(char* ultBloq,char* stringAcopiar,int espacio
 
 int espacioLibreEnfs();
 
+bool estaAbiertoArchivo(char* pokemon);
+
+void marcarBloquesLibres(t_list* bloquesMetadataPokemon);
+void vaciarBloques(t_list* bloquesMetadataPokemon);
+
 
 #endif /* FILESYSTEM_H_ */
