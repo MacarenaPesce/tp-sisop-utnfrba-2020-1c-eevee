@@ -107,10 +107,10 @@ int main() {
 
 	abrirBitmap();
 
-	/*t_new_pokemon* picachu = picachuHardcodeado("Pikachu", 1, 2, 3);
-	//abrirBitmap();
+/*	t_new_pokemon* picachu = picachuHardcodeado("Pikachu", 150, 250, 398);
+//abrirBitmap();
 
-	if (existePokemon(picachu->pokemon)) {
+	 if (existePokemon(picachu->pokemon)) {
 		log_info(gameCard_logger,
 				"Existe pokemon Pikachu, no se lo va a crear");
 	} else {
@@ -121,7 +121,7 @@ int main() {
 	}
 
 
-t_new_pokemon* pokis = picachuHardcodeado("Pikachu", 1, 2, 37);
+t_new_pokemon* pokis = picachuHardcodeado("Pikachu", 150, 250, 370);
 	//abrirBitmap();
 
 	if (existePokemon(pokis->pokemon)) {
@@ -134,8 +134,10 @@ t_new_pokemon* pokis = picachuHardcodeado("Pikachu", 1, 2, 37);
 
 		free(pokis);
 	}
-*/
-	t_new_pokemon* pic = picachuHardcodeado("Pikachu", 10, 33, 590);
+
+
+
+	t_new_pokemon* pic = picachuHardcodeado("Pikachu", 15, 33, 500);
 	//abrirBitmap();
 
 	if (existePokemon(pic->pokemon)) {
@@ -149,9 +151,10 @@ t_new_pokemon* pokis = picachuHardcodeado("Pikachu", 1, 2, 37);
 	}
 
 
-	/*
+/*
 
-	 t_new_pokemon* pichi = picachuHardcodeado("Pikachu", 15, 15, 189);
+
+	 t_new_pokemon* pichi = picachuHardcodeado("Pikachu", 15, 33, 100);
 	//abrirBitmap();
 
 	if (existePokemon(pichi->pokemon)) {
@@ -164,7 +167,7 @@ t_new_pokemon* pokis = picachuHardcodeado("Pikachu", 1, 2, 37);
 		free(pichi);
 	}
 
-		t_new_pokemon* michi = picachuHardcodeado("Pikachu", 1, 1, 3);
+*/		t_new_pokemon* michi = picachuHardcodeado("Pikachu", 1, 1, 3);
 	//abrirBitmap();
 
 	if (existePokemon(michi->pokemon)) {
@@ -177,7 +180,7 @@ t_new_pokemon* pokis = picachuHardcodeado("Pikachu", 1, 2, 37);
 		free(michi);
 	}
 
-	t_new_pokemon* lichi = picachuHardcodeado("Pikachu", 1, 5, 3);
+	/* t_new_pokemon* lichi = picachuHardcodeado("Pikachu", 1, 5, 3);
 	//abrirBitmap();
 
 	if (existePokemon(lichi->pokemon)) {
@@ -190,7 +193,7 @@ t_new_pokemon* pokis = picachuHardcodeado("Pikachu", 1, 2, 37);
 		free(lichi);
 	}
 
-
+*/
 	/***t_new_pokemon* charmander=charmanderHardcodeado();
 	 //abrirBitmap();
 

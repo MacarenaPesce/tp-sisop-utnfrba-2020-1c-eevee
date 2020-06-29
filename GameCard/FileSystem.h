@@ -25,7 +25,7 @@ void agregarAstring(void* elem);
 
 char*  cargarPokemon(t_new_pokemon* pokemon);
 void marcarBloqueOcupado(int bloqueLibre);
-void agregarBloqueParaMetadataArchivo(char* bloqueLibre);
+//void agregarBloqueParaMetadataArchivo(char* bloqueLibre);
 void crearMetadataArchPoke(char* pokemon, int tamanio);
 
 //manejo del ultimo elemento
@@ -135,16 +135,26 @@ void agregarBloqueParaMetadataArchivo(char* bloqueLibre);
 
 void cambiarTamanioMetadata(char* pokemon,int tamanioAgregar);
 
-void modificarBloquesMetadata(char* poke, char** bloquesPokemon);
+void modificarBloquesMetadata(char* poke, t_list* bloquesPokemon);
 
-void modificarPosicion(nuevaPos,cantidad,pokemonEnMemoria);
+void modificarPosicion(char* nuevaPos,int cantidad,char* pokemonEnMemoria);
 
-void agregarNuevaPosicion(nuevaPos,cantidad,pokemonEnMemoria);
+void agregarNuevaPosicion(char* nuevaPos,int cantidad,char* pokemonEnMemoria);
 
 void agregarAlista(char* bloque);
 
 char* contenidoBloque;
+char* traerAmemoriaUltimoBloque(char* ultBloque);
 
-void traerAmemoriaUltimoBloque(char* ultBloque,char* bloqueEnMemo);
+char* bloqEnMemo;
+
+void agregarPosicionPokemonAbloquesNuevos();
+
+void modificarBloquesMetadata(char* poke,t_list* bloquesPokemon);
+
+void agregarPosicionEnUltimoBLoque();
+
+int espacioLibreEnfs();
+
 
 #endif /* FILESYSTEM_H_ */
