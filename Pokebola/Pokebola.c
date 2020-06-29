@@ -61,7 +61,8 @@ int recibir_paquete(int sock, void *mensaje, int tamanio){
 	// no recibe la cantidad esperada
 	if (bytes_recibidos < tamanio){
 		perror("No se recibió el mensaje completo");
-		return -1;
+		return -2;
+
 	}
 
 	return bytes_recibidos;
@@ -91,8 +92,7 @@ int enviar_paquete(int sock, void *paquete, int tamanio){
 }
 
 //Manejo de mensaje
-int _enviar_mensaje(int sock,
-				   t_packed *paquete){	
+int _enviar_mensaje(int sock, t_packed *paquete){	
 	int envio_payload=0, envio_header=0;
 
 	envio_header = enviar_paquete(sock, paquete, sizeof(t_packed)-sizeof(paquete->mensaje));
@@ -110,7 +110,7 @@ int _enviar_mensaje(int sock,
 
 t_packed* recibir_mensaje(int sock){
 
-	t_packed* paquete = recibir_mensaje_serealizado(sock);
+	t_packed* paquete = recibir_mensaje_serializado(sock);
 
 	if(paquete == (t_packed*)-1) return paquete;
 
@@ -119,19 +119,17 @@ t_packed* recibir_mensaje(int sock){
 	return paquete;
 }
 
-t_packed* recibir_mensaje_serealizado(int sock){
+t_packed* recibir_mensaje_serializado(int sock){
 
 	t_packed* paquete;	
 
-	int size;
-	
-	ioctl(sock,FIONREAD,&size);
-
-	if(size <= 0) return (t_packed *)-1;
-
-	/* Obtengo el header */
 	paquete = (t_packed*)malloc(sizeof(t_packed));
-	recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
+	
+	int cantidad_bytes = recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
+
+	if(cantidad_bytes < 0){
+		return (t_packed*)cantidad_bytes;
+	}
 
 	if(paquete->tamanio_payload <= 0) {
 		return paquete;
@@ -139,7 +137,12 @@ t_packed* recibir_mensaje_serealizado(int sock){
 
 	/* Obtener payload */
 	paquete->mensaje = (void*)malloc(paquete->tamanio_payload);
-	recibir_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+	cantidad_bytes = recibir_paquete(sock, paquete->mensaje, paquete->tamanio_payload);
+
+	if(cantidad_bytes < 0){
+		return (t_packed*)cantidad_bytes;
+	}
+
 
 	return paquete;
 
@@ -216,10 +219,11 @@ t_packed* _crear_paquete(enum OPERACIONES operacion){
 
 	paquete->id_mensaje = -1;
 	paquete->id_correlacional = -1;
-	paquete->cola_de_mensajes = -1;
+	paquete->id_cliente = -1;
 	paquete->tamanio_payload = 0;
+	paquete->cola_de_mensajes = -1;
 	paquete->operacion = operacion;
-	paquete->mensaje = (void*)malloc(0);
+	paquete->mensaje = malloc(sizeof(0));
 
 	return paquete;
 }
@@ -556,7 +560,7 @@ int distribuir_ack(int socket,uint32_t id_mensaje, uint32_t id_cliente){
 
 	int send_status = _enviar_mensaje(socket, paquete);
 
-	_eliminar_mensaje(paquete);
+	eliminar_mensaje(paquete);
 
 	return send_status;
 };
@@ -633,20 +637,16 @@ int distribuir_localized_pokemon(int socket,
 
 };
 
-int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes, t_suscripcion* suscripcion){
+int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes){
 
 	int socket =  conectar_a_server(servidor->ip,servidor->puerto);
 
 	if(socket == -1) return -1;
 
-	t_packed* paquete;
-	paquete = _crear_paquete(SUSCRIBIRSE_A_COLA);
+	t_packed* paquete = _crear_paquete(SUSCRIBIRSE_A_COLA);
 
 	paquete->cola_de_mensajes = cola_de_mensajes;
 	paquete->id_cliente = servidor->id_cliente;
-
-	_agregar_uint32_t_a_paquete(paquete, suscripcion->tipo_suscripcion);
-	_agregar_uint32_t_a_paquete(paquete, suscripcion->minutos_suscripcion);
 
 	int send_status = _enviar_mensaje(socket, paquete);
 
@@ -746,6 +746,7 @@ void _recibir_get_pokemon(t_packed *paquete){
 void _recibir_solicitud_suscripcion(t_packed *paquete){
 
 	return;
+
 }
 
 //TODO
@@ -792,6 +793,29 @@ t_packed* _esperar_ack(int socket){
 
 	return ack;
 	
+}
+
+char* obtener_nombre_cola(int cola_de_mensajes){
+
+	switch(cola_de_mensajes){
+
+		case COLA_APPEARED_POKEMON:
+			return "APPEARED_POKEMON";
+		case COLA_CATCH_POKEMON:
+			return "CATCH_POKEMON";
+		case COLA_CAUGHT_POKEMON:
+			return "CAUGHT_POKEMON";
+		case COLA_GET_POKEMON:
+			return "GET_POKEMON";
+		case COLA_LOCALIZED_POKEMON:
+			return "LOCALIZED_POKEMON";
+		case COLA_NEW_POKEMON:
+			return "NEW_POKEMON";
+		default:
+			printf("Cola %d no reconocida\n",cola_de_mensajes);
+			return "";
+
+	}
 }
 
 /**************FUNCIONES PARA EL LOG*********************/

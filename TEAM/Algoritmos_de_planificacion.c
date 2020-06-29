@@ -53,6 +53,11 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 		if(i == cantidad_entrenadores){
 			entrenador_mas_cercano->objetivo_actual = pokemon;
 			pthread_mutex_lock(&lista_listos_mutex);
+
+			if((!strcmp(algoritmo_planificacion, "SJF-CD")) || (!strcmp(algoritmo_planificacion, "SJF-SD"))){
+				estimar_entrenador(entrenador_mas_cercano);
+			}
+
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
 			pthread_mutex_unlock(&lista_listos_mutex);
 			nuevo_entrenador = entrenador_mas_cercano;
@@ -70,9 +75,6 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 			entrenador_mas_cercano = otro_entrenador;
 		}
 	}
-
-
-
 
 	list_destroy(lista_aux);
 	if(entrenador_mas_cercano == NULL){

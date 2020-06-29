@@ -8,7 +8,6 @@
 #include "Interaccion_con_broker.h"
 
 void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
-
 	t_appeared_pokemon * appeared = paquete->mensaje;
 
 	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
@@ -82,7 +81,7 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 void enviar_get(){
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
-	servidor->puerto = "6009";
+	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
 	int h = 0;
@@ -106,7 +105,6 @@ void enviar_get(){
 			//Recibo ACK
 			if(ack->operacion == ACK){
 				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
-				log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
 
 				t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
 				mensaje->id = ack->id_mensaje;
@@ -131,12 +129,12 @@ void enviar_get(){
 }
 
 void convertirse_en_suscriptor_global_del_broker(){
-	t_suscripcion_a_broker * paquete_suscripcion = malloc(sizeof(t_suscripcion_a_broker));
 
 	int colas_a_suscribirse[] = {COLA_APPEARED_POKEMON, COLA_LOCALIZED_POKEMON, COLA_CAUGHT_POKEMON};
 	void * operacion[] = {recibir_appeared_pokemon_desde_broker, recibir_localized_pokemon_desde_broker, recibir_caught_pokemon_desde_broker};
 
 	for(int i = 0; i < 3; i++){
+		t_suscripcion_a_broker * paquete_suscripcion = malloc(sizeof(t_suscripcion_a_broker));
 		paquete_suscripcion->cola = colas_a_suscribirse[i];
 		paquete_suscripcion->operacion = (void*)&operacion[i];
 
@@ -156,39 +154,51 @@ void hacer_intento_de_reconexion(){
 void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
-	servidor->puerto = "6009";
+	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
-	t_suscripcion * suscripcion = malloc(sizeof(t_suscripcion));
-	suscripcion->minutos_suscripcion = -1;
-	suscripcion->tipo_suscripcion = SUSCRIPCION_GLOBAL;
-
-	int broker_socket = enviar_solicitud_suscripcion(servidor,paquete_suscripcion->cola, suscripcion);
+	int broker_socket = enviar_solicitud_suscripcion(servidor,paquete_suscripcion->cola);
 
 	while(GLOBAL_SEGUIR){
 
 		if(broker_socket <= 0){
-			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola");
-			log_info(team_logger_oficial, "No se pudo mandar al broker la solicitud de suscripcion para la cola");
+			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
+			log_info(team_logger_oficial, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
 			hacer_intento_de_reconexion();
 			suscribirse_a_cola(paquete_suscripcion);
 
 		}else{
-
 			//Recibo ACK
 			t_packed * paquete = recibir_mensaje(broker_socket);
 
 			if(paquete != (t_packed*)-1){
+				//log_info(team_logger, "Me suscribi a la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
+
 				//Quedo a la espera de recibir notificaciones
 				if(paquete->operacion == ENVIAR_MENSAJE){
-					(paquete_suscripcion->operacion)(paquete);
+					switch(paquete->cola_de_mensajes){
+						case COLA_APPEARED_POKEMON:
+							recibir_appeared_pokemon_desde_broker(paquete);
+							break;
+						case COLA_LOCALIZED_POKEMON:
+							recibir_localized_pokemon_desde_broker(paquete);
+							break;
+						case COLA_CAUGHT_POKEMON:
+							recibir_caught_pokemon_desde_broker(paquete);
+							break;
+						default:
+							log_error(team_logger, "RECIBI COLA INVALIDA");
+							log_error(team_logger, "COLA DE MENSAJES:%d", paquete->cola_de_mensajes);
+							break;
+					}
 				}
 			}
 		}
 	}
 
 	free(servidor);
-	free(suscripcion);
+	free(paquete_suscripcion);
+
 
 	return NULL;
 }
