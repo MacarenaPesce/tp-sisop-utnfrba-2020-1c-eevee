@@ -152,7 +152,7 @@ void agregarPosicionPokemonAbloquesNuevos();
 
 void modificarBloquesMetadata(char* poke,t_list* bloquesPokemon);
 
-void agregarPosicionEnUltimoBLoque();
+void agregarPosicionEnUltimoBLoque(char* ultBloq,char* stringAcopiar,int espacioNuevaLinea);
 
 int espacioLibreEnfs();
 
