@@ -105,7 +105,6 @@ void enviar_get(){
 			//Recibo ACK
 			if(ack->operacion == ACK){
 				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
-				log_info(team_logger, "EL ID DEL MENSAJE ES: %d\n", ack->id_mensaje);
 
 				t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
 				mensaje->id = ack->id_mensaje;
@@ -167,8 +166,8 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 	while(GLOBAL_SEGUIR){
 
 		if(broker_socket <= 0){
-			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola");
-			log_info(team_logger_oficial, "No se pudo mandar al broker la solicitud de suscripcion para la cola");
+			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
+			log_info(team_logger_oficial, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
 			hacer_intento_de_reconexion();
 			suscribirse_a_cola(paquete_suscripcion);
 
@@ -178,6 +177,8 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			t_packed * paquete = recibir_mensaje(broker_socket);
 
 			if(paquete != (t_packed*)-1){
+				log_info(team_logger, "Me suscribi a la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
+
 				//Quedo a la espera de recibir notificaciones
 				if(paquete->operacion == ENVIAR_MENSAJE){
 					switch(paquete->cola_de_mensajes){

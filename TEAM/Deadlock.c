@@ -168,10 +168,16 @@ void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
 		chequear_deadlock();
 	}else{
 
-		/*
-		if(list_size(lista_finalizar) == MAXIMO_ENTRENADORES){
-			terminar_team_correctamente();
-		}*/
+		for(int i=0; i < MAXIMO_ENTRENADORES; i++){
+			sem_wait(&todos_los_entrenadores_finalizaron);
+		}
+
+		printf("************************************************************************************************************");
+		printf("\n");
+		log_info(team_logger, "Objetivo global cumplido!!!!! :D");
+		printf("************************************************************************************************************");
+		printf("\n");
+		terminar_team_correctamente();
 	}
 }
 

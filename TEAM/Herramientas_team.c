@@ -99,6 +99,7 @@ void inicializar_semaforos(){
 	sem_init(&aviso_entrenador_hizo_intercambio, 0, 0);
 	sem_init(&ejecucion, 0, 0);
 	sem_init(&chequeo_de_deadlock, 0, 0);
+	sem_init(&todos_los_entrenadores_finalizaron, 0, 0);
 
 
 }
@@ -309,10 +310,6 @@ void terminar_team_correctamente(){
 		free(algoritmo_planificacion);
 		algoritmo_planificacion = NULL;
 	}
-
-	/*
-	 * REVISAR QUE TODOS LOS ENTRENADORES ESTEN FINALIZADOS
-	 */
 
 	//return;
 	exit(EXIT_SUCCESS);
