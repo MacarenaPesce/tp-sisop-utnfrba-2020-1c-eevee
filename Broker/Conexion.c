@@ -53,11 +53,6 @@ void iniciar_servidor(void){
 
 
 	esperar_cliente((void*)socket);
-
-/* 	pthread_t hilo_sockets;
-
-	pthread_create(&hilo_sockets,NULL,esperar_cliente,(void*)socket);
-	pthread_detach(hilo_sockets); */
 	
 }
 
@@ -75,12 +70,16 @@ void* esperar_cliente(void* socket){
 
 		int socket_cliente = accept(socket_servidor, (void*) &dir_cliente,(socklen_t*) &tam_direccion);
 
+		int* soc_cliente = (int*)malloc(sizeof(int));
+
+		memcpy(soc_cliente,&socket_cliente,sizeof(int));
+
 		//Iniciar un hilo por cliente
 		if(socket_cliente != -1){
 
 			pthread_t hilo_cliente;
 
-			pthread_create(&hilo_cliente,NULL,esperar_mensajes,(void *)&socket_cliente);
+			pthread_create(&hilo_cliente,NULL,esperar_mensajes,(void *)soc_cliente);
 
 			pthread_detach(hilo_cliente);
 
@@ -102,22 +101,23 @@ void* esperar_mensajes(void* cliente){
 	t_packed* paquete;
 
 	while(1){
-		paquete = recibir_mensaje_serealizado(socket_cliente);
 
+		paquete = recibir_mensaje_serializado(socket_cliente);
 
-		if(paquete != (t_packed*)-1){
+		/* log_warning(broker_logger,"pase x el while del socket"); */
+
+		if(paquete > (t_packed*)0){
 			//Esto me devuelve el paquete con todos los datos
 			/* El nro de operacion y cola de mensajes indican el 
 			tipo de estructura que contiene el paquete */
-
 			
-		 	log_debug(broker_logger,"Mensaje Recibido:",NULL);
+/* 		 	log_debug(broker_logger,"Mensaje Recibido:",NULL);
 			log_debug(broker_logger,"operacion: %d ",paquete->operacion);
 			log_debug(broker_logger,"cola_de_mensajes: %d ",paquete->cola_de_mensajes);
 			log_debug(broker_logger,"id_correlacional: %d  ",paquete->id_correlacional);
 			log_debug(broker_logger,"id_mensaje: %d ",paquete->id_mensaje);
 			log_debug(broker_logger,"id_cliente: %d ",paquete->id_cliente);
-			log_debug(broker_logger,"tamanio_payload: %d ",paquete->tamanio_payload);
+			log_debug(broker_logger,"tamanio_payload: %d ",paquete->tamanio_payload); */
 
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:
@@ -139,7 +139,7 @@ void* esperar_mensajes(void* cliente){
 					break;
 			}
 
-			break;
+		break;
 
 		}
 
@@ -170,6 +170,7 @@ void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
 	log_info(broker_logger, "El cliente %d solicitó suscribirse a la cola %d a través del socket %d", paquete->id_cliente, paquete->cola_de_mensajes, socket_cliente);
 
 	agregar_suscriptor_a_cola(paquete->cola_de_mensajes, paquete->id_cliente, socket_cliente);
+	
 	distribuir_ack(socket_cliente,-1,-1);
     
 	return;
