@@ -75,6 +75,11 @@ void inicializar_semaforos(){
 		sem_init(&array_semaforos_finalizar[i], 0, 0);
 	}
 
+	array_semaforos_caught = (sem_t*)malloc(sizeof(sem_t)*MAXIMO_ENTRENADORES);
+	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
+		sem_init(&array_semaforos_caught[i], 0, 0);
+	}
+
 	pthread_mutex_init(&mutex_deadlock, NULL);
 	pthread_mutex_init(&mapa_mutex, NULL);
 	pthread_mutex_init(&llego_gameboy, NULL);
@@ -99,6 +104,7 @@ void inicializar_semaforos(){
 	sem_init(&aviso_entrenador_hizo_intercambio, 0, 0);
 	sem_init(&ejecucion, 0, 0);
 	sem_init(&chequeo_de_deadlock, 0, 0);
+	sem_init(&todos_los_entrenadores_finalizaron, 0, 0);
 
 
 }
@@ -310,10 +316,6 @@ void terminar_team_correctamente(){
 		algoritmo_planificacion = NULL;
 	}
 
-	/*
-	 * REVISAR QUE TODOS LOS ENTRENADORES ESTEN FINALIZADOS
-	 */
-
 	//return;
 	exit(EXIT_SUCCESS);
 
@@ -356,7 +358,7 @@ t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_poke
 	pokemon->posy = catch_pokemon->coordenadas.posy;
 
 	bool es_el_buscado(t_entrenador* entrenador){
-		return entrenador->objetivo_actual == pokemon;
+		return entrenador->objetivo_actual->especie == pokemon->especie;
 	}
 	return (list_find(lista_bloqueados_esperando_caught,(void*)es_el_buscado));
 }
