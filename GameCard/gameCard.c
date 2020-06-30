@@ -107,10 +107,10 @@ int main() {
 
 	abrirBitmap();
 
-//	t_new_pokemon* picachu = picachuHardcodeado("Pikachu", 150, 250, 398);
+/*	t_new_pokemon* picachu = picachuHardcodeado("Charmander", 1, 2, 3);
 //abrirBitmap();
 
-/*	 if (existePokemon(picachu->pokemon)) {
+	 if (existePokemon(picachu->pokemon)) {
 		log_info(gameCard_logger,
 				"Existe pokemon Pikachu, no se lo va a crear");
 	} else {
@@ -120,8 +120,7 @@ int main() {
 		free(picachu);
 	}
 
-*/
-t_new_pokemon* pokis = picachuHardcodeado("charmander", 150, 250, 2000);
+t_new_pokemon* pokis = picachuHardcodeado("Charmander", 500,500,5000);
 	//abrirBitmap();
 
 	if (existePokemon(pokis->pokemon)) {
@@ -136,8 +135,8 @@ t_new_pokemon* pokis = picachuHardcodeado("charmander", 150, 250, 2000);
 	}
 
 
-/*
-	t_new_pokemon* pic = picachuHardcodeado("Pikachu", 15, 33, 500);
+*/
+	t_new_pokemon* pic = picachuHardcodeado("Pikachu", 300, 200, 100000);
 	//abrirBitmap();
 
 	if (existePokemon(pic->pokemon)) {
@@ -193,8 +192,8 @@ t_new_pokemon* pokis = picachuHardcodeado("charmander", 150, 250, 2000);
 		free(lichi);
 	}
 
-*/
-	/*t_new_pokemon* charmander=picachuHardcodeado("charmander",12,1,2);
+
+	t_new_pokemon* charmander=picachuHardcodeado("charmander",12,1,2);
 	 //abrirBitmap();
 
 	 if(existePokemon(charmander->pokemon)){
@@ -208,7 +207,7 @@ t_new_pokemon* pokis = picachuHardcodeado("charmander", 150, 250, 2000);
 	 }
 
 	 //para probar repito este codigo
-
+/*
 	t_new_pokemon* picaModif=picachuHardcodeadoLineaExisteParaModif();
 
 	 if(existePokemon(picaModif->pokemon)){

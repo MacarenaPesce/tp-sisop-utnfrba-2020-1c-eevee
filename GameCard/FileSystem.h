@@ -158,8 +158,18 @@ int espacioLibreEnfs();
 
 bool estaAbiertoArchivo(char* pokemon);
 
-void marcarBloquesLibres(t_list* bloquesMetadataPokemon);
+void capturarPokeEnPos(char* posicion);
+
 void vaciarBloques(t_list* bloquesMetadataPokemon);
 
+void marcarBloquesLibres(t_list* bloquesMetadataPokemon);
+
+void vaciarBloques(t_list* bloquesMetadataPokemon);
+
+void marcarBloqueLibreBitmap(int numBloque);
+
+void limpiarBloque(char* bloq);
+
+void eliminarMetadataPokemon(pokemon);
 
 #endif /* FILESYSTEM_H_ */
