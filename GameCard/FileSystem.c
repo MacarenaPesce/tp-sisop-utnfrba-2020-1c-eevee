@@ -1192,7 +1192,19 @@ void capturarPokemon(t_appeared_pokemon* pokeAatrapar) {
 
 	bloquesMetadataPokemon = list_create();
 
-	pokeAmodificarInicializate(pokeAatrapar);
+	nuevaPos = string_new();
+
+	int posx = pokeAatrapar->coordenadas.posx;
+	int posy = pokeAatrapar->coordenadas.posy;
+	string_append(&nuevaPos, string_itoa(posx));
+	string_append(&nuevaPos, "-");
+	string_append(&nuevaPos, string_itoa(posy));
+	string_append(&nuevaPos, "=");
+
+	log_info(gameCard_logger, "aca se cargo linea pokemon: %s", nuevaPos);
+
+	pokemon = string_new();
+	string_append(&pokemon, pokeAatrapar->pokemon);
 
 	log_info(gameCard_logger, "mostrame nueva pos %s", nuevaPos);
 
@@ -1209,7 +1221,7 @@ void capturarPokemon(t_appeared_pokemon* pokeAatrapar) {
 
 	if (estaPosicionEnMemoria(pokemonEnMemoria, nuevaPos)) {
 
-		log_info(gameCard_logger,"la posicion existe, se va a tomar pokemon");
+		log_info(gameCard_logger, "la posicion existe, se va a tomar pokemon");
 
 		posAcopiar = string_new();
 
@@ -1221,11 +1233,14 @@ void capturarPokemon(t_appeared_pokemon* pokeAatrapar) {
 
 		int cantBloqSinPosicion = cantBloquesNecesariosPara(posAcopiar);
 
-		log_info(gameCard_logger, "aca cantBloqOcup : %d y cant Bloq Sin Pos:%d",cantBloqOcupados,cantBloqSinPosicion);
+		log_info(gameCard_logger,
+				"aca cantBloqOcup : %d y cant Bloq Sin Pos:%d",
+				cantBloqOcupados, cantBloqSinPosicion);
 
 		if (cantBloqSinPosicion == 0) {
 
-			log_info(gameCard_logger,"eliminar pokemon completo, ya que no ocupa bloques");
+			log_info(gameCard_logger,
+					"eliminar pokemon completo, ya que no ocupa bloques");
 			marcarBloquesLibres(bloquesMetadataPokemon);
 			vaciarBloques(bloquesMetadataPokemon);
 			eliminarMetadataPokemon(pokemon);
@@ -1236,43 +1251,46 @@ void capturarPokemon(t_appeared_pokemon* pokeAatrapar) {
 
 			int cantBloqAliberar = cantBloqOcupados - cantBloqSinPosicion;
 
-			int tamanioListBloques=list_size(bloquesMetadataPokemon);
+			int tamanioListBloques = list_size(bloquesMetadataPokemon);
 
 			for (int i = 0; i < cantBloqAliberar; i++) {
 
-				char* elem=string_new();
+				char* elem = string_new();
 
-				string_append(&elem,list_get(bloquesMetadataPokemon,tamanioListBloques-1+i) );
+				string_append(&elem,
+						list_get(bloquesMetadataPokemon,
+								tamanioListBloques - 1 + i));
 
 				marcarBloqueLibreBitmap(atoi(elem));
 
 				limpiarBloque(elem);
 
 				list_remove_and_destroy_element(bloquesMetadataPokemon,
-						tamanioListBloques-1+i,list_get(bloquesMetadataPokemon,tamanioListBloques-1+i));
-
-
+						tamanioListBloques - 1 + i,
+						list_get(bloquesMetadataPokemon,
+								tamanioListBloques - 1 + i));
 
 			}
 
-			log_info(gameCard_logger, "mostrame size de lista metadata pokemon; %d",
-							list_size(bloquesMetadataPokemon));
+			log_info(gameCard_logger,
+					"mostrame size de lista metadata pokemon; %d",
+					list_size(bloquesMetadataPokemon));
 
-		log_info(gameCard_logger, "mostrame JJJJJposacopiar: %s", posAcopiar);
+			log_info(gameCard_logger, "mostrame JJJJJposacopiar: %s",
+					posAcopiar);
 
-		for (int i = 0; i < list_size(bloquesMetadataPokemon); i++) {
+			for (int i = 0; i < list_size(bloquesMetadataPokemon); i++) {
 
 				char* elem = list_get(bloquesMetadataPokemon, i);
-						if (elem != NULL) {
-							log_info(gameCard_logger,
-									"aca accedo a lista de bloques, pos: %d", i);
-							persistirCambiosEnBloquesPropios(
-									list_get(bloquesMetadataPokemon, i));
-						}
-					}
+				if (elem != NULL) {
+					log_info(gameCard_logger,
+							"aca accedo a lista de bloques, pos: %d", i);
+					persistirCambiosEnBloquesPropios(
+							list_get(bloquesMetadataPokemon, i));
+				}
+			}
 
-
-			crearMetadataArchPoke(pokemon,string_length(posAcopiar));
+			crearMetadataArchPoke(pokemon, string_length(posAcopiar));
 
 		}
 	}
@@ -1283,11 +1301,13 @@ void marcarBloquesLibres(t_list* bloquesOcupados) {
 
 	for (int i = 0; i < list_size(bloquesOcupados); i++) {
 
-		log_info(gameCard_logger,"Marcar posicion %d del bitmap como libre",i);
+		log_info(gameCard_logger, "Marcar posicion %d del bitmap como libre",
+				i);
 
 		marcarBloqueLibreBitmap(atoi(list_get(bloquesOcupados, i)));
 
-		log_info(gameCard_logger, "La poscion del bitmap paso a: %d",bitarray_test_bit(bitarray,i));
+		log_info(gameCard_logger, "La poscion del bitmap paso a: %d",
+				bitarray_test_bit(bitarray, i));
 	}
 
 }
@@ -1306,9 +1326,13 @@ void capturarPokeEnPos(char* posicion) {
 
 	if (string_starts_with(posicion, nuevaPos)) {
 
+		log_info(gameCard_logger,"aca posicion coincide con elemento de nuevaPos");
+
 		tamanioNuevaPos = string_length(nuevaPos);
 
 		int cantEnPos = atoi(string_substring_from(posicion, tamanioNuevaPos));
+
+		log_info(gameCard_logger,"aca pasame cantEnPos %d",cantEnPos);
 
 		if (cantEnPos > 1) {
 
@@ -1317,9 +1341,15 @@ void capturarPokeEnPos(char* posicion) {
 			log_info(gameCard_logger, "aca mostrame cantidad: %d", cantEnPos);
 
 			string_append(&posAcopiar, nuevaPos);
-			string_append(&posAcopiar, string_itoa(cantEnPos));
+			string_append(&posAcopiar,  string_itoa(cantEnPos));
 			string_append(&posAcopiar, "\n");
 		}
+	}
+
+	else{
+
+		string_append(&posAcopiar, posicion);
+		string_append(&posAcopiar, "\n");
 	}
 }
 
@@ -1329,9 +1359,11 @@ void vaciarBloques(t_list* bloquesMetadataPokemon) {
 
 		char* bloq = string_new();
 
+		string_append(&bloq, "");
+
 		string_append(&bloq, list_get(bloquesMetadataPokemon, i));
 
-		log_info(gameCard_logger,"se va vaciar bloque");
+		log_info(gameCard_logger, "se va vaciar bloque");
 
 		limpiarBloque(bloq);
 

@@ -107,7 +107,7 @@ int main() {
 
 	abrirBitmap();
 
-/*	t_new_pokemon* picachu = picachuHardcodeado("Charmander", 1, 2, 3);
+t_new_pokemon* picachu = picachuHardcodeado("Charmander", 1, 2, 3);
 //abrirBitmap();
 
 	 if (existePokemon(picachu->pokemon)) {
@@ -120,6 +120,7 @@ int main() {
 		free(picachu);
 	}
 
+	 /*
 t_new_pokemon* pokis = picachuHardcodeado("Charmander", 500,500,5000);
 	//abrirBitmap();
 
@@ -136,13 +137,25 @@ t_new_pokemon* pokis = picachuHardcodeado("Charmander", 500,500,5000);
 
 
 */
-	t_new_pokemon* pic = picachuHardcodeado("Pikachu", 300, 200, 100000);
+	//t_new_pokemon* pic = picachuHardcodeado("Pikachu",1,2,3);
 	//abrirBitmap();
+
+//	t_new_pokemon* pic = picachuHardcodeado("Pikachu",1,2,3);
+
+
+/*	t_appeared_pokemon* pic = (t_appeared_pokemon*) malloc(sizeof(t_appeared_pokemon*));
+
+		pic->pokemon = "Pikachu";
+		pic->coordenadas.posx = 1;
+		pic->coordenadas.posy = 2;
+
 
 	if (existePokemon(pic->pokemon)) {
 		log_info(gameCard_logger,
 				"Existe pokemon Pikachu, no se lo va a crear");
-		modificarPokemon(pic);
+
+		//modificarPokemon(pic);
+		capturarPokemon(pic);
 	} else {
 		log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
 
