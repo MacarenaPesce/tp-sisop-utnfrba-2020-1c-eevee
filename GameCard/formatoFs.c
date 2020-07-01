@@ -266,6 +266,7 @@ void abrirBitmap() {
 
 	log_info(gameCard_logger,"se ha abierto correctamente el bitmap");
 
+	close(bitmap);
 
 }
 

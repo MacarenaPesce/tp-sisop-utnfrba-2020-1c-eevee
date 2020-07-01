@@ -749,6 +749,12 @@ void agregarPosicionEnUltimoBLoque(char* ultBloq, char* stringAcopiar,
 void agregarPosicionPokemonAbloquesNuevos(char* ultBloque, char* stringAcopiar,
 		int espacioOcupadoBloque, int espacioEnBloque, int espacioNuevaLinea) {
 
+	log_info(gameCard_logger,"mostrame que todo te llega ok");
+
+	log_info(gameCard_logger,"ult bloque %d, stringAcopiar: %s, espacio OcupadoBloque: %d"
+			"\n espacio en bloque: %d , espacio nueva linea: %d ",
+ultBloque, stringAcopiar,espacioOcupadoBloque, espacioEnBloque, espacioNuevaLinea);
+
 	char* copiarEnUltBloque = string_new();
 
 	string_append(&copiarEnUltBloque, bloqEnMemo);
@@ -1203,9 +1209,10 @@ void capturarPokemon(t_appeared_pokemon* pokeAatrapar) {
 
 	log_info(gameCard_logger, "aca se cargo linea pokemon: %s", nuevaPos);
 
+	log_info (gameCard_logger,"validame que hay pokemon %s", pokeAatrapar->pokemon);
+
 	pokemon = string_new();
 	string_append(&pokemon, pokeAatrapar->pokemon);
-
 	log_info(gameCard_logger, "mostrame nueva pos %s", nuevaPos);
 
 	llenarListaBloquesPoke(pokemon);

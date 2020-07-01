@@ -22,6 +22,8 @@ t_new_pokemon* picachuHardcodeadoLineaExisteParaModif();
 t_new_pokemon* picachuHardcodeadoLineaExisteParaModif();
 t_new_pokemon* charmanderHardcodeado();
 t_new_pokemon* picachuHardcodeado(char* pokemon,int posx,int posy,int cantidad);
+t_catch_pokemon*  picachuHardcodeadoAtrapar(char* pokemonNombre, int posx, int posy);
+
 
 #endif /* GAMECARD_H_ */
 

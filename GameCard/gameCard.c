@@ -107,12 +107,14 @@ int main() {
 
 	abrirBitmap();
 
-t_new_pokemon* picachu = picachuHardcodeado("Charmander", 1, 2, 3);
+	t_catch_pokemon* picachu= picachuHardcodeadoAtrapar("Charmander", 9,9);
 //abrirBitmap();
 
 	 if (existePokemon(picachu->pokemon)) {
 		log_info(gameCard_logger,
 				"Existe pokemon Pikachu, no se lo va a crear");
+		capturarPokemon(picachu);
+		free(picachu);
 	} else {
 		log_info(gameCard_logger, "no existe pokemon Pikachu, hay que crearlo");
 
@@ -245,13 +247,25 @@ void liberarMemoria() {
 	config_destroy(config_game_card);
 }
 
+
+t_catch_pokemon*  picachuHardcodeadoAtrapar(char* pokemonNombre, int posx, int posy) {
+	t_catch_pokemon* poke = (t_catch_pokemon*) malloc(sizeof(t_catch_pokemon));
+
+	poke->pokemon = pokemonNombre;
+	poke->coordenadas.posx = posx;
+	poke->coordenadas.posy = posy;
+
+	return poke;
+}
+
+
 //esto es solo para probar
 
-t_new_pokemon* picachuHardcodeado(char* pokemon, int posx, int posy,
+t_new_pokemon* picachuHardcodeado(char* pokemonNombre, int posx, int posy,
 		int cantidad) {
 	t_new_pokemon* poke = (t_new_pokemon*) malloc(sizeof(t_new_pokemon));
 
-	poke->pokemon = pokemon;
+	poke->pokemon = pokemonNombre;
 	poke->coordenadas.posx = posx;
 	poke->coordenadas.posy = posy;
 	poke->cantidad = cantidad;
