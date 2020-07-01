@@ -1390,14 +1390,18 @@ void limpiarBloque(char* bloq) {
 	string_append(&rutaBloque, bloq);
 	string_append(&rutaBloque, ".bin");
 
-	FILE *bloque = fopen(rutaBloque, "wb");
+	remove(rutaBloque);
 
-	log_info(gameCard_logger, "se va a vaciar el blqoue %s", bloq);
-	fseek(bloque, 0, SEEK_SET);
-	fwrite(stringVacio, metadata_fs->tamanioBLoques, 1, bloque);
-	//fclose(bloque);
+	FILE* estaCreado=fopen(rutaBloque,"w+b");
 
-	log_info(gameCard_logger, "se ha borrado contenido correctamente");
+	if(estaCreado==NULL){
+
+		log_error(gameCard_logger,"Se ha producido un error");
+	}
+
+	else { log_info(gameCard_logger, "se ha borrado contenido correctamente");
+
+	}
 
 }
 

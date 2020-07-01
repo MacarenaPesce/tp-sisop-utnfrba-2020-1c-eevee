@@ -107,7 +107,7 @@ int main() {
 
 	abrirBitmap();
 
-	t_catch_pokemon* picachu= picachuHardcodeadoAtrapar("Charmander", 9,9);
+	t_catch_pokemon* picachu= picachuHardcodeadoAtrapar("Pikachu", 5,5);
 //abrirBitmap();
 
 	 if (existePokemon(picachu->pokemon)) {
