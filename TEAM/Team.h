@@ -11,22 +11,31 @@
 #include "Contexto_team.h"
 #include "Herramientas_team.h"
 #include "Funciones_para_listas.h"
+#include "Algoritmos_de_planificacion.h"
+#include "Funciones_de_conexion.h"
+#include "Interaccion_con_gameboy.h"
+#include "Interaccion_con_broker.h"
+#include "Deadlock.h"
 
-void iniciar_servidor(void);
-void esperar_cliente(int);
-void enviar_get();
-void conectarse_a_colas_de_broker();
-void recibir_appeared_pokemon_desde_gameboy(t_appeared_pokemon *);
-void * jugar_con_el_entrenador(t_entrenador *);
-
-void localizar_entrenadores_en_el_mapa();
-/*Carga una lista de entrenadores con la info del archivo de configuracion, ademas de agregarles un id
-  y el estado NUEVO. Me falta resolver agregarles las listas de objetivos particulares de cada uno. Y quizas
-  es conveniente tener dos estructuras una para la info del hilo y el estado, y otra para la info del entrenador en si.
-  Vamos a tener otra info, como la de las rafagas ejecutadas y alguna otra cosa que surja. Me hace ruido que este
-  todo en la misma estructura*/
-
+void operar_con_appeared_pokemon(t_appeared_pokemon *);
+void operar_con_caught_pokemon(uint32_t, uint32_t);
+void agregar_pokemon_a_mapa(char *, t_coordenadas);
 void definir_objetivo_global();
-/*Cuenta todos los pokemones de cada especie y carga en una lista especie-cantidad*/
+void localizar_entrenadores_en_mapa();
+void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*, t_list*);
+void ver_razon_de_bloqueo(t_entrenador *);
+void actualizar_mapa_y_entrenador(t_catch_pokemon*, t_entrenador*);
+void chequear_si_fue_cumplido_el_objetivo_global();
+void hacer_procedimiento_para_atrapar_default(t_catch_pokemon*, t_entrenador *);
+void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_entrenador *);
+void bloquear_entrenador(t_entrenador*);
+void consumir_un_ciclo_de_cpu();
+void consumir_un_ciclo_de_cpu_mientras_planificamos();
+void crear_hilo_para_tratamiento_de_mensajes();
+bool chequear_si_recibi_appeared_de_especie_antes(char *);
+void * tratamiento_de_mensajes();
+void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list *);
+bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char *);
+void confirmar_desalojo_en_ejecucion(void);
 
 #endif /* TEAM_H_ */

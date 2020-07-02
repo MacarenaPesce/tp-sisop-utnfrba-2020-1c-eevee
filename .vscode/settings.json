@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "herramientas_broker.h": "c",
-        "memoria.h": "c"
+        "memoria.h": "c",
+        "types.h": "c"
     }
 }

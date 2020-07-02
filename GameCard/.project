@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>gameCard</name>
+	<name>GameCard</name>
 	<comment></comment>
 	<projects>
 		<project>Pokebola</project>
-		<project>pokebola</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

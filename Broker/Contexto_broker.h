@@ -1,12 +1,14 @@
 #ifndef CONTEXTO_BROKER_H_
 #define CONTEXTO_BROKER_H_
 
+/* Includes externo */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <commons/log.h>
+#include <sys/types.h>
+#include <stdint.h>
 #include <signal.h>
 #include <stdarg.h>
 #include <unistd.h>
@@ -15,11 +17,16 @@
 #include <commons/collections/list.h>
 #include <commons/config.h>
 #include <commons/bitarray.h>
+#include <commons/string.h>
 #include <string.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <Pokebola.h>
-#include "includes.h"
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
+/* Includes propios */
+#include "Memoria.h"
 
 /* Keys config file*/
 #define KEY_CONFIG_TAMANIO_MEMORIA "TAMANIO_MEMORIA"
@@ -42,7 +49,7 @@ extern char* algoritmo_reemplazo;
 extern char* algoritmo_particion_libre;
 extern char* ip_broker;
 extern int frecuencia_compactacion;
-extern int puerto_broker;
+extern char* puerto_broker;
 extern char* log_file;
 
 extern t_log* broker_logger;

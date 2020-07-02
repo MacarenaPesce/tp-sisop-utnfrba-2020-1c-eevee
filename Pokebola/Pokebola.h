@@ -118,10 +118,7 @@ typedef struct{
 	uint32_t status __attribute__((packed)); //OK o FAIL
 } t_caught_pokemon;
 
-typedef struct{
-	enum TIPOS_SUSCRIPCION tipo_suscripcion __attribute__((packed));	 
-	uint32_t minutos_suscripcion __attribute__((packed)); //OK o FAIL
-} t_suscripcion;
+
 
 typedef struct{
 	t_coordenadas coordenadas;
@@ -136,7 +133,7 @@ typedef struct{
 typedef struct{
 	uint32_t cantidad_coordenadas __attribute__((packed));
 	char * pokemon;
-	t_list lista_coordenadas;
+	t_list * lista_coordenadas;
 } t_localized_pokemon;
 
 
@@ -152,16 +149,25 @@ void _agregar_string_a_paquete(t_packed* paquete, char* string_value);
 /* Typedef Broker */
 
 typedef struct{
-    uint32_t id_mensaje __attribute__((packed));
+	uint32_t id_mensaje __attribute__((packed));
     uint32_t id_correlacional __attribute__((packed));
+	uint32_t tamanio_mensaje __attribute__((packed));
     enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));
     t_list* suscriptores_enviados;
     t_list* suscriptores_ack;
     void* mensaje;
 }t_mensaje_cola;
 
+typedef struct{    
+    int tamanio_particion __attribute__((packed));
+    bool esta_vacio;
+    t_mensaje_cola* estructura_mensaje; //EN CASO QUE esta_vacio SEA TRUE, ESTO APUNTA AL PAYLOAD DIRECTO
+    uint64_t timestamp;
+    uint64_t last_time;    
+}t_bloque_memoria;
+
 typedef struct{
- t_list* mensajes;
+ t_list* memoria;
  t_list* colas; 
  t_list* clientes;
  int proximo_id_mensaje;
@@ -179,20 +185,31 @@ typedef struct{
     sem_t* producciones; 
 }t_cola_mensajes;
 
+
+
 typedef struct{
 	uint32_t id __attribute__((packed));
-	int socket __attribute__((packed));
+	t_list* sockets __attribute__((packed));
 }t_cliente;
+
+typedef struct{
+	int socket __attribute__((packed));
+	enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));	 
+}t_socket_cliente;
 
 /*  */
 
-
+char* obtener_nombre_cola(int cola_de_mensajes);
 int conectar_a_server(char*, char*);
 void cerrar_conexion(int);
 t_packed* recibir_mensaje(int sock);
+t_packed* recibir_mensaje_serializado(int sock);
+void deserializar_paquete(t_packed* paquete);
+
 void eliminar_mensaje(t_packed* paquete);
 void logger(int tipo_esc, int tipo_log, const char* mensaje, ...);
-
+void _eliminar_mensaje(t_packed* paquete);
+int _enviar_mensaje(int sock, t_packed *paquete);
 
 t_packed* enviar_mensaje_string(t_servidor* servidor, char* mensaje);
 t_packed* enviar_appeared_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );
@@ -202,7 +219,7 @@ t_packed* enviar_caught_pokemon(t_servidor* servidor, uint32_t id_correlacional,
 t_packed* enviar_get_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_get_pokemon* get_pokemon);
 t_packed* enviar_localized_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_localized_pokemon* localized_pokemon);
 t_packed* distribuir_mensaje_string(int socket, char* mensaje);
-int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes, t_suscripcion* suscripcion);
+int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes);
 int enviar_ack(t_servidor* servidor, uint32_t id_mensaje);
 /**************************************************************************************/
 
@@ -213,17 +230,17 @@ int distribuir_caught_pokemon(int socket, uint32_t id_mensaje, uint32_t id_corre
 int distribuir_get_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_get_pokemon* get_pokemon);
 int distribuir_localized_pokemon(int socket, uint32_t id_mensaje, uint32_t id_correlacional,uint32_t id_cliente, t_localized_pokemon* localized_pokemon);
 int distribuir_ack(int socket,uint32_t id_mensaje, uint32_t id_cliente);
-
-/**************************************************************************************/
-
-void _recuperar_mensaje(void *mensaje,t_packed *paquete);
 t_packed* _esperar_ack(int socket);
-void _recibir_solicitud_suscripcion(void *mensaje,t_packed *paquete);
-void _recibir_localized_pokemon(void *mensaje,t_packed *paquete);
-void _recibir_get_pokemon(void *mensaje,t_packed *paquete);
-void _recibir_mensaje_string(void *mensaje,t_packed *paquete);
-void _recibir_catch_o_appeared_pokemon(void *mensaje,t_packed *paquete);
-void _recibir_new_pokemon(void *mensaje,t_packed *paquete);
-void _recibir_caught_pokemon(void *mensaje,t_packed *paquete);
+
+/*************************************************************************************/
+
+void _recuperar_mensaje(t_packed *paquete);
+void _recibir_solicitud_suscripcion(t_packed *paquete);
+void _recibir_localized_pokemon(t_packed *paquete);
+void _recibir_get_pokemon(t_packed *paquete);
+void _recibir_mensaje_string(t_packed *paquete);
+void _recibir_catch_o_appeared_pokemon(t_packed *paquete);
+void _recibir_new_pokemon(t_packed *paquete);
+void _recibir_caught_pokemon(t_packed *paquete);
 
 #endif /* POKEBOLA_H_ */

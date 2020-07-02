@@ -14,6 +14,7 @@ char* ip_gamecard;
 char* puerto_broker;
 char* puerto_team;
 char* puerto_gamecard;
+int id;
 
 int server_broker;
 int server_team;
