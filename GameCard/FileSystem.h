@@ -1,15 +1,9 @@
 #ifndef FILESYSTEM_H_
 #define FILESYSTEM_H_
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include <commons/collections/list.h>
 #include "Herramientas_gameCard.h"
-#include <fcntl.h>
-#include <commons/collections/dictionary.h>
-#include <commons/bitarray.h>
-#include <sys/mman.h>
 #include "formatoFs.h"
+#include "Contexto_gameCard.h"
 
 void marcarBloqueOcupado(int bloqueLibre);
 bool existePokemon(char* pokemon);

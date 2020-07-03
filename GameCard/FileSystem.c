@@ -1,11 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "FileSystem.h"
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <commons/collections/list.h>
-#include <commons/config.h>
-#include "formatoFs.h"
 
 bool existePokemon(char* nombrePokemon) {
 

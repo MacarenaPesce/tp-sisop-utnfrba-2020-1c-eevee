@@ -1,9 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <commons/collections/list.h>
-#include <commons/config.h>
 #include "formatoFs.h"
 
 bool noCumpleConRutasfs() {

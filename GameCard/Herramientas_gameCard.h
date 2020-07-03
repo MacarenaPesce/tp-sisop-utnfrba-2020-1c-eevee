@@ -18,5 +18,6 @@ void obtener_puerto_broker();
 void obtener_tiempo_retardo_operacion();
 void capturar_signal(int);
 void configurar_signal_gc();
+void obtener_el_id();
 
 #endif /* HERRAMIENTAS_GAMECARD_H_ */

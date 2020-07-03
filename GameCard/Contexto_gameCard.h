@@ -25,6 +25,8 @@
 #include<string.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <sys/mman.h>
+#include <pthread.h>
 #include <Pokebola.h>
 
 
@@ -35,6 +37,7 @@
 #define KEY_PUNTO_MONTAJE_TALLGRASS "PUNTO_DE_MONTAJE_TALLGRASS"
 #define KEY_IP_BROKER "IP_BROKER"
 #define KEY_PUERTO_BROKER "PUERTO_BROKER"
+#define KEY_CONFIG_ID "ID"
 
 #define IP "127.0.0.3"
 #define PUERTO "5001"
@@ -45,9 +48,15 @@ extern int tiempo_retardo_operacion;
 extern char* punto_montaje_fs;
 extern char* ip_broker;
 extern char* puerto_broker;
+extern int id;
 
 //estas dos arreglarlas para cada proceso ojo
 extern t_log* gameCard_logger;
 extern t_config* config_game_card;
+
+typedef struct {
+	int cola;
+	void *(*operacion)(t_packed*);
+}t_suscripcion_a_broker;
 
 #endif /* CONTEXTO_GAMECARD_H_ */

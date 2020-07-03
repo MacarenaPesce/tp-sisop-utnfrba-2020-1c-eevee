@@ -27,8 +27,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.575456492" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.209739185" name="Optimization Level" superClass="gnu.c.compiler.exe.debug.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option id="gnu.c.compiler.exe.debug.option.debugging.level.1627956409" name="Debug Level" superClass="gnu.c.compiler.exe.debug.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.include.paths.1687978286" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+								<option id="gnu.c.compiler.option.include.paths.1687978286" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pokebola}&quot;"/>
+									<listOptionValue builtIn="false" value="pthread"/>
 									<listOptionValue builtIn="false" value="readline"/>
 									<listOptionValue builtIn="false" value="commons"/>
 									<listOptionValue builtIn="false" value="Pokebola"/>
@@ -36,12 +37,13 @@
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.195586429" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1794846265" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug">
-								<option id="gnu.c.link.option.libs.230317432" superClass="gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
+								<option id="gnu.c.link.option.libs.230317432" name="Libraries (-l)" superClass="gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="Pokebola"/>
+									<listOptionValue builtIn="false" value="pthread"/>
 									<listOptionValue builtIn="false" value="commons"/>
 									<listOptionValue builtIn="false" value="readline"/>
 								</option>
-								<option id="gnu.c.link.option.paths.291948136" superClass="gnu.c.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
+								<option id="gnu.c.link.option.paths.291948136" name="Library search path (-L)" superClass="gnu.c.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pokebola/Debug}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1580562124" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
@@ -51,7 +53,7 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.59012703" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.639438511" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug">
-								<option id="gnu.both.asm.option.include.paths.1331837002" superClass="gnu.both.asm.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+								<option id="gnu.both.asm.option.include.paths.1331837002" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pokebola}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pokebola/Debug}&quot;"/>
 								</option>
@@ -117,17 +119,54 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="GameCard.cdt.managedbuild.target.gnu.exe.677507667" name="Executable" projectType="cdt.managedbuild.target.gnu.exe"/>
-	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.592793713;cdt.managedbuild.config.gnu.exe.debug.592793713.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.575456492;cdt.managedbuild.tool.gnu.c.compiler.input.195586429">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.684753149;cdt.managedbuild.config.gnu.exe.release.684753149.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.1988167663;cdt.managedbuild.tool.gnu.c.compiler.input.707811392">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
+		<project id="gameCard.cdt.managedbuild.target.gnu.exe.1917243740" name="Executable" projectType="cdt.managedbuild.target.gnu.exe"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.592740205;cdt.managedbuild.config.gnu.exe.debug.592740205.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1225794781;cdt.managedbuild.tool.gnu.c.compiler.input.94864347">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.1093558925;cdt.managedbuild.config.gnu.exe.release.1093558925.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.1566516900;cdt.managedbuild.tool.gnu.c.compiler.input.354462438">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.2018175851;cdt.managedbuild.config.gnu.exe.debug.2018175851.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.2089314806;cdt.managedbuild.tool.gnu.c.compiler.input.892999339">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.300832589;cdt.managedbuild.config.gnu.exe.release.300832589.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.703260499;cdt.managedbuild.tool.gnu.c.compiler.input.582949994">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.1920240989;cdt.managedbuild.config.gnu.exe.debug.1920240989.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.2052999751;cdt.managedbuild.tool.gnu.c.compiler.input.1039206490">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.1506379524;cdt.managedbuild.config.gnu.exe.release.1506379524.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.1170296550;cdt.managedbuild.tool.gnu.c.compiler.input.22634502">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.1063044890;cdt.managedbuild.config.gnu.exe.debug.1063044890.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.355294305;cdt.managedbuild.tool.gnu.c.compiler.input.1146653913">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.391418439;cdt.managedbuild.config.gnu.exe.release.391418439.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.531655455;cdt.managedbuild.tool.gnu.c.compiler.input.716251201">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.382093144;cdt.managedbuild.config.gnu.exe.debug.382093144.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1683092771;cdt.managedbuild.tool.gnu.c.compiler.input.294238890">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.532845512;cdt.managedbuild.config.gnu.exe.debug.532845512.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1093212086;cdt.managedbuild.tool.gnu.c.compiler.input.977341072">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.1043445871;cdt.managedbuild.config.gnu.exe.release.1043445871.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.1948491780;cdt.managedbuild.tool.gnu.c.compiler.input.74043998">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.1862496872;cdt.managedbuild.config.gnu.exe.release.1862496872.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.67413797;cdt.managedbuild.tool.gnu.c.compiler.input.166292442">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.2087255741;cdt.managedbuild.config.gnu.exe.debug.2087255741.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1625086146;cdt.managedbuild.tool.gnu.c.compiler.input.1200701053">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.660374349;cdt.managedbuild.config.gnu.exe.release.660374349.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.2111249277;cdt.managedbuild.tool.gnu.c.compiler.input.2096676370">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 </cproject>
