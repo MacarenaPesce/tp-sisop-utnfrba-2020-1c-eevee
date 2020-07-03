@@ -16,7 +16,6 @@ void crearFileSystemVacio() {
 
 }
 
-
 void crearMetadataFs() {
 
 int status= mkdir(rutas_fs->pathDirectorioMetadataFs, 0777);

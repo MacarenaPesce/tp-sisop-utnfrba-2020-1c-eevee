@@ -11,6 +11,10 @@
 #include "Contexto_gameCard.h"
 #include "Herramientas_gameCard.h"
 
+
+void * atender_get_pokemon(t_packed *);
+void * atender_catch_pokemon(t_packed *);
+void * atender_new_pokemon(t_packed *);
 void * recibir_new_pokemon_desde_broker(t_packed *);
 void * recibir_catch_pokemon_desde_broker(t_packed *);
 void * recibir_get_pokemon_desde_broker(t_packed *);

@@ -15,7 +15,6 @@ void crearMetadataDirectorios();
 
 /***********aux*********/
 t_new_pokemon* picachuHardcodeado();
-void liberarMemoria();
 t_new_pokemon* picachuHardcodeadoLineaExisteParaModif();
 t_new_pokemon* picachuHardcodeadoLineaExisteParaModif();
 t_new_pokemon* charmanderHardcodeado();

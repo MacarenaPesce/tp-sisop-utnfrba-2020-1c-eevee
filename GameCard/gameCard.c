@@ -30,17 +30,6 @@ int main() {
 
 }
 
-void liberarMemoria() {
-
-	//aca empezar a liberar memoria
-	free(rutas_fs);
-	free(metadata_fs);
-	//munmap(bmap, tamBmap);
-	bitarray_destroy(bitarray);
-	config_destroy(config_game_card);
-}
-
-
 t_catch_pokemon*  picachuHardcodeadoAtrapar(char* pokemonNombre, int posx, int posy) {
 	t_catch_pokemon* poke = (t_catch_pokemon*) malloc(sizeof(t_catch_pokemon));
 
