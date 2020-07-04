@@ -21,6 +21,14 @@ void * planificar(){
 				entrenador_por_desalojar = nuevo_entrenador;
 			}
 		}
+
+		if((!strcmp(algoritmo_planificacion, "RR"))){
+			if(entrenador_en_ejecucion!=NULL){
+				log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
+				desalojo_en_ejecucion = true;
+				entrenador_por_desalojar = nuevo_entrenador;
+			}
+		}
 		entrenador_por_desalojar = nuevo_entrenador;
 
 		obtener_proximo_ejecucion();
@@ -154,10 +162,6 @@ void obtener_proximo_ejecucion(void){
 
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
 		ordenar_lista_estimacion(lista_aux);
-	}
-
-	if((!strcmp(algoritmo_planificacion, "RR"))){
-		quantum_actual = quantum;
 	}
 
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */

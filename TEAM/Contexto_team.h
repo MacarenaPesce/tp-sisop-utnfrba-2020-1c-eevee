@@ -187,6 +187,7 @@ typedef struct {
 	int instruccion_actual;//sjf
 	int ejec_anterior;//sjf
 	bool desalojado;
+	uint32_t quantum_restante;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
