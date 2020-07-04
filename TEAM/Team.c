@@ -159,6 +159,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->instruccion_actual = 0;
 	entrenador->estado = NUEVO;
 	entrenador->desalojado = false;
+	entrenador->quantum_restante = quantum;
 
 	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
 	entrenador->pokemones = list_create();
@@ -349,7 +350,17 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(){
 	}
 
 	if(!strcmp(algoritmo_planificacion, "RR")){
-		//TODO
+		ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+
+		if(entrenador_en_ejecucion->quantum_restante > 0){
+			entrenador_en_ejecucion->quantum_restante--;
+		}else{
+			if(desalojo_en_ejecucion){
+				confirmar_desalojo_en_ejecucion();
+				me_desalojaron = true;
+			}
+		}
 	}
 }
 
