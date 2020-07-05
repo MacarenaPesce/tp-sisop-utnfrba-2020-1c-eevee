@@ -1142,6 +1142,8 @@ bool estaAbiertoArchivo(char* pokemon) {
 
 	char* estadoArchivo = config_get_string_value(configPoke, "OPEN");
 
+	log_info(gameCard_logger,"validame que tiene estado arch: %s",estadoArchivo);
+
 	return string_equals_ignore_case(estadoArchivo, "Y");
 
 }
@@ -1160,12 +1162,15 @@ void abrirArchivo(char* poke) {
 
 	log_info(gameCard_logger, "aca quiero chequear ruta %s", rutaPoke);
 
+	if(!estaAbiertoArchivo(poke)){
+
 	config_set_value(configPoke, "OPEN", "Y");
 
 	config_save_in_file(configPoke, rutaPoke);
 
 	log_info(gameCard_logger, " se ha abierto el archivo del pokemon: %s",
 			poke);
+	}
 }
 
 void cerrarArchivo(char* poke) {
@@ -1185,7 +1190,7 @@ void cerrarArchivo(char* poke) {
 	config_save_in_file(configPoke, rutaPoke);
 }
 
-void capturarPokemon(t_appeared_pokemon* pokeAatrapar) {
+void capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 	pokemonEnMemoria = string_new();
 
@@ -1442,3 +1447,22 @@ void eliminarMetadataPokemon(char* poke) {
 				poke);
 	}
 }
+
+
+void obtenerPosicionesPokemon(char* pokemon){
+
+	pokemonEnMemoria=string_new();
+
+	llenarListaBloquesPoke(pokemon);
+
+	log_info(gameCard_logger, "CANT BLOQUES METADATA: %d",
+			list_size(bloquesMetadataPokemon));
+
+	copiarPokemonAmemoria(bloquesMetadataPokemon);
+
+	log_info(gameCard_logger, "ACA poke en memoria %s", pokemonEnMemoria);
+
+
+}
+
+

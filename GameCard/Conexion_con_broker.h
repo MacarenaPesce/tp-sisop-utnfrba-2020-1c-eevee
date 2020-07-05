@@ -10,7 +10,7 @@
 
 #include "Contexto_gameCard.h"
 #include "Herramientas_gameCard.h"
-
+#include <pthread.h>
 
 void * atender_get_pokemon(t_packed *);
 void * atender_catch_pokemon(t_packed *);

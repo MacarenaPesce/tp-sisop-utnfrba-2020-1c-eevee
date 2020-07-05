@@ -166,4 +166,6 @@ void limpiarBloque(char* bloq);
 
 void eliminarMetadataPokemon(pokemon);
 
+void obtenerPosicionesPokemon(char* pokemon);
+
 #endif /* FILESYSTEM_H_ */

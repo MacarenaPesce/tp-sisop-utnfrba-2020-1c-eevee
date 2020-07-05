@@ -116,33 +116,7 @@ void * atender_new_pokemon(t_packed * paquete){
 	log_debug(gameCard_logger, "Recibi el pedido de new pokemon para la especie %s en (%d, %d). Cantidad: %d. ", new_pokemon->pokemon, new_pokemon->coordenadas.posx,
 			new_pokemon->coordenadas.posy, new_pokemon->cantidad);
 
-	/*Este mensaje cumplirá la función de agregar la aparición de un nuevo pokémon al mapa. Tendrá cuatro parámetros de entrada:
-	ID del mensaje recibido. Pokemon a agregar. Posición del mapa. Cantidad de pokémon en dicha posición a agregar.
-
-	Al recibir este mensaje se deberán realizar las siguientes operaciones:
-
-	1) Verificar si el Pokémon existe dentro de nuestro Filesystem: Para esto se deberá buscar dentro del directorio Pokemon si existe el archivo con el nombre de nuestro pokémon,
-	en caso de no existir se deberá crear.
-
-	2) Verificar si se puede abrir el archivo (si no hay otro proceso que lo esté abriendo). En caso que el archivo se encuentre abierto se deberá reintentar la operación luego
-	de un tiempo definido en el archivo de configuración.
-
-	3) Verificar si las posiciones ya existen dentro del archivo. En caso de existir, se deben agregar la cantidad pasada por parámetro a la actual. En caso de no existir
-	se debe agregar al final del archivo una nueva línea indicando la cantidad de pokémon pasadas.
-
-	4) Esperar la cantidad de segundos definidos por archivo de configuración
-
-	5) Cerrar el archivo. */
-
-
-
-	/*
-	 *
-	6) Conectarse al Broker y enviar el mensaje a la Cola de Mensajes APPEARED_POKEMON con los los datos:
-	ID del mensaje recibido. Pokemon. Posición del mapa. En caso que no se pueda realizar la conexión con el Broker se debe informar por logs y continuar la ejecución.
-	 *
-	 * ESTE ULTIMO PASO TE LO DEJO ACA ABAJO!!
-	*/
+	operar_con_new_pokemon(new_pokemon);
 
 	t_appeared_pokemon * appeared_pokemon = malloc(sizeof(t_appeared_pokemon));
 	appeared_pokemon->pokemon = new_pokemon->pokemon;
