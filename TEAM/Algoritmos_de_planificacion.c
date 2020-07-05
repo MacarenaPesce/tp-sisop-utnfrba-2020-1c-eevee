@@ -23,7 +23,7 @@ void * planificar(){
 		}
 
 		if((!strcmp(algoritmo_planificacion, "RR"))){
-			if(entrenador_en_ejecucion!=NULL){
+			if(entrenador_en_ejecucion!=NULL && entrenador_en_ejecucion->quantum_restante == 0){
 				log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
 				desalojo_en_ejecucion = true;
 				entrenador_por_desalojar = nuevo_entrenador;

@@ -354,12 +354,12 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(){
 		sleep(retardo_ciclo_cpu);
 
 		if(entrenador_en_ejecucion->quantum_restante > 0){
+			log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 			entrenador_en_ejecucion->quantum_restante--;
 		}else{
-			if(desalojo_en_ejecucion){
-				confirmar_desalojo_en_ejecucion();
-				me_desalojaron = true;
-			}
+			entrenador_en_ejecucion->quantum_restante = quantum;
+			confirmar_desalojo_en_ejecucion();
+			me_desalojaron = true;
 		}
 	}
 }
