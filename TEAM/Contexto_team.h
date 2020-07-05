@@ -105,6 +105,7 @@ extern t_list* lista_bloqueados_esperando_caught;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_finalizar;
+sem_t * array_semaforos_deadlock;
 sem_t * array_semaforos_caught;
 sem_t entrenadores_ubicados;
 pthread_mutex_t mapa_mutex;
@@ -137,6 +138,7 @@ sem_t aviso_entrenador_hizo_intercambio;
 sem_t se_hizo_el_intercambio;
 sem_t chequeo_de_deadlock;
 sem_t todos_los_entrenadores_finalizaron;
+sem_t me_bloquee;
 
 extern bool hayDeadlock;
 extern bool me_desalojaron;

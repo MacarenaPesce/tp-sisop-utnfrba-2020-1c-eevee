@@ -80,6 +80,11 @@ void inicializar_semaforos(){
 		sem_init(&array_semaforos_caught[i], 0, 0);
 	}
 
+	array_semaforos_deadlock = (sem_t*)malloc(sizeof(sem_t)*MAXIMO_ENTRENADORES);
+	for(int i = 0; i < MAXIMO_ENTRENADORES; i++){
+		sem_init(&array_semaforos_deadlock[i], 0, 0);
+	}
+
 	pthread_mutex_init(&mutex_deadlock, NULL);
 	pthread_mutex_init(&mapa_mutex, NULL);
 	pthread_mutex_init(&llego_gameboy, NULL);
@@ -105,6 +110,7 @@ void inicializar_semaforos(){
 	sem_init(&ejecucion, 0, 0);
 	sem_init(&chequeo_de_deadlock, 0, 0);
 	sem_init(&todos_los_entrenadores_finalizaron, 0, 0);
+	sem_init(&me_bloquee, 0, 0);
 
 
 }

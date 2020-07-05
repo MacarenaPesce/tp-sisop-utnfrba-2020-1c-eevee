@@ -116,17 +116,17 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	log_info(team_logger, "Haciendo el intercambio");
 	printf("\n");
 
-
-	sem_post(&hay_interbloqueo);
+	sem_post(&array_semaforos_deadlock[entrenador1->id]);
 	t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entrenador1->id);
 	sem_post(sem_entrenador_deadlock->semaforo);
 
 
 	//ESPERAR A ENTRENADOR
 	sem_wait(&aviso_entrenador_hizo_intercambio);
-
 	verificar_si_entrenador_sigue_bloqueado(entrenador1);
+
 	verificar_si_entrenador_sigue_bloqueado(entrenador2);
+	sem_post(&array_semaforos_deadlock[entrenador2->id]);
 
 	verificar_si_sigue_habiendo_deadlock_luego_del_intercambio();
 
@@ -140,7 +140,10 @@ void verificar_si_entrenador_sigue_bloqueado(t_entrenador* entrenador){
 		list_add(lista_bloqueados_cant_max_alcanzada, entrenador);
 		pthread_mutex_unlock(&lista_bloq_max_mutex);
 
-		list_add(lista_bloqueados_deadlock, entrenador);
+		pthread_mutex_lock(&lista_bloq_max_mutex);
+		sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador->id);
+		pthread_mutex_unlock(&lista_bloq_max_mutex);
+
 		printf("\n");
 		log_info(team_logger, "Luego de hacer un intercambio el entrenador %d paso a la lista de bloqueados con cantidad maxima", entrenador->id);
 
@@ -152,9 +155,13 @@ void verificar_si_entrenador_sigue_bloqueado(t_entrenador* entrenador){
 		sacar_entrenador_de_lista_pid(lista_bloqueados_cant_max_alcanzada,entrenador->id);
 		pthread_mutex_unlock(&lista_bloq_max_mutex);
 
-		list_add(lista_finalizar, entrenador);
+		pthread_mutex_lock(&lista_bloq_max_mutex);
+		sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador->id);
+		pthread_mutex_unlock(&lista_bloq_max_mutex);
 
+		list_add(lista_finalizar, entrenador);
 		sem_post(&array_semaforos_finalizar[entrenador->id]);
+		log_error(team_logger, "EL ENTRENADOR %d FINALIZO PARA EL HILO DE DEADLOCK", entrenador->id);
 	}
 }
 

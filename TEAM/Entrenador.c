@@ -47,34 +47,42 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		}
 	}
 
+	realizar_las_operaciones_de_deadlock(entrenador);
+
+	return NULL;
+
+}
+
+void realizar_las_operaciones_de_deadlock(t_entrenador * entrenador){
 	//HAY INTERBLOQUEO
-	sem_wait(&hay_interbloqueo);
+	while(GLOBAL_SEGUIR){
+		sem_wait(&array_semaforos_deadlock[entrenador->id]);
+		t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entrenador->id);
 
-	t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entrenador->id);
+		if(!objetivo_personal_cumplido(entrenador)){
+			sem_wait(sem_entrenador_deadlock->semaforo);
+			log_info(team_logger, "Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: %d.", entrenador->id);
+			mover_entrenador_a_otra_posicion(entrenador);
+			realizar_intercambio(entrenador);
 
-	if(sem_entrenador_deadlock == NULL){
-		sem_wait(&array_semaforos_finalizar[entrenador->id]);
-		sem_post(&hay_interbloqueo);
+			if(objetivo_personal_cumplido(entrenador)){
+				break;
+			}
 
-		log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
-		log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
-		sem_post(&todos_los_entrenadores_finalizaron);
-		return NULL;
+		}else{
 
-	}else{
-		sem_wait(sem_entrenador_deadlock->semaforo);
-		log_info(team_logger, "Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: %d.", entrenador->id);
-		mover_entrenador_a_otra_posicion(entrenador);
-		realizar_intercambio(entrenador);
-		sem_post(&chequeo_de_deadlock);
-
-		sem_wait(&array_semaforos_finalizar[entrenador->id]);
-
-		log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
-		log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
-		sem_post(&todos_los_entrenadores_finalizaron);
-		return NULL;
+			if(objetivo_personal_cumplido(entrenador)){
+				break;
+			}
+		}
 	}
+
+	sem_wait(&array_semaforos_finalizar[entrenador->id]);
+	log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+	log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
+	sem_post(&todos_los_entrenadores_finalizaron);
+
+	sem_post(&chequeo_de_deadlock);
 
 }
 

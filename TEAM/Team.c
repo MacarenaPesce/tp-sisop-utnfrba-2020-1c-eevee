@@ -307,10 +307,18 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
-			sem_post(&chequeo_de_deadlock);
+			sem_post(&me_bloquee);
+
 			break;
 		default:
 			break;
+	}
+
+	if(list_size(lista_bloqueados_cant_max_alcanzada) == MAXIMO_ENTRENADORES){
+		for(int i=0; i < MAXIMO_ENTRENADORES; i++){
+			sem_wait(&me_bloquee);
+		}
+		sem_post(&chequeo_de_deadlock);
 	}
 }
 
@@ -482,12 +490,12 @@ int main(){
 	int serv_socket = iniciar_servidor(PUERTO);
 
 	//Crea el socket cliente para conectarse al broker
-	enviar_get();
+	//enviar_get();
 
 	crear_hilo_para_tratamiento_de_mensajes();
 	crear_hilo_para_planificar();
 	crear_hilo_para_deadlock();
-	convertirse_en_suscriptor_global_del_broker();
+	//convertirse_en_suscriptor_global_del_broker();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 
 	close(serv_socket);
