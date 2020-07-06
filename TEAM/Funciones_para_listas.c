@@ -84,6 +84,7 @@ void separar_pokemones_de_entrenador(char* pokemones_de_entrenador, t_list* list
 		string_iterate_lines_with_list(pokes, lista, agregar_a_lista_pokemones);
 		free(pokes);
 	}
+
 }
 
 void agregar_a_lista_pokemones(char* especie, t_list* lista){
@@ -101,7 +102,7 @@ void agregar_objetivo(char* especie, uint32_t cantidad, t_list* lista){
 		list_add(lista, (void*)objetivo);
 	} else {
 		if(especie != NULL){
-		t_objetivo_entrenador* objetivo = malloc(sizeof(t_objetivo_entrenador));
+		t_objetivo_entrenador* objetivo= malloc(sizeof(t_objetivo_entrenador));
 		objetivo->especie = especie;
 		objetivo->cantidad = cantidad;
 		list_add(lista, (void*)objetivo);
@@ -141,10 +142,11 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 
 					}
 			}
-		}
 
-		//free(unPokemon);
-		//list_destroy(pokemones);
+			free(unPokemon);
+			free(otroPokemon);
+
+		}
 }
 
 t_list* obtener_pokemones(t_list* lista_global,t_list* lista, uint32_t posicion){
