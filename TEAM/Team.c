@@ -15,7 +15,7 @@ void operar_con_appeared_pokemon(t_appeared_pokemon * paquete){
 
 	agregar_pokemon_a_mapa(paquete->pokemon, paquete->coordenadas);
 
-	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa\n", paquete->pokemon, paquete->coordenadas.posx, paquete->coordenadas.posy);
+	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa", paquete->pokemon, paquete->coordenadas.posx, paquete->coordenadas.posy);
 
 	sem_post(&orden_para_planificar);
 
@@ -125,7 +125,11 @@ void localizar_entrenadores_en_mapa(){
 				}
 				if(hay_que_agregar_entrenador){
 					lista_pokemones_de_entrenador = obtener_pokemones(lista_global_pokemones, lista_pokemones_de_entrenador, pos_entrenador_en_lista_objetivos);
+
+					pthread_mutex_lock(&tocando_pokemones_objetivos);
 					lista_objetivos_de_entrenador = obtener_pokemones(lista_global_objetivos, lista_objetivos_de_entrenador, pos_entrenador_en_lista_objetivos);
+					pthread_mutex_unlock(&tocando_pokemones_objetivos);
+
 					pos_entrenador_en_lista_objetivos++;
 					agregar_entrenador(posx, posy, id, lista_pokemones_de_entrenador, lista_objetivos_de_entrenador);
 					id++;
@@ -140,6 +144,9 @@ void localizar_entrenadores_en_mapa(){
 	}
 
 	log_info(team_logger,"Entrenadores ubicados\n");
+
+	list_destroy_and_destroy_elements(lista_pokemones_de_entrenador,(void*)destruir_pokemon);
+	list_destroy_and_destroy_elements(lista_objetivos_de_entrenador,(void*)destruir_objetivo);
 
 }
 
@@ -267,7 +274,7 @@ void chequear_si_fue_cumplido_el_objetivo_global(){
 void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_entrenador * entrenador){
 
 	log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
-	log_info(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
+	log_debug(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
 	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %i %i", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
 
 	actualizar_mapa_y_entrenador(catch_pokemon, entrenador);

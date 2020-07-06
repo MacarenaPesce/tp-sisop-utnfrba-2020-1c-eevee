@@ -116,6 +116,9 @@ pthread_mutex_t lista_listos_mutex;
 pthread_mutex_t mensaje_chequear_id_mutex;
 pthread_mutex_t moverse;
 pthread_mutex_t mutex_para_colas;
+pthread_mutex_t tocando_pokemones_objetivos;
+pthread_mutex_t tocando_semaforos_deadlock;
+pthread_mutex_t lista_comun_deadlock;
 
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;

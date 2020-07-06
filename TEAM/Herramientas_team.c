@@ -38,10 +38,12 @@ bool objetivo_personal_cumplido(t_entrenador* entrenador){
 		printf("la lista es nula");
 	}
 	for (int i = 0; i < list_size(entrenador->objetivo); i++){
+		pthread_mutex_lock(&tocando_pokemones_objetivos);
 		t_objetivo_entrenador* un_objetivo = list_get(entrenador->objetivo, i);
 		if(un_objetivo->cantidad == 0){
 			contador++;
 		}
+		pthread_mutex_unlock(&tocando_pokemones_objetivos);
 	}
 	return (contador == list_size(entrenador->objetivo));
 }
@@ -94,7 +96,9 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&mensaje_nuevo_mutex, NULL);
 	pthread_mutex_init(&mensaje_chequear_id_mutex, NULL);
 	pthread_mutex_init(&moverse, NULL);
-
+	pthread_mutex_init(&tocando_pokemones_objetivos, NULL);
+	pthread_mutex_init(&tocando_semaforos_deadlock, NULL);
+	pthread_mutex_init(&lista_comun_deadlock, NULL);
 	pthread_mutex_init(&mutex_para_colas, NULL);
 
 
@@ -120,7 +124,9 @@ t_semaforo_deadlock * obtener_semaforo_deadlock_por_id(int id){
 		return ((t_semaforo_deadlock*)sem)->id_entrenador == id;
 	}
 
+	pthread_mutex_lock(&tocando_semaforos_deadlock);
 	t_semaforo_deadlock * semaforo =  list_find(semaforos_deadlock, buscar_sem_entrenador);
+	pthread_mutex_unlock(&tocando_semaforos_deadlock);
 	return semaforo;
 }
 
@@ -293,14 +299,57 @@ int destruir_pokemon(t_pokemon * pokemon){
 	return 0;
 }
 
+int destruir_entrenador(t_entrenador * entrenador){
+	free(entrenador->objetivo_actual);
+	list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo);
+	list_destroy(entrenador->pokemones);
+	free(entrenador);
+	return 0;
+}
+
+int destruir_objetivo(t_objetivo * objetivo){
+	free(objetivo);
+	return 0;
+}
+
+int destruir_mensaje(t_mensaje_guardado * mensaje){
+	free(mensaje->contenido);
+	free(mensaje);
+	return 0;
+}
+
 void terminar_team_correctamente(){
 	GLOBAL_SEGUIR = 0;
 	log_info(team_logger,"Cerrando team...");
 
 	/*HAY QUE DESTRUIR TODAS LAS LISTAS*/
 	list_destroy_and_destroy_elements(lista_mapa,(void*)destruir_pokemon);
+	list_destroy(pokemones_ordenada);
+	list_destroy_and_destroy_elements(lista_entrenadores,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_listos,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_finalizar,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_bloqueados_esperando_caught,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_bloqueados_deadlock,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_bloqueados_cant_max_alcanzada,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_bloqueados_esperando,(void*)destruir_entrenador);
+	list_destroy_and_destroy_elements(lista_bloqueados,(void*)destruir_entrenador);
+
+	list_destroy_and_destroy_elements(lista_global_objetivos,(void*)destruir_objetivo);
+	list_destroy_and_destroy_elements(lista_global_pokemones,(void*)destruir_pokemon);
+	//list_destroy_and_destroy_elements(lista_pokemones_objetivos,(void*)destruir_pokemon);
+
+
+	list_destroy_and_destroy_elements(mensajes_para_chequear_id,(void*)destruir_mensaje);
+	list_destroy_and_destroy_elements(mensajes_que_llegan_nuevos,(void*)destruir_mensaje);
+	list_destroy_and_destroy_elements(lista_objetivos, (void*)destruir_objetivo);
+	list_destroy(mensajes);
+
 
 	log_destroy(team_logger);
+	log_destroy(team_logger_oficial);
+	free(posiciones_entrenadores);
+	free(pokemon_entrenadores);
+	free(objetivos_entrenadores);
 
 	if(log_file!=NULL){
 		free(log_file);

@@ -36,7 +36,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 
 		if(objetivo_personal_cumplido(entrenador)){
 			list_add(lista_finalizar, entrenador);
-			log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+			log_debug(team_logger, "El entrenador %d finalizo", entrenador->id);
 			log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 			sem_post(&todos_los_entrenadores_finalizaron);
 			return NULL;
@@ -56,12 +56,14 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 void realizar_las_operaciones_de_deadlock(t_entrenador * entrenador){
 	//HAY INTERBLOQUEO
 	while(GLOBAL_SEGUIR){
+
 		sem_wait(&array_semaforos_deadlock[entrenador->id]);
 		t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entrenador->id);
 
 		if(!objetivo_personal_cumplido(entrenador)){
 			sem_wait(sem_entrenador_deadlock->semaforo);
 			log_info(team_logger, "Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: %d.", entrenador->id);
+
 			mover_entrenador_a_otra_posicion(entrenador);
 			realizar_intercambio(entrenador);
 
@@ -78,7 +80,7 @@ void realizar_las_operaciones_de_deadlock(t_entrenador * entrenador){
 	}
 
 	sem_wait(&array_semaforos_finalizar[entrenador->id]);
-	log_warning(team_logger, "El entrenador %d finalizo", entrenador->id);
+	log_debug(team_logger, "El entrenador %d finalizo", entrenador->id);
 	log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 	sem_post(&todos_los_entrenadores_finalizaron);
 
@@ -237,7 +239,9 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 
 	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
+	pthread_mutex_lock(&lista_comun_deadlock);
 	entrenador2 = list_get(lista_bloqueados_deadlock, 0);
+	pthread_mutex_unlock(&lista_comun_deadlock);
 
 	log_info(team_logger, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
 	log_info(team_logger_oficial, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
@@ -296,7 +300,9 @@ void realizar_intercambio(t_entrenador* entrenador1){
 	}
 
 	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
+	pthread_mutex_lock(&lista_comun_deadlock);
 	entrenador2 = list_get(lista_bloqueados_deadlock, 0); //entrenador con quien hago el intercambio
+	pthread_mutex_unlock(&lista_comun_deadlock);
 
 	log_info(team_logger_oficial, "Se va a realizar un intercambio entre el entrenador %i y %i", entrenador1->id, entrenador2->id);
 
@@ -317,14 +323,19 @@ void realizar_intercambio(t_entrenador* entrenador1){
 	//Entre los objetivos del E2, busco la especie innecesaria del E1
 	t_objetivo_entrenador* pokemon2_nuevo = buscar_pokemon_objetivo_por_especie(entrenador2->objetivo, entrenador1->objetivo_actual->especie);
 	if(pokemon2_nuevo != NULL){ //si es una especie que necesito disminuyo la cantidad necesitada
+		pthread_mutex_lock(&tocando_pokemones_objetivos);
 		pokemon2_nuevo->cantidad--;
+		pthread_mutex_unlock(&tocando_pokemones_objetivos);
 	}
 	pokemon2->cantidad--;
 	list_add(entrenador2->pokemones, pokemon1); //si no lo necesitaba lo agrego
 
 	log_info(team_logger, "Se intercambiaron los pokemones %s y %s entre los entrenadores %d y %d", pokemon1->especie, pokemon2->especie, entrenador1->id, entrenador2->id);
 
+	pthread_mutex_lock(&lista_comun_deadlock);
 	sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador2->id);
+	pthread_mutex_unlock(&lista_comun_deadlock);
+
 
 	//AVISAR A DEADLOCK
 	sem_post(&aviso_entrenador_hizo_intercambio);
