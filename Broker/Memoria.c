@@ -138,7 +138,7 @@ t_bloque_memoria* particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
     //log_info(broker_logger, "Ejecutando particiones dinamicas");
 
-    if(debug_broker) log_debug("Particiones dinamicas",NULL);
+    if(debug_broker) log_debug("Particiones dinamicas", NULL);
     if(debug_broker) log_debug("Alojar: %i", estructura_mensaje->tamanio_mensaje );
 
     t_bloque_memoria* particionNueva;
@@ -368,7 +368,7 @@ void algoritmo_de_reemplazo(){
     //realizo la consolidacion siempre que corro el algoritmo de reemplazo
     consolidar(bloque);
 
-    if(debug_broker) log_debug("Ya consolide luego de vaciar una particion");
+    if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
 
     return;
 
