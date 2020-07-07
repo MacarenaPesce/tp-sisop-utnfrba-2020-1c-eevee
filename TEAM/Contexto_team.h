@@ -119,6 +119,7 @@ pthread_mutex_t mutex_para_colas;
 pthread_mutex_t tocando_pokemones_objetivos;
 pthread_mutex_t tocando_semaforos_deadlock;
 pthread_mutex_t lista_comun_deadlock;
+pthread_mutex_t mutex_ciclos_cpu;
 
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
@@ -193,6 +194,7 @@ typedef struct {
 	int ejec_anterior;//sjf
 	bool desalojado;
 	uint32_t quantum_restante;
+	bool agoto_quantum;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global

@@ -100,6 +100,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&tocando_semaforos_deadlock, NULL);
 	pthread_mutex_init(&lista_comun_deadlock, NULL);
 	pthread_mutex_init(&mutex_para_colas, NULL);
+	pthread_mutex_init(&mutex_ciclos_cpu, NULL);
 
 
 	sem_init(&entrenadores_ubicados, 0, 0);

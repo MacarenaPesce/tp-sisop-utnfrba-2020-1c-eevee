@@ -166,6 +166,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->instruccion_actual = 0;
 	entrenador->estado = NUEVO;
 	entrenador->desalojado = false;
+	entrenador->agoto_quantum = false;
 	entrenador->quantum_restante = quantum;
 
 	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
@@ -327,6 +328,12 @@ void bloquear_entrenador(t_entrenador* entrenador){
 		}
 		sem_post(&chequeo_de_deadlock);
 	}
+	if((list_size(lista_bloqueados_cant_max_alcanzada) + list_size(lista_finalizar)) == MAXIMO_ENTRENADORES){
+		for(int i=0; i < list_size(lista_bloqueados_cant_max_alcanzada); i++){
+			sem_wait(&me_bloquee);
+		}
+		sem_post(&chequeo_de_deadlock);
+	}
 }
 
 void consumir_un_ciclo_de_cpu(){
@@ -369,12 +376,13 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(){
 		sleep(retardo_ciclo_cpu);
 
 		if(entrenador_en_ejecucion->quantum_restante > 0){
+			log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 			entrenador_en_ejecucion->quantum_restante--;
 		}else{
-			if(desalojo_en_ejecucion){
-				confirmar_desalojo_en_ejecucion();
-				me_desalojaron = true;
-			}
+			entrenador_en_ejecucion->agoto_quantum = true;
+			//entrenador_en_ejecucion->quantum_restante = quantum;
+			confirmar_desalojo_en_ejecucion();
+			me_desalojaron = true;
 		}
 	}
 }
@@ -382,6 +390,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(){
 void confirmar_desalojo_en_ejecucion(void){
 	if(entrenador_por_desalojar!=NULL) {
 		entrenador_en_ejecucion->estado = LISTO;
+		entrenador_en_ejecucion->quantum_restante = quantum;
 		entrenador_en_ejecucion = NULL;
 		entrenador_por_desalojar = NULL;
 		desalojo_en_ejecucion = false;
