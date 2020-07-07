@@ -146,7 +146,7 @@ void crearBitmap() {
 		if (metadata_fs->cantidadBloques % 8 != 0) { blocksChar++;}
 
 
-		char* bitmapData = string_new();
+		bitmapData = string_new();
 
 		bitmapData=string_repeat('0',blocksChar);
 
@@ -234,14 +234,12 @@ void abrirBitmap() {
 		log_error(gameCard_logger, "Error al hacer open");
 	}
 
-	struct stat mystat;
 
 	if (fstat(bitmap, &mystat) < 0) {
 		log_error(gameCard_logger, "Error en el fstat\n");
 		close(bitmap);
 	}
 
-	char *bmap;
 
 	bmap = mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ, MAP_SHARED,
 			bitmap, 0);
@@ -263,3 +261,18 @@ void abrirBitmap() {
 
 }
 
+void desconectarFs(){
+
+	pthread_mutex_lock(&mutexBitmap);
+	munmap(bmap, mystat.st_size);
+	bitarray_destroy(bitarray);
+	pthread_mutex_unlock(&mutexBitmap);
+}
+
+void iniciarMutexBitmap(){
+	if(pthread_mutex_init(&mutexBitmap,NULL)==0){
+		log_info(logger, "mutexBitmap inicializado correctamente");
+	} else {
+		log_error(logger, "Fallo inicializacion de mutexBitmap");
+	};
+}

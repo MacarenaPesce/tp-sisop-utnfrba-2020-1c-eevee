@@ -19,6 +19,8 @@ int cantBloquesLibres() {
 
 	int libres = 0;
 
+	pthread_mutex_lock(&mutexBitmap);
+
 	for (int j = 1; j <= bitarray_get_max_bit(bitarray); j++) {
 
 		if (bitarray_test_bit(bitarray, j) == 0) {
@@ -26,6 +28,8 @@ int cantBloquesLibres() {
 			libres = libres + 1;
 		}
 	}
+
+	pthread_mutex_unlock(&mutexBitmap);
 
 	return libres;
 }
@@ -102,12 +106,16 @@ void marcarBloqueOcupado(int bloqueLibre) {
 
 	log_info(gameCard_logger, "el bloque a cambiar es %d", bloqueLibre);
 
+	pthread_mutex_lock(&mutexBitmap);
+
 	bitarray_set_bit(bitarray, bloqueLibre);
 
 	log_info(gameCard_logger, "efectivamente paso a : %d ",
 			bitarray_test_bit(bitarray, bloqueLibre));
 
 	msync(bitarray, sizeof(bitarray), MS_SYNC);
+
+	pthread_mutex_unlock(&mutexBitmap);
 
 }
 
@@ -212,6 +220,8 @@ void copiarEnArchivo(int fd, char* dato, int tamanioDato) {
 
 int obtenerPrimerBloqueLibre() {
 
+	pthread_mutex_lock(&mutexBitmap);
+
 	for (int i = 1; i <= bitarray_get_max_bit(bitarray); i++) {
 		;
 
@@ -223,6 +233,7 @@ int obtenerPrimerBloqueLibre() {
 
 	}
 
+	pthread_mutex_unlock(&mutexBitmap);
 	return -1;
 }
 
@@ -590,8 +601,6 @@ void modificarPosicion(char* nuevaPos, int cantidad, char* pokemonEnMemoria) {
 
 	int bloqNuevos = cantBloqNecesarios - cantBloqOcupados;
 
-//llenarListaBloquesPoke(pokemon);
-
 	if (bloqNuevos == 0) {
 
 		log_info(gameCard_logger, "mostrame size de lista metadata pokemon; %d",
@@ -865,7 +874,7 @@ void copiarEnBloques(void* bloque) {
 
 	log_info(gameCard_logger, "el bloque nuevo es : %s", bloqueNuevo);
 
-	persistirCambiosEnBloquesNuevos(bloqueNuevo);
+	persistirCambiosEnBloquesPropios(bloqueNuevo);
 
 }
 void cambiarTamanioMetadata(char* pokemon, int tamanioAgregar) {
@@ -898,13 +907,6 @@ void obtenerCantBloques(char* bloque) {
 	cantBloquesPoke = cantBloquesPoke + 1;
 }
 
-void persistirCambiosEnBloquesNuevos(char* bloqueNuevo) {
-
-	persistirCambiosEnBloquesPropios(bloqueNuevo);
-
-//agregarBloqueParaMetadataArchivo(bloqueNuevo);
-
-}
 
 t_list* obtenerBloquesNuevos(int cantBloqNecesarios) {
 
@@ -998,25 +1000,6 @@ void agregarCantidadNuevaAposicion(char* posicion) {
 	}
 }
 
-/*levantar el archivo completo a memoria, calcular lo que tengan que calcular y
- después bajarlo a los archivos de bloques (agregando o eliminando si hace falta)
- cada vez que agrego/elimino/actualizo alguna posición reescribo todos los bloques
- (archivos .bin de la carpeta Blocks) del Pokemon afectado. Siempre reutilizando
- los mismos bloques que el Pokemon tiene asignados (para evitar liberar
- y pedir nuevos bloques), y agregando en caso de que necesite mas bloques, o
- quitando en caso de que necesite menos bloques.
- De esta manera, me aseguro que los bloques no excedan nunca del tamaño máximo,
- y también me aseguro de no que no exista fragmentación interna en los bloques,
- quedando espacios sin utilizar.
- El tema del flag de Open, si, eso les puede dar un flag claro, el tema como bien comentaron
- es la posible condición de carrera al tocar ese mismo archivo de metadata (que no es lo mismo
- que operar con todos los bloques)
- Ahí esta bien la idea de agregar un semáforo del metadata para que 2 hilos
- no hagan cambios sobre el metadata al mismo tiempo,
- una vez cambiado el metadata no deberían tener mas problemas ya que
- 2 hilos no van a ir a modificar el mismo set de bloques
- *
- * */
 
 void cantBloquesOcupadosPorPokemon(char* bloque) {
 

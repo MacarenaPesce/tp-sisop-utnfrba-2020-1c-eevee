@@ -10,6 +10,7 @@
 
 #include "FileSystem.h"
 #include <stdbool.h>
+#include "Pokebola.h"
 
 void operar_con_new_pokemon(t_new_pokemon* poke);
 void operar_con_catch_pokemon(t_catch_pokemon* poke);

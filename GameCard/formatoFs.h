@@ -40,11 +40,19 @@ typedef struct {
 
 int32_t tamanioBitmap;
 
-//char *bmap;
+char* bitmapData;
+struct stat mystat;
+char* bmap;
 //int tamBmap;
 t_bitarray* bitarray;
 //int bitmap;
 
+/*************semaforos*****************/
+
+pthread_mutex_t mutexBitmap;
+void iniciarMutexBitmap();
+
+/******************++********+++++**/
 void cargarRutasFs();//ok
 int abrir_ruta(char *ruta);
 void cargarMetadataFs(char *ruta);//ok
@@ -57,5 +65,6 @@ void crearDirectoriosParaFs();//ok
 void InicializarBloquesDeDatosFs();//ok
 void crearMetadataDirectorioFiles();//ok
 void abrirBitmap();
+void desconectarFs();
 
 #endif /* FORMATOFS_H_ */

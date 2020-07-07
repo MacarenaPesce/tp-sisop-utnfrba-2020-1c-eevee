@@ -5,7 +5,7 @@ int main() {
 	inicializar_logger();
 	inicializar_archivo_de_configuracion();
 
-	/*cargarRutasFs();
+	cargarRutasFs();
 	cargarMetadataFs("gamecard.config");
 
 	if (noCumpleConRutasfs()) {
@@ -14,7 +14,7 @@ int main() {
 		crearFileSystemVacio();
 	}
 
-	abrirBitmap();*/
+	abrirBitmap();
 
 	/*En el enunciado se indica que la suscripcion se debe hacer al iniciar el proceso,
 	 * supongo que es luego de hacer los seteos iniciales */
@@ -26,9 +26,13 @@ int main() {
 
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 
+	desconectarFs();
 	terminar_game_card();
 
 }
+
+
+
 
 t_catch_pokemon*  picachuHardcodeadoAtrapar(char* pokemonNombre, int posx, int posy) {
 	t_catch_pokemon* poke = (t_catch_pokemon*) malloc(sizeof(t_catch_pokemon));

@@ -5,7 +5,9 @@
  *      Author: utnso
  */
 
-void operar_con_new_pokemon(t_new_pokemon* poke){
+#include "mensajesParaFs.h"
+
+void operar_con_new_pokemon(t_new_pokemon * poke){
 
 	if (existePokemon(poke->pokemon)){
 
@@ -28,7 +30,7 @@ void operar_con_new_pokemon(t_new_pokemon* poke){
 }
 
 
-void operar_con_catch_pokemon(t_catch_pokemon* poke){
+void operar_con_catch_pokemon(t_catch_pokemon * poke){
 
 	if (existePokemon(poke->pokemon)){
 
