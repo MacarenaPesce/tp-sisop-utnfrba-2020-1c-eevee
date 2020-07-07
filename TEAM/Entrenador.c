@@ -100,7 +100,9 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 
 		//Primero me muevo por izq
 		while(entrenador->posx < entrenador->objetivo_actual->posx){
+			pthread_mutex_lock(&mutex_ciclos_cpu);
 			consumir_un_ciclo_de_cpu_mientras_planificamos();
+			pthread_mutex_unlock(&mutex_ciclos_cpu);
 			entrenador->posx = entrenador->posx + 1;
 
 			if(me_desalojaron){
@@ -115,7 +117,9 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 
 		//Despues me muevo por derecha
 		while(entrenador->posx > entrenador->objetivo_actual->posx){
+			pthread_mutex_lock(&mutex_ciclos_cpu);
 			consumir_un_ciclo_de_cpu_mientras_planificamos();
+			pthread_mutex_unlock(&mutex_ciclos_cpu);
 			entrenador->posx = entrenador->posx - 1;
 
 			if(me_desalojaron){
@@ -130,7 +134,9 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 
 		//Despues me muevo por arriba
 		while(entrenador->posy > entrenador->objetivo_actual->posy){
+			pthread_mutex_lock(&mutex_ciclos_cpu);
 			consumir_un_ciclo_de_cpu_mientras_planificamos();
+			pthread_mutex_unlock(&mutex_ciclos_cpu);
 			entrenador->posy = entrenador->posy - 1;
 
 			if(me_desalojaron){
@@ -145,7 +151,9 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 
 		//Despues me muevo por abajo
 		while(entrenador->posy < entrenador->objetivo_actual->posy){
+			pthread_mutex_lock(&mutex_ciclos_cpu);
 			consumir_un_ciclo_de_cpu_mientras_planificamos();
+			pthread_mutex_unlock(&mutex_ciclos_cpu);
 			entrenador->posy = entrenador->posy + 1;
 
 			if(me_desalojaron){
@@ -197,7 +205,9 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
+	pthread_mutex_lock(&mutex_ciclos_cpu);
 	consumir_un_ciclo_de_cpu_mientras_planificamos();
+	pthread_mutex_unlock(&mutex_ciclos_cpu);
 
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 
