@@ -47,12 +47,8 @@ char* bmap;
 t_bitarray* bitarray;
 //int bitmap;
 
-/*************semaforos*****************/
+t_dictionary* semaforosPokemon;
 
-pthread_mutex_t mutexBitmap;
-void iniciarMutexBitmap();
-
-/******************++********+++++**/
 void cargarRutasFs();//ok
 int abrir_ruta(char *ruta);
 void cargarMetadataFs(char *ruta);//ok
@@ -65,6 +61,8 @@ void crearDirectoriosParaFs();//ok
 void InicializarBloquesDeDatosFs();//ok
 void crearMetadataDirectorioFiles();//ok
 void abrirBitmap();
+void inicializarSemaforoPokemon();
+void inicializarSemaforosBitmapYMetadata();
 void desconectarFs();
 
 #endif /* FORMATOFS_H_ */

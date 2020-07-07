@@ -261,18 +261,16 @@ void abrirBitmap() {
 
 }
 
+void inicializarSemaforoPokemon(){
+
+	semaforosPokemon=dictionary_create();
+}
+
+
 void desconectarFs(){
 
-	pthread_mutex_lock(&mutexBitmap);
 	munmap(bmap, mystat.st_size);
 	bitarray_destroy(bitarray);
-	pthread_mutex_unlock(&mutexBitmap);
 }
 
-void iniciarMutexBitmap(){
-	if(pthread_mutex_init(&mutexBitmap,NULL)==0){
-		log_info(logger, "mutexBitmap inicializado correctamente");
-	} else {
-		log_error(logger, "Fallo inicializacion de mutexBitmap");
-	};
-}
+

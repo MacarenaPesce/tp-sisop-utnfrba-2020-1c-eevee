@@ -164,8 +164,22 @@ void marcarBloqueLibreBitmap(int numBloque);
 
 void limpiarBloque(char* bloq);
 
-void eliminarMetadataPokemon(pokemon);
+void eliminarMetadataPokemon(char* pokemon);
 
 void obtenerPosicionesPokemon(char* pokemon);
+
+void abrirArchivo(char* poke);
+void cerrarArchivo(char* poke);
+void capturarPokemon(t_catch_pokemon* pokeAatrapar);
+
+void agregarPosicionSinSaltoDeLinea(int espacioEnBloque, int espacioNuevaLinea,
+		char* ultBloque);
+
+//semaforos
+
+pthread_mutex_t mutexBitmap;
+pthread_mutex_t mutexMetadata;
+
+//void inicializarSemaforosMetadataYBitmap();
 
 #endif /* FILESYSTEM_H_ */
