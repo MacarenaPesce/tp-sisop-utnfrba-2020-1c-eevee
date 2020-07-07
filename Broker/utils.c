@@ -153,15 +153,9 @@ int calcularBytes (t_packed* paquete){
 //}
 
 /*
-    - comento la linea de consolidacion
-    - modifico todo compactar  
-    - modifico obtener indice con funciones de orden superior, y que es id malo ?
-    - Tambien toco particionar_bloque
-
     - Hay que modificar la compactacion, si esta seteada en -1 , no se compacta nunca y se sigue buscando, 
     se compacta unicamente cuando no haya particiones ocupadas, pero con la consolidacion no hace falta compactar
 
-    - Como era lo del payload? donde esta la direc de memoria ahora ? 
     - Tengo que ver si consolida o no bloques
     - Hacer las pruebas y testeo de particiones dinamicas
     - Hacer buddy 
