@@ -56,8 +56,8 @@ int main(){
 	t_get_pokemon get_pokemon;
 	get_pokemon.pokemon = "Pikachu";
 
-	//t_get_pokemon get_pokemon2;
-	//get_pokemon.pokemon = "Charmander";
+	t_get_pokemon get_pokemon2;
+	get_pokemon.pokemon = "Charmander";
 
 	t_packed* ack;
 
@@ -78,23 +78,23 @@ int main(){
  	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack); 
 
-	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
-	free(ack);
+	//ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
+	//free(ack);
 
-	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
-	free(ack);
+	//ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
+	//free(ack);
 
 	//ack = enviar_catch_pokemon(&servidor,-1, &appeared_pokemon);
 	//free(ack);
 
-	//ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
-	//free(ack);
-
-	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon2);
 	free(ack);
 
+	//ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
+	//free(ack);
+
 	/*Pokemons de prueba para Macaa*/
-	t_new_pokemon new_pokemon_maca;
+	/*t_new_pokemon new_pokemon_maca;
 	new_pokemon.coordenadas.posx = 5;
 	new_pokemon.coordenadas.posy = 10;
 	new_pokemon.cantidad = 2;
@@ -109,7 +109,7 @@ int main(){
 	appeared_pokemon_maca.pokemon = "pikachu";
 
 	t_caught_pokemon caught_pokemon_maca;
-	caught_pokemon.status = 0;
+	caught_pokemon.status = 0;*/
 
 	/*ack = enviar_new_pokemon(&servidor,-1,&new_pokemon_maca);
 	free(ack);
