@@ -156,8 +156,5 @@ int calcularBytes (t_packed* paquete){
     - Hay que modificar la compactacion, si esta seteada en -1 , no se compacta nunca y se sigue buscando, 
     se compacta unicamente cuando no haya particiones ocupadas, pero con la consolidacion no hace falta compactar
 
-    - Tengo que ver si consolida o no bloques
-    - Hacer las pruebas y testeo de particiones dinamicas
-    - Hacer buddy 
     - Hacer dump 
 */
