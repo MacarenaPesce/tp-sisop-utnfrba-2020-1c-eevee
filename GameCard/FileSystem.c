@@ -1481,7 +1481,7 @@ void eliminarMetadataPokemon(char* poke) {
 }
 
 
-void obtenerPosicionesPokemon(char* pokemon){
+t_list* obtenerPosicionesPokemon(char* pokemon){
 
 	pokemonEnMemoria=string_new();
 
@@ -1494,5 +1494,26 @@ void obtenerPosicionesPokemon(char* pokemon){
 
 	log_info(gameCard_logger, "ACA poke en memoria %s", pokemonEnMemoria);
 
+	char** posiciones = string_split(pokemonEnMemoria, "\n");
 
+	string_iterate_lines(posiciones, agregarPosicionAlistaParaLocalized);
+
+	log_info(gameCard_logger," las posiciones y cantidades del pokemon %s son :",pokemon);
+	for(int i=0; i< list_size(pokemonesParaLocalized);i++){
+
+	log_info(gameCard_logger,"%s \n",list_get(pokemonesParaLocalized,i));
+	}
+
+	sleep(tiempo_retardo_operacion);
+	cerrarArchivo(pokemon);
+
+	return pokemonesParaLocalized;
+
+}
+
+void agregarPosicionAlistaParaLocalized(char* posicion){
+
+	pokemonesParaLocalized=list_create();
+
+	list_add(pokemonesParaLocalized, posicion);
 }

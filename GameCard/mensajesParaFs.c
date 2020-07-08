@@ -57,7 +57,7 @@ uint32_t operar_con_catch_pokemon(t_catch_pokemon * poke){
 	}
 }
 
-void operar_con_get_pokemon(t_get_pokemon* poke){
+t_list* operar_con_get_pokemon(t_get_pokemon* poke){
 
 	agregarSemaforoPokemon(poke->pokemon);
 
@@ -69,12 +69,9 @@ void operar_con_get_pokemon(t_get_pokemon* poke){
 			abrirArchivo(poke->pokemon);
 		}
 
-		//obtenerPokemon
-		sleep(tiempo_retardo_operacion);
+	return obtenerPosicionesPokemon(poke->pokemon);}
 
-	}
-
-	cerrarArchivo(poke->pokemon);
+return -1;
 
 }
 

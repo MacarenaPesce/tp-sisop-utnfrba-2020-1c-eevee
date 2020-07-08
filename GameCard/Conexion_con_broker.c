@@ -47,6 +47,17 @@ void * atender_get_pokemon(t_packed * paquete){
 	PARA COMPLETAR ACA LO QUE QUEDA, PERO ES SIMILAR A LO QUE ESTA ARRIBA!!
 	 * */
 
+	t_localized_pokemon* localized_pokemon=malloc(sizeof(t_localized_pokemon));
+
+	localized_pokemon->pokemon=get_pokemon->pokemon;
+	if (operar_con_get_pokemon(get_pokemon)!=-1){
+
+		localized_pokemon->lista_coordenadas=operar_con_get_pokemon(get_pokemon);
+
+	}
+
+	localized_pokemon->cantidad_coordenadas=list_size(localized_pokemon->lista_coordenadas);
+
 	free(paquete);
 	free(servidor);
 
@@ -61,31 +72,6 @@ void * atender_catch_pokemon(t_packed * paquete){
 
 	t_catch_pokemon * catch_pokemon = paquete->mensaje;
 	log_debug(gameCard_logger, "Recibi el pedido de catch pokemon para la especie %s en la posicion (%d, %d).", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
-
-	/*Este mensaje cumplirá la función de indicar si es posible capturar un Pokemon, y capturarlo en tal caso. Para esto se recibirán los siguientes parámetros:
-	ID del mensaje recibido. Pokemon a atrapar. Posición del mapa.
-
-	Al recibir este mensaje se deberán realizar las siguientes operaciones:
-
-	1) Verificar si el Pokémon existe dentro de nuestro Filesystem. Para esto se deberá buscar dentro del directorio Pokemon,
-	si existe el archivo con el nombre de nuestro pokémon. En caso de no existir se deberá informar un error.
-
-	2) Verificar si se puede abrir el archivo (si no hay otro proceso que lo esté abriendo).
-	En caso que el archivo se encuentre abierto se deberá reintentar la operación luego de un tiempo definido en el archivo de configuración.
-
-	3) Verificar si las posiciones ya existen dentro del archivo. En caso de no existir se debe informar un error.
-	En caso que la cantidad del Pokémon sea “1”, se debe eliminar la línea. En caso contrario se debe decrementar la cantidad en uno.
-
-	4) Esperar la cantidad de segundos definidos por archivo de configuración
-
-	5) Cerrar el archivo.
-
-	6) Conectarse al Broker y enviar el mensaje indicando el resultado correcto. Todo resultado, sea correcto o no, deberá realizarse conectandose al Broker
-	y enviando un mensaje a la Cola de Mensajes CAUGHT_POKEMON indicando:
-	ID del mensaje recibido originalmente. Resultado. En caso que no se pueda realizar la conexión con el Broker se debe informar por logs y continuar la ejecución.
-
-	TAMBIEN ESTE ULTIMO PASO TE LO DEJO ACA ABAJO!
-	 * */
 
 	t_caught_pokemon * caught_pokemon = malloc(sizeof(t_caught_pokemon));
 	caught_pokemon->status = operar_con_catch_pokemon(catch_pokemon);

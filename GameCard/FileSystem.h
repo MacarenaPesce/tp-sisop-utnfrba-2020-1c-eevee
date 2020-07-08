@@ -166,7 +166,7 @@ void limpiarBloque(char* bloq);
 
 void eliminarMetadataPokemon(char* pokemon);
 
-void obtenerPosicionesPokemon(char* pokemon);
+t_list* obtenerPosicionesPokemon(char* pokemon);
 
 void abrirArchivo(char* poke);
 void cerrarArchivo(char* poke);
@@ -179,6 +179,10 @@ void agregarPosicionSinSaltoDeLinea(int espacioEnBloque, int espacioNuevaLinea,
 
 pthread_mutex_t mutexBitmap;
 
-//void inicializarSemaforosMetadataYBitmap();
+//localized
+
+t_list* pokemonesParaLocalized;
+
+void agregarPosicionAlistaParaLocalized(char* posicion);
 
 #endif /* FILESYSTEM_H_ */
