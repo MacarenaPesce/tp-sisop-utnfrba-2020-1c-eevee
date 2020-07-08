@@ -540,64 +540,14 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
     return bloque_inicial;
 }
 
-t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
-
-    t_bloque_memoria* bloque = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
-
-    bloque->tamanio_particion = tamanio_particion;
-    bloque->esta_vacio = true;
-    bloque->estructura_mensaje = particion;
-    bloque->timestamp = 0;
-    bloque->last_time = 0;
-
-    return bloque;
-
-}
-
-
-/*Obtengo el indice de un determinado, recorriendo toda la lista y comparando los payload*/
-int obtener_indice_particion(t_bloque_memoria* bloque){
-
-	int indice=0;
-
-    bool buscar_bloque(void* _bloque){
-
-        t_bloque_memoria* bloque_memoria = (t_bloque_memoria*) _bloque;        
-
-        if(bloque_memoria->esta_vacio) {
-            indice++;
-            return false;
-        }
-
-        if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje){
-            indice++;
-        }
-
-        return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje;
-
-    }
-
-    list_find(cache_mensajes->memoria, buscar_bloque);
-    if(debug_broker) log_debug(broker_logger,"El id malo es: %d",indice);
-
-	return indice-1;
-}
 
 
 
 
-/*Me fijo si el tamaño de mi mensaje a guardar, es menor que el minimo tamaño de particion*/
-int tamanio_a_alojar(int tamanio){
 
-	int tamanio_final = tamanio_minimo_particion; //tamanio_minimo_particion es variable global
 
-	if(tamanio > tamanio_minimo_particion){ 
-		tamanio_final = tamanio;
-	}   
 
-	return tamanio_final;
 
-}
 
 
 
