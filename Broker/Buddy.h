@@ -31,6 +31,8 @@
 #include <arpa/inet.h>
 
 
+void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje);
+
 //*****************Auxiliares especificas Buddy System******************************
 bool tamanio_potencia_dos(int tamanio_en_bytes);
 int numero_potencia_dos(int tamanio_en_bytes);

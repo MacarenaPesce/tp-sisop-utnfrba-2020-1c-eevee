@@ -14,6 +14,12 @@ extern t_config* config;
 extern t_cache_colas* cache_mensajes;
 
 
+void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
+
+    return;
+}
+
+
 //*****************Auxiliares especificas Buddy System******************************
 
 /*Calculo si un numero es potencia de dos para buddy system*/

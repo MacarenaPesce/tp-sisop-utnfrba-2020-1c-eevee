@@ -37,10 +37,6 @@ extern t_cache_colas* cache_mensajes;
    
     
     PD: No me mates D:
-
-
-
-
 */
 
 
@@ -215,7 +211,9 @@ t_bloque_memoria* buddy_system( t_mensaje_cola* estructura_mensaje){
 
     if(debug_broker) log_debug(broker_logger, "Ejecutando buddy system");
 
-    //int bytes_reservar= numero_potencia_dos(int tamanio_en_bytes)
+    //int bytes_reservar= numero_potencia_dos(int tamanio_en_bytes);
+
+    buddy_funcionamiento(t_mensaje_cola* estructura_mensaje);
 
     t_bloque_memoria* particionNueva = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
 
@@ -469,27 +467,8 @@ t_bloque_memoria* algoritmo_lru(){
 
 
 
+//-----------------------------AUXILIARES DE PD-----------------------------------
 
-
-//-----------------------------AUXILIARES-----------------------------------
-
-/*Dado el tamaño de una particion, me fijo si puede alojarse a la primera 
-	o si hay que correr el algoritmo de eliminacion*/ 
-bool puede_alojarse(int tamanio_bytes){
-
-    bool tiene_espacio_suficiente(void* _bloque){
-
-        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
-
-        return bloque->tamanio_particion >= tamanio_bytes && bloque->esta_vacio;
-
-    }
-
-    t_bloque_memoria *bloque_posible = list_find(cache_mensajes->memoria,tiene_espacio_suficiente);
-
-    return bloque_posible != NULL;
-
-}
 
 /*Dado un indice y un tamaño en byte, alojo la particion en el indice, y creo el nuevo bloque con lo restante en el caso
 	que haya algo restante. La idea de esta funcion es que sea llamada por el algoritmo de asignacion.
@@ -539,35 +518,6 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 
     return bloque_inicial;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*Libero la memoria de un determinado bloque y lo retorno */
-void liberar_bloque_memoria(t_bloque_memoria* bloque){
-
-    /* Marco el bloque como vacio */
-    bloque->esta_vacio = true;
-
-	/* Vacio el timestamp del bloque*/
-	bloque->timestamp = 0;
-
-	/* Vacio el last_time del bloque*/
-	bloque->last_time = 0;
-
-    return ;
-
-}
-
 
 
 
@@ -668,20 +618,6 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 
     return ;
 }
-
-
-
-
-/*Obtengo el tiempo actual en segundos*/ 
-uint64_t get_timestamp(){
-	struct timeval tv;
-	gettimeofday(&tv,NULL);
-	uint64_t  x = (uint64_t)( (tv.tv_sec)*1000 + (tv.tv_usec)/1000 );
-	return x;
-}
-
-
-
 
 
 

@@ -1,8 +1,10 @@
+#include "Herramientas_broker.h"
+#include "Contexto_broker.h"
+#include "Broker.h"
+#include "Buddy.h"
 #include "Memoria.h"
-//#include "Herramientas_broker.h"
-//#include "Contexto_broker.h"
-//#include "Broker.h"
-//#include <Pokebola.h>
+#include <Pokebola.h>
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,11 +26,22 @@
 
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <sys/time.h>
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
 
+/*Funciones Auxiliares en comun entre buddy y PD*/
+int tamanio_a_alojar(int tamanio);
+int obtener_indice_particion(t_bloque_memoria* bloque);
+t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion);
+bool puede_alojarse(int tamanio_en_bytes);
+void liberar_bloque_memoria(t_bloque_memoria* bloque);
+
+
+//Auxiliar para LRU y FIFO
+uint64_t get_timestamp();
 
 //int calcularBytes (t_packed* paquete);
 

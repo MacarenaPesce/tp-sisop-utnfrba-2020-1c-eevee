@@ -1,5 +1,4 @@
-#include "utils.h"
-
+#include "utilsMemoria.h"
 
 /*
 int calcularBytes (t_packed* paquete){ 
@@ -217,4 +216,54 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 
     return bloque;
 
+}
+
+
+
+
+/*Libero la memoria de un determinado bloque y lo retorno */
+void liberar_bloque_memoria(t_bloque_memoria* bloque){
+
+    /* Marco el bloque como vacio */
+    bloque->esta_vacio = true;
+
+	/* Vacio el timestamp del bloque*/
+	bloque->timestamp = 0;
+
+	/* Vacio el last_time del bloque*/
+	bloque->last_time = 0;
+
+    return ;
+
+}
+
+
+
+/*Dado el tamaño de una particion, me fijo si puede alojarse a la primera 
+	o si hay que correr el algoritmo de eliminacion*/ 
+bool puede_alojarse(int tamanio_bytes){
+
+    bool tiene_espacio_suficiente(void* _bloque){
+
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+        return bloque->tamanio_particion >= tamanio_bytes && bloque->esta_vacio;
+
+    }
+
+    t_bloque_memoria *bloque_posible = list_find(cache_mensajes->memoria,tiene_espacio_suficiente);
+
+    return bloque_posible != NULL;
+
+}
+
+
+
+
+/*Obtengo el tiempo actual en segundos*/ 
+uint64_t get_timestamp(){
+	struct timeval tv;
+	gettimeofday(&tv,NULL);
+	uint64_t  x = (uint64_t)( (tv.tv_sec)*1000 + (tv.tv_usec)/1000 );
+	return x;
 }
