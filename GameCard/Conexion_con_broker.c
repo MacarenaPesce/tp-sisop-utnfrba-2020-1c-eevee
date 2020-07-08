@@ -88,7 +88,8 @@ void * atender_catch_pokemon(t_packed * paquete){
 	 * */
 
 	t_caught_pokemon * caught_pokemon = malloc(sizeof(t_caught_pokemon));
-	caught_pokemon->status = OK; //Le pongo este rdo por poner, aca va el que hayas obtenido desde el FS
+	caught_pokemon->status = operar_con_catch_pokemon(catch_pokemon);
+			//OK; //Le pongo este rdo por poner, aca va el que hayas obtenido desde el FS
 
 	t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_correlacional, caught_pokemon);
 

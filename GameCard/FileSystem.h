@@ -170,7 +170,7 @@ void obtenerPosicionesPokemon(char* pokemon);
 
 void abrirArchivo(char* poke);
 void cerrarArchivo(char* poke);
-void capturarPokemon(t_catch_pokemon* pokeAatrapar);
+uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar);
 
 void agregarPosicionSinSaltoDeLinea(int espacioEnBloque, int espacioNuevaLinea,
 		char* ultBloque);
@@ -178,7 +178,6 @@ void agregarPosicionSinSaltoDeLinea(int espacioEnBloque, int espacioNuevaLinea,
 //semaforos
 
 pthread_mutex_t mutexBitmap;
-pthread_mutex_t mutexMetadata;
 
 //void inicializarSemaforosMetadataYBitmap();
 

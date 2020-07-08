@@ -223,7 +223,6 @@ int obtenerPrimerBloqueLibre() {
 	pthread_mutex_lock(&mutexBitmap);
 
 	for (int i = 1; i <= bitarray_get_max_bit(bitarray); i++) {
-		;
 
 		if (bitarray_test_bit(bitarray, i) == 0) {
 
@@ -1187,7 +1186,7 @@ void cerrarArchivo(char* poke) {
 	pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
 }
 
-void capturarPokemon(t_catch_pokemon* pokeAatrapar) {
+uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 	pokemonEnMemoria = string_new();
 
@@ -1251,6 +1250,7 @@ void capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 		else {
 
+
 			int cantBloqAliberar = cantBloqOcupados - cantBloqSinPosicion;
 
 			int tamanioListBloques = list_size(bloquesMetadataPokemon);
@@ -1292,9 +1292,30 @@ void capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 				}
 			}
 
+			pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
+
 			crearMetadataArchPoke(pokemon, string_length(posAcopiar));
 
+			pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
+
 		}
+
+		cerrarArchivo(pokemon);
+
+		sleep(tiempo_retardo_operacion);
+
+		return OK;
+	}
+
+	else{
+
+		log_error(gameCard_logger,"No existe la posicion dentro del archivo del pokemon: %s",pokemon);
+
+		cerrarArchivo(pokemon);
+
+		sleep(tiempo_retardo_operacion);
+
+		return FAIL;
 	}
 
 }
@@ -1338,6 +1359,9 @@ void capturarPokeEnPos(char* posicion) {
 
 		if (cantEnPos > 1) {
 
+			log_info(gameCard_logger,"se decrementa en 1 unidad la cantidad del pokemon");
+			log_info(gameCard_logger, "la posicion era: %s",posicion);
+
 			cantEnPos = cantEnPos - 1;
 
 			log_info(gameCard_logger, "aca mostrame cantidad: %d", cantEnPos);
@@ -1345,6 +1369,13 @@ void capturarPokeEnPos(char* posicion) {
 			string_append(&posAcopiar, nuevaPos);
 			string_append(&posAcopiar,  string_itoa(cantEnPos));
 			string_append(&posAcopiar, "\n");
+
+			log_info("la posicion es: %s",nuevaPos);
+		}
+
+		else {
+
+			log_info(gameCard_logger, "se va a eliminar la posicion: %s", posicion);
 		}
 	}
 
@@ -1408,11 +1439,15 @@ void eliminarMetadataPokemon(char* poke) {
 	string_append(&rutaPoke, pokemon);
 	string_append(&rutaPoke, "/Metadata.bin");
 
+	pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
+
 	int cerrateSiEstasAbierto = fclose(rutaPoke);
 
 	if (cerrateSiEstasAbierto == 0 | cerrateSiEstasAbierto == EOF) {
 
 		int estaBorrado = remove(rutaPoke);
+
+		pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
 
 		if (estaBorrado == 0) {
 			log_info(gameCard_logger,

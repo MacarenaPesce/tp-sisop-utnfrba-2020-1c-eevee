@@ -32,7 +32,7 @@ void operar_con_new_pokemon(t_new_pokemon * poke){
 }
 
 
-void operar_con_catch_pokemon(t_catch_pokemon * poke){
+uint32_t operar_con_catch_pokemon(t_catch_pokemon * poke){
 
 	agregarSemaforoPokemon(poke->pokemon);
 
@@ -45,11 +45,16 @@ void operar_con_catch_pokemon(t_catch_pokemon * poke){
 		}
 
 		capturarPokemon(poke);
-		sleep(tiempo_retardo_operacion);
 
 	}
 
-	cerrarArchivo(poke->pokemon);
+	else{
+
+		log_error(gameCard_logger," No existe el pokemon %s, no se puede capturar",poke->pokemon);
+		cerrarArchivo(poke->pokemon);
+		sleep(tiempo_retardo_operacion);
+		return FAIL;
+	}
 }
 
 void operar_con_get_pokemon(t_get_pokemon* poke){
