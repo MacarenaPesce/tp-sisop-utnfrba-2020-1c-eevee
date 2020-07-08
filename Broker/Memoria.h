@@ -5,7 +5,7 @@
 #include "Herramientas_broker.h"
 #include "Contexto_broker.h"
 #include "Broker.h"
-#include "utils.h"
+//#include "utils.h"
 #include <Pokebola.h>
 
 
@@ -87,9 +87,6 @@ void compactar();
 uint64_t get_timestamp();
 
 
-//*****************Auxiliares especificas Buddy System******************************
-bool tamanio_potencia_dos(int tamanio_en_bytes);
-int numero_potencia_dos(int tamanio_en_bytes);
 
 t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion);
 
