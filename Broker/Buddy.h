@@ -1,9 +1,4 @@
 #include "Memoria.h"
-#include "Herramientas_broker.h"
-#include "Contexto_broker.h"
-#include "Broker.h"
-#include "utilsMemoria.h"
-#include <Pokebola.h>
 
 #include <stdio.h>
 #include <stdlib.h>

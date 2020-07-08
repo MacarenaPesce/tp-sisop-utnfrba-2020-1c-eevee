@@ -213,7 +213,7 @@ t_bloque_memoria* buddy_system( t_mensaje_cola* estructura_mensaje){
 
     //int bytes_reservar= numero_potencia_dos(int tamanio_en_bytes);
 
-    buddy_funcionamiento(t_mensaje_cola* estructura_mensaje);
+    //buddy_funcionamiento(t_mensaje_cola* estructura_mensaje);
 
     t_bloque_memoria* particionNueva = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
 
