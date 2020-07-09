@@ -4,10 +4,15 @@ t_servidor servidor;
 
 /*  
 	-Primera prueba con pokemons_maca
+	1)
 	Orden: 		new, 	get, 	apparead, 	caugth
 	Resultado:	361		13		20			4
 	Esperado:	23		11		19			4
 	Ok: 1 solo
+	2)Misma prueba, mismo orden, mismos resultados
+	3)Misma prueba, mismo orden, distintos resultados:
+	Resultado:  82		13		20			4
+	4)Misma prueba, mismo orden, mismos resultados que la 1)
 
 	-Segunda prueba con pokemons seteados antes
 	Orden:		get, 	apparead,	new,	caugth
@@ -75,8 +80,8 @@ int main(){
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
  */
 
- 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
-	free(ack); 
+ 	//ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
+	//free(ack); 
 
 	//ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	//free(ack);
@@ -87,14 +92,14 @@ int main(){
 	//ack = enviar_catch_pokemon(&servidor,-1, &appeared_pokemon);
 	//free(ack);
 
-	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon2);
-	free(ack);
+	//ack = enviar_get_pokemon(&servidor,-1, &get_pokemon2);
+	//free(ack);
 
 	//ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
 	//free(ack);
 
 	/*Pokemons de prueba para Macaa*/
-	/*t_new_pokemon new_pokemon_maca;
+	t_new_pokemon new_pokemon_maca;
 	new_pokemon.coordenadas.posx = 5;
 	new_pokemon.coordenadas.posy = 10;
 	new_pokemon.cantidad = 2;
@@ -109,9 +114,9 @@ int main(){
 	appeared_pokemon_maca.pokemon = "pikachu";
 
 	t_caught_pokemon caught_pokemon_maca;
-	caught_pokemon.status = 0;*/
+	caught_pokemon.status = 0;
 
-	/*ack = enviar_new_pokemon(&servidor,-1,&new_pokemon_maca);
+	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon_maca);
 	free(ack);
 
  	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon_maca);
@@ -121,7 +126,7 @@ int main(){
 	free(ack);
 
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon_maca);
-	free(ack);*/
+	free(ack);
 
 	//enviar_mensaje_string(socket, "hola_broker");
 
