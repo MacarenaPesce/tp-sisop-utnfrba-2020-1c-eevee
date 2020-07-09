@@ -102,7 +102,7 @@ void* esperar_mensajes(void* cliente){
 
 	while(1){
 
-		paquete = recibir_mensaje_serializado(socket_cliente);
+		paquete = recibir_mensaje(socket_cliente);
 
 		/* log_warning(broker_logger,"pase x el while del socket"); */
 
@@ -117,7 +117,7 @@ void* esperar_mensajes(void* cliente){
 			if(debug_broker) log_debug(broker_logger,"id_correlacional: %d  ",paquete->id_correlacional);
 			if(debug_broker) log_debug(broker_logger,"id_mensaje: %d ",paquete->id_mensaje);
 			if(debug_broker) log_debug(broker_logger,"id_cliente: %d ",paquete->id_cliente);
-			if(debug_broker) log_debug(broker_logger,"tamanio_payload: %d ",paquete->tamanio_payload); 
+			if(debug_broker) log_debug(broker_logger,"tamanio_payload: %d ",paquete->tamanio_payload);
 
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:
