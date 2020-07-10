@@ -74,10 +74,10 @@ int main(){
 	coordenadas.posx = 21;
 	coordenadas.posy = 22;
 
-	agregar_coordenadas_a_localized(localized_pokemon,&coordenadas);
+	/*agregar_coordenadas_a_localized(localized_pokemon,&coordenadas);
 
 	ack = enviar_localized_pokemon(&servidor,-1,localized_pokemon);
-	free(ack); 
+	free(ack);*/ 
 /* 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);  */
 
@@ -115,7 +115,7 @@ int main(){
 	//free(ack);
 
 	/*Pokemons de prueba para Macaa*/
-	/*t_new_pokemon new_pokemon_maca;
+	t_new_pokemon new_pokemon_maca;
 	new_pokemon.coordenadas.posx = 5;
 	new_pokemon.coordenadas.posy = 10;
 	new_pokemon.cantidad = 2;
