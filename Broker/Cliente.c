@@ -6,19 +6,9 @@ t_servidor servidor;
 	-Primera prueba con pokemons_maca
 	1)
 	Orden: 		new, 	get, 	apparead, 	caugth
-	Resultado:	361		13		20			4
+	Resultado:	24		12		20			4
 	Esperado:	23		11		19			4
-	Ok: 1 solo
-	2)Misma prueba, mismo orden, mismos resultados
-	3)Misma prueba, mismo orden, distintos resultados:
-	Resultado:  82		13		20			4
-	4)Misma prueba, mismo orden, mismos resultados que la 1)
 
-	-Segunda prueba con pokemons seteados antes
-	Orden:		get, 	apparead,	new,	caugth
-	Resultado:	12,		20,			24,		4
-	Esperado:	11,		19,			23,		4
-	Ok: 1 solo
 
 	*/
 
@@ -67,17 +57,17 @@ int main(){
 	get_pokemon.pokemon = "Charmander";
 
 	/* Localized Pokemon*/
-	t_localized_pokemon* localized_pokemon = generar_localized("Pikachu");
+	//t_localized_pokemon* localized_pokemon = generar_localized("Pikachu");
 
 	//crear coordenadas
 	t_coordenadas coordenadas;
 	coordenadas.posx = 21;
 	coordenadas.posy = 22;
 
-	/*agregar_coordenadas_a_localized(localized_pokemon,&coordenadas);
+	//agregar_coordenadas_a_localized(localized_pokemon,&coordenadas);
 
-	ack = enviar_localized_pokemon(&servidor,-1,localized_pokemon);
-	free(ack);*/ 
+	//ack = enviar_localized_pokemon(&servidor,-1,localized_pokemon);
+	//free(ack);
 /* 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);  */
 
@@ -116,21 +106,21 @@ int main(){
 
 	/*Pokemons de prueba para Macaa*/
 	t_new_pokemon new_pokemon_maca;
-	new_pokemon.coordenadas.posx = 5;
-	new_pokemon.coordenadas.posy = 10;
-	new_pokemon.cantidad = 2;
-	new_pokemon.pokemon = "pikachu";
+	new_pokemon_maca.coordenadas.posx = 5;
+	new_pokemon_maca.coordenadas.posy = 10;
+	new_pokemon_maca.cantidad = 2;
+	new_pokemon_maca.pokemon = "Pikachu";
 
 	t_get_pokemon get_pokemon_maca;
-	get_pokemon.pokemon = "pikachu";
+	get_pokemon_maca.pokemon = "Pikachu";
 
 	t_catch_pokemon appeared_pokemon_maca;
 	appeared_pokemon_maca.coordenadas.posx = 1;
 	appeared_pokemon_maca.coordenadas.posy = 5;
-	appeared_pokemon_maca.pokemon = "pikachu";
+	appeared_pokemon_maca.pokemon = "Pikachu";
 
 	t_caught_pokemon caught_pokemon_maca;
-	caught_pokemon.status = 0;
+	caught_pokemon_maca.status = 0;
 
 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon_maca);
 	free(ack);
@@ -143,6 +133,9 @@ int main(){
 
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon_maca);
 	free(ack);
+
+	printf("TERMINE DE PROBAR LISTO   \n");
+
 
 	//enviar_mensaje_string(socket, "hola_broker");
 
