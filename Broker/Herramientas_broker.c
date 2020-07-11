@@ -56,8 +56,7 @@ void obtener_valor_config(char* key, t_config* file, void(*obtener)(void)){
 
 void obtener_tamanio_memoria(){
 	tamanio_memoria = config_get_int_value(config, KEY_CONFIG_TAMANIO_MEMORIA);
-	log_info(broker_logger,"El tamaño inicial de memoria: %d",tamanio_memoria);
-	//if(debug_broker) log_debug(broker_logger,"El tamaño inicial de memoria: %d",tamanio_memoria);
+	if(debug_broker) log_debug(broker_logger,"El tamaño inicial de memoria: %d",tamanio_memoria);
 }
 
 void obtener_tamanio_minimo_particion(){
@@ -82,19 +81,22 @@ void obtener_algoritmo_particion_libre(){
 
 void obtener_la_ip_del_broker(){
 	ip_broker = strdup(config_get_string_value(config, KEY_CONFIG_IP_BROKER));
+	if(debug_broker) log_debug(broker_logger,"la ip del broker es: %s",ip_broker);
 }
 
 void obtener_el_puerto_del_broker(){
 	puerto_broker = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER));
+	if(debug_broker) log_debug(broker_logger,"el puerto del broker es: %s",puerto_broker);
 }
 
 void obtener_frecuencia_compactacion(){
-	frecuencia_compactacion = config_get_int_value(config, KEY_CONFIG_PUERTO_BROKER);
+	frecuencia_compactacion = config_get_int_value(config, KEY_CONFIG_FRECUENCIA_COMPACTACION);
 	if(debug_broker) log_debug(broker_logger,"La frecuencia de compactacion es: %d",frecuencia_compactacion);
 }
 
 void obtener_el_log_file(){
 	log_file = strdup(config_get_string_value(config, KEY_CONFIG_LOG_FILE));
+	if(debug_broker) log_debug(broker_logger,"El log file es: %s",log_file);	
 }
 
 void configurar_signals(void){

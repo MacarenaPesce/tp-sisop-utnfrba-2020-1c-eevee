@@ -122,6 +122,17 @@ int main(){
 	t_caught_pokemon caught_pokemon_maca;
 	caught_pokemon_maca.status = 0;
 
+	t_catch_pokemon appeared_pokemon_maca2;
+	appeared_pokemon_maca2.coordenadas.posx = 1;
+	appeared_pokemon_maca2.coordenadas.posy = 5;
+	appeared_pokemon_maca2.pokemon = "Tengotreintabytes";
+
+	t_new_pokemon new_pokemon_maca2;
+	new_pokemon_maca2.coordenadas.posx = 5;
+	new_pokemon_maca2.coordenadas.posy = 10;
+	new_pokemon_maca2.cantidad = 2;
+	new_pokemon_maca2.pokemon = "TengounnombremuylargoparaochentabytesysigosinllegarAAAAAAAAAAAA";
+
 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon_maca);
 	free(ack);
 
@@ -132,6 +143,12 @@ int main(){
 	free(ack);
 
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon_maca);
+	free(ack);
+
+	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon_maca2);
+	free(ack);
+
+	ack = enviar_new_pokemon(&servidor,-1, &new_pokemon_maca2);
 	free(ack);
 
 	printf("TERMINE DE PROBAR LISTO   \n");

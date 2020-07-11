@@ -117,7 +117,7 @@ t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
     
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
-    if (  strcmp( algoritmo_memoria, "BS") == 1){
+    if (  strcmp( algoritmo_memoria, "BS") == 0){
 
         particionNueva= buddy_system(estructura_mensaje);
     }
