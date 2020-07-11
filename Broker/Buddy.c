@@ -13,10 +13,33 @@ extern t_config* config;
 
 extern t_cache_colas* cache_mensajes;
 
+/*
+	Bueno algunas cosas a tener en cuenta para Buddy:
+		- Puedo plantear un arbol paralelo apenas arranque el funcionamiento del broker
+			- En caso de plantear un arbol, me serviria guardar el id padre para consolidar
+			dos buddies.
+			- 
 
+		
+*/
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 
     return;
+}
+
+void consolidar_buddies(){
+
+	return ;
+}
+
+void particionar_bloque_buddies(){
+
+	return ;
+}
+
+void encontrar_padre(){
+
+	return ;
 }
 
 
