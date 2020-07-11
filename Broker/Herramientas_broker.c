@@ -1,6 +1,16 @@
 #include "Herramientas_broker.h"
 
+extern int tamanio_memoria;
+extern int tamanio_minimo_particion;
+extern char* algoritmo_memoria;
+extern char* algoritmo_reemplazo;
+extern char* algoritmo_particion_libre;
+extern char* ip_broker;
+extern int frecuencia_compactacion;
+extern char* puerto_broker;
+extern char* log_file;
 
+extern t_config* config;
 extern t_log* broker_logger;
 
 extern enum SERVER_STATUS server_status; 
@@ -31,6 +41,7 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_CONFIG_FRECUENCIA_COMPACTACION, config, obtener_frecuencia_compactacion);
 		obtener_valor_config(KEY_CONFIG_LOG_FILE, config, obtener_el_log_file);
 
+		log_info(broker_logger, "Archivo de configuracion cargado...");
 		config_destroy(config);
 
 	}
@@ -45,7 +56,8 @@ void obtener_valor_config(char* key, t_config* file, void(*obtener)(void)){
 
 void obtener_tamanio_memoria(){
 	tamanio_memoria = config_get_int_value(config, KEY_CONFIG_TAMANIO_MEMORIA);
-	if(debug_broker) log_debug(broker_logger,"El tamaño inicial de memoria: %d",tamanio_memoria);
+	log_info(broker_logger,"El tamaño inicial de memoria: %d",tamanio_memoria);
+	//if(debug_broker) log_debug(broker_logger,"El tamaño inicial de memoria: %d",tamanio_memoria);
 }
 
 void obtener_tamanio_minimo_particion(){

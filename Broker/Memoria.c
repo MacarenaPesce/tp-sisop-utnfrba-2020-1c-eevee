@@ -56,7 +56,8 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
    
     if(debug_broker) log_debug(broker_logger, "Se asigno la memoria inicial",NULL);
-    if(debug_broker) log_debug(broker_logger, "La direccion inicial de memoria es: %p", memoria_inicial);
+    //if(debug_broker) log_debug(broker_logger, "La direccion inicial de memoria es: %p", memoria_inicial);
+    log_warning(broker_logger, "La direccion inicial de memoria es: %p", memoria_inicial);
 
     /* Genero el bloque de memoria inicial*/
     t_bloque_memoria *bloque;
@@ -69,7 +70,8 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 	bloque->last_time = 0;
     bloque->estructura_mensaje = (t_mensaje_cola*) memoria_inicial;
 
-    if(debug_broker) log_debug(broker_logger, "Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
+    //if(debug_broker) log_debug(broker_logger, "Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
+    log_warning(broker_logger, "Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
 
     /* Agrego el bloque a la lista */
     list_add(cache_mensajes->memoria,bloque);
