@@ -27,6 +27,11 @@
 
 
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje);
+void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje);
+void reemplazar_bloque_BS(t_mensaje_cola* estructura_mensaje);
+void consolidar_buddies();
+void particionar_bloque_buddies();
+void encontrar_padre();
 
 //*****************Auxiliares especificas Buddy System******************************
 bool tamanio_potencia_dos(int tamanio_en_bytes);

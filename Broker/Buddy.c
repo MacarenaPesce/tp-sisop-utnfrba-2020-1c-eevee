@@ -20,11 +20,25 @@ extern t_cache_colas* cache_mensajes;
 			dos buddies.
 			- 
 
+			- Usamos best fit -> problemas / soluciones de usar FF?
+			- Sin compactacion
+
+
 		
 */
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 
     return;
+}
+
+void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje){
+
+	return;
+}
+
+void reemplazar_bloque_BS(t_mensaje_cola* estructura_mensaje){
+
+	return;
 }
 
 void consolidar_buddies(){
