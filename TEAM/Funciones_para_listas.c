@@ -119,6 +119,7 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 			uint32_t contador = 0;
 			char* un_char = "Ultimo poke\0";
 			char* ultimo_poke = string_from_format("%s\0", un_char);
+
 			list_add(pokemones, ultimo_poke);
 			/*Empiezo a cargar a lista de objetivos, con tipo y cantidad de cada uno*/
 			char* especiePokemon;
@@ -128,6 +129,9 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 				especiePokemon = unPokemon;
 				otroPokemon = list_get(pokemones, i);
 				if(otroPokemon == NULL){
+					if(string_contains(especiePokemon, "]\0")){
+						especiePokemon = string_substring(especiePokemon, 0, strlen(especiePokemon)-1);
+					}
 					agregar_objetivo(especiePokemon, contador, lista);
 					break;
 				}
@@ -135,6 +139,10 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 					contador++;
 					i++;
 					}else{
+						if(string_contains(especiePokemon, "]\0")){
+							especiePokemon = string_substring(especiePokemon, 0, strlen(especiePokemon)-1);
+						}
+
 						agregar_objetivo(especiePokemon, contador, lista);
 						unPokemon = otroPokemon;
 						contador = 1;

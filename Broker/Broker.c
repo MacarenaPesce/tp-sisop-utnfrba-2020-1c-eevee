@@ -8,7 +8,7 @@ int main(){
 
 	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
 	
-	debug_broker = false;
+	debug_broker = true;
 
 	if(debug_broker) log_debug(broker_logger, "1) Cache de mensajes lista!!!", NULL);
 	
@@ -51,7 +51,7 @@ int main(){
 
 	//if(debug_broker) log_debug(broker_logger,"El espacio de memoria principal es: %d",tamanio_memoria);
 
-	asignar_memoria_inicial(2048);
+	asignar_memoria_inicial(tamanio_memoria);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);	
 
