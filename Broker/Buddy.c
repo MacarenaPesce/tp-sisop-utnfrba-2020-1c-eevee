@@ -85,7 +85,7 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 		else {
 
 			/* Elimino una particion */
-			bloque_borrado = reemplazo_bloque_BS();
+			bloque_borrado = reemplazar_bloque_BS();
 
 			/* Consolido buddies entorno a la particion eliminada*/
 			consolidar_buddies(bloque_borrado);
@@ -141,18 +141,18 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 
         /* Me fijo si el tamaño que quiero alojar cabe o no en el bloque actual 
 			y ademas si el bloque en el que estoy esta vacio o no */
-        if((aux->esta_vacio == true) && (aux->tamanio_particion >= tamanio_de_particion)){
+        if((bloque_auxiliar->esta_vacio == true) && (bloque_auxiliar->tamanio_particion >= tamanio_de_particion)){
             
             /* Me fijo si el tamaño mas chico de particiones sigue siendo 0 */
             if(tam_minimo==0){
-                tam_minimo = aux->tamanio_particion;
+                tam_minimo = bloque_auxiliar->tamanio_particion;
             }
 
             /* Me fijo si el tamaño mas chico de particion es menor o 
 				igual al tamaño del bloque auxiliar actual, en caso de serlo, 
 				al bloque le asigno el auxiliar y asi me quedo con el bloque mas 
 				chico de toda la lista */
-            if(tam_minimo <= aux->tamanio_particion){
+            if(tam_minimo <= bloque_auxiliar->tamanio_particion){
                 bloque_encontrado = bloque_auxiliar;
             }
 
@@ -172,7 +172,7 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 void particionar_bloque_buddies(t_bloque_memoria* particion,t_mensaje_cola* estructura_mensaje, int tamanio_bytes_pot_dos){
 
 	/* Me fijo si puedo particionar el bloque, si el tamaño de mi particion */
-	bool puedo_particionar = (particion->tamanio > tamanio_bytes_pot_dos);
+	bool puedo_particionar = (particion->tamanio_particion > tamanio_bytes_pot_dos);
 
 	/* Mientras pueda particionar
 		1- Tengo que crear una nueva particion del tamaño divido 2, 

@@ -239,7 +239,7 @@ void _agregar_dato_a_paquete(t_packed *paquete, void *value, int size){
 
 void _agregar_string_a_paquete(t_packed* paquete, char* string){
 
-	_agregar_dato_a_paquete(paquete, string, strlen(string)+1);
+	_agregar_dato_a_paquete(paquete, string, strlen(string));
 
 }
 
@@ -296,7 +296,7 @@ int _enviar_catch_o_appeared_pokemon(int socket,
 		
 	_agregar_uint32_t_a_paquete(paquete, appeared_pokemon->coordenadas.posx);
 	_agregar_uint32_t_a_paquete(paquete, appeared_pokemon->coordenadas.posy);
-	_agregar_uint32_t_a_paquete(paquete, strlen(appeared_pokemon->pokemon)+1);
+	_agregar_uint32_t_a_paquete(paquete, strlen(appeared_pokemon->pokemon));
 	_agregar_string_a_paquete(paquete, appeared_pokemon->pokemon);
 
 	int send_status = _enviar_mensaje(socket, paquete);
@@ -425,7 +425,7 @@ int distribuir_new_pokemon(int socket,
 	_agregar_uint32_t_a_paquete(paquete, new_pokemon->coordenadas.posx);
 	_agregar_uint32_t_a_paquete(paquete, new_pokemon->coordenadas.posy);
 	_agregar_uint32_t_a_paquete(paquete, new_pokemon->cantidad);
-	_agregar_uint32_t_a_paquete(paquete, strlen(new_pokemon->pokemon)+1);
+	_agregar_uint32_t_a_paquete(paquete, strlen(new_pokemon->pokemon));
 	_agregar_string_a_paquete(paquete, new_pokemon->pokemon);
 	
 	int send_status = _enviar_mensaje(socket, paquete);
@@ -522,7 +522,7 @@ int distribuir_get_pokemon(int socket,
 	paquete->cola_de_mensajes = COLA_GET_POKEMON;
 	paquete->id_cliente = id_cliente;
 
-	_agregar_uint32_t_a_paquete(paquete, strlen(get_pokemon->pokemon)+1);
+	_agregar_uint32_t_a_paquete(paquete, strlen(get_pokemon->pokemon));
 	_agregar_string_a_paquete(paquete, get_pokemon->pokemon);
 
 	int send_status = _enviar_mensaje(socket, paquete);
@@ -615,7 +615,7 @@ int distribuir_localized_pokemon(int socket,
 
 	list_iterate(localized_pokemon->lista_coordenadas,agregar_coordenadas_a_paquete);
 	
-	_agregar_uint32_t_a_paquete(paquete, strlen(localized_pokemon->pokemon)+1);
+	_agregar_uint32_t_a_paquete(paquete, strlen(localized_pokemon->pokemon));
 	_agregar_string_a_paquete(paquete, localized_pokemon->pokemon);
 
 	int send_status = _enviar_mensaje(socket, paquete);
@@ -669,8 +669,9 @@ void _recibir_catch_o_appeared_pokemon(t_packed *paquete){
 	offset += sizeof(uint32_t);
 	paquete->tamanio_payload -= sizeof(uint32_t);
 
-	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	aux->pokemon = (char*)malloc(_tamanio_string_pokemon+1);
 	memcpy(aux->pokemon,(paquete->mensaje)+offset,_tamanio_string_pokemon);
+	(aux->pokemon)[_tamanio_string_pokemon] = "\0";
 
 	free(paquete->mensaje);
 
@@ -694,8 +695,9 @@ void _recibir_new_pokemon(t_packed *paquete){
 	offset += sizeof(uint32_t);
 	paquete->tamanio_payload -= sizeof(uint32_t);
 
-	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	aux->pokemon = (char*)malloc(_tamanio_string_pokemon+1);
 	memcpy(aux->pokemon,(paquete->mensaje)+offset,_tamanio_string_pokemon);
+	(aux->pokemon)[_tamanio_string_pokemon] = "\0";
 
 	free(paquete->mensaje);
 
@@ -722,8 +724,9 @@ void _recibir_get_pokemon(t_packed *paquete){
 	offset += sizeof(uint32_t);
 	paquete->tamanio_payload -= sizeof(uint32_t);
 
-	aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	aux->pokemon = (char*)malloc(_tamanio_string_pokemon+1);
 	memcpy(aux->pokemon,(paquete->mensaje)+offset,_tamanio_string_pokemon);
+	(aux->pokemon)[_tamanio_string_pokemon] = "\0";
 
 	free(paquete->mensaje);
 
@@ -771,8 +774,9 @@ void _recibir_localized_pokemon(t_packed *paquete){
 	memcpy(&_tamanio_string_pokemon,paquete->mensaje+offset,sizeof(uint32_t));
 	offset += sizeof(u_int32_t);
 
-	localized_pokemon_aux->pokemon = (char*)malloc(_tamanio_string_pokemon);
+	localized_pokemon_aux->pokemon = (char*)malloc(_tamanio_string_pokemon+1);
 	memcpy(localized_pokemon_aux->pokemon,(paquete->mensaje)+offset,_tamanio_string_pokemon);
+	(localized_pokemon_aux->pokemon)[_tamanio_string_pokemon] = "\0";
 
 	free(paquete->mensaje);
 

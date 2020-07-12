@@ -53,56 +53,50 @@ int main(){
 	t_get_pokemon get_pokemon;
 	get_pokemon.pokemon = "Pikachu";
 
-	t_get_pokemon get_pokemon2;
-	get_pokemon.pokemon = "Charmander";
-
 	/* Localized Pokemon*/
-	//t_localized_pokemon* localized_pokemon = generar_localized("Pikachu");
+	t_localized_pokemon* localized_pokemon = generar_localized("Pikachu");
 
 	//crear coordenadas
 	t_coordenadas coordenadas;
 	coordenadas.posx = 21;
 	coordenadas.posy = 22;
 
-	//agregar_coordenadas_a_localized(localized_pokemon,&coordenadas);
+	agregar_coordenadas_a_localized(localized_pokemon,&coordenadas);
 
-	//ack = enviar_localized_pokemon(&servidor,-1,localized_pokemon);
-	//free(ack);
-/* 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
-	free(ack);  */
-
-
-	/*int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_LOCALIZED_POKEMON);
+/*	
+	int socket_get_pokemon = enviar_solicitud_suscripcion(&servidor,COLA_LOCALIZED_POKEMON);
 	int socket_get_pokemon2 = enviar_solicitud_suscripcion(&servidor,COLA_APPEARED_POKEMON);
 	int socket_get_pokemon3 = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON);
-	socket_get_pokemon3 = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON); */
+	socket_get_pokemon3 = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON); 
 
-/* 	sleep(2); */
-/* 
-	esperar_mensajes(&socket_get_pokemon);  */
+	esperar_mensajes(&socket_get_pokemon);  
 
-
-/* 	pthread_t hilo_espera_mensajes;
+	pthread_t hilo_espera_mensajes;
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
  */
 
- 	//ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
-	//free(ack); 
+	ack = enviar_localized_pokemon(&servidor,-1,localized_pokemon);
+	free(ack);
 
-	//ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
-	//free(ack);
+/* 
+	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
+	free(ack);
 
-	//ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
-	//free(ack);
+	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
+	free(ack);
 
-	//ack = enviar_catch_pokemon(&servidor,-1, &appeared_pokemon);
-	//free(ack);
+	ack = enviar_catch_pokemon(&servidor,-1, &appeared_pokemon);
+	free(ack);
 
-	//ack = enviar_get_pokemon(&servidor,-1, &get_pokemon2);
-	//free(ack);
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
+	free(ack);
 
-	//ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
-	//free(ack);
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon);
+	free(ack); 
+
+	ack = enviar_localized_pokemon(&servidor,-1,localized_pokemon);
+	free(ack);
+*/
 
 	/*Pokemons de prueba para Macaa*/
 	t_new_pokemon new_pokemon_maca;
@@ -133,7 +127,7 @@ int main(){
 	new_pokemon_maca2.cantidad = 2;
 	new_pokemon_maca2.pokemon = "TengounnombremuylargoparaochentabytesysigosinllegarAAAAAAAAAAAA";
 
-	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon_maca);
+/* 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon_maca);
 	free(ack);
 
  	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon_maca);
@@ -149,7 +143,7 @@ int main(){
 	free(ack);
 
 	ack = enviar_new_pokemon(&servidor,-1, &new_pokemon_maca2);
-	free(ack);
+	free(ack); */
 
 	printf("TERMINE DE PROBAR LISTO   \n");
 
