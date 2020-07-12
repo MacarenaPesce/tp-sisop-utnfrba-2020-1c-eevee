@@ -3,6 +3,7 @@
 
 #include "Memoria.h"
 #include <Pokebola.h>
+#include "Contexto_broker.h"
 
 
 #include <stdio.h>
