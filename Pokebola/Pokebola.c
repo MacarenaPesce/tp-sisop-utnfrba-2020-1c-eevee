@@ -659,6 +659,7 @@ void _recibir_catch_o_appeared_pokemon(t_packed *paquete){
 	uint32_t _tamanio_string_pokemon;
 	int offset = 0;
 	t_appeared_pokemon *aux;
+	char* string_terminator = "\0";
 
 	aux = (t_appeared_pokemon*)malloc(sizeof(t_appeared_pokemon));
 
@@ -671,7 +672,7 @@ void _recibir_catch_o_appeared_pokemon(t_packed *paquete){
 
 	aux->pokemon = (char*)malloc(_tamanio_string_pokemon+1);
 	memcpy(aux->pokemon,(paquete->mensaje)+offset,_tamanio_string_pokemon);
-	(aux->pokemon)[_tamanio_string_pokemon] = "\0";
+	memcpy((aux->pokemon)+_tamanio_string_pokemon,string_terminator,1);
 
 	free(paquete->mensaje);
 
@@ -684,6 +685,7 @@ void _recibir_new_pokemon(t_packed *paquete){
 
 	int offset = 0;
 	uint32_t _tamanio_string_pokemon;
+	char* string_terminator = "\0";
 	t_new_pokemon *aux;
 
 	aux = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));	
@@ -697,7 +699,7 @@ void _recibir_new_pokemon(t_packed *paquete){
 
 	aux->pokemon = (char*)malloc(_tamanio_string_pokemon+1);
 	memcpy(aux->pokemon,(paquete->mensaje)+offset,_tamanio_string_pokemon);
-	(aux->pokemon)[_tamanio_string_pokemon] = "\0";
+	memcpy((aux->pokemon)+_tamanio_string_pokemon,string_terminator,1);
 
 	free(paquete->mensaje);
 
@@ -717,6 +719,7 @@ void _recibir_get_pokemon(t_packed *paquete){
 	int offset = 0;
 	uint32_t _tamanio_string_pokemon;
 	t_get_pokemon* aux;
+	char* string_terminator = "\0";
 
 	aux = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 
@@ -726,7 +729,7 @@ void _recibir_get_pokemon(t_packed *paquete){
 
 	aux->pokemon = (char*)malloc(_tamanio_string_pokemon+1);
 	memcpy(aux->pokemon,(paquete->mensaje)+offset,_tamanio_string_pokemon);
-	(aux->pokemon)[_tamanio_string_pokemon] = "\0";
+	memcpy((aux->pokemon)+_tamanio_string_pokemon,string_terminator,1);
 
 	free(paquete->mensaje);
 
@@ -746,6 +749,8 @@ void _recibir_localized_pokemon(t_packed *paquete){
 	t_localized_pokemon* localized_pokemon_aux = generar_localized(NULL);
 
 	int offset = 0;
+
+	char* string_terminator = "\0";
 
 	memcpy(localized_pokemon_aux,(paquete->mensaje)+offset,sizeof(uint32_t));
 
@@ -776,7 +781,7 @@ void _recibir_localized_pokemon(t_packed *paquete){
 
 	localized_pokemon_aux->pokemon = (char*)malloc(_tamanio_string_pokemon+1);
 	memcpy(localized_pokemon_aux->pokemon,(paquete->mensaje)+offset,_tamanio_string_pokemon);
-	(localized_pokemon_aux->pokemon)[_tamanio_string_pokemon] = "\0";
+	memcpy((localized_pokemon_aux->pokemon)+_tamanio_string_pokemon,string_terminator,1);
 
 	free(paquete->mensaje);
 

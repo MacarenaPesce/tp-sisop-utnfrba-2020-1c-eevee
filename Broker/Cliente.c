@@ -75,7 +75,7 @@ int main(){
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
  */
 
-	ack = enviar_localized_pokemon(&servidor,-1,localized_pokemon);
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
 
 /* 
