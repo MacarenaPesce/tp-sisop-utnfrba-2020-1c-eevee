@@ -142,14 +142,15 @@ t_bloque_memoria* particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
     t_bloque_memoria* particionNueva;
     //particionNueva = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
 
-    //me fijo si el tamaño del mensaje es menor al minimo tamaño de particion
+    /* Me fijo si el tamaño del mensaje es menor al minimo tamaño de particion */
     int tamanio_parti = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
     //if(debug_broker) log_debug(broker_logger,"Por alojar particion de: %i ", tamanio_parti );
     log_warning(broker_logger, "Por alojar particion de: %i", tamanio_parti);
 
-    //me fijo si la particion puede alojarse a la primera
+    /* Me fijo si la particion puede alojarse a la primera */
     bool sePuedeAlojar = puede_alojarse(tamanio_parti);
 
+    /* Seteo un bool para controlar cuando ya aloje la particion*/
     bool alojado = false;
 
     //igualo la frecuencia para compactar segun cuantas veces compacte

@@ -30,6 +30,7 @@ extern t_cache_colas* cache_mensajes;
 
 	*/
 
+//TODO: modificar el algoritmo de memoria que devuelve un t_bloque
 
 /*
 	Bueno algunas cosas a tener en cuenta para Buddy:
@@ -44,24 +45,64 @@ extern t_cache_colas* cache_mensajes;
 */
 
 
-
+/* Funcion que arranca con el funcionamiento del Buddy en si */
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 
-	/*Me fijo si cumple con el tamaño minimo de particion*/
+	/* Me fijo si cumple con el tamaño minimo de particion */
 	int bytes_a_alojar = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
 
-	/*Busco el numero potencia de 2 mas cercano*/
+	/* Busco el numero potencia de 2 mas cercano */
 	int bytes_potencia_dos = tamanio_potencia_dos(bytes_a_alojar);
 
-	/*Alojo la partición según el funcionamiento de buddies*/
-	asignar_bloque_BS(estructura_mensaje, bytes_potencia_dos);
+    /* Me fijo si la particion puede alojarse a la primera */
+    bool sePuedeAlojar = puede_alojarse(bytes_potencia_dos);
+
+	/* Seteo un bool para controlar cuando ya aloje la particion */
+    bool alojado = false;
+
+
+	while(alojado == false){ /* Mientras no este alojado */
+
+        /* Me fijo si puedo alojarla a la primera */
+        if(sePuedeAlojar == true){ 
+
+            /* 	Si puede alojarse a la primera: 
+				Alojo la partición según el funcionamiento de buddies  */
+			asignar_bloque_BS(estructura_mensaje, bytes_potencia_dos);
+
+            if(debug_broker) log_debug(broker_logger, "Aloje la nueva particion , BS");
+
+            //seteo alojado en true, para salir del while
+            alojado = true;
+
+            continue;
+        }	
+
+		/* En caso de no alojarse a la primera */ 
+		else {
+
+			/* Elimino una particion */
+			reemplazo_bloque_BS();
+
+			/* Consolido buddies*/
+			consolidar_buddies();
+		}
+
+		/* Me fijo de nuevo si puede alojarse */
+        sePuedeAlojar = puede_alojarse(bytes_potencia_dos);
+
+	}
 
 
     return;
 }
 
+
 void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_particion){
 
+	 
+
+	/* Encontrar particion libre */
 	return;
 }
 
