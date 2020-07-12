@@ -54,7 +54,7 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 	int bytes_a_alojar = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
 
 	/* Busco el numero potencia de 2 mas cercano */
-	int bytes_potencia_dos = tamanio_potencia_dos(bytes_a_alojar);
+	int bytes_potencia_dos = numero_potencia_dos(bytes_a_alojar);
 
     /* Me fijo si la particion puede alojarse a la primera */
     bool sePuedeAlojar = puede_alojarse(bytes_potencia_dos);
@@ -169,45 +169,62 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 /* 	Dado un bloque de memoria, se encarga de particionar el bloque.
 	Teniendo en cuenta, que lo tiene que particionar la cantidad de veces necesarias 
 	para que sea del menor tamaño posible. */
-void particionar_bloque_buddies(t_bloque_memoria* particion,t_mensaje_cola* estructura_mensaje, int tamanio_bytes_pot_dos){
+void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_cola* estructura_mensaje, int tamanio_bytes_pot_dos){
+
+	t_bloque_memoria* bloque_restante;
 
 	/* Me fijo si puedo particionar el bloque, si el tamaño de mi particion */
-	bool puedo_particionar = (particion->tamanio_particion > tamanio_bytes_pot_dos);
+	bool puedo_particionar = (particion_inicial->tamanio_particion > tamanio_bytes_pot_dos);
 
-	
-	/* En caso de no poder particionar mas, porque el bloque es justo del 
-		tamaño que necesito */
-	if(!puedo_particionar && (tamanio_bytes_pot_dos == particion->tamanio_particion){
+	/* Obtengo el indice de la particion a particionar*/
+	int indice_nodo_particionar = obtener_indice_particion(particion_inicial);
 
-		/* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
-    	particion->tamanio_particion = tamanio_bytes_pot_dos;
-    	particion->esta_vacio = false;
-		particion->timestamp = get_timestamp();
-		particion->last_time = get_timestamp();
-
-
-    	/* Copio el mensaje a MP y apunto a la estructura_mensaje */      
-    	memcpy((void*)(particion->estructura_mensaje),estructura_mensaje->mensaje,estructura_mensaje->tamanio_mensaje);
-
-    	void* aux_mensaje = particion->estructura_mensaje; 
-    	particion->estructura_mensaje = estructura_mensaje;
-
-    	particion->estructura_mensaje->mensaje = aux_mensaje;  
-
-		return ;
-	}
-	
 	/* Mientras pueda particionar
 		1- Tengo que crear una nueva particion del tamaño divido 2, 
 			verificando que sea potencia de 2
 		2- Agregar la nueva particion a la lista de particiones
 		3- Tengo que volver a mirar si puedo seguir particionando 
 			y seguir verificando las potencias de 2 */
+
 	/* En caso de poder particionar */
 	while(puedo_particionar){
 
+		/* Me fijo cuanto espacio sobra y si es potencia de 2 */
+		int tamanio_restante = particion_inicial->tamanio_particion / 2 ;
+		bool es_potencia_de_dos = tamanio_potencia_dos(tamanio_restante);
+    	
+		/* Como me sobra espacio lo separo en un nuevo nodo */
+        void* particion_restante = ((char *)particion_inicial->estructura_mensaje) + tamanio_bytes_pot_dos;
+
+        bloque_restante = crear_bloque_vacio(tamanio_restante, particion_restante);
+
+        list_add_in_index(cache_mensajes->memoria, indice_nodo_particionar + 1, bloque_restante);    
+
+		//setear de nuevo el bool 
+
 	}
 
+		/* En caso de no poder particionar mas, porque el bloque es justo del 
+		tamaño que necesito */
+	if(!puedo_particionar && (tamanio_bytes_pot_dos == particion_inicial->tamanio_particion){
+
+		/* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
+    	particion_inicial->tamanio_particion = tamanio_bytes_pot_dos;
+    	particion_inicial->esta_vacio = false;
+		particion_inicial->timestamp = get_timestamp();
+		particion_inicial->last_time = get_timestamp();
+
+
+    	/* Copio el mensaje a MP y apunto a la estructura_mensaje */      
+    	memcpy((void*)(particion_inicial->estructura_mensaje),estructura_mensaje->mensaje,estructura_mensaje->tamanio_mensaje);
+
+    	void* aux_mensaje = particion_inicial->estructura_mensaje; 
+    	particion_inicial->estructura_mensaje = estructura_mensaje;
+
+    	particion_inicial->estructura_mensaje->mensaje = aux_mensaje;  
+
+		return ;
+	}
 
 	return ;
 }
