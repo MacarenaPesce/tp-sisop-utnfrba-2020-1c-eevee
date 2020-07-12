@@ -20,8 +20,11 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		llegar_a_el_pokemon(entrenador);
 		pthread_mutex_unlock(&moverse);
 
+		pthread_mutex_lock(&moverse);
+		atrapar(entrenador);
+		pthread_mutex_unlock(&moverse);
 
-		if(!entrenador->desalojado){
+		/*if(!entrenador->desalojado){
 			pthread_mutex_lock(&moverse);
 			atrapar(entrenador);
 			pthread_mutex_unlock(&moverse);
@@ -32,7 +35,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		while(me_desalojaron && entrenador_por_desalojar == NULL){
 			me_desalojaron = false;
 			sem_post(&orden_para_planificar);
-		}
+		}*/
 
 		if(objetivo_personal_cumplido(entrenador)){
 			list_add(lista_finalizar, entrenador);
@@ -96,96 +99,96 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 	log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 	log_info(team_logger, "El entrenador %i se mueve a atrapar a %s a la posicion (%i, %i)", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 
-	while(!me_desalojaron) {
+	//while(!me_desalojaron) {
 
 		//Primero me muevo por izq
 		while(entrenador->posx < entrenador->objetivo_actual->posx){
 			pthread_mutex_lock(&mutex_ciclos_cpu);
-			consumir_un_ciclo_de_cpu_mientras_planificamos();
+			consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 			pthread_mutex_unlock(&mutex_ciclos_cpu);
 			entrenador->posx = entrenador->posx + 1;
 
-			if(me_desalojaron){
-				break;
-			}
+			//if(me_desalojaron){
+				//break;
+			//}
 		}
 
-		if(me_desalojaron){
-			entrenador->desalojado = true;
-			break;
-		}
+		//if(me_desalojaron){
+			//entrenador->desalojado = true;
+			//break;
+		//}
 
 		//Despues me muevo por derecha
 		while(entrenador->posx > entrenador->objetivo_actual->posx){
 			pthread_mutex_lock(&mutex_ciclos_cpu);
-			consumir_un_ciclo_de_cpu_mientras_planificamos();
+			consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 			pthread_mutex_unlock(&mutex_ciclos_cpu);
 			entrenador->posx = entrenador->posx - 1;
 
-			if(me_desalojaron){
-				break;
-			}
+			//if(me_desalojaron){
+			//	break;
+			//}
 		}
 
-		if(me_desalojaron){
-			entrenador->desalojado = true;
-			break;
-		}
+		//if(me_desalojaron){
+			//entrenador->desalojado = true;
+			//break;
+		//}
 
 		//Despues me muevo por arriba
 		while(entrenador->posy > entrenador->objetivo_actual->posy){
 			pthread_mutex_lock(&mutex_ciclos_cpu);
-			consumir_un_ciclo_de_cpu_mientras_planificamos();
+			consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 			pthread_mutex_unlock(&mutex_ciclos_cpu);
 			entrenador->posy = entrenador->posy - 1;
 
-			if(me_desalojaron){
-				break;
-			}
+			//if(me_desalojaron){
+			//	break;
+			//}
 		}
 
-		if(me_desalojaron){
-			entrenador->desalojado = true;
-			break;
-		}
+	//	if(me_desalojaron){
+			//entrenador->desalojado = true;
+			//break;
+		//}
 
 		//Despues me muevo por abajo
 		while(entrenador->posy < entrenador->objetivo_actual->posy){
 			pthread_mutex_lock(&mutex_ciclos_cpu);
-			consumir_un_ciclo_de_cpu_mientras_planificamos();
+			consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 			pthread_mutex_unlock(&mutex_ciclos_cpu);
 			entrenador->posy = entrenador->posy + 1;
 
-			if(me_desalojaron){
-				break;
-			}
+			//if(me_desalojaron){
+			//	break;
+			//}
 		}
 
-		if(me_desalojaron){
-			entrenador->desalojado = true;
-			break;
-		}
+		//if(me_desalojaron){
+			//entrenador->desalojado = true;
+			//break;
+		//}
 
 
 		if(entrenador->posy == entrenador->objetivo_actual->posy  && entrenador->posx == entrenador->objetivo_actual->posx){
 			log_info(team_logger, "El entrenador de id %d llegó al pokemon %s.", entrenador->id, entrenador->objetivo_actual->especie);
-			me_desalojaron = false;
+			//me_desalojaron = false;
 			/*TODO comprobacion por si justo lo desalojaron en su ultimo movimiento y todavia le queda
 			ejecutar para atrapar al pokemon, que consume un ciclo. En ese caso entrandor->desalojado seria true*/
-			entrenador->desalojado = false;
-			break;
+			//entrenador->desalojado = false;
+			//break;
 		}
-	}
+	//}
 
-	if(entrenador->desalojado){
-		pthread_mutex_lock(&lista_listos_mutex);
+	//if(entrenador->desalojado){
+		//pthread_mutex_lock(&lista_listos_mutex);
 
-		estimar_entrenador(entrenador);
+		//estimar_entrenador(entrenador);
 
-		list_add(lista_listos, entrenador);
-		log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
-		pthread_mutex_unlock(&lista_listos_mutex);
-	}
+		//list_add(lista_listos, entrenador);
+		//log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+		//pthread_mutex_unlock(&lista_listos_mutex);
+	//}
 }
 
 void atrapar(t_entrenador * entrenador){
@@ -204,11 +207,11 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
-/*
+
 	pthread_mutex_lock(&mutex_ciclos_cpu);
-	consumir_un_ciclo_de_cpu_mientras_planificamos();
+	consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 	pthread_mutex_unlock(&mutex_ciclos_cpu);
-*/
+
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);

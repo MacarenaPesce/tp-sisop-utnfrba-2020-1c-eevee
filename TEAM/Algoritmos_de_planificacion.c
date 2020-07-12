@@ -13,8 +13,8 @@ void * planificar(){
 
 		sem_wait(&orden_para_planificar);
 
-		if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
-			if(entrenador_en_ejecucion!=NULL) /*nuevo_entrenador->estimacion_real < entrenador_en_ejecucion->estimacion_actual))*/
+		/*if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
+			if(entrenador_en_ejecucion!=NULL) /*nuevo_entrenador->estimacion_real < entrenador_en_ejecucion->estimacion_actual))
 			{
 				log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
 				desalojo_en_ejecucion = true;
@@ -29,7 +29,7 @@ void * planificar(){
 				entrenador_por_desalojar = nuevo_entrenador;
 			}
 		}
-		entrenador_por_desalojar = nuevo_entrenador;
+		entrenador_por_desalojar = nuevo_entrenador;*/
 
 		obtener_proximo_ejecucion();
 	}
@@ -144,7 +144,6 @@ int estimar_entrenador(t_entrenador * entrenador){
 }
 
 void ordenar_lista_prioridades(t_list* lista){
-
 	t_list * lista_aux_mayor_prioridad;
 	lista_aux_mayor_prioridad = list_create();
 
@@ -154,19 +153,21 @@ void ordenar_lista_prioridades(t_list* lista){
 	t_list *lista_aux = list_duplicate(lista);
 	for(int i = 0; i < list_size(lista_aux); i++){
 		t_entrenador * entrenador = list_get(lista_aux,i);
+		log_info(team_logger, "ID DE ENTRENADOR %d", entrenador->id);
 		if(entrenador->agoto_quantum){
-			list_add(lista_aux_mayor_prioridad, entrenador);
-		} else {
 			list_add(lista_aux_menor_prioridad, entrenador);
+		} else {
+			list_add(lista_aux_mayor_prioridad, entrenador);
 		}
 	}
 	list_clean(lista);
 	list_add_all(lista,lista_aux_mayor_prioridad);
 	list_add_all(lista,lista_aux_menor_prioridad);
 
-	/*list_destroy(lista_aux);
+	list_destroy(lista_aux);
 	list_destroy(lista_aux_mayor_prioridad);
-	list_destroy(lista_aux_menor_prioridad);*/
+	list_destroy(lista_aux_menor_prioridad);
+
 }
 
 void obtener_proximo_ejecucion(void){
@@ -190,7 +191,9 @@ void obtener_proximo_ejecucion(void){
 		log_info(team_logger, "Ordenando la lista de estimacion");
 		ordenar_lista_estimacion(lista_aux);
 	}
+
 	if( (!strcmp(algoritmo_planificacion, "RR"))){
+		log_info(team_logger, "Ordenando la lista de prioridades");
 		ordenar_lista_prioridades(lista_aux);
 	}
 

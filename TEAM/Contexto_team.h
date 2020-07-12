@@ -67,6 +67,7 @@ extern char* log_file;
 extern int id;
 
 extern int GLOBAL_SEGUIR;
+extern int CONTADOR_DE_MENSAJES;
 extern int ciclos_de_cpu;
 extern int hilos_entrenadores_total;
 extern int MAXIMO_ENTRENADORES;

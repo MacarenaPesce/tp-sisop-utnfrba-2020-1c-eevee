@@ -17,7 +17,7 @@ void operar_con_appeared_pokemon(t_appeared_pokemon * paquete){
 
 	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa", paquete->pokemon, paquete->coordenadas.posx, paquete->coordenadas.posy);
 
-	sem_post(&orden_para_planificar);
+	//sem_post(&orden_para_planificar);
 
 	free(paquete);
 }
@@ -344,9 +344,9 @@ void consumir_un_ciclo_de_cpu(){
 	sleep(retardo_ciclo_cpu);
 }
 
-void consumir_un_ciclo_de_cpu_mientras_planificamos(){
+void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 
-	if((!strcmp(algoritmo_planificacion, "FIFO"))){
+	/*if((!strcmp(algoritmo_planificacion, "FIFO"))){
 		ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 	}
@@ -372,20 +372,29 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(){
 			confirmar_desalojo_en_ejecucion();
 			me_desalojaron = true;
 		}
-	}
+	}*/
 
 	if(!strcmp(algoritmo_planificacion, "RR")){
 		ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 
-		if(entrenador_en_ejecucion->quantum_restante > 0){
+		if(entrenador->quantum_restante > 0){
 			log_info(team_logger, "Ejecuté 1 ciclo de cpu");
-			entrenador_en_ejecucion->quantum_restante--;
+			entrenador->quantum_restante--;
 		}else{
-			entrenador_en_ejecucion->agoto_quantum = true;
-			//entrenador_en_ejecucion->quantum_restante = quantum;
-			confirmar_desalojo_en_ejecucion();
-			me_desalojaron = true;
+			entrenador->agoto_quantum = true;
+			entrenador->quantum_restante = quantum;
+
+			pthread_mutex_lock(&lista_listos_mutex);
+			list_add(lista_listos, entrenador);
+			pthread_mutex_unlock(&lista_listos_mutex);
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+
+			sem_post(&orden_para_planificar);
+			sem_wait(&array_semaforos[entrenador->id]);
+
+			//confirmar_desalojo_en_ejecucion();
+			//me_desalojaron = true;
 		}
 	}
 }
@@ -499,6 +508,7 @@ int main(){
 	inicializar_semaforos();
 	configurar_signals();
 	inicializar_listas();
+	CONTADOR_DE_MENSAJES = 0;
 
 	hayDeadlock = false;
 

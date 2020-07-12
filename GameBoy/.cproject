@@ -116,23 +116,17 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="GameBoy.cdt.managedbuild.target.gnu.exe.396565296" name="Executable" projectType="cdt.managedbuild.target.gnu.exe"/>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.638324458;cdt.managedbuild.config.gnu.exe.release.638324458.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.1069358332;cdt.managedbuild.tool.gnu.c.compiler.input.352121599">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.984750689;cdt.managedbuild.config.gnu.exe.release.984750689.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.258145054;cdt.managedbuild.tool.gnu.c.compiler.input.1523853823">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.266223567;cdt.managedbuild.config.gnu.exe.debug.266223567.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1587801262;cdt.managedbuild.tool.gnu.c.compiler.input.425041499">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.1493606825;cdt.managedbuild.config.gnu.exe.debug.1493606825.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.345073900;cdt.managedbuild.tool.gnu.c.compiler.input.1960464436">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope"/>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
-	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>
