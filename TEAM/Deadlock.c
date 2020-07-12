@@ -82,7 +82,8 @@ void interbloqueo(t_entrenador * entrenador1){
 void ver_entre_quienes_hay_deadlock_y_resolverlo(t_entrenador * entrenador1){
 
 	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
-	t_objetivo_entrenador* pokemon1 = elegir_pokemon_innecesario(entrenador1);
+	t_objetivo_entrenador* pokemon1 = malloc(sizeof(t_objetivo_entrenador));
+	pokemon1 = elegir_pokemon_innecesario(entrenador1);
 	int cant;
 
 	for(int i = 0; i < list_size(lista_bloqueados_cant_max_alcanzada); i++){
