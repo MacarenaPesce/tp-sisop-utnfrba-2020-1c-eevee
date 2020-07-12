@@ -45,6 +45,8 @@ extern t_cache_colas* cache_mensajes;
 */
 
 
+
+
 /* Funcion que arranca con el funcionamiento del Buddy en si */
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 
@@ -98,6 +100,9 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
     return;
 }
 
+
+
+
 /*	Busca una particion libre, la mas chica (best_fit).
   	La particiona si sobra espacio.
 	Asigna los datos.  
@@ -108,60 +113,13 @@ void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_de_partic
 	t_bloque_memoria* particion = encontrar_particion_libre(tamanio_de_particion); 
 
 	/* Particionar el bloque */
-	particionar_bloque_buddies( particion, estructura_mensaje);
+	particionar_bloque_buddies( particion, estructura_mensaje, tamanio_de_particion);
 
 	return;
 }
 
-/*
-t_bloque_memoria* algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
-
-    t_bloque_memoria* bloque;
-    t_bloque_memoria* aux;
-    t_bloque_memoria* bloque_final;
-    int indice;
-    int tam_minimo=0; 
-
-    if(debug_broker) log_debug(broker_logger, "Ejecutando best fit");
 
 
-    //obtengo el primer bloque donde quepa mi particion nueva
-	for(int i=0; i<list_size(cache_mensajes->memoria); i++){
-
-        //Obtengo el bloque en la posicion de la lista que estamos
-        aux = list_get(cache_mensajes->memoria, i);
-
-        //me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no 
-        if((aux->esta_vacio == true) && (aux->tamanio_particion >= tamanio_parti)){
-            
-            //me fijo si el tamaño mas chico de particiones sigue siendo 0 
-            if(tam_minimo==0){
-                tam_minimo = aux->tamanio_particion;
-            }
-
-            //me fijo si el tamaño mas chico de particion es menor o igual al tamaño del bloque auxiliar actual, en caso de serlo, al bloque le asigno el aux
-            //y asi me quedo con el bloque mas chico de toda la lista
-            if(tam_minimo <= aux->tamanio_particion){
-                bloque = aux;
-            }
-
-        }
-
-    }
-
-    //obtengo el indice del bloque que voy a particionar
-    indice = obtener_indice_particion(bloque);
-
-    if(debug_broker) log_debug(broker_logger, "Por particionar el bloque, ya encontre mi bloque adecuado");
-
-    //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
-    bloque_final = particionar_bloque(tamanio_parti,indice,estructura_mensaje);
-
-    if(debug_broker) log_debug(broker_logger, "Ya ejecute best fit");
-
-    return bloque_final;
-
-}*/
 
 /*	Es el algoritmo best fit , que se encarga de encontrar la particion libre
 	pero teniendo en cuenta, que es la que mejor se ajuste */
@@ -169,10 +127,8 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 
 	t_bloque_memoria* bloque_encontrado;
 
-	t_bloque_memoria* bloque;
-    t_bloque_memoria* aux;
+    t_bloque_memoria* bloque_auxiliar;
     
-    int indice;
     int tam_minimo=0; 
 
 
@@ -180,42 +136,53 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 		donde quepa mi particion nueva */
 	for(int i=0; i<list_size(cache_mensajes->memoria); i++){
 
-        //Obtengo el bloque en la posicion de la lista que estamos
-        aux = list_get(cache_mensajes->memoria, i);
+        /* Obtengo el bloque en la posicion de la lista que estamos */
+        bloque_auxiliar = list_get(cache_mensajes->memoria, i);
 
-        //me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no 
-        if((aux->esta_vacio == true) && (aux->tamanio_particion >= tamanio_parti)){
+        /* Me fijo si el tamaño que quiero alojar cabe o no en el bloque actual 
+			y ademas si el bloque en el que estoy esta vacio o no */
+        if((aux->esta_vacio == true) && (aux->tamanio_particion >= tamanio_de_particion)){
             
-            //me fijo si el tamaño mas chico de particiones sigue siendo 0 
+            /* Me fijo si el tamaño mas chico de particiones sigue siendo 0 */
             if(tam_minimo==0){
                 tam_minimo = aux->tamanio_particion;
             }
 
-            //me fijo si el tamaño mas chico de particion es menor o igual al tamaño del bloque auxiliar actual, en caso de serlo, al bloque le asigno el aux
-            //y asi me quedo con el bloque mas chico de toda la lista
+            /* Me fijo si el tamaño mas chico de particion es menor o 
+				igual al tamaño del bloque auxiliar actual, en caso de serlo, 
+				al bloque le asigno el auxiliar y asi me quedo con el bloque mas 
+				chico de toda la lista */
             if(tam_minimo <= aux->tamanio_particion){
-                bloque = aux;
+                bloque_encontrado = bloque_auxiliar;
             }
 
         }
 
     }
 
-	/* Obtengo el indice del bloque que mejor se ajusta a mi particion */
-    indice = obtener_indice_particion(bloque);
-
-    /* Obtengo el bloque de la lista */
-    bloque_encontrado = list_get(cache_mensajes->memoria, indice);
-
-
 	return bloque_encontrado;
 }
+
+
+
 
 /* 	Dado un bloque de memoria, se encarga de particionar el bloque.
 	Teniendo en cuenta, que lo tiene que particionar la cantidad de veces necesarias 
 	para que sea del menor tamaño posible. */
-void particionar_bloque_buddies(t_bloque_memoria* particion,t_mensaje_cola* estructura_mensaje){
+void particionar_bloque_buddies(t_bloque_memoria* particion,t_mensaje_cola* estructura_mensaje, int tamanio_bytes_pot_dos){
 
+	/* Me fijo si puedo particionar el bloque, si el tamaño de mi particion */
+	bool puedo_particionar = (particion->tamanio > tamanio_bytes_pot_dos);
+
+	/* Mientras pueda particionar
+		1- Tengo que crear una nueva particion del tamaño divido 2, 
+			verificando que sea potencia de 2
+		2- Agregar la nueva particion a la lista de particiones
+		3- Tengo que volver a mirar si puedo seguir particionando 
+			y seguir verificando las potencias de 2*/
+	while(!puedo_particionar){
+
+	}
 
 
 	return ;
@@ -241,11 +208,6 @@ void consolidar_buddies(t_mensaje_cola* estructura_mensaje){
 	/* Me fijo lo mismo con la posicion siguiente en caso que la primer opcion de negativo*/
 
 	/* Una vez que me fije , vuelvo a repetir con el bloque consolidado */	
-
-	return ;
-}
-
-void particionar_bloque_buddies(){
 
 	return ;
 }
