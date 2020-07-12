@@ -735,3 +735,604 @@ Falló la creación del socket servidor
 [INFO] 17:26:59:206 Team/(7066:7086): El pokemon Pikachu ha sido atrapado con exito
 [INFO] 17:26:59:206 Team/(7066:7086): El entrenador 0 esta bloqueado esperando que aparezca un pokemon
 [INFO] 17:26:59:206 Team/(7066:7086): Entrenador de id 0 bloqueado
+[INFO] 00:20:23:225 Team/(15700:15700): Hi, bienvenido a Team
+[INFO] 00:20:23:228 Team/(15700:15700): Cargando el archivo de configuracion...
+[DEBUG] 00:20:23:230 Team/(15700:15700): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:20:23:230 Team/(15700:15700): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:20:23:232 Team/(15700:15700): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:20:23:232 Team/(15700:15700): El tiempo de reconexion es: 30
+[DEBUG] 00:20:23:232 Team/(15700:15700): El retardo de ciclo de cpu es: 2
+[DEBUG] 00:20:23:232 Team/(15700:15700): El algoritmo de planificacion es: RR
+[DEBUG] 00:20:23:232 Team/(15700:15700): El alpha es: 50
+[DEBUG] 00:20:23:232 Team/(15700:15700): El quantum es: 2
+[DEBUG] 00:20:23:233 Team/(15700:15700): La estimacion_inicial es: 0
+[DEBUG] 00:20:23:233 Team/(15700:15700): La ip del broker es: 127.0.0.1
+[DEBUG] 00:20:23:233 Team/(15700:15700): El puerto del broker es: 5003
+[DEBUG] 00:20:23:233 Team/(15700:15700): El log file es: /home/utnso/log_team1.txt
+[INFO] 00:20:23:233 Team/(15700:15700): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:20:23:233 Team/(15700:15700): Cargando el objetivo global...
+[INFO] 00:20:23:233 Team/(15700:15700): Objetivo global cargado
+
+[INFO] 00:20:23:233 Team/(15700:15700): Entrenadores ubicados
+
+[INFO] 00:20:23:233 Team/(15700:15700): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 00:20:23:233 Team/(15700:15700): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 00:20:23:234 Team/(15700:15700): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 00:20:23:234 Team/(15700:15700): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 00:20:23:234 Team/(15700:15700): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 00:20:23:234 Team/(15700:15700): Enviado pedido de get pokemon para esta especie: Pidgey
+[INFO] 00:20:23:234 Team/(15700:15700): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 00:20:23:236 Team/(15700:15700): Enviado pedido de get pokemon para esta especie: Charmander
+[INFO] 00:20:23:236 Team/(15700:15700): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 00:20:23:237 Team/(15700:15700): Enviado pedido de get pokemon para esta especie: Bulbasaur
+[INFO] 00:20:23:237 Team/(15700:15700): No existen locaciones para esta especie: Bulbasaur, cant 2
+[INFO] 00:22:00:216 Team/(16015:16015): Hi, bienvenido a Team
+[INFO] 00:22:00:222 Team/(16015:16015): Cargando el archivo de configuracion...
+[DEBUG] 00:22:00:222 Team/(16015:16015): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:22:00:222 Team/(16015:16015): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:22:00:222 Team/(16015:16015): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:22:00:223 Team/(16015:16015): El tiempo de reconexion es: 30
+[DEBUG] 00:22:00:224 Team/(16015:16015): El retardo de ciclo de cpu es: 2
+[DEBUG] 00:22:00:224 Team/(16015:16015): El algoritmo de planificacion es: RR
+[DEBUG] 00:22:00:225 Team/(16015:16015): El alpha es: 50
+[DEBUG] 00:22:00:225 Team/(16015:16015): El quantum es: 2
+[DEBUG] 00:22:00:225 Team/(16015:16015): La estimacion_inicial es: 0
+[DEBUG] 00:22:00:225 Team/(16015:16015): La ip del broker es: 127.0.0.1
+[DEBUG] 00:22:00:225 Team/(16015:16015): El puerto del broker es: 5003
+[DEBUG] 00:22:00:225 Team/(16015:16015): El log file es: /home/utnso/log_team1.txt
+[INFO] 00:22:00:229 Team/(16015:16015): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:22:00:229 Team/(16015:16015): Cargando el objetivo global...
+[INFO] 00:22:00:230 Team/(16015:16015): Objetivo global cargado
+
+[INFO] 00:22:00:230 Team/(16015:16015): Entrenadores ubicados
+
+[INFO] 00:22:00:230 Team/(16015:16015): 
+Falló la creación del socket servidor
+[INFO] 00:22:00:230 Team/(16015:16015): Cerrando team...
+[INFO] 00:24:40:121 Team/(16342:16342): Hi, bienvenido a Team
+[INFO] 00:24:40:124 Team/(16342:16342): Cargando el archivo de configuracion...
+[DEBUG] 00:24:40:124 Team/(16342:16342): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:24:40:124 Team/(16342:16342): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:24:40:124 Team/(16342:16342): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:24:40:124 Team/(16342:16342): El tiempo de reconexion es: 30
+[DEBUG] 00:24:40:125 Team/(16342:16342): El retardo de ciclo de cpu es: 2
+[DEBUG] 00:24:40:125 Team/(16342:16342): El algoritmo de planificacion es: RR
+[DEBUG] 00:24:40:125 Team/(16342:16342): El alpha es: 50
+[DEBUG] 00:24:40:125 Team/(16342:16342): El quantum es: 2
+[DEBUG] 00:24:40:126 Team/(16342:16342): La estimacion_inicial es: 0
+[DEBUG] 00:24:40:128 Team/(16342:16342): La ip del broker es: 127.0.0.1
+[DEBUG] 00:24:40:128 Team/(16342:16342): El puerto del broker es: 5003
+[DEBUG] 00:24:40:128 Team/(16342:16342): El log file es: /home/utnso/log_team1.txt
+[INFO] 00:24:40:128 Team/(16342:16342): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:24:40:129 Team/(16342:16342): Cargando el objetivo global...
+[INFO] 00:24:40:129 Team/(16342:16342): Objetivo global cargado
+
+[INFO] 00:24:40:129 Team/(16342:16342): Entrenadores ubicados
+
+[INFO] 00:24:40:129 Team/(16342:16342): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 00:24:40:130 Team/(16342:16342): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 00:24:40:130 Team/(16342:16342): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 00:24:40:131 Team/(16342:16342): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 00:24:40:132 Team/(16342:16342): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 00:24:40:132 Team/(16342:16342): Enviado pedido de get pokemon para esta especie: Pidgey
+[INFO] 00:24:40:132 Team/(16342:16342): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 00:24:40:132 Team/(16342:16342): Enviado pedido de get pokemon para esta especie: Charmander
+[INFO] 00:24:40:132 Team/(16342:16342): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 00:24:40:132 Team/(16342:16342): Enviado pedido de get pokemon para esta especie: Bulbasaur
+[INFO] 00:24:40:132 Team/(16342:16342): No existen locaciones para esta especie: Bulbasaur, cant 2
+[DEBUG] 00:25:40:779 Team/(16342:16353): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (1, 1)
+[INFO] 00:25:40:780 Team/(16342:16350): El entrenador 0 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 00:25:40:780 Team/(16342:16350): Agregue el pokemon Pikachu con coordenadas (1, 1) al mapa
+[INFO] 00:25:40:780 Team/(16342:16351): Planificando por RR
+[INFO] 00:25:40:780 Team/(16342:16347): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 00:25:40:780 Team/(16342:16347): El entrenador 0 se mueve a atrapar a Pikachu a la posicion (1, 1)
+[DEBUG] 00:25:40:786 Team/(16342:16353): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (9, 7)
+[INFO] 00:25:40:786 Team/(16342:16350): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 00:25:40:786 Team/(16342:16350): Agregue el pokemon Squirtle con coordenadas (9, 7) al mapa
+[INFO] 00:25:40:786 Team/(16342:16351): Planificando por RR
+[DEBUG] 00:25:40:789 Team/(16342:16353): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 2)
+[INFO] 00:25:40:789 Team/(16342:16350): No necesito a este pokemon
+[INFO] 00:25:42:781 Team/(16342:16347): Ejecuté 1 ciclo de cpu
+[INFO] 00:25:42:781 Team/(16342:16347): El entrenador de id 0 llegó al pokemon Pikachu.
+[INFO] 00:25:42:782 Team/(16342:16347): Enviado pedido de catch pokemon para esta especie: Pikachu
+[INFO] 00:25:42:782 Team/(16342:16347): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:25:42:782 Team/(16342:16347): El pokemon Pikachu ha sido atrapado con exito
+[INFO] 00:25:42:782 Team/(16342:16347): El entrenador 0 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:25:42:782 Team/(16342:16347): Un objetivo es de la especie Pikachu, cantidad necesitada -1
+[INFO] 00:25:42:782 Team/(16342:16347): Un objetivo es de la especie Charmander, cantidad necesitada 1
+[INFO] 00:25:42:782 Team/(16342:16347): Un objetivo es de la especie Bulbasaur, cantidad necesitada 1
+[INFO] 00:25:42:782 Team/(16342:16349): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:25:42:782 Team/(16342:16349): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:25:44:783 Team/(16342:16349): Ejecuté 1 ciclo de cpu
+[INFO] 00:25:46:783 Team/(16342:16349): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 00:25:46:784 Team/(16342:16351): El entrenador nuevo de id 2 debe desalojar al entrenador en ejecucion!
+[INFO] 00:25:46:784 Team/(16342:16351): Planificando por RR
+[INFO] 00:25:46:785 Team/(16342:16349): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:25:46:785 Team/(16342:16349): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:25:48:786 Team/(16342:16349): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 00:25:48:786 Team/(16342:16351): Planificando por RR
+[INFO] 00:25:48:786 Team/(16342:16349): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:25:48:787 Team/(16342:16349): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:25:50:787 Team/(16342:16349): Ejecuté 1 ciclo de cpu
+[INFO] 00:25:52:787 Team/(16342:16349): Ejecuté 1 ciclo de cpu
+[INFO] 00:25:54:788 Team/(16342:16349): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 00:25:54:789 Team/(16342:16351): Planificando por RR
+[INFO] 00:25:54:789 Team/(16342:16349): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:25:54:789 Team/(16342:16349): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:25:54:789 Team/(16342:16349): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 00:25:54:789 Team/(16342:16349): Enviado pedido de catch pokemon para esta especie: Squirtle
+[INFO] 00:25:54:789 Team/(16342:16349): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:25:54:789 Team/(16342:16349): El pokemon Squirtle ha sido atrapado con exito
+[DEBUG] 00:25:54:790 Team/(16342:16349): El entrenador 2 finalizo
+[INFO] 00:28:35:878 Team/(16589:16589): Hi, bienvenido a Team
+[INFO] 00:28:35:885 Team/(16589:16589): Cargando el archivo de configuracion...
+[DEBUG] 00:28:35:885 Team/(16589:16589): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:28:35:886 Team/(16589:16589): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:28:35:886 Team/(16589:16589): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:28:35:887 Team/(16589:16589): El tiempo de reconexion es: 30
+[DEBUG] 00:28:35:887 Team/(16589:16589): El retardo de ciclo de cpu es: 2
+[DEBUG] 00:28:35:887 Team/(16589:16589): El algoritmo de planificacion es: RR
+[DEBUG] 00:28:35:887 Team/(16589:16589): El alpha es: 50
+[DEBUG] 00:28:35:890 Team/(16589:16589): El quantum es: 2
+[DEBUG] 00:28:35:890 Team/(16589:16589): La estimacion_inicial es: 0
+[DEBUG] 00:28:35:890 Team/(16589:16589): La ip del broker es: 127.0.0.1
+[DEBUG] 00:28:35:890 Team/(16589:16589): El puerto del broker es: 5003
+[DEBUG] 00:28:35:890 Team/(16589:16589): El log file es: /home/utnso/log_team1.txt
+[INFO] 00:28:35:891 Team/(16589:16589): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:28:35:891 Team/(16589:16589): Cargando el objetivo global...
+[INFO] 00:28:35:891 Team/(16589:16589): Objetivo global cargado
+
+[INFO] 00:28:35:891 Team/(16589:16589): Entrenadores ubicados
+
+[INFO] 00:28:35:891 Team/(16589:16589): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 00:28:35:891 Team/(16589:16589): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 00:28:35:891 Team/(16589:16589): No existen locaciones para esta especie: Squirtle, cant 1
+[INFO] 00:28:35:892 Team/(16589:16589): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 00:28:35:892 Team/(16589:16589): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 00:28:35:892 Team/(16589:16589): Enviado pedido de get pokemon para esta especie: Pidgey
+[INFO] 00:28:35:892 Team/(16589:16589): No existen locaciones para esta especie: Pidgey, cant 1
+[INFO] 00:28:35:892 Team/(16589:16589): Enviado pedido de get pokemon para esta especie: Charmander
+[INFO] 00:28:35:893 Team/(16589:16589): No existen locaciones para esta especie: Charmander, cant 3
+[INFO] 00:28:35:893 Team/(16589:16589): Enviado pedido de get pokemon para esta especie: Bulbasaur
+[INFO] 00:28:35:893 Team/(16589:16589): No existen locaciones para esta especie: Bulbasaur, cant 2
+[DEBUG] 00:28:56:793 Team/(16589:16602): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (1, 1)
+[INFO] 00:28:56:793 Team/(16589:16599): El entrenador 0 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 00:28:56:793 Team/(16589:16599): Agregue el pokemon Pikachu con coordenadas (1, 1) al mapa
+[INFO] 00:28:56:793 Team/(16589:16600): Planificando por RR
+[INFO] 00:28:56:793 Team/(16589:16596): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 00:28:56:793 Team/(16589:16596): El entrenador 0 se mueve a atrapar a Pikachu a la posicion (1, 1)
+[DEBUG] 00:28:56:798 Team/(16589:16602): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (9, 7)
+[INFO] 00:28:56:798 Team/(16589:16599): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 00:28:56:798 Team/(16589:16599): Agregue el pokemon Squirtle con coordenadas (9, 7) al mapa
+[INFO] 00:28:56:798 Team/(16589:16600): Planificando por RR
+[DEBUG] 00:28:56:802 Team/(16589:16602): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 2)
+[INFO] 00:28:56:802 Team/(16589:16599): No necesito a este pokemon
+[INFO] 00:28:58:794 Team/(16589:16596): Ejecuté 1 ciclo de cpu
+[INFO] 00:28:58:794 Team/(16589:16596): El entrenador de id 0 llegó al pokemon Pikachu.
+[INFO] 00:28:58:794 Team/(16589:16596): Enviado pedido de catch pokemon para esta especie: Pikachu
+[INFO] 00:28:58:794 Team/(16589:16596): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:28:58:794 Team/(16589:16596): El pokemon Pikachu ha sido atrapado con exito
+[INFO] 00:28:58:794 Team/(16589:16596): El entrenador 0 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:28:58:794 Team/(16589:16596): Un objetivo es de la especie Pikachu, cantidad necesitada -1
+[INFO] 00:28:58:794 Team/(16589:16596): Un objetivo es de la especie Charmander, cantidad necesitada 1
+[INFO] 00:28:58:794 Team/(16589:16596): Un objetivo es de la especie Bulbasaur, cantidad necesitada 1
+[INFO] 00:28:58:794 Team/(16589:16598): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:28:58:794 Team/(16589:16598): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:29:00:795 Team/(16589:16598): Ejecuté 1 ciclo de cpu
+[INFO] 00:29:02:796 Team/(16589:16598): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 00:29:02:796 Team/(16589:16600): El entrenador nuevo de id 2 debe desalojar al entrenador en ejecucion!
+[INFO] 00:29:02:796 Team/(16589:16600): Planificando por RR
+[INFO] 00:29:02:796 Team/(16589:16598): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:29:02:797 Team/(16589:16598): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:29:04:797 Team/(16589:16598): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 00:29:04:798 Team/(16589:16600): Planificando por RR
+[INFO] 00:29:04:798 Team/(16589:16598): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:29:04:798 Team/(16589:16598): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:29:06:798 Team/(16589:16598): Ejecuté 1 ciclo de cpu
+[INFO] 00:29:08:798 Team/(16589:16598): Ejecuté 1 ciclo de cpu
+[INFO] 00:29:10:799 Team/(16589:16598): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 00:29:10:799 Team/(16589:16600): Planificando por RR
+[INFO] 00:29:10:799 Team/(16589:16598): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:29:10:799 Team/(16589:16598): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:29:10:799 Team/(16589:16598): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 00:29:10:799 Team/(16589:16598): Enviado pedido de catch pokemon para esta especie: Squirtle
+[INFO] 00:29:10:799 Team/(16589:16598): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:29:10:799 Team/(16589:16598): El pokemon Squirtle ha sido atrapado con exito
+[DEBUG] 00:29:10:799 Team/(16589:16598): El entrenador 2 finalizo
+[INFO] 00:31:07:663 Team/(16676:16676): Hi, bienvenido a Team
+[INFO] 00:31:07:668 Team/(16676:16676): Cargando el archivo de configuracion...
+[DEBUG] 00:31:07:668 Team/(16676:16676): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:31:07:668 Team/(16676:16676): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:31:07:668 Team/(16676:16676): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:31:07:668 Team/(16676:16676): El tiempo de reconexion es: 30
+[DEBUG] 00:31:07:668 Team/(16676:16676): El retardo de ciclo de cpu es: 5
+[DEBUG] 00:31:07:669 Team/(16676:16676): El algoritmo de planificacion es: FIFO
+[DEBUG] 00:31:07:669 Team/(16676:16676): El alpha es: 50
+[DEBUG] 00:31:07:669 Team/(16676:16676): El quantum es: 2
+[DEBUG] 00:31:07:669 Team/(16676:16676): La estimacion_inicial es: 1
+[DEBUG] 00:31:07:669 Team/(16676:16676): La ip del broker es: 127.0.0.1
+[DEBUG] 00:31:07:669 Team/(16676:16676): El puerto del broker es: 5003
+[DEBUG] 00:31:07:669 Team/(16676:16676): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 00:31:07:672 Team/(16676:16676): Mi ID es: 1
+[INFO] 00:31:07:673 Team/(16676:16676): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:31:07:675 Team/(16676:16676): Cargando el objetivo global...
+[INFO] 00:31:07:676 Team/(16676:16676): Objetivo global cargado
+
+[INFO] 00:31:07:676 Team/(16676:16676): Entrenadores ubicados
+
+[INFO] 00:31:07:676 Team/(16676:16676): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 00:31:07:676 Team/(16676:16676): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 00:31:07:680 Team/(16676:16676): No existen locaciones para esta especie: Squirtle, cant 2
+[INFO] 00:31:07:681 Team/(16676:16676): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 00:31:07:681 Team/(16676:16676): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 00:31:07:681 Team/(16676:16676): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 00:31:07:681 Team/(16676:16676): No existen locaciones para esta especie: Onix, cant 1
+[INFO] 00:31:07:681 Team/(16676:16676): Enviado pedido de get pokemon para esta especie: Gengar
+[INFO] 00:31:07:681 Team/(16676:16676): No existen locaciones para esta especie: Gengar, cant 1
+[INFO] 00:33:33:212 Team/(16789:16789): Hi, bienvenido a Team
+[INFO] 00:33:33:220 Team/(16789:16789): Cargando el archivo de configuracion...
+[DEBUG] 00:33:33:222 Team/(16789:16789): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:33:33:223 Team/(16789:16789): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:33:33:223 Team/(16789:16789): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:33:33:223 Team/(16789:16789): El tiempo de reconexion es: 30
+[DEBUG] 00:33:33:223 Team/(16789:16789): El retardo de ciclo de cpu es: 5
+[DEBUG] 00:33:33:223 Team/(16789:16789): El algoritmo de planificacion es: FIFO
+[DEBUG] 00:33:33:224 Team/(16789:16789): El alpha es: 50
+[DEBUG] 00:33:33:224 Team/(16789:16789): El quantum es: 2
+[DEBUG] 00:33:33:224 Team/(16789:16789): La estimacion_inicial es: 1
+[DEBUG] 00:33:33:224 Team/(16789:16789): La ip del broker es: 127.0.0.1
+[DEBUG] 00:33:33:225 Team/(16789:16789): El puerto del broker es: 5003
+[DEBUG] 00:33:33:225 Team/(16789:16789): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 00:33:33:225 Team/(16789:16789): Mi ID es: 1
+[INFO] 00:33:33:225 Team/(16789:16789): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:33:33:225 Team/(16789:16789): Cargando el objetivo global...
+[INFO] 00:33:33:225 Team/(16789:16789): Objetivo global cargado
+
+[INFO] 00:33:33:225 Team/(16789:16789): Entrenadores ubicados
+
+[INFO] 00:33:33:225 Team/(16789:16789): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 00:33:33:225 Team/(16789:16789): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 00:33:33:225 Team/(16789:16789): No existen locaciones para esta especie: Squirtle, cant 2
+[INFO] 00:33:33:225 Team/(16789:16789): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 00:33:33:225 Team/(16789:16789): No existen locaciones para esta especie: Pikachu, cant 1
+[INFO] 00:33:33:225 Team/(16789:16789): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 00:33:33:225 Team/(16789:16789): No existen locaciones para esta especie: Onix, cant 1
+[INFO] 00:33:33:225 Team/(16789:16789): Enviado pedido de get pokemon para esta especie: Gengar
+[INFO] 00:33:33:225 Team/(16789:16789): No existen locaciones para esta especie: Gengar, cant 1
+[DEBUG] 00:33:41:507 Team/(16789:16800): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (1, 1)
+[INFO] 00:33:41:507 Team/(16789:16797): No necesito a este pokemon
+[DEBUG] 00:33:41:523 Team/(16789:16800): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (9, 7)
+[INFO] 00:33:41:523 Team/(16789:16797): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 00:33:41:523 Team/(16789:16797): Agregue el pokemon Squirtle con coordenadas (9, 7) al mapa
+[INFO] 00:33:41:523 Team/(16789:16798): Planificando por FIFO
+[INFO] 00:33:41:523 Team/(16789:16796): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:33:41:523 Team/(16789:16796): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[DEBUG] 00:33:41:539 Team/(16789:16800): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 2)
+[INFO] 00:33:41:540 Team/(16789:16797): El entrenador 0 pasa a Ready por ser el mas cercano a Onix
+[INFO] 00:33:41:540 Team/(16789:16797): Agregue el pokemon Onix con coordenadas (2, 2) al mapa
+[INFO] 00:33:41:540 Team/(16789:16798): Planificando por FIFO
+[INFO] 00:33:51:523 Team/(16789:16796): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 00:33:51:524 Team/(16789:16796): Enviado pedido de catch pokemon para esta especie: Squirtle
+[INFO] 00:33:51:524 Team/(16789:16796): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:33:51:524 Team/(16789:16796): El pokemon Squirtle ha sido atrapado con exito
+[INFO] 00:33:51:524 Team/(16789:16796): El entrenador 2 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:33:51:524 Team/(16789:16796): Un objetivo es de la especie Onix, cantidad necesitada 1
+[INFO] 00:33:51:524 Team/(16789:16794): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 00:33:51:524 Team/(16789:16794): El entrenador 0 se mueve a atrapar a Onix a la posicion (2, 2)
+[INFO] 00:33:56:528 Team/(16789:16794): El entrenador de id 0 llegó al pokemon Onix.
+[INFO] 00:33:56:529 Team/(16789:16794): Enviado pedido de catch pokemon para esta especie: Onix
+[INFO] 00:33:56:529 Team/(16789:16794): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:33:56:529 Team/(16789:16794): El pokemon Onix ha sido atrapado con exito
+[INFO] 00:33:56:529 Team/(16789:16794): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[DEBUG] 00:34:47:107 Team/(16789:16800): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (3, 5)
+[INFO] 00:34:47:107 Team/(16789:16797): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 00:34:47:107 Team/(16789:16797): Agregue el pokemon Squirtle con coordenadas (3, 5) al mapa
+[INFO] 00:34:47:107 Team/(16789:16798): Planificando por FIFO
+[INFO] 00:34:47:107 Team/(16789:16795): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 00:34:47:107 Team/(16789:16795): El entrenador 1 se mueve a atrapar a Squirtle a la posicion (3, 5)
+[DEBUG] 00:34:47:124 Team/(16789:16800): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (7, 5)
+[INFO] 00:34:47:124 Team/(16789:16797): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 00:34:47:124 Team/(16789:16797): Agregue el pokemon Gengar con coordenadas (7, 5) al mapa
+[INFO] 00:34:47:124 Team/(16789:16798): Planificando por FIFO
+[INFO] 00:35:02:109 Team/(16789:16795): El entrenador de id 1 llegó al pokemon Squirtle.
+[INFO] 00:35:02:110 Team/(16789:16795): Enviado pedido de catch pokemon para esta especie: Squirtle
+[INFO] 00:35:02:110 Team/(16789:16795): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:35:02:110 Team/(16789:16795): El pokemon Squirtle ha sido atrapado con exito
+[INFO] 00:35:02:110 Team/(16789:16795): El entrenador 1 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:35:02:110 Team/(16789:16795): Un objetivo es de la especie Pikachu, cantidad necesitada 1
+[INFO] 00:35:02:110 Team/(16789:16795): Un objetivo es de la especie Gengar, cantidad necesitada 1
+[INFO] 00:35:02:111 Team/(16789:16796): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:35:02:111 Team/(16789:16796): El entrenador 2 se mueve a atrapar a Gengar a la posicion (7, 5)
+[INFO] 00:35:22:113 Team/(16789:16796): El entrenador de id 2 llegó al pokemon Gengar.
+[INFO] 00:35:22:113 Team/(16789:16796): Enviado pedido de catch pokemon para esta especie: Gengar
+[INFO] 00:35:22:113 Team/(16789:16796): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:35:22:113 Team/(16789:16796): El pokemon Gengar ha sido atrapado con exito
+[INFO] 00:35:22:113 Team/(16789:16796): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 00:39:46:873 Team/(17071:17071): Hi, bienvenido a Team
+[INFO] 00:39:46:878 Team/(17071:17071): Cargando el archivo de configuracion...
+[DEBUG] 00:39:46:878 Team/(17071:17071): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:39:46:878 Team/(17071:17071): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:39:46:878 Team/(17071:17071): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:39:46:878 Team/(17071:17071): El tiempo de reconexion es: 30
+[DEBUG] 00:39:46:878 Team/(17071:17071): El retardo de ciclo de cpu es: 5
+[DEBUG] 00:39:46:878 Team/(17071:17071): El algoritmo de planificacion es: FIFO
+[DEBUG] 00:39:46:878 Team/(17071:17071): El alpha es: 50
+[DEBUG] 00:39:46:878 Team/(17071:17071): El quantum es: 2
+[DEBUG] 00:39:46:878 Team/(17071:17071): La estimacion_inicial es: 1
+[DEBUG] 00:39:46:881 Team/(17071:17071): La ip del broker es: 127.0.0.1
+[DEBUG] 00:39:46:881 Team/(17071:17071): El puerto del broker es: 5003
+[DEBUG] 00:39:46:882 Team/(17071:17071): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 00:39:46:882 Team/(17071:17071): Mi ID es: 1
+[INFO] 00:39:46:883 Team/(17071:17071): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:39:46:883 Team/(17071:17071): Cargando el objetivo global...
+[INFO] 00:39:46:883 Team/(17071:17071): Objetivo global cargado
+
+[INFO] 00:39:46:883 Team/(17071:17071): Entrenadores ubicados
+
+[INFO] 00:39:46:883 Team/(17071:17071): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 00:39:46:883 Team/(17071:17071): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 00:39:46:883 Team/(17071:17071): No existen locaciones para esta especie: Squirtle, cant 2
+[INFO] 00:39:46:883 Team/(17071:17071): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 00:39:46:883 Team/(17071:17071): No existen locaciones para esta especie: Pikachu, cant 1
+[INFO] 00:39:46:883 Team/(17071:17071): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 00:39:46:884 Team/(17071:17071): No existen locaciones para esta especie: Onix, cant 1
+[INFO] 00:39:46:885 Team/(17071:17071): Enviado pedido de get pokemon para esta especie: Gengar
+[INFO] 00:39:46:885 Team/(17071:17071): No existen locaciones para esta especie: Gengar, cant 1
+[DEBUG] 00:40:17:221 Team/(17071:17082): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (1, 1)
+[INFO] 00:40:17:221 Team/(17071:17079): El entrenador 0 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 00:40:17:221 Team/(17071:17079): Ya tenemos la cantidad necesaria de la especie Pikachu
+
+[INFO] 00:40:17:221 Team/(17071:17079): Agregue el pokemon Pikachu con coordenadas (1, 1) al mapa
+[INFO] 00:40:17:221 Team/(17071:17080): Planificando por FIFO
+[INFO] 00:40:17:221 Team/(17071:17076): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 00:40:17:222 Team/(17071:17076): El entrenador 0 se mueve a atrapar a Pikachu a la posicion (1, 1)
+[DEBUG] 00:40:17:232 Team/(17071:17082): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (9, 7)
+[INFO] 00:40:17:232 Team/(17071:17079): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 00:40:17:232 Team/(17071:17079): Agregue el pokemon Squirtle con coordenadas (9, 7) al mapa
+[INFO] 00:40:17:232 Team/(17071:17080): Planificando por FIFO
+[DEBUG] 00:40:17:245 Team/(17071:17082): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 2)
+[INFO] 00:40:17:246 Team/(17071:17079): El entrenador 1 pasa a Ready por ser el mas cercano a Onix
+[INFO] 00:40:17:246 Team/(17071:17079): Agregue el pokemon Onix con coordenadas (2, 2) al mapa
+[INFO] 00:40:17:246 Team/(17071:17080): Planificando por FIFO
+[DEBUG] 00:40:30:306 Team/(17071:17082): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (3, 5)
+[INFO] 00:40:30:306 Team/(17071:17079): No hay mas entrenadores disponibles
+[INFO] 00:40:30:306 Team/(17071:17079): Agregue el pokemon Squirtle con coordenadas (3, 5) al mapa
+[INFO] 00:40:30:306 Team/(17071:17080): Planificando por FIFO
+[INFO] 00:40:30:306 Team/(17071:17080): No hay entrenadores para ejecutar!
+[DEBUG] 00:40:30:311 Team/(17071:17082): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (7, 5)
+[INFO] 00:40:30:312 Team/(17071:17079): No hay mas entrenadores disponibles
+[INFO] 00:40:30:312 Team/(17071:17079): Agregue el pokemon Gengar con coordenadas (7, 5) al mapa
+[INFO] 00:40:30:312 Team/(17071:17080): Planificando por FIFO
+[INFO] 00:40:30:312 Team/(17071:17080): No hay entrenadores para ejecutar!
+[INFO] 00:40:32:224 Team/(17071:17076): El entrenador de id 0 llegó al pokemon Pikachu.
+[INFO] 00:40:32:224 Team/(17071:17076): Enviado pedido de catch pokemon para esta especie: Pikachu
+[INFO] 00:40:32:224 Team/(17071:17076): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:40:32:224 Team/(17071:17076): El pokemon Pikachu ha sido atrapado con exito
+[INFO] 00:40:32:224 Team/(17071:17076): El entrenador 0 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:40:32:224 Team/(17071:17076): Un objetivo es de la especie Squirtle, cantidad necesitada 1
+[INFO] 00:40:32:224 Team/(17071:17077): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 00:40:32:224 Team/(17071:17077): El entrenador 1 se mueve a atrapar a Onix a la posicion (2, 2)
+[INFO] 00:40:51:850 Team/(17103:17103): Hi, bienvenido a Team
+[INFO] 00:40:51:858 Team/(17103:17103): Cargando el archivo de configuracion...
+[DEBUG] 00:40:51:858 Team/(17103:17103): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:40:51:858 Team/(17103:17103): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:40:51:859 Team/(17103:17103): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:40:51:859 Team/(17103:17103): El tiempo de reconexion es: 30
+[DEBUG] 00:40:51:859 Team/(17103:17103): El retardo de ciclo de cpu es: 5
+[DEBUG] 00:40:51:859 Team/(17103:17103): El algoritmo de planificacion es: FIFO
+[DEBUG] 00:40:51:859 Team/(17103:17103): El alpha es: 50
+[DEBUG] 00:40:51:859 Team/(17103:17103): El quantum es: 2
+[DEBUG] 00:40:51:859 Team/(17103:17103): La estimacion_inicial es: 1
+[DEBUG] 00:40:51:859 Team/(17103:17103): La ip del broker es: 127.0.0.1
+[DEBUG] 00:40:51:859 Team/(17103:17103): El puerto del broker es: 5003
+[DEBUG] 00:40:51:859 Team/(17103:17103): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 00:40:51:859 Team/(17103:17103): Mi ID es: 1
+[INFO] 00:40:51:859 Team/(17103:17103): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:40:51:859 Team/(17103:17103): Cargando el objetivo global...
+[INFO] 00:40:51:859 Team/(17103:17103): Objetivo global cargado
+
+[INFO] 00:40:51:860 Team/(17103:17103): Entrenadores ubicados
+
+[INFO] 00:40:51:860 Team/(17103:17103): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 00:40:51:864 Team/(17103:17103): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 00:40:51:865 Team/(17103:17103): No existen locaciones para esta especie: Squirtle, cant 2
+[INFO] 00:40:51:865 Team/(17103:17103): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 00:40:51:865 Team/(17103:17103): No existen locaciones para esta especie: Pikachu, cant 1
+[INFO] 00:40:51:865 Team/(17103:17103): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 00:40:51:865 Team/(17103:17103): No existen locaciones para esta especie: Onix, cant 1
+[INFO] 00:40:51:865 Team/(17103:17103): Enviado pedido de get pokemon para esta especie: Gengar
+[INFO] 00:40:51:865 Team/(17103:17103): No existen locaciones para esta especie: Gengar, cant 1
+[DEBUG] 00:41:00:271 Team/(17103:17114): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (1, 1)
+[INFO] 00:41:00:271 Team/(17103:17111): El entrenador 0 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 00:41:00:271 Team/(17103:17111): Ya tenemos la cantidad necesaria de la especie Pikachu
+
+[INFO] 00:41:00:271 Team/(17103:17111): Agregue el pokemon Pikachu con coordenadas (1, 1) al mapa
+[INFO] 00:41:00:271 Team/(17103:17112): Planificando por FIFO
+[INFO] 00:41:00:271 Team/(17103:17108): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 00:41:00:271 Team/(17103:17108): El entrenador 0 se mueve a atrapar a Pikachu a la posicion (1, 1)
+[DEBUG] 00:41:00:277 Team/(17103:17114): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (9, 7)
+[INFO] 00:41:00:277 Team/(17103:17111): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 00:41:00:277 Team/(17103:17111): Agregue el pokemon Squirtle con coordenadas (9, 7) al mapa
+[INFO] 00:41:00:277 Team/(17103:17112): Planificando por FIFO
+[DEBUG] 00:41:00:281 Team/(17103:17114): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 2)
+[INFO] 00:41:00:281 Team/(17103:17111): El entrenador 1 pasa a Ready por ser el mas cercano a Onix
+[INFO] 00:41:00:281 Team/(17103:17111): Agregue el pokemon Onix con coordenadas (2, 2) al mapa
+[INFO] 00:41:00:281 Team/(17103:17112): Planificando por FIFO
+[INFO] 00:41:15:271 Team/(17103:17108): El entrenador de id 0 llegó al pokemon Pikachu.
+[INFO] 00:41:15:272 Team/(17103:17108): Enviado pedido de catch pokemon para esta especie: Pikachu
+[INFO] 00:41:15:272 Team/(17103:17108): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:41:15:272 Team/(17103:17108): El pokemon Pikachu ha sido atrapado con exito
+[INFO] 00:41:15:272 Team/(17103:17108): El entrenador 0 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:41:15:272 Team/(17103:17108): Un objetivo es de la especie Squirtle, cantidad necesitada 1
+[INFO] 00:41:15:272 Team/(17103:17109): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 00:41:15:272 Team/(17103:17109): El entrenador 1 se mueve a atrapar a Onix a la posicion (2, 2)
+[INFO] 00:41:50:275 Team/(17103:17109): El entrenador de id 1 llegó al pokemon Onix.
+[INFO] 00:41:50:275 Team/(17103:17109): Enviado pedido de catch pokemon para esta especie: Onix
+[INFO] 00:41:50:275 Team/(17103:17109): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:41:50:275 Team/(17103:17109): El pokemon Onix ha sido atrapado con exito
+[INFO] 00:41:50:275 Team/(17103:17109): El entrenador 1 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:41:50:275 Team/(17103:17109): Un objetivo es de la especie Pikachu, cantidad necesitada 1
+[INFO] 00:41:50:275 Team/(17103:17109): Un objetivo es de la especie Gengar, cantidad necesitada 1
+[INFO] 00:41:50:275 Team/(17103:17110): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:41:50:275 Team/(17103:17110): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:42:00:275 Team/(17103:17110): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 00:42:00:275 Team/(17103:17110): Enviado pedido de catch pokemon para esta especie: Squirtle
+[INFO] 00:42:00:275 Team/(17103:17110): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:42:00:276 Team/(17103:17110): El pokemon Squirtle ha sido atrapado con exito
+[INFO] 00:42:00:276 Team/(17103:17110): El entrenador 2 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:42:00:276 Team/(17103:17110): Un objetivo es de la especie Onix, cantidad necesitada 1
+[DEBUG] 00:42:18:864 Team/(17103:17114): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (3, 5)
+[INFO] 00:42:18:864 Team/(17103:17111): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 00:42:18:864 Team/(17103:17111): Agregue el pokemon Squirtle con coordenadas (3, 5) al mapa
+[INFO] 00:42:18:864 Team/(17103:17112): Planificando por FIFO
+[INFO] 00:42:18:864 Team/(17103:17109): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 00:42:18:864 Team/(17103:17109): El entrenador 1 se mueve a atrapar a Squirtle a la posicion (3, 5)
+[DEBUG] 00:42:18:870 Team/(17103:17114): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (7, 5)
+[INFO] 00:42:18:870 Team/(17103:17111): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 00:42:18:870 Team/(17103:17111): Agregue el pokemon Gengar con coordenadas (7, 5) al mapa
+[INFO] 00:42:18:870 Team/(17103:17112): Planificando por FIFO
+[INFO] 00:42:38:866 Team/(17103:17109): El entrenador de id 1 llegó al pokemon Squirtle.
+[INFO] 00:42:38:866 Team/(17103:17109): Enviado pedido de catch pokemon para esta especie: Squirtle
+[INFO] 00:42:38:866 Team/(17103:17109): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:42:38:866 Team/(17103:17109): El pokemon Squirtle ha sido atrapado con exito
+[INFO] 00:42:38:866 Team/(17103:17109): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 00:42:38:866 Team/(17103:17110): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:42:38:866 Team/(17103:17110): El entrenador 2 se mueve a atrapar a Gengar a la posicion (7, 5)
+[INFO] 00:42:58:868 Team/(17103:17110): El entrenador de id 2 llegó al pokemon Gengar.
+[INFO] 00:42:58:868 Team/(17103:17110): Enviado pedido de catch pokemon para esta especie: Gengar
+[INFO] 00:42:58:868 Team/(17103:17110): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:42:58:869 Team/(17103:17110): El pokemon Gengar ha sido atrapado con exito
+[INFO] 00:42:58:869 Team/(17103:17110): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 00:50:17:193 Team/(17273:17273): Hi, bienvenido a Team
+[INFO] 00:50:17:194 Team/(17273:17273): Cargando el archivo de configuracion...
+[DEBUG] 00:50:17:194 Team/(17273:17273): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:50:17:194 Team/(17273:17273): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:50:17:194 Team/(17273:17273): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:50:17:194 Team/(17273:17273): El tiempo de reconexion es: 30
+[DEBUG] 00:50:17:194 Team/(17273:17273): El retardo de ciclo de cpu es: 5
+[DEBUG] 00:50:17:194 Team/(17273:17273): El algoritmo de planificacion es: FIFO
+[DEBUG] 00:50:17:194 Team/(17273:17273): El alpha es: 50
+[DEBUG] 00:50:17:194 Team/(17273:17273): El quantum es: 2
+[DEBUG] 00:50:17:194 Team/(17273:17273): La estimacion_inicial es: 1
+[DEBUG] 00:50:17:194 Team/(17273:17273): La ip del broker es: 127.0.0.1
+[DEBUG] 00:50:17:194 Team/(17273:17273): El puerto del broker es: 5003
+[DEBUG] 00:50:17:194 Team/(17273:17273): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 00:50:17:195 Team/(17273:17273): Mi ID es: 1
+[INFO] 00:50:17:195 Team/(17273:17273): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:50:17:195 Team/(17273:17273): Cargando el objetivo global...
+[INFO] 00:50:17:195 Team/(17273:17273): Objetivo global cargado
+
+[INFO] 00:50:17:195 Team/(17273:17273): Entrenadores ubicados
+
+[INFO] 00:50:17:195 Team/(17273:17273): 
+Falló la creación del socket servidor
+[INFO] 00:50:17:195 Team/(17273:17273): Cerrando team...
+[INFO] 00:50:39:762 Team/(17300:17300): Hi, bienvenido a Team
+[INFO] 00:50:39:763 Team/(17300:17300): Cargando el archivo de configuracion...
+[DEBUG] 00:50:39:763 Team/(17300:17300): Las posiciones de entrenadores recuperadas
+[DEBUG] 00:50:39:763 Team/(17300:17300): Los pokemon de los entrenadores recuperados
+[DEBUG] 00:50:39:763 Team/(17300:17300): Los objetivos de los entrenadores recuperados
+[DEBUG] 00:50:39:763 Team/(17300:17300): El tiempo de reconexion es: 30
+[DEBUG] 00:50:39:763 Team/(17300:17300): El retardo de ciclo de cpu es: 5
+[DEBUG] 00:50:39:763 Team/(17300:17300): El algoritmo de planificacion es: FIFO
+[DEBUG] 00:50:39:763 Team/(17300:17300): El alpha es: 50
+[DEBUG] 00:50:39:763 Team/(17300:17300): El quantum es: 2
+[DEBUG] 00:50:39:768 Team/(17300:17300): La estimacion_inicial es: 1
+[DEBUG] 00:50:39:768 Team/(17300:17300): La ip del broker es: 127.0.0.1
+[DEBUG] 00:50:39:768 Team/(17300:17300): El puerto del broker es: 5003
+[DEBUG] 00:50:39:768 Team/(17300:17300): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 00:50:39:768 Team/(17300:17300): Mi ID es: 1
+[INFO] 00:50:39:768 Team/(17300:17300): Archivo de configuracion cargado correctamente :)
+
+[INFO] 00:50:39:769 Team/(17300:17300): Cargando el objetivo global...
+[INFO] 00:50:39:769 Team/(17300:17300): Objetivo global cargado
+
+[INFO] 00:50:39:769 Team/(17300:17300): Entrenadores ubicados
+
+[INFO] 00:50:39:769 Team/(17300:17300): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 00:50:39:769 Team/(17300:17300): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 00:50:39:769 Team/(17300:17300): No existen locaciones para esta especie: Squirtle, cant 2
+[INFO] 00:50:39:769 Team/(17300:17300): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 00:50:39:769 Team/(17300:17300): No existen locaciones para esta especie: Pikachu, cant 1
+[INFO] 00:50:39:769 Team/(17300:17300): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 00:50:39:770 Team/(17300:17300): No existen locaciones para esta especie: Onix, cant 1
+[INFO] 00:50:39:770 Team/(17300:17300): Enviado pedido de get pokemon para esta especie: Gengar
+[INFO] 00:50:39:770 Team/(17300:17300): No existen locaciones para esta especie: Gengar, cant 1
+[DEBUG] 00:50:47:132 Team/(17300:17311): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (1, 1)
+[INFO] 00:50:47:132 Team/(17300:17308): El entrenador 0 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 00:50:47:132 Team/(17300:17308): Ya tenemos la cantidad necesaria de la especie Pikachu
+
+[INFO] 00:50:47:132 Team/(17300:17308): Agregue el pokemon Pikachu con coordenadas (1, 1) al mapa
+[INFO] 00:50:47:132 Team/(17300:17309): Planificando por FIFO
+[INFO] 00:50:47:132 Team/(17300:17305): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 00:50:47:132 Team/(17300:17305): El entrenador 0 se mueve a atrapar a Pikachu a la posicion (1, 1)
+[DEBUG] 00:50:47:153 Team/(17300:17311): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (9, 7)
+[INFO] 00:50:47:153 Team/(17300:17308): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 00:50:47:153 Team/(17300:17308): Agregue el pokemon Squirtle con coordenadas (9, 7) al mapa
+[INFO] 00:50:47:153 Team/(17300:17309): Planificando por FIFO
+[DEBUG] 00:50:47:163 Team/(17300:17311): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 2)
+[INFO] 00:50:47:163 Team/(17300:17308): El entrenador 1 pasa a Ready por ser el mas cercano a Onix
+[INFO] 00:50:47:163 Team/(17300:17308): Agregue el pokemon Onix con coordenadas (2, 2) al mapa
+[INFO] 00:50:47:163 Team/(17300:17309): Planificando por FIFO
+[INFO] 00:51:02:133 Team/(17300:17305): El entrenador de id 0 llegó al pokemon Pikachu.
+[INFO] 00:51:02:134 Team/(17300:17305): Enviado pedido de catch pokemon para esta especie: Pikachu
+[INFO] 00:51:02:134 Team/(17300:17305): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:51:02:134 Team/(17300:17305): El pokemon Pikachu ha sido atrapado con exito
+[INFO] 00:51:02:134 Team/(17300:17305): El entrenador 0 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:51:02:134 Team/(17300:17305): Un objetivo es de la especie Squirtle, cantidad necesitada 1
+[INFO] 00:51:02:134 Team/(17300:17306): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 00:51:02:135 Team/(17300:17306): El entrenador 1 se mueve a atrapar a Onix a la posicion (2, 2)
+[INFO] 00:51:37:138 Team/(17300:17306): El entrenador de id 1 llegó al pokemon Onix.
+[INFO] 00:51:37:138 Team/(17300:17306): Enviado pedido de catch pokemon para esta especie: Onix
+[INFO] 00:51:37:138 Team/(17300:17306): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:51:37:139 Team/(17300:17306): El pokemon Onix ha sido atrapado con exito
+[INFO] 00:51:37:139 Team/(17300:17306): El entrenador 1 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:51:37:139 Team/(17300:17306): Un objetivo es de la especie Pikachu, cantidad necesitada 1
+[INFO] 00:51:37:139 Team/(17300:17306): Un objetivo es de la especie Gengar, cantidad necesitada 1
+[INFO] 00:51:37:139 Team/(17300:17307): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:51:37:139 Team/(17300:17307): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 00:51:47:139 Team/(17300:17307): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 00:51:47:139 Team/(17300:17307): Enviado pedido de catch pokemon para esta especie: Squirtle
+[INFO] 00:51:47:139 Team/(17300:17307): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:51:47:139 Team/(17300:17307): El pokemon Squirtle ha sido atrapado con exito
+[INFO] 00:51:47:139 Team/(17300:17307): El entrenador 2 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 00:51:47:139 Team/(17300:17307): Un objetivo es de la especie Onix, cantidad necesitada 1
+[DEBUG] 00:52:13:689 Team/(17300:17311): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (3, 5)
+[INFO] 00:52:13:689 Team/(17300:17308): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 00:52:13:689 Team/(17300:17308): Agregue el pokemon Squirtle con coordenadas (3, 5) al mapa
+[INFO] 00:52:13:689 Team/(17300:17309): Planificando por FIFO
+[INFO] 00:52:13:689 Team/(17300:17306): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 00:52:13:690 Team/(17300:17306): El entrenador 1 se mueve a atrapar a Squirtle a la posicion (3, 5)
+[DEBUG] 00:52:13:695 Team/(17300:17311): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (7, 5)
+[INFO] 00:52:13:695 Team/(17300:17308): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 00:52:13:695 Team/(17300:17308): Agregue el pokemon Gengar con coordenadas (7, 5) al mapa
+[INFO] 00:52:13:695 Team/(17300:17309): Planificando por FIFO
+[INFO] 00:52:33:691 Team/(17300:17306): El entrenador de id 1 llegó al pokemon Squirtle.
+[INFO] 00:52:33:692 Team/(17300:17306): Enviado pedido de catch pokemon para esta especie: Squirtle
+[INFO] 00:52:33:692 Team/(17300:17306): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:52:33:692 Team/(17300:17306): El pokemon Squirtle ha sido atrapado con exito
+[INFO] 00:52:33:692 Team/(17300:17306): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 00:52:33:692 Team/(17300:17307): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 00:52:33:692 Team/(17300:17307): El entrenador 2 se mueve a atrapar a Gengar a la posicion (7, 5)
+[INFO] 00:52:53:693 Team/(17300:17307): El entrenador de id 2 llegó al pokemon Gengar.
+[INFO] 00:52:53:693 Team/(17300:17307): Enviado pedido de catch pokemon para esta especie: Gengar
+[INFO] 00:52:53:693 Team/(17300:17307): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 00:52:53:693 Team/(17300:17307): El pokemon Gengar ha sido atrapado con exito
+[INFO] 00:52:53:693 Team/(17300:17307): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
