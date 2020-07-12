@@ -112,7 +112,7 @@ void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_de_partic
 	/* Encontrar particion libre */
 	t_bloque_memoria* particion = encontrar_particion_libre(tamanio_de_particion); 
 
-	/* Particionar el bloque */
+	/* Particionar el bloque y asignar datos*/
 	particionar_bloque_buddies( particion, estructura_mensaje, tamanio_de_particion);
 
 	return;
@@ -168,7 +168,9 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 
 /* 	Dado un bloque de memoria, se encarga de particionar el bloque.
 	Teniendo en cuenta, que lo tiene que particionar la cantidad de veces necesarias 
-	para que sea del menor tamaño posible. */
+	para que sea del menor tamaño posible. 
+	Tambien asigna los datos a la particion, agrega los nuevos buddies a la lista
+	de bloques. */
 void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_cola* estructura_mensaje, int tamanio_bytes_pot_dos){
 
 	t_bloque_memoria* bloque_restante;
@@ -235,9 +237,17 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 	algoritmos de reemplazo*/
 t_mensaje_cola* reemplazar_bloque_BS(){
 
+	t_bloque_memoria* bloque_eliminado;
 
+    //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
+    if (strcmp( algoritmo_reemplazo, "LRU") == 1){
+        bloque_eliminado = algoritmo_lru();
+    }
+    else{
+        bloque_eliminado = algoritmo_fifo();
+    }
 
-	return;
+	return bloque_eliminado;
 }
 
 /* Realiza la consolidacion de buddies, dado un bloque.*/

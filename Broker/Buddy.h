@@ -29,10 +29,9 @@
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje); //LISTO
 void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_particion); //EN PROCESO
 t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion); //LISTO
-void particionar_bloque_buddies(t_bloque_memoria* particion,t_mensaje_cola* estructura_mensaje, int tamanio_bytes_pot_dos); // EN PROCESO
-t_mensaje_cola* reemplazar_bloque_BS(); //EN PROCESO
+void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_cola* estructura_mensaje, int tamanio_bytes_pot_dos); // LISTO
+t_mensaje_cola* reemplazar_bloque_BS(); //LISTO
 void consolidar_buddies(t_mensaje_cola* estructura_mensaje); //EN PROCESO
-void particionar_bloque_buddies(); // ver si la uso 
 
 //*****************Auxiliares especificas Buddy System******************************
 bool tamanio_potencia_dos(int tamanio_en_bytes);
