@@ -204,11 +204,11 @@ En caso que el Broker no se encuentre funcionando o la conexión inicial falle, 
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
-
+/*
 	pthread_mutex_lock(&mutex_ciclos_cpu);
 	consumir_un_ciclo_de_cpu_mientras_planificamos();
 	pthread_mutex_unlock(&mutex_ciclos_cpu);
-
+*/
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 
 	log_info(team_logger, "Enviado pedido de catch pokemon para esta especie: %s", entrenador->objetivo_actual->especie);
