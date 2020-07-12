@@ -57,7 +57,7 @@ void agregar_pokemon_a_mapa(char * especie, t_coordenadas coordenadas){
 		log_info(team_logger, "No necesito este pokemon");
 	}
 
-	if(un_objetivo->cantidad_necesitada > un_objetivo->cantidad_atrapada){
+	//if(un_objetivo->cantidad_necesitada > un_objetivo->cantidad_atrapada){
 
 		t_pokemon * pokemon = malloc(sizeof(t_pokemon));
 		pokemon->especie = especie;
@@ -68,9 +68,9 @@ void agregar_pokemon_a_mapa(char * especie, t_coordenadas coordenadas){
 		list_add(lista_mapa, (void*)pokemon);
 		pthread_mutex_unlock(&mapa_mutex);
 
-	}else{
+	/*}else{
 		log_info(team_logger,"Ya tenemos la cantidad necesaria de la especie %s\n", especie);
-	}
+	}*/
 
 }
 
@@ -439,9 +439,10 @@ void * tratamiento_de_mensajes(){
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				operar_con_appeared_pokemon(mensaje->contenido);
 
-			//} else {
-				//log_info(team_logger, "No necesito a este pokemon");
-			//}
+			/*} else {
+				log_info(team_logger, "No necesito a este pokemon");
+			}*/
+
 		}
 
 		if(mensaje->operacion == LOCALIZED){
