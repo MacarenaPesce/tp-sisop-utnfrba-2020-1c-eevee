@@ -1,5 +1,4 @@
 #include "Herramientas_gameCard.h"
-#include<commons/log.h>
 
 void inicializar_logger(){
 	//si pongo 1 muestra por consola si muestra 0 no.
@@ -20,6 +19,7 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_CONEXION,config_game_card,obtener_tiempo_reintento_conexion);
 		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_OPERACION , config_game_card, obtener_tiempo_reintento_operacion);
 		obtener_valor_config(KEY_TIEMPO_RETARDO_OPERACION,config_game_card,obtener_tiempo_retardo_operacion);
+		obtener_valor_config(KEY_CONFIG_ID, config_game_card, obtener_el_id);
 	    config_destroy(config_game_card);
 	    log_info(gameCard_logger,"Los datos del archivo de configuracion se han cargado correctamente");
 
@@ -36,6 +36,10 @@ void obtener_valor_config(char* key, t_config* file, void(*obtener)(void)){
 	}
 }
 
+void obtener_el_id(){
+	id = config_get_int_value(config_game_card, KEY_CONFIG_ID);
+	log_debug(gameCard_logger,"Mi ID es: %d",id);
+}
 
 void obtener_tiempo_reintento_conexion(){
 	tiempo_reintento_conexion= config_get_int_value(config_game_card,KEY_TIEMPO_DE_REINTENTO_CONEXION);
@@ -68,49 +72,19 @@ void obtener_puerto_broker(){
 			strdup(config_get_string_value(config_game_card, KEY_PUERTO_BROKER));
 }
 
-
-void configurar_signals_gc(void){
-	struct sigaction signal_struct;
-	signal_struct.sa_handler = capturar_signal;
-	signal_struct.sa_flags = 0;
-
-	sigemptyset(&signal_struct.sa_mask);
-
-	sigaddset(&signal_struct.sa_mask, SIGPIPE);
-	if (sigaction(SIGPIPE, &signal_struct, NULL) < 0) {
-		logger(escribir_loguear, l_error, " SIGACTION error ");
-	}
-
-	sigaddset(&signal_struct.sa_mask, SIGINT);
-	if (sigaction(SIGINT, &signal_struct, NULL) < 0) {
-		logger(escribir_loguear, l_error, " SIGACTION error ");
-	}
-	sigaddset(&signal_struct.sa_mask, SIGSEGV);
-	if (sigaction(SIGINT, &signal_struct, NULL) < 0) {
-		logger(escribir_loguear, l_error, " SIGACTION error ");
-	}
-}
-
-void capturar_signal(int signo){
-
-    if(signo == SIGINT)
-    {
-    	logger(escribir_loguear, l_warning,"\n GAMECARD DEJA DE FUNCIONAR, CHAU");
-    	terminar_game_card();
-
-    }
-    else if(signo == SIGPIPE)
-    {
-    	logger(escribir_loguear, l_error,"Desconectado");
-    }
-    else if(signo == SIGSEGV)
-	{
-		logger(escribir_loguear, l_error,"SEGMENTATION FAULT");
-	}
-
+void liberarMemoria() {
+	//aca empezar a liberar memoria
+	free(rutas_fs);
+	free(metadata_fs);
+	//munmap(bmap, tamBmap);
+	bitarray_destroy(bitarray);
+	config_destroy(config_game_card);
 }
 
 void terminar_game_card(){
+	/*Aca deberias liberar todas las estructuras que usaste!!*/
+	liberarMemoria();
+
 	log_info(gameCard_logger,"llegando al final");
 	log_info(gameCard_logger,"liberando recursos");
 	log_info(gameCard_logger,"finalizando GameCard");
