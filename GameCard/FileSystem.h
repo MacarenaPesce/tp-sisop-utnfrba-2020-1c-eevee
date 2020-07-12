@@ -185,4 +185,6 @@ t_list* pokemonesParaLocalized;
 
 void agregarPosicionAlistaParaLocalized(char* posicion);
 
+void crearDirectorioPokemon(char* pokemon);
+
 #endif /* FILESYSTEM_H_ */

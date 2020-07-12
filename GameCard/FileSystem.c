@@ -142,25 +142,16 @@ void copiarPersistiendoPokemon() {
 
 void crearMetadataArchPoke(char* pokemon, int tamanio) {
 
-	log_info(gameCard_logger, "Creando el directorio Pokemon : %s", pokemon);
+	crearDirectorioPokemon(pokemon);
 
-	char* directorioPoke = string_new();
+			char* rutaMetadata = string_new();
 
-	string_append(&directorioPoke, rutas_fs->pathDirectorioFilesMetadata);
-	string_append(&directorioPoke, "/");
-	string_append(&directorioPoke, pokemon);
+			string_append(&rutaMetadata, rutas_fs->pathDirectorioFilesMetadata);
+			string_append(&rutaMetadata, "/");
+			string_append(&rutaMetadata, pokemon);
+			string_append(&rutaMetadata, "/Metadata.bin");
 
-	int fueCreado = mkdir(directorioPoke, 0777); //analizar permisos
-	if (fueCreado == 0) {
-		log_info(gameCard_logger, "Se ha creado el directorio / %s", pokemon);
-	}
-
-	char* rutaMetadataPoke = string_new();
-
-	string_append(&rutaMetadataPoke, directorioPoke);
-	string_append(&rutaMetadataPoke, "/Metadata.bin");
-
-	FILE* metadataPoke = fopen(rutaMetadataPoke, "wb");
+	FILE* metadataPoke = fopen(rutaMetadata, "wb");
 
 	log_info(gameCard_logger, "Creando el archivo metadata del pokemon");
 
@@ -212,6 +203,29 @@ void crearMetadataArchPoke(char* pokemon, int tamanio) {
 			"Se ha creado el archivo metadata.bin del Pokemon");
 }
 
+void crearDirectorioPokemon(char* pokemon){
+
+	log_info(gameCard_logger, "Creando el directorio Pokemon : %s", pokemon);
+
+		char* directorioPoke = string_new();
+
+		string_append(&directorioPoke, rutas_fs->pathDirectorioFilesMetadata);
+		string_append(&directorioPoke, "/");
+		string_append(&directorioPoke, pokemon);
+
+		int fueCreado = mkdir(directorioPoke, 0777); //analizar permisos
+		if (fueCreado == 0) {
+			log_info(gameCard_logger, "Se ha creado el directorio / %s", pokemon);
+		}
+}
+
+void setearTamnioPokemon(){
+
+}
+
+void setearBloquesPokemon(){
+
+}
 void copiarEnArchivo(int fd, char* dato, int tamanioDato) {
 
 	write(fd, dato, tamanioDato);

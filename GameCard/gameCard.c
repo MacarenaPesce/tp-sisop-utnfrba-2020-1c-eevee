@@ -17,8 +17,6 @@ int main() {
 	abrirBitmap();
 	inicializarSemaforoPokemon();
 
-	//inicializarSemaforosMetadataYBitmap();
-
 	convertirse_en_suscriptor_global_del_broker();
 
 	/*Esto es lo necesario para comunicarse con gameboy*/
