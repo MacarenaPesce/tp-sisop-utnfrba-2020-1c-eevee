@@ -79,9 +79,11 @@ char* cargarPokemon(t_new_pokemon* pokemon) {
 
 void copiarEnBloque(char* bloqueLibre, char* lineaAcopiar) {
 
+	log_info(gameCard_logger,"se va a escribir en bloques del pokemon");
+
 	log_info(gameCard_logger, "accediendo al bloque %s.bin", bloqueLibre);
 
-	log_info(gameCard_logger, "mostrame que vas a copiar: %s", lineaAcopiar);
+	log_info(gameCard_logger, "se va a copiar: %s", lineaAcopiar);
 
 	char* rutaBloqueLibre = string_new();
 
@@ -91,11 +93,9 @@ void copiarEnBloque(char* bloqueLibre, char* lineaAcopiar) {
 	string_append(&rutaBloqueLibre, ".bin");
 	FILE *bloque = fopen(rutaBloqueLibre, "wb");
 
-	log_info(gameCard_logger, "copiando pokemon en el bloque %s.bin",
-			bloqueLibre);
 	fseek(bloque, 0, SEEK_SET);
 	fwrite(lineaAcopiar, string_length(lineaAcopiar), 1, bloque);
-	//fclose(bloque);
+	fclose(bloque);
 
 	contenidoBloque = string_new();
 
@@ -219,13 +219,24 @@ void crearDirectorioPokemon(char* pokemon){
 		}
 }
 
-void setearTamnioPokemon(){
 
+	void crearDirectorioPokemon(char* pokemon){
+
+		log_info(gameCard_logger, "Creando el directorio Pokemon : %s", pokemon);
+
+			char* directorioPoke = string_new();
+
+			string_append(&directorioPoke, rutas_fs->pathDirectorioFilesMetadata);
+			string_append(&directorioPoke, "/");
+			string_append(&directorioPoke, pokemon);
+
+			int fueCreado = mkdir(directorioPoke, 0777); //analizar permisos
+			if (fueCreado == 0) {
+				log_info(gameCard_logger, "Se ha creado el directorio / %s", pokemon);
+			}
 }
 
-void setearBloquesPokemon(){
 
-}
 void copiarEnArchivo(int fd, char* dato, int tamanioDato) {
 
 	write(fd, dato, tamanioDato);
@@ -848,6 +859,8 @@ void copiarEnBloques(void* bloque) {
 }
 void cambiarTamanioMetadata(char* pokemon, int tamanioAgregar) {
 
+	log_info(gameCard_logger,"se modifica el tamanio del archivo pokemon %s",pokemon);
+
 	t_config* configPoke;
 
 	char* rutaPoke = string_new();
@@ -863,7 +876,7 @@ void cambiarTamanioMetadata(char* pokemon, int tamanioAgregar) {
 	int cantidadNueva = (config_get_int_value(configPoke, "SIZE"))
 			+ tamanioAgregar;
 
-	log_info(gameCard_logger, "aca quiero validar cantidad: %d", cantidadNueva);
+	log_info(gameCard_logger, "El nuevo tamaño del archivo será: %d", cantidadNueva);
 
 	config_set_value(configPoke, "SIZE", string_itoa(cantidadNueva));
 
@@ -906,16 +919,8 @@ void persistirCambiosEnBloquesPropios(void* bloque) {
 
 	int aCopiar = string_length(posAcopiar);
 
-//log_info(gameCard_logger,"aca mostrame aCopiar: %s ", aCopiar);
 	if ((aCopiar - copiado) < metadata_fs->tamanioBLoques) {
 
-		log_info(gameCard_logger, "mostrame que va a copiar: %s", posAcopiar);
-		log_info(gameCard_logger,
-				"aca mostrame desde: %d y aCopiar-desde : %d ", desde,
-				aCopiar - desde);
-
-		log_info(gameCard_logger, "mostrame que vas a copiar",
-				string_substring(posAcopiar, desde, aCopiar - desde));
 		copiarEnBloque(bloque,
 				string_substring(posAcopiar, desde, aCopiar - desde));
 	}
