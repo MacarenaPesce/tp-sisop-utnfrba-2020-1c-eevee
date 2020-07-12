@@ -188,7 +188,8 @@ void particionar_bloque_buddies(t_bloque_memoria* particion,t_mensaje_cola* estr
 	return ;
 }
 
-
+/* Se encarga de ir borrando una particion, teniendo en cuenta los 
+	algoritmos de reemplazo*/
 t_mensaje_cola* reemplazar_bloque_BS(){
 
 
