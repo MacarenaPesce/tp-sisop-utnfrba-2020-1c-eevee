@@ -5,7 +5,8 @@
 #include "Herramientas_broker.h"
 #include "Contexto_broker.h"
 #include "Broker.h"
-#include "utils.h"
+#include "Buddy.h"
+#include "utilsMemoria.h"
 #include <Pokebola.h>
 
 
@@ -64,16 +65,12 @@ t_bloque_memoria* algoritmo_lru(); //LISTO
 
 
 
-//*******************AUXILIARES*******************
+//*******************AUXILIARES DE PD*******************
 
 /* Las aclaraciones del uso de cada funcion estan en el archivo .c */
 
-bool puede_alojarse(int tamanio_en_bytes);
 t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, t_mensaje_cola* estructura_mensaje);
-int obtener_indice_particion(t_bloque_memoria* bloque);
-int tamanio_a_alojar(int tamanio);
 
-void liberar_bloque_memoria(t_bloque_memoria* bloque); //LISTO
 
 /***Para Particiones dinamicas***/
 //Consolidacion
@@ -83,15 +80,6 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 void compactar();
 
 
-//Auxiliar para LRU y FIFO
-uint64_t get_timestamp();
-
-
-//*****************Auxiliares especificas Buddy System******************************
-bool tamanio_potencia_dos(int tamanio_en_bytes);
-int numero_potencia_dos(int tamanio_en_bytes);
-
-t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion);
 
 #endif /* MEMORIA_BROKER_H_ */
 

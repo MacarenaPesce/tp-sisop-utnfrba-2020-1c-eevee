@@ -13,6 +13,7 @@
 #include "Team.h"
 
 void * jugar_con_el_entrenador(t_entrenador *);
+void realizar_las_operaciones_de_deadlock(t_entrenador *);
 void llegar_a_el_pokemon(t_entrenador *);
 void atrapar(t_entrenador *);
 void mover_entrenador_a_otra_posicion(t_entrenador*);

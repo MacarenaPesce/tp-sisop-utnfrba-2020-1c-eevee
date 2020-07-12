@@ -23,6 +23,7 @@ char* log_file;
 int id;
 
 int GLOBAL_SEGUIR = 1;
+int CONTADOR_DE_MENSAJES;
 int ciclos_de_cpu = 0;
 int MAXIMO_ENTRENADORES;
 int CANTIDAD_EN_DEADLOCK;

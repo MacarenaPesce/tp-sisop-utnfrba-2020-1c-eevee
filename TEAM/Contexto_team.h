@@ -67,6 +67,7 @@ extern char* log_file;
 extern int id;
 
 extern int GLOBAL_SEGUIR;
+extern int CONTADOR_DE_MENSAJES;
 extern int ciclos_de_cpu;
 extern int hilos_entrenadores_total;
 extern int MAXIMO_ENTRENADORES;
@@ -105,6 +106,7 @@ extern t_list* lista_bloqueados_esperando_caught;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_finalizar;
+sem_t * array_semaforos_deadlock;
 sem_t * array_semaforos_caught;
 sem_t entrenadores_ubicados;
 pthread_mutex_t mapa_mutex;
@@ -115,6 +117,10 @@ pthread_mutex_t lista_listos_mutex;
 pthread_mutex_t mensaje_chequear_id_mutex;
 pthread_mutex_t moverse;
 pthread_mutex_t mutex_para_colas;
+pthread_mutex_t tocando_pokemones_objetivos;
+pthread_mutex_t tocando_semaforos_deadlock;
+pthread_mutex_t lista_comun_deadlock;
+pthread_mutex_t mutex_ciclos_cpu;
 
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
@@ -137,6 +143,7 @@ sem_t aviso_entrenador_hizo_intercambio;
 sem_t se_hizo_el_intercambio;
 sem_t chequeo_de_deadlock;
 sem_t todos_los_entrenadores_finalizaron;
+sem_t me_bloquee;
 
 extern bool hayDeadlock;
 extern bool me_desalojaron;
@@ -187,6 +194,8 @@ typedef struct {
 	int instruccion_actual;//sjf
 	int ejec_anterior;//sjf
 	bool desalojado;
+	uint32_t quantum_restante;
+	bool agoto_quantum;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
