@@ -111,13 +111,13 @@ void* esperar_mensajes(void* cliente){
 			/* El nro de operacion y cola de mensajes indican el 
 			tipo de estructura que contiene el paquete */
 			
-/* 		 	log_debug(broker_logger,"Mensaje Recibido:",NULL);
-			log_debug(broker_logger,"operacion: %d ",paquete->operacion);
-			log_debug(broker_logger,"cola_de_mensajes: %d ",paquete->cola_de_mensajes);
-			log_debug(broker_logger,"id_correlacional: %d  ",paquete->id_correlacional);
-			log_debug(broker_logger,"id_mensaje: %d ",paquete->id_mensaje);
-			log_debug(broker_logger,"id_cliente: %d ",paquete->id_cliente);
-			log_debug(broker_logger,"tamanio_payload: %d ",paquete->tamanio_payload); */
+ 		 	if(debug_broker) log_debug(broker_logger,"Mensaje Recibido:",NULL);
+			if(debug_broker) log_debug(broker_logger,"operacion: %d ",paquete->operacion);
+			if(debug_broker) log_debug(broker_logger,"cola_de_mensajes: %d ",paquete->cola_de_mensajes);
+			if(debug_broker) log_debug(broker_logger,"id_correlacional: %d  ",paquete->id_correlacional);
+			if(debug_broker) log_debug(broker_logger,"id_mensaje: %d ",paquete->id_mensaje);
+			if(debug_broker) log_debug(broker_logger,"id_cliente: %d ",paquete->id_cliente);
+			if(debug_broker) log_debug(broker_logger,"tamanio_payload: %d ",paquete->tamanio_payload); 
 
 			switch(paquete->operacion){
 				case ENVIAR_MENSAJE:
