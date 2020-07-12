@@ -12,6 +12,7 @@ int tiempo_retardo_operacion;
 char* punto_montaje_fs;
 char* ip_broker;
 char* puerto_broker;
+int id;
 
 
 t_log* gameCard_logger;
