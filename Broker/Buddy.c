@@ -60,6 +60,7 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 	/* Seteo un bool para controlar cuando ya aloje la particion */
     bool alojado = false;
 
+	t_mensaje_cola* estructura_mensaje_reemplazado;
 
 	while(alojado == false){ /* Mientras no este alojado */
 
@@ -82,10 +83,10 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 		else {
 
 			/* Elimino una particion */
-			reemplazo_bloque_BS();
+			estructura_mensaje_reemplazado = reemplazo_bloque_BS();
 
-			/* Consolido buddies*/
-			consolidar_buddies();
+			/* Consolido buddies entorno a la particion eliminada*/
+			consolidar_buddies(estructura_mensaje_reemplazado);
 		}
 
 		/* Me fijo de nuevo si puede alojarse */
@@ -97,21 +98,86 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
     return;
 }
 
-
+/*	Busca una particion libre, la mas chica (best_fit).
+  	La particiona si sobra espacio.
+	Asigna los datos.  
+	*/
 void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_particion){
 
-	 
-
 	/* Encontrar particion libre */
+	
+	
 	return;
 }
 
-void reemplazar_bloque_BS(t_mensaje_cola* estructura_mensaje){
+t_bloque_memoria* algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
+
+    t_bloque_memoria* bloque;
+    t_bloque_memoria* aux;
+    t_bloque_memoria* bloque_final;
+    int indice;
+    int tam_minimo=0; 
+
+    if(debug_broker) log_debug(broker_logger, "Ejecutando best fit");
+
+
+    //obtengo el primer bloque donde quepa mi particion nueva
+	for(int i=0; i<list_size(cache_mensajes->memoria); i++){
+
+        //Obtengo el bloque en la posicion de la lista que estamos
+        aux = list_get(cache_mensajes->memoria, i);
+
+        //me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no 
+        if((aux->esta_vacio == true) && (aux->tamanio_particion >= tamanio_parti)){
+            
+            //me fijo si el tamaño mas chico de particiones sigue siendo 0 
+            if(tam_minimo==0){
+                tam_minimo = aux->tamanio_particion;
+            }
+
+            //me fijo si el tamaño mas chico de particion es menor o igual al tamaño del bloque auxiliar actual, en caso de serlo, al bloque le asigno el aux
+            //y asi me quedo con el bloque mas chico de toda la lista
+            if(tam_minimo <= aux->tamanio_particion){
+                bloque = aux;
+            }
+
+        }
+
+    }
+
+    //obtengo el indice del bloque que voy a particionar
+    indice = obtener_indice_particion(bloque);
+
+    if(debug_broker) log_debug(broker_logger, "Por particionar el bloque, ya encontre mi bloque adecuado");
+
+    //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
+    bloque_final = particionar_bloque(tamanio_parti,indice,estructura_mensaje);
+
+    if(debug_broker) log_debug(broker_logger, "Ya ejecute best fit");
+
+    return bloque_final;
+
+}
+
+t_mensaje_cola* reemplazar_bloque_BS(){
+
+
 
 	return;
 }
 
-void consolidar_buddies(){
+/* Realiza la consolidacion de buddies, dado un bloque.*/
+void consolidar_buddies(t_mensaje_cola* estructura_mensaje){
+
+	/* Obtengo el indice de un buddy */
+	/* Me fijo si la posicion anterior esta libre
+	 y Chequeo si tienen el mismo tamaño */
+	/* Me fijo si son buddies , si son buddies consolido
+		Para saber si son buddies necesito la posicion de memoria relativa*/
+
+	/* Me fijo lo mismo con la posicion siguiente en caso que la primer opcion de negativo*/
+
+	/* Una vez que me fije , vuelvo a repetir con el bloque consolidado */	
 
 	return ;
 }

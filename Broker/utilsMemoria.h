@@ -37,6 +37,5 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque);
 //Auxiliar para LRU y FIFO
 uint64_t get_timestamp();
 
-//int calcularBytes (t_packed* paquete);
 
 //void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);

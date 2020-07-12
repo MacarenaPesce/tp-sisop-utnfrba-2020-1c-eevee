@@ -26,10 +26,10 @@
 #include <arpa/inet.h>
 
 
-void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje);
-void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje);
+void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje); //LISTO
+void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_particion); //EN PROCESO
 void reemplazar_bloque_BS(t_mensaje_cola* estructura_mensaje);
-void consolidar_buddies();
+void consolidar_buddies(t_mensaje_cola* estructura_mensaje); //EN PROCESO
 void particionar_bloque_buddies();
 void encontrar_padre();
 
