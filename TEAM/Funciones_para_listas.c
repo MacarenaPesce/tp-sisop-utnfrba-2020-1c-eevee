@@ -84,6 +84,7 @@ void separar_pokemones_de_entrenador(char* pokemones_de_entrenador, t_list* list
 		string_iterate_lines_with_list(pokes, lista, agregar_a_lista_pokemones);
 		free(pokes);
 	}
+
 }
 
 void agregar_a_lista_pokemones(char* especie, t_list* lista){
@@ -101,7 +102,7 @@ void agregar_objetivo(char* especie, uint32_t cantidad, t_list* lista){
 		list_add(lista, (void*)objetivo);
 	} else {
 		if(especie != NULL){
-		t_objetivo_entrenador* objetivo = malloc(sizeof(t_objetivo_entrenador));
+		t_objetivo_entrenador* objetivo= malloc(sizeof(t_objetivo_entrenador));
 		objetivo->especie = especie;
 		objetivo->cantidad = cantidad;
 		list_add(lista, (void*)objetivo);
@@ -118,6 +119,7 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 			uint32_t contador = 0;
 			char* un_char = "Ultimo poke\0";
 			char* ultimo_poke = string_from_format("%s\0", un_char);
+
 			list_add(pokemones, ultimo_poke);
 			/*Empiezo a cargar a lista de objetivos, con tipo y cantidad de cada uno*/
 			char* especiePokemon;
@@ -127,6 +129,9 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 				especiePokemon = unPokemon;
 				otroPokemon = list_get(pokemones, i);
 				if(otroPokemon == NULL){
+					if(string_contains(especiePokemon, "]\0")){
+						especiePokemon = string_substring(especiePokemon, 0, strlen(especiePokemon)-1);
+					}
 					agregar_objetivo(especiePokemon, contador, lista);
 					break;
 				}
@@ -134,6 +139,10 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 					contador++;
 					i++;
 					}else{
+						if(string_contains(especiePokemon, "]\0")){
+							especiePokemon = string_substring(especiePokemon, 0, strlen(especiePokemon)-1);
+						}
+
 						agregar_objetivo(especiePokemon, contador, lista);
 						unPokemon = otroPokemon;
 						contador = 1;
@@ -141,10 +150,11 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 
 					}
 			}
-		}
 
-		//free(unPokemon);
-		//list_destroy(pokemones);
+			free(unPokemon);
+			free(otroPokemon);
+
+		}
 }
 
 t_list* obtener_pokemones(t_list* lista_global,t_list* lista, uint32_t posicion){
@@ -182,6 +192,7 @@ void sacar_de_objetivos_pokemones_atrapados(t_list* lista_de_objetivos, t_list* 
 			if(objetivo->cantidad >= pokemon->cantidad){
 				objetivo->cantidad -= pokemon->cantidad;
 				objetivo_global->cantidad_atrapada += pokemon->cantidad;
+				objetivo_global->cantidad_necesitada -= pokemon->cantidad;
 			} else {
 				objetivo->cantidad = 0;
 				objetivo_global->cantidad_atrapada += pokemon->cantidad - objetivo->cantidad;

@@ -46,6 +46,7 @@ void obtener_el_log_file();
 void terminar_team_correctamente();
 int destruir_entrenador(t_entrenador *);
 int destruir_objetivo(t_objetivo *);
+int destruir_mensaje(t_mensaje_guardado *);
 
 
 /*BUSQUEDA*/

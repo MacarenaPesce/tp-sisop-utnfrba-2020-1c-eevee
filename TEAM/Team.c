@@ -15,9 +15,9 @@ void operar_con_appeared_pokemon(t_appeared_pokemon * paquete){
 
 	agregar_pokemon_a_mapa(paquete->pokemon, paquete->coordenadas);
 
-	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa\n", paquete->pokemon, paquete->coordenadas.posx, paquete->coordenadas.posy);
+	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa", paquete->pokemon, paquete->coordenadas.posx, paquete->coordenadas.posy);
 
-	sem_post(&orden_para_planificar);
+	//sem_post(&orden_para_planificar);
 
 	free(paquete);
 }
@@ -57,7 +57,7 @@ void agregar_pokemon_a_mapa(char * especie, t_coordenadas coordenadas){
 		log_info(team_logger, "No necesito este pokemon");
 	}
 
-	if(un_objetivo->cantidad_necesitada > un_objetivo->cantidad_atrapada){
+	//if(un_objetivo->cantidad_necesitada > un_objetivo->cantidad_atrapada){
 
 		t_pokemon * pokemon = malloc(sizeof(t_pokemon));
 		pokemon->especie = especie;
@@ -68,9 +68,9 @@ void agregar_pokemon_a_mapa(char * especie, t_coordenadas coordenadas){
 		list_add(lista_mapa, (void*)pokemon);
 		pthread_mutex_unlock(&mapa_mutex);
 
-	}else{
+	/*}else{
 		log_info(team_logger,"Ya tenemos la cantidad necesaria de la especie %s\n", especie);
-	}
+	}*/
 
 }
 
@@ -125,7 +125,11 @@ void localizar_entrenadores_en_mapa(){
 				}
 				if(hay_que_agregar_entrenador){
 					lista_pokemones_de_entrenador = obtener_pokemones(lista_global_pokemones, lista_pokemones_de_entrenador, pos_entrenador_en_lista_objetivos);
+
+					pthread_mutex_lock(&tocando_pokemones_objetivos);
 					lista_objetivos_de_entrenador = obtener_pokemones(lista_global_objetivos, lista_objetivos_de_entrenador, pos_entrenador_en_lista_objetivos);
+					pthread_mutex_unlock(&tocando_pokemones_objetivos);
+
 					pos_entrenador_en_lista_objetivos++;
 					agregar_entrenador(posx, posy, id, lista_pokemones_de_entrenador, lista_objetivos_de_entrenador);
 					id++;
@@ -141,17 +145,19 @@ void localizar_entrenadores_en_mapa(){
 
 	log_info(team_logger,"Entrenadores ubicados\n");
 
+	list_destroy_and_destroy_elements(lista_pokemones_de_entrenador,(void*)destruir_pokemon);
+	list_destroy_and_destroy_elements(lista_objetivos_de_entrenador,(void*)destruir_objetivo);
+
 }
 
 void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista_pokemones_de_entrenador, t_list* lista_objetivos_de_entrenador){
 	sacar_de_objetivos_pokemones_atrapados(lista_objetivos_de_entrenador, lista_pokemones_de_entrenador);
-	uint32_t cantidad_maxima = obtener_cantidad_maxima(lista_objetivos_de_entrenador);
 
 	t_entrenador* entrenador = malloc(sizeof(t_entrenador));
 	entrenador->posx = posx;
 	entrenador->posy = posy;
 	entrenador->id = id;
-	entrenador->cant_maxima_objetivos = cantidad_maxima;
+	//entrenador->cant_maxima_objetivos = cantidad_maxima;
 	entrenador->ejec_anterior = 0;
 	entrenador->estimacion_actual = estimacion_inicial;
 	entrenador->estimacion_anterior = estimacion_inicial;
@@ -159,6 +165,8 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->instruccion_actual = 0;
 	entrenador->estado = NUEVO;
 	entrenador->desalojado = false;
+	entrenador->agoto_quantum = false;
+	entrenador->quantum_restante = quantum;
 
 	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
 	entrenador->pokemones = list_create();
@@ -174,6 +182,10 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 		una_meta = list_get(lista_objetivos_de_entrenador, i);
 		list_add(entrenador->objetivo, (void*)una_meta);
 	}
+
+	uint32_t cantidad_maxima = obtener_cantidad_maxima(entrenador->objetivo);
+	entrenador->cant_maxima_objetivos = cantidad_maxima;
+
 
 	list_add(lista_entrenadores, (void*)entrenador);
 	list_clean(lista_pokemones_de_entrenador);
@@ -266,7 +278,7 @@ void chequear_si_fue_cumplido_el_objetivo_global(){
 void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_entrenador * entrenador){
 
 	log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
-	log_info(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
+	log_debug(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
 	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %i %i", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
 
 	actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
@@ -306,10 +318,24 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
-			sem_post(&chequeo_de_deadlock);
+			sem_post(&me_bloquee);
+
 			break;
 		default:
 			break;
+	}
+
+	if(list_size(lista_bloqueados_cant_max_alcanzada) == MAXIMO_ENTRENADORES){
+		for(int i=0; i < MAXIMO_ENTRENADORES; i++){
+			sem_wait(&me_bloquee);
+		}
+		sem_post(&chequeo_de_deadlock);
+	}
+	if((list_size(lista_bloqueados_cant_max_alcanzada) + list_size(lista_finalizar)) == MAXIMO_ENTRENADORES){
+		for(int i=0; i < list_size(lista_bloqueados_cant_max_alcanzada); i++){
+			sem_wait(&me_bloquee);
+		}
+		sem_post(&chequeo_de_deadlock);
 	}
 }
 
@@ -318,9 +344,9 @@ void consumir_un_ciclo_de_cpu(){
 	sleep(retardo_ciclo_cpu);
 }
 
-void consumir_un_ciclo_de_cpu_mientras_planificamos(){
+void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 
-	if((!strcmp(algoritmo_planificacion, "FIFO"))){
+	/*if((!strcmp(algoritmo_planificacion, "FIFO"))){
 		ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 	}
@@ -346,16 +372,37 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(){
 			confirmar_desalojo_en_ejecucion();
 			me_desalojaron = true;
 		}
-	}
+	}*/
 
 	if(!strcmp(algoritmo_planificacion, "RR")){
-		//TODO
+		ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+
+		if(entrenador->quantum_restante > 0){
+			log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+			entrenador->quantum_restante--;
+		}else{
+			entrenador->agoto_quantum = true;
+			entrenador->quantum_restante = quantum;
+
+			pthread_mutex_lock(&lista_listos_mutex);
+			list_add(lista_listos, entrenador);
+			pthread_mutex_unlock(&lista_listos_mutex);
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+
+			sem_post(&orden_para_planificar);
+			sem_wait(&array_semaforos[entrenador->id]);
+
+			//confirmar_desalojo_en_ejecucion();
+			//me_desalojaron = true;
+		}
 	}
 }
 
 void confirmar_desalojo_en_ejecucion(void){
 	if(entrenador_por_desalojar!=NULL) {
 		entrenador_en_ejecucion->estado = LISTO;
+		entrenador_en_ejecucion->quantum_restante = quantum;
 		entrenador_en_ejecucion = NULL;
 		entrenador_por_desalojar = NULL;
 		desalojo_en_ejecucion = false;
@@ -391,7 +438,7 @@ void * tratamiento_de_mensajes(){
 		if(mensaje->operacion == APPEARED){
 			t_appeared_pokemon * contenido = mensaje->contenido;
 
-			if(fijarme_si_debo_atraparlo_usando_el_objetivo_global(contenido->pokemon)){
+			//if(fijarme_si_debo_atraparlo_usando_el_objetivo_global(contenido->pokemon)){
 				t_pokemon * pokemon = malloc(sizeof(t_pokemon));
 				pokemon->especie = contenido->pokemon;
 				pokemon->posx = contenido->coordenadas.posx;
@@ -401,9 +448,10 @@ void * tratamiento_de_mensajes(){
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				operar_con_appeared_pokemon(mensaje->contenido);
 
-			} else {
+			/*} else {
 				log_info(team_logger, "No necesito a este pokemon");
-			}
+			}*/
+
 		}
 
 		if(mensaje->operacion == LOCALIZED){
@@ -460,6 +508,7 @@ int main(){
 	inicializar_semaforos();
 	configurar_signals();
 	inicializar_listas();
+	CONTADOR_DE_MENSAJES = 0;
 
 	hayDeadlock = false;
 
@@ -476,7 +525,7 @@ int main(){
 	crear_hilo_para_tratamiento_de_mensajes();
 	crear_hilo_para_planificar();
 	crear_hilo_para_deadlock();
-	convertirse_en_suscriptor_global_del_broker();
+	//convertirse_en_suscriptor_global_del_broker();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 
 	close(serv_socket);
