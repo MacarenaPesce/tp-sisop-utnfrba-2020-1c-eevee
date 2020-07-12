@@ -152,13 +152,12 @@ void localizar_entrenadores_en_mapa(){
 
 void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista_pokemones_de_entrenador, t_list* lista_objetivos_de_entrenador){
 	sacar_de_objetivos_pokemones_atrapados(lista_objetivos_de_entrenador, lista_pokemones_de_entrenador);
-	uint32_t cantidad_maxima = obtener_cantidad_maxima(lista_objetivos_de_entrenador);
 
 	t_entrenador* entrenador = malloc(sizeof(t_entrenador));
 	entrenador->posx = posx;
 	entrenador->posy = posy;
 	entrenador->id = id;
-	entrenador->cant_maxima_objetivos = cantidad_maxima;
+	//entrenador->cant_maxima_objetivos = cantidad_maxima;
 	entrenador->ejec_anterior = 0;
 	entrenador->estimacion_actual = estimacion_inicial;
 	entrenador->estimacion_anterior = estimacion_inicial;
@@ -183,6 +182,10 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 		una_meta = list_get(lista_objetivos_de_entrenador, i);
 		list_add(entrenador->objetivo, (void*)una_meta);
 	}
+
+	uint32_t cantidad_maxima = obtener_cantidad_maxima(entrenador->objetivo);
+	entrenador->cant_maxima_objetivos = cantidad_maxima;
+
 
 	list_add(lista_entrenadores, (void*)entrenador);
 	list_clean(lista_pokemones_de_entrenador);
@@ -439,6 +442,7 @@ void * tratamiento_de_mensajes(){
 			/*} else {
 				log_info(team_logger, "No necesito a este pokemon");
 			}*/
+
 		}
 
 		if(mensaje->operacion == LOCALIZED){
