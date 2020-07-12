@@ -60,7 +60,7 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 	/* Seteo un bool para controlar cuando ya aloje la particion */
     bool alojado = false;
 
-	t_mensaje_cola* estructura_mensaje_reemplazado;
+	t_bloque_memoria* bloque_borrado;
 
 	while(alojado == false){ /* Mientras no este alojado */
 
@@ -83,10 +83,10 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 		else {
 
 			/* Elimino una particion */
-			estructura_mensaje_reemplazado = reemplazo_bloque_BS();
+			bloque_borrado = reemplazo_bloque_BS();
 
 			/* Consolido buddies entorno a la particion eliminada*/
-			consolidar_buddies(estructura_mensaje_reemplazado);
+			consolidar_buddies(bloque_borrado);
 		}
 
 		/* Me fijo de nuevo si puede alojarse */
@@ -102,14 +102,18 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
   	La particiona si sobra espacio.
 	Asigna los datos.  
 	*/
-void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_particion){
+void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_de_particion){
 
 	/* Encontrar particion libre */
-	
-	
+	t_bloque_memoria* particion = encontrar_particion_libre(tamanio_de_particion); 
+
+	/* Particionar el bloque */
+	particionar_bloque_buddies( particion, estructura_mensaje);
+
 	return;
 }
 
+/*
 t_bloque_memoria* algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
 
     t_bloque_memoria* bloque;
@@ -157,7 +161,66 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructu
 
     return bloque_final;
 
+}*/
+
+/*	Es el algoritmo best fit , que se encarga de encontrar la particion libre
+	pero teniendo en cuenta, que es la que mejor se ajuste */
+t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
+
+	t_bloque_memoria* bloque_encontrado;
+
+	t_bloque_memoria* bloque;
+    t_bloque_memoria* aux;
+    
+    int indice;
+    int tam_minimo=0; 
+
+
+    /* Recorro la lista para obtener el primer bloque
+		donde quepa mi particion nueva */
+	for(int i=0; i<list_size(cache_mensajes->memoria); i++){
+
+        //Obtengo el bloque en la posicion de la lista que estamos
+        aux = list_get(cache_mensajes->memoria, i);
+
+        //me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no 
+        if((aux->esta_vacio == true) && (aux->tamanio_particion >= tamanio_parti)){
+            
+            //me fijo si el tamaño mas chico de particiones sigue siendo 0 
+            if(tam_minimo==0){
+                tam_minimo = aux->tamanio_particion;
+            }
+
+            //me fijo si el tamaño mas chico de particion es menor o igual al tamaño del bloque auxiliar actual, en caso de serlo, al bloque le asigno el aux
+            //y asi me quedo con el bloque mas chico de toda la lista
+            if(tam_minimo <= aux->tamanio_particion){
+                bloque = aux;
+            }
+
+        }
+
+    }
+
+	/* Obtengo el indice del bloque que mejor se ajusta a mi particion */
+    indice = obtener_indice_particion(bloque);
+
+    /* Obtengo el bloque de la lista */
+    bloque_encontrado = list_get(cache_mensajes->memoria, indice);
+
+
+	return bloque_encontrado;
 }
+
+/* 	Dado un bloque de memoria, se encarga de particionar el bloque.
+	Teniendo en cuenta, que lo tiene que particionar la cantidad de veces necesarias 
+	para que sea del menor tamaño posible. */
+void particionar_bloque_buddies(t_bloque_memoria* particion,t_mensaje_cola* estructura_mensaje){
+
+
+
+	return ;
+}
+
 
 t_mensaje_cola* reemplazar_bloque_BS(){
 
@@ -187,10 +250,7 @@ void particionar_bloque_buddies(){
 	return ;
 }
 
-void encontrar_padre(){
 
-	return ;
-}
 
 
 //*****************Auxiliares especificas Buddy System******************************
