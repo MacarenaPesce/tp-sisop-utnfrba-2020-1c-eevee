@@ -130,6 +130,13 @@ atrapado con éxito.*/
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
+	if(!fijarme_si_debo_atraparlo_usando_el_objetivo_global(entrenador->objetivo_actual->especie)){
+		log_warning(team_logger, "No necesito esta especie l134");
+		entrenador->razon_de_bloqueo = ESPERANDO_POKEMON;
+		bloquear_entrenador(entrenador);
+		return;
+	}
+
 	consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 
 	t_packed * ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
@@ -166,6 +173,8 @@ atrapado con éxito.*/
 	}
 
 	free(servidor);
+
+	return;
 
 }
 
