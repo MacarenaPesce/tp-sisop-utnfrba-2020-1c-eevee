@@ -195,14 +195,18 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 		int tamanio_restante = particion_inicial->tamanio_particion / 2 ;
 		bool es_potencia_de_dos = tamanio_potencia_dos(tamanio_restante);
     	
-		/* Como me sobra espacio lo separo en un nuevo nodo */
-        void* particion_restante = ((char *)particion_inicial->estructura_mensaje) + tamanio_bytes_pot_dos;
+		if(es_potencia_de_dos){ /* Si el tamaño restante es potencia de dos, particiono */
 
-		/* Seteo el bloque buddie */
-        bloque_restante = crear_bloque_vacio(tamanio_restante, particion_restante);
+			/* Como me sobra espacio lo separo en un nuevo nodo */
+    		void* particion_restante = ((char *)particion_inicial->estructura_mensaje) + tamanio_bytes_pot_dos;
 
-        /* Agrego el buddie a la lista de bloques*/
-		list_add_in_index(cache_mensajes->memoria, indice_nodo_particionar + 1, bloque_restante);    
+			/* Seteo el bloque buddie */
+        	bloque_restante = crear_bloque_vacio(tamanio_restante, particion_restante);
+
+        	/* Agrego el buddie a la lista de bloques*/
+			list_add_in_index(cache_mensajes->memoria, indice_nodo_particionar + 1, bloque_restante);  
+		}
+  
 
 		/* Me fijo de nuevo si puedo particionar para ver si sigo en el while o corto*/
 		puedo_particionar = (particion_inicial->tamanio_particion > tamanio_bytes_pot_dos);
@@ -211,7 +215,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 
 	/* En caso de no poder particionar mas, porque el bloque es justo del 
 	tamaño que necesito */
-	if(!puedo_particionar && (tamanio_bytes_pot_dos == particion_inicial->tamanio_particion){
+	if(!puedo_particionar && (tamanio_bytes_pot_dos == particion_inicial->tamanio_particion)){
 
 		/* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
     	particion_inicial->tamanio_particion = tamanio_bytes_pot_dos;
@@ -235,7 +239,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 
 /* Se encarga de ir borrando una particion, teniendo en cuenta los 
 	algoritmos de reemplazo*/
-t_mensaje_cola* reemplazar_bloque_BS(){
+t_bloque_memoria* reemplazar_bloque_BS(){
 
 	t_bloque_memoria* bloque_eliminado;
 
@@ -251,7 +255,7 @@ t_mensaje_cola* reemplazar_bloque_BS(){
 }
 
 /* Realiza la consolidacion de buddies, dado un bloque.*/
-void consolidar_buddies(t_mensaje_cola* estructura_mensaje){
+void consolidar_buddies(t_bloque_memoria* bloque){
 
 	/* Obtengo el indice de un buddy */
 	/* Me fijo si la posicion anterior esta libre
