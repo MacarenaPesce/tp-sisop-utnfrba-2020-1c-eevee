@@ -18,7 +18,9 @@ extern t_cache_colas* cache_mensajes;
 //TODO: modificar los algoritmos de reemplazo, la parte de liberar bloque memoria,
 //		hay que eliminar el mensaje, y que reapunte de nuevo a estructura_mensaje, 
 //		y vaciar la estructura mensaje
-
+//TODO: Modificar los logs de particiones dinamicas, y agregar la posicion relativa,
+//		la funcion esta en utilsMemoria
+//TODO:	Agregar los logs de buddy 
 
 
 	/*
@@ -244,6 +246,9 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 	return ;
 }
 
+
+
+
 /* Se encarga de ir borrando una particion, teniendo en cuenta los 
 	algoritmos de reemplazo*/
 t_bloque_memoria* reemplazar_bloque_BS(){
@@ -260,6 +265,9 @@ t_bloque_memoria* reemplazar_bloque_BS(){
 
 	return bloque_eliminado;
 }
+
+
+
 
 /* Realiza la consolidacion de buddies, dado un bloque.*/
 void consolidacion_BS(t_bloque_memoria* bloque){
