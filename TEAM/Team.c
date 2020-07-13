@@ -17,7 +17,7 @@ void operar_con_appeared_pokemon(t_appeared_pokemon * paquete){
 
 	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa", paquete->pokemon, paquete->coordenadas.posx, paquete->coordenadas.posy);
 
-	//sem_post(&orden_para_planificar);
+	sem_post(&orden_para_planificar);
 
 	free(paquete);
 }
@@ -290,6 +290,7 @@ void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_entrenador * entrenad
 }
 
 void bloquear_entrenador(t_entrenador* entrenador){
+	entrenador_en_ejecucion = NULL;
 
 	switch(entrenador->razon_de_bloqueo){
 		case ESPERANDO_POKEMON:
@@ -298,6 +299,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
 			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
+			sem_post(&orden_para_planificar);
 			break;
 
 		case ESPERANDO_MENSAJE_CAUGHT:
@@ -305,6 +307,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			list_add(lista_bloqueados_esperando_caught, (void*)entrenador);
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando que llegue mensaje Caught", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught\n", entrenador->id);
+			sem_post(&orden_para_planificar);
 			break;
 
 		case CANTIDAD_MAXIMA_ALCANZADA:
@@ -319,6 +322,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
 			sem_post(&me_bloquee);
+			sem_post(&orden_para_planificar);
 
 			break;
 		default:
@@ -337,6 +341,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 		}
 		sem_post(&chequeo_de_deadlock);
 	}
+
 }
 
 void consumir_un_ciclo_de_cpu(){
@@ -382,6 +387,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 			entrenador->quantum_restante--;
 		}else{
+			entrenador_en_ejecucion = NULL;
 			entrenador->agoto_quantum = true;
 			entrenador->quantum_restante = quantum;
 
@@ -393,8 +399,6 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			sem_post(&orden_para_planificar);
 			sem_wait(&array_semaforos[entrenador->id]);
 
-			//confirmar_desalojo_en_ejecucion();
-			//me_desalojaron = true;
 		}
 	}
 }
@@ -443,7 +447,6 @@ void * tratamiento_de_mensajes(){
 				pokemon->especie = contenido->pokemon;
 				pokemon->posx = contenido->coordenadas.posx;
 				pokemon->posy = contenido->coordenadas.posy;
-
 
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				operar_con_appeared_pokemon(mensaje->contenido);
@@ -508,7 +511,6 @@ int main(){
 	inicializar_semaforos();
 	configurar_signals();
 	inicializar_listas();
-	CONTADOR_DE_MENSAJES = 0;
 
 	hayDeadlock = false;
 

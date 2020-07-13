@@ -39,9 +39,12 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 
 		if(objetivo_personal_cumplido(entrenador)){
 			list_add(lista_finalizar, entrenador);
+			entrenador->estado = FINALIZANDO;
+			entrenador_en_ejecucion = NULL;
 			log_debug(team_logger, "El entrenador %d finalizo", entrenador->id);
 			log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 			sem_post(&todos_los_entrenadores_finalizaron);
+			sem_post(&orden_para_planificar);
 			return NULL;
 		}
 
