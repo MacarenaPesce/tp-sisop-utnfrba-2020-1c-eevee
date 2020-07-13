@@ -13,14 +13,16 @@ extern t_config* config;
 
 extern t_cache_colas* cache_mensajes;
 
-//TODO: modificar el algoritmo de memoria que devuelve un t_bloque. La parte de colas solo
-//		lo llama, no necesita que retorne nada.
+
 //TODO: modificar los algoritmos de reemplazo, la parte de liberar bloque memoria,
 //		hay que eliminar el mensaje, y que reapunte de nuevo a estructura_mensaje, 
 //		y vaciar la estructura mensaje
 //TODO: Modificar los logs de particiones dinamicas, y agregar la posicion relativa,
 //		la funcion esta en utilsMemoria
+//TODO: Agregar el simbolo XOR 
 //TODO:	Agregar los logs de buddy 
+//TODO: revisar los valores de compactacion segun lo indicado de nuevo y los logs de dicha parte
+
 
 
 	/*
@@ -97,7 +99,7 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 			bloque_borrado = reemplazar_bloque_BS();
 
 			/* Consolido buddies entorno a la particion eliminada*/
-			consolidar_buddies(bloque_borrado);
+			consolidacion_BS(bloque_borrado);
 		}
 
 		/* Me fijo de nuevo si puede alojarse */
@@ -326,7 +328,7 @@ bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_sig
 	if(bloque_anterior->tamanio_particion == bloque_siguiente->tamanio_particion){
 
 		/* ACA VIENE LA PARTE DEL XOR */
-		return ((char*)bloque_anterior->estructura_mensaje) == ((char*)bloque_siguiente->estructura_mensaje * bloque_anterior->tamanio_particion);
+		return ((int)bloque_anterior->estructura_mensaje) == ((int)bloque_siguiente->estructura_mensaje * bloque_anterior->tamanio_particion);
 
 	}
 	else{

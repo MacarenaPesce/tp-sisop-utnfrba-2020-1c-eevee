@@ -56,8 +56,9 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
    
     if(debug_broker) log_debug(broker_logger, "Se asigno la memoria inicial",NULL);
-    //if(debug_broker) log_debug(broker_logger, "La direccion inicial de memoria es: %p", memoria_inicial);
-    log_warning(broker_logger, "La direccion inicial de memoria es: %p", memoria_inicial);
+    if(debug_broker) log_debug(broker_logger, "La direccion inicial de memoria es: %p", memoria_inicial);
+    
+    //log_warning(broker_logger, "La direccion inicial de memoria es: %p", memoria_inicial);
 
     /* Genero el bloque de memoria inicial*/
     t_bloque_memoria *bloque;
@@ -70,8 +71,9 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 	bloque->last_time = 0;
     bloque->estructura_mensaje = (t_mensaje_cola*) memoria_inicial;
 
-    //if(debug_broker) log_debug(broker_logger, "Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
-    log_warning(broker_logger, "Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
+    if(debug_broker) log_debug(broker_logger, "Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
+    
+    //log_warning(broker_logger, "Particion de memoria inicial creada con: %i \n", bloque->tamanio_particion );
 
     /* Agrego el bloque a la lista */
     list_add(cache_mensajes->memoria,bloque);
@@ -89,7 +91,10 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 	Ya corri todos los algoritmos aca. 
 	Esta deberia ser la que tiene que llamar la cola de mensajes*/
 void asignar_particion_memoria(t_mensaje_cola* estructura_mensaje){
-    
+
+    if(debug_broker) log_debug(broker_logger, "Nueva peticion de memoria de: %i", estructura_mensaje->tamanio_mensaje );
+    printf("\n");
+
     /* Corro el algoritmo de memoria */
     algoritmo_de_memoria(estructura_mensaje);
 
@@ -132,8 +137,10 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
     /* Me fijo si el tamaño del mensaje es menor al minimo tamaño de particion */
     int tamanio_parti = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
-    //if(debug_broker) log_debug(broker_logger,"Por alojar particion de: %i ", tamanio_parti );
-    log_warning(broker_logger, "Por alojar particion de: %i", tamanio_parti);
+    
+    if(debug_broker) log_debug(broker_logger,"Se hace una particion de: %i ", tamanio_parti );
+    //log_warning(broker_logger, "Por alojar particion de: %i", tamanio_parti);
+	printf("\n");
 
     /* Me fijo si la particion puede alojarse a la primera */
     bool sePuedeAlojar = puede_alojarse(tamanio_parti);
@@ -149,10 +156,15 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
         //me fijo si puedo alojarla a la primera
         if(sePuedeAlojar == true){ 
-            //si puede alojarse a la primera llamo al algoritmo de particion libre
+            
+            if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre ");
+	        printf("\n");
+
+            /* Si puede alojarse a la primera, corro algoritmo de particion libre*/             
             algoritmo_de_particion_libre( tamanio_parti, estructura_mensaje);
 
             if(debug_broker) log_debug(broker_logger, "Aloje la nueva particion , PD");
+            printf("\n");
 
             //seteo alojado en true, para salir del while
             alojado = true;
@@ -200,9 +212,9 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 //------------------------------BUDDY SYSTEM----------------------------------
 void buddy_system( t_mensaje_cola* estructura_mensaje){
 
-    if(debug_broker) log_debug(broker_logger, "Ejecutando buddy system");
+    if(debug_broker) log_debug(broker_logger, "Buddy System");
 
-    buddy_funcionamiento( estructura_mensaje);
+    buddy_funcionamiento(estructura_mensaje);
 
     return ;
     
