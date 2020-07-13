@@ -15,7 +15,7 @@ void operar_con_appeared_pokemon(t_appeared_pokemon * paquete){
 
 	agregar_pokemon_a_mapa(paquete->pokemon, paquete->coordenadas);
 
-	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa", paquete->pokemon, paquete->coordenadas.posx, paquete->coordenadas.posy);
+	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa\n", paquete->pokemon, paquete->coordenadas.posx, paquete->coordenadas.posy);
 
 	sem_post(&orden_para_planificar);
 
@@ -318,7 +318,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando, entrenador->id);
 
-			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
+			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar\n", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
 			sem_post(&me_bloquee);
@@ -350,13 +350,13 @@ void consumir_un_ciclo_de_cpu(){
 }
 
 void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
-
-	/*if((!strcmp(algoritmo_planificacion, "FIFO"))){
+	if((!strcmp(algoritmo_planificacion, "FIFO"))){
 		ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
+		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 	}
 
-	if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
+	/*if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
 		ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 
@@ -394,7 +394,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			pthread_mutex_lock(&lista_listos_mutex);
 			list_add(lista_listos, entrenador);
 			pthread_mutex_unlock(&lista_listos_mutex);
-			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
 
 			sem_post(&orden_para_planificar);
 			sem_wait(&array_semaforos[entrenador->id]);

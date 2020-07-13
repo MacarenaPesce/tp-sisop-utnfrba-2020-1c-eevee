@@ -21,15 +21,7 @@ void * planificar(){
 				entrenador_por_desalojar = nuevo_entrenador;
 			}
 		}
-
-		if((!strcmp(algoritmo_planificacion, "RR"))){
-			if(entrenador_en_ejecucion!=NULL && entrenador_en_ejecucion->quantum_restante == 0){
-				log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
-				desalojo_en_ejecucion = true;
-				entrenador_por_desalojar = nuevo_entrenador;
-			}
-		}
-		entrenador_por_desalojar = nuevo_entrenador;*/
+*/
 
 		obtener_proximo_ejecucion();
 	}
@@ -58,7 +50,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 
 	void printear_ready(void*_entrenador){
 		t_entrenador* entrenador = (t_entrenador*) _entrenador;
-		log_info(team_logger, "ID DE ENTRENADOR l61 %d", entrenador->id);
+		//log_info(team_logger, "ID DE ENTRENADOR l61 %d", entrenador->id);
 	}
 
 	while(i < cantidad_entrenadores){
@@ -140,9 +132,7 @@ void desalojar_ejecucion(void){
 int estimar_entrenador(t_entrenador * entrenador){
 
 	entrenador->estimacion_anterior = entrenador->estimacion_real;
-
 	entrenador->estimacion_real = ((alpha/100)*entrenador->instruccion_actual) + ((1-(alpha/100))*entrenador->estimacion_real);
-
 	entrenador->estimacion_actual  = entrenador->estimacion_real;
 	entrenador->instruccion_actual = 0;
 
@@ -154,32 +144,22 @@ void obtener_proximo_ejecucion(void){
 	 *se desconoce la próxima rafaga, por lo que se deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos los entrenadore
 	 *se s será la misma y deberá poder ser modificable por archivo de configuración */
 
-	t_entrenador * ejec_ant;
-
-	ejec_ant = entrenador_en_ejecucion;
-
 	/* SJF debe copiar la lista de listos a una lista auxiliar, ordenarla por estimacion mas corta, tomar el primero, destruir la lista auxiliar. Eso para ambos casos */
 
-	log_info(team_logger, "Planificando por %s", algoritmo_planificacion);
-	printf("\n");
-
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
-		log_info(team_logger, "Ordenando la lista de estimacion");
 		ordenar_lista_estimacion(lista_listos);
 	}
 
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
-	//entrenador_desalojado = NULL;
 
 	if(entrenador_en_ejecucion != NULL){
-		log_info(team_logger, "HAY UN ENTRENADOR EJECUTANDO");
+		/* Hay un entrenador ejecutando */
 		return;
 	}
 
 	if(list_is_empty(lista_listos)){
 		entrenador_en_ejecucion = NULL;
-		log_info(team_logger, "No hay entrenadores para ejecutar!");
-
+		/* No hay entrenadores para ejecutar! */
 		return;
 	}
 
@@ -192,6 +172,7 @@ void obtener_proximo_ejecucion(void){
 	entrenador_en_ejecucion->estado = EJECUTANDO;
 
 	sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);
-
+	//log_debug(team_logger, "MANDE A EJECUTAR AL ENTRENADOR %d", entrenador_en_ejecucion->id);
+	
 	return;
 }

@@ -1,20 +1,50 @@
-[INFO] 23:25:54:474 Team/(7697:7697): Falló la conexión con Broker; inicia la operación default
-[INFO] 23:25:54:474 Team/(7697:7697): Falló la conexión con Broker; inicia la operación default
-[INFO] 23:25:54:475 Team/(7697:7697): Falló la conexión con Broker; inicia la operación default
-[INFO] 23:25:54:475 Team/(7697:7697): Falló la conexión con Broker; inicia la operación default
-[INFO] 23:25:54:475 Team/(7697:7697): Falló la conexión con Broker; inicia la operación default
-[INFO] 23:28:22:973 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Jolteon en las coordenadas (2, 2)
-[INFO] 23:28:22:973 Team/(7697:7703): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
-[INFO] 23:28:22:973 Team/(7697:7698): El entrenador 0 se mueve a atrapar a Jolteon a la posicion 2 2
-[INFO] 23:28:22:975 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
-[INFO] 23:28:22:975 Team/(7697:7703): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
-[INFO] 23:28:22:978 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
-[INFO] 23:28:22:978 Team/(7697:7703): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
-[INFO] 23:28:22:981 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
-[INFO] 23:28:22:981 Team/(7697:7703): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
-[INFO] 23:28:22:984 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
-[INFO] 23:28:22:985 Team/(7697:7703): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
-[INFO] 23:28:32:976 Team/(7697:7698): Falló la conexión con Broker; inicia la operación default
-[INFO] 23:28:32:976 Team/(7697:7698): Se ha atrapado el pokemon Jolteon en la posicion 2 2
-[INFO] 23:28:32:977 Team/(7697:7698): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
-[INFO] 23:28:32:977 Team/(7697:7699): El entrenador 1 se mueve a atrapar a Flareon a la posicion 4 6
+[INFO] 03:12:40:689 Team/(13901:13901): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:12:40:690 Team/(13901:13901): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:12:40:690 Team/(13901:13901): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:12:40:692 Team/(13901:13901): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:12:40:692 Team/(13901:13901): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:12:43:571 Team/(13901:13910): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Jolteon en las coordenadas (2, 2)
+[INFO] 03:12:43:571 Team/(13901:13907): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
+[INFO] 03:12:43:571 Team/(13901:13902): El entrenador 0 se mueve a atrapar a Jolteon a la posicion 2 2
+[INFO] 03:12:43:597 Team/(13901:13910): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
+[INFO] 03:12:43:597 Team/(13901:13907): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
+[INFO] 03:12:43:614 Team/(13901:13910): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
+[INFO] 03:12:43:614 Team/(13901:13907): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
+[INFO] 03:12:43:629 Team/(13901:13910): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
+[INFO] 03:12:43:629 Team/(13901:13907): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
+[INFO] 03:12:43:643 Team/(13901:13910): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
+[INFO] 03:12:43:643 Team/(13901:13907): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
+[INFO] 03:12:53:575 Team/(13901:13902): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:12:53:575 Team/(13901:13902): Se ha atrapado el pokemon Jolteon en la posicion 2 2
+[INFO] 03:12:53:575 Team/(13901:13902): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 03:12:53:575 Team/(13901:13903): El entrenador 1 se mueve a atrapar a Flareon a la posicion 4 6
+[INFO] 03:13:13:587 Team/(13901:13903): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:13:13:588 Team/(13901:13903): Se ha atrapado el pokemon Flareon en la posicion 4 6
+[INFO] 03:13:13:588 Team/(13901:13903): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 03:13:13:588 Team/(13901:13904): El entrenador 2 se mueve a atrapar a Umbreon a la posicion 10 6
+[INFO] 03:13:38:596 Team/(13901:13904): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:13:38:596 Team/(13901:13904): Se ha atrapado el pokemon Umbreon en la posicion 10 6
+[INFO] 03:13:38:597 Team/(13901:13904): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 03:13:38:597 Team/(13901:13905): El entrenador 3 se mueve a atrapar a Espeon a la posicion 7 1
+[INFO] 03:13:58:602 Team/(13901:13905): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:13:58:602 Team/(13901:13905): Se ha atrapado el pokemon Espeon en la posicion 7 1
+[INFO] 03:13:58:603 Team/(13901:13905): El entrenador 3 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 03:13:58:604 Team/(13901:13906): El entrenador 4 se mueve a atrapar a Vaporeon a la posicion 4 10
+[INFO] 03:14:18:611 Team/(13901:13906): Falló la conexión con Broker; inicia la operación default
+[INFO] 03:14:18:612 Team/(13901:13906): Se ha atrapado el pokemon Vaporeon en la posicion 4 10
+[INFO] 03:14:18:612 Team/(13901:13906): El entrenador 4 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 03:14:18:613 Team/(13901:13909): Deadlock detectado
+[INFO] 03:14:18:613 Team/(13901:13909): La cantidad de entrenadores en deadlock es 5
+[INFO] 03:14:18:613 Team/(13901:13909): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 03:14:18:614 Team/(13901:13902): El entrenador 0 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 03:15:13:620 Team/(13901:13902): Se va a realizar un intercambio entre el entrenador 0 y 1
+[INFO] 03:15:13:622 Team/(13901:13903): El entrenador 1 finalizo
+[INFO] 03:15:13:622 Team/(13901:13909): Deadlock detectado
+[INFO] 03:15:13:622 Team/(13901:13909): La cantidad de entrenadores en deadlock es 4
+[INFO] 03:15:13:622 Team/(13901:13909): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
+[INFO] 03:15:13:623 Team/(13901:13904): El entrenador 2 se mueve a la posicion de coordenadas (7, 1)
+[INFO] 03:16:18:628 Team/(13901:13904): Se va a realizar un intercambio entre el entrenador 2 y 3
+[INFO] 03:16:18:630 Team/(13901:13905): El entrenador 3 finalizo
+[INFO] 03:16:18:630 Team/(13901:13909): Deadlock detectado
+[INFO] 03:16:18:630 Team/(13901:13909): La cantidad de entrenadores en deadlock es 3
+[INFO] 03:16:18:630 Team/(13901:13909): El entrenador 4 pasó a la lista de listos para resolucion de deadlock

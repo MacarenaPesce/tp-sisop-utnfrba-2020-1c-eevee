@@ -116,9 +116,11 @@ void inicializar_semaforos(){
 	sem_init(&chequeo_de_deadlock, 0, 0);
 	sem_init(&todos_los_entrenadores_finalizaron, 0, 0);
 	sem_init(&me_bloquee, 0, 0);
+	sem_init(&puedo_volver_a_ejecutar, 0, 0);
 
 
 }
+
 
 t_semaforo_deadlock * obtener_semaforo_deadlock_por_id(int id){
 	bool buscar_sem_entrenador(void * sem){
