@@ -9,7 +9,8 @@ gameboy : Comunicacion_con_broker.c Comunicacion_con_gamecard.c Comunicacion_con
 	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/gameboy" ./Debug/Comunicacion_con_broker.o ./Debug/Comunicacion_con_gamecard.o ./Debug/Comunicacion_con_team.o ./Debug/Contexto_gameboy.o  ./Debug/Herramientas_gameboy.o ./Debug/GameBoy.o -lPokebola -lcommons -lpthread
 
 clean :
-	rm ./Dist/*
+	rm ./Dist/gameboy
+	rm ./Dist/gameboy.log
 	rm ./Debug/*
 
 all : Comunicacion_con_broker.c Comunicacion_con_gamecard.c Comunicacion_con_team.c Contexto_gameboy.c Herramientas_gameboy.c GameBoy.c 

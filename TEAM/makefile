@@ -10,11 +10,10 @@ Team : Contexto_team.c Herramientas_team.c Deadlock.c Algoritmos_de_planificacio
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Interaccion_con_broker.d" -MT"./Interaccion_con_broker.o" -o "./Debug/Interaccion_con_broker.o" "./Interaccion_con_broker.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Interaccion_con_gameboy.d" -MT"./Interaccion_con_gameboy.o" -o "./Debug/Interaccion_con_gameboy.o" "./Interaccion_con_gameboy.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Team.d" -MT"./Team.o" -o "./Debug/Team.o" "./Team.c"
-	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/Team" ./Debug/Contexto_team.o ./Debug/Herramientas_team.o ./Debug/Deadlock.o ./Debug/Algoritmos_de_planificacion.o  ./Debug/Entrenador.o ./Debug/Funciones_de_conexion.o ./Debug/Funciones_para_listas.o ./Debug/Interaccion_con_broker.o ./Debug/Interaccion_con_gameboy.o ./Debug/Team.o   -lPokebola -lcommons -lpthread
+	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/team" ./Debug/Contexto_team.o ./Debug/Herramientas_team.o ./Debug/Deadlock.o ./Debug/Algoritmos_de_planificacion.o  ./Debug/Entrenador.o ./Debug/Funciones_de_conexion.o ./Debug/Funciones_para_listas.o ./Debug/Interaccion_con_broker.o ./Debug/Interaccion_con_gameboy.o ./Debug/Team.o   -lPokebola -lcommons -lpthread
 
 clean :
-	rm ./Dist/*
-	rm ./Debug/*
+	rm -f ./Dist/team ./Dist/log_team ./Dist/team.log ./Debug/*
 
 all : Contexto_team.c Herramientas_team.c Deadlock.c Algoritmos_de_planificacion.c Entrenador.c Funciones_de_conexion.c Funciones_para_listas.c Interaccion_con_broker.c Interaccion_con_gameboy.c Team.c
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/utnso/tp-2020-1c-eevee/Pokebola/Debug
@@ -28,5 +27,5 @@ all : Contexto_team.c Herramientas_team.c Deadlock.c Algoritmos_de_planificacion
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Interaccion_con_broker.d" -MT"./Interaccion_con_broker.o" -o "./Debug/Interaccion_con_broker.o" "./Interaccion_con_broker.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Interaccion_con_gameboy.d" -MT"./Interaccion_con_gameboy.o" -o "./Debug/Interaccion_con_gameboy.o" "./Interaccion_con_gameboy.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Team.d" -MT"./Team.o" -o "./Debug/Team.o" "./Team.c"
-	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/Team" ./Debug/Contexto_team.o ./Debug/Herramientas_team.o ./Debug/Deadlock.o ./Debug/Algoritmos_de_planificacion.o  ./Debug/Entrenador.o ./Debug/Funciones_de_conexion.o ./Debug/Funciones_para_listas.o ./Debug/Interaccion_con_broker.o ./Debug/Interaccion_con_gameboy.o ./Debug/Team.o   -lPokebola -lcommons -lpthread
+	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/team" ./Debug/Contexto_team.o ./Debug/Herramientas_team.o ./Debug/Deadlock.o ./Debug/Algoritmos_de_planificacion.o  ./Debug/Entrenador.o ./Debug/Funciones_de_conexion.o ./Debug/Funciones_para_listas.o ./Debug/Interaccion_con_broker.o ./Debug/Interaccion_con_gameboy.o ./Debug/Team.o   -lPokebola -lcommons -lpthread
 

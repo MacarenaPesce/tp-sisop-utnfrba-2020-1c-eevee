@@ -1,22 +1,252 @@
-[INFO] 23:18:30:830 Gameboy/(7180:7180): Hi, bienvenido a Gameboy
-[INFO] 23:18:30:830 Gameboy/(7180:7180): Cargando el archivo de configuracion...
-[INFO] 23:18:30:830 Gameboy/(7180:7180): La ip del broker es: 127.0.0.1
-[INFO] 23:18:30:830 Gameboy/(7180:7180): La ip de team es: 127.0.0.2
-[INFO] 23:18:30:830 Gameboy/(7180:7180): La ip del gamecard es: 127.0.0.3
-[INFO] 23:18:30:830 Gameboy/(7180:7180): El puerto del broker es: 5003
-[INFO] 23:18:30:830 Gameboy/(7180:7180): El puerto de team es: 5002
-[INFO] 23:18:30:830 Gameboy/(7180:7180): El puerto del gamecard es: 5001
-[INFO] 23:18:30:830 Gameboy/(7180:7180): Mi ID es: 7
-[INFO] 23:18:30:830 Gameboy/(7180:7180): Archivo de configuracion cargado correctamente :)
+[INFO] 23:26:27:87 Gameboy/(7745:7745): Hi, bienvenido a Gameboy
+[INFO] 23:26:27:87 Gameboy/(7745:7745): Cargando el archivo de configuracion...
+[INFO] 23:26:27:87 Gameboy/(7745:7745): La ip del broker es: 127.0.0.1
+[INFO] 23:26:27:87 Gameboy/(7745:7745): La ip de team es: 127.0.0.2
+[INFO] 23:26:27:87 Gameboy/(7745:7745): La ip del gamecard es: 127.0.0.3
+[INFO] 23:26:27:87 Gameboy/(7745:7745): El puerto del broker es: 5003
+[INFO] 23:26:27:87 Gameboy/(7745:7745): El puerto de team es: 5002
+[INFO] 23:26:27:87 Gameboy/(7745:7745): El puerto del gamecard es: 5001
+[INFO] 23:26:27:87 Gameboy/(7745:7745): Mi ID es: 7
+[INFO] 23:26:27:87 Gameboy/(7745:7745): Archivo de configuracion cargado correctamente :)
 
-[WARNING] 23:18:30:830 Gameboy/(7180:7180): ATENCIOOOOOOOOOON
-[WARNING] 23:18:30:830 Gameboy/(7180:7180): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
-[WARNING] 23:18:30:830 Gameboy/(7180:7180): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
-[WARNING] 23:18:30:830 Gameboy/(7180:7180): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
-[WARNING] 23:18:30:830 Gameboy/(7180:7180): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
-[WARNING] 23:18:30:830 Gameboy/(7180:7180): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
-[WARNING] 23:18:30:831 Gameboy/(7180:7180): 1. Conexión a cualquier proceso.
-[WARNING] 23:18:30:831 Gameboy/(7180:7180): 2. Suscripción a una cola de mensajes.
-[WARNING] 23:18:30:831 Gameboy/(7180:7180): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+[WARNING] 23:26:27:87 Gameboy/(7745:7745): ATENCIOOOOOOOOOON
+[WARNING] 23:26:27:87 Gameboy/(7745:7745): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:26:27:88 Gameboy/(7745:7745): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:26:27:88 Gameboy/(7745:7745): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:26:27:88 Gameboy/(7745:7745): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:26:27:88 Gameboy/(7745:7745): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:26:27:88 Gameboy/(7745:7745): 1. Conexión a cualquier proceso.
+[WARNING] 23:26:27:88 Gameboy/(7745:7745): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:26:27:88 Gameboy/(7745:7745): 3. Llegada de un nuevo mensaje a una cola de mensajes.
 
-[INFO] 23:18:30:831 Gameboy/(7180:7180): No me pediste nada...
+[INFO] 23:26:27:88 Gameboy/(7745:7745): Los argumentos ingresados no son validos o te faltan parametros, volve a intentar
+[INFO] 23:26:27:94 Gameboy/(7746:7746): Hi, bienvenido a Gameboy
+[INFO] 23:26:27:94 Gameboy/(7746:7746): Cargando el archivo de configuracion...
+[INFO] 23:26:27:94 Gameboy/(7746:7746): La ip del broker es: 127.0.0.1
+[INFO] 23:26:27:94 Gameboy/(7746:7746): La ip de team es: 127.0.0.2
+[INFO] 23:26:27:94 Gameboy/(7746:7746): La ip del gamecard es: 127.0.0.3
+[INFO] 23:26:27:94 Gameboy/(7746:7746): El puerto del broker es: 5003
+[INFO] 23:26:27:94 Gameboy/(7746:7746): El puerto de team es: 5002
+[INFO] 23:26:27:94 Gameboy/(7746:7746): El puerto del gamecard es: 5001
+[INFO] 23:26:27:94 Gameboy/(7746:7746): Mi ID es: 7
+[INFO] 23:26:27:94 Gameboy/(7746:7746): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:26:27:94 Gameboy/(7746:7746): ATENCIOOOOOOOOOON
+[WARNING] 23:26:27:94 Gameboy/(7746:7746): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:26:27:94 Gameboy/(7746:7746): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:26:27:94 Gameboy/(7746:7746): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:26:27:94 Gameboy/(7746:7746): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:26:27:94 Gameboy/(7746:7746): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:26:27:95 Gameboy/(7746:7746): 1. Conexión a cualquier proceso.
+[WARNING] 23:26:27:95 Gameboy/(7746:7746): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:26:27:95 Gameboy/(7746:7746): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:26:27:95 Gameboy/(7746:7746): Los argumentos ingresados no son validos o te faltan parametros, volve a intentar
+[INFO] 23:26:27:96 Gameboy/(7747:7747): Hi, bienvenido a Gameboy
+[INFO] 23:26:27:96 Gameboy/(7747:7747): Cargando el archivo de configuracion...
+[INFO] 23:26:27:96 Gameboy/(7747:7747): La ip del broker es: 127.0.0.1
+[INFO] 23:26:27:97 Gameboy/(7747:7747): La ip de team es: 127.0.0.2
+[INFO] 23:26:27:97 Gameboy/(7747:7747): La ip del gamecard es: 127.0.0.3
+[INFO] 23:26:27:97 Gameboy/(7747:7747): El puerto del broker es: 5003
+[INFO] 23:26:27:97 Gameboy/(7747:7747): El puerto de team es: 5002
+[INFO] 23:26:27:97 Gameboy/(7747:7747): El puerto del gamecard es: 5001
+[INFO] 23:26:27:97 Gameboy/(7747:7747): Mi ID es: 7
+[INFO] 23:26:27:97 Gameboy/(7747:7747): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:26:27:97 Gameboy/(7747:7747): ATENCIOOOOOOOOOON
+[WARNING] 23:26:27:97 Gameboy/(7747:7747): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:26:27:97 Gameboy/(7747:7747): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:26:27:97 Gameboy/(7747:7747): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:26:27:97 Gameboy/(7747:7747): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:26:27:97 Gameboy/(7747:7747): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:26:27:97 Gameboy/(7747:7747): 1. Conexión a cualquier proceso.
+[WARNING] 23:26:27:97 Gameboy/(7747:7747): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:26:27:97 Gameboy/(7747:7747): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:26:27:97 Gameboy/(7747:7747): Los argumentos ingresados no son validos o te faltan parametros, volve a intentar
+[INFO] 23:26:27:98 Gameboy/(7748:7748): Hi, bienvenido a Gameboy
+[INFO] 23:26:27:98 Gameboy/(7748:7748): Cargando el archivo de configuracion...
+[INFO] 23:26:27:98 Gameboy/(7748:7748): La ip del broker es: 127.0.0.1
+[INFO] 23:26:27:99 Gameboy/(7748:7748): La ip de team es: 127.0.0.2
+[INFO] 23:26:27:99 Gameboy/(7748:7748): La ip del gamecard es: 127.0.0.3
+[INFO] 23:26:27:99 Gameboy/(7748:7748): El puerto del broker es: 5003
+[INFO] 23:26:27:99 Gameboy/(7748:7748): El puerto de team es: 5002
+[INFO] 23:26:27:99 Gameboy/(7748:7748): El puerto del gamecard es: 5001
+[INFO] 23:26:27:99 Gameboy/(7748:7748): Mi ID es: 7
+[INFO] 23:26:27:99 Gameboy/(7748:7748): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:26:27:99 Gameboy/(7748:7748): ATENCIOOOOOOOOOON
+[WARNING] 23:26:27:99 Gameboy/(7748:7748): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:26:27:99 Gameboy/(7748:7748): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:26:27:99 Gameboy/(7748:7748): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:26:27:100 Gameboy/(7748:7748): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:26:27:100 Gameboy/(7748:7748): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:26:27:100 Gameboy/(7748:7748): 1. Conexión a cualquier proceso.
+[WARNING] 23:26:27:100 Gameboy/(7748:7748): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:26:27:100 Gameboy/(7748:7748): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:26:27:100 Gameboy/(7748:7748): Los argumentos ingresados no son validos o te faltan parametros, volve a intentar
+[INFO] 23:26:27:102 Gameboy/(7750:7750): Hi, bienvenido a Gameboy
+[INFO] 23:26:27:102 Gameboy/(7750:7750): Cargando el archivo de configuracion...
+[INFO] 23:26:27:102 Gameboy/(7750:7750): La ip del broker es: 127.0.0.1
+[INFO] 23:26:27:102 Gameboy/(7750:7750): La ip de team es: 127.0.0.2
+[INFO] 23:26:27:102 Gameboy/(7750:7750): La ip del gamecard es: 127.0.0.3
+[INFO] 23:26:27:102 Gameboy/(7750:7750): El puerto del broker es: 5003
+[INFO] 23:26:27:102 Gameboy/(7750:7750): El puerto de team es: 5002
+[INFO] 23:26:27:102 Gameboy/(7750:7750): El puerto del gamecard es: 5001
+[INFO] 23:26:27:102 Gameboy/(7750:7750): Mi ID es: 7
+[INFO] 23:26:27:102 Gameboy/(7750:7750): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:26:27:102 Gameboy/(7750:7750): ATENCIOOOOOOOOOON
+[WARNING] 23:26:27:102 Gameboy/(7750:7750): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:26:27:102 Gameboy/(7750:7750): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:26:27:102 Gameboy/(7750:7750): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:26:27:102 Gameboy/(7750:7750): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:26:27:102 Gameboy/(7750:7750): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:26:27:102 Gameboy/(7750:7750): 1. Conexión a cualquier proceso.
+[WARNING] 23:26:27:102 Gameboy/(7750:7750): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:26:27:102 Gameboy/(7750:7750): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:26:27:102 Gameboy/(7750:7750): Los argumentos ingresados no son validos o te faltan parametros, volve a intentar
+[INFO] 23:27:44:66 Gameboy/(7771:7771): Hi, bienvenido a Gameboy
+[INFO] 23:27:44:66 Gameboy/(7771:7771): Cargando el archivo de configuracion...
+[INFO] 23:27:44:66 Gameboy/(7771:7771): La ip del broker es: 127.0.0.1
+[INFO] 23:27:44:66 Gameboy/(7771:7771): La ip de team es: 127.0.0.2
+[INFO] 23:27:44:66 Gameboy/(7771:7771): La ip del gamecard es: 127.0.0.3
+[INFO] 23:27:44:66 Gameboy/(7771:7771): El puerto del broker es: 5003
+[INFO] 23:27:44:66 Gameboy/(7771:7771): El puerto de team es: 5002
+[INFO] 23:27:44:66 Gameboy/(7771:7771): El puerto del gamecard es: 5001
+[INFO] 23:27:44:66 Gameboy/(7771:7771): Mi ID es: 7
+[INFO] 23:27:44:66 Gameboy/(7771:7771): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:27:44:66 Gameboy/(7771:7771): ATENCIOOOOOOOOOON
+[WARNING] 23:27:44:66 Gameboy/(7771:7771): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:27:44:66 Gameboy/(7771:7771): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:27:44:66 Gameboy/(7771:7771): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:27:44:66 Gameboy/(7771:7771): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:27:44:66 Gameboy/(7771:7771): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:27:44:66 Gameboy/(7771:7771): 1. Conexión a cualquier proceso.
+[WARNING] 23:27:44:66 Gameboy/(7771:7771): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:27:44:66 Gameboy/(7771:7771): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:27:44:66 Gameboy/(7771:7771): Los argumentos ingresados no son validos o te faltan parametros, volve a intentar
+[INFO] 23:28:22:972 Gameboy/(7808:7808): Hi, bienvenido a Gameboy
+[INFO] 23:28:22:972 Gameboy/(7808:7808): Cargando el archivo de configuracion...
+[INFO] 23:28:22:972 Gameboy/(7808:7808): La ip del broker es: 127.0.0.1
+[INFO] 23:28:22:972 Gameboy/(7808:7808): La ip de team es: 127.0.0.2
+[INFO] 23:28:22:972 Gameboy/(7808:7808): La ip del gamecard es: 127.0.0.3
+[INFO] 23:28:22:972 Gameboy/(7808:7808): El puerto del broker es: 5003
+[INFO] 23:28:22:972 Gameboy/(7808:7808): El puerto de team es: 5002
+[INFO] 23:28:22:972 Gameboy/(7808:7808): El puerto del gamecard es: 5001
+[INFO] 23:28:22:972 Gameboy/(7808:7808): Mi ID es: 7
+[INFO] 23:28:22:972 Gameboy/(7808:7808): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:28:22:972 Gameboy/(7808:7808): ATENCIOOOOOOOOOON
+[WARNING] 23:28:22:972 Gameboy/(7808:7808): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:28:22:972 Gameboy/(7808:7808): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:28:22:972 Gameboy/(7808:7808): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:28:22:972 Gameboy/(7808:7808): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:28:22:972 Gameboy/(7808:7808): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:28:22:972 Gameboy/(7808:7808): 1. Conexión a cualquier proceso.
+[WARNING] 23:28:22:972 Gameboy/(7808:7808): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:28:22:972 Gameboy/(7808:7808): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:28:22:972 Gameboy/(7808:7808): Le voy a mandar a team las coordenadas del pokemon Jolteon
+[INFO] 23:28:22:973 Gameboy/(7808:7808): Pedido de appeared pokemon enviado correctamente
+[INFO] 23:28:22:973 Gameboy/(7808:7808): Chau!
+[INFO] 23:28:22:975 Gameboy/(7809:7809): Hi, bienvenido a Gameboy
+[INFO] 23:28:22:975 Gameboy/(7809:7809): Cargando el archivo de configuracion...
+[INFO] 23:28:22:975 Gameboy/(7809:7809): La ip del broker es: 127.0.0.1
+[INFO] 23:28:22:975 Gameboy/(7809:7809): La ip de team es: 127.0.0.2
+[INFO] 23:28:22:975 Gameboy/(7809:7809): La ip del gamecard es: 127.0.0.3
+[INFO] 23:28:22:975 Gameboy/(7809:7809): El puerto del broker es: 5003
+[INFO] 23:28:22:975 Gameboy/(7809:7809): El puerto de team es: 5002
+[INFO] 23:28:22:975 Gameboy/(7809:7809): El puerto del gamecard es: 5001
+[INFO] 23:28:22:975 Gameboy/(7809:7809): Mi ID es: 7
+[INFO] 23:28:22:975 Gameboy/(7809:7809): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:28:22:975 Gameboy/(7809:7809): ATENCIOOOOOOOOOON
+[WARNING] 23:28:22:975 Gameboy/(7809:7809): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:28:22:975 Gameboy/(7809:7809): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:28:22:975 Gameboy/(7809:7809): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:28:22:975 Gameboy/(7809:7809): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:28:22:975 Gameboy/(7809:7809): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:28:22:975 Gameboy/(7809:7809): 1. Conexión a cualquier proceso.
+[WARNING] 23:28:22:975 Gameboy/(7809:7809): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:28:22:975 Gameboy/(7809:7809): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:28:22:975 Gameboy/(7809:7809): Le voy a mandar a team las coordenadas del pokemon Flareon
+[INFO] 23:28:22:975 Gameboy/(7809:7809): Pedido de appeared pokemon enviado correctamente
+[INFO] 23:28:22:976 Gameboy/(7809:7809): Chau!
+[INFO] 23:28:22:977 Gameboy/(7810:7810): Hi, bienvenido a Gameboy
+[INFO] 23:28:22:977 Gameboy/(7810:7810): Cargando el archivo de configuracion...
+[INFO] 23:28:22:977 Gameboy/(7810:7810): La ip del broker es: 127.0.0.1
+[INFO] 23:28:22:977 Gameboy/(7810:7810): La ip de team es: 127.0.0.2
+[INFO] 23:28:22:977 Gameboy/(7810:7810): La ip del gamecard es: 127.0.0.3
+[INFO] 23:28:22:977 Gameboy/(7810:7810): El puerto del broker es: 5003
+[INFO] 23:28:22:977 Gameboy/(7810:7810): El puerto de team es: 5002
+[INFO] 23:28:22:977 Gameboy/(7810:7810): El puerto del gamecard es: 5001
+[INFO] 23:28:22:977 Gameboy/(7810:7810): Mi ID es: 7
+[INFO] 23:28:22:977 Gameboy/(7810:7810): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:28:22:977 Gameboy/(7810:7810): ATENCIOOOOOOOOOON
+[WARNING] 23:28:22:977 Gameboy/(7810:7810): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:28:22:977 Gameboy/(7810:7810): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:28:22:978 Gameboy/(7810:7810): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:28:22:978 Gameboy/(7810:7810): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:28:22:978 Gameboy/(7810:7810): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:28:22:978 Gameboy/(7810:7810): 1. Conexión a cualquier proceso.
+[WARNING] 23:28:22:978 Gameboy/(7810:7810): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:28:22:978 Gameboy/(7810:7810): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:28:22:978 Gameboy/(7810:7810): Le voy a mandar a team las coordenadas del pokemon Umbreon
+[INFO] 23:28:22:978 Gameboy/(7810:7810): Pedido de appeared pokemon enviado correctamente
+[INFO] 23:28:22:978 Gameboy/(7810:7810): Chau!
+[INFO] 23:28:22:980 Gameboy/(7811:7811): Hi, bienvenido a Gameboy
+[INFO] 23:28:22:980 Gameboy/(7811:7811): Cargando el archivo de configuracion...
+[INFO] 23:28:22:980 Gameboy/(7811:7811): La ip del broker es: 127.0.0.1
+[INFO] 23:28:22:980 Gameboy/(7811:7811): La ip de team es: 127.0.0.2
+[INFO] 23:28:22:980 Gameboy/(7811:7811): La ip del gamecard es: 127.0.0.3
+[INFO] 23:28:22:980 Gameboy/(7811:7811): El puerto del broker es: 5003
+[INFO] 23:28:22:980 Gameboy/(7811:7811): El puerto de team es: 5002
+[INFO] 23:28:22:980 Gameboy/(7811:7811): El puerto del gamecard es: 5001
+[INFO] 23:28:22:980 Gameboy/(7811:7811): Mi ID es: 7
+[INFO] 23:28:22:980 Gameboy/(7811:7811): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:28:22:980 Gameboy/(7811:7811): ATENCIOOOOOOOOOON
+[WARNING] 23:28:22:980 Gameboy/(7811:7811): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:28:22:980 Gameboy/(7811:7811): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:28:22:980 Gameboy/(7811:7811): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:28:22:980 Gameboy/(7811:7811): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:28:22:981 Gameboy/(7811:7811): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:28:22:981 Gameboy/(7811:7811): 1. Conexión a cualquier proceso.
+[WARNING] 23:28:22:981 Gameboy/(7811:7811): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:28:22:981 Gameboy/(7811:7811): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:28:22:981 Gameboy/(7811:7811): Le voy a mandar a team las coordenadas del pokemon Espeon
+[INFO] 23:28:22:981 Gameboy/(7811:7811): Pedido de appeared pokemon enviado correctamente
+[INFO] 23:28:22:981 Gameboy/(7811:7811): Chau!
+[INFO] 23:28:22:982 Gameboy/(7812:7812): Hi, bienvenido a Gameboy
+[INFO] 23:28:22:983 Gameboy/(7812:7812): Cargando el archivo de configuracion...
+[INFO] 23:28:22:983 Gameboy/(7812:7812): La ip del broker es: 127.0.0.1
+[INFO] 23:28:22:983 Gameboy/(7812:7812): La ip de team es: 127.0.0.2
+[INFO] 23:28:22:983 Gameboy/(7812:7812): La ip del gamecard es: 127.0.0.3
+[INFO] 23:28:22:983 Gameboy/(7812:7812): El puerto del broker es: 5003
+[INFO] 23:28:22:983 Gameboy/(7812:7812): El puerto de team es: 5002
+[INFO] 23:28:22:983 Gameboy/(7812:7812): El puerto del gamecard es: 5001
+[INFO] 23:28:22:983 Gameboy/(7812:7812): Mi ID es: 7
+[INFO] 23:28:22:983 Gameboy/(7812:7812): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:28:22:983 Gameboy/(7812:7812): ATENCIOOOOOOOOOON
+[WARNING] 23:28:22:983 Gameboy/(7812:7812): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:28:22:983 Gameboy/(7812:7812): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:28:22:983 Gameboy/(7812:7812): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:28:22:983 Gameboy/(7812:7812): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:28:22:983 Gameboy/(7812:7812): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:28:22:983 Gameboy/(7812:7812): 1. Conexión a cualquier proceso.
+[WARNING] 23:28:22:983 Gameboy/(7812:7812): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:28:22:983 Gameboy/(7812:7812): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:28:22:983 Gameboy/(7812:7812): Le voy a mandar a team las coordenadas del pokemon Vaporeon
+[INFO] 23:28:22:984 Gameboy/(7812:7812): Pedido de appeared pokemon enviado correctamente
+[INFO] 23:28:22:984 Gameboy/(7812:7812): Chau!

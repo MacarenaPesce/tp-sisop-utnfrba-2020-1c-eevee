@@ -1,36 +1,83 @@
-[INFO] 23:12:18:348 Team/(6652:6652): Hi, bienvenido a Team
-[INFO] 23:12:18:348 Team/(6652:6652): Cargando el archivo de configuracion...
-[DEBUG] 23:12:18:348 Team/(6652:6652): Las posiciones de entrenadores recuperadas
-[DEBUG] 23:12:18:348 Team/(6652:6652): Los pokemon de los entrenadores recuperados
-[DEBUG] 23:12:18:348 Team/(6652:6652): Los objetivos de los entrenadores recuperados
-[DEBUG] 23:12:18:348 Team/(6652:6652): El tiempo de reconexion es: 30
-[DEBUG] 23:12:18:348 Team/(6652:6652): El retardo de ciclo de cpu es: 5
-[DEBUG] 23:12:18:348 Team/(6652:6652): El algoritmo de planificacion es: RR
-[DEBUG] 23:12:18:348 Team/(6652:6652): El alpha es: 50
-[DEBUG] 23:12:18:348 Team/(6652:6652): El quantum es: 2
-[DEBUG] 23:12:18:348 Team/(6652:6652): La estimacion_inicial es: 1
-[DEBUG] 23:12:18:348 Team/(6652:6652): La ip del broker es: 127.0.0.1
-[DEBUG] 23:12:18:348 Team/(6652:6652): El puerto del broker es: 5003
-[DEBUG] 23:12:18:348 Team/(6652:6652): El log file es: /home/utnso/log_team1.txt
-[DEBUG] 23:12:18:348 Team/(6652:6652): Mi ID es: 1
-[INFO] 23:12:18:348 Team/(6652:6652): Archivo de configuracion cargado correctamente :)
+[INFO] 23:25:54:472 Team/(7697:7697): Hi, bienvenido a Team
+[INFO] 23:25:54:472 Team/(7697:7697): Cargando el archivo de configuracion...
+[DEBUG] 23:25:54:472 Team/(7697:7697): Las posiciones de entrenadores recuperadas
+[DEBUG] 23:25:54:472 Team/(7697:7697): Los pokemon de los entrenadores recuperados
+[DEBUG] 23:25:54:472 Team/(7697:7697): Los objetivos de los entrenadores recuperados
+[DEBUG] 23:25:54:473 Team/(7697:7697): El tiempo de reconexion es: 30
+[DEBUG] 23:25:54:473 Team/(7697:7697): El retardo de ciclo de cpu es: 5
+[DEBUG] 23:25:54:473 Team/(7697:7697): El algoritmo de planificacion es: RR
+[DEBUG] 23:25:54:473 Team/(7697:7697): El alpha es: 50
+[DEBUG] 23:25:54:473 Team/(7697:7697): El quantum es: 2
+[DEBUG] 23:25:54:473 Team/(7697:7697): La estimacion_inicial es: 1
+[DEBUG] 23:25:54:473 Team/(7697:7697): La ip del broker es: 127.0.0.1
+[DEBUG] 23:25:54:473 Team/(7697:7697): El puerto del broker es: 5003
+[DEBUG] 23:25:54:473 Team/(7697:7697): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 23:25:54:474 Team/(7697:7697): Mi ID es: 1
+[INFO] 23:25:54:474 Team/(7697:7697): Archivo de configuracion cargado correctamente :)
 
-[INFO] 23:12:18:348 Team/(6652:6652): Cargando el objetivo global...
-[INFO] 23:12:18:348 Team/(6652:6652): Objetivo global cargado
+[INFO] 23:25:54:474 Team/(7697:7697): Cargando el objetivo global...
+[INFO] 23:25:54:474 Team/(7697:7697): Objetivo global cargado
 
-[INFO] 23:12:18:348 Team/(6652:6652): Entrenadores ubicados
+[INFO] 23:25:54:474 Team/(7697:7697): Entrenadores ubicados
 
-[INFO] 23:12:18:348 Team/(6652:6652): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+[INFO] 23:25:54:474 Team/(7697:7697): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
 
-[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Vaporeon
-[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Vaporeon, cant 1
-[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Umbreon
-[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Umbreon, cant 1
-[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Jolteon
-[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Jolteon, cant 1
-[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Flareon
-[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Flareon, cant 1
-[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Espeon
-[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Espeon, cant 1
-[WARNING] 23:12:25:363 Team/(6652:6652): Team deja de funcionar
-[INFO] 23:12:25:363 Team/(6652:6652): Cerrando team...
+[INFO] 23:25:54:474 Team/(7697:7697): Enviado pedido de get pokemon para esta especie: Vaporeon
+[INFO] 23:25:54:474 Team/(7697:7697): No existen locaciones para esta especie: Vaporeon, cant 1
+[INFO] 23:25:54:474 Team/(7697:7697): Enviado pedido de get pokemon para esta especie: Umbreon
+[INFO] 23:25:54:474 Team/(7697:7697): No existen locaciones para esta especie: Umbreon, cant 1
+[INFO] 23:25:54:474 Team/(7697:7697): Enviado pedido de get pokemon para esta especie: Jolteon
+[INFO] 23:25:54:475 Team/(7697:7697): No existen locaciones para esta especie: Jolteon, cant 1
+[INFO] 23:25:54:475 Team/(7697:7697): Enviado pedido de get pokemon para esta especie: Flareon
+[INFO] 23:25:54:475 Team/(7697:7697): No existen locaciones para esta especie: Flareon, cant 1
+[INFO] 23:25:54:475 Team/(7697:7697): Enviado pedido de get pokemon para esta especie: Espeon
+[INFO] 23:25:54:475 Team/(7697:7697): No existen locaciones para esta especie: Espeon, cant 1
+[DEBUG] 23:28:22:973 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Jolteon en las coordenadas (2, 2)
+[INFO] 23:28:22:973 Team/(7697:7703): ID DE ENTRENADOR l61 0
+[INFO] 23:28:22:973 Team/(7697:7703): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
+[INFO] 23:28:22:973 Team/(7697:7703): Agregue el pokemon Jolteon con coordenadas (2, 2) al mapa
+[INFO] 23:28:22:973 Team/(7697:7704): Planificando por RR
+[INFO] 23:28:22:973 Team/(7697:7698): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 23:28:22:973 Team/(7697:7698): El entrenador 0 se mueve a atrapar a Jolteon a la posicion (2, 2)
+[DEBUG] 23:28:22:975 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
+[INFO] 23:28:22:975 Team/(7697:7703): ID DE ENTRENADOR l61 1
+[INFO] 23:28:22:975 Team/(7697:7703): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
+[INFO] 23:28:22:975 Team/(7697:7703): Agregue el pokemon Flareon con coordenadas (4, 6) al mapa
+[INFO] 23:28:22:975 Team/(7697:7704): Planificando por RR
+[INFO] 23:28:22:975 Team/(7697:7704): HAY UN ENTRENADOR EJECUTANDO
+[DEBUG] 23:28:22:978 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
+[INFO] 23:28:22:978 Team/(7697:7703): ID DE ENTRENADOR l61 1
+[INFO] 23:28:22:978 Team/(7697:7703): ID DE ENTRENADOR l61 2
+[INFO] 23:28:22:978 Team/(7697:7703): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
+[INFO] 23:28:22:978 Team/(7697:7703): Agregue el pokemon Umbreon con coordenadas (10, 6) al mapa
+[INFO] 23:28:22:978 Team/(7697:7704): Planificando por RR
+[INFO] 23:28:22:978 Team/(7697:7704): HAY UN ENTRENADOR EJECUTANDO
+[DEBUG] 23:28:22:981 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
+[INFO] 23:28:22:981 Team/(7697:7703): ID DE ENTRENADOR l61 1
+[INFO] 23:28:22:981 Team/(7697:7703): ID DE ENTRENADOR l61 2
+[INFO] 23:28:22:981 Team/(7697:7703): ID DE ENTRENADOR l61 3
+[INFO] 23:28:22:981 Team/(7697:7703): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
+[INFO] 23:28:22:981 Team/(7697:7703): Agregue el pokemon Espeon con coordenadas (7, 1) al mapa
+[INFO] 23:28:22:981 Team/(7697:7704): Planificando por RR
+[INFO] 23:28:22:981 Team/(7697:7704): HAY UN ENTRENADOR EJECUTANDO
+[DEBUG] 23:28:22:984 Team/(7697:7706): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
+[INFO] 23:28:22:984 Team/(7697:7703): ID DE ENTRENADOR l61 1
+[INFO] 23:28:22:984 Team/(7697:7703): ID DE ENTRENADOR l61 2
+[INFO] 23:28:22:984 Team/(7697:7703): ID DE ENTRENADOR l61 3
+[INFO] 23:28:22:984 Team/(7697:7703): ID DE ENTRENADOR l61 4
+[INFO] 23:28:22:985 Team/(7697:7703): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
+[INFO] 23:28:22:985 Team/(7697:7703): Agregue el pokemon Vaporeon con coordenadas (4, 10) al mapa
+[INFO] 23:28:22:985 Team/(7697:7704): Planificando por RR
+[INFO] 23:28:22:985 Team/(7697:7704): HAY UN ENTRENADOR EJECUTANDO
+[INFO] 23:28:27:973 Team/(7697:7698): Ejecuté 1 ciclo de cpu
+[INFO] 23:28:27:975 Team/(7697:7698): El entrenador de id 0 llegó al pokemon Jolteon.
+[INFO] 23:28:32:975 Team/(7697:7698): Ejecuté 1 ciclo de cpu
+[INFO] 23:28:32:976 Team/(7697:7698): Enviado pedido de catch pokemon para esta especie: Jolteon
+[INFO] 23:28:32:976 Team/(7697:7698): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 23:28:32:976 Team/(7697:7698): El pokemon Jolteon ha sido atrapado con exito
+[INFO] 23:28:32:976 Team/(7697:7698): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 23:28:32:977 Team/(7697:7704): Planificando por RR
+[INFO] 23:28:32:977 Team/(7697:7699): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 23:28:32:977 Team/(7697:7699): El entrenador 1 se mueve a atrapar a Flareon a la posicion (4, 6)
+[INFO] 23:28:37:977 Team/(7697:7699): Ejecuté 1 ciclo de cpu
+[INFO] 23:28:42:978 Team/(7697:7699): Ejecuté 1 ciclo de cpu
