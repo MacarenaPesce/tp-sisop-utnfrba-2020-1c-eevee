@@ -1,0 +1,22 @@
+[INFO] 23:18:30:830 Gameboy/(7180:7180): Hi, bienvenido a Gameboy
+[INFO] 23:18:30:830 Gameboy/(7180:7180): Cargando el archivo de configuracion...
+[INFO] 23:18:30:830 Gameboy/(7180:7180): La ip del broker es: 127.0.0.1
+[INFO] 23:18:30:830 Gameboy/(7180:7180): La ip de team es: 127.0.0.2
+[INFO] 23:18:30:830 Gameboy/(7180:7180): La ip del gamecard es: 127.0.0.3
+[INFO] 23:18:30:830 Gameboy/(7180:7180): El puerto del broker es: 5003
+[INFO] 23:18:30:830 Gameboy/(7180:7180): El puerto de team es: 5002
+[INFO] 23:18:30:830 Gameboy/(7180:7180): El puerto del gamecard es: 5001
+[INFO] 23:18:30:830 Gameboy/(7180:7180): Mi ID es: 7
+[INFO] 23:18:30:830 Gameboy/(7180:7180): Archivo de configuracion cargado correctamente :)
+
+[WARNING] 23:18:30:830 Gameboy/(7180:7180): ATENCIOOOOOOOOOON
+[WARNING] 23:18:30:830 Gameboy/(7180:7180): Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información
+[WARNING] 23:18:30:830 Gameboy/(7180:7180): indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede
+[WARNING] 23:18:30:830 Gameboy/(7180:7180): implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio
+[WARNING] 23:18:30:830 Gameboy/(7180:7180): de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra 
+[WARNING] 23:18:30:830 Gameboy/(7180:7180): deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:
+[WARNING] 23:18:30:831 Gameboy/(7180:7180): 1. Conexión a cualquier proceso.
+[WARNING] 23:18:30:831 Gameboy/(7180:7180): 2. Suscripción a una cola de mensajes.
+[WARNING] 23:18:30:831 Gameboy/(7180:7180): 3. Llegada de un nuevo mensaje a una cola de mensajes.
+
+[INFO] 23:18:30:831 Gameboy/(7180:7180): No me pediste nada...
