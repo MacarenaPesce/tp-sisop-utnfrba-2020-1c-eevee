@@ -57,20 +57,14 @@ void agregar_pokemon_a_mapa(char * especie, t_coordenadas coordenadas){
 		log_info(team_logger, "No necesito este pokemon");
 	}
 
-	//if(un_objetivo->cantidad_necesitada > un_objetivo->cantidad_atrapada){
+	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
+	pokemon->especie = especie;
+	pokemon->posx = coordenadas.posx;
+	pokemon->posy = coordenadas.posy;
 
-		t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-		pokemon->especie = especie;
-		pokemon->posx = coordenadas.posx;
-		pokemon->posy = coordenadas.posy;
-
-		pthread_mutex_lock(&mapa_mutex);
-		list_add(lista_mapa, (void*)pokemon);
-		pthread_mutex_unlock(&mapa_mutex);
-
-	/*}else{
-		log_info(team_logger,"Ya tenemos la cantidad necesaria de la especie %s\n", especie);
-	}*/
+	pthread_mutex_lock(&mapa_mutex);
+	list_add(lista_mapa, (void*)pokemon);
+	pthread_mutex_unlock(&mapa_mutex);
 
 }
 
@@ -446,18 +440,13 @@ void * tratamiento_de_mensajes(){
 		if(mensaje->operacion == APPEARED){
 			t_appeared_pokemon * contenido = mensaje->contenido;
 
-			//if(fijarme_si_debo_atraparlo_usando_el_objetivo_global(contenido->pokemon)){
-				t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-				pokemon->especie = contenido->pokemon;
-				pokemon->posx = contenido->coordenadas.posx;
-				pokemon->posy = contenido->coordenadas.posy;
+			t_pokemon * pokemon = malloc(sizeof(t_pokemon));
+			pokemon->especie = contenido->pokemon;
+			pokemon->posx = contenido->coordenadas.posx;
+			pokemon->posy = contenido->coordenadas.posy;
 
-				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-				operar_con_appeared_pokemon(mensaje->contenido);
-
-			/*} else {
-				log_info(team_logger, "No necesito a este pokemon");
-			}*/
+			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+			operar_con_appeared_pokemon(mensaje->contenido);
 
 		}
 
@@ -473,24 +462,22 @@ void * tratamiento_de_mensajes(){
 					for(int i = 0; i < contenido->cantidad_coordenadas; i++){
 						t_coordenadas * coord = malloc(sizeof(t_coordenadas));
 						coord = list_get(contenido->lista_coordenadas, i);
-						 //con esto me fijo de no operar con mas pokemones de esta especie de los que necesito
-						if(objetivo->cantidad_necesitada > contador){
+						
+						//Por cada elemento de la lista de coordenadas agrego un pokemon
+						t_pokemon * pokemon = malloc(sizeof(t_pokemon));
+						pokemon->especie = ((t_localized_pokemon *)(mensaje->contenido))->pokemon;
+						pokemon->posx = coord->posx;
+						pokemon->posy = coord->posy;
 
-							//Por cada elemento de la lista de coordenadas agrego un pokemon
-							t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-							pokemon->especie = ((t_localized_pokemon *)(mensaje->contenido))->pokemon;
-							pokemon->posx = coord->posx;
-							pokemon->posy = coord->posy;
+						t_appeared_pokemon * appeared_p = malloc(sizeof(t_appeared_pokemon));
+						appeared_p->pokemon = pokemon->especie;
+						appeared_p->coordenadas.posx = pokemon->posx;
+						appeared_p->coordenadas.posy = pokemon->posy;
+						contador++;
 
-							t_appeared_pokemon * appeared_p = malloc(sizeof(t_appeared_pokemon));
-							appeared_p->pokemon = pokemon->especie;
-							appeared_p->coordenadas.posx = pokemon->posx;
-							appeared_p->coordenadas.posy = pokemon->posy;
-							contador++;
+						seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+						operar_con_appeared_pokemon(appeared_p);
 
-							seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-							operar_con_appeared_pokemon(appeared_p);
-						}
 					}
 				}
 			}
