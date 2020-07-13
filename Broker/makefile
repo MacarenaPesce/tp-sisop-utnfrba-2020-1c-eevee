@@ -32,5 +32,3 @@ all:  Contexto_broker.c Herramientas_broker.c Memoria.c Buddy.c utilsMemoria.c C
 	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/broker" ./Debug/Memoria.o  ./Debug/Contexto_broker.o ./Debug/Herramientas_broker.o ./Debug/ColaMensajes.o ./Debug/Conexion.o ./Debug/Buddy.o ./Debug/utilsMemoria.o ./Debug/Broker.o   -lPokebola -lcommons -lpthread
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Cliente.d" -MT"./Cliente.o" -o "./Debug/Cliente.o" "./Cliente.c" 
 	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/cliente"  ./Debug/Cliente.o   -lPokebola -lcommons -lpthread
-
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/utnso/tp-2020-1c-eevee/Pokebola/Debug
