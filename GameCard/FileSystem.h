@@ -4,6 +4,8 @@
 #include "Herramientas_gameCard.h"
 #include "formatoFs.h"
 #include "Contexto_gameCard.h"
+#include <sys/stat.h>
+#include <sys/types.h>
 
 void marcarBloqueOcupado(int bloqueLibre);
 bool existePokemon(char* pokemon);
@@ -186,5 +188,7 @@ t_list* pokemonesParaLocalized;
 void agregarPosicionAlistaParaLocalized(char* posicion);
 
 void crearDirectorioPokemon(char* pokemon);
+
+int obtenerEspacioMetadata(char* pokemon);
 
 #endif /* FILESYSTEM_H_ */

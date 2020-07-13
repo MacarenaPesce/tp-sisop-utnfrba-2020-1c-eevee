@@ -2,7 +2,7 @@
 
 bool existePokemon(char* nombrePokemon) {
 
-	log_info(gameCard_logger,"velidando si existe el pokemon: %s",nombrePokemon);
+	log_info(gameCard_logger,"validando si existe el pokemon: %s",nombrePokemon);
 
 	char* ruta_pokemon = string_new();
 	string_append(&ruta_pokemon, rutas_fs->pathDirectorioFilesMetadata);
@@ -220,23 +220,6 @@ void crearDirectorioPokemon(char* pokemon){
 }
 
 
-	void crearDirectorioPokemon(char* pokemon){
-
-		log_info(gameCard_logger, "Creando el directorio Pokemon : %s", pokemon);
-
-			char* directorioPoke = string_new();
-
-			string_append(&directorioPoke, rutas_fs->pathDirectorioFilesMetadata);
-			string_append(&directorioPoke, "/");
-			string_append(&directorioPoke, pokemon);
-
-			int fueCreado = mkdir(directorioPoke, 0777); //analizar permisos
-			if (fueCreado == 0) {
-				log_info(gameCard_logger, "Se ha creado el directorio / %s", pokemon);
-			}
-}
-
-
 void copiarEnArchivo(int fd, char* dato, int tamanioDato) {
 
 	write(fd, dato, tamanioDato);
@@ -291,6 +274,8 @@ void crearPokemon(t_new_pokemon* poke) {
 	pthread_mutex_lock(dictionary_get(semaforosPokemon,poke->pokemon));
 	crearMetadataArchPoke(poke->pokemon, string_length(posAcopiar));
 	pthread_mutex_unlock(dictionary_get(semaforosPokemon,poke->pokemon));
+
+	log_info(gameCard_logger,"se ha creado con éxito el archivo del pokemon %s", poke->pokemon);
 }
 
 bool entraEnBloque(char* lineaPokemon) {
@@ -356,6 +341,8 @@ void llenarListaBloquesPoke(char* poke) {
 
 	t_config* metadataPokemon = config_create(rutaMetadataPokemon);
 
+	pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
+
 	int tamanioArch = config_get_int_value(metadataPokemon, "SIZE");
 
 	int cantBloq = tamanioArch / metadata_fs->tamanioBLoques;
@@ -371,6 +358,8 @@ void llenarListaBloquesPoke(char* poke) {
 		list_add(bloquesMetadataPokemon, listaBloques[j]);
 		log_info(gameCard_logger,"%s",listaBloques[j]);
 	}
+
+	pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
 
 	config_destroy(metadataPokemon);
 
@@ -469,71 +458,81 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar) {
 
 	else {
 
-		log_info(gameCard_logger, "se va a crear una nueva posicion");
+		log_info(gameCard_logger, "la posicion no existe en el archvo del pokemon %s, hay que agregarla",pokemon);
 
 		int posUltimoBloque = list_size(bloquesMetadataPokemon) - 1;
 
-		log_info(gameCard_logger, "ACA MOSTRAME ULT POS LISTA DE BLOKS: %d",
+		if(debug_fs) log_debug(gameCard_logger, "ACA MOSTRAME ULT POS LISTA DE BLOKS: %d",
 				posUltimoBloque);
 
 		char* ultBloque = list_get(bloquesMetadataPokemon, posUltimoBloque);
 
-		log_info(gameCard_logger, "ACA MOSTRAME ult bloque: %s", ultBloque);
+		if(debug_fs)log_debug(gameCard_logger, "ACA MOSTRAME ult bloque: %s", ultBloque);
 
 		bloqEnMemo = string_new();
 
 		bloqEnMemo = traerAmemoriaUltimoBloque(ultBloque);
 
-		log_info(gameCard_logger, "mostrame que tiene ult blok: %s",
+		if(debug_fs)log_debug(gameCard_logger, "mostrame que tiene ult blok: %s",
 				bloqEnMemo);
 
-		log_info(gameCard_logger, "ACA ya leiste arch: %s", ultBloque);
+		if(debug_fs)log_debug(gameCard_logger, "ACA ya leiste arch: %s", ultBloque);
 
 		string_append(&nuevaPos, string_itoa(nuevaCant));
 
 		string_append(&nuevaPos, "\n");
 
-		log_info(gameCard_logger, "ACA vas a ver nueva Pos: %s", nuevaPos);
+		if(debug_fs)log_debug(gameCard_logger, "ACA vas a ver nueva Pos: %s", nuevaPos);
 
-		log_info(gameCard_logger, "mostrame bloq en memo: %s", bloqEnMemo);
+		if(debug_fs)log_debug(gameCard_logger, "mostrame bloq en memo: %s", bloqEnMemo);
 
 		int espacioOcupadoBloque = string_length(bloqEnMemo);
 
 		int espacioEnBloque = metadata_fs->tamanioBLoques
 				- espacioOcupadoBloque;
 
-		int espacioNuevaLinea = string_length(nuevaPos);
+		int sizeMetadata=obtenerEspacioMetadata(pokemon);
+
+		int espacioNuevaLinea = string_length(nuevaPos) + sizeMetadata;
 
 		char* stringAcopiar = string_new();
 
-		log_info(gameCard_logger, "aca pasame ocupado bloq: %d",
+		if(debug_fs)log_debug(gameCard_logger, "aca pasame ocupado bloq: %d",
 				espacioOcupadoBloque);
-		log_info(gameCard_logger, "aca pasame espacio libre bloq: %d",
+		if(debug_fs)log_debug(gameCard_logger, "aca pasame espacio libre bloq: %d",
 				espacioEnBloque);
-		log_info(gameCard_logger, "aca pasame espacio nuevaLinea: %d",
+		if(debug_fs)log_debug(gameCard_logger, "aca pasame espacio nuevaLinea: %d",
 				espacioNuevaLinea);
 
 		string_append(&stringAcopiar, bloqEnMemo);
 
 		string_append(&stringAcopiar, nuevaPos);
 
-		log_info(gameCard_logger, "aca pasame string a copia: %s",
+		if(debug_fs)log_debug(gameCard_logger, "aca pasame string a copia: %s",
 				stringAcopiar);
 
 		if (espacioEnBloque >= espacioNuevaLinea) {
+
+			log_info(gameCard_logger,"el archivo tiene espacio y se copia la posicion en el último bloque que le fue asignado");
 
 			agregarPosicionEnUltimoBLoque(ultBloque, stringAcopiar,
 					espacioNuevaLinea);
 
 		} else {
 
+			log_info(gameCard_logger,"se necesitan nuevos bloques para modificar el archivo");
+
 			if (espacioLibreEnfs() == 0) {
+
+				log_info(gameCard_logger,"no hay bloques libres en el fs");
+				log_info(gameCard_logger,"se quitara salto de linea y se validará si entra en el ultimo bloque asignado");
 
 				agregarPosicionSinSaltoDeLinea(espacioEnBloque,
 						espacioNuevaLinea, ultBloque);
 
 			} else {
 
+				log_info(gameCard_logger,"hay bloques libres en el fs");
 				agregarPosicionPokemonAbloquesNuevos(ultBloque, stringAcopiar,
 						espacioOcupadoBloque, espacioEnBloque,
 						espacioNuevaLinea);
@@ -543,6 +542,29 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar) {
 	}
 
 }
+
+
+int obtenerEspacioMetadata(char* pokemon){
+
+	t_config* configPoke;
+
+		char* rutaPoke = string_new();
+		string_append(&rutaPoke, rutas_fs->pathDirectorioFilesMetadata);
+		string_append(&rutaPoke, "/");
+		string_append(&rutaPoke, pokemon);
+		string_append(&rutaPoke, "/Metadata.bin");
+
+		configPoke = config_create(rutaPoke);
+
+		pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
+
+		int sizeMetadata= config_get_int_value(configPoke, "SIZE");
+
+		pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
+
+		return sizeMetadata;
+}
+
 
 void agregarPosicionSinSaltoDeLinea(int espacioEnBloque, int espacioNuevaLinea,
 		char* ultBloque) {
@@ -613,9 +635,10 @@ void modificarPosicion(char* nuevaPos, int cantidad, char* pokemonEnMemoria) {
 
 		tamanioMetadata = string_length(posAcopiar);
 
-		pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
-		crearMetadataArchPoke(pokemon, tamanioMetadata);
-		pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
+
+		cambiarTamanioMetadata(pokemon,tamanioMetadata);
+		//crearMetadataArchPoke(pokemon, tamanioMetadata);
+		modificarBloquesMetadata(pokemon,bloquesMetadataPokemon);
 
 		log_info(gameCard_logger,"se ha modificado correctamente el pokemon");
 
@@ -665,19 +688,19 @@ void modificarPosicion(char* nuevaPos, int cantidad, char* pokemonEnMemoria) {
 
 char* traerAmemoriaUltimoBloque(char* ultBloque) {
 
-	log_info(gameCard_logger, "aca se va a abrir el bloque del poke");
+	if(debug_fs)log_debug(gameCard_logger, "aca se va a abrir el bloque del poke");
 
 	char* rutaBloque;
 	rutaBloque = string_new();
 
-	log_info(gameCard_logger, "aca me llega el bloque: %s", ultBloque);
+	if(debug_fs)log_info(gameCard_logger, "aca me llega el bloque: %s", ultBloque);
 
 	string_append(&rutaBloque, rutas_fs->pathDirectorioBloques);
 	string_append(&rutaBloque, "/");
 	string_append(&rutaBloque, ultBloque);
 	string_append(&rutaBloque, ".bin");
 
-	log_info(gameCard_logger, "aca quiero ver ruta: %s", rutaBloque);
+	if (debug_fs)log_debug(gameCard_logger, "aca quiero ver ruta: %s", rutaBloque);
 
 	int fdBloq = open(rutaBloque, O_RDWR);
 
@@ -692,7 +715,7 @@ char* traerAmemoriaUltimoBloque(char* ultBloque) {
 		close(fdBloq);
 	}
 
-	log_info(gameCard_logger, "aca llega : %s", rutaBloque);
+	if(debug_fs)log_debug(gameCard_logger, "aca llega : %s", rutaBloque);
 
 	char* bloqueEnMemo;
 
@@ -701,7 +724,7 @@ char* traerAmemoriaUltimoBloque(char* ultBloque) {
 
 	if (bloqueEnMemo == NULL) {
 
-		log_error(gameCard_logger, "hay error aca memo");
+		log_error(gameCard_logger, "hay error en la carga en memoria");
 	}
 
 	return bloqueEnMemo;
@@ -711,7 +734,7 @@ char* traerAmemoriaUltimoBloque(char* ultBloque) {
 void agregarPosicionEnUltimoBLoque(char* ultBloq, char* stringAcopiar,
 		int espacioNuevaLinea) {
 
-	log_info(gameCard_logger, "Se copia en el último bloque : %s", ultBloq);
+	log_info(gameCard_logger, "Se copia %s en el bloque: %s.bin", stringAcopiar, ultBloq);
 
 	if (stringAcopiar == NULL) {
 
@@ -729,9 +752,7 @@ void agregarPosicionEnUltimoBLoque(char* ultBloq, char* stringAcopiar,
 void agregarPosicionPokemonAbloquesNuevos(char* ultBloque, char* stringAcopiar,
 		int espacioOcupadoBloque, int espacioEnBloque, int espacioNuevaLinea) {
 
-	log_info(gameCard_logger,"mostrame que todo te llega ok");
-
-	log_info(gameCard_logger,"ult bloque %d, stringAcopiar: %s, espacio OcupadoBloque: %d"
+	if(debug_fs) log_debug(gameCard_logger,"ult bloque %d, stringAcopiar: %s, espacio OcupadoBloque: %d"
 			"\n espacio en bloque: %d , espacio nueva linea: %d ",
 ultBloque, stringAcopiar,espacioOcupadoBloque, espacioEnBloque, espacioNuevaLinea);
 
@@ -739,7 +760,7 @@ ultBloque, stringAcopiar,espacioOcupadoBloque, espacioEnBloque, espacioNuevaLine
 
 	string_append(&copiarEnUltBloque, bloqEnMemo);
 
-	if (espacioEnBloque == 0 & !string_ends_with(copiarEnUltBloque, "\n")) {
+	if ((espacioEnBloque == 0) & (!string_ends_with(copiarEnUltBloque, "\n"))) {
 
 		string_append(&copiarEnUltBloque, "\n");
 
@@ -756,19 +777,19 @@ ultBloque, stringAcopiar,espacioOcupadoBloque, espacioEnBloque, espacioNuevaLine
 			string_substring(stringAcopiar, espacioEnBloque,
 					espacioNuevaLinea - espacioEnBloque));
 
-	log_info(gameCard_logger, "cantidad de bloques que necesita: %d",
+	log_info(gameCard_logger, "cantidad de bloques que se necesitan: %d",
 			cantBloquesNecesarios);
 
 	bloquesNuevos = list_create();
 
 	bloquesNuevos = obtenerBloquesNuevos(cantBloquesNecesarios);
 
-	log_info(gameCard_logger, "mostrame size de BLOC NUEVOS",
+	if(debug_fs)log_debug(gameCard_logger, "mostrame size de BLOC NUEVOS",
 			list_size(bloquesNuevos));
 
 	copiado = desde = 0;
 
-	log_info(gameCard_logger, "mostrame que tenes bloques nuevos: %d",
+	if(debug_fs)log_debug(gameCard_logger, "mostrame que tenes bloques nuevos: %d",
 			list_size(bloquesNuevos));
 
 	for (int i = 0; i < list_size(bloquesNuevos); i++) {
@@ -780,18 +801,19 @@ ultBloque, stringAcopiar,espacioOcupadoBloque, espacioEnBloque, espacioNuevaLine
 
 		if ((aCopiar - copiado) < metadata_fs->tamanioBLoques) {
 
-			log_info(gameCard_logger, "mostrame que va a copiar: %s",
+			if (debug_fs) log_debug(gameCard_logger, "mostrame que va a copiar: %s",
 					string_substring(nuevaPos, espacioEnBloque,
 							espacioNuevaLinea - espacioEnBloque));
-			log_info(gameCard_logger,
+			if(debug_fs)log_debug(gameCard_logger,
 					"aca mostrame desde: %d y aCopiar-desde : %d ", desde,
 					aCopiar - desde);
 
-			log_info(gameCard_logger, "mostrame que vas a copiar",
+			if(debug_fs)log_debug(gameCard_logger, "mostrame que vas a copiar",
 					string_substring(
 							string_substring(nuevaPos, espacioEnBloque,
 									espacioNuevaLinea - espacioEnBloque), desde,
 							aCopiar - desde));
+
 			copiarEnBloque(list_get(bloquesNuevos, i),
 					string_substring(
 							string_substring(nuevaPos, espacioEnBloque,
@@ -857,7 +879,8 @@ void copiarEnBloques(void* bloque) {
 	persistirCambiosEnBloquesPropios(bloqueNuevo);
 
 }
-void cambiarTamanioMetadata(char* pokemon, int tamanioAgregar) {
+void cambiarTamanioMetadata(char* pokemon, int tamanioNuevo){
+		//int tamanioAgregar) {
 
 	log_info(gameCard_logger,"se modifica el tamanio del archivo pokemon %s",pokemon);
 
@@ -871,16 +894,22 @@ void cambiarTamanioMetadata(char* pokemon, int tamanioAgregar) {
 
 	configPoke = config_create(rutaPoke);
 
-	log_info(gameCard_logger, "aca quiero chequear ruta %s", rutaPoke);
+	//int cantidadNueva = (config_get_int_value(configPoke, "SIZE"))
+			//+ tamanioAgregar;
 
-	int cantidadNueva = (config_get_int_value(configPoke, "SIZE"))
-			+ tamanioAgregar;
+	log_info(gameCard_logger, "El nuevo tamaño del archivo será: %d", tamanioNuevo);
+			//cantidadNueva);
 
-	log_info(gameCard_logger, "El nuevo tamaño del archivo será: %d", cantidadNueva);
+	pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
 
-	config_set_value(configPoke, "SIZE", string_itoa(cantidadNueva));
+	config_set_value(configPoke, "SIZE", tamanioNuevo);
+			//string_itoa(cantidadNueva));
 
 	config_save_in_file(configPoke, rutaPoke);
+
+	pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
+
+	log_info(gameCard_logger,"se ha modificado el size del archivo adecuadamente");
 
 }
 
@@ -1040,16 +1069,14 @@ void modificarBloquesMetadata(char* poke, t_list* bloquesPokemon) {
 
 	configPoke = config_create(rutaPoke);
 
-	log_info(gameCard_logger, "aca quiero chequear ruta %s", rutaPoke);
-
 	char* lineaBloquesOcupados = string_new();
 	int tamanioMaxList = list_size(bloquesPokemon);
 	string_append(&lineaBloquesOcupados, "[");
 
 	for (int i = 0; i < tamanioMaxList; i++) {
 
-		log_info(gameCard_logger, "aca entra en for");
-		log_info(gameCard_logger, "pos %d y elem : %s", i,
+		if (debug_fs) log_debug(gameCard_logger, "aca entra en for");
+		if (debug_fs) log_debug(gameCard_logger, "pos %d y elem : %s", i,
 				list_get(bloquesMetadataPokemon, i));
 
 		string_append(&lineaBloquesOcupados,
@@ -1066,10 +1093,15 @@ void modificarBloquesMetadata(char* poke, t_list* bloquesPokemon) {
 	list_clean(bloquesMetadataPokemon);
 	string_append(&lineaBloquesOcupados, "]");
 
+	pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
+
 	config_set_value(configPoke, "BLOCKS", lineaBloquesOcupados);
 
 	config_save_in_file(configPoke, rutaPoke);
 
+	pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
+
+	log_info(gameCard_logger,"la nueva lista de bloques del archivo: %s", lineaBloquesOcupados);
 }
 
 bool estaAbiertoArchivo(char* pokemon) {
@@ -1127,6 +1159,7 @@ void abrirArchivo(char* poke) {
 
 void cerrarArchivo(char* poke) {
 
+	log_info (gameCard_logger,"se va a cerrar el archivo del pokemon %s",poke);
 	t_config* configPoke;
 
 	char* rutaPoke = string_new();
@@ -1144,6 +1177,8 @@ void cerrarArchivo(char* poke) {
 	config_save_in_file(configPoke, rutaPoke);
 
 	pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
+
+	log_info(gameCard_logger,"se ha cerrado el archivo del pokemon");
 }
 
 uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {

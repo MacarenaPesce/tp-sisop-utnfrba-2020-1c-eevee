@@ -9,6 +9,8 @@
 
 void operar_con_new_pokemon(t_new_pokemon * poke){
 
+	debug_fs = true;
+
 	agregarSemaforoPokemon(poke->pokemon);
 
 	if (existePokemon(poke->pokemon)){
@@ -17,7 +19,8 @@ void operar_con_new_pokemon(t_new_pokemon * poke){
 
 		while (estaAbiertoArchivo(poke->pokemon)){
 
-			log_info(gameCard_logger,"el archivo se encuentra abierto");
+			log_info(gameCard_logger,"el archivo se encuentra abierto por otro hilo o proceso");
+			log_info(gameCard_logger,"no se lo puede abrir");
 			log_info(gameCard_logger,"se reintenta abrir "
 					"el archivo en %d segundos",tiempo_reintento_operacion);
 			sleep(tiempo_reintento_operacion);
@@ -25,14 +28,18 @@ void operar_con_new_pokemon(t_new_pokemon * poke){
 		}
 
 		modificarPokemon(poke);
-		log_info(gameCard_logger,"el tiempo de acceso a disco es : %d", tiempo_retardo_operacion);
+		log_info(gameCard_logger,"el tiempo de acceso a disco "
+				"es : %d", tiempo_retardo_operacion);
 		sleep(tiempo_retardo_operacion);
 	}
 
 	else{
 
-		log_info(gameCard_logger,"el pokemon no existe, hay que crearlo");
+		log_info(gameCard_logger,"el pokemon %s no existe, "
+				"hay que crearlo",poke->pokemon);
 		crearPokemon(poke);
+		log_info(gameCard_logger,"el tiempo de acceso a disco "
+				"es : %d", tiempo_retardo_operacion);
 		sleep(tiempo_retardo_operacion);
 	}
 
@@ -48,6 +55,12 @@ uint32_t operar_con_catch_pokemon(t_catch_pokemon * poke){
 
 		while (estaAbiertoArchivo(poke->pokemon)){
 
+			log_info(gameCard_logger,"el archivo se encuentra abierto "
+					"por otro hilo o proceso");
+			log_info(gameCard_logger,"no se lo puede abrir");
+			log_info(gameCard_logger,"se reintenta abrir "
+								"el archivo en %d segundos",tiempo_reintento_operacion);
+
 			sleep(tiempo_reintento_operacion);
 			abrirArchivo(poke->pokemon);
 		}
@@ -58,7 +71,8 @@ uint32_t operar_con_catch_pokemon(t_catch_pokemon * poke){
 
 	else{
 
-		log_error(gameCard_logger," No existe el pokemon %s, no se puede capturar",poke->pokemon);
+		log_error(gameCard_logger," No existe el pokemon %s, "
+				"no se puede capturar",poke->pokemon);
 		cerrarArchivo(poke->pokemon);
 		sleep(tiempo_retardo_operacion);
 		return FAIL;
