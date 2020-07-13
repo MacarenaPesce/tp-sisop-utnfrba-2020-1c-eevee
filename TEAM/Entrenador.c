@@ -12,9 +12,6 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 	while(GLOBAL_SEGUIR){
 		sem_wait(&array_semaforos[entrenador->id]);
 
-		/*Necesito los mutex porque la orden de planificar venia solo de nuevos pokes. Y ahora necesito planificar
-		aunque no haya pokes nuevos y no tengo otra forma de que los entrenadores se ejecuten al mismo tiempo.*/
-
 		log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 		llegar_a_el_pokemon(entrenador);
 		atrapar(entrenador);
@@ -81,8 +78,10 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 	/*Cada movimiento en el mapa responderá a un ciclo de CPU, y este NO realizará movimientos diagonales para llegar a la posición deseada.
 	 * Para simular más a la realidad esta funcionalidad, se deberá agregar un retardo de X segundos configurado por archivo de configuración.*/
 
-	log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
-	log_info(team_logger, "El entrenador %i se mueve a atrapar a %s a la posicion (%i, %i)", entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
+	log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", 
+	entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
+	log_info(team_logger, "El entrenador %i se mueve a atrapar a %s a la posicion (%i, %i)", 
+	entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 
 		//Primero me muevo por izq
 		while(entrenador->posx < entrenador->objetivo_actual->posx){
@@ -118,7 +117,8 @@ void atrapar(t_entrenador * entrenador){
 1. Enviar el mensaje a la cola de mensajes CATCH_POKEMON indicando cual es la especie del Pokémon y la posición del mismo.
 2. Obtener el ID del mensaje anterior desde el Broker y guardarlo a la espera de la llegada de la respuesta en CAUGHT_POKEMON.
 3. Bloquear al entrenador en cuestión a la espera del resultado del mensaje. Este entrenador no podrá volver a ejecutar hasta que se reciba el resultado.
-En caso que el Broker no se encuentre funcionando o la conexión inicial falle, se deberá tomar como comportamiento Default que el Pokémon ha sido atrapado con éxito.*/
+En caso que el Broker no se encuentre funcionando o la conexión inicial falle, se deberá tomar como comportamiento Default que el Pokémon ha sido 
+atrapado con éxito.*/
 
 	t_catch_pokemon* catch_pokemon = malloc(sizeof(t_catch_pokemon));
 	catch_pokemon->pokemon = entrenador->objetivo_actual->especie;

@@ -157,7 +157,6 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->posx = posx;
 	entrenador->posy = posy;
 	entrenador->id = id;
-	//entrenador->cant_maxima_objetivos = cantidad_maxima;
 	entrenador->ejec_anterior = 0;
 	entrenador->estimacion_actual = estimacion_inicial;
 	entrenador->estimacion_anterior = estimacion_inicial;
@@ -279,7 +278,8 @@ void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_
 
 	log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 	log_debug(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
-	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %i %i", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
+	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %d %d", 
+		catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
 
 	actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
 }
@@ -347,6 +347,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 void consumir_un_ciclo_de_cpu(){
 	ciclos_de_cpu++;
 	sleep(retardo_ciclo_cpu);
+	log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 }
 
 void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
@@ -356,16 +357,19 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 	}
 
-	/*if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
+	if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
 		ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
+		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 
-		entrenador_en_ejecucion->instruccion_actual++;
-		entrenador_en_ejecucion->estimacion_actual--;
-		entrenador_en_ejecucion->ejec_anterior = 0;
+		entrenador->instruccion_actual++;
+		entrenador->estimacion_actual--;
+		entrenador->ejec_anterior = 0;
+
+		estimar_entrenador(entrenador);
 	}
 
-	if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+	/*if(!strcmp(algoritmo_planificacion, "SJF-CD")){
 		ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 

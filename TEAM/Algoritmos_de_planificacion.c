@@ -48,15 +48,11 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	entrenador_mas_cercano = list_get(lista_aux, i);
 	int cantidad_entrenadores = list_size(lista_aux);
 
-	void printear_ready(void*_entrenador){
-		t_entrenador* entrenador = (t_entrenador*) _entrenador;
-		//log_info(team_logger, "ID DE ENTRENADOR l61 %d", entrenador->id);
-	}
-
 	while(i < cantidad_entrenadores){
 		i++;
 		if(i == cantidad_entrenadores){
 			entrenador_mas_cercano->objetivo_actual = pokemon;
+			
 			pthread_mutex_lock(&lista_listos_mutex);
 
 			if((!strcmp(algoritmo_planificacion, "SJF-CD")) || (!strcmp(algoritmo_planificacion, "SJF-SD"))){
@@ -64,12 +60,14 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 			}
 
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
-			list_iterate(lista_listos, printear_ready);
 			pthread_mutex_unlock(&lista_listos_mutex);
+			
 			nuevo_entrenador = entrenador_mas_cercano;
+			
 			pthread_mutex_lock(&lista_entrenadores_mutex);
 			sacar_entrenador_de_lista_pid(lista_entrenadores, entrenador_mas_cercano->id);
 			pthread_mutex_unlock(&lista_entrenadores_mutex);
+			
 			break;
 		}
 		otro_entrenador = list_get(lista_aux, i);
@@ -140,11 +138,9 @@ int estimar_entrenador(t_entrenador * entrenador){
 }
 
 void obtener_proximo_ejecucion(void){
-	/*Para planificar a los distintos entrenadores se utilizarán los algoritmos FIFO, Round Robin y Shortest job first con y sin desalojo. Para este último algoritmo
-	 *se desconoce la próxima rafaga, por lo que se deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos los entrenadore
-	 *se s será la misma y deberá poder ser modificable por archivo de configuración */
-
-	/* SJF debe copiar la lista de listos a una lista auxiliar, ordenarla por estimacion mas corta, tomar el primero, destruir la lista auxiliar. Eso para ambos casos */
+	/*Para planificar a los distintos entrenadores se utilizarán los algoritmos FIFO, Round Robin y Shortest job first con y sin desalojo. Para este último 
+	algoritmo se desconoce la próxima rafaga, por lo que se deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos 
+	los entrenadores será la misma y deberá poder ser modificable por archivo de configuración */
 
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
 		ordenar_lista_estimacion(lista_listos);
