@@ -33,7 +33,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 t_bloque_memoria* reemplazar_bloque_BS(); //LISTO
 void consolidacio_BS(t_bloque_memoria* bloque); //EN PROCESO
 bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente); //EN PROCESO
-void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente); //EN PROCESO
+void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente); //LISTO
 
 
 //*****************Auxiliares especificas Buddy System******************************

@@ -13,6 +13,14 @@ extern t_config* config;
 
 extern t_cache_colas* cache_mensajes;
 
+//TODO: modificar el algoritmo de memoria que devuelve un t_bloque. La parte de colas solo
+//		lo llama, no necesita que retorne nada.
+//TODO: modificar los algoritmos de reemplazo, la parte de liberar bloque memoria,
+//		hay que eliminar el mensaje, y que reapunte de nuevo a estructura_mensaje, 
+//		y vaciar la estructura mensaje
+
+
+
 	/*
 		FUNCIONAMIENTO
 
@@ -30,7 +38,6 @@ extern t_cache_colas* cache_mensajes;
 
 	*/
 
-//TODO: modificar el algoritmo de memoria que devuelve un t_bloque
 
 /*
 	Bueno algunas cosas a tener en cuenta para Buddy:
@@ -269,28 +276,24 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 	t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
 
 	/*
-		1- obtengo el bloque siguiente y anterior
-		2- chequeo si esos bloques, estan libres, tienen el mismo tamaño, son distinto de null y estan libres
 		3- Mientras un bloque tenga buddies:
 			-consolido el bloque con su buddie
 			-seteo nuevamente el bloque siguiente y anterior
 			-me fijo de nuevo si son buddies con alguno de los dos
 			y asi repito hasta que no pueda encontrar ninguna de estas condiciones
-
 	*/
-
-
-	/* Me fijo si la posicion anterior esta libre y Chequeo si tienen el mismo tamaño */
 	
-	/* Me fijo si son buddies , si son buddies consolido */
-	if(son_buddies(bloque,bloque_anterior)){
+	/* Me fijo si son buddies los bloques siguiente y anterior, si son buddies consolido */
+	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true 
+		&& son_buddies(bloque,bloque_siguiente)){
+		consolidar_bloques_buddies(bloque,bloque_siguiente);
+	}
+	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true 
+		&& son_buddies(bloque_anterior,bloque)){
 		consolidar_bloques_buddies(bloque_anterior,bloque);
 	}	
 
-	/* Me fijo lo mismo con la posicion siguiente en caso que la primer opcion de negativo*/
-
 	/* Una vez que me fije , vuelvo a repetir con el bloque consolidado */	
-
 	/* Mientras haya buddies libres voy a ir consolidando */
 	//ES UN OR no un and
 	while(son_buddies(bloque_anterior,bloque) && son_buddies(bloque,bloque_siguiente)){
@@ -302,14 +305,6 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 
 	}
 
-	/*
-	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true){
-        consolidar_dos_bloques(bloque,bloque_siguiente);
-    }
-    if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true){
-        consolidar_dos_bloques(bloque_anterior,bloque);
-	}
-	*/
 
 	return ;
 }
@@ -317,19 +312,19 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 
 
 
-/* Determina si 2 bloques son buddies o no*/
+/* Determina si 2 bloques son buddies o no */
 bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
 
 	/* Me fijo si ambos tienen el mismo tamaño para ver si son buddies*/
 	if(bloque_anterior->tamanio_particion == bloque_siguiente->tamanio_particion){
 
 		/* ACA VIENE LA PARTE DEL XOR */
+		return ((char*)bloque_anterior->estructura_mensaje) == ((char*)bloque_siguiente->estructura_mensaje * bloque_anterior->tamanio_particion);
 
-		return ;
 	}
 	else{
 		return false;
-	} 
+	}
 
 }
 
@@ -337,6 +332,8 @@ bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_sig
 
 /* Se encarga de realizar la consolidacion en si */
 void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
+
+	consolidar_dos_bloques(bloque_anterior, bloque_siguiente);
 
 	return;
 }
