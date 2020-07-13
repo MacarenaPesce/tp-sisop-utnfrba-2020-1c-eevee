@@ -44,18 +44,18 @@
 
 
 void asignar_memoria_inicial(int tamanio_en_bytes); //LISTO
-t_bloque_memoria* asignar_particion_memoria(t_mensaje_cola* estructura_mensaje); //LISTO
+void asignar_particion_memoria(t_mensaje_cola* estructura_mensaje); //LISTO
 
 //---ALGORITMOS DE MEMORIA----
-t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje); //LISTO
-t_bloque_memoria* particiones_dinamicas( t_mensaje_cola* estructura_mensaje);  //LISTO
-t_bloque_memoria* buddy_system( t_mensaje_cola* estructura_mensaje); //EN PROCESO
+void algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje); //LISTO
+void particiones_dinamicas( t_mensaje_cola* estructura_mensaje);  //LISTO
+void buddy_system( t_mensaje_cola* estructura_mensaje); //EN PROCESO
 
 
 //********Funciones de Algoritmos de memoria************
-t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
-t_bloque_memoria* algoritmo_first_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
-t_bloque_memoria* algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
+void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
+void algoritmo_first_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
+void algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
 void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros que son con opciones, si mandan una opcion por el archivo config que no es valida
 t_bloque_memoria* algoritmo_fifo(); //LISTO
 t_bloque_memoria* algoritmo_lru(); //LISTO 

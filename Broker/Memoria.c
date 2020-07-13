@@ -88,18 +88,12 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 /*Dado un tamaño de particion, devuelvo el bloque asignado y derivo segun el algoritmo de memoria 
 	Ya corri todos los algoritmos aca. 
 	Esta deberia ser la que tiene que llamar la cola de mensajes*/
-t_bloque_memoria* asignar_particion_memoria(t_mensaje_cola* estructura_mensaje){
+void asignar_particion_memoria(t_mensaje_cola* estructura_mensaje){
     
-    //log_info(broker_logger, "Por asignar memoria a mi particion");
+    /* Corro el algoritmo de memoria */
+    algoritmo_de_memoria(estructura_mensaje);
 
-    //Creo una nueva particion que es la que voy a devolver luego de asignar la particion
-    t_bloque_memoria* nuevaParticion;
-    //Asigno un bloque segun el algoritmo de memoria que utilicemos
-    nuevaParticion = algoritmo_de_memoria(estructura_mensaje);
-
-    //log_info(broker_logger, "Ya le asigne memoria a mi particion!");
-
-    return nuevaParticion;
+    return ;
 }
 
 
@@ -121,22 +115,20 @@ void algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
     }
 
     return ;
-    
+
 }
 
 
 
 
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
-t_bloque_memoria* particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
+void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
     //log_info(broker_logger, "Ejecutando particiones dinamicas");
 
     if(debug_broker) log_debug(broker_logger,"Particiones dinamicas", NULL);
     if(debug_broker) log_debug(broker_logger,"Alojar: %i", estructura_mensaje->tamanio_mensaje );
 
-    t_bloque_memoria* particionNueva;
-    //particionNueva = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
 
     /* Me fijo si el tamaño del mensaje es menor al minimo tamaño de particion */
     int tamanio_parti = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
@@ -158,7 +150,7 @@ t_bloque_memoria* particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
         //me fijo si puedo alojarla a la primera
         if(sePuedeAlojar == true){ 
             //si puede alojarse a la primera llamo al algoritmo de particion libre
-            particionNueva = algoritmo_de_particion_libre( tamanio_parti, estructura_mensaje);
+            algoritmo_de_particion_libre( tamanio_parti, estructura_mensaje);
 
             if(debug_broker) log_debug(broker_logger, "Aloje la nueva particion , PD");
 
@@ -198,7 +190,7 @@ t_bloque_memoria* particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
     }
 
-    return particionNueva;
+    return ;
 
 }
 
@@ -225,22 +217,20 @@ void buddy_system( t_mensaje_cola* estructura_mensaje){
 //-----------------------------ELECCION DE PARTICION LIBRE--------------------
 
 
-t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
+void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
     
-    t_bloque_memoria* bloque;
-
     //log_info(broker_logger, "Por ejecutar algoritmo de particion libre %s",algoritmo_particion_libre);
 
     if( strcmp( algoritmo_particion_libre, "FF") == 1){
-        bloque = algoritmo_first_fit(tamanio_parti, estructura_mensaje);
+        algoritmo_first_fit(tamanio_parti, estructura_mensaje);
     }
     else{
-        bloque = algoritmo_best_fit(tamanio_parti, estructura_mensaje);
+        algoritmo_best_fit(tamanio_parti, estructura_mensaje);
     }
 
     //if(debug_broker) log_debug(broker_logger, "Algoritmo de particion libre ejecutado!");
 
-    return bloque;
+    return ;
 
 }
 
@@ -249,11 +239,10 @@ t_bloque_memoria* algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola
 /* Busco el primer hueco donde puedo alojar una nueva particion y la alojo.
     NOTA: para esto ya esta chequeado que puede alojarse
     NOTA2: recibo el tamaño correcto, ya chequeado si es el minimo a alojar o no.*/
-t_bloque_memoria* algoritmo_first_fit(int tamanio_parti,t_mensaje_cola* estructura_mensaje){
+void algoritmo_first_fit(int tamanio_parti,t_mensaje_cola* estructura_mensaje){
 
     t_bloque_memoria* bloque;
     t_bloque_memoria* aux;
-    t_bloque_memoria* bloque_final;
     int indice=0; 
 
     if(debug_broker) log_debug(broker_logger, "Ejecutando first fit");
@@ -274,11 +263,11 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_parti,t_mensaje_cola* estructu
     if(debug_broker) log_debug(broker_logger, "Por particionar el bloque, ya encontre mi bloque adecuado");
 
     //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
-    bloque_final = particionar_bloque(tamanio_parti,indice,estructura_mensaje);
+    particionar_bloque(tamanio_parti,indice,estructura_mensaje);
 
     if(debug_broker) log_debug(broker_logger, "Ya ejecute el algoritmo fist fit");
 
-    return bloque_final;
+    return ;
 
 }
 
@@ -289,11 +278,10 @@ t_bloque_memoria* algoritmo_first_fit(int tamanio_parti,t_mensaje_cola* estructu
 /* Busco el huevo mas pequeño donde quepa la nueva particion a alojar, y la alojo.
     NOTA: para esto ya esta chequeado que puede alojarse
     NOTA2: recibo el tamaño correcto, ya chequeado si es el minimo a alojar o no.*/
-t_bloque_memoria* algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
+void algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
 
     t_bloque_memoria* bloque;
     t_bloque_memoria* aux;
-    t_bloque_memoria* bloque_final;
     int indice;
     int tam_minimo=0; 
 
@@ -330,11 +318,11 @@ t_bloque_memoria* algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructu
     if(debug_broker) log_debug(broker_logger, "Por particionar el bloque, ya encontre mi bloque adecuado");
 
     //particiono el bloque donde voy a alojar mi particion, PERO con el tamaño actualizado
-    bloque_final = particionar_bloque(tamanio_parti,indice,estructura_mensaje);
+    particionar_bloque(tamanio_parti,indice,estructura_mensaje);
 
     if(debug_broker) log_debug(broker_logger, "Ya ejecute best fit");
 
-    return bloque_final;
+    return ;
 
 }
 
