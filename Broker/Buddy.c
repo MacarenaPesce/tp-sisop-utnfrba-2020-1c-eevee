@@ -264,9 +264,9 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 	int indice_bloque = obtener_indice_particion(bloque);
 	
 	/* Obtengo los bloques que rodean al que libero */
-	t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria, indice-1);
+	t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
 	
-	t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice+1);
+	t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
 
 	/*
 		1- obtengo el bloque siguiente y anterior
