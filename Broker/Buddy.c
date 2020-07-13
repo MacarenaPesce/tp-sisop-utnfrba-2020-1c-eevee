@@ -255,7 +255,7 @@ t_bloque_memoria* reemplazar_bloque_BS(){
 }
 
 /* Realiza la consolidacion de buddies, dado un bloque.*/
-void consolidar_buddies(t_bloque_memoria* bloque){
+void consolidacion_BS(t_bloque_memoria* bloque){
 
 	/* Obtengo la posicion relativa de mi bloque */
 	void* posicion_relativa_bloque = calcular_posicion_relativa(bloque);
@@ -265,7 +265,19 @@ void consolidar_buddies(t_bloque_memoria* bloque){
 	
 	/* Obtengo los bloques que rodean al que libero */
 	t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria, indice-1);
+	
 	t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice+1);
+
+	/*
+		1- obtengo el bloque siguiente y anterior
+		2- chequeo si esos bloques, estan libres, tienen el mismo tamaño, son distinto de null y estan libres
+		3- Mientras un bloque tenga buddies:
+			-consolido el bloque con su buddie
+			-seteo nuevamente el bloque siguiente y anterior
+			-me fijo de nuevo si son buddies con alguno de los dos
+			y asi repito hasta que no pueda encontrar ninguna de estas condiciones
+
+	*/
 
 
 	/* Me fijo si la posicion anterior esta libre y Chequeo si tienen el mismo tamaño */
@@ -280,9 +292,24 @@ void consolidar_buddies(t_bloque_memoria* bloque){
 	/* Una vez que me fije , vuelvo a repetir con el bloque consolidado */	
 
 	/* Mientras haya buddies libres voy a ir consolidando */
-	while(hay_buddies_libres){
+	//ES UN OR no un and
+	while(son_buddies(bloque_anterior,bloque) && son_buddies(bloque,bloque_siguiente)){
+
+
+		//setear nuevo siguiente, nuevo anterior, y nuevos cambios al bloque, si es que se hacen
+
+		//si no se hace nada hago un fuck break
 
 	}
+
+	/*
+	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true){
+        consolidar_dos_bloques(bloque,bloque_siguiente);
+    }
+    if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true){
+        consolidar_dos_bloques(bloque_anterior,bloque);
+	}
+	*/
 
 	return ;
 }
@@ -293,16 +320,26 @@ void consolidar_buddies(t_bloque_memoria* bloque){
 /* Determina si 2 bloques son buddies o no*/
 bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
 
+	/* Me fijo si ambos tienen el mismo tamaño para ver si son buddies*/
 	if(bloque_anterior->tamanio_particion == bloque_siguiente->tamanio_particion){
 
 		/* ACA VIENE LA PARTE DEL XOR */
 
 		return ;
 	}
-
+	else{
+		return false;
+	} 
 
 }
 
+
+
+/* Se encarga de realizar la consolidacion en si */
+void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
+
+	return;
+}
 
 
 //*****************Auxiliares especificas Buddy System******************************
