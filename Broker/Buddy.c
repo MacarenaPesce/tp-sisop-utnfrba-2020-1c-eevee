@@ -257,19 +257,51 @@ t_bloque_memoria* reemplazar_bloque_BS(){
 /* Realiza la consolidacion de buddies, dado un bloque.*/
 void consolidar_buddies(t_bloque_memoria* bloque){
 
+	/* Obtengo la posicion relativa de mi bloque */
+	void* posicion_relativa_bloque = calcular_posicion_relativa(bloque);
+
 	/* Obtengo el indice de un buddy */
-	/* Me fijo si la posicion anterior esta libre
-	 y Chequeo si tienen el mismo tamaño */
-	/* Me fijo si son buddies , si son buddies consolido
-		Para saber si son buddies necesito la posicion de memoria relativa*/
+	int indice_bloque = obtener_indice_particion(bloque);
+	
+	/* Obtengo los bloques que rodean al que libero */
+	t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria, indice-1);
+	t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice+1);
+
+
+	/* Me fijo si la posicion anterior esta libre y Chequeo si tienen el mismo tamaño */
+	
+	/* Me fijo si son buddies , si son buddies consolido */
+	if(son_buddies(bloque,bloque_anterior)){
+		consolidar_bloques_buddies(bloque_anterior,bloque);
+	}	
 
 	/* Me fijo lo mismo con la posicion siguiente en caso que la primer opcion de negativo*/
 
 	/* Una vez que me fije , vuelvo a repetir con el bloque consolidado */	
 
+	/* Mientras haya buddies libres voy a ir consolidando */
+	while(hay_buddies_libres){
+
+	}
+
 	return ;
 }
 
+
+
+
+/* Determina si 2 bloques son buddies o no*/
+bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
+
+	if(bloque_anterior->tamanio_particion == bloque_siguiente->tamanio_particion){
+
+		/* ACA VIENE LA PARTE DEL XOR */
+
+		return ;
+	}
+
+
+}
 
 
 
