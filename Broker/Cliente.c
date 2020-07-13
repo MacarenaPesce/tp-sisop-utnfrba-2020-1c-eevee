@@ -6,7 +6,7 @@ t_servidor servidor;
 	-Primera prueba con pokemons_maca
 	1)
 	Orden: 		new, 	get, 	apparead, 	caugth
-	Resultado:	24		12		20			4
+	Resultado:	23		11		19			4
 	Esperado:	23		11		19			4
 
 

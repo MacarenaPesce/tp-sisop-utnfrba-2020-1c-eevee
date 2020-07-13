@@ -120,6 +120,13 @@ bool puede_alojarse(int tamanio_bytes){
 
 
 
+/* Convierto un hexa en decimal */
+uint32_t convertir_hexa_decimal(uint32_t* hexadecimal){
+
+    char* stringHexa = string_itoa(hexadecimal);
+
+    return atoi(stringHexa);
+}
 
 /*Obtengo el tiempo actual en segundos*/ 
 uint64_t get_timestamp(){
