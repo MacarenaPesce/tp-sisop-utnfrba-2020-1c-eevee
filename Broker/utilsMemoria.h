@@ -33,7 +33,7 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion);
 bool puede_alojarse(int tamanio_en_bytes);
 void liberar_bloque_memoria(t_bloque_memoria* bloque);
 
-uint32_t convertir_hexa_decimal(uint32_t* hexadecimal);
+void* calcular_posicion_relativa(t_bloque_memoria* bloque);
 
 //Auxiliar para LRU y FIFO
 uint64_t get_timestamp();

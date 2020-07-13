@@ -120,12 +120,14 @@ bool puede_alojarse(int tamanio_bytes){
 
 
 
-/* Convierto un hexa en decimal */
-uint32_t convertir_hexa_decimal(uint32_t* hexadecimal){
+/* Calcula la posicion relativa de memoria*/
+void* calcular_posicion_relativa(t_bloque_memoria* bloque){
 
-    char* stringHexa = string_itoa(hexadecimal);
+    /* Obtengo el primer bloque de mi lista para saber donde empieza la memoria*/
+    t_bloque_memoria* primer_bloque = list_get(cache_mensajes->memoria,0);
 
-    return atoi(stringHexa);
+    /* Casteo a char*, resto y lo devuelvo */
+    return ((char*)bloque->estructura_mensaje->mensaje)) - ((char*)primer_bloque->estructura_mensaje->mensaje);
 }
 
 /*Obtengo el tiempo actual en segundos*/ 
