@@ -1,0 +1,36 @@
+[INFO] 23:12:18:348 Team/(6652:6652): Hi, bienvenido a Team
+[INFO] 23:12:18:348 Team/(6652:6652): Cargando el archivo de configuracion...
+[DEBUG] 23:12:18:348 Team/(6652:6652): Las posiciones de entrenadores recuperadas
+[DEBUG] 23:12:18:348 Team/(6652:6652): Los pokemon de los entrenadores recuperados
+[DEBUG] 23:12:18:348 Team/(6652:6652): Los objetivos de los entrenadores recuperados
+[DEBUG] 23:12:18:348 Team/(6652:6652): El tiempo de reconexion es: 30
+[DEBUG] 23:12:18:348 Team/(6652:6652): El retardo de ciclo de cpu es: 5
+[DEBUG] 23:12:18:348 Team/(6652:6652): El algoritmo de planificacion es: RR
+[DEBUG] 23:12:18:348 Team/(6652:6652): El alpha es: 50
+[DEBUG] 23:12:18:348 Team/(6652:6652): El quantum es: 2
+[DEBUG] 23:12:18:348 Team/(6652:6652): La estimacion_inicial es: 1
+[DEBUG] 23:12:18:348 Team/(6652:6652): La ip del broker es: 127.0.0.1
+[DEBUG] 23:12:18:348 Team/(6652:6652): El puerto del broker es: 5003
+[DEBUG] 23:12:18:348 Team/(6652:6652): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 23:12:18:348 Team/(6652:6652): Mi ID es: 1
+[INFO] 23:12:18:348 Team/(6652:6652): Archivo de configuracion cargado correctamente :)
+
+[INFO] 23:12:18:348 Team/(6652:6652): Cargando el objetivo global...
+[INFO] 23:12:18:348 Team/(6652:6652): Objetivo global cargado
+
+[INFO] 23:12:18:348 Team/(6652:6652): Entrenadores ubicados
+
+[INFO] 23:12:18:348 Team/(6652:6652): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Vaporeon
+[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Vaporeon, cant 1
+[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Umbreon
+[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Umbreon, cant 1
+[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Jolteon
+[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Jolteon, cant 1
+[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Flareon
+[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Flareon, cant 1
+[INFO] 23:12:18:349 Team/(6652:6652): Enviado pedido de get pokemon para esta especie: Espeon
+[INFO] 23:12:18:349 Team/(6652:6652): No existen locaciones para esta especie: Espeon, cant 1
+[WARNING] 23:12:25:363 Team/(6652:6652): Team deja de funcionar
+[INFO] 23:12:25:363 Team/(6652:6652): Cerrando team...
