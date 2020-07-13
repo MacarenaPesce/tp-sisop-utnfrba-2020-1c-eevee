@@ -109,23 +109,19 @@ t_bloque_memoria* asignar_particion_memoria(t_mensaje_cola* estructura_mensaje){
 
 /*Segun el algoritmo que me pasa el archivo de configuracion, designo con esta funcion
     que algoritmo se va a usar y le paso la lista y el tamaño de bytes*/
-t_bloque_memoria* algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
-
-    //Creo una nueva particion, que es donde se van a guardar los datos de la particion alojada
-    //y la particion que voy a retornar
-    t_bloque_memoria* particionNueva;
-    
+void algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){   
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
     if (  strcmp( algoritmo_memoria, "BS") == 0){
 
-        particionNueva= buddy_system(estructura_mensaje);
+        buddy_system(estructura_mensaje);
     }
     else{
-        particionNueva= particiones_dinamicas(estructura_mensaje);
+        particiones_dinamicas(estructura_mensaje);
     }
 
-    return particionNueva;
+    return ;
+    
 }
 
 
@@ -210,17 +206,13 @@ t_bloque_memoria* particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
 
 //------------------------------BUDDY SYSTEM----------------------------------
-t_bloque_memoria* buddy_system( t_mensaje_cola* estructura_mensaje){
+void buddy_system( t_mensaje_cola* estructura_mensaje){
 
     if(debug_broker) log_debug(broker_logger, "Ejecutando buddy system");
 
-    //int bytes_reservar= numero_potencia_dos(int tamanio_en_bytes);
+    buddy_funcionamiento( estructura_mensaje);
 
-    //buddy_funcionamiento(t_mensaje_cola* estructura_mensaje);
-
-    t_bloque_memoria* particionNueva = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
-
-    return particionNueva;
+    return ;
     
 }
 

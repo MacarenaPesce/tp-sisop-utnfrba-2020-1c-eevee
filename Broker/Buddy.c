@@ -294,23 +294,22 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 	/* Me fijo si son buddies los bloques siguiente y anterior, si son buddies consolido */
 	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true 
 		&& son_buddies(bloque,bloque_siguiente)){
+
+		/* Si cumple con las condiciones, consolido bloques*/
 		consolidar_bloques_buddies(bloque,bloque_siguiente);
+
+		/* Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar*/
+		consolidacion_BS(bloque);
 	}
+
 	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true 
 		&& son_buddies(bloque_anterior,bloque)){
+
+		/* Si cumple con las condiciones, consolido bloques*/
 		consolidar_bloques_buddies(bloque_anterior,bloque);
-	}	
 
-	/* Una vez que me fije , vuelvo a repetir con el bloque consolidado */	
-	/* Mientras haya buddies libres voy a ir consolidando */
-	//ES UN OR no un and
-	while(son_buddies(bloque_anterior,bloque) && son_buddies(bloque,bloque_siguiente)){
-
-
-		//setear nuevo siguiente, nuevo anterior, y nuevos cambios al bloque, si es que se hacen
-
-		//si no se hace nada hago un fuck break
-
+		/* Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar*/
+		consolidacion_BS(bloque);
 	}
 
 
@@ -338,6 +337,7 @@ bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_sig
 
 
 
+
 /* Se encarga de realizar la consolidacion en si */
 void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
 
@@ -345,6 +345,7 @@ void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memo
 
 	return;
 }
+
 
 
 //*****************Auxiliares especificas Buddy System******************************
