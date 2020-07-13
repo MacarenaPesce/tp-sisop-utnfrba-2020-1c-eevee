@@ -191,4 +191,6 @@ void crearDirectorioPokemon(char* pokemon);
 
 int obtenerEspacioMetadata(char* pokemon);
 
+void copiarPokemonEnMemoria(void* unBloque);
+
 #endif /* FILESYSTEM_H_ */

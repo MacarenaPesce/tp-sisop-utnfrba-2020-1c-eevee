@@ -9,11 +9,10 @@
 
 void operar_con_new_pokemon(t_new_pokemon * poke){
 
-	debug_fs = true;
-
-	agregarSemaforoPokemon(poke->pokemon);
 
 	if (existePokemon(poke->pokemon)){
+
+		agregarSemaforoPokemon(poke->pokemon);
 
 		log_info(gameCard_logger,"existe el pokemon %s", poke->pokemon);
 
@@ -31,6 +30,7 @@ void operar_con_new_pokemon(t_new_pokemon * poke){
 		log_info(gameCard_logger,"el tiempo de acceso a disco "
 				"es : %d", tiempo_retardo_operacion);
 		sleep(tiempo_retardo_operacion);
+		cerrarArchivo(poke->pokemon);
 	}
 
 	else{
@@ -38,20 +38,20 @@ void operar_con_new_pokemon(t_new_pokemon * poke){
 		log_info(gameCard_logger,"el pokemon %s no existe, "
 				"hay que crearlo",poke->pokemon);
 		crearPokemon(poke);
+		agregarSemaforoPokemon(poke->pokemon);
 		log_info(gameCard_logger,"el tiempo de acceso a disco "
 				"es : %d", tiempo_retardo_operacion);
 		sleep(tiempo_retardo_operacion);
 	}
 
-	cerrarArchivo(poke->pokemon);
 }
 
 
 uint32_t operar_con_catch_pokemon(t_catch_pokemon * poke){
 
-	agregarSemaforoPokemon(poke->pokemon);
-
 	if (existePokemon(poke->pokemon)){
+
+		agregarSemaforoPokemon(poke->pokemon);
 
 		while (estaAbiertoArchivo(poke->pokemon)){
 
@@ -65,7 +65,7 @@ uint32_t operar_con_catch_pokemon(t_catch_pokemon * poke){
 			abrirArchivo(poke->pokemon);
 		}
 
-		capturarPokemon(poke);
+		return capturarPokemon(poke);
 
 	}
 
@@ -73,7 +73,6 @@ uint32_t operar_con_catch_pokemon(t_catch_pokemon * poke){
 
 		log_error(gameCard_logger," No existe el pokemon %s, "
 				"no se puede capturar",poke->pokemon);
-		cerrarArchivo(poke->pokemon);
 		sleep(tiempo_retardo_operacion);
 		return FAIL;
 	}
@@ -91,9 +90,17 @@ t_list* operar_con_get_pokemon(t_get_pokemon* poke){
 			abrirArchivo(poke->pokemon);
 		}
 
-	return obtenerPosicionesPokemon(poke->pokemon);}
+	return obtenerPosicionesPokemon(poke->pokemon);
+	}
 
-return -1;
+	else { log_error(gameCard_logger," No existe el pokemon %s, "
+						"no se puede capturar",poke->pokemon);
+
+				sleep(tiempo_retardo_operacion);
+				t_list* listaVacia=list_create();
+				return listaVacia;
+
+	}
 
 }
 

@@ -9,7 +9,6 @@
 #include "formatoFs.h"
 #include "Conexion_con_broker.h"
 #include "Funciones_de_conexion.h"
-extern bool* debug_fs;
 
 #endif /* GAMECARD_H_ */
 
