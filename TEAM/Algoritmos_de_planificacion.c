@@ -12,16 +12,6 @@ void * planificar(){
 	while(GLOBAL_SEGUIR){
 
 		sem_wait(&orden_para_planificar);
-
-		/* if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
-			if(entrenador_en_ejecucion != NULL && nuevo_entrenador->estimacion_real < entrenador_en_ejecucion->estimacion_actual)
-			{
-				log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
-				desalojo_en_ejecucion = true;
-				//mentrenador_por_desalojar = nuevo_entrenador;
-			}
-		}*/
-
 		obtener_proximo_ejecucion();
 	}
 	return NULL;
