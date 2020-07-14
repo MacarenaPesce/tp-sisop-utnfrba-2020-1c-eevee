@@ -271,6 +271,7 @@ void crearPokemon(t_new_pokemon* poke) {
 
 	list_iterate(bloquesNuevos, persistirCambiosEnBloquesPropios);
 
+	//veer aca que se puede colgar el semaforo
 	pthread_mutex_lock(dictionary_get(semaforosPokemon,poke->pokemon));
 	crearMetadataArchPoke(poke->pokemon, string_length(posAcopiar));
 	pthread_mutex_unlock(dictionary_get(semaforosPokemon,poke->pokemon));
