@@ -15,7 +15,7 @@ int tiempo_reconexion;
 int retardo_ciclo_cpu;
 char* algoritmo_planificacion;
 int quantum;
-int alpha;
+float alpha;
 char* ip_broker;
 int estimacion_inicial;
 char* puerto_broker;

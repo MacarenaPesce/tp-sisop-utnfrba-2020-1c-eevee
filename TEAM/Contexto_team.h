@@ -59,7 +59,7 @@ extern int tiempo_reconexion;
 extern int retardo_ciclo_cpu;
 extern char* algoritmo_planificacion;
 extern int quantum;
-extern int alpha;
+extern float alpha;
 extern char* ip_broker;
 extern int estimacion_inicial;
 extern char* puerto_broker;
