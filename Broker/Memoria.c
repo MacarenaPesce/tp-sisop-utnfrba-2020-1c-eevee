@@ -157,7 +157,7 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
         //me fijo si puedo alojarla a la primera
         if(sePuedeAlojar == true){ 
             
-            if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre ");
+            if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
 	        printf("\n");
 
             /* Si puede alojarse a la primera, corro algoritmo de particion libre*/             
@@ -231,7 +231,6 @@ void buddy_system( t_mensaje_cola* estructura_mensaje){
 
 void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
     
-    //log_info(broker_logger, "Por ejecutar algoritmo de particion libre %s",algoritmo_particion_libre);
 
     if( strcmp( algoritmo_particion_libre, "FF") == 1){
         algoritmo_first_fit(tamanio_parti, estructura_mensaje);
@@ -240,7 +239,8 @@ void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_
         algoritmo_best_fit(tamanio_parti, estructura_mensaje);
     }
 
-    //if(debug_broker) log_debug(broker_logger, "Algoritmo de particion libre ejecutado!");
+    if(debug_broker) log_debug(broker_logger, "Algoritmo de particion libre ejecutado!");
+	printf("\n");
 
     return ;
 
@@ -257,7 +257,7 @@ void algoritmo_first_fit(int tamanio_parti,t_mensaje_cola* estructura_mensaje){
     t_bloque_memoria* aux;
     int indice=0; 
 
-    if(debug_broker) log_debug(broker_logger, "Ejecutando first fit");
+    if(debug_broker) log_debug(broker_logger, "First Fit");
 
     //obtengo el primer bloque donde quepa mi particion nueva
 	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
@@ -278,6 +278,7 @@ void algoritmo_first_fit(int tamanio_parti,t_mensaje_cola* estructura_mensaje){
     particionar_bloque(tamanio_parti,indice,estructura_mensaje);
 
     if(debug_broker) log_debug(broker_logger, "Ya ejecute el algoritmo fist fit");
+    printf("\n");
 
     return ;
 
@@ -297,7 +298,7 @@ void algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
     int indice;
     int tam_minimo=0; 
 
-    if(debug_broker) log_debug(broker_logger, "Ejecutando best fit");
+    if(debug_broker) log_debug(broker_logger, "Best Fit");
 
 
     //obtengo el primer bloque donde quepa mi particion nueva
@@ -333,6 +334,7 @@ void algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
     particionar_bloque(tamanio_parti,indice,estructura_mensaje);
 
     if(debug_broker) log_debug(broker_logger, "Ya ejecute best fit");
+	printf("\n");
 
     return ;
 
@@ -350,6 +352,8 @@ void algoritmo_de_reemplazo(){
 
     t_bloque_memoria* bloque;
 
+    if(debug_broker) log_debug(broker_logger,"Por ejecutar algoritmo de reemplazo %s", algoritmo_reemplazo);
+
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
     if (strcmp( algoritmo_reemplazo, "LRU") == 1){
         bloque = algoritmo_lru();
@@ -358,10 +362,13 @@ void algoritmo_de_reemplazo(){
         bloque = algoritmo_fifo();
     }
 
+    if(debug_broker) log_debug(broker_logger,"Algoritmo de reemplazo ejecutado!");
+
     //realizo la consolidacion siempre que corro el algoritmo de reemplazo
     consolidar(bloque);
 
     if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
+    printf("\n");
 
     return;
 
@@ -401,6 +408,12 @@ t_bloque_memoria* algoritmo_fifo(){
     }
     
     log_info(broker_logger, "Eliminado de una particion en la posicion %p", bloque->estructura_mensaje->mensaje);
+
+
+    /* Calculo la posicion relativa */
+    void* posicion_relativa = calcular_posicion_relativa(bloque);
+    log_info(broker_logger, "Eliminado de una particion en la posicion relativa %p",posicion_relativa);
+
 
     //libero la memoria de un determinado bloque de mi lista , y me lo devuelve
     liberar_bloque_memoria(bloque);
@@ -448,6 +461,10 @@ t_bloque_memoria* algoritmo_lru(){
 
     log_info(broker_logger, "Eliminado de una particion en la posicion %p", bloque->estructura_mensaje->mensaje);
 
+    /* Calculo la posicion relativa */
+    void* posicion_relativa = calcular_posicion_relativa(bloque);
+    log_info(broker_logger, "Eliminado de una particion en la posicion relativa %p",posicion_relativa);
+
     //libero la memoria de un determinado bloque de mi lista , y me lo devuelve
     liberar_bloque_memoria(bloque);
     
@@ -470,8 +487,8 @@ t_bloque_memoria* algoritmo_lru(){
 	Se usaria una vez encontrado el lugar en memoria que ocuparia mi nueva particion */
 t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particionar, t_mensaje_cola* estructura_mensaje){
 
+    if(debug_broker) log_debug(broker_logger,"Indice a particionar %d",indice_nodo_particionar);
 
-    if(debug_broker) log_debug(broker_logger,"indice a particionar %d",indice_nodo_particionar);
     t_bloque_memoria *bloque_restante;
 	t_bloque_memoria *bloque_inicial;
 
@@ -492,7 +509,8 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 
     }
 
-    log_info(broker_logger, "Almacenado mensaje en la posicion %p", bloque_inicial->estructura_mensaje);
+
+    log_info(broker_logger, "Almacenado mensaje en la posicion real %p", bloque_inicial->estructura_mensaje);
 
     /* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
     bloque_inicial->tamanio_particion = tamanio_parti;
@@ -509,7 +527,13 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 
     bloque_inicial->estructura_mensaje->mensaje = aux_mensaje;    
 
+    /* Calculo la posicion relativa */
+    void* posicion_relativa = calcular_posicion_relativa(bloque_inicial);
+    log_info(broker_logger, "Almacenado en la posicion relativa %p",posicion_relativa);
+
+
     if(debug_broker) log_debug(broker_logger, "Bloque particionado...");
+    printf("\n");
 
     return bloque_inicial;
 }
@@ -577,6 +601,7 @@ void compactar(){
     list_iterate(cache_mensajes->memoria, compactar_bloque);
 
     if(debug_broker) log_debug(broker_logger, "Compactacion terminada");
+    printf("\n");
 
 	return ;
 }

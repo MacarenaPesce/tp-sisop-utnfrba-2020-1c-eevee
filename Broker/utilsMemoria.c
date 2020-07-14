@@ -82,7 +82,7 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 
 
 
-/*Libero la memoria de un determinado bloque y lo retorno */
+/* Libero la memoria de un determinado bloque y lo retorno */
 void liberar_bloque_memoria(t_bloque_memoria* bloque){
 
     /* Marco el bloque como vacio */
@@ -131,6 +131,9 @@ void* calcular_posicion_relativa(t_bloque_memoria* bloque){
 
     return resultado;
 }
+
+
+
 
 /*Obtengo el tiempo actual en segundos*/ 
 uint64_t get_timestamp(){
