@@ -261,11 +261,6 @@ void abrirBitmap() {
 
 }
 
-void inicializarSemaforoPokemon(){
-
-	semaforosPokemon=dictionary_create();
-}
-
 
 void desconectarFs(){
 

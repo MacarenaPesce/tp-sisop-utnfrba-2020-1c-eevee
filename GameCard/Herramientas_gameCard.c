@@ -72,18 +72,8 @@ void obtener_puerto_broker(){
 			strdup(config_get_string_value(config_game_card, KEY_PUERTO_BROKER));
 }
 
-void liberarMemoria() {
-	//aca empezar a liberar memoria
-	free(rutas_fs);
-	free(metadata_fs);
-	//munmap(bmap, tamBmap);
-	bitarray_destroy(bitarray);
-	config_destroy(config_game_card);
-}
-
 void terminar_game_card(){
 	/*Aca deberias liberar todas las estructuras que usaste!!*/
-	liberarMemoria();
 
 	log_info(gameCard_logger,"llegando al final");
 	log_info(gameCard_logger,"liberando recursos");
