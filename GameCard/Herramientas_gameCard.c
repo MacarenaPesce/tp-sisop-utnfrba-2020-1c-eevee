@@ -7,7 +7,7 @@ void inicializar_logger(){
 }
 
 void inicializar_archivo_de_configuracion(){
-	config_game_card = config_create("gamecard.config");
+	config_game_card = config_create("../gamecard.config");
 	if(config_game_card == NULL){
 		terminar_game_card();
 

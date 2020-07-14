@@ -82,7 +82,7 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 
 
 
-/*Libero la memoria de un determinado bloque y lo retorno */
+/* Libero la memoria de un determinado bloque y lo retorno */
 void liberar_bloque_memoria(t_bloque_memoria* bloque){
 
     /* Marco el bloque como vacio */
@@ -116,6 +116,20 @@ bool puede_alojarse(int tamanio_bytes){
 
     return bloque_posible != NULL;
 
+}
+
+
+
+/* Calcula la posicion relativa de memoria*/
+void* calcular_posicion_relativa(t_bloque_memoria* bloque){
+
+    /* Obtengo el primer bloque de mi lista para saber donde empieza la memoria*/
+    t_bloque_memoria* primer_bloque = list_get(cache_mensajes->memoria,0);
+
+    /* Casteo a char* resto y lo devuelvo */
+    void* resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje->mensaje);
+
+    return resultado;
 }
 
 

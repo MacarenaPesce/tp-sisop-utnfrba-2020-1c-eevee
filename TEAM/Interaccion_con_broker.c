@@ -79,7 +79,7 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 }
 
 void enviar_get(){
-	t_servidor * servidor = malloc(sizeof(t_servidor));
+	t_servidor * servidor = (t_servidor*)malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;

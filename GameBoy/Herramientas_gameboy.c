@@ -13,7 +13,7 @@ void inicializar_logger(){
 }
 
 void inicializar_archivo_de_configuracion(){
-	config = config_create("gameboy.config");
+	config = config_create("../gameboy.config");
 	if(config == NULL){
 		log_info(gameboy_logger,"El archivo de configuracion no existe. Fijate en la carpeta Debug.");
 		terminar_gameboy_correctamente();

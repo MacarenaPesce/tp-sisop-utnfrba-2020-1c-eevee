@@ -13,6 +13,14 @@ extern t_config* config;
 
 extern t_cache_colas* cache_mensajes;
 
+
+//TODO: modificar los algoritmos de reemplazo, la parte de liberar bloque memoria,
+//		hay que eliminar el mensaje, y que reapunte de nuevo a estructura_mensaje, 
+//		y vaciar la estructura mensaje
+//TODO: revisar los valores de compactacion segun lo indicado de nuevo y los logs de dicha parte
+
+
+
 	/*
 		FUNCIONAMIENTO
 
@@ -30,7 +38,6 @@ extern t_cache_colas* cache_mensajes;
 
 	*/
 
-//TODO: modificar el algoritmo de memoria que devuelve un t_bloque
 
 /*
 	Bueno algunas cosas a tener en cuenta para Buddy:
@@ -64,10 +71,18 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 
 	t_bloque_memoria* bloque_borrado;
 
+    if(debug_broker) log_debug(broker_logger,"Buddy System", NULL);
+    if(debug_broker) log_debug(broker_logger,"Alojar: %i", estructura_mensaje->tamanio_mensaje );
+    if(debug_broker) log_debug(broker_logger,"Particion a crear de: %i", bytes_potencia_dos);
+	printf("\n");
+
 	while(alojado == false){ /* Mientras no este alojado */
 
         /* Me fijo si puedo alojarla a la primera */
         if(sePuedeAlojar == true){ 
+
+			if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
+	        printf("\n");
 
             /* 	Si puede alojarse a la primera: 
 				Alojo la partición según el funcionamiento de buddies  */
@@ -88,7 +103,7 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 			bloque_borrado = reemplazar_bloque_BS();
 
 			/* Consolido buddies entorno a la particion eliminada*/
-			consolidar_buddies(bloque_borrado);
+			consolidacion_BS(bloque_borrado);
 		}
 
 		/* Me fijo de nuevo si puede alojarse */
@@ -112,7 +127,7 @@ void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_de_partic
 	/* Encontrar particion libre */
 	t_bloque_memoria* particion = encontrar_particion_libre(tamanio_de_particion); 
 
-	/* Particionar el bloque */
+	/* Particionar el bloque y asignar datos*/
 	particionar_bloque_buddies( particion, estructura_mensaje, tamanio_de_particion);
 
 	return;
@@ -131,8 +146,10 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
     
     int tam_minimo=0; 
 
-
-    /* Recorro la lista para obtener el primer bloque
+	if(debug_broker) log_debug(broker_logger,"Buscando particion libre");
+	
+    
+	/* Recorro la lista para obtener el primer bloque
 		donde quepa mi particion nueva */
 	for(int i=0; i<list_size(cache_mensajes->memoria); i++){
 
@@ -160,6 +177,9 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 
     }
 
+	if(debug_broker) log_debug(broker_logger,"Encontre particion libre");
+	printf("\n");
+
 	return bloque_encontrado;
 }
 
@@ -168,7 +188,9 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 
 /* 	Dado un bloque de memoria, se encarga de particionar el bloque.
 	Teniendo en cuenta, que lo tiene que particionar la cantidad de veces necesarias 
-	para que sea del menor tamaño posible. */
+	para que sea del menor tamaño posible. 
+	Tambien asigna los datos a la particion, agrega los nuevos buddies a la lista
+	de bloques. */
 void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_cola* estructura_mensaje, int tamanio_bytes_pot_dos){
 
 	t_bloque_memoria* bloque_restante;
@@ -179,6 +201,8 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 	/* Obtengo el indice de la particion a particionar*/
 	int indice_nodo_particionar = obtener_indice_particion(particion_inicial);
 
+	if(debug_broker) log_debug(broker_logger,"Puedo particionar el bloque y achicarlo %d", puedo_particionar);
+
 	/* Mientras pueda particionar
 		1- Tengo que crear una nueva particion del tamaño divido 2, 
 			verificando que sea potencia de 2
@@ -186,27 +210,39 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 		3- Tengo que volver a mirar si puedo seguir particionando 
 			y seguir verificando las potencias de 2 */
 
-	/* En caso de poder particionar */
+	/* En caso de poder particionar, entro en el while y empiezo a crear buddies */
 	while(puedo_particionar){
 
 		/* Me fijo cuanto espacio sobra y si es potencia de 2 */
 		int tamanio_restante = particion_inicial->tamanio_particion / 2 ;
 		bool es_potencia_de_dos = tamanio_potencia_dos(tamanio_restante);
     	
-		/* Como me sobra espacio lo separo en un nuevo nodo */
-        void* particion_restante = ((char *)particion_inicial->estructura_mensaje) + tamanio_bytes_pot_dos;
+		if(es_potencia_de_dos){ /* Si el tamaño restante es potencia de dos, particiono */
 
-        bloque_restante = crear_bloque_vacio(tamanio_restante, particion_restante);
+			/* Como me sobra espacio lo separo en un nuevo nodo */
+    		void* particion_restante = ((char *)particion_inicial->estructura_mensaje) + tamanio_bytes_pot_dos;
 
-        list_add_in_index(cache_mensajes->memoria, indice_nodo_particionar + 1, bloque_restante);    
+			/* Seteo el bloque buddie */
+        	bloque_restante = crear_bloque_vacio(tamanio_restante, particion_restante);
 
-		//setear de nuevo el bool 
+        	/* Agrego el buddie a la lista de bloques*/
+			list_add_in_index(cache_mensajes->memoria, indice_nodo_particionar + 1, bloque_restante);  
+		
+			if(debug_broker) log_debug(broker_logger,"Buddies particionados");
+			printf("\n");
+		}
+  
+
+		/* Me fijo de nuevo si puedo particionar para ver si sigo en el while o corto*/
+		puedo_particionar = (particion_inicial->tamanio_particion > tamanio_bytes_pot_dos);
 
 	}
 
-		/* En caso de no poder particionar mas, porque el bloque es justo del 
-		tamaño que necesito */
-	if(!puedo_particionar && (tamanio_bytes_pot_dos == particion_inicial->tamanio_particion){
+	/* En caso de no poder particionar mas, porque el bloque es justo del 
+	tamaño que necesito */
+	if(!puedo_particionar && (tamanio_bytes_pot_dos == particion_inicial->tamanio_particion)){
+
+    	log_info(broker_logger, "Almacenado mensaje en la posicion real %p", particion_inicial->estructura_mensaje);
 
 		/* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
     	particion_inicial->tamanio_particion = tamanio_bytes_pot_dos;
@@ -223,37 +259,138 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 
     	particion_inicial->estructura_mensaje->mensaje = aux_mensaje;  
 
-		return ;
+		/* Calculo la posicion relativa */
+    	void* posicion_relativa = calcular_posicion_relativa(particion_inicial);
+    	log_info(broker_logger, "Almacenado en la posicion relativa %p",posicion_relativa);
+
+		if(debug_broker) log_debug(broker_logger, "Bloque particionado...");
+    	printf("\n");
+
 	}
 
 	return ;
 }
 
+
+
+
 /* Se encarga de ir borrando una particion, teniendo en cuenta los 
 	algoritmos de reemplazo*/
-t_mensaje_cola* reemplazar_bloque_BS(){
+t_bloque_memoria* reemplazar_bloque_BS(){
 
+    if(debug_broker) log_debug(broker_logger,"Por ejecutar algoritmo de reemplazo %s", algoritmo_reemplazo);
 
+	t_bloque_memoria* bloque_eliminado;
 
-	return;
+    //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
+    if (strcmp( algoritmo_reemplazo, "LRU") == 1){
+        bloque_eliminado = algoritmo_lru();
+    }
+    else{
+        bloque_eliminado = algoritmo_fifo();
+    }
+
+    if(debug_broker) log_debug(broker_logger,"Termine de ejecutar el reemplazo");
+    printf("\n");
+
+	return bloque_eliminado;
 }
 
+
+
+
 /* Realiza la consolidacion de buddies, dado un bloque.*/
-void consolidar_buddies(t_mensaje_cola* estructura_mensaje){
+void consolidacion_BS(t_bloque_memoria* bloque){
+
+	/* Obtengo la posicion relativa de mi bloque */
+	void* posicion_relativa_bloque = calcular_posicion_relativa(bloque);
 
 	/* Obtengo el indice de un buddy */
-	/* Me fijo si la posicion anterior esta libre
-	 y Chequeo si tienen el mismo tamaño */
-	/* Me fijo si son buddies , si son buddies consolido
-		Para saber si son buddies necesito la posicion de memoria relativa*/
+	int indice_bloque = obtener_indice_particion(bloque);
+	
+	/* Obtengo los bloques que rodean al que libero */
+	t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
+	
+	t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
 
-	/* Me fijo lo mismo con la posicion siguiente en caso que la primer opcion de negativo*/
+	/*
+		3- Mientras un bloque tenga buddies:
+			-consolido el bloque con su buddie
+			-seteo nuevamente el bloque siguiente y anterior
+			-me fijo de nuevo si son buddies con alguno de los dos
+			y asi repito hasta que no pueda encontrar ninguna de estas condiciones
+	*/
+	
+	/* Me fijo si son buddies los bloques siguiente y anterior, si son buddies consolido */
+	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true 
+		&& son_buddies(bloque,bloque_siguiente)){
 
-	/* Una vez que me fije , vuelvo a repetir con el bloque consolidado */	
+		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre");
+		
+		/* Si cumple con las condiciones, consolido bloques*/
+		consolidar_bloques_buddies(bloque,bloque_siguiente);
+
+		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
+		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
+		printf("\n");
+
+		/* Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar*/
+		consolidacion_BS(bloque);
+	}
+
+	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true 
+		&& son_buddies(bloque_anterior,bloque)){
+
+		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre");
+
+		/* Si cumple con las condiciones, consolido bloques*/
+		consolidar_bloques_buddies(bloque_anterior,bloque);
+
+		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
+		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
+		printf("\n");
+
+		/* Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar*/
+		consolidacion_BS(bloque);
+	}
+    
+	if(debug_broker) log_debug(broker_logger,"No tengo más buddies libres.");
+
+	if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
+    printf("\n");
 
 	return ;
 }
 
+
+
+
+/* Determina si 2 bloques son buddies o no */
+bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
+
+	/* Me fijo si ambos tienen el mismo tamaño para ver si son buddies*/
+	if(bloque_anterior->tamanio_particion == bloque_siguiente->tamanio_particion){
+
+		/* ACA VIENE LA PARTE DEL XOR */
+		return ((int)bloque_anterior->estructura_mensaje) == ((int)bloque_siguiente->estructura_mensaje ^ bloque_anterior->tamanio_particion);
+
+	}
+	else{
+		return false;
+	}
+
+}
+
+
+
+
+/* Se encarga de realizar la consolidacion en si */
+void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
+
+	consolidar_dos_bloques(bloque_anterior, bloque_siguiente);
+
+	return;
+}
 
 
 
