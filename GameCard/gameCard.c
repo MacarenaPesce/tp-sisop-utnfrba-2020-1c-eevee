@@ -17,7 +17,7 @@ int main() {
 	abrirBitmap();
 	inicializarSemaforoPokemon();
 
-	convertirse_en_suscriptor_global_del_broker();
+	//convertirse_en_suscriptor_global_del_broker();
 
 	/*Esto es lo necesario para comunicarse con gameboy*/
 	int serv_socket = iniciar_servidor(PUERTO);

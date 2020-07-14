@@ -110,7 +110,8 @@ void agregarSemaforoPokemon(char* poke){
 
 	if  (!dictionary_has_key(semaforosPokemon,poke)){
 
-		pthread_mutex_t semPoke;
+		static pthread_mutex_t semPoke=PTHREAD_MUTEX_INITIALIZER;
+
 			dictionary_put(semaforosPokemon,poke,&semPoke);
 
 			log_info(gameCard_logger,"Se agrega un semáforo "
@@ -118,7 +119,7 @@ void agregarSemaforoPokemon(char* poke){
 
 	}
 
-	pthread_mutex_lock(&mutexSemPokemones);
+	pthread_mutex_unlock(&mutexSemPokemones);
 
 }
 
