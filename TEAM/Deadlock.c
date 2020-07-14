@@ -37,8 +37,6 @@ void * chequear_deadlock(){
 			log_info(team_logger_oficial, "La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
 			log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
 
-
-			inicializar_semaforos_deadlock();
 			break;
 		}
 	}
@@ -47,9 +45,6 @@ void * chequear_deadlock(){
 
 	pthread_mutex_lock(&lista_bloq_max_mutex);
 	entrenador1 = list_get(lista_bloqueados_cant_max_alcanzada, 0);
-	pthread_mutex_unlock(&lista_bloq_max_mutex);
-
-	pthread_mutex_lock(&lista_bloq_max_mutex);
 	sacar_entrenador_de_lista_pid(lista_bloqueados_cant_max_alcanzada,entrenador1->id);
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
 
@@ -57,26 +52,15 @@ void * chequear_deadlock(){
 	list_add(lista_listos, entrenador1);
 	entrenador1 = sacar_entrenador_de_lista_pid(lista_listos, entrenador1->id);
 	pthread_mutex_unlock(&lista_listos_mutex);
+	
 	log_info(team_logger, "El entrenador %d pasó a la lista de listos para resolucion de deadlock", entrenador1->id);
 	log_info(team_logger_oficial, "El entrenador %d pasó a la lista de listos para resolucion de deadlock", entrenador1->id);
 	entrenador1->estado = EJECUTANDO;
 
-	interbloqueo(entrenador1);
+	ver_entre_quienes_hay_deadlock_y_resolverlo(entrenador1);
 	printf("\n");
 
 	return NULL;
-}
-
-void interbloqueo(t_entrenador * entrenador1){
-
-	pthread_mutex_lock(&mutex_deadlock);
-	pthread_mutex_lock(&lista_bloq_max_mutex);
-	hayDeadlock = list_size(lista_bloqueados_cant_max_alcanzada) > 1;
-	pthread_mutex_unlock(&lista_bloq_max_mutex);
-	pthread_mutex_unlock(&mutex_deadlock);
-
-	ver_entre_quienes_hay_deadlock_y_resolverlo(entrenador1);
-
 }
 
 void ver_entre_quienes_hay_deadlock_y_resolverlo(t_entrenador * entrenador1){
@@ -106,9 +90,6 @@ void ver_entre_quienes_hay_deadlock_y_resolverlo(t_entrenador * entrenador1){
 	}
 
 	planificar_para_deadlock(entrenador1, entrenador2, pokemon1);
-
-	//destruir_entrenador(entrenador1);
-	//destruir_entrenador(entrenador2);
 }
 
 
@@ -124,29 +105,27 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	list_add(lista_bloqueados_deadlock, entrenador2);
 	pthread_mutex_unlock(&lista_comun_deadlock);
 
+	pthread_mutex_lock(&lista_bloq_max_mutex);
+	sacar_entrenador_de_lista_pid(lista_bloqueados_cant_max_alcanzada,entrenador2->id);
+	pthread_mutex_unlock(&lista_bloq_max_mutex);
+
 	log_info(team_logger, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
 
 	log_info(team_logger, "Haciendo el intercambio");
-	printf("\n");
-
+	log_error(team_logger, "EL ENTRENADOR 1 ES: %d", entrenador1->id);
+	
 	sem_post(&array_semaforos_deadlock[entrenador1->id]);
-	t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entrenador1->id);
-	sem_post(sem_entrenador_deadlock->semaforo);
-
+	log_error(team_logger, "SE HIZO EL POST PARA EL ENTRENADOR 1 ES: %d", entrenador1->id);
 
 	//ESPERAR A ENTRENADOR
 	sem_wait(&aviso_entrenador_hizo_intercambio);
+	
 	verificar_si_entrenador_sigue_bloqueado(entrenador1);
-
 	verificar_si_entrenador_sigue_bloqueado(entrenador2);
+
 	sem_post(&array_semaforos_deadlock[entrenador2->id]);
-	printf("\n");
-
+	
 	verificar_si_sigue_habiendo_deadlock_luego_del_intercambio();
-
-	destruir_entrenador(entrenador1);
-	destruir_entrenador(entrenador2);
-	free(pokemon_innecesario);
 
 }
 
@@ -186,10 +165,9 @@ void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
 	CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
 
-	if(CANTIDAD_EN_DEADLOCK > 0){
-		pthread_mutex_lock(&tocando_semaforos_deadlock);
-		list_destroy_and_destroy_elements(semaforos_deadlock, destruir_semaforos_deadlock);
-		pthread_mutex_unlock(&tocando_semaforos_deadlock);
+	if(CANTIDAD_EN_DEADLOCK > 0){		
+		sem_wait(&puedo_volver_a_ejecutar);
+		sem_post(&chequeo_de_deadlock);
 		chequear_deadlock();
 	}else{
 

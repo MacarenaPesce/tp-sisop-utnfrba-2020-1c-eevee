@@ -1,125 +1,175 @@
-[INFO] 17:02:07:42 Team/(20254:20254): Hi, bienvenido a Team
-[INFO] 17:02:07:44 Team/(20254:20254): Cargando el archivo de configuracion...
-[DEBUG] 17:02:07:45 Team/(20254:20254): Las posiciones de entrenadores recuperadas
-[DEBUG] 17:02:07:46 Team/(20254:20254): Los pokemon de los entrenadores recuperados
-[DEBUG] 17:02:07:46 Team/(20254:20254): Los objetivos de los entrenadores recuperados
-[DEBUG] 17:02:07:46 Team/(20254:20254): El tiempo de reconexion es: 30
-[DEBUG] 17:02:07:46 Team/(20254:20254): El retardo de ciclo de cpu es: 5
-[DEBUG] 17:02:07:47 Team/(20254:20254): El algoritmo de planificacion es: FIFO
-[DEBUG] 17:02:07:47 Team/(20254:20254): El alpha es: 50
-[DEBUG] 17:02:07:47 Team/(20254:20254): El quantum es: 2
-[DEBUG] 17:02:07:47 Team/(20254:20254): La estimacion_inicial es: 1
-[DEBUG] 17:02:07:47 Team/(20254:20254): La ip del broker es: 127.0.0.1
-[DEBUG] 17:02:07:48 Team/(20254:20254): El puerto del broker es: 5003
-[DEBUG] 17:02:07:48 Team/(20254:20254): El log file es: /home/utnso/log_team1.txt
-[DEBUG] 17:02:07:48 Team/(20254:20254): Mi ID es: 1
-[INFO] 17:02:07:48 Team/(20254:20254): Archivo de configuracion cargado correctamente :)
+[INFO] 20:24:18:389 Team/(9761:9761): Hi, bienvenido a Team
+[INFO] 20:24:18:561 Team/(9761:9761): Cargando el archivo de configuracion...
+[DEBUG] 20:24:18:662 Team/(9761:9761): Las posiciones de entrenadores recuperadas
+[DEBUG] 20:24:18:673 Team/(9761:9761): Los pokemon de los entrenadores recuperados
+[DEBUG] 20:24:18:685 Team/(9761:9761): Los objetivos de los entrenadores recuperados
+[DEBUG] 20:24:18:704 Team/(9761:9761): El tiempo de reconexion es: 30
+[DEBUG] 20:24:18:715 Team/(9761:9761): El retardo de ciclo de cpu es: 0
+[DEBUG] 20:24:18:722 Team/(9761:9761): El algoritmo de planificacion es: FIFO
+[DEBUG] 20:24:18:727 Team/(9761:9761): El alpha es: 50
+[DEBUG] 20:24:18:735 Team/(9761:9761): El quantum es: 2
+[DEBUG] 20:24:18:739 Team/(9761:9761): La estimacion_inicial es: 1
+[DEBUG] 20:24:18:745 Team/(9761:9761): La ip del broker es: 127.0.0.1
+[DEBUG] 20:24:18:751 Team/(9761:9761): El puerto del broker es: 5003
+[DEBUG] 20:24:18:759 Team/(9761:9761): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 20:24:18:763 Team/(9761:9761): Mi ID es: 1
+[INFO] 20:24:18:766 Team/(9761:9761): Archivo de configuracion cargado correctamente :)
 
-[INFO] 17:02:07:48 Team/(20254:20254): Cargando el objetivo global...
-[INFO] 17:02:07:48 Team/(20254:20254): Objetivo global cargado
+[INFO] 20:24:18:822 Team/(9761:9761): Cargando el objetivo global...
+[INFO] 20:24:18:878 Team/(9761:9761): Objetivo global cargado
 
-[INFO] 17:02:07:49 Team/(20254:20254): Entrenadores ubicados
+[INFO] 20:24:19:26 Team/(9761:9761): Entrenadores ubicados
 
-[INFO] 17:02:07:50 Team/(20254:20254): Team esta listo para recibir mensajes de gameboy en el socket servidor (15)
+[INFO] 20:24:19:45 Team/(9761:9761): Team esta listo para recibir mensajes de gameboy en el socket servidor (15)
 
-[INFO] 17:02:07:50 Team/(20254:20254): Enviado pedido de get pokemon para esta especie: Vaporeon
-[INFO] 17:02:07:51 Team/(20254:20254): No existen locaciones para esta especie: Vaporeon, cant 1
-[INFO] 17:02:07:51 Team/(20254:20254): Enviado pedido de get pokemon para esta especie: Umbreon
-[INFO] 17:02:07:51 Team/(20254:20254): No existen locaciones para esta especie: Umbreon, cant 1
-[INFO] 17:02:07:51 Team/(20254:20254): Enviado pedido de get pokemon para esta especie: Jolteon
-[INFO] 17:02:07:51 Team/(20254:20254): No existen locaciones para esta especie: Jolteon, cant 1
-[INFO] 17:02:07:52 Team/(20254:20254): Enviado pedido de get pokemon para esta especie: Flareon
-[INFO] 17:02:07:52 Team/(20254:20254): No existen locaciones para esta especie: Flareon, cant 1
-[INFO] 17:02:07:52 Team/(20254:20254): Enviado pedido de get pokemon para esta especie: Espeon
-[INFO] 17:02:07:52 Team/(20254:20254): No existen locaciones para esta especie: Espeon, cant 1
-[DEBUG] 17:02:11:223 Team/(20254:20263): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Jolteon en las coordenadas (2, 2)
-[INFO] 17:02:11:223 Team/(20254:20260): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
-[INFO] 17:02:11:223 Team/(20254:20260): Agregue el pokemon Jolteon con coordenadas (2, 2) al mapa
+[INFO] 20:24:19:124 Team/(9761:9761): Enviado pedido de get pokemon para esta especie: Vaporeon
+[INFO] 20:24:19:139 Team/(9761:9761): No existen locaciones para esta especie: Vaporeon, cant 1
+[INFO] 20:24:19:145 Team/(9761:9761): Enviado pedido de get pokemon para esta especie: Umbreon
+[INFO] 20:24:19:149 Team/(9761:9761): No existen locaciones para esta especie: Umbreon, cant 1
+[INFO] 20:24:19:151 Team/(9761:9761): Enviado pedido de get pokemon para esta especie: Jolteon
+[INFO] 20:24:19:156 Team/(9761:9761): No existen locaciones para esta especie: Jolteon, cant 1
+[INFO] 20:24:19:163 Team/(9761:9761): Enviado pedido de get pokemon para esta especie: Flareon
+[INFO] 20:24:19:165 Team/(9761:9761): No existen locaciones para esta especie: Flareon, cant 1
+[INFO] 20:24:19:166 Team/(9761:9761): Enviado pedido de get pokemon para esta especie: Espeon
+[INFO] 20:24:19:170 Team/(9761:9761): No existen locaciones para esta especie: Espeon, cant 1
+[DEBUG] 20:24:21:57 Team/(9761:9770): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Jolteon en las coordenadas (2, 2)
+[DEBUG] 20:24:21:141 Team/(9761:9770): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
+[DEBUG] 20:24:21:149 Team/(9761:9770): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
+[DEBUG] 20:24:21:151 Team/(9761:9770): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
+[INFO] 20:24:21:154 Team/(9761:9767): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
+[INFO] 20:24:21:174 Team/(9761:9767): Agregue el pokemon Jolteon con coordenadas (2, 2) al mapa
 
-[INFO] 17:02:11:224 Team/(20254:20255): Soy el entrenador que va a ejecutar, mi id es: 0.
-[INFO] 17:02:11:224 Team/(20254:20255): El entrenador 0 se mueve a atrapar a Jolteon a la posicion (2, 2)
-[DEBUG] 17:02:11:241 Team/(20254:20263): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
-[INFO] 17:02:11:241 Team/(20254:20260): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
-[INFO] 17:02:11:241 Team/(20254:20260): Agregue el pokemon Flareon con coordenadas (4, 6) al mapa
+[DEBUG] 20:24:21:157 Team/(9761:9770): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
+[INFO] 20:24:21:185 Team/(9761:9762): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 20:24:21:187 Team/(9761:9762): El entrenador 0 se mueve a atrapar a Jolteon a la posicion (2, 2)
+[INFO] 20:24:21:206 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:207 Team/(9761:9767): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
+[INFO] 20:24:21:213 Team/(9761:9762): El entrenador de id 0 llegó al pokemon Jolteon.
+[INFO] 20:24:21:214 Team/(9761:9767): Agregue el pokemon Flareon con coordenadas (4, 6) al mapa
 
-[DEBUG] 17:02:11:258 Team/(20254:20263): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
-[INFO] 17:02:11:258 Team/(20254:20260): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
-[INFO] 17:02:11:258 Team/(20254:20260): Agregue el pokemon Umbreon con coordenadas (10, 6) al mapa
+[INFO] 20:24:21:221 Team/(9761:9767): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
+[INFO] 20:24:21:222 Team/(9761:9767): Agregue el pokemon Umbreon con coordenadas (10, 6) al mapa
 
-[DEBUG] 17:02:11:276 Team/(20254:20263): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
-[INFO] 17:02:11:276 Team/(20254:20260): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
-[INFO] 17:02:11:276 Team/(20254:20260): Agregue el pokemon Espeon con coordenadas (7, 1) al mapa
+[INFO] 20:24:21:223 Team/(9761:9767): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
+[INFO] 20:24:21:225 Team/(9761:9767): Agregue el pokemon Espeon con coordenadas (7, 1) al mapa
 
-[DEBUG] 17:02:11:294 Team/(20254:20263): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
-[INFO] 17:02:11:294 Team/(20254:20260): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
-[INFO] 17:02:11:294 Team/(20254:20260): Agregue el pokemon Vaporeon con coordenadas (4, 10) al mapa
+[INFO] 20:24:21:239 Team/(9761:9767): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
+[INFO] 20:24:21:240 Team/(9761:9767): Agregue el pokemon Vaporeon con coordenadas (4, 10) al mapa
 
-[INFO] 17:02:16:225 Team/(20254:20255): Ejecuté 1 ciclo de cpu
-[INFO] 17:02:16:225 Team/(20254:20255): El entrenador de id 0 llegó al pokemon Jolteon.
-[INFO] 17:02:21:226 Team/(20254:20255): Ejecuté 1 ciclo de cpu
-[INFO] 17:02:21:227 Team/(20254:20255): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Jolteon
-[INFO] 17:02:21:227 Team/(20254:20255): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 17:02:21:227 Team/(20254:20255): El pokemon Jolteon ha sido atrapado con exito
-[INFO] 17:02:21:227 Team/(20254:20255): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:24:21:242 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:247 Team/(9761:9762): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Jolteon
+[INFO] 20:24:21:251 Team/(9761:9762): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:24:21:259 Team/(9761:9762): El pokemon Jolteon ha sido atrapado con exito
+[INFO] 20:24:21:292 Team/(9761:9762): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[INFO] 17:02:21:227 Team/(20254:20256): Soy el entrenador que va a ejecutar, mi id es: 1.
-[INFO] 17:02:21:228 Team/(20254:20256): El entrenador 1 se mueve a atrapar a Flareon a la posicion (4, 6)
-[INFO] 17:02:26:228 Team/(20254:20256): Ejecuté 1 ciclo de cpu
-[INFO] 17:02:31:230 Team/(20254:20256): Ejecuté 1 ciclo de cpu
-[INFO] 17:02:36:232 Team/(20254:20256): Ejecuté 1 ciclo de cpu
-[INFO] 17:02:36:232 Team/(20254:20256): El entrenador de id 1 llegó al pokemon Flareon.
-[INFO] 17:02:41:233 Team/(20254:20256): Ejecuté 1 ciclo de cpu
-[INFO] 17:02:41:233 Team/(20254:20256): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Flareon
-[INFO] 17:02:41:233 Team/(20254:20256): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 17:02:41:233 Team/(20254:20256): El pokemon Flareon ha sido atrapado con exito
-[INFO] 17:02:41:233 Team/(20254:20256): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:24:21:305 Team/(9761:9763): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 20:24:21:306 Team/(9761:9763): El entrenador 1 se mueve a atrapar a Flareon a la posicion (4, 6)
+[INFO] 20:24:21:313 Team/(9761:9763): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:315 Team/(9761:9763): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:317 Team/(9761:9763): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:319 Team/(9761:9763): El entrenador de id 1 llegó al pokemon Flareon.
+[INFO] 20:24:21:322 Team/(9761:9763): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:324 Team/(9761:9763): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Flareon
+[INFO] 20:24:21:325 Team/(9761:9763): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:24:21:328 Team/(9761:9763): El pokemon Flareon ha sido atrapado con exito
+[INFO] 20:24:21:332 Team/(9761:9763): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[INFO] 17:02:41:234 Team/(20254:20257): Soy el entrenador que va a ejecutar, mi id es: 2.
-[INFO] 17:02:41:234 Team/(20254:20257): El entrenador 2 se mueve a atrapar a Umbreon a la posicion (10, 6)
-[INFO] 17:02:46:234 Team/(20254:20257): Ejecuté 1 ciclo de cpu
-[INFO] 17:02:51:235 Team/(20254:20257): Ejecuté 1 ciclo de cpu
-[INFO] 17:02:56:236 Team/(20254:20257): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:01:236 Team/(20254:20257): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:01:237 Team/(20254:20257): El entrenador de id 2 llegó al pokemon Umbreon.
-[INFO] 17:03:06:237 Team/(20254:20257): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:06:237 Team/(20254:20257): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Umbreon
-[INFO] 17:03:06:237 Team/(20254:20257): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 17:03:06:237 Team/(20254:20257): El pokemon Umbreon ha sido atrapado con exito
-[INFO] 17:03:06:238 Team/(20254:20257): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:24:21:335 Team/(9761:9764): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 20:24:21:336 Team/(9761:9764): El entrenador 2 se mueve a atrapar a Umbreon a la posicion (10, 6)
+[INFO] 20:24:21:337 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:338 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:339 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:339 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:340 Team/(9761:9764): El entrenador de id 2 llegó al pokemon Umbreon.
+[INFO] 20:24:21:345 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:351 Team/(9761:9764): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Umbreon
+[INFO] 20:24:21:354 Team/(9761:9764): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:24:21:355 Team/(9761:9764): El pokemon Umbreon ha sido atrapado con exito
+[INFO] 20:24:21:357 Team/(9761:9764): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[INFO] 17:03:06:238 Team/(20254:20258): Soy el entrenador que va a ejecutar, mi id es: 3.
-[INFO] 17:03:06:238 Team/(20254:20258): El entrenador 3 se mueve a atrapar a Espeon a la posicion (7, 1)
-[INFO] 17:03:11:238 Team/(20254:20258): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:16:239 Team/(20254:20258): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:21:241 Team/(20254:20258): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:21:242 Team/(20254:20258): El entrenador de id 3 llegó al pokemon Espeon.
-[INFO] 17:03:26:243 Team/(20254:20258): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:26:243 Team/(20254:20258): El entrenador 3 hizo el pedido de catch pokemon para esta especie: Espeon
-[INFO] 17:03:26:243 Team/(20254:20258): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 17:03:26:243 Team/(20254:20258): El pokemon Espeon ha sido atrapado con exito
-[INFO] 17:03:26:243 Team/(20254:20258): El entrenador 3 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:24:21:360 Team/(9761:9765): Soy el entrenador que va a ejecutar, mi id es: 3.
+[INFO] 20:24:21:361 Team/(9761:9765): El entrenador 3 se mueve a atrapar a Espeon a la posicion (7, 1)
+[INFO] 20:24:21:362 Team/(9761:9765): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:363 Team/(9761:9765): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:364 Team/(9761:9765): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:364 Team/(9761:9765): El entrenador de id 3 llegó al pokemon Espeon.
+[INFO] 20:24:21:368 Team/(9761:9765): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:373 Team/(9761:9765): El entrenador 3 hizo el pedido de catch pokemon para esta especie: Espeon
+[INFO] 20:24:21:377 Team/(9761:9765): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:24:21:385 Team/(9761:9765): El pokemon Espeon ha sido atrapado con exito
+[INFO] 20:24:21:389 Team/(9761:9765): El entrenador 3 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[INFO] 17:03:26:243 Team/(20254:20259): Soy el entrenador que va a ejecutar, mi id es: 4.
-[INFO] 17:03:26:243 Team/(20254:20259): El entrenador 4 se mueve a atrapar a Vaporeon a la posicion (4, 10)
-[INFO] 17:03:31:243 Team/(20254:20259): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:36:246 Team/(20254:20259): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:41:247 Team/(20254:20259): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:41:247 Team/(20254:20259): El entrenador de id 4 llegó al pokemon Vaporeon.
-[INFO] 17:03:46:248 Team/(20254:20259): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:46:248 Team/(20254:20259): El entrenador 4 hizo el pedido de catch pokemon para esta especie: Vaporeon
-[INFO] 17:03:46:249 Team/(20254:20259): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 17:03:46:249 Team/(20254:20259): El pokemon Vaporeon ha sido atrapado con exito
-[INFO] 17:03:46:249 Team/(20254:20259): El entrenador 4 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:24:21:398 Team/(9761:9766): Soy el entrenador que va a ejecutar, mi id es: 4.
+[INFO] 20:24:21:398 Team/(9761:9766): El entrenador 4 se mueve a atrapar a Vaporeon a la posicion (4, 10)
+[INFO] 20:24:21:400 Team/(9761:9766): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:400 Team/(9761:9766): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:401 Team/(9761:9766): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:401 Team/(9761:9766): El entrenador de id 4 llegó al pokemon Vaporeon.
+[INFO] 20:24:21:403 Team/(9761:9766): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:404 Team/(9761:9766): El entrenador 4 hizo el pedido de catch pokemon para esta especie: Vaporeon
+[INFO] 20:24:21:407 Team/(9761:9766): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:24:21:409 Team/(9761:9766): El pokemon Vaporeon ha sido atrapado con exito
+[INFO] 20:24:21:413 Team/(9761:9766): El entrenador 4 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[WARNING] 17:03:46:249 Team/(20254:20262): Deadlock detectado
-[INFO] 17:03:46:249 Team/(20254:20262): La cantidad de entrenadores en deadlock es 5
-[INFO] 17:03:46:249 Team/(20254:20262): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
-[INFO] 17:03:46:249 Team/(20254:20262): Hay deadlock entre el entrenador 0 y el entrenador 1
-[INFO] 17:03:46:249 Team/(20254:20262): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
-[INFO] 17:03:46:249 Team/(20254:20262): Haciendo el intercambio
-[INFO] 17:03:46:249 Team/(20254:20255): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
-[INFO] 17:03:46:249 Team/(20254:20255): El entrenador 0 se mueve a la posicion de coordenadas (4, 6)
-[INFO] 17:03:51:250 Team/(20254:20255): Ejecuté 1 ciclo de cpu
-[INFO] 17:03:56:251 Team/(20254:20255): Ejecuté 1 ciclo de cpu
-[WARNING] 17:04:00:661 Team/(20254:20254): Team deja de funcionar
-[INFO] 17:04:00:661 Team/(20254:20254): Cerrando team...
+[WARNING] 20:24:21:425 Team/(9761:9769): Deadlock detectado
+[INFO] 20:24:21:428 Team/(9761:9769): La cantidad de entrenadores en deadlock es 5
+[INFO] 20:24:21:444 Team/(9761:9769): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:24:21:475 Team/(9761:9769): Hay deadlock entre el entrenador 0 y el entrenador 1
+[INFO] 20:24:21:488 Team/(9761:9769): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:24:21:491 Team/(9761:9769): Haciendo el intercambio
+[ERROR] 20:24:21:495 Team/(9761:9769): EL ENTRENADOR 1 ES: 0
+[INFO] 20:24:21:501 Team/(9761:9762): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 20:24:21:503 Team/(9761:9762): El entrenador 0 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 20:24:21:508 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[ERROR] 20:24:21:510 Team/(9761:9769): SE HIZO EL POST PARA EL ENTRENADOR 1 ES: 0
+[INFO] 20:24:21:514 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:521 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:525 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:529 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:531 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:533 Team/(9761:9762): El entrenador de id 0 llegó a la posicion del entrenador de id 1
+[INFO] 20:24:21:540 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:544 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:547 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:549 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:551 Team/(9761:9762): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:573 Team/(9761:9762): Se intercambiaron los pokemones Jolteon y Flareon entre los entrenadores 0 y 1
+[INFO] 20:24:21:587 Team/(9761:9769): Luego de hacer un intercambio el entrenador 0 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 20:24:21:605 Team/(9761:9763): El entrenador 1 finalizo
+[WARNING] 20:24:21:622 Team/(9761:9769): Deadlock detectado
+[INFO] 20:24:21:624 Team/(9761:9769): La cantidad de entrenadores en deadlock es 4
+[INFO] 20:24:21:626 Team/(9761:9769): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:24:21:629 Team/(9761:9769): Hay deadlock entre el entrenador 2 y el entrenador 3
+[INFO] 20:24:21:639 Team/(9761:9769): El entrenador 3 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:24:21:641 Team/(9761:9769): Haciendo el intercambio
+[ERROR] 20:24:21:642 Team/(9761:9769): EL ENTRENADOR 1 ES: 2
+[INFO] 20:24:21:645 Team/(9761:9764): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
+[INFO] 20:24:21:645 Team/(9761:9764): El entrenador 2 se mueve a la posicion de coordenadas (7, 1)
+[INFO] 20:24:21:647 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:648 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[ERROR] 20:24:21:648 Team/(9761:9769): SE HIZO EL POST PARA EL ENTRENADOR 1 ES: 2
+[INFO] 20:24:21:649 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:651 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:653 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:655 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:656 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:659 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:660 Team/(9761:9764): El entrenador de id 2 llegó a la posicion del entrenador de id 3
+[INFO] 20:24:21:663 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:665 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:667 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:669 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:671 Team/(9761:9764): Ejecuté 1 ciclo de cpu
+[INFO] 20:24:21:674 Team/(9761:9764): Se intercambiaron los pokemones Umbreon y Espeon entre los entrenadores 2 y 3
+[INFO] 20:24:21:681 Team/(9761:9769): Luego de hacer un intercambio el entrenador 2 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 20:24:21:682 Team/(9761:9765): El entrenador 3 finalizo
+[WARNING] 20:24:21:683 Team/(9761:9769): Deadlock detectado
+[INFO] 20:24:21:684 Team/(9761:9769): La cantidad de entrenadores en deadlock es 3
+[INFO] 20:24:21:685 Team/(9761:9769): El entrenador 4 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:24:21:687 Team/(9761:9769): Hay deadlock entre el entrenador 4 y el entrenador 0
+[INFO] 20:24:21:691 Team/(9761:9769): El entrenador 0 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:24:21:695 Team/(9761:9769): Haciendo el intercambio
+[ERROR] 20:24:21:697 Team/(9761:9769): EL ENTRENADOR 1 ES: 4
+[ERROR] 20:24:21:699 Team/(9761:9769): SE HIZO EL POST PARA EL ENTRENADOR 1 ES: 4
+[WARNING] 20:29:08:320 Team/(9761:9761): Team deja de funcionar
+[INFO] 20:29:08:342 Team/(9761:9761): Cerrando team...

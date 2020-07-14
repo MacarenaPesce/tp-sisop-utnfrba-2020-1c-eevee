@@ -43,33 +43,31 @@ void realizar_las_operaciones_de_deadlock(t_entrenador * entrenador){
 	while(GLOBAL_SEGUIR){
 
 		sem_wait(&array_semaforos_deadlock[entrenador->id]);
-		t_semaforo_deadlock * sem_entrenador_deadlock = obtener_semaforo_deadlock_por_id(entrenador->id);
-
+		
 		if(!objetivo_personal_cumplido(entrenador)){
-			sem_wait(sem_entrenador_deadlock->semaforo);
 			log_info(team_logger, "Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: %d.", entrenador->id);
 
 			mover_entrenador_a_otra_posicion(entrenador);
 			realizar_intercambio(entrenador);
 
+			/*Si luego de realizar el intercambio cumplio su objetivo personal, sale del while*/
 			if(objetivo_personal_cumplido(entrenador)){
 				break;
 			}
 
 		}else{
-
-			if(objetivo_personal_cumplido(entrenador)){
-				break;
-			}
+			break;
 		}
+		
 	}
 
 	sem_wait(&array_semaforos_finalizar[entrenador->id]);
 	log_debug(team_logger, "El entrenador %d finalizo", entrenador->id);
 	log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 	sem_post(&todos_los_entrenadores_finalizaron);
+	sem_post(&puedo_volver_a_ejecutar);
 
-	sem_post(&chequeo_de_deadlock);
+	//sem_post(&chequeo_de_deadlock);
 
 }
 
@@ -285,7 +283,6 @@ void realizar_intercambio(t_entrenador* entrenador1){
 	pthread_mutex_lock(&lista_comun_deadlock);
 	sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador2->id);
 	pthread_mutex_unlock(&lista_comun_deadlock);
-
 
 	//AVISAR A DEADLOCK
 	sem_post(&aviso_entrenador_hizo_intercambio);

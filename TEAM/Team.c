@@ -139,8 +139,12 @@ void localizar_entrenadores_en_mapa(){
 
 	log_info(team_logger,"Entrenadores ubicados\n");
 
-	list_destroy_and_destroy_elements(lista_pokemones_de_entrenador,(void*)destruir_pokemon);
-	list_destroy_and_destroy_elements(lista_objetivos_de_entrenador,(void*)destruir_objetivo);
+
+	list_destroy(lista_pokemones_de_entrenador);
+	list_destroy(lista_objetivos_de_entrenador);
+	free(posiciones_entrenadores);
+	free(pokemon_entrenadores);
+	free(objetivos_entrenadores);
 
 }
 
@@ -502,8 +506,6 @@ int main(){
 	inicializar_semaforos();
 	configurar_signals();
 	inicializar_listas();
-
-	hayDeadlock = false;
 
 	definir_objetivo_global();
 	localizar_entrenadores_en_mapa();
