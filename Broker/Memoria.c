@@ -212,7 +212,7 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 //------------------------------BUDDY SYSTEM----------------------------------
 void buddy_system( t_mensaje_cola* estructura_mensaje){
 
-    if(debug_broker) log_debug(broker_logger, "Buddy System");
+    //if(debug_broker) log_debug(broker_logger, "Buddy System");
 
     buddy_funcionamiento(estructura_mensaje);
 
