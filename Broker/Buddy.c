@@ -205,7 +205,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 	/* Obtengo el indice de la particion a particionar*/
 	int indice_nodo_particionar = obtener_indice_particion(particion_inicial);
 
-	if(debug_broker) log_debug(broker_logger,"Puedo particionar el bloque y achicarlo  %", puedo_particionar);
+	if(debug_broker) log_debug(broker_logger,"Puedo particionar el bloque y achicarlo %d", puedo_particionar);
 
 	/* Mientras pueda particionar
 		1- Tengo que crear una nueva particion del tamaño divido 2, 
@@ -282,6 +282,8 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 	algoritmos de reemplazo*/
 t_bloque_memoria* reemplazar_bloque_BS(){
 
+    if(debug_broker) log_debug(broker_logger,"Por ejecutar algoritmo de reemplazo %s", algoritmo_reemplazo);
+
 	t_bloque_memoria* bloque_eliminado;
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
@@ -291,6 +293,9 @@ t_bloque_memoria* reemplazar_bloque_BS(){
     else{
         bloque_eliminado = algoritmo_fifo();
     }
+
+    if(debug_broker) log_debug(broker_logger,"Termine de ejecutar el reemplazo");
+    printf("\n");
 
 	return bloque_eliminado;
 }
@@ -324,8 +329,14 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true 
 		&& son_buddies(bloque,bloque_siguiente)){
 
+		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre");
+		
 		/* Si cumple con las condiciones, consolido bloques*/
 		consolidar_bloques_buddies(bloque,bloque_siguiente);
+
+		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
+		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
+		printf("\n");
 
 		/* Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar*/
 		consolidacion_BS(bloque);
@@ -334,13 +345,23 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true 
 		&& son_buddies(bloque_anterior,bloque)){
 
+		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre");
+
 		/* Si cumple con las condiciones, consolido bloques*/
 		consolidar_bloques_buddies(bloque_anterior,bloque);
+
+		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
+		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
+		printf("\n");
 
 		/* Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar*/
 		consolidacion_BS(bloque);
 	}
+    
+	if(debug_broker) log_debug(broker_logger,"No tengo más buddies libres.");
 
+	if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
+    printf("\n");
 
 	return ;
 }
@@ -355,7 +376,7 @@ bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_sig
 	if(bloque_anterior->tamanio_particion == bloque_siguiente->tamanio_particion){
 
 		/* ACA VIENE LA PARTE DEL XOR */
-		return ((int)bloque_anterior->estructura_mensaje) == ((int)bloque_siguiente->estructura_mensaje * bloque_anterior->tamanio_particion);
+		return ((int)bloque_anterior->estructura_mensaje) == ((int)bloque_siguiente->estructura_mensaje ^ bloque_anterior->tamanio_particion);
 
 	}
 	else{

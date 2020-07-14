@@ -619,9 +619,11 @@ void consolidar(t_bloque_memoria* bloque){
     t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria,(indice_bloque+1));
 
     if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true){
+        if(debug_broker) log_debug(broker_logger,"Realizando consolidacion");
         consolidar_dos_bloques(bloque,bloque_siguiente);
     }
     if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true){
+       if(debug_broker) log_debug(broker_logger,"Realizando consolidacion");
         consolidar_dos_bloques(bloque_anterior,bloque);
     }
 
