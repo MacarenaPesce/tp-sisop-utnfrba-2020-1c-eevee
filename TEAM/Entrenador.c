@@ -129,7 +129,7 @@ atrapado con éxito.*/
 	servidor->id_cliente = id;
 
 	if(!fijarme_si_debo_atraparlo_usando_el_objetivo_global(entrenador->objetivo_actual->especie)){
-		log_warning(team_logger, "No necesito esta especie l134");
+		log_warning(team_logger, "No necesitamos mas de esta especie %s", entrenador->objetivo_actual->especie);
 		entrenador->razon_de_bloqueo = ESPERANDO_POKEMON;
 		bloquear_entrenador(entrenador);
 		return;
@@ -187,25 +187,25 @@ void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 	log_info(team_logger_oficial, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
 	//Primero me muevo por izq
 	while(entrenador1->posx < entrenador1->objetivo_actual->posx){
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 		entrenador1->posx = entrenador1->posx + 1;
 	}
 
 	//Despues me muevo por derecha
 	while(entrenador1->posx > entrenador1->objetivo_actual->posx){
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 		entrenador1->posx = entrenador1->posx - 1;
 	}
 
 	//Despues me muevo por arriba
 	while(entrenador1->posy > entrenador1->objetivo_actual->posy){
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 		entrenador1->posy = entrenador1->posy - 1;
 	}
 
 	//Despues me muevo por abajo
 	while(entrenador1->posy < entrenador1->objetivo_actual->posy){
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 		entrenador1->posy = entrenador1->posy + 1;
 	}
 
@@ -220,30 +220,30 @@ t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
 	t_objetivo_entrenador* pokemon_innecesario = malloc(sizeof(t_objetivo_entrenador));
 	for (int i = 0; i < list_size(entrenador->pokemones); i++){
 		t_objetivo_entrenador* pokemon_en_posesion = list_get(entrenador->pokemones, i);
+		log_info(team_logger, "Un pokemon en posesion de %i es %s, cantidad %i", entrenador->id, pokemon_en_posesion->especie, pokemon_en_posesion->cantidad);
 		t_objetivo_entrenador* pokemon_objetivo = buscar_pokemon_objetivo_por_especie(entrenador->objetivo, pokemon_en_posesion->especie);
-		if(pokemon_objetivo != NULL){
-			signed int cantidad_necesitada = pokemon_objetivo->cantidad;
-			if(cantidad_necesitada < 0){
-				log_info(team_logger, "La cantidad necesitada es negativa, por ende tengo mas de los que necesito");
-					pokemon_innecesario = pokemon_en_posesion;
-					//pokemon_objetivo->cantidad++;
-					//log_info(team_logger, "La nueva cantidad necesitada de este poke es %i", pokemon_objetivo->cantidad);
-			} else {
-				//break;
-			}
-				break;
-		}else{
+
+		if(pokemon_objetivo == NULL){
 			pokemon_innecesario = pokemon_en_posesion;
+			break;
+		}
+		signed int cantidad_necesitada = pokemon_objetivo->cantidad;
+		if(pokemon_objetivo != NULL && cantidad_necesitada < 0) {
+			log_info(team_logger, "La cantidad necesitada es negativa, por ende tengo mas de los que necesito");
+			pokemon_innecesario = pokemon_en_posesion;
+			pokemon_objetivo->cantidad++;
+			break;
 		}
 	}
 
+	log_info(team_logger, "El pokemon innecesario es %s", pokemon_innecesario->especie);
 	return pokemon_innecesario;
 }
 
 void realizar_intercambio(t_entrenador* entrenador1){
 
 	for (int ciclo = 0; ciclo < 5; ciclo++){ //cada intercambio consume 5 ciclos de cpu
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 	}
 
 	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
@@ -265,6 +265,7 @@ void realizar_intercambio(t_entrenador* entrenador1){
 	if(pokemon1_nuevo != NULL){ //si es una especie que E1 queria, le resto la cantidad necesitada
 		pokemon1_nuevo->cantidad--;
 	}
+
 	pokemon1->cantidad--;
 	list_add(entrenador1->pokemones, pokemon2); //si no es una especie que yo necesitaba, agrego este pokemon a la de atrapados por E1
 

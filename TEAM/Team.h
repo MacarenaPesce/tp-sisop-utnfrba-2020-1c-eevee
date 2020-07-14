@@ -29,7 +29,7 @@ void chequear_si_fue_cumplido_el_objetivo_global();
 void hacer_procedimiento_para_atrapar_default(t_catch_pokemon*, t_entrenador *);
 void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_entrenador *);
 void bloquear_entrenador(t_entrenador*);
-void consumir_un_ciclo_de_cpu();
+void consumir_un_ciclo_de_cpu(t_entrenador*);
 void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador*);
 void crear_hilo_para_tratamiento_de_mensajes();
 bool chequear_si_recibi_appeared_de_especie_antes(char *);

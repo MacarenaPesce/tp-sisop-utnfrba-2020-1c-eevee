@@ -180,6 +180,16 @@ void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
 		log_info(team_logger, "Objetivo global cumplido!!!!! :D");
 		printf("************************************************************************************************************");
 		printf("\n");
+
+		log_info(team_logger,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
+		log_info(team_logger,"La cantidad de cambios de contextos realizados es: %i", cambios_de_contexto);
+		for (int i = 0; i < MAXIMO_ENTRENADORES; i++){
+			t_entrenador* entrenador = list_get(lista_finalizar, i);
+			log_info(team_logger, "La cantidad de ciclos de CPU realizados por el entrenador %i es: %i", entrenador->id, entrenador->ciclos_de_cpu);
+		}
+		log_info(team_logger, "La cantidad de deadlocks producidos es: %i", deadlocks_producidos);
+		log_info(team_logger, "La cantidad de deadlocks resueltos es: %i", deadlocks_resueltos);
+
 		terminar_team_correctamente();
 	}
 }

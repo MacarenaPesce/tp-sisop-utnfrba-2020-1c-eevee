@@ -164,6 +164,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->desalojado = false;
 	entrenador->agoto_quantum = false;
 	entrenador->quantum_restante = quantum;
+	entrenador->ciclos_de_cpu = 0;
 
 	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
 	entrenador->pokemones = list_create();
@@ -292,7 +293,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 	switch(entrenador->razon_de_bloqueo){
 		case ESPERANDO_POKEMON:
-
+			log_info(team_logger,"La estimacion de este entrenador al bloquearse es %f", entrenador->estimacion_real);
 			list_add(lista_bloqueados_esperando, (void*)entrenador);
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
@@ -342,8 +343,9 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 }
 
-void consumir_un_ciclo_de_cpu(){
+void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 	ciclos_de_cpu++;
+	entrenador->ciclos_de_cpu++;
 	sleep(retardo_ciclo_cpu);
 	log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 }
@@ -351,38 +353,47 @@ void consumir_un_ciclo_de_cpu(){
 void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 	if((!strcmp(algoritmo_planificacion, "FIFO"))){
 		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 	}
 
 	if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
 		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
 		entrenador->ejec_anterior = 0;
-
-		estimar_entrenador(entrenador);
 	}
 
-	/*if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+	if(!strcmp(algoritmo_planificacion, "SJF-CD")){
 		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
-
+		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 		entrenador_en_ejecucion->instruccion_actual++;
 		entrenador_en_ejecucion->estimacion_actual--;
+		log_info(team_logger, "Mi estimacion actual es %f", entrenador_en_ejecucion->estimacion_actual);
 		entrenador_en_ejecucion->ejec_anterior = 0;
 
 		if(desalojo_en_ejecucion){
-			confirmar_desalojo_en_ejecucion();
-			me_desalojaron = true;
+			entrenador_en_ejecucion = NULL;
+			pthread_mutex_lock(&lista_listos_mutex);
+			list_add(lista_listos, entrenador);
+			pthread_mutex_unlock(&lista_listos_mutex);
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+
+			sem_post(&orden_para_planificar);
+			sem_wait(&array_semaforos[entrenador->id]);
 		}
-	}*/
+	}
 
 	if(!strcmp(algoritmo_planificacion, "RR")){
 		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 
 		if(entrenador->quantum_restante > 0){
@@ -461,7 +472,6 @@ void * tratamiento_de_mensajes(){
 
 			if(mensaje_buscado != NULL){
 				if(!chequear_si_recibi_appeared_de_especie_antes(((t_localized_pokemon *)(mensaje->contenido))->pokemon)){
-					t_objetivo * objetivo = buscar_pokemon_por_especie(lista_objetivos, ((t_localized_pokemon *)(mensaje->contenido))->pokemon);
 					int contador = 0;
 					for(int i = 0; i < contenido->cantidad_coordenadas; i++){
 						t_coordenadas * coord = malloc(sizeof(t_coordenadas));

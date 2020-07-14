@@ -59,7 +59,7 @@ extern int tiempo_reconexion;
 extern int retardo_ciclo_cpu;
 extern char* algoritmo_planificacion;
 extern int quantum;
-extern int alpha;
+extern float alpha;
 extern char* ip_broker;
 extern int estimacion_inicial;
 extern char* puerto_broker;
@@ -75,6 +75,10 @@ extern int CANTIDAD_EN_DEADLOCK;
 extern bool hayPokeNuevo;
 extern uint32_t quantum_actual;
 extern bool desalojo_en_ejecucion;
+
+extern uint32_t cambios_de_contexto;
+extern uint32_t deadlocks_producidos;
+extern uint32_t deadlocks_resueltos;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
@@ -198,6 +202,7 @@ typedef struct {
 	bool desalojado;
 	uint32_t quantum_restante;
 	bool agoto_quantum;
+	uint32_t ciclos_de_cpu;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
