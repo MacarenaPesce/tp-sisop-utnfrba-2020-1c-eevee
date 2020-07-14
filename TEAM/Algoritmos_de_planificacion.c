@@ -21,15 +21,7 @@ void * planificar(){
 				entrenador_por_desalojar = nuevo_entrenador;
 			}
 		}
-
-		if((!strcmp(algoritmo_planificacion, "RR"))){
-			if(entrenador_en_ejecucion!=NULL && entrenador_en_ejecucion->quantum_restante == 0){
-				log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
-				desalojo_en_ejecucion = true;
-				entrenador_por_desalojar = nuevo_entrenador;
-			}
-		}
-		entrenador_por_desalojar = nuevo_entrenador;*/
+*/
 
 		obtener_proximo_ejecucion();
 	}
@@ -60,6 +52,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 		i++;
 		if(i == cantidad_entrenadores){
 			entrenador_mas_cercano->objetivo_actual = pokemon;
+			
 			pthread_mutex_lock(&lista_listos_mutex);
 
 			if((!strcmp(algoritmo_planificacion, "SJF-CD")) || (!strcmp(algoritmo_planificacion, "SJF-SD"))){
@@ -68,10 +61,13 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
 			pthread_mutex_unlock(&lista_listos_mutex);
+			
 			nuevo_entrenador = entrenador_mas_cercano;
+			
 			pthread_mutex_lock(&lista_entrenadores_mutex);
 			sacar_entrenador_de_lista_pid(lista_entrenadores, entrenador_mas_cercano->id);
 			pthread_mutex_unlock(&lista_entrenadores_mutex);
+			
 			break;
 		}
 		otro_entrenador = list_get(lista_aux, i);
@@ -134,87 +130,45 @@ void desalojar_ejecucion(void){
 int estimar_entrenador(t_entrenador * entrenador){
 
 	entrenador->estimacion_anterior = entrenador->estimacion_real;
-
 	entrenador->estimacion_real = ((alpha/100)*entrenador->instruccion_actual) + ((1-(alpha/100))*entrenador->estimacion_real);
-
 	entrenador->estimacion_actual  = entrenador->estimacion_real;
 	entrenador->instruccion_actual = 0;
 
 	return 0;
 }
 
-void ordenar_lista_prioridades(t_list* lista){
-	t_list * lista_aux_mayor_prioridad;
-	lista_aux_mayor_prioridad = list_create();
-
-	t_list * lista_aux_menor_prioridad;
-	lista_aux_menor_prioridad = list_create();
-
-	t_list *lista_aux = list_duplicate(lista);
-	for(int i = 0; i < list_size(lista_aux); i++){
-		t_entrenador * entrenador = list_get(lista_aux,i);
-		log_info(team_logger, "ID DE ENTRENADOR %d", entrenador->id);
-		if(entrenador->agoto_quantum){
-			list_add(lista_aux_menor_prioridad, entrenador);
-		} else {
-			list_add(lista_aux_mayor_prioridad, entrenador);
-		}
-	}
-	list_clean(lista);
-	list_add_all(lista,lista_aux_mayor_prioridad);
-	list_add_all(lista,lista_aux_menor_prioridad);
-
-	list_destroy(lista_aux);
-	list_destroy(lista_aux_mayor_prioridad);
-	list_destroy(lista_aux_menor_prioridad);
-
-}
-
 void obtener_proximo_ejecucion(void){
-	/*Para planificar a los distintos entrenadores se utilizarán los algoritmos FIFO, Round Robin y Shortest job first con y sin desalojo. Para este último algoritmo
-	 *se desconoce la próxima rafaga, por lo que se deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos los entrenadore
-	 *se s será la misma y deberá poder ser modificable por archivo de configuración */
-
-	t_entrenador * ejec_ant;
-	t_list * lista_aux;
-
-	ejec_ant = entrenador_en_ejecucion;
-
-	/* SJF debe copiar la lista de listos a una lista auxiliar, ordenarla por estimacion mas corta, tomar el primero, destruir la lista auxiliar. Eso para ambos casos */
-
-	lista_aux = list_duplicate(lista_listos);
-
-	log_info(team_logger, "Planificando por %s", algoritmo_planificacion);
-	printf("\n");
+	/*Para planificar a los distintos entrenadores se utilizarán los algoritmos FIFO, Round Robin y Shortest job first con y sin desalojo. Para este último 
+	algoritmo se desconoce la próxima rafaga, por lo que se deberá utilizar la fórmula de la media exponencial. A su vez, la estimación inicial para todos 
+	los entrenadores será la misma y deberá poder ser modificable por archivo de configuración */
 
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
-		log_info(team_logger, "Ordenando la lista de estimacion");
-		ordenar_lista_estimacion(lista_aux);
-	}
-
-	if( (!strcmp(algoritmo_planificacion, "RR"))){
-		log_info(team_logger, "Ordenando la lista de prioridades");
-		ordenar_lista_prioridades(lista_aux);
+		ordenar_lista_estimacion(lista_listos);
 	}
 
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
-	//entrenador_desalojado = NULL;
-	entrenador_en_ejecucion = list_remove(lista_aux,0);
-	if(!list_is_empty(lista_listos)){
-		pthread_mutex_lock(&lista_listos_mutex);
-		entrenador_en_ejecucion = sacar_entrenador_de_lista_pid(lista_listos, entrenador_en_ejecucion->id);
-		pthread_mutex_unlock(&lista_listos_mutex);
 
-		entrenador_en_ejecucion->estado = EJECUTANDO;
-
-		sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);
+	if(entrenador_en_ejecucion != NULL){
+		/* Hay un entrenador ejecutando */
+		return;
 	}
-	else{
+
+	if(list_is_empty(lista_listos)){
 		entrenador_en_ejecucion = NULL;
-		log_info(team_logger, "No hay entrenadores para ejecutar!");
+		/* No hay entrenadores para ejecutar! */
+		return;
 	}
 
-	list_destroy(lista_aux);
+	entrenador_en_ejecucion = list_get(lista_listos,0);
 
+	pthread_mutex_lock(&lista_listos_mutex);
+	entrenador_en_ejecucion = sacar_entrenador_de_lista_pid(lista_listos, entrenador_en_ejecucion->id);
+	pthread_mutex_unlock(&lista_listos_mutex);
+
+	entrenador_en_ejecucion->estado = EJECUTANDO;
+
+	sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);
+	//log_debug(team_logger, "MANDE A EJECUTAR AL ENTRENADOR %d", entrenador_en_ejecucion->id);
+	
 	return;
 }
