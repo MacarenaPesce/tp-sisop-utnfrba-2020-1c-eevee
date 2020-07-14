@@ -192,7 +192,6 @@ void sacar_de_objetivos_pokemones_atrapados(t_list* lista_de_objetivos, t_list* 
 			if(objetivo->cantidad >= pokemon->cantidad){
 				objetivo->cantidad -= pokemon->cantidad;
 				objetivo_global->cantidad_atrapada += pokemon->cantidad;
-				//Qobjetivo_global->cantidad_necesitada -= pokemon->cantidad;
 			} else {
 				objetivo->cantidad = 0;
 				objetivo_global->cantidad_atrapada += pokemon->cantidad - objetivo->cantidad;
