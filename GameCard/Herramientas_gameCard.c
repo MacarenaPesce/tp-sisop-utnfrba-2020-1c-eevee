@@ -64,7 +64,6 @@ void obtener_ip_broker(){
 void obtener_tiempo_retardo_operacion(){
 	tiempo_retardo_operacion =
 			config_get_int_value(config_game_card,KEY_TIEMPO_RETARDO_OPERACION);
-	log_info(gameCard_logger,"validame valor de ratardo %d", tiempo_retardo_operacion);
 }
 
 

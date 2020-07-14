@@ -17,12 +17,12 @@ int main() {
 	abrirBitmap();
 	inicializarSemaforosParaPokemon();
 
-	//convertirse_en_suscriptor_global_del_broker();
-
 	/*Esto es lo necesario para comunicarse con gameboy*/
 	int serv_socket = iniciar_servidor(PUERTO);
 
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
+
+	convertirse_en_suscriptor_global_del_broker();
 
 	desconectarFs();
 	terminar_game_card();
