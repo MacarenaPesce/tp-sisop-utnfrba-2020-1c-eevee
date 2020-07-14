@@ -189,25 +189,25 @@ void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 	log_info(team_logger_oficial, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
 	//Primero me muevo por izq
 	while(entrenador1->posx < entrenador1->objetivo_actual->posx){
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 		entrenador1->posx = entrenador1->posx + 1;
 	}
 
 	//Despues me muevo por derecha
 	while(entrenador1->posx > entrenador1->objetivo_actual->posx){
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 		entrenador1->posx = entrenador1->posx - 1;
 	}
 
 	//Despues me muevo por arriba
 	while(entrenador1->posy > entrenador1->objetivo_actual->posy){
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 		entrenador1->posy = entrenador1->posy - 1;
 	}
 
 	//Despues me muevo por abajo
 	while(entrenador1->posy < entrenador1->objetivo_actual->posy){
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 		entrenador1->posy = entrenador1->posy + 1;
 	}
 
@@ -245,7 +245,7 @@ t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
 void realizar_intercambio(t_entrenador* entrenador1){
 
 	for (int ciclo = 0; ciclo < 5; ciclo++){ //cada intercambio consume 5 ciclos de cpu
-		consumir_un_ciclo_de_cpu();
+		consumir_un_ciclo_de_cpu(entrenador1);
 	}
 
 	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));

@@ -160,6 +160,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->desalojado = false;
 	entrenador->agoto_quantum = false;
 	entrenador->quantum_restante = quantum;
+	entrenador->ciclos_de_cpu = 0;
 
 	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
 	entrenador->pokemones = list_create();
@@ -338,8 +339,9 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 }
 
-void consumir_un_ciclo_de_cpu(){
+void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 	ciclos_de_cpu++;
+	entrenador->ciclos_de_cpu++;
 	sleep(retardo_ciclo_cpu);
 	log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 }
@@ -347,12 +349,14 @@ void consumir_un_ciclo_de_cpu(){
 void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 	if((!strcmp(algoritmo_planificacion, "FIFO"))){
 		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 	}
 
 	if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
 		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 
@@ -363,6 +367,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 
 	if(!strcmp(algoritmo_planificacion, "SJF-CD")){
 		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 		entrenador_en_ejecucion->instruccion_actual++;
@@ -384,6 +389,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 
 	if(!strcmp(algoritmo_planificacion, "RR")){
 		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 
 		if(entrenador->quantum_restante > 0){

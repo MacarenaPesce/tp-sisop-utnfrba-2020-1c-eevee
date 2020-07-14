@@ -76,6 +76,10 @@ extern bool hayPokeNuevo;
 extern uint32_t quantum_actual;
 extern bool desalojo_en_ejecucion;
 
+extern uint32_t cambios_de_contexto;
+extern uint32_t deadlocks_producidos;
+extern uint32_t deadlocks_resueltos;
+
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
 extern t_config* config;
@@ -197,6 +201,7 @@ typedef struct {
 	bool desalojado;
 	uint32_t quantum_restante;
 	bool agoto_quantum;
+	uint32_t ciclos_de_cpu;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
