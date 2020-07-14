@@ -64,6 +64,7 @@ void obtener_ip_broker(){
 void obtener_tiempo_retardo_operacion(){
 	tiempo_retardo_operacion =
 			config_get_int_value(config_game_card,KEY_TIEMPO_RETARDO_OPERACION);
+	log_info(gameCard_logger,"validame valor de ratardo %d", tiempo_retardo_operacion);
 }
 
 
@@ -74,7 +75,6 @@ void obtener_puerto_broker(){
 
 void terminar_game_card(){
 	/*Aca deberias liberar todas las estructuras que usaste!!*/
-	liberarMemoria();
 
 	log_info(gameCard_logger,"llegando al final");
 	log_info(gameCard_logger,"liberando recursos");
