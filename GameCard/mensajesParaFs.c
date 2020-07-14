@@ -104,34 +104,4 @@ t_list* operar_con_get_pokemon(t_get_pokemon* poke){
 
 }
 
-void agregarSemaforoPokemon(char* poke){
 
-	pthread_mutex_lock(&mutexSemPokemones);
-
-	if  (!dictionary_has_key(semaforosPokemon,poke)){
-
-		static pthread_mutex_t semPoke=PTHREAD_MUTEX_INITIALIZER;
-
-			dictionary_put(semaforosPokemon,poke,&semPoke);
-
-			log_info(gameCard_logger,"Se agrega un semáforo "
-						"para la metadata del pokemon %s", poke);
-
-	}
-
-	pthread_mutex_unlock(&mutexSemPokemones);
-
-}
-
-void eliminarSemaforoPokemon(char* poke){
-
-	pthread_mutex_lock(&mutexSemPokemones);
-
-	dictionary_remove(semaforosPokemon,poke);
-
-	 pthread_mutex_unlock(&mutexSemPokemones);
-
-	 log_info(gameCard_logger,"se elimina el "
-			 "semáforo de la metadata del pokemon %s", poke);
-
-}

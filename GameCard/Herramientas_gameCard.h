@@ -5,7 +5,6 @@
 #define HERRAMIENTAS_GAMECARD_H_
 
 #include "Contexto_gameCard.h"
-#include "formatoFs.h"
 
 void inicializar_logger();
 void inicializar_archivo_de_configuracion();
@@ -20,7 +19,5 @@ void obtener_tiempo_retardo_operacion();
 void capturar_signal(int);
 void configurar_signal_gc();
 void obtener_el_id();
-
-void liberarMemoria();
 
 #endif /* HERRAMIENTAS_GAMECARD_H_ */

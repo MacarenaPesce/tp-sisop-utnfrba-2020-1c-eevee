@@ -15,7 +15,7 @@ int main() {
 	}
 
 	abrirBitmap();
-	inicializarSemaforoPokemon();
+	inicializarSemaforosParaPokemon();
 
 	//convertirse_en_suscriptor_global_del_broker();
 

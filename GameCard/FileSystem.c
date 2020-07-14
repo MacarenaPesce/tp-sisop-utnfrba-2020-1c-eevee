@@ -21,7 +21,7 @@ int cantBloquesLibres() {
 
 	int libres = 0;
 
-	pthread_mutex_lock(&mutexBitmap);
+	pthread_mutex_lock(&semMutexBitmap);
 
 	for (int j = 1; j <= bitarray_get_max_bit(bitarray); j++) {
 
@@ -31,7 +31,7 @@ int cantBloquesLibres() {
 		}
 	}
 
-	pthread_mutex_unlock(&mutexBitmap);
+	pthread_mutex_unlock(&semMutexBitmap);
 
 	return libres;
 }
@@ -106,16 +106,12 @@ void marcarBloqueOcupado(int bloqueLibre) {
 
 	log_info(gameCard_logger, " el bloque %d pasará a estar ocupado en el bitmap",bloqueLibre);
 
-	pthread_mutex_lock(&mutexBitmap);
-
 	bitarray_set_bit(bitarray, bloqueLibre);
 
 	log_info(gameCard_logger, "efectivamente paso a tener le valor : %d en el bitmap ",
 			bitarray_test_bit(bitarray, bloqueLibre));
 
 	msync(bitarray, sizeof(bitarray), MS_SYNC);
-
-	pthread_mutex_unlock(&mutexBitmap);
 
 }
 
@@ -173,9 +169,8 @@ void crearMetadataArchPoke(char* pokemon, int tamanio) {
 
 	for (int i = 0; i < tamanioMaxList; i++) {
 
-		log_info(gameCard_logger, "aca entra en for");
-		log_info(gameCard_logger, "pos %d y elem : %s", i,
-				list_get(bloquesMetadataPokemon, i));
+		//log_info(gameCard_logger, "aca entra en for");
+		//log_info(gameCard_logger, "pos %d y elem : %s", i,list_get(bloquesMetadataPokemon, i));
 
 		string_append(&lineaBloquesOcupados,
 				list_get(bloquesMetadataPokemon, i));
@@ -228,7 +223,6 @@ void copiarEnArchivo(int fd, char* dato, int tamanioDato) {
 
 int obtenerPrimerBloqueLibre() {
 
-	pthread_mutex_lock(&mutexBitmap);
 
 	for (int i = 1; i <= bitarray_get_max_bit(bitarray); i++) {
 
@@ -240,7 +234,6 @@ int obtenerPrimerBloqueLibre() {
 
 	}
 
-	pthread_mutex_unlock(&mutexBitmap);
 	return -1;
 }
 
@@ -267,14 +260,13 @@ void crearPokemon(t_new_pokemon* poke) {
 
 	bloquesNuevos = list_create();
 
+	pthread_mutex_lock(&semMutexBitmap);
 	bloquesNuevos = obtenerBloquesNuevos(cantBloquesNecesarios);
-
 	list_iterate(bloquesNuevos, persistirCambiosEnBloquesPropios);
-
+	pthread_mutex_unlock(&semMutexBitmap);
 	//veer aca que se puede colgar el semaforo
-	pthread_mutex_lock(dictionary_get(semaforosPokemon,poke->pokemon));
+
 	crearMetadataArchPoke(poke->pokemon, string_length(posAcopiar));
-	pthread_mutex_unlock(dictionary_get(semaforosPokemon,poke->pokemon));
 
 	log_info(gameCard_logger,"se ha creado con éxito el archivo del pokemon %s", poke->pokemon);
 }
@@ -888,10 +880,11 @@ t_list* obtenerBloquesNuevos(int cantBloqNecesarios) {
 
 	bloquesLibres = list_create();
 
+
+
 	while (cantBloqNecesarios != 0) {
 
 		int bloqLib = obtenerPrimerBloqueLibre();
-
 
 		log_info(gameCard_logger,"se le asigna al pokemon el bloque %d", bloqLib);
 
@@ -1298,13 +1291,13 @@ void marcarBloquesLibres(t_list* bloquesOcupados) {
 
 void marcarBloqueLibreBitmap(int numBloque) {
 
-	pthread_mutex_lock(&mutexBitmap);
+	pthread_mutex_lock(&semMutexBitmap);
 
 	bitarray_clean_bit(bitarray, numBloque);
 
 	msync(bitarray, sizeof(bitarray), MS_SYNC);
 
-	pthread_mutex_unlock(&mutexBitmap);
+	pthread_mutex_unlock(&semMutexBitmap);
 
 	log_info(gameCard_logger,"se ha marcado como libre en el bitmap el bloque %d",numBloque);
 
@@ -1478,3 +1471,56 @@ void agregarPosicionAlistaParaLocalized(char* posicion){
 
 	list_add(pokemonesParaLocalized, posicion);
 }
+
+
+void liberarMemoria() {
+	//aca empezar a liberar memoria
+	free(rutas_fs);
+	free(metadata_fs);
+	//munmap(bmap, tamBmap);
+	bitarray_destroy(bitarray);
+	config_destroy(config_game_card);
+}
+
+/*************************semáforos****************************/
+
+void agregarSemaforoPokemon(char* poke){
+
+	pthread_mutex_lock(&mutexSemPokemones);
+
+	if  (!dictionary_has_key(semaforosPokemon,poke)){
+
+		static pthread_mutex_t semPoke=PTHREAD_MUTEX_INITIALIZER;
+
+			dictionary_put(semaforosPokemon,poke,&semPoke);
+
+			log_info(gameCard_logger,"Se agrega un semáforo "
+						"para la metadata del pokemon %s", poke);
+
+	}
+
+	pthread_mutex_unlock(&mutexSemPokemones);
+
+}
+
+void eliminarSemaforoPokemon(char* poke){
+
+	pthread_mutex_lock(&mutexSemPokemones);
+
+	dictionary_remove(semaforosPokemon,poke);
+
+	 pthread_mutex_unlock(&mutexSemPokemones);
+
+	 log_info(gameCard_logger,"se elimina el "
+			 "semáforo de la metadata del pokemon %s", poke);
+
+}
+
+void inicializarSemaforosParaPokemon(){
+
+	semaforosPokemon=dictionary_create();
+	pthread_mutex_init(&semMutexBitmap,NULL);
+	pthread_mutex_init(&mutexSemPokemones,NULL);
+}
+
+/****************fin semáforos***************************/
