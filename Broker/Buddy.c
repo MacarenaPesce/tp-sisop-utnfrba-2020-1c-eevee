@@ -14,9 +14,7 @@ extern t_config* config;
 extern t_cache_colas* cache_mensajes;
 
 
-//TODO: modificar los algoritmos de reemplazo, la parte de liberar bloque memoria,
-//		hay que eliminar el mensaje, y que reapunte de nuevo a estructura_mensaje, 
-//		y vaciar la estructura mensaje
+
 //TODO: revisar los valores de compactacion segun lo indicado de nuevo y los logs de dicha parte
 
 
