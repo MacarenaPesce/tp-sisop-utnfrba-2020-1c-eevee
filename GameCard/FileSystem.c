@@ -606,12 +606,12 @@ void modificarPosicion(char* nuevaPos, int cantidad, char* pokemonEnMemoria) {
 			}
 		}
 
-		tamanioMetadata = string_length(posAcopiar);
+		tamanioMetadata = obtenerEspacioMetadata(pokemon)+string_length(posAcopiar);
 
-
+		pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
 		cambiarTamanioMetadata(pokemon,tamanioMetadata);
-		//crearMetadataArchPoke(pokemon, tamanioMetadata);
 		modificarBloquesMetadata(pokemon,bloquesMetadataPokemon);
+		pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
 
 		log_info(gameCard_logger,"se ha modificado correctamente el pokemon");
 
@@ -651,12 +651,16 @@ void modificarPosicion(char* nuevaPos, int cantidad, char* pokemonEnMemoria) {
 
 		}
 
+		tamanioMetadata = obtenerEspacioMetadata(pokemon)+string_length(posAcopiar);
+
 		pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
-		crearMetadataArchPoke(pokemon, tamanioMetadata);
+		cambiarTamanioMetadata(pokemon,tamanioMetadata);
+		modificarBloquesMetadata(pokemon,bloquesMetadataPokemon);
 		pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
+		log_info(gameCard_logger,"se ha modificado correctamente el pokemon");
 	}
 
-	log_info(gameCard_logger,"se ha modificado correctamente el aarchivo dle pokemon");
+
 }
 
 char* traerAmemoriaUltimoBloque(char* ultBloque) {
@@ -1046,13 +1050,13 @@ void modificarBloquesMetadata(char* poke, t_list* bloquesPokemon) {
 	list_clean(bloquesMetadataPokemon);
 	string_append(&lineaBloquesOcupados, "]");
 
-	pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
+	//pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
 
 	config_set_value(configPoke, "BLOCKS", lineaBloquesOcupados);
 
 	config_save_in_file(configPoke, rutaPoke);
 
-	pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
+	//pthread_mutex_unlock(dictionary_get(semaforosPokemon,pokemon));
 
 	log_info(gameCard_logger,"la nueva lista de bloques del archivo: %s", lineaBloquesOcupados);
 }
@@ -1077,9 +1081,6 @@ bool estaAbiertoArchivo(char* pokemon) {
 	}
 
 	else{log_info(gameCard_logger,"se va a activar el semaforo del pokemon");
-
-	log_info(gameCard_logger,"mostrame que tiene el diccionario : %d", dictionary_size(semaforosPokemon));
-	}
 
 	pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
 
