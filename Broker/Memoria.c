@@ -157,9 +157,13 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
     
     while(alojado == false){  //mientras no  este alojado hago la secuencia pueda alojarlo tengo que ir vaciando particiones y fijandome si tengo que compactar
 
+        log_warning(broker_logger, "A - puedo alojar la particion %d", sePuedeAlojar);
+
         //me fijo si puedo alojarla a la primera
         if(sePuedeAlojar == true){ 
             
+            log_warning(broker_logger, "b- puedo alojar la particion %d", sePuedeAlojar);
+
             log_info(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);            
             //if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
 	        printf("\n");
@@ -624,20 +628,24 @@ void compactar(){
 /* Se encarga de realizar la consolidacion en Particiones dinamicas*/
 void consolidar(t_bloque_memoria* bloque){
     
+    log_error(broker_logger,"Entre en consolidar");
+
     int indice_bloque = obtener_indice_particion(bloque);
 
-    t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria,(indice_bloque-1));
+    //t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria,(indice_bloque-1));
 
     t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria,(indice_bloque+1));
 
-    if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true){
+    if( bloque_siguiente->esta_vacio ){
         if(debug_broker) log_debug(broker_logger,"Realizando consolidacion");
         consolidar_dos_bloques(bloque,bloque_siguiente);
     }
-    if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true){
+    /*if( bloque_anterior->esta_vacio == true){
        if(debug_broker) log_debug(broker_logger,"Realizando consolidacion");
         consolidar_dos_bloques(bloque_anterior,bloque);
-    }
+    }*/
+
+    log_error(broker_logger,"Sali de consolidar");
 
     return ;
 }

@@ -43,10 +43,10 @@ int obtener_indice_particion(t_bloque_memoria* bloque){
 
         t_bloque_memoria* bloque_memoria = (t_bloque_memoria*) _bloque;        
 
-        if(bloque_memoria->esta_vacio) {
+        /*if(bloque_memoria->esta_vacio) {
             indice++;
             return false;
-        }
+        }*/
 
         if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje){
             indice++;
