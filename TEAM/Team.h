@@ -17,9 +17,9 @@
 #include "Interaccion_con_broker.h"
 #include "Deadlock.h"
 
-void operar_con_appeared_pokemon(t_appeared_pokemon *);
+void operar_con_appeared_pokemon(t_pokemon *);
 void operar_con_caught_pokemon(uint32_t, uint32_t);
-void agregar_pokemon_a_mapa(char *, t_coordenadas);
+void agregar_pokemon_a_mapa(t_pokemon *);
 void definir_objetivo_global();
 void localizar_entrenadores_en_mapa();
 void agregar_entrenador(uint32_t, uint32_t, uint32_t, t_list*, t_list*);

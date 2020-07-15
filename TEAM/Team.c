@@ -7,19 +7,17 @@
 
 #include "Team.h"
 
-void operar_con_appeared_pokemon(t_appeared_pokemon * paquete){
+void operar_con_appeared_pokemon(t_pokemon * pokemon){
 	/*Este mensaje permitirá la inclusión en el proceso Team de un nuevo Pokémon en el mapa. Al llegar este mensaje, el proceso Team deberá verificar si requiere
 	 * atrapar el mismo controlando los Pokemon globales necesarios y los ya atrapados. No se debe poder atrapar mas Pokemon de una especie de los requeridos globalmente.
 	 * En caso que se requiera el mismo, se debe agregar a la lista de Pokémon requeridos y en el momento que un entrenador se encuentre en estado “Dormido” o “Libre”
 	 * debe planificarlo para ir a atraparlo. En este mensaje se recibirán los siguientes parámetros: Especie de Pokemon y Posición del Pokemon.*/
 
-	agregar_pokemon_a_mapa(paquete->pokemon, paquete->coordenadas);
+	agregar_pokemon_a_mapa(pokemon);
 
-	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa\n", paquete->pokemon, paquete->coordenadas.posx, paquete->coordenadas.posy);
+	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa\n", pokemon->especie, pokemon->posx, pokemon->posy);
 
 	sem_post(&orden_para_planificar);
-
-	free(paquete);
 }
 
 void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
@@ -49,18 +47,13 @@ void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
 	}
 }
 
-void agregar_pokemon_a_mapa(char * especie, t_coordenadas coordenadas){
+void agregar_pokemon_a_mapa(t_pokemon * pokemon){
 
-	t_objetivo* un_objetivo = buscar_pokemon_por_especie(lista_objetivos, especie);
+	t_objetivo* un_objetivo = buscar_pokemon_por_especie(lista_objetivos, pokemon->especie);
 
 	if(un_objetivo == NULL){
 		log_info(team_logger, "No necesito este pokemon");
 	}
-
-	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-	pokemon->especie = especie;
-	pokemon->posx = coordenadas.posx;
-	pokemon->posy = coordenadas.posy;
 
 	pthread_mutex_lock(&mapa_mutex);
 	list_add(lista_mapa, (void*)pokemon);
@@ -138,13 +131,6 @@ void localizar_entrenadores_en_mapa(){
 	}
 
 	log_info(team_logger,"Entrenadores ubicados\n");
-
-
-	list_destroy(lista_pokemones_de_entrenador);
-	list_destroy(lista_objetivos_de_entrenador);
-	free(posiciones_entrenadores);
-	free(pokemon_entrenadores);
-	free(objetivos_entrenadores);
 
 }
 
@@ -334,7 +320,6 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 	ciclos_de_cpu++;
 	entrenador->ciclos_de_cpu++;
 	sleep(retardo_ciclo_cpu);
-	//log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 }
 
 void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
@@ -416,6 +401,7 @@ void confirmar_desalojo_en_ejecucion(void){
 void crear_hilo_para_tratamiento_de_mensajes(){
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)tratamiento_de_mensajes, NULL);
+	pthread_detach(hilo);
 }
 
 bool chequear_si_recibi_appeared_de_especie_antes(char * pokemon){
@@ -448,7 +434,7 @@ void * tratamiento_de_mensajes(){
 			pokemon->posy = contenido->coordenadas.posy;
 
 			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-			operar_con_appeared_pokemon(mensaje->contenido);
+			operar_con_appeared_pokemon(pokemon);
 
 		}
 
@@ -490,6 +476,7 @@ void * tratamiento_de_mensajes(){
 		}
 
 		chequear_si_fue_cumplido_el_objetivo_global();
+		free(mensaje);
 
 	}
 

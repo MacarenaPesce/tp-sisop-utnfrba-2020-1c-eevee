@@ -10,6 +10,7 @@
 void crear_hilo_para_deadlock(){
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)chequear_deadlock, NULL);
+	pthread_detach(hilo);
 }
 
 void * chequear_deadlock(){
@@ -41,10 +42,8 @@ void * chequear_deadlock(){
 		}
 	}
 
-	t_entrenador* entrenador1 = malloc(sizeof(t_entrenador));
-
 	pthread_mutex_lock(&lista_bloq_max_mutex);
-	entrenador1 = list_get(lista_bloqueados_cant_max_alcanzada, 0);
+	t_entrenador* entrenador1 = list_get(lista_bloqueados_cant_max_alcanzada, 0);
 	sacar_entrenador_de_lista_pid(lista_bloqueados_cant_max_alcanzada,entrenador1->id);
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
 
@@ -65,9 +64,8 @@ void * chequear_deadlock(){
 
 void ver_entre_quienes_hay_deadlock_y_resolverlo(t_entrenador * entrenador1){
 
-	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
-	t_objetivo_entrenador* pokemon1 = malloc(sizeof(t_objetivo_entrenador));
-	pokemon1 = elegir_pokemon_innecesario(entrenador1);
+	t_entrenador* entrenador2;
+	t_objetivo_entrenador* pokemon1 = elegir_pokemon_innecesario(entrenador1);
 	int cant;
 
 	for(int i = 0; i < list_size(lista_bloqueados_cant_max_alcanzada); i++){
