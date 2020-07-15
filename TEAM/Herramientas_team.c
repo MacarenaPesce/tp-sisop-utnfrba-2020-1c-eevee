@@ -38,12 +38,10 @@ bool objetivo_personal_cumplido(t_entrenador* entrenador){
 		printf("la lista es nula");
 	}
 	for (int i = 0; i < list_size(entrenador->objetivo); i++){
-		//pthread_mutex_lock(&tocando_pokemones_objetivos);
 		t_objetivo_entrenador* un_objetivo = list_get(entrenador->objetivo, i);
 		if(un_objetivo->cantidad == 0){
 			contador++;
 		}
-		//pthread_mutex_unlock(&tocando_pokemones_objetivos);
 	}
 	return (contador == list_size(entrenador->objetivo));
 }
@@ -118,7 +116,6 @@ void inicializar_semaforos(){
 	sem_init(&me_bloquee, 0, 0);
 	sem_init(&puedo_volver_a_ejecutar, 0, 0);
 	sem_init(&termine_carajo, 0, 0);
-
 
 }
 
@@ -304,8 +301,9 @@ int destruir_pokemon(t_pokemon * pokemon){
 }
 
 int destruir_entrenador(t_entrenador * entrenador){
-	//list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo);
-	//list_destroy(entrenador->pokemones);
+	list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo);
+	list_destroy_and_destroy_elements(entrenador->pokemones, (void*)destruir_pokemon);
+	destruir_objetivo(entrenador->objetivo_actual);
 	free(entrenador);
 	return 0;
 }

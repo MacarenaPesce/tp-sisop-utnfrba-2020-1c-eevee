@@ -21,6 +21,7 @@ void crear_hilo_para_planificar(){
 	sem_wait(&entrenadores_ubicados);
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)planificar, NULL);
+	pthread_detach(hilo);
 }
 
 void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){

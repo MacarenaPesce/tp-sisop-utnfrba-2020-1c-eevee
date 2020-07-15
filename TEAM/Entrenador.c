@@ -168,6 +168,7 @@ atrapado con éxito.*/
 	}
 
 	free(servidor);
+	free(catch_pokemon);
 
 	return;
 
@@ -175,13 +176,13 @@ atrapado con éxito.*/
 
 void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 
-	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
 	pthread_mutex_lock(&lista_comun_deadlock);
-	entrenador2 = list_get(lista_bloqueados_deadlock, 0);
+	t_entrenador* entrenador2 = list_get(lista_bloqueados_deadlock, 0);
 	pthread_mutex_unlock(&lista_comun_deadlock);
 
 	log_info(team_logger, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
 	log_info(team_logger_oficial, "El entrenador %d se mueve a la posicion de coordenadas (%d, %d)", entrenador1->id,entrenador2->posx, entrenador2->posy);
+	
 	//Primero me muevo por izq
 	while(entrenador1->posx < entrenador1->objetivo_actual->posx){
 		consumir_un_ciclo_de_cpu(entrenador1);
@@ -214,7 +215,7 @@ void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 }
 
 t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
-	t_objetivo_entrenador* pokemon_innecesario = malloc(sizeof(t_objetivo_entrenador));
+	t_objetivo_entrenador* pokemon_innecesario;
 	
 	for (int i = 0; i < list_size(entrenador->pokemones); i++){
 		t_objetivo_entrenador* pokemon_en_posesion = list_get(entrenador->pokemones, i);
@@ -241,9 +242,8 @@ void realizar_intercambio(t_entrenador* entrenador1){
 		consumir_un_ciclo_de_cpu(entrenador1);
 	}
 
-	t_entrenador* entrenador2 = malloc(sizeof(t_entrenador));
 	pthread_mutex_lock(&lista_comun_deadlock);
-	entrenador2 = list_get(lista_bloqueados_deadlock, 0); //entrenador con quien hago el intercambio
+	t_entrenador* entrenador2 = list_get(lista_bloqueados_deadlock, 0); //entrenador con quien hago el intercambio
 	pthread_mutex_unlock(&lista_comun_deadlock);
 
 	log_info(team_logger_oficial, "Se va a realizar un intercambio entre el entrenador %i y %i", entrenador1->id, entrenador2->id);
