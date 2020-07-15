@@ -11,7 +11,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-#include <string.h>
+#include<string.h>
 #include<sys/socket.h>
 #include<commons/log.h>
 #include<signal.h>
@@ -21,16 +21,16 @@
 #include<commons/log.h>
 #include<commons/collections/list.h>
 #include<commons/config.h>
-#include <commons/bitarray.h>
+#include<commons/bitarray.h>
 #include<string.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <Pokebola.h>
-#include <commons/collections/queue.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include <math.h>
-#include <semaphore.h>
+#include<fcntl.h>
+#include<errno.h>
+#include<Pokebola.h>
+#include<commons/collections/queue.h>
+#include<pthread.h>
+#include<sys/time.h>
+#include<math.h>
+#include<semaphore.h>
 
 
 /* Keys config file*/

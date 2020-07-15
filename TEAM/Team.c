@@ -274,6 +274,79 @@ void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_entrenador * entrenad
 	bloquear_entrenador(entrenador);
 }
 
+bool hay_pokemones_en_el_mapa(){
+	return (list_size(lista_mapa) > 0);
+}
+
+bool chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(t_pokemon * pokemon){
+	bool no_esta_asignado = true;
+	if(list_size(lista_bloqueados_esperando_caught) > 0){
+		
+		for(int i=0; i<list_size(lista_bloqueados_esperando_caught);i++){
+			
+			t_entrenador * entrenador = list_get(lista_bloqueados_esperando_caught, i);
+
+			if((entrenador->objetivo_actual->especie == pokemon->especie) &&
+					(entrenador->objetivo_actual->posx == pokemon->posx) &&
+					(entrenador->objetivo_actual->posy == pokemon->posy)){
+				no_esta_asignado = false;
+				break;
+			}
+		}
+	}
+	return no_esta_asignado;
+}
+
+bool chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(t_pokemon * pokemon){
+	bool no_esta_asignado = true;
+
+	pthread_mutex_lock(&lista_listos_mutex);
+	if(list_size(lista_listos) > 0){
+		
+		for(int i=0; i<list_size(lista_listos);i++){
+			
+			t_entrenador * entrenador = list_get(lista_listos, i);
+
+			if((entrenador->objetivo_actual->especie == pokemon->especie) &&
+					(entrenador->objetivo_actual->posx == pokemon->posx) &&
+					(entrenador->objetivo_actual->posy == pokemon->posy)){
+				no_esta_asignado = false;
+				break;
+			}
+		}
+	}
+	pthread_mutex_unlock(&lista_listos_mutex);
+	return no_esta_asignado;
+}
+
+bool chequear_que_no_sea_un_objetivo_del_entrenador_en_ejecucion(t_pokemon * pokemon){
+	bool no_esta_asignado = true;			
+
+	if((entrenador_en_ejecucion->objetivo_actual->especie == pokemon->especie) &&
+			(entrenador_en_ejecucion->objetivo_actual->posx == pokemon->posx) &&
+			(entrenador_en_ejecucion->objetivo_actual->posy == pokemon->posy)){
+		no_esta_asignado = false;
+	}
+	return no_esta_asignado;
+}
+
+bool el_pokemon_no_es_objetivo_de_alguien(t_pokemon * pokemon){
+	return (chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(pokemon) &&
+			chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(pokemon));
+}
+
+void chequeo_si_puedo_atrapar_otro(){
+	if(hay_pokemones_en_el_mapa()){
+		for(int i=0; i<list_size(lista_mapa);i++){
+			t_pokemon * pokemon = list_get(lista_mapa, i);
+			if(el_pokemon_no_es_objetivo_de_alguien(pokemon)){
+				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+				break;
+			}
+		}
+	}
+}
+
 void bloquear_entrenador(t_entrenador* entrenador){
 	entrenador_en_ejecucion = NULL;
 
@@ -284,6 +357,9 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
 			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
+			
+			chequeo_si_puedo_atrapar_otro();
+
 			sem_post(&orden_para_planificar);
 			break;
 
