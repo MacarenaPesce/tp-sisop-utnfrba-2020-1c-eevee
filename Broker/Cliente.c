@@ -3,6 +3,14 @@
 t_servidor servidor;
 
 
+/*
+	Prueba base funca bien 
+
+	Prueba compleja  base, funca bien con 4 y 16 
+
+
+*/
+
 int main(){
 
 /*
@@ -65,7 +73,7 @@ int main(){
 	pthread_t hilo_espera_mensajes;
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
  */
-
+	/*
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
 
@@ -73,7 +81,6 @@ int main(){
 	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
 
-/*
 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
 	free(ack);
 
@@ -90,6 +97,62 @@ int main(){
 	free(ack);
 */
 
+	/* Cargar memoria simple */
+	/*t_get_pokemon get_pokemon1;
+	get_pokemon1.pokemon = "Pikachu";
+	t_get_pokemon get_pokemon2;
+	get_pokemon2.pokemon = "Charmander";
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon1);
+	free(ack);
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon2);
+	free(ack);*/
+
+
+	/* Cargar memoria complejo */
+	t_catch_pokemon catch_pokemon1;
+	catch_pokemon1.coordenadas.posx = 9;
+	catch_pokemon1.coordenadas.posy = 3;
+	catch_pokemon1.pokemon = "Pikachu";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon1);
+	free(ack);
+	t_catch_pokemon catch_pokemon2;
+	catch_pokemon2.coordenadas.posx = 9;
+	catch_pokemon2.coordenadas.posy = 3;
+	catch_pokemon2.pokemon = "Squirtle";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon2);
+	free(ack);
+
+	t_caught_pokemon caught_pokemon1;
+	caught_pokemon1.status = 10;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
+	free(ack); 	
+	t_caught_pokemon caught_pokemon2;
+	caught_pokemon2.status = 11;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon2);
+	free(ack); 
+
+	t_catch_pokemon catch_pokemon3;
+	catch_pokemon3.coordenadas.posx = 1;
+	catch_pokemon3.coordenadas.posy = 7;
+	catch_pokemon3.pokemon = "Bulbasaur";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon3);
+	free(ack);
+
+	t_catch_pokemon catch_pokemon4;
+	catch_pokemon4.coordenadas.posx = 1;
+	catch_pokemon4.coordenadas.posy = 7;
+	catch_pokemon4.pokemon = "Charmander";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
+	free(ack);
+
+	t_get_pokemon get_pokemon3;
+	get_pokemon3.pokemon = "Pichu";
+	t_get_pokemon get_pokemon4;
+	get_pokemon4.pokemon = "Raichu";
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon3);
+	free(ack);
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon4);
+	free(ack);	
 
 	printf("TERMINE DE PROBAR LISTO   \n");
 
