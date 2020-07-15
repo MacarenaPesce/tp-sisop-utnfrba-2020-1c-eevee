@@ -65,11 +65,11 @@ int main(){
 	pthread_t hilo_espera_mensajes;
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
  */
-/*
+
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
 
-
+/*
 	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
 

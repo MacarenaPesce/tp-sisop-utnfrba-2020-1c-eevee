@@ -231,6 +231,9 @@ void buddy_system( t_mensaje_cola* estructura_mensaje){
 
 void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
     
+    log_warning(broker_logger, " Comparacion %d", strcmp( algoritmo_particion_libre, "FF"));
+    log_warning(broker_logger, " Variable %s", algoritmo_particion_libre);
+   
 
     if( strcmp( algoritmo_particion_libre, "FF") == 1){
         algoritmo_first_fit(tamanio_parti, estructura_mensaje);

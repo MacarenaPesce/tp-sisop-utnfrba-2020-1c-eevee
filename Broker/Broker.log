@@ -158,3 +158,359 @@
 [DEBUG] 21:44:46:566 Broker/(5812:5829): Ya ejecute best fit
 [DEBUG] 21:44:46:578 Broker/(5812:5829): Algoritmo de particion libre ejecutado!
 [DEBUG] 21:44:46:588 Broker/(5812:5829): Aloje la nueva particion , PD
+[INFO] 21:53:31:958 Broker/(5812:5812):  Broker DEJA DE FUNCIONAR 
+[INFO] 21:53:31:975 Broker/(5812:5812): Chau!
+[INFO] 21:53:33:577 Broker/(6250:6250): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 21:53:35:80 Broker/(6250:6250): 1) Cache de mensajes lista!!!
+[DEBUG] 21:53:35:122 Broker/(6250:6250): 2) Inicializando archivo de configuracion...
+[INFO] 21:53:35:456 Broker/(6250:6250): Cargando el archivo de configuracion...
+[DEBUG] 21:53:35:535 Broker/(6250:6250): El tamaño inicial de memoria: 512
+[DEBUG] 21:53:35:552 Broker/(6250:6250): El tamaño minimo de particion: 4
+[DEBUG] 21:53:35:580 Broker/(6250:6250): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 21:53:35:603 Broker/(6250:6250): El algoritmo de reemplazo es: FIFO
+[DEBUG] 21:53:35:622 Broker/(6250:6250): El algoritmo para particiones libre es: FF
+[DEBUG] 21:53:35:650 Broker/(6250:6250): la ip del broker es: 127.0.0.1
+[DEBUG] 21:53:35:673 Broker/(6250:6250): el puerto del broker es: 5002
+[DEBUG] 21:53:35:691 Broker/(6250:6250): La frecuencia de compactacion es: 10
+[DEBUG] 21:53:35:711 Broker/(6250:6250): El log file es: Broker.log
+[INFO] 21:53:35:729 Broker/(6250:6250): Archivo de configuracion cargado...
+[DEBUG] 21:53:35:784 Broker/(6250:6250): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 21:53:35:814 Broker/(6250:6250): 4) Configurando signals...
+[DEBUG] 21:53:35:859 Broker/(6250:6250): 5) Signals configuradas correctamente!!!
+[DEBUG] 21:53:35:878 Broker/(6250:6250): 6) Inicializando cache de mensajes...
+[DEBUG] 21:53:36:128 Broker/(6250:6250): la direccion de memoria en memoria l51 es: 69471304 
+[DEBUG] 21:53:36:175 Broker/(6250:6250): Se asigno la memoria inicial
+[DEBUG] 21:53:36:209 Broker/(6250:6250): La direccion inicial de memoria es: 0x4241d58
+[DEBUG] 21:53:36:231 Broker/(6250:6250): Particion de memoria inicial creada con: 512 
+
+[DEBUG] 21:53:36:262 Broker/(6250:6250): 7) Iniciando servidor...
+[DEBUG] 21:53:36:378 Broker/(6250:6250): 8) Intentando bindear sever...
+[ERROR] 21:53:36:417 Broker/(6250:6250): Error en bind broker: -1
+[ERROR] 21:53:36:444 Broker/(6250:6250): Código de error: 98
+[DEBUG] 21:53:36:489 Broker/(6250:6250): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 21:54:57:388 Broker/(6250:6258):  Broker DEJA DE FUNCIONAR 
+[INFO] 21:54:57:407 Broker/(6250:6258): Chau!
+[INFO] 22:01:09:201 Broker/(6832:6832): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 22:01:10:404 Broker/(6832:6832): 1) Cache de mensajes lista!!!
+[DEBUG] 22:01:10:436 Broker/(6832:6832): 2) Inicializando archivo de configuracion...
+[INFO] 22:01:10:642 Broker/(6832:6832): Cargando el archivo de configuracion...
+[DEBUG] 22:01:10:733 Broker/(6832:6832): El tamaño inicial de memoria: 512
+[DEBUG] 22:01:10:745 Broker/(6832:6832): El tamaño minimo de particion: 4
+[DEBUG] 22:01:10:768 Broker/(6832:6832): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 22:01:10:800 Broker/(6832:6832): El algoritmo de reemplazo es: FIFO
+[DEBUG] 22:01:10:818 Broker/(6832:6832): El algoritmo para particiones libre es: FF
+[DEBUG] 22:01:10:836 Broker/(6832:6832): la ip del broker es: 127.0.0.1
+[DEBUG] 22:01:10:849 Broker/(6832:6832): el puerto del broker es: 5002
+[DEBUG] 22:01:10:857 Broker/(6832:6832): La frecuencia de compactacion es: 10
+[DEBUG] 22:01:10:883 Broker/(6832:6832): El log file es: Broker.log
+[INFO] 22:01:10:886 Broker/(6832:6832): Archivo de configuracion cargado...
+[DEBUG] 22:01:10:945 Broker/(6832:6832): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 22:01:10:954 Broker/(6832:6832): 4) Configurando signals...
+[DEBUG] 22:01:10:999 Broker/(6832:6832): 5) Signals configuradas correctamente!!!
+[DEBUG] 22:01:11:12 Broker/(6832:6832): 6) Inicializando cache de mensajes...
+[DEBUG] 22:01:11:237 Broker/(6832:6832): la direccion de memoria en memoria l51 es: 69471304 
+[DEBUG] 22:01:11:286 Broker/(6832:6832): Se asigno la memoria inicial
+[DEBUG] 22:01:11:315 Broker/(6832:6832): La direccion inicial de memoria es: 0x4241d58
+[DEBUG] 22:01:11:340 Broker/(6832:6832): Particion de memoria inicial creada con: 512 
+
+[DEBUG] 22:01:11:400 Broker/(6832:6832): 7) Iniciando servidor...
+[DEBUG] 22:01:11:544 Broker/(6832:6832): 8) Intentando bindear sever...
+[DEBUG] 22:01:11:576 Broker/(6832:6832): 9) Server bindeado correctamente!!!
+[DEBUG] 22:01:11:601 Broker/(6832:6832): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 22:01:27:535 Broker/(6832:6847): Se aceptó un nuevo proceso en el socket 5
+[DEBUG] 22:01:27:594 Broker/(6832:6847): Mensaje Recibido:
+[DEBUG] 22:01:27:605 Broker/(6832:6847): operacion: 0 
+[DEBUG] 22:01:27:615 Broker/(6832:6847): cola_de_mensajes: 3 
+[DEBUG] 22:01:27:628 Broker/(6832:6847): id_correlacional: -1  
+[DEBUG] 22:01:27:635 Broker/(6832:6847): id_mensaje: -1 
+[DEBUG] 22:01:27:650 Broker/(6832:6847): id_cliente: 12332 
+[DEBUG] 22:01:27:652 Broker/(6832:6847): tamanio_payload: 11 
+[INFO] 22:01:27:666 Broker/(6832:6847): El cliente 12332 envió un mensaje para la cola 3 a través de socket 5
+[DEBUG] 22:01:27:711 Broker/(6832:6847): Nueva peticion de memoria de: 11
+[DEBUG] 22:01:27:752 Broker/(6832:6847): Particiones dinamicas
+[DEBUG] 22:01:27:768 Broker/(6832:6847): Alojar: 11
+[DEBUG] 22:01:27:791 Broker/(6832:6847): Se hace una particion de: 11 
+[DEBUG] 22:01:27:827 Broker/(6832:6847): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 22:01:27:848 Broker/(6832:6847): Best Fit
+[DEBUG] 22:01:27:875 Broker/(6832:6847): El id malo es: 1
+[DEBUG] 22:01:27:890 Broker/(6832:6847): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 22:01:27:900 Broker/(6832:6847): Indice a particionar 0
+[DEBUG] 22:01:27:914 Broker/(6832:6847): Por particionar...
+[INFO] 22:01:27:943 Broker/(6832:6847): Almacenado mensaje en la posicion real 0x4241d58
+[INFO] 22:01:27:995 Broker/(6832:6847): Almacenado en la posicion relativa (nil)
+[DEBUG] 22:01:28:7 Broker/(6832:6847): Bloque particionado...
+[DEBUG] 22:01:28:16 Broker/(6832:6847): Ya ejecute best fit
+[DEBUG] 22:01:28:36 Broker/(6832:6847): Algoritmo de particion libre ejecutado!
+[DEBUG] 22:01:28:47 Broker/(6832:6847): Aloje la nueva particion , PD
+[INFO] 22:06:06:396 Broker/(6832:6832):  Broker DEJA DE FUNCIONAR 
+[INFO] 22:06:06:412 Broker/(6832:6832): Chau!
+[INFO] 22:06:33:41 Broker/(6982:6982): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 22:06:34:232 Broker/(6982:6982): 1) Cache de mensajes lista!!!
+[DEBUG] 22:06:34:267 Broker/(6982:6982): 2) Inicializando archivo de configuracion...
+[INFO] 22:06:34:491 Broker/(6982:6982): Cargando el archivo de configuracion...
+[DEBUG] 22:06:34:566 Broker/(6982:6982): El tamaño inicial de memoria: 512
+[DEBUG] 22:06:34:589 Broker/(6982:6982): El tamaño minimo de particion: 4
+[DEBUG] 22:06:34:624 Broker/(6982:6982): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 22:06:34:642 Broker/(6982:6982): El algoritmo de reemplazo es: FIFO
+[DEBUG] 22:06:34:655 Broker/(6982:6982): El algoritmo para particiones libre es: FF
+[DEBUG] 22:06:34:671 Broker/(6982:6982): la ip del broker es: 127.0.0.1
+[DEBUG] 22:06:34:691 Broker/(6982:6982): el puerto del broker es: 5002
+[DEBUG] 22:06:34:698 Broker/(6982:6982): La frecuencia de compactacion es: 10
+[DEBUG] 22:06:34:714 Broker/(6982:6982): El log file es: Broker.log
+[INFO] 22:06:34:727 Broker/(6982:6982): Archivo de configuracion cargado...
+[DEBUG] 22:06:34:787 Broker/(6982:6982): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 22:06:34:802 Broker/(6982:6982): 4) Configurando signals...
+[DEBUG] 22:06:34:848 Broker/(6982:6982): 5) Signals configuradas correctamente!!!
+[DEBUG] 22:06:34:857 Broker/(6982:6982): 6) Inicializando cache de mensajes...
+[DEBUG] 22:06:35:124 Broker/(6982:6982): la direccion de memoria en memoria l51 es: 69471320 
+[DEBUG] 22:06:35:160 Broker/(6982:6982): Se asigno la memoria inicial
+[DEBUG] 22:06:35:192 Broker/(6982:6982): La direccion inicial de memoria es: 0x4241d68
+[DEBUG] 22:06:35:211 Broker/(6982:6982): Particion de memoria inicial creada con: 512 
+
+[DEBUG] 22:06:35:232 Broker/(6982:6982): 7) Iniciando servidor...
+[DEBUG] 22:06:35:345 Broker/(6982:6982): 8) Intentando bindear sever...
+[DEBUG] 22:06:35:388 Broker/(6982:6982): 9) Server bindeado correctamente!!!
+[DEBUG] 22:06:35:433 Broker/(6982:6982): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 22:06:44:545 Broker/(6982:7000): Se aceptó un nuevo proceso en el socket 5
+[DEBUG] 22:06:44:582 Broker/(6982:7000): Mensaje Recibido:
+[DEBUG] 22:06:44:595 Broker/(6982:7000): operacion: 0 
+[DEBUG] 22:06:44:623 Broker/(6982:7000): cola_de_mensajes: 3 
+[DEBUG] 22:06:44:636 Broker/(6982:7000): id_correlacional: -1  
+[DEBUG] 22:06:44:647 Broker/(6982:7000): id_mensaje: -1 
+[DEBUG] 22:06:44:653 Broker/(6982:7000): id_cliente: 12332 
+[DEBUG] 22:06:44:664 Broker/(6982:7000): tamanio_payload: 11 
+[INFO] 22:06:44:669 Broker/(6982:7000): El cliente 12332 envió un mensaje para la cola 3 a través de socket 5
+[DEBUG] 22:06:44:697 Broker/(6982:7000): Nueva peticion de memoria de: 11
+[DEBUG] 22:06:44:760 Broker/(6982:7000): Particiones dinamicas
+[DEBUG] 22:06:44:774 Broker/(6982:7000): Alojar: 11
+[DEBUG] 22:06:44:786 Broker/(6982:7000): Se hace una particion de: 11 
+[DEBUG] 22:06:44:821 Broker/(6982:7000): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 22:06:44:841 Broker/(6982:7000): Best Fit
+[DEBUG] 22:06:44:886 Broker/(6982:7000): El id malo es: 1
+[DEBUG] 22:06:44:904 Broker/(6982:7000): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 22:06:44:911 Broker/(6982:7000): Indice a particionar 0
+[DEBUG] 22:06:44:925 Broker/(6982:7000): Por particionar...
+[INFO] 22:06:44:963 Broker/(6982:7000): Almacenado mensaje en la posicion real 0x4241d68
+[INFO] 22:06:45:13 Broker/(6982:7000): Almacenado en la posicion relativa (nil)
+[DEBUG] 22:06:45:27 Broker/(6982:7000): Bloque particionado...
+[DEBUG] 22:06:45:37 Broker/(6982:7000): Ya ejecute best fit
+[DEBUG] 22:06:45:48 Broker/(6982:7000): Algoritmo de particion libre ejecutado!
+[DEBUG] 22:06:45:58 Broker/(6982:7000): Aloje la nueva particion , PD
+[INFO] 22:07:23:241 Broker/(6982:6982):  Broker DEJA DE FUNCIONAR 
+[INFO] 22:07:23:260 Broker/(6982:6982): Chau!
+[INFO] 22:08:31:29 Broker/(7111:7111): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 22:08:32:272 Broker/(7111:7111): 1) Cache de mensajes lista!!!
+[DEBUG] 22:08:32:306 Broker/(7111:7111): 2) Inicializando archivo de configuracion...
+[INFO] 22:08:32:639 Broker/(7111:7111): Cargando el archivo de configuracion...
+[DEBUG] 22:08:32:747 Broker/(7111:7111): El tamaño inicial de memoria: 512
+[DEBUG] 22:08:32:762 Broker/(7111:7111): El tamaño minimo de particion: 4
+[DEBUG] 22:08:32:790 Broker/(7111:7111): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 22:08:32:809 Broker/(7111:7111): El algoritmo de reemplazo es: FIFO
+[DEBUG] 22:08:32:846 Broker/(7111:7111): El algoritmo para particiones libre es: FF
+[DEBUG] 22:08:32:890 Broker/(7111:7111): la ip del broker es: 127.0.0.1
+[DEBUG] 22:08:32:925 Broker/(7111:7111): el puerto del broker es: 5002
+[DEBUG] 22:08:32:943 Broker/(7111:7111): La frecuencia de compactacion es: 10
+[DEBUG] 22:08:32:961 Broker/(7111:7111): El log file es: Broker.log
+[INFO] 22:08:32:969 Broker/(7111:7111): Archivo de configuracion cargado...
+[DEBUG] 22:08:33:43 Broker/(7111:7111): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 22:08:33:59 Broker/(7111:7111): 4) Configurando signals...
+[DEBUG] 22:08:33:108 Broker/(7111:7111): 5) Signals configuradas correctamente!!!
+[DEBUG] 22:08:33:124 Broker/(7111:7111): 6) Inicializando cache de mensajes...
+[DEBUG] 22:08:33:679 Broker/(7111:7111): la direccion de memoria en memoria l51 es: 69471320 
+[DEBUG] 22:08:33:733 Broker/(7111:7111): Se asigno la memoria inicial
+[DEBUG] 22:08:33:769 Broker/(7111:7111): La direccion inicial de memoria es: 0x4241d68
+[DEBUG] 22:08:33:799 Broker/(7111:7111): Particion de memoria inicial creada con: 512 
+
+[DEBUG] 22:08:33:843 Broker/(7111:7111): 7) Iniciando servidor...
+[DEBUG] 22:08:33:979 Broker/(7111:7111): 8) Intentando bindear sever...
+[DEBUG] 22:08:34:24 Broker/(7111:7111): 9) Server bindeado correctamente!!!
+[DEBUG] 22:08:34:64 Broker/(7111:7111): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 22:08:45:798 Broker/(7111:7128): Se aceptó un nuevo proceso en el socket 5
+[DEBUG] 22:08:45:858 Broker/(7111:7128): Mensaje Recibido:
+[DEBUG] 22:08:45:876 Broker/(7111:7128): operacion: 0 
+[DEBUG] 22:08:45:892 Broker/(7111:7128): cola_de_mensajes: 3 
+[DEBUG] 22:08:45:901 Broker/(7111:7128): id_correlacional: -1  
+[DEBUG] 22:08:45:917 Broker/(7111:7128): id_mensaje: -1 
+[DEBUG] 22:08:45:939 Broker/(7111:7128): id_cliente: 12332 
+[DEBUG] 22:08:45:955 Broker/(7111:7128): tamanio_payload: 11 
+[INFO] 22:08:45:976 Broker/(7111:7128): El cliente 12332 envió un mensaje para la cola 3 a través de socket 5
+[DEBUG] 22:08:46:39 Broker/(7111:7128): Nueva peticion de memoria de: 11
+[DEBUG] 22:08:46:92 Broker/(7111:7128): Particiones dinamicas
+[DEBUG] 22:08:46:100 Broker/(7111:7128): Alojar: 11
+[DEBUG] 22:08:46:109 Broker/(7111:7128): Se hace una particion de: 11 
+[DEBUG] 22:08:46:171 Broker/(7111:7128): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 22:08:46:194 Broker/(7111:7128): Best Fit
+[DEBUG] 22:08:46:259 Broker/(7111:7128): El id malo es: 1
+[DEBUG] 22:08:46:281 Broker/(7111:7128): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 22:08:46:306 Broker/(7111:7128): Indice a particionar 0
+[DEBUG] 22:08:46:317 Broker/(7111:7128): Por particionar...
+[INFO] 22:08:46:373 Broker/(7111:7128): Almacenado mensaje en la posicion real 0x4241d68
+[INFO] 22:08:46:440 Broker/(7111:7128): Almacenado en la posicion relativa (nil)
+[DEBUG] 22:08:46:453 Broker/(7111:7128): Bloque particionado...
+[DEBUG] 22:08:46:468 Broker/(7111:7128): Ya ejecute best fit
+[DEBUG] 22:08:46:502 Broker/(7111:7128): Algoritmo de particion libre ejecutado!
+[DEBUG] 22:08:46:524 Broker/(7111:7128): Aloje la nueva particion , PD
+[INFO] 22:12:21:990 Broker/(7111:7111):  Broker DEJA DE FUNCIONAR 
+[INFO] 22:12:21:6 Broker/(7111:7111): Chau!
+[INFO] 22:13:02:875 Broker/(7405:7405): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 22:13:03:214 Broker/(7405:7405): 1) Cache de mensajes lista!!!
+[DEBUG] 22:13:03:251 Broker/(7405:7405): 2) Inicializando archivo de configuracion...
+[INFO] 22:13:03:651 Broker/(7405:7405): Cargando el archivo de configuracion...
+[DEBUG] 22:13:03:720 Broker/(7405:7405): El tamaño inicial de memoria: 512
+[DEBUG] 22:13:03:743 Broker/(7405:7405): El tamaño minimo de particion: 4
+[DEBUG] 22:13:03:765 Broker/(7405:7405): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 22:13:03:778 Broker/(7405:7405): El algoritmo de reemplazo es: FIFO
+[DEBUG] 22:13:03:801 Broker/(7405:7405): El algoritmo para particiones libre es: FF
+[DEBUG] 22:13:03:817 Broker/(7405:7405): la ip del broker es: 127.0.0.1
+[DEBUG] 22:13:03:843 Broker/(7405:7405): el puerto del broker es: 5002
+[DEBUG] 22:13:03:868 Broker/(7405:7405): La frecuencia de compactacion es: 10
+[DEBUG] 22:13:03:890 Broker/(7405:7405): El log file es: Broker.log
+[INFO] 22:13:03:904 Broker/(7405:7405): Archivo de configuracion cargado...
+[DEBUG] 22:13:03:982 Broker/(7405:7405): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 22:13:03:3 Broker/(7405:7405): 4) Configurando signals...
+[DEBUG] 22:13:04:55 Broker/(7405:7405): 5) Signals configuradas correctamente!!!
+[DEBUG] 22:13:04:74 Broker/(7405:7405): 6) Inicializando cache de mensajes...
+[DEBUG] 22:13:04:356 Broker/(7405:7405): la direccion de memoria en memoria l51 es: 69471304 
+[DEBUG] 22:13:04:405 Broker/(7405:7405): Se asigno la memoria inicial
+[DEBUG] 22:13:04:437 Broker/(7405:7405): La direccion inicial de memoria es: 0x4241d58
+[DEBUG] 22:13:04:456 Broker/(7405:7405): Particion de memoria inicial creada con: 512 
+
+[DEBUG] 22:13:04:497 Broker/(7405:7405): 7) Iniciando servidor...
+[DEBUG] 22:13:04:576 Broker/(7405:7405): 8) Intentando bindear sever...
+[DEBUG] 22:13:04:608 Broker/(7405:7405): 9) Server bindeado correctamente!!!
+[DEBUG] 22:13:04:648 Broker/(7405:7405): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 22:13:07:40 Broker/(7405:7420): Se aceptó un nuevo proceso en el socket 5
+[DEBUG] 22:13:07:89 Broker/(7405:7420): Mensaje Recibido:
+[DEBUG] 22:13:07:134 Broker/(7405:7420): operacion: 0 
+[DEBUG] 22:13:07:171 Broker/(7405:7420): cola_de_mensajes: 3 
+[DEBUG] 22:13:07:209 Broker/(7405:7420): id_correlacional: -1  
+[DEBUG] 22:13:07:218 Broker/(7405:7420): id_mensaje: -1 
+[DEBUG] 22:13:07:248 Broker/(7405:7420): id_cliente: 12332 
+[DEBUG] 22:13:07:251 Broker/(7405:7420): tamanio_payload: 11 
+[INFO] 22:13:07:275 Broker/(7405:7420): El cliente 12332 envió un mensaje para la cola 3 a través de socket 5
+[DEBUG] 22:13:07:316 Broker/(7405:7420): Nueva peticion de memoria de: 11
+[DEBUG] 22:13:07:374 Broker/(7405:7420): Particiones dinamicas
+[DEBUG] 22:13:07:389 Broker/(7405:7420): Alojar: 11
+[DEBUG] 22:13:07:403 Broker/(7405:7420): Se hace una particion de: 11 
+[DEBUG] 22:13:07:450 Broker/(7405:7420): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 22:13:07:482 Broker/(7405:7420): Best Fit
+[DEBUG] 22:13:07:528 Broker/(7405:7420): El id malo es: 1
+[DEBUG] 22:13:07:552 Broker/(7405:7420): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 22:13:07:588 Broker/(7405:7420): Indice a particionar 0
+[DEBUG] 22:13:07:611 Broker/(7405:7420): Por particionar...
+[INFO] 22:13:07:715 Broker/(7405:7420): Almacenado mensaje en la posicion real 0x4241d58
+[INFO] 22:13:07:802 Broker/(7405:7420): Almacenado en la posicion relativa (nil)
+[DEBUG] 22:13:07:819 Broker/(7405:7420): Bloque particionado...
+[DEBUG] 22:13:07:837 Broker/(7405:7420): Ya ejecute best fit
+[DEBUG] 22:13:07:854 Broker/(7405:7420): Algoritmo de particion libre ejecutado!
+[DEBUG] 22:13:07:869 Broker/(7405:7420): Aloje la nueva particion , PD
+[INFO] 22:14:34:983 Broker/(7405:7405):  Broker DEJA DE FUNCIONAR 
+[INFO] 22:14:35:20 Broker/(7405:7405): Chau!
+[INFO] 22:15:47:698 Broker/(7588:7588): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 22:15:47:946 Broker/(7588:7588): 1) Cache de mensajes lista!!!
+[DEBUG] 22:15:47:982 Broker/(7588:7588): 2) Inicializando archivo de configuracion...
+[INFO] 22:15:48:310 Broker/(7588:7588): Cargando el archivo de configuracion...
+[DEBUG] 22:15:48:401 Broker/(7588:7588): El tamaño inicial de memoria: 512
+[DEBUG] 22:15:48:418 Broker/(7588:7588): El tamaño minimo de particion: 4
+[DEBUG] 22:15:48:441 Broker/(7588:7588): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 22:15:48:460 Broker/(7588:7588): El algoritmo de reemplazo es: FIFO
+[DEBUG] 22:15:48:479 Broker/(7588:7588): El algoritmo para particiones libre es: FF
+[DEBUG] 22:15:48:517 Broker/(7588:7588): la ip del broker es: 127.0.0.1
+[DEBUG] 22:15:48:546 Broker/(7588:7588): el puerto del broker es: 5002
+[DEBUG] 22:15:48:562 Broker/(7588:7588): La frecuencia de compactacion es: 10
+[DEBUG] 22:15:48:589 Broker/(7588:7588): El log file es: Broker.log
+[INFO] 22:15:48:597 Broker/(7588:7588): Archivo de configuracion cargado...
+[DEBUG] 22:15:48:692 Broker/(7588:7588): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 22:15:48:704 Broker/(7588:7588): 4) Configurando signals...
+[DEBUG] 22:15:48:750 Broker/(7588:7588): 5) Signals configuradas correctamente!!!
+[DEBUG] 22:15:48:785 Broker/(7588:7588): 6) Inicializando cache de mensajes...
+[DEBUG] 22:15:49:219 Broker/(7588:7588): la direccion de memoria en memoria l51 es: 69471320 
+[DEBUG] 22:15:49:310 Broker/(7588:7588): Se asigno la memoria inicial
+[DEBUG] 22:15:49:351 Broker/(7588:7588): La direccion inicial de memoria es: 0x4241d68
+[DEBUG] 22:15:49:370 Broker/(7588:7588): Particion de memoria inicial creada con: 512 
+
+[DEBUG] 22:15:49:403 Broker/(7588:7588): 7) Iniciando servidor...
+[DEBUG] 22:15:49:541 Broker/(7588:7588): 8) Intentando bindear sever...
+[DEBUG] 22:15:49:585 Broker/(7588:7588): 9) Server bindeado correctamente!!!
+[DEBUG] 22:15:49:607 Broker/(7588:7588): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 22:15:52:837 Broker/(7588:7603): Se aceptó un nuevo proceso en el socket 5
+[DEBUG] 22:15:52:880 Broker/(7588:7603): Mensaje Recibido:
+[DEBUG] 22:15:52:910 Broker/(7588:7603): operacion: 0 
+[DEBUG] 22:15:52:936 Broker/(7588:7603): cola_de_mensajes: 3 
+[DEBUG] 22:15:52:953 Broker/(7588:7603): id_correlacional: -1  
+[DEBUG] 22:15:52:969 Broker/(7588:7603): id_mensaje: -1 
+[DEBUG] 22:15:52:978 Broker/(7588:7603): id_cliente: 12332 
+[DEBUG] 22:15:52:999 Broker/(7588:7603): tamanio_payload: 11 
+[INFO] 22:15:52:6 Broker/(7588:7603): El cliente 12332 envió un mensaje para la cola 3 a través de socket 5
+[DEBUG] 22:15:53:42 Broker/(7588:7603): Nueva peticion de memoria de: 11
+[DEBUG] 22:15:53:100 Broker/(7588:7603): Particiones dinamicas
+[DEBUG] 22:15:53:116 Broker/(7588:7603): Alojar: 11
+[DEBUG] 22:15:53:122 Broker/(7588:7603): Se hace una particion de: 11 
+[DEBUG] 22:15:53:184 Broker/(7588:7603): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 22:15:53:217 Broker/(7588:7603): Best Fit
+[DEBUG] 22:15:53:278 Broker/(7588:7603): El id malo es: 1
+[DEBUG] 22:15:53:309 Broker/(7588:7603): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 22:15:53:321 Broker/(7588:7603): Indice a particionar 0
+[DEBUG] 22:15:53:333 Broker/(7588:7603): Por particionar...
+[INFO] 22:15:53:391 Broker/(7588:7603): Almacenado mensaje en la posicion real 0x4241d68
+[INFO] 22:15:53:470 Broker/(7588:7603): Almacenado en la posicion relativa (nil)
+[DEBUG] 22:15:53:487 Broker/(7588:7603): Bloque particionado...
+[DEBUG] 22:15:53:496 Broker/(7588:7603): Ya ejecute best fit
+[DEBUG] 22:15:53:508 Broker/(7588:7603): Algoritmo de particion libre ejecutado!
+[DEBUG] 22:15:53:526 Broker/(7588:7603): Aloje la nueva particion , PD
+[INFO] 22:16:42:194 Broker/(7588:7588):  Broker DEJA DE FUNCIONAR 
+[INFO] 22:16:42:223 Broker/(7588:7588): Chau!
+[INFO] 22:17:22:414 Broker/(7699:7699): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 22:17:23:655 Broker/(7699:7699): 1) Cache de mensajes lista!!!
+[DEBUG] 22:17:23:696 Broker/(7699:7699): 2) Inicializando archivo de configuracion...
+[INFO] 22:17:24:79 Broker/(7699:7699): Cargando el archivo de configuracion...
+[DEBUG] 22:17:24:179 Broker/(7699:7699): El tamaño inicial de memoria: 512
+[DEBUG] 22:17:24:197 Broker/(7699:7699): El tamaño minimo de particion: 4
+[DEBUG] 22:17:24:234 Broker/(7699:7699): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 22:17:24:261 Broker/(7699:7699): El algoritmo de reemplazo es: FIFO
+[DEBUG] 22:17:24:294 Broker/(7699:7699): El algoritmo para particiones libre es: FF
+[DEBUG] 22:17:24:318 Broker/(7699:7699): la ip del broker es: 127.0.0.1
+[DEBUG] 22:17:24:327 Broker/(7699:7699): el puerto del broker es: 5002
+[DEBUG] 22:17:24:351 Broker/(7699:7699): La frecuencia de compactacion es: 10
+[DEBUG] 22:17:24:380 Broker/(7699:7699): El log file es: Broker.log
+[INFO] 22:17:24:394 Broker/(7699:7699): Archivo de configuracion cargado...
+[DEBUG] 22:17:24:508 Broker/(7699:7699): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 22:17:24:521 Broker/(7699:7699): 4) Configurando signals...
+[DEBUG] 22:17:24:598 Broker/(7699:7699): 5) Signals configuradas correctamente!!!
+[DEBUG] 22:17:24:619 Broker/(7699:7699): 6) Inicializando cache de mensajes...
+[DEBUG] 22:17:24:993 Broker/(7699:7699): la direccion de memoria en memoria l51 es: 69471304 
+[DEBUG] 22:17:25:48 Broker/(7699:7699): Se asigno la memoria inicial
+[DEBUG] 22:17:25:83 Broker/(7699:7699): La direccion inicial de memoria es: 0x4241d58
+[DEBUG] 22:17:25:99 Broker/(7699:7699): Particion de memoria inicial creada con: 512 
+
+[DEBUG] 22:17:25:133 Broker/(7699:7699): 7) Iniciando servidor...
+[DEBUG] 22:17:25:290 Broker/(7699:7699): 8) Intentando bindear sever...
+[DEBUG] 22:17:25:359 Broker/(7699:7699): 9) Server bindeado correctamente!!!
+[DEBUG] 22:17:25:397 Broker/(7699:7699): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 22:17:28:753 Broker/(7699:7716): Se aceptó un nuevo proceso en el socket 5
+[DEBUG] 22:17:28:808 Broker/(7699:7716): Mensaje Recibido:
+[DEBUG] 22:17:28:828 Broker/(7699:7716): operacion: 0 
+[DEBUG] 22:17:28:846 Broker/(7699:7716): cola_de_mensajes: 3 
+[DEBUG] 22:17:28:858 Broker/(7699:7716): id_correlacional: -1  
+[DEBUG] 22:17:28:879 Broker/(7699:7716): id_mensaje: -1 
+[DEBUG] 22:17:28:887 Broker/(7699:7716): id_cliente: 12332 
+[DEBUG] 22:17:28:897 Broker/(7699:7716): tamanio_payload: 11 
+[INFO] 22:17:28:915 Broker/(7699:7716): El cliente 12332 envió un mensaje para la cola 3 a través de socket 5
+[DEBUG] 22:17:28:962 Broker/(7699:7716): Nueva peticion de memoria de: 11
+[DEBUG] 22:17:29:55 Broker/(7699:7716): Particiones dinamicas
+[DEBUG] 22:17:29:63 Broker/(7699:7716): Alojar: 11
+[DEBUG] 22:17:29:83 Broker/(7699:7716): Se hace una particion de: 11 
+[DEBUG] 22:17:29:148 Broker/(7699:7716): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 22:17:29:179 Broker/(7699:7716): Best Fit
+[DEBUG] 22:17:29:226 Broker/(7699:7716): El id malo es: 1
+[DEBUG] 22:17:29:253 Broker/(7699:7716): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 22:17:29:268 Broker/(7699:7716): Indice a particionar 0
+[DEBUG] 22:17:29:283 Broker/(7699:7716): Por particionar...
+[INFO] 22:17:29:339 Broker/(7699:7716): Almacenado mensaje en la posicion real 0x4241d58
+[INFO] 22:17:29:455 Broker/(7699:7716): Almacenado en la posicion relativa (nil)
+[DEBUG] 22:17:29:479 Broker/(7699:7716): Bloque particionado...
+[DEBUG] 22:17:29:501 Broker/(7699:7716): Ya ejecute best fit
+[DEBUG] 22:17:29:528 Broker/(7699:7716): Algoritmo de particion libre ejecutado!
+[DEBUG] 22:17:29:549 Broker/(7699:7716): Aloje la nueva particion , PD
+[INFO] 22:17:46:814 Broker/(7699:7699):  Broker DEJA DE FUNCIONAR 
+[INFO] 22:17:46:826 Broker/(7699:7699): Chau!
