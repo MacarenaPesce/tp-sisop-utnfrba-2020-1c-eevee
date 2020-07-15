@@ -157,6 +157,7 @@ void obtener_proximo_ejecucion(void){
 	if(list_is_empty(lista_listos)){
 		entrenador_en_ejecucion = NULL;
 		/* No hay entrenadores para ejecutar! */
+
 		if(list_size(lista_bloqueados_cant_max_alcanzada) == MAXIMO_ENTRENADORES){
 			for(int i=0; i < MAXIMO_ENTRENADORES; i++){
 				sem_wait(&termine_carajo);
