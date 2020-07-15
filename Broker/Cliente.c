@@ -69,10 +69,11 @@ int main(){
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
 
-/*
+
 	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
 
+/*
 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon);
 	free(ack);
 

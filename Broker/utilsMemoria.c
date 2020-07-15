@@ -126,8 +126,21 @@ void* calcular_posicion_relativa(t_bloque_memoria* bloque){
     /* Obtengo el primer bloque de mi lista para saber donde empieza la memoria*/
     t_bloque_memoria* primer_bloque = list_get(cache_mensajes->memoria,0);
 
+    log_warning(broker_logger, "Puntero primer bloque %d", primer_bloque->estructura_mensaje->mensaje);
+    log_warning(broker_logger, "Puntero mi bloque %d", bloque->estructura_mensaje->mensaje);
+
+    void* resultado;
+
+    if(primer_bloque->esta_vacio){
+        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje);
+    }
+    else{
+        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje->mensaje);    
+    }
+
     /* Casteo a char* resto y lo devuelvo */
-    void* resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje->mensaje);
+
+    log_warning(broker_logger, "Puntero mi bloque %d", resultado);
 
     return resultado;
 }

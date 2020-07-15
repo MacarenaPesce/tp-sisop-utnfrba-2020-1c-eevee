@@ -110,6 +110,7 @@ void asignar_particion_memoria(t_mensaje_cola* estructura_mensaje){
     que algoritmo se va a usar y le paso la lista y el tamaño de bytes*/
 void algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){   
 
+
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
     if (  strcmp( algoritmo_memoria, "BS") == 0){
 
@@ -231,11 +232,11 @@ void buddy_system( t_mensaje_cola* estructura_mensaje){
 
 void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
     
-    log_warning(broker_logger, " Comparacion %d", strcmp( algoritmo_particion_libre, "FF"));
-    log_warning(broker_logger, " Variable %s", algoritmo_particion_libre);
+    //log_warning(broker_logger, " Comparacion %d", strcmp( algoritmo_particion_libre, "FF"));
+    //log_warning(broker_logger, " Variable %s", algoritmo_particion_libre);
    
 
-    if( strcmp( algoritmo_particion_libre, "FF") == 1){
+    if( strcmp( algoritmo_particion_libre, "FF") == 0){
         algoritmo_first_fit(tamanio_parti, estructura_mensaje);
     }
     else{
@@ -358,7 +359,7 @@ void algoritmo_de_reemplazo(){
     if(debug_broker) log_debug(broker_logger,"Por ejecutar algoritmo de reemplazo %s", algoritmo_reemplazo);
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
-    if (strcmp( algoritmo_reemplazo, "LRU") == 1){
+    if (strcmp( algoritmo_reemplazo, "LRU") == 0){
         bloque = algoritmo_lru();
     }
     else{
@@ -532,7 +533,7 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 
     /* Calculo la posicion relativa */
     void* posicion_relativa = calcular_posicion_relativa(bloque_inicial);
-    log_info(broker_logger, "Almacenado en la posicion relativa %p",posicion_relativa);
+    log_info(broker_logger, "Almacenado en la posicion relativa %d",posicion_relativa);
 
 
     if(debug_broker) log_debug(broker_logger, "Bloque particionado...");
