@@ -195,6 +195,7 @@ int main(){
 
 	int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON);
 
+	sleep(10);
 
 	t_catch_pokemon catch_pokemon6;
 	catch_pokemon6.coordenadas.posx = 9;

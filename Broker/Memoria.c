@@ -134,13 +134,11 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
     
     while(alojado == false){  //mientras no  este alojado hago la secuencia pueda alojarlo tengo que ir vaciando particiones y fijandome si tengo que compactar
 
-        log_warning(broker_logger, "A - puedo alojar la particion %d", sePuedeAlojar);
+        //log_warning(broker_logger, "A - puedo alojar la particion %d", sePuedeAlojar);
 
         //me fijo si puedo alojarla a la primera
         if(sePuedeAlojar == true){ 
             
-            log_warning(broker_logger, "b- puedo alojar la particion %d", sePuedeAlojar);
-
             log_info(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);            
             //if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
 	        printf("\n");
@@ -614,11 +612,11 @@ void consolidar(t_bloque_memoria* bloque){
     t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria,(indice_bloque+1));
 
     if( bloque_siguiente != NULL && (bloque_siguiente->esta_vacio == true) ){
-        if(debug_broker) log_debug(broker_logger,"Realizando consolidacion");
+        if(debug_broker) log_debug(broker_logger,"Realizando consolidacion a derecha");
         consolidar_dos_bloques(bloque,bloque_siguiente);
     }
     if( bloque_anterior != NULL && bloque_anterior->esta_vacio == true){
-       if(debug_broker) log_debug(broker_logger,"Realizando consolidacion");
+       if(debug_broker) log_debug(broker_logger,"Realizando consolidacion a izquierda");
         consolidar_dos_bloques(bloque_anterior,bloque);
     }
 
@@ -632,11 +630,11 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
     /* Obtengo el indice del segundo bloque */
     int indice = obtener_indice_particion(segundoBloque);
 
+    /* Borro y destruyo el segundo bloque */
+	list_remove(cache_mensajes->memoria, indice);
+
     /* Modifico el tamaño del primer bloque */
     primerBloque->tamanio_particion += segundoBloque->tamanio_particion;
-
-    /* Borro y destruyo el segundo bloque */
-	//list_remove_and_destroy_element(cache_mensajes->memoria, indice, (void*)free);
 
     return ;
 }
