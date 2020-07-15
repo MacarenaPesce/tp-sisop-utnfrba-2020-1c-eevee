@@ -85,6 +85,14 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 /* Libero la memoria de un determinado bloque y lo retorno */
 void liberar_bloque_memoria(t_bloque_memoria* bloque){
 
+    
+    t_bloque_memoria* bloque_auxiliar = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
+    memcpy(bloque_auxiliar,bloque,sizeof(t_bloque_memoria));
+    bloque_auxiliar->estructura_mensaje = bloque->estructura_mensaje->mensaje;
+
+    bloque->estructura_mensaje = bloque_auxiliar->estructura_mensaje;
+    
+
     /* Marco el bloque como vacio */
     bloque->esta_vacio = true;
 

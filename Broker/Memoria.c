@@ -379,6 +379,8 @@ void algoritmo_de_reemplazo(){
 
     if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
     printf("\n");
+    printf("\n");
+    printf("\n");
 
     return;
 
