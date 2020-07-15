@@ -5386,3 +5386,492 @@
 [DEBUG] 01:46:15:167 Broker/(14095:14116): El id malo es: 0
 [DEBUG] 01:46:15:167 Broker/(14095:14116): Realizando consolidacion
 [DEBUG] 01:46:15:167 Broker/(14095:14116): El id malo es: 0
+[INFO] 01:49:57:689 Broker/(14315:14315): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 01:49:57:699 Broker/(14315:14315): 1) Cache de mensajes lista!!!
+[DEBUG] 01:49:57:700 Broker/(14315:14315): 2) Inicializando archivo de configuracion...
+[INFO] 01:49:57:701 Broker/(14315:14315): Cargando el archivo de configuracion...
+[DEBUG] 01:49:57:701 Broker/(14315:14315): El tamaño inicial de memoria: 64
+[DEBUG] 01:49:57:702 Broker/(14315:14315): El tamaño minimo de particion: 4
+[DEBUG] 01:49:57:702 Broker/(14315:14315): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 01:49:57:702 Broker/(14315:14315): El algoritmo de reemplazo es: FIFO
+[DEBUG] 01:49:57:703 Broker/(14315:14315): El algoritmo para particiones libre es: FF
+[DEBUG] 01:49:57:703 Broker/(14315:14315): la ip del broker es: 127.0.0.1
+[DEBUG] 01:49:57:704 Broker/(14315:14315): el puerto del broker es: 5002
+[DEBUG] 01:49:57:704 Broker/(14315:14315): La frecuencia de compactacion es: 10
+[DEBUG] 01:49:57:704 Broker/(14315:14315): El log file es: Broker.log
+[INFO] 01:49:57:705 Broker/(14315:14315): Archivo de configuracion cargado...
+[DEBUG] 01:49:57:705 Broker/(14315:14315): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 01:49:57:705 Broker/(14315:14315): 4) Configurando signals...
+[DEBUG] 01:49:57:705 Broker/(14315:14315): 5) Signals configuradas correctamente!!!
+[DEBUG] 01:49:57:705 Broker/(14315:14315): 6) Inicializando cache de mensajes...
+[DEBUG] 01:49:57:709 Broker/(14315:14315): la direccion de memoria en memoria l51 es: 136966608 
+[DEBUG] 01:49:57:714 Broker/(14315:14315): Se asigno la memoria inicial
+[DEBUG] 01:49:57:714 Broker/(14315:14315): La direccion inicial de memoria es: 0x82a0ff8
+[DEBUG] 01:49:57:714 Broker/(14315:14315): Particion de memoria inicial creada con: 64 
+
+[DEBUG] 01:49:57:715 Broker/(14315:14315): 7) Iniciando servidor...
+[DEBUG] 01:49:57:715 Broker/(14315:14315): 8) Intentando bindear sever...
+[DEBUG] 01:49:57:715 Broker/(14315:14315): 9) Server bindeado correctamente!!!
+[DEBUG] 01:49:57:715 Broker/(14315:14315): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 01:50:02:756 Broker/(14315:14330): Se aceptó un nuevo proceso en el socket 5
+[DEBUG] 01:50:02:761 Broker/(14315:14330): Mensaje Recibido:
+[DEBUG] 01:50:02:762 Broker/(14315:14330): operacion: 0 
+[DEBUG] 01:50:02:763 Broker/(14315:14330): cola_de_mensajes: 4 
+[DEBUG] 01:50:02:764 Broker/(14315:14330): id_correlacional: -1  
+[DEBUG] 01:50:02:765 Broker/(14315:14330): id_mensaje: -1 
+[DEBUG] 01:50:02:765 Broker/(14315:14330): id_cliente: 12332 
+[DEBUG] 01:50:02:765 Broker/(14315:14330): tamanio_payload: 4 
+[INFO] 01:50:02:769 Broker/(14315:14330): El cliente 12332 envió un mensaje para la cola 4 a través de socket 5
+[DEBUG] 01:50:02:769 Broker/(14315:14330): Nueva peticion de memoria de: 4
+[DEBUG] 01:50:02:770 Broker/(14315:14330): Particiones dinamicas
+[DEBUG] 01:50:02:770 Broker/(14315:14330): Alojar: 4
+[DEBUG] 01:50:02:770 Broker/(14315:14330): Se hace una particion de: 4 
+[WARNING] 01:50:02:771 Broker/(14315:14330): A - puedo alojar la particion 1
+[WARNING] 01:50:02:771 Broker/(14315:14330): b- puedo alojar la particion 1
+[INFO] 01:50:02:771 Broker/(14315:14330): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:50:02:772 Broker/(14315:14330): First Fit
+[DEBUG] 01:50:02:772 Broker/(14315:14330): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:50:02:772 Broker/(14315:14330): Indice a particionar 0
+[DEBUG] 01:50:02:772 Broker/(14315:14330): Por particionar...
+[INFO] 01:50:02:772 Broker/(14315:14330): Almacenado mensaje en la posicion real 0x82a0ff8
+[WARNING] 01:50:02:772 Broker/(14315:14330): Puntero primer bloque 136974328
+[WARNING] 01:50:02:773 Broker/(14315:14330): Puntero mi bloque 136974328
+[WARNING] 01:50:02:773 Broker/(14315:14330): Puntero mi bloque 0
+[INFO] 01:50:02:773 Broker/(14315:14330): Almacenado en la posicion relativa 0
+[DEBUG] 01:50:02:773 Broker/(14315:14330): Bloque particionado...
+[DEBUG] 01:50:02:773 Broker/(14315:14330): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:50:02:774 Broker/(14315:14330): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:50:02:774 Broker/(14315:14330): Aloje la nueva particion , PD
+[INFO] 01:50:02:797 Broker/(14315:14331): Se aceptó un nuevo proceso en el socket 6
+[DEBUG] 01:50:02:798 Broker/(14315:14331): Mensaje Recibido:
+[DEBUG] 01:50:02:798 Broker/(14315:14331): operacion: 0 
+[DEBUG] 01:50:02:798 Broker/(14315:14331): cola_de_mensajes: 4 
+[DEBUG] 01:50:02:798 Broker/(14315:14331): id_correlacional: -1  
+[DEBUG] 01:50:02:798 Broker/(14315:14331): id_mensaje: -1 
+[DEBUG] 01:50:02:798 Broker/(14315:14331): id_cliente: 12332 
+[DEBUG] 01:50:02:803 Broker/(14315:14331): tamanio_payload: 4 
+[INFO] 01:50:02:805 Broker/(14315:14331): El cliente 12332 envió un mensaje para la cola 4 a través de socket 6
+[DEBUG] 01:50:02:805 Broker/(14315:14331): Nueva peticion de memoria de: 4
+[DEBUG] 01:50:02:807 Broker/(14315:14331): Particiones dinamicas
+[DEBUG] 01:50:02:807 Broker/(14315:14331): Alojar: 4
+[DEBUG] 01:50:02:807 Broker/(14315:14331): Se hace una particion de: 4 
+[WARNING] 01:50:02:807 Broker/(14315:14331): A - puedo alojar la particion 1
+[WARNING] 01:50:02:807 Broker/(14315:14331): b- puedo alojar la particion 1
+[INFO] 01:50:02:807 Broker/(14315:14331): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:50:02:812 Broker/(14315:14331): First Fit
+[DEBUG] 01:50:02:812 Broker/(14315:14331): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:50:02:812 Broker/(14315:14331): Indice a particionar 1
+[DEBUG] 01:50:02:812 Broker/(14315:14331): Por particionar...
+[INFO] 01:50:02:813 Broker/(14315:14331): Almacenado mensaje en la posicion real 0x82a0ffc
+[WARNING] 01:50:02:813 Broker/(14315:14331): Puntero primer bloque 136974328
+[WARNING] 01:50:02:813 Broker/(14315:14331): Puntero mi bloque 136974332
+[WARNING] 01:50:02:813 Broker/(14315:14331): Puntero mi bloque 4
+[INFO] 01:50:02:815 Broker/(14315:14331): Almacenado en la posicion relativa 4
+[DEBUG] 01:50:02:815 Broker/(14315:14331): Bloque particionado...
+[DEBUG] 01:50:02:815 Broker/(14315:14331): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:50:02:816 Broker/(14315:14331): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:50:02:816 Broker/(14315:14331): Aloje la nueva particion , PD
+[INFO] 01:50:02:821 Broker/(14315:14332): Se aceptó un nuevo proceso en el socket 7
+[DEBUG] 01:50:02:823 Broker/(14315:14332): Mensaje Recibido:
+[DEBUG] 01:50:02:823 Broker/(14315:14332): operacion: 0 
+[DEBUG] 01:50:02:823 Broker/(14315:14332): cola_de_mensajes: 2 
+[DEBUG] 01:50:02:823 Broker/(14315:14332): id_correlacional: -1  
+[DEBUG] 01:50:02:823 Broker/(14315:14332): id_mensaje: -1 
+[DEBUG] 01:50:02:824 Broker/(14315:14332): id_cliente: 12332 
+[DEBUG] 01:50:02:825 Broker/(14315:14332): tamanio_payload: 19 
+[INFO] 01:50:02:828 Broker/(14315:14332): El cliente 12332 envió un mensaje para la cola 2 a través de socket 7
+[DEBUG] 01:50:02:828 Broker/(14315:14332): Nueva peticion de memoria de: 19
+[DEBUG] 01:50:02:829 Broker/(14315:14332): Particiones dinamicas
+[DEBUG] 01:50:02:829 Broker/(14315:14332): Alojar: 19
+[DEBUG] 01:50:02:830 Broker/(14315:14332): Se hace una particion de: 19 
+[WARNING] 01:50:02:830 Broker/(14315:14332): A - puedo alojar la particion 1
+[WARNING] 01:50:02:830 Broker/(14315:14332): b- puedo alojar la particion 1
+[INFO] 01:50:02:830 Broker/(14315:14332): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:50:02:830 Broker/(14315:14332): First Fit
+[DEBUG] 01:50:02:830 Broker/(14315:14332): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:50:02:830 Broker/(14315:14332): Indice a particionar 2
+[DEBUG] 01:50:02:831 Broker/(14315:14332): Por particionar...
+[INFO] 01:50:02:831 Broker/(14315:14332): Almacenado mensaje en la posicion real 0x82a1000
+[WARNING] 01:50:02:831 Broker/(14315:14332): Puntero primer bloque 136974328
+[WARNING] 01:50:02:831 Broker/(14315:14332): Puntero mi bloque 136974336
+[WARNING] 01:50:02:831 Broker/(14315:14332): Puntero mi bloque 8
+[INFO] 01:50:02:831 Broker/(14315:14332): Almacenado en la posicion relativa 8
+[DEBUG] 01:50:02:832 Broker/(14315:14332): Bloque particionado...
+[DEBUG] 01:50:02:832 Broker/(14315:14332): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:50:02:832 Broker/(14315:14332): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:50:02:832 Broker/(14315:14332): Aloje la nueva particion , PD
+[INFO] 01:50:02:841 Broker/(14315:14333): Se aceptó un nuevo proceso en el socket 8
+[DEBUG] 01:50:02:842 Broker/(14315:14333): Mensaje Recibido:
+[DEBUG] 01:50:02:842 Broker/(14315:14333): operacion: 0 
+[DEBUG] 01:50:02:842 Broker/(14315:14333): cola_de_mensajes: 2 
+[DEBUG] 01:50:02:843 Broker/(14315:14333): id_correlacional: -1  
+[DEBUG] 01:50:02:843 Broker/(14315:14333): id_mensaje: -1 
+[DEBUG] 01:50:02:843 Broker/(14315:14333): id_cliente: 12332 
+[DEBUG] 01:50:02:843 Broker/(14315:14333): tamanio_payload: 20 
+[INFO] 01:50:02:843 Broker/(14315:14333): El cliente 12332 envió un mensaje para la cola 2 a través de socket 8
+[DEBUG] 01:50:02:844 Broker/(14315:14333): Nueva peticion de memoria de: 20
+[DEBUG] 01:50:02:844 Broker/(14315:14333): Particiones dinamicas
+[DEBUG] 01:50:02:844 Broker/(14315:14333): Alojar: 20
+[DEBUG] 01:50:02:844 Broker/(14315:14333): Se hace una particion de: 20 
+[WARNING] 01:50:02:844 Broker/(14315:14333): A - puedo alojar la particion 1
+[WARNING] 01:50:02:845 Broker/(14315:14333): b- puedo alojar la particion 1
+[INFO] 01:50:02:845 Broker/(14315:14333): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:50:02:845 Broker/(14315:14333): First Fit
+[DEBUG] 01:50:02:845 Broker/(14315:14333): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:50:02:846 Broker/(14315:14333): Indice a particionar 3
+[DEBUG] 01:50:02:846 Broker/(14315:14333): Por particionar...
+[INFO] 01:50:02:846 Broker/(14315:14333): Almacenado mensaje en la posicion real 0x82a1013
+[WARNING] 01:50:02:846 Broker/(14315:14333): Puntero primer bloque 136974328
+[WARNING] 01:50:02:860 Broker/(14315:14333): Puntero mi bloque 136974355
+[WARNING] 01:50:02:860 Broker/(14315:14333): Puntero mi bloque 27
+[INFO] 01:50:02:860 Broker/(14315:14333): Almacenado en la posicion relativa 27
+[DEBUG] 01:50:02:860 Broker/(14315:14333): Bloque particionado...
+[DEBUG] 01:50:02:860 Broker/(14315:14333): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:50:02:860 Broker/(14315:14333): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:50:02:860 Broker/(14315:14333): Aloje la nueva particion , PD
+[INFO] 01:50:02:862 Broker/(14315:14334): Se aceptó un nuevo proceso en el socket 9
+[DEBUG] 01:50:02:862 Broker/(14315:14334): Mensaje Recibido:
+[DEBUG] 01:50:02:862 Broker/(14315:14334): operacion: 0 
+[DEBUG] 01:50:02:862 Broker/(14315:14334): cola_de_mensajes: 2 
+[DEBUG] 01:50:02:863 Broker/(14315:14334): id_correlacional: -1  
+[DEBUG] 01:50:02:863 Broker/(14315:14334): id_mensaje: -1 
+[DEBUG] 01:50:02:863 Broker/(14315:14334): id_cliente: 12332 
+[DEBUG] 01:50:02:863 Broker/(14315:14334): tamanio_payload: 16 
+[INFO] 01:50:02:863 Broker/(14315:14334): El cliente 12332 envió un mensaje para la cola 2 a través de socket 9
+[DEBUG] 01:50:02:863 Broker/(14315:14334): Nueva peticion de memoria de: 16
+[DEBUG] 01:50:02:864 Broker/(14315:14334): Particiones dinamicas
+[DEBUG] 01:50:02:864 Broker/(14315:14334): Alojar: 16
+[DEBUG] 01:50:02:865 Broker/(14315:14334): Se hace una particion de: 16 
+[WARNING] 01:50:02:869 Broker/(14315:14334): A - puedo alojar la particion 1
+[WARNING] 01:50:02:869 Broker/(14315:14334): b- puedo alojar la particion 1
+[INFO] 01:50:02:869 Broker/(14315:14334): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:50:02:870 Broker/(14315:14334): First Fit
+[DEBUG] 01:50:02:870 Broker/(14315:14334): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:50:02:870 Broker/(14315:14334): Indice a particionar 4
+[DEBUG] 01:50:02:870 Broker/(14315:14334): Por particionar...
+[INFO] 01:50:02:870 Broker/(14315:14334): Almacenado mensaje en la posicion real 0x82a1027
+[WARNING] 01:50:02:870 Broker/(14315:14334): Puntero primer bloque 136974328
+[WARNING] 01:50:02:870 Broker/(14315:14334): Puntero mi bloque 136974375
+[WARNING] 01:50:02:871 Broker/(14315:14334): Puntero mi bloque 47
+[INFO] 01:50:02:871 Broker/(14315:14334): Almacenado en la posicion relativa 47
+[DEBUG] 01:50:02:871 Broker/(14315:14334): Bloque particionado...
+[DEBUG] 01:50:02:871 Broker/(14315:14334): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:50:02:871 Broker/(14315:14334): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:50:02:871 Broker/(14315:14334): Aloje la nueva particion , PD
+[INFO] 01:50:02:873 Broker/(14315:14335): Se aceptó un nuevo proceso en el socket 10
+[INFO] 01:50:02:873 Broker/(14315:14336): Se aceptó un nuevo proceso en el socket 11
+[DEBUG] 01:50:02:873 Broker/(14315:14335): Mensaje Recibido:
+[DEBUG] 01:50:02:874 Broker/(14315:14335): operacion: 1 
+[DEBUG] 01:50:02:877 Broker/(14315:14335): cola_de_mensajes: 4 
+[DEBUG] 01:50:02:877 Broker/(14315:14335): id_correlacional: -1  
+[DEBUG] 01:50:02:878 Broker/(14315:14335): id_mensaje: -1 
+[DEBUG] 01:50:02:878 Broker/(14315:14335): id_cliente: 12332 
+[DEBUG] 01:50:02:878 Broker/(14315:14335): tamanio_payload: 0 
+[INFO] 01:50:02:878 Broker/(14315:14335): El cliente 12332 solicitó suscribirse a la cola 4 a través del socket 10
+[DEBUG] 01:50:02:878 Broker/(14315:14335): Recibida suscripcion de cliente 12332 en socket 10
+[DEBUG] 01:50:02:879 Broker/(14315:14335): Creando nuevo cliente 12332 para la cola CAUGHT_POKEMON en socket 10
+[DEBUG] 01:50:02:879 Broker/(14315:14335): Agregado mensaje 0 pendiente de envio a 12332
+[DEBUG] 01:50:02:879 Broker/(14315:14336): Mensaje Recibido:
+[DEBUG] 01:50:02:879 Broker/(14315:14336): operacion: 0 
+[DEBUG] 01:50:02:879 Broker/(14315:14336): cola_de_mensajes: 2 
+[DEBUG] 01:50:02:879 Broker/(14315:14336): id_correlacional: -1  
+[DEBUG] 01:50:02:879 Broker/(14315:14336): id_mensaje: -1 
+[DEBUG] 01:50:02:880 Broker/(14315:14336): id_cliente: 12332 
+[DEBUG] 01:50:02:880 Broker/(14315:14336): tamanio_payload: 22 
+[INFO] 01:50:02:880 Broker/(14315:14336): El cliente 12332 envió un mensaje para la cola 2 a través de socket 11
+[DEBUG] 01:50:02:880 Broker/(14315:14335): Agregado mensaje 1 pendiente de envio a 12332
+[DEBUG] 01:50:02:880 Broker/(14315:14320): Los pendientes tienen 2 mensajes
+[INFO] 01:50:02:880 Broker/(14315:14320): Se envió mensaje 0 perteneciente a la cola 4 al cliente 12332
+[DEBUG] 01:50:02:880 Broker/(14315:14320): Los pendientes quedaron con 1 mensajes
+[DEBUG] 01:50:02:880 Broker/(14315:14320): Los pendientes tienen 1 mensajes
+[INFO] 01:50:02:880 Broker/(14315:14320): Se envió mensaje 1 perteneciente a la cola 4 al cliente 12332
+[DEBUG] 01:50:02:881 Broker/(14315:14320): Los pendientes quedaron con 0 mensajes
+[DEBUG] 01:50:02:881 Broker/(14315:14336): Nueva peticion de memoria de: 22
+[DEBUG] 01:50:02:881 Broker/(14315:14336): Particiones dinamicas
+[DEBUG] 01:50:02:881 Broker/(14315:14336): Alojar: 22
+[DEBUG] 01:50:02:881 Broker/(14315:14336): Se hace una particion de: 22 
+[WARNING] 01:50:02:881 Broker/(14315:14336): A - puedo alojar la particion 0
+[INFO] 01:50:02:881 Broker/(14315:14336): Por compactar mayor 0...
+[INFO] 01:50:02:881 Broker/(14315:14336): Por ejecutar algoritmo de reemplazo FIFO
+[DEBUG] 01:50:02:881 Broker/(14315:14336): Ejecutando Algoritmo FIFO
+[INFO] 01:50:02:882 Broker/(14315:14336): Eliminado de una particion en la posicion 0x82a0ff8
+[WARNING] 01:50:02:882 Broker/(14315:14336): Puntero primer bloque 136974328
+[WARNING] 01:50:02:882 Broker/(14315:14336): Puntero mi bloque 136974328
+[WARNING] 01:50:02:882 Broker/(14315:14336): Puntero mi bloque 0
+[INFO] 01:50:02:882 Broker/(14315:14336): Eliminado de una particion en la posicion relativa 0
+[DEBUG] 01:50:02:882 Broker/(14315:14336): Espacio liberado..
+[DEBUG] 01:50:02:882 Broker/(14315:14336): Algoritmo de reemplazo ejecutado!
+[ERROR] 01:50:02:882 Broker/(14315:14336): Entre en consolidar
+[DEBUG] 01:50:02:883 Broker/(14315:14336): El id malo es: 0
+[DEBUG] 01:50:02:883 Broker/(14315:14336): Realizando consolidacion
+[DEBUG] 01:50:02:883 Broker/(14315:14336): El id malo es: 0
+[INFO] 01:52:35:682 Broker/(14490:14490): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 01:52:35:689 Broker/(14490:14490): 1) Cache de mensajes lista!!!
+[DEBUG] 01:52:35:690 Broker/(14490:14490): 2) Inicializando archivo de configuracion...
+[INFO] 01:52:35:690 Broker/(14490:14490): Cargando el archivo de configuracion...
+[DEBUG] 01:52:35:691 Broker/(14490:14490): El tamaño inicial de memoria: 64
+[DEBUG] 01:52:35:691 Broker/(14490:14490): El tamaño minimo de particion: 4
+[DEBUG] 01:52:35:693 Broker/(14490:14490): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 01:52:35:693 Broker/(14490:14490): El algoritmo de reemplazo es: FIFO
+[DEBUG] 01:52:35:694 Broker/(14490:14490): El algoritmo para particiones libre es: FF
+[DEBUG] 01:52:35:694 Broker/(14490:14490): la ip del broker es: 127.0.0.1
+[DEBUG] 01:52:35:695 Broker/(14490:14490): el puerto del broker es: 5002
+[DEBUG] 01:52:35:695 Broker/(14490:14490): La frecuencia de compactacion es: 10
+[DEBUG] 01:52:35:695 Broker/(14490:14490): El log file es: Broker.log
+[INFO] 01:52:35:696 Broker/(14490:14490): Archivo de configuracion cargado...
+[DEBUG] 01:52:35:696 Broker/(14490:14490): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 01:52:35:696 Broker/(14490:14490): 4) Configurando signals...
+[DEBUG] 01:52:35:697 Broker/(14490:14490): 5) Signals configuradas correctamente!!!
+[DEBUG] 01:52:35:697 Broker/(14490:14490): 6) Inicializando cache de mensajes...
+[DEBUG] 01:52:35:697 Broker/(14490:14490): la direccion de memoria en memoria l51 es: 160547280 
+[DEBUG] 01:52:35:699 Broker/(14490:14490): Se asigno la memoria inicial
+[DEBUG] 01:52:35:707 Broker/(14490:14490): La direccion inicial de memoria es: 0x991dff8
+[DEBUG] 01:52:35:707 Broker/(14490:14490): Particion de memoria inicial creada con: 64 
+
+[DEBUG] 01:52:35:707 Broker/(14490:14490): 7) Iniciando servidor...
+[DEBUG] 01:52:35:709 Broker/(14490:14490): 8) Intentando bindear sever...
+[DEBUG] 01:52:35:709 Broker/(14490:14490): 9) Server bindeado correctamente!!!
+[DEBUG] 01:52:35:710 Broker/(14490:14490): 10) Hilo del servidor cargado correctamente!!!
+[INFO] 01:52:40:694 Broker/(14490:14505): Se aceptó un nuevo proceso en el socket 5
+[DEBUG] 01:52:40:698 Broker/(14490:14505): Mensaje Recibido:
+[DEBUG] 01:52:40:699 Broker/(14490:14505): operacion: 0 
+[DEBUG] 01:52:40:700 Broker/(14490:14505): cola_de_mensajes: 4 
+[DEBUG] 01:52:40:700 Broker/(14490:14505): id_correlacional: -1  
+[DEBUG] 01:52:40:701 Broker/(14490:14505): id_mensaje: -1 
+[DEBUG] 01:52:40:701 Broker/(14490:14505): id_cliente: 12332 
+[DEBUG] 01:52:40:702 Broker/(14490:14505): tamanio_payload: 4 
+[INFO] 01:52:40:702 Broker/(14490:14505): El cliente 12332 envió un mensaje para la cola 4 a través de socket 5
+[DEBUG] 01:52:40:703 Broker/(14490:14505): Nueva peticion de memoria de: 4
+[DEBUG] 01:52:40:703 Broker/(14490:14505): Particiones dinamicas
+[DEBUG] 01:52:40:703 Broker/(14490:14505): Alojar: 4
+[DEBUG] 01:52:40:705 Broker/(14490:14505): Se hace una particion de: 4 
+[WARNING] 01:52:40:706 Broker/(14490:14505): A - puedo alojar la particion 1
+[WARNING] 01:52:40:706 Broker/(14490:14505): b- puedo alojar la particion 1
+[INFO] 01:52:40:706 Broker/(14490:14505): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:52:40:707 Broker/(14490:14505): First Fit
+[DEBUG] 01:52:40:707 Broker/(14490:14505): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:52:40:707 Broker/(14490:14505): Indice a particionar 0
+[DEBUG] 01:52:40:710 Broker/(14490:14505): Por particionar...
+[INFO] 01:52:40:710 Broker/(14490:14505): Almacenado mensaje en la posicion real 0x991dff8
+[WARNING] 01:52:40:711 Broker/(14490:14505): Puntero primer bloque 160555000
+[WARNING] 01:52:40:711 Broker/(14490:14505): Puntero mi bloque 160555000
+[WARNING] 01:52:40:711 Broker/(14490:14505): Puntero mi bloque 0
+[INFO] 01:52:40:711 Broker/(14490:14505): Almacenado en la posicion relativa 0
+[DEBUG] 01:52:40:711 Broker/(14490:14505): Bloque particionado...
+[DEBUG] 01:52:40:711 Broker/(14490:14505): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:52:40:711 Broker/(14490:14505): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:52:40:712 Broker/(14490:14505): Aloje la nueva particion , PD
+[INFO] 01:52:40:725 Broker/(14490:14506): Se aceptó un nuevo proceso en el socket 6
+[DEBUG] 01:52:40:726 Broker/(14490:14506): Mensaje Recibido:
+[DEBUG] 01:52:40:726 Broker/(14490:14506): operacion: 0 
+[DEBUG] 01:52:40:727 Broker/(14490:14506): cola_de_mensajes: 4 
+[DEBUG] 01:52:40:727 Broker/(14490:14506): id_correlacional: -1  
+[DEBUG] 01:52:40:727 Broker/(14490:14506): id_mensaje: -1 
+[DEBUG] 01:52:40:727 Broker/(14490:14506): id_cliente: 12332 
+[DEBUG] 01:52:40:727 Broker/(14490:14506): tamanio_payload: 4 
+[INFO] 01:52:40:727 Broker/(14490:14506): El cliente 12332 envió un mensaje para la cola 4 a través de socket 6
+[DEBUG] 01:52:40:729 Broker/(14490:14506): Nueva peticion de memoria de: 4
+[DEBUG] 01:52:40:729 Broker/(14490:14506): Particiones dinamicas
+[DEBUG] 01:52:40:730 Broker/(14490:14506): Alojar: 4
+[DEBUG] 01:52:40:730 Broker/(14490:14506): Se hace una particion de: 4 
+[WARNING] 01:52:40:730 Broker/(14490:14506): A - puedo alojar la particion 1
+[WARNING] 01:52:40:730 Broker/(14490:14506): b- puedo alojar la particion 1
+[INFO] 01:52:40:730 Broker/(14490:14506): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:52:40:730 Broker/(14490:14506): First Fit
+[DEBUG] 01:52:40:731 Broker/(14490:14506): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:52:40:731 Broker/(14490:14506): Indice a particionar 1
+[DEBUG] 01:52:40:731 Broker/(14490:14506): Por particionar...
+[INFO] 01:52:40:731 Broker/(14490:14506): Almacenado mensaje en la posicion real 0x991dffc
+[WARNING] 01:52:40:732 Broker/(14490:14506): Puntero primer bloque 160555000
+[WARNING] 01:52:40:732 Broker/(14490:14506): Puntero mi bloque 160555004
+[WARNING] 01:52:40:732 Broker/(14490:14506): Puntero mi bloque 4
+[INFO] 01:52:40:732 Broker/(14490:14506): Almacenado en la posicion relativa 4
+[DEBUG] 01:52:40:732 Broker/(14490:14506): Bloque particionado...
+[DEBUG] 01:52:40:734 Broker/(14490:14506): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:52:40:734 Broker/(14490:14506): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:52:40:734 Broker/(14490:14506): Aloje la nueva particion , PD
+[INFO] 01:52:40:739 Broker/(14490:14507): Se aceptó un nuevo proceso en el socket 7
+[DEBUG] 01:52:40:739 Broker/(14490:14507): Mensaje Recibido:
+[DEBUG] 01:52:40:741 Broker/(14490:14507): operacion: 0 
+[DEBUG] 01:52:40:741 Broker/(14490:14507): cola_de_mensajes: 2 
+[DEBUG] 01:52:40:742 Broker/(14490:14507): id_correlacional: -1  
+[DEBUG] 01:52:40:742 Broker/(14490:14507): id_mensaje: -1 
+[DEBUG] 01:52:40:742 Broker/(14490:14507): id_cliente: 12332 
+[DEBUG] 01:52:40:742 Broker/(14490:14507): tamanio_payload: 19 
+[INFO] 01:52:40:742 Broker/(14490:14507): El cliente 12332 envió un mensaje para la cola 2 a través de socket 7
+[DEBUG] 01:52:40:742 Broker/(14490:14507): Nueva peticion de memoria de: 19
+[DEBUG] 01:52:40:742 Broker/(14490:14507): Particiones dinamicas
+[DEBUG] 01:52:40:743 Broker/(14490:14507): Alojar: 19
+[DEBUG] 01:52:40:744 Broker/(14490:14507): Se hace una particion de: 19 
+[WARNING] 01:52:40:744 Broker/(14490:14507): A - puedo alojar la particion 1
+[WARNING] 01:52:40:744 Broker/(14490:14507): b- puedo alojar la particion 1
+[INFO] 01:52:40:745 Broker/(14490:14507): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:52:40:745 Broker/(14490:14507): First Fit
+[DEBUG] 01:52:40:745 Broker/(14490:14507): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:52:40:745 Broker/(14490:14507): Indice a particionar 2
+[DEBUG] 01:52:40:745 Broker/(14490:14507): Por particionar...
+[INFO] 01:52:40:745 Broker/(14490:14507): Almacenado mensaje en la posicion real 0x991e000
+[WARNING] 01:52:40:745 Broker/(14490:14507): Puntero primer bloque 160555000
+[WARNING] 01:52:40:745 Broker/(14490:14507): Puntero mi bloque 160555008
+[WARNING] 01:52:40:745 Broker/(14490:14507): Puntero mi bloque 8
+[INFO] 01:52:40:745 Broker/(14490:14507): Almacenado en la posicion relativa 8
+[DEBUG] 01:52:40:745 Broker/(14490:14507): Bloque particionado...
+[DEBUG] 01:52:40:745 Broker/(14490:14507): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:52:40:746 Broker/(14490:14507): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:52:40:746 Broker/(14490:14507): Aloje la nueva particion , PD
+[INFO] 01:52:40:752 Broker/(14490:14508): Se aceptó un nuevo proceso en el socket 8
+[DEBUG] 01:52:40:752 Broker/(14490:14508): Mensaje Recibido:
+[DEBUG] 01:52:40:752 Broker/(14490:14508): operacion: 0 
+[DEBUG] 01:52:40:752 Broker/(14490:14508): cola_de_mensajes: 2 
+[DEBUG] 01:52:40:752 Broker/(14490:14508): id_correlacional: -1  
+[DEBUG] 01:52:40:752 Broker/(14490:14508): id_mensaje: -1 
+[DEBUG] 01:52:40:752 Broker/(14490:14508): id_cliente: 12332 
+[DEBUG] 01:52:40:752 Broker/(14490:14508): tamanio_payload: 20 
+[INFO] 01:52:40:752 Broker/(14490:14508): El cliente 12332 envió un mensaje para la cola 2 a través de socket 8
+[DEBUG] 01:52:40:753 Broker/(14490:14508): Nueva peticion de memoria de: 20
+[DEBUG] 01:52:40:753 Broker/(14490:14508): Particiones dinamicas
+[DEBUG] 01:52:40:753 Broker/(14490:14508): Alojar: 20
+[DEBUG] 01:52:40:753 Broker/(14490:14508): Se hace una particion de: 20 
+[WARNING] 01:52:40:753 Broker/(14490:14508): A - puedo alojar la particion 1
+[WARNING] 01:52:40:753 Broker/(14490:14508): b- puedo alojar la particion 1
+[INFO] 01:52:40:753 Broker/(14490:14508): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:52:40:754 Broker/(14490:14508): First Fit
+[DEBUG] 01:52:40:754 Broker/(14490:14508): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:52:40:755 Broker/(14490:14508): Indice a particionar 3
+[DEBUG] 01:52:40:755 Broker/(14490:14508): Por particionar...
+[INFO] 01:52:40:755 Broker/(14490:14508): Almacenado mensaje en la posicion real 0x991e013
+[WARNING] 01:52:40:755 Broker/(14490:14508): Puntero primer bloque 160555000
+[WARNING] 01:52:40:755 Broker/(14490:14508): Puntero mi bloque 160555027
+[WARNING] 01:52:40:755 Broker/(14490:14508): Puntero mi bloque 27
+[INFO] 01:52:40:755 Broker/(14490:14508): Almacenado en la posicion relativa 27
+[DEBUG] 01:52:40:756 Broker/(14490:14508): Bloque particionado...
+[DEBUG] 01:52:40:756 Broker/(14490:14508): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:52:40:757 Broker/(14490:14508): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:52:40:757 Broker/(14490:14508): Aloje la nueva particion , PD
+[INFO] 01:52:40:769 Broker/(14490:14509): Se aceptó un nuevo proceso en el socket 9
+[DEBUG] 01:52:40:769 Broker/(14490:14509): Mensaje Recibido:
+[DEBUG] 01:52:40:769 Broker/(14490:14509): operacion: 0 
+[DEBUG] 01:52:40:769 Broker/(14490:14509): cola_de_mensajes: 2 
+[DEBUG] 01:52:40:770 Broker/(14490:14509): id_correlacional: -1  
+[DEBUG] 01:52:40:770 Broker/(14490:14509): id_mensaje: -1 
+[DEBUG] 01:52:40:770 Broker/(14490:14509): id_cliente: 12332 
+[DEBUG] 01:52:40:770 Broker/(14490:14509): tamanio_payload: 16 
+[INFO] 01:52:40:770 Broker/(14490:14509): El cliente 12332 envió un mensaje para la cola 2 a través de socket 9
+[DEBUG] 01:52:40:770 Broker/(14490:14509): Nueva peticion de memoria de: 16
+[DEBUG] 01:52:40:770 Broker/(14490:14509): Particiones dinamicas
+[DEBUG] 01:52:40:770 Broker/(14490:14509): Alojar: 16
+[DEBUG] 01:52:40:770 Broker/(14490:14509): Se hace una particion de: 16 
+[WARNING] 01:52:40:770 Broker/(14490:14509): A - puedo alojar la particion 1
+[WARNING] 01:52:40:770 Broker/(14490:14509): b- puedo alojar la particion 1
+[INFO] 01:52:40:770 Broker/(14490:14509): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:52:40:771 Broker/(14490:14509): First Fit
+[DEBUG] 01:52:40:771 Broker/(14490:14509): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:52:40:771 Broker/(14490:14509): Indice a particionar 4
+[DEBUG] 01:52:40:771 Broker/(14490:14509): Por particionar...
+[INFO] 01:52:40:771 Broker/(14490:14509): Almacenado mensaje en la posicion real 0x991e027
+[WARNING] 01:52:40:771 Broker/(14490:14509): Puntero primer bloque 160555000
+[WARNING] 01:52:40:771 Broker/(14490:14509): Puntero mi bloque 160555047
+[WARNING] 01:52:40:771 Broker/(14490:14509): Puntero mi bloque 47
+[INFO] 01:52:40:771 Broker/(14490:14509): Almacenado en la posicion relativa 47
+[DEBUG] 01:52:40:771 Broker/(14490:14509): Bloque particionado...
+[DEBUG] 01:52:40:771 Broker/(14490:14509): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:52:40:771 Broker/(14490:14509): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:52:40:771 Broker/(14490:14509): Aloje la nueva particion , PD
+[INFO] 01:52:40:777 Broker/(14490:14511): Se aceptó un nuevo proceso en el socket 11
+[DEBUG] 01:52:40:777 Broker/(14490:14511): Mensaje Recibido:
+[INFO] 01:52:40:777 Broker/(14490:14510): Se aceptó un nuevo proceso en el socket 10
+[DEBUG] 01:52:40:777 Broker/(14490:14511): operacion: 0 
+[DEBUG] 01:52:40:777 Broker/(14490:14511): cola_de_mensajes: 2 
+[DEBUG] 01:52:40:777 Broker/(14490:14511): id_correlacional: -1  
+[DEBUG] 01:52:40:778 Broker/(14490:14511): id_mensaje: -1 
+[DEBUG] 01:52:40:778 Broker/(14490:14511): id_cliente: 12332 
+[DEBUG] 01:52:40:778 Broker/(14490:14511): tamanio_payload: 22 
+[INFO] 01:52:40:781 Broker/(14490:14511): El cliente 12332 envió un mensaje para la cola 2 a través de socket 11
+[DEBUG] 01:52:40:781 Broker/(14490:14511): Nueva peticion de memoria de: 22
+[DEBUG] 01:52:40:781 Broker/(14490:14511): Particiones dinamicas
+[DEBUG] 01:52:40:781 Broker/(14490:14511): Alojar: 22
+[DEBUG] 01:52:40:781 Broker/(14490:14511): Se hace una particion de: 22 
+[WARNING] 01:52:40:781 Broker/(14490:14511): A - puedo alojar la particion 0
+[INFO] 01:52:40:782 Broker/(14490:14511): Por compactar mayor 0...
+[INFO] 01:52:40:782 Broker/(14490:14511): Por ejecutar algoritmo de reemplazo FIFO
+[DEBUG] 01:52:40:782 Broker/(14490:14511): Ejecutando Algoritmo FIFO
+[INFO] 01:52:40:782 Broker/(14490:14511): Eliminado de una particion en la posicion 0x991dff8
+[WARNING] 01:52:40:782 Broker/(14490:14511): Puntero primer bloque 160555000
+[WARNING] 01:52:40:782 Broker/(14490:14511): Puntero mi bloque 160555000
+[DEBUG] 01:52:40:782 Broker/(14490:14510): Mensaje Recibido:
+[DEBUG] 01:52:40:782 Broker/(14490:14510): operacion: 1 
+[DEBUG] 01:52:40:782 Broker/(14490:14510): cola_de_mensajes: 4 
+[DEBUG] 01:52:40:782 Broker/(14490:14510): id_correlacional: -1  
+[DEBUG] 01:52:40:782 Broker/(14490:14510): id_mensaje: -1 
+[DEBUG] 01:52:40:782 Broker/(14490:14510): id_cliente: 12332 
+[DEBUG] 01:52:40:783 Broker/(14490:14510): tamanio_payload: 0 
+[INFO] 01:52:40:783 Broker/(14490:14510): El cliente 12332 solicitó suscribirse a la cola 4 a través del socket 10
+[DEBUG] 01:52:40:783 Broker/(14490:14510): Recibida suscripcion de cliente 12332 en socket 10
+[WARNING] 01:52:40:783 Broker/(14490:14511): Puntero mi bloque 0
+[INFO] 01:52:40:783 Broker/(14490:14511): Eliminado de una particion en la posicion relativa 0
+[DEBUG] 01:52:40:783 Broker/(14490:14511): Espacio liberado..
+[DEBUG] 01:52:40:783 Broker/(14490:14511): Algoritmo de reemplazo ejecutado!
+[ERROR] 01:52:40:783 Broker/(14490:14511): Entre en consolidar
+[DEBUG] 01:52:40:783 Broker/(14490:14511): El id malo es: 0
+[DEBUG] 01:52:40:784 Broker/(14490:14511): Realizando consolidacion
+[DEBUG] 01:52:40:784 Broker/(14490:14511): El id malo es: 0
+[ERROR] 01:52:40:784 Broker/(14490:14511): Sali de consolidar
+[DEBUG] 01:52:40:784 Broker/(14490:14511): Ya consolide luego de vaciar una particion
+[INFO] 01:52:40:784 Broker/(14490:14511): Frecuencia de compactacion, faltan vaciar 9 particiones
+[WARNING] 01:52:40:784 Broker/(14490:14511): A - puedo alojar la particion 0
+[INFO] 01:52:40:784 Broker/(14490:14511): Por compactar mayor 0...
+[INFO] 01:52:40:784 Broker/(14490:14511): Por ejecutar algoritmo de reemplazo FIFO
+[DEBUG] 01:52:40:784 Broker/(14490:14511): Ejecutando Algoritmo FIFO
+[INFO] 01:52:40:784 Broker/(14490:14511): Eliminado de una particion en la posicion 0x991dffc
+[WARNING] 01:52:40:784 Broker/(14490:14511): Puntero primer bloque 24471651
+[WARNING] 01:52:40:784 Broker/(14490:14511): Puntero mi bloque 160555004
+[WARNING] 01:52:40:785 Broker/(14490:14511): Puntero mi bloque 4
+[INFO] 01:52:40:785 Broker/(14490:14511): Eliminado de una particion en la posicion relativa 4
+[DEBUG] 01:52:40:785 Broker/(14490:14511): Espacio liberado..
+[DEBUG] 01:52:40:785 Broker/(14490:14511): Algoritmo de reemplazo ejecutado!
+[ERROR] 01:52:40:785 Broker/(14490:14511): Entre en consolidar
+[DEBUG] 01:52:40:785 Broker/(14490:14511): El id malo es: 1
+[DEBUG] 01:52:40:785 Broker/(14490:14511): Realizando consolidacion
+[DEBUG] 01:52:40:785 Broker/(14490:14511): El id malo es: 1
+[ERROR] 01:52:40:785 Broker/(14490:14511): Sali de consolidar
+[DEBUG] 01:52:40:785 Broker/(14490:14511): Ya consolide luego de vaciar una particion
+[INFO] 01:52:40:787 Broker/(14490:14511): Frecuencia de compactacion, faltan vaciar 8 particiones
+[WARNING] 01:52:40:787 Broker/(14490:14511): A - puedo alojar la particion 0
+[INFO] 01:52:40:788 Broker/(14490:14511): Por compactar mayor 0...
+[INFO] 01:52:40:788 Broker/(14490:14511): Por ejecutar algoritmo de reemplazo FIFO
+[DEBUG] 01:52:40:788 Broker/(14490:14511): Ejecutando Algoritmo FIFO
+[INFO] 01:52:40:788 Broker/(14490:14511): Eliminado de una particion en la posicion 0x991e000
+[WARNING] 01:52:40:788 Broker/(14490:14511): Puntero primer bloque 24471651
+[WARNING] 01:52:40:788 Broker/(14490:14511): Puntero mi bloque 160555008
+[WARNING] 01:52:40:788 Broker/(14490:14511): Puntero mi bloque 8
+[INFO] 01:52:40:788 Broker/(14490:14511): Eliminado de una particion en la posicion relativa 8
+[DEBUG] 01:52:40:789 Broker/(14490:14511): Espacio liberado..
+[DEBUG] 01:52:40:790 Broker/(14490:14511): Algoritmo de reemplazo ejecutado!
+[ERROR] 01:52:40:790 Broker/(14490:14511): Entre en consolidar
+[DEBUG] 01:52:40:790 Broker/(14490:14511): El id malo es: 2
+[DEBUG] 01:52:40:791 Broker/(14490:14511): Realizando consolidacion
+[DEBUG] 01:52:40:791 Broker/(14490:14511): El id malo es: 2
+[DEBUG] 01:52:40:791 Broker/(14490:14511): Realizando consolidacion
+[DEBUG] 01:52:40:791 Broker/(14490:14511): El id malo es: 2
+[ERROR] 01:52:40:791 Broker/(14490:14511): Sali de consolidar
+[DEBUG] 01:52:40:791 Broker/(14490:14511): Ya consolide luego de vaciar una particion
+[INFO] 01:52:40:795 Broker/(14490:14511): Frecuencia de compactacion, faltan vaciar 7 particiones
+[WARNING] 01:52:40:795 Broker/(14490:14511): A - puedo alojar la particion 1
+[WARNING] 01:52:40:796 Broker/(14490:14511): b- puedo alojar la particion 1
+[INFO] 01:52:40:796 Broker/(14490:14511): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 01:52:40:796 Broker/(14490:14511): First Fit
+[DEBUG] 01:52:40:798 Broker/(14490:14511): Por particionar el bloque, ya encontre mi bloque adecuado
+[DEBUG] 01:52:40:798 Broker/(14490:14511): Indice a particionar 0
+[DEBUG] 01:52:40:798 Broker/(14490:14511): Por particionar...
+[INFO] 01:52:40:798 Broker/(14490:14511): Almacenado mensaje en la posicion real 0x991dff8
+[WARNING] 01:52:40:798 Broker/(14490:14511): Puntero primer bloque 160555000
+[WARNING] 01:52:40:798 Broker/(14490:14511): Puntero mi bloque 160555000
+[WARNING] 01:52:40:798 Broker/(14490:14511): Puntero mi bloque 0
+[INFO] 01:52:40:798 Broker/(14490:14511): Almacenado en la posicion relativa 0
+[DEBUG] 01:52:40:799 Broker/(14490:14511): Bloque particionado...
+[DEBUG] 01:52:40:799 Broker/(14490:14511): Ya ejecute el algoritmo fist fit
+[DEBUG] 01:52:40:799 Broker/(14490:14511): Algoritmo de particion libre ejecutado!
+[DEBUG] 01:52:40:799 Broker/(14490:14511): Aloje la nueva particion , PD
+[DEBUG] 01:52:40:799 Broker/(14490:14510): Creando nuevo cliente 12332 para la cola CAUGHT_POKEMON en socket 10
+[INFO] 01:54:01:540 Broker/(14490:14490):  Broker DEJA DE FUNCIONAR 
+[INFO] 01:54:01:541 Broker/(14490:14490): Chau!

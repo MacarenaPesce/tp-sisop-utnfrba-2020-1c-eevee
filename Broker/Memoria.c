@@ -16,29 +16,6 @@ extern t_cache_colas* cache_mensajes;
 //ASCII boquitas en hexa
 //control + shift + u 3e y 3c 
 
-/* 
-
-    Lucas 23/6:
-    - Cambie lista_memoria por cache_mensajes->memoria (es la lista de bloques que tiene que quedar)
-    - Cambie los parametros tamanio_mensaje y mensaje por estructura_mensaje en las fn:
-        - particionar_bloque
-        - algoritmo_de_memoria
-        - particiones_dinamicas
-        - buddy_system
-        - algoritmo_de_particion_libre
-        - algoritmo_first_fit
-        - algoritmo_best_fit
-    - Cambie los headers segun los cambios de las fn del punto anterior
-    - Cambie la asignacion y copia del mensaje en la fn 'particionar_bloque'
-    - Agregue un malloc que faltaba al crear la particion restante en la fn 'particionar_bloque' 
-    - Quite el '+1' en el calculo de particion restante en la fn 'particionar_bloque'
-    - Cambie varios bloque->payload por bloque->estructura_mensaje
-    - Cambie varios bloque->tamanio_mensaje por bloque->estructura_mensaje->tamanio_mensaje
-   
-    
-    PD: No me mates D:
-*/
-
 
 //--------------------------- ADMINISTRACION DE MEMORIA-------------------
 
@@ -632,18 +609,18 @@ void consolidar(t_bloque_memoria* bloque){
 
     int indice_bloque = obtener_indice_particion(bloque);
 
-    //t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria,(indice_bloque-1));
+    t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria,(indice_bloque-1));
 
     t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria,(indice_bloque+1));
 
-    if( bloque_siguiente->esta_vacio ){
+    if( bloque_siguiente != NULL && (bloque_siguiente->esta_vacio == true) ){
         if(debug_broker) log_debug(broker_logger,"Realizando consolidacion");
         consolidar_dos_bloques(bloque,bloque_siguiente);
     }
-    /*if( bloque_anterior->esta_vacio == true){
+    if( bloque_anterior != NULL && bloque_anterior->esta_vacio == true){
        if(debug_broker) log_debug(broker_logger,"Realizando consolidacion");
         consolidar_dos_bloques(bloque_anterior,bloque);
-    }*/
+    }
 
     log_error(broker_logger,"Sali de consolidar");
 
@@ -659,7 +636,7 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
     primerBloque->tamanio_particion += segundoBloque->tamanio_particion;
 
     /* Borro y destruyo el segundo bloque */
-	list_remove_and_destroy_element(cache_mensajes->memoria, indice, (void*)free);
+	//list_remove_and_destroy_element(cache_mensajes->memoria, indice, (void*)free);
 
     return ;
 }
