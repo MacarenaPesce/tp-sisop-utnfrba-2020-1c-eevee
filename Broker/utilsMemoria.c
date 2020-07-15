@@ -57,7 +57,7 @@ int obtener_indice_particion(t_bloque_memoria* bloque){
     }
 
     list_find(cache_mensajes->memoria, buscar_bloque);
-    if(debug_broker) log_debug(broker_logger,"El id malo es: %d",indice);
+    if(debug_broker) log_debug(broker_logger,"El indice es: %d",indice);
 
 	return indice-1;
 }
