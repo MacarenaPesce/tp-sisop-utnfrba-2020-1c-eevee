@@ -107,6 +107,7 @@ extern t_list* lista_bloqueados_deadlock;
 extern t_list* mensajes_que_llegan_nuevos;
 extern t_list* mensajes_para_chequear_id;
 extern t_list* lista_bloqueados_esperando_caught;
+extern t_list * lista_pokemones_objetivos_aux;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_rr;
@@ -149,6 +150,7 @@ sem_t chequeo_de_deadlock;
 sem_t todos_los_entrenadores_finalizaron;
 sem_t me_bloquee;
 sem_t puedo_volver_a_ejecutar; 
+sem_t termine_carajo;
 
 extern bool hayDeadlock;
 extern bool me_desalojaron;

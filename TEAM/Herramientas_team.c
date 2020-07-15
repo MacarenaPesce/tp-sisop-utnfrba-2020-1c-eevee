@@ -38,12 +38,12 @@ bool objetivo_personal_cumplido(t_entrenador* entrenador){
 		printf("la lista es nula");
 	}
 	for (int i = 0; i < list_size(entrenador->objetivo); i++){
-		pthread_mutex_lock(&tocando_pokemones_objetivos);
+		//pthread_mutex_lock(&tocando_pokemones_objetivos);
 		t_objetivo_entrenador* un_objetivo = list_get(entrenador->objetivo, i);
 		if(un_objetivo->cantidad == 0){
 			contador++;
 		}
-		pthread_mutex_unlock(&tocando_pokemones_objetivos);
+		//pthread_mutex_unlock(&tocando_pokemones_objetivos);
 	}
 	return (contador == list_size(entrenador->objetivo));
 }
@@ -117,6 +117,7 @@ void inicializar_semaforos(){
 	sem_init(&todos_los_entrenadores_finalizaron, 0, 0);
 	sem_init(&me_bloquee, 0, 0);
 	sem_init(&puedo_volver_a_ejecutar, 0, 0);
+	sem_init(&termine_carajo, 0, 0);
 
 
 }
@@ -303,9 +304,8 @@ int destruir_pokemon(t_pokemon * pokemon){
 }
 
 int destruir_entrenador(t_entrenador * entrenador){
-	free(entrenador->objetivo_actual);
-	list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo);
-	list_destroy(entrenador->pokemones);
+	//list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo);
+	//list_destroy(entrenador->pokemones);
 	free(entrenador);
 	return 0;
 }
@@ -328,19 +328,17 @@ void terminar_team_correctamente(){
 	/*HAY QUE DESTRUIR TODAS LAS LISTAS*/
 	list_destroy_and_destroy_elements(lista_mapa,(void*)destruir_pokemon);
 	list_destroy(pokemones_ordenada);
-	list_destroy_and_destroy_elements(lista_entrenadores,(void*)destruir_entrenador);
+	list_destroy(lista_entrenadores);
 	list_destroy_and_destroy_elements(lista_listos,(void*)destruir_entrenador);
-	list_destroy_and_destroy_elements(lista_finalizar,(void*)destruir_entrenador);
+	list_destroy(lista_finalizar);
 	list_destroy_and_destroy_elements(lista_bloqueados_esperando_caught,(void*)destruir_entrenador);
 	list_destroy_and_destroy_elements(lista_bloqueados_deadlock,(void*)destruir_entrenador);
-	list_destroy_and_destroy_elements(lista_bloqueados_cant_max_alcanzada,(void*)destruir_entrenador);
+	list_destroy(lista_bloqueados_cant_max_alcanzada);
 	list_destroy_and_destroy_elements(lista_bloqueados_esperando,(void*)destruir_entrenador);
 	list_destroy_and_destroy_elements(lista_bloqueados,(void*)destruir_entrenador);
 
 	list_destroy_and_destroy_elements(lista_global_objetivos,(void*)destruir_objetivo);
 	list_destroy_and_destroy_elements(lista_global_pokemones,(void*)destruir_pokemon);
-	//list_destroy_and_destroy_elements(lista_pokemones_objetivos,(void*)destruir_pokemon);
-
 
 	list_destroy_and_destroy_elements(mensajes_para_chequear_id,(void*)destruir_mensaje);
 	list_destroy_and_destroy_elements(mensajes_que_llegan_nuevos,(void*)destruir_mensaje);
@@ -350,9 +348,6 @@ void terminar_team_correctamente(){
 
 	log_destroy(team_logger);
 	log_destroy(team_logger_oficial);
-	free(posiciones_entrenadores);
-	free(pokemon_entrenadores);
-	free(objetivos_entrenadores);
 
 	if(log_file!=NULL){
 		free(log_file);

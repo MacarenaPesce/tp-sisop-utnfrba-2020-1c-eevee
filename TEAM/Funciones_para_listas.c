@@ -160,15 +160,15 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 t_list* obtener_pokemones(t_list* lista_global,t_list* lista, uint32_t posicion){
 
 	char* pokemones_de_entrenador;
-	lista_pokemones_objetivos = list_create();//este list_create es el culpable de la mayoria de los leaks
+	lista_pokemones_objetivos_aux = list_create();//este list_create es el culpable de la mayoria de los leaks
 	pokemones_de_entrenador = list_get(lista_global, posicion);
 
 	separar_pokemones_de_entrenador(pokemones_de_entrenador, lista);
 	list_sort(lista, (void*)ordenar);
-	cargar_objetivos(lista, lista_pokemones_objetivos);
-	list_remove(lista_pokemones_objetivos, list_size(lista_pokemones_objetivos)-1);
+	cargar_objetivos(lista, lista_pokemones_objetivos_aux);
+	list_remove(lista_pokemones_objetivos_aux, list_size(lista_pokemones_objetivos_aux)-1);
 
-	return lista_pokemones_objetivos;
+	return lista_pokemones_objetivos_aux;
 
 }
 

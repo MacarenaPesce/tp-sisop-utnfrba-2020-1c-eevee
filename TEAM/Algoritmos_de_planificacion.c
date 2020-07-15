@@ -156,6 +156,21 @@ void obtener_proximo_ejecucion(void){
 	if(list_is_empty(lista_listos)){
 		entrenador_en_ejecucion = NULL;
 		/* No hay entrenadores para ejecutar! */
+		if(list_size(lista_bloqueados_cant_max_alcanzada) == MAXIMO_ENTRENADORES){
+			for(int i=0; i < MAXIMO_ENTRENADORES; i++){
+				sem_wait(&termine_carajo);
+				sem_wait(&me_bloquee);
+			}
+			sem_post(&chequeo_de_deadlock);
+		}
+	
+		if((list_size(lista_bloqueados_cant_max_alcanzada) + list_size(lista_finalizar)) == MAXIMO_ENTRENADORES){
+			for(int i=0; i < list_size(lista_bloqueados_cant_max_alcanzada); i++){
+				sem_wait(&termine_carajo);
+				sem_wait(&me_bloquee);
+			}
+			sem_post(&chequeo_de_deadlock);
+		}
 		return;
 	}
 
@@ -168,7 +183,6 @@ void obtener_proximo_ejecucion(void){
 	entrenador_en_ejecucion->estado = EJECUTANDO;
 
 	sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);
-	//log_debug(team_logger, "MANDE A EJECUTAR AL ENTRENADOR %d", entrenador_en_ejecucion->id);
 	
 	return;
 }

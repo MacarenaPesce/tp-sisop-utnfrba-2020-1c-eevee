@@ -139,8 +139,12 @@ void localizar_entrenadores_en_mapa(){
 
 	log_info(team_logger,"Entrenadores ubicados\n");
 
-	list_destroy_and_destroy_elements(lista_pokemones_de_entrenador,(void*)destruir_pokemon);
-	list_destroy_and_destroy_elements(lista_objetivos_de_entrenador,(void*)destruir_objetivo);
+
+	list_destroy(lista_pokemones_de_entrenador);
+	list_destroy(lista_objetivos_de_entrenador);
+	free(posiciones_entrenadores);
+	free(pokemon_entrenadores);
+	free(objetivos_entrenadores);
 
 }
 
@@ -324,26 +328,13 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			break;
 	}
 
-	if(list_size(lista_bloqueados_cant_max_alcanzada) == MAXIMO_ENTRENADORES){
-		for(int i=0; i < MAXIMO_ENTRENADORES; i++){
-			sem_wait(&me_bloquee);
-		}
-		sem_post(&chequeo_de_deadlock);
-	}
-	if((list_size(lista_bloqueados_cant_max_alcanzada) + list_size(lista_finalizar)) == MAXIMO_ENTRENADORES){
-		for(int i=0; i < list_size(lista_bloqueados_cant_max_alcanzada); i++){
-			sem_wait(&me_bloquee);
-		}
-		sem_post(&chequeo_de_deadlock);
-	}
-
 }
 
 void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 	ciclos_de_cpu++;
 	entrenador->ciclos_de_cpu++;
 	sleep(retardo_ciclo_cpu);
-	log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+	//log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 }
 
 void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
@@ -512,8 +503,6 @@ int main(){
 	inicializar_semaforos();
 	configurar_signals();
 	inicializar_listas();
-
-	hayDeadlock = false;
 
 	definir_objetivo_global();
 	localizar_entrenadores_en_mapa();

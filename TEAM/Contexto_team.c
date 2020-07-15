@@ -63,3 +63,4 @@ t_list* lista_bloqueados_deadlock;
 t_list* mensajes_que_llegan_nuevos;
 t_list* mensajes_para_chequear_id;
 t_list* lista_bloqueados_esperando_caught;
+t_list * lista_pokemones_objetivos_aux;
