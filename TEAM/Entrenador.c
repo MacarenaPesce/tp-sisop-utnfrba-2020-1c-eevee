@@ -219,19 +219,79 @@ t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
 	
 	for (int i = 0; i < list_size(entrenador->pokemones); i++){
 		t_objetivo_entrenador* pokemon_en_posesion = list_get(entrenador->pokemones, i);
+		//log_info(team_logger, "Un pokemon en posesion de %i es %s", entrenador->id, pokemon_en_posesion->especie);
 		t_objetivo_entrenador* pokemon_objetivo = buscar_pokemon_objetivo_por_especie(entrenador->objetivo, pokemon_en_posesion->especie);
 
 		int cantidad_en_posesion = pokemon_en_posesion->cantidad;
+
 		if(pokemon_objetivo == NULL && cantidad_en_posesion > 0){
+			//log_info(team_logger, "No necesito nada de esta especie y tengo varios");
 			pokemon_innecesario = pokemon_en_posesion;
 			break;
 		} else if(pokemon_objetivo == NULL && cantidad_en_posesion == 0){
-		} else if(pokemon_objetivo != NULL && pokemon_objetivo->cantidad >= 0){
-		} else {
-			pokemon_innecesario = pokemon_en_posesion;
-			pokemon_objetivo->cantidad++;
-			break;
+			//log_info(team_logger, "Ya no tengo mas pokes de esta especie no necesitada");
 		}
+
+		else if(pokemon_objetivo != NULL){
+			int cantidad_objetivo = pokemon_objetivo->cantidad;
+			if(cantidad_objetivo >= 0){
+				//log_info(team_logger, "Todavia necesito de esta especie o tengo justito");
+			} else {
+				pokemon_innecesario = pokemon_en_posesion;
+				pokemon_objetivo->cantidad++;
+				break;
+			}
+		}
+	}
+	return pokemon_innecesario;
+}
+
+t_objetivo_entrenador * elegir_pokemon_innecesario_util(t_entrenador * entrenador2, t_entrenador * entrenador1){
+	t_objetivo_entrenador* pokemon_innecesario;
+	bool encontre_uno_util = false;
+	for (int i = 0; i < list_size(entrenador2->pokemones); i++){
+		t_objetivo_entrenador* pokemon_en_posesion = list_get(entrenador2->pokemones, i);
+		t_objetivo_entrenador* pokemon_objetivo = buscar_pokemon_objetivo_por_especie(entrenador2->objetivo, pokemon_en_posesion->especie);
+
+		int cantidad_en_posesion = pokemon_en_posesion->cantidad;
+
+		if(pokemon_objetivo == NULL && cantidad_en_posesion > 0){
+			//log_info(team_logger, "No necesito nada de esta especie y tengo varios");			
+			for(int j = 0; j < list_size(entrenador1->objetivo); j++){
+				t_objetivo_entrenador * objetivo_de_uno = list_get(entrenador1->objetivo, j);
+				if(string_equals_ignore_case(objetivo_de_uno->especie, pokemon_en_posesion->especie)){
+					pokemon_innecesario = pokemon_en_posesion;
+					encontre_uno_util = true;
+				}
+			}
+			if(encontre_uno_util){
+				break;
+			}
+		} else if(pokemon_objetivo == NULL && cantidad_en_posesion == 0){
+			//log_info(team_logger, "Ya no tengo mas pokes de esta especie no necesitada");
+		}
+
+		else if(pokemon_objetivo != NULL){
+			int cantidad_objetivo = pokemon_objetivo->cantidad;
+			if(cantidad_objetivo >= 0){
+				//log_info(team_logger, "Todavia necesito de esta especie o tengo justito");
+			} else {
+				for(int j = 0; j < list_size(entrenador1->objetivo); j++){
+					t_objetivo_entrenador * objetivo_de_uno = list_get(entrenador1->objetivo, j);
+					if(objetivo_de_uno->especie == pokemon_en_posesion->especie){
+						pokemon_innecesario = pokemon_en_posesion;
+						encontre_uno_util = true;
+					}
+				}
+				if(encontre_uno_util){
+					pokemon_objetivo->cantidad++;
+					break;
+				}	
+			}
+		}
+	}
+	if(!encontre_uno_util){
+		pokemon_innecesario = elegir_pokemon_innecesario(entrenador2);
 	}
 	return pokemon_innecesario;
 }
@@ -248,8 +308,7 @@ void realizar_intercambio(t_entrenador* entrenador1){
 
 	log_info(team_logger_oficial, "Se va a realizar un intercambio entre el entrenador %i y %i", entrenador1->id, entrenador2->id);
 
-
-	t_objetivo_entrenador* pokemon2 = elegir_pokemon_innecesario(entrenador2); //pokemon innecesario de E2
+	t_objetivo_entrenador* pokemon2 = elegir_pokemon_innecesario_util(entrenador2, entrenador1); //pokemon innecesario de E2 que le sirva a E1
 
 	//pokemon1 es el pokemon innecesario de E1
 	t_objetivo_entrenador* pokemon1 = buscar_pokemon_objetivo_por_especie(entrenador1->pokemones, entrenador1->objetivo_actual->especie);
@@ -261,7 +320,7 @@ void realizar_intercambio(t_entrenador* entrenador1){
 	}
 
 	pokemon1->cantidad--;
-	//list_add(entrenador1->pokemones, pokemon2); //si no es una especie que yo necesitaba, agrego este pokemon a la de atrapados por E1
+	 //si no es una especie que yo necesitaba, agrego este pokemon a la de atrapados por E1
 	agregar_objetivo(pokemon2->especie, 1, entrenador1->pokemones);
 	t_objetivo_entrenador* pokemon2_inservible = buscar_pokemon_objetivo_por_especie(entrenador1->pokemones, pokemon2->especie);
 	pokemon2_inservible->cantidad++;
@@ -274,7 +333,7 @@ void realizar_intercambio(t_entrenador* entrenador1){
 		pthread_mutex_unlock(&tocando_pokemones_objetivos);
 	}
 	pokemon2->cantidad--;
-	//list_add(entrenador2->pokemones, pokemon1); //si no lo necesitaba lo agrego
+	//si no lo necesitaba lo agrego
 	agregar_objetivo(pokemon1->especie, 1, entrenador2->pokemones);
 	t_objetivo_entrenador* pokemon1_inservible = buscar_pokemon_objetivo_por_especie(entrenador2->pokemones, pokemon1->especie);
 	pokemon1_inservible->cantidad++;

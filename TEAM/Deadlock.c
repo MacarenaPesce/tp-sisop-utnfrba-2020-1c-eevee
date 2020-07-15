@@ -148,7 +148,6 @@ void verificar_si_entrenador_sigue_bloqueado(t_entrenador* entrenador){
 		pthread_mutex_lock(&lista_comun_deadlock);
 		sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador->id);
 		pthread_mutex_unlock(&lista_comun_deadlock);
-
 		list_add(lista_finalizar, entrenador);
 		sem_post(&array_semaforos_finalizar[entrenador->id]);
 	}
