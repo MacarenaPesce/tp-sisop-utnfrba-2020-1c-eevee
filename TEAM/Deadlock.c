@@ -118,7 +118,9 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	verificar_si_entrenador_sigue_bloqueado(entrenador1);
 	verificar_si_entrenador_sigue_bloqueado(entrenador2);
 
-	sem_post(&array_semaforos_deadlock[entrenador2->id]);
+	if(objetivo_personal_cumplido(entrenador2)){
+		sem_post(&array_semaforos_deadlock[entrenador2->id]);
+	}
 	
 	verificar_si_sigue_habiendo_deadlock_luego_del_intercambio();
 

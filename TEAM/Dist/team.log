@@ -1,177 +1,479 @@
-[INFO] 01:51:05:504 Team/(19795:19795): Hi, bienvenido a Team
-[INFO] 01:51:05:507 Team/(19795:19795): Cargando el archivo de configuracion...
-[DEBUG] 01:51:05:508 Team/(19795:19795): Las posiciones de entrenadores recuperadas
-[DEBUG] 01:51:05:509 Team/(19795:19795): Los pokemon de los entrenadores recuperados
-[DEBUG] 01:51:05:509 Team/(19795:19795): Los objetivos de los entrenadores recuperados
-[DEBUG] 01:51:05:509 Team/(19795:19795): El tiempo de reconexion es: 30
-[DEBUG] 01:51:05:510 Team/(19795:19795): El retardo de ciclo de cpu es: 0
-[DEBUG] 01:51:05:510 Team/(19795:19795): El algoritmo de planificacion es: FIFO
-[DEBUG] 01:51:05:510 Team/(19795:19795): El alpha es: 0
-[DEBUG] 01:51:05:510 Team/(19795:19795): El quantum es: 2
-[DEBUG] 01:51:05:510 Team/(19795:19795): La estimacion_inicial es: 1
-[DEBUG] 01:51:05:510 Team/(19795:19795): La ip del broker es: 127.0.0.1
-[DEBUG] 01:51:05:510 Team/(19795:19795): El puerto del broker es: 5003
-[DEBUG] 01:51:05:510 Team/(19795:19795): El log file es: /home/utnso/log_team1.txt
-[DEBUG] 01:51:05:510 Team/(19795:19795): Mi ID es: 1
-[INFO] 01:51:05:510 Team/(19795:19795): Archivo de configuracion cargado correctamente :)
+[INFO] 16:55:50:154 Team/(8113:8113): Hi, bienvenido a Team
+[INFO] 16:55:50:264 Team/(8113:8113): Cargando el archivo de configuracion...
+[DEBUG] 16:55:50:335 Team/(8113:8113): Las posiciones de entrenadores recuperadas
+[DEBUG] 16:55:50:355 Team/(8113:8113): Los pokemon de los entrenadores recuperados
+[DEBUG] 16:55:50:357 Team/(8113:8113): Los objetivos de los entrenadores recuperados
+[DEBUG] 16:55:50:369 Team/(8113:8113): El tiempo de reconexion es: 30
+[DEBUG] 16:55:50:372 Team/(8113:8113): El retardo de ciclo de cpu es: 0
+[DEBUG] 16:55:50:378 Team/(8113:8113): El algoritmo de planificacion es: FIFO
+[DEBUG] 16:55:50:380 Team/(8113:8113): El quantum es: 0
+[DEBUG] 16:55:50:381 Team/(8113:8113): La estimacion_inicial es: 5
+[DEBUG] 16:55:50:386 Team/(8113:8113): La ip del broker es: 127.0.0.1
+[DEBUG] 16:55:50:388 Team/(8113:8113): El puerto del broker es: 5003
+[DEBUG] 16:55:50:393 Team/(8113:8113): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 16:55:50:395 Team/(8113:8113): Mi ID es: 1
+[INFO] 16:55:50:395 Team/(8113:8113): Archivo de configuracion cargado correctamente :)
 
-[INFO] 01:51:05:511 Team/(19795:19795): Cargando el objetivo global...
-[INFO] 01:51:05:511 Team/(19795:19795): Objetivo global cargado
+[INFO] 16:55:50:456 Team/(8113:8113): Cargando el objetivo global...
+[INFO] 16:55:50:490 Team/(8113:8113): Objetivo global cargado
 
-[INFO] 01:51:05:511 Team/(19795:19795): Entrenadores ubicados
+[INFO] 16:55:50:580 Team/(8113:8113): Entrenadores ubicados
 
-[INFO] 01:51:05:512 Team/(19795:19795): Team esta listo para recibir mensajes de gameboy en el socket servidor (15)
+[INFO] 16:55:50:603 Team/(8113:8113): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
 
-[INFO] 01:51:05:512 Team/(19795:19795): Enviado pedido de get pokemon para esta especie: Vaporeon
-[INFO] 01:51:05:512 Team/(19795:19795): No existen locaciones para esta especie: Vaporeon, cant 1
-[INFO] 01:51:05:513 Team/(19795:19795): Enviado pedido de get pokemon para esta especie: Umbreon
-[INFO] 01:51:05:513 Team/(19795:19795): No existen locaciones para esta especie: Umbreon, cant 1
-[INFO] 01:51:05:513 Team/(19795:19795): Enviado pedido de get pokemon para esta especie: Jolteon
-[INFO] 01:51:05:513 Team/(19795:19795): No existen locaciones para esta especie: Jolteon, cant 1
-[INFO] 01:51:05:514 Team/(19795:19795): Enviado pedido de get pokemon para esta especie: Flareon
-[INFO] 01:51:05:514 Team/(19795:19795): No existen locaciones para esta especie: Flareon, cant 1
-[INFO] 01:51:05:514 Team/(19795:19795): Enviado pedido de get pokemon para esta especie: Espeon
-[INFO] 01:51:05:514 Team/(19795:19795): No existen locaciones para esta especie: Espeon, cant 1
-[DEBUG] 01:51:07:647 Team/(19795:19804): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Jolteon en las coordenadas (2, 2)
-[INFO] 01:51:07:647 Team/(19795:19801): La estimacion de 0 es 1.000000
-[INFO] 01:51:07:647 Team/(19795:19801): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
-[INFO] 01:51:07:647 Team/(19795:19801): Agregue el pokemon Jolteon con coordenadas (2, 2) al mapa
+[INFO] 16:55:50:649 Team/(8113:8113): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 16:55:50:652 Team/(8113:8113): No existen locaciones para esta especie: Squirtle, cant 2
+[INFO] 16:55:50:657 Team/(8113:8113): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 16:55:50:658 Team/(8113:8113): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 16:55:50:660 Team/(8113:8113): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 16:55:50:661 Team/(8113:8113): No existen locaciones para esta especie: Onix, cant 1
+[INFO] 16:55:50:661 Team/(8113:8113): Enviado pedido de get pokemon para esta especie: Gengar
+[INFO] 16:55:50:663 Team/(8113:8113): No existen locaciones para esta especie: Gengar, cant 1
+[DEBUG] 16:55:54:131 Team/(8113:8120): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (1, 1)
+[INFO] 16:55:54:193 Team/(8113:8117): La estimacion de 0 es 5.000000
+[DEBUG] 16:55:54:195 Team/(8113:8120): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (9, 7)
+[DEBUG] 16:55:54:197 Team/(8113:8120): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 2)
+[INFO] 16:55:54:200 Team/(8113:8117): El entrenador 0 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 16:55:54:205 Team/(8113:8117): Agregue el pokemon Pikachu con coordenadas (1, 1) al mapa
 
-[INFO] 01:51:07:647 Team/(19795:19796): Soy el entrenador que va a ejecutar, mi id es: 0.
-[INFO] 01:51:07:647 Team/(19795:19796): El entrenador 0 se mueve a atrapar a Jolteon a la posicion (2, 2)
-[INFO] 01:51:07:648 Team/(19795:19796): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:648 Team/(19795:19796): El entrenador de id 0 llegó al pokemon Jolteon.
-[INFO] 01:51:07:649 Team/(19795:19796): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:649 Team/(19795:19796): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Jolteon
-[INFO] 01:51:07:649 Team/(19795:19796): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 01:51:07:649 Team/(19795:19796): El pokemon Jolteon ha sido atrapado con exito
-[INFO] 01:51:07:649 Team/(19795:19796): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 16:55:54:209 Team/(8113:8114): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 16:55:54:211 Team/(8113:8114): El entrenador 0 se mueve a atrapar a Pikachu a la posicion (1, 1)
+[INFO] 16:55:54:215 Team/(8113:8117): La estimacion de 2 es 5.000000
+[INFO] 16:55:54:216 Team/(8113:8114): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:223 Team/(8113:8117): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 16:55:54:223 Team/(8113:8117): Agregue el pokemon Squirtle con coordenadas (9, 7) al mapa
 
-[DEBUG] 01:51:07:663 Team/(19795:19804): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
-[INFO] 01:51:07:663 Team/(19795:19801): La estimacion de 1 es 1.000000
-[INFO] 01:51:07:663 Team/(19795:19801): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
-[INFO] 01:51:07:663 Team/(19795:19801): Agregue el pokemon Flareon con coordenadas (4, 6) al mapa
+[INFO] 16:55:54:224 Team/(8113:8117): La estimacion de 1 es 5.000000
+[INFO] 16:55:54:224 Team/(8113:8114): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:225 Team/(8113:8117): El entrenador 1 pasa a Ready por ser el mas cercano a Onix
+[INFO] 16:55:54:225 Team/(8113:8114): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:226 Team/(8113:8117): Agregue el pokemon Onix con coordenadas (2, 2) al mapa
 
-[INFO] 01:51:07:663 Team/(19795:19797): Soy el entrenador que va a ejecutar, mi id es: 1.
-[INFO] 01:51:07:663 Team/(19795:19797): El entrenador 1 se mueve a atrapar a Flareon a la posicion (4, 6)
-[INFO] 01:51:07:664 Team/(19795:19797): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:665 Team/(19795:19797): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:665 Team/(19795:19797): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:666 Team/(19795:19797): El entrenador de id 1 llegó al pokemon Flareon.
-[INFO] 01:51:07:666 Team/(19795:19797): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:666 Team/(19795:19797): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Flareon
-[INFO] 01:51:07:666 Team/(19795:19797): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 01:51:07:666 Team/(19795:19797): El pokemon Flareon ha sido atrapado con exito
-[INFO] 01:51:07:666 Team/(19795:19797): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 16:55:54:227 Team/(8113:8114): El entrenador de id 0 llegó al pokemon Pikachu.
+[INFO] 16:55:54:232 Team/(8113:8114): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:241 Team/(8113:8114): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Pikachu
+[INFO] 16:55:54:243 Team/(8113:8114): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:55:54:245 Team/(8113:8114): El pokemon Pikachu ha sido atrapado con exito
+[INFO] 16:55:54:273 Team/(8113:8114): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[DEBUG] 01:51:07:681 Team/(19795:19804): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
-[INFO] 01:51:07:682 Team/(19795:19801): La estimacion de 2 es 1.000000
-[INFO] 01:51:07:682 Team/(19795:19801): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
-[INFO] 01:51:07:682 Team/(19795:19801): Agregue el pokemon Umbreon con coordenadas (10, 6) al mapa
+[INFO] 16:55:54:286 Team/(8113:8116): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 16:55:54:287 Team/(8113:8116): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 16:55:54:288 Team/(8113:8116): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:290 Team/(8113:8116): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:291 Team/(8113:8116): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 16:55:54:292 Team/(8113:8116): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:292 Team/(8113:8116): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 16:55:54:293 Team/(8113:8116): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:55:54:294 Team/(8113:8116): El pokemon Squirtle ha sido atrapado con exito
+[INFO] 16:55:54:296 Team/(8113:8116): La estimacion de este entrenador al bloquearse es 5.000000
+[INFO] 16:55:54:300 Team/(8113:8116): El entrenador 2 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 16:55:54:302 Team/(8113:8116): Un objetivo es de la especie Onix, cantidad necesitada 1
+[INFO] 16:55:54:309 Team/(8113:8115): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 16:55:54:310 Team/(8113:8115): El entrenador 1 se mueve a atrapar a Onix a la posicion (2, 2)
+[INFO] 16:55:54:311 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:312 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:313 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:314 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:315 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:316 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:317 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:317 Team/(8113:8115): El entrenador de id 1 llegó al pokemon Onix.
+[INFO] 16:55:54:319 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:54:320 Team/(8113:8115): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Onix
+[INFO] 16:55:54:320 Team/(8113:8115): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:55:54:321 Team/(8113:8115): El pokemon Onix ha sido atrapado con exito
+[INFO] 16:55:54:322 Team/(8113:8115): La estimacion de este entrenador al bloquearse es 5.000000
+[INFO] 16:55:54:325 Team/(8113:8115): El entrenador 1 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 16:55:54:325 Team/(8113:8115): Un objetivo es de la especie Pikachu, cantidad necesitada 1
+[INFO] 16:55:54:326 Team/(8113:8115): Un objetivo es de la especie Gengar, cantidad necesitada 1
+[DEBUG] 16:55:56:702 Team/(8113:8120): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (3, 5)
+[INFO] 16:55:56:704 Team/(8113:8117): La estimacion de 1 es 5.000000
+[INFO] 16:55:56:705 Team/(8113:8117): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 16:55:56:705 Team/(8113:8117): Agregue el pokemon Squirtle con coordenadas (3, 5) al mapa
 
-[INFO] 01:51:07:682 Team/(19795:19798): Soy el entrenador que va a ejecutar, mi id es: 2.
-[INFO] 01:51:07:682 Team/(19795:19798): El entrenador 2 se mueve a atrapar a Umbreon a la posicion (10, 6)
-[INFO] 01:51:07:682 Team/(19795:19798): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:683 Team/(19795:19798): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:684 Team/(19795:19798): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:685 Team/(19795:19798): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:685 Team/(19795:19798): El entrenador de id 2 llegó al pokemon Umbreon.
-[INFO] 01:51:07:686 Team/(19795:19798): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:686 Team/(19795:19798): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Umbreon
-[INFO] 01:51:07:686 Team/(19795:19798): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 01:51:07:686 Team/(19795:19798): El pokemon Umbreon ha sido atrapado con exito
-[INFO] 01:51:07:686 Team/(19795:19798): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 16:55:56:706 Team/(8113:8115): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 16:55:56:706 Team/(8113:8115): El entrenador 1 se mueve a atrapar a Squirtle a la posicion (3, 5)
+[INFO] 16:55:56:707 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:708 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:709 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:711 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:711 Team/(8113:8115): El entrenador de id 1 llegó al pokemon Squirtle.
+[INFO] 16:55:56:712 Team/(8113:8115): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:716 Team/(8113:8115): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 16:55:56:717 Team/(8113:8115): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:55:56:718 Team/(8113:8115): El pokemon Squirtle ha sido atrapado con exito
+[INFO] 16:55:56:719 Team/(8113:8115): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[DEBUG] 01:51:07:697 Team/(19795:19804): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
-[INFO] 01:51:07:697 Team/(19795:19801): La estimacion de 3 es 1.000000
-[INFO] 01:51:07:697 Team/(19795:19801): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
-[INFO] 01:51:07:697 Team/(19795:19801): Agregue el pokemon Espeon con coordenadas (7, 1) al mapa
+[DEBUG] 16:55:56:728 Team/(8113:8120): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (7, 5)
+[INFO] 16:55:56:729 Team/(8113:8117): La estimacion de 2 es 5.000000
+[INFO] 16:55:56:730 Team/(8113:8117): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 16:55:56:730 Team/(8113:8117): Agregue el pokemon Gengar con coordenadas (7, 5) al mapa
 
-[INFO] 01:51:07:697 Team/(19795:19799): Soy el entrenador que va a ejecutar, mi id es: 3.
-[INFO] 01:51:07:697 Team/(19795:19799): El entrenador 3 se mueve a atrapar a Espeon a la posicion (7, 1)
-[INFO] 01:51:07:698 Team/(19795:19799): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:698 Team/(19795:19799): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:699 Team/(19795:19799): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:699 Team/(19795:19799): El entrenador de id 3 llegó al pokemon Espeon.
-[INFO] 01:51:07:700 Team/(19795:19799): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:700 Team/(19795:19799): El entrenador 3 hizo el pedido de catch pokemon para esta especie: Espeon
-[INFO] 01:51:07:700 Team/(19795:19799): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 01:51:07:700 Team/(19795:19799): El pokemon Espeon ha sido atrapado con exito
-[INFO] 01:51:07:700 Team/(19795:19799): El entrenador 3 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 16:55:56:731 Team/(8113:8116): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 16:55:56:731 Team/(8113:8116): El entrenador 2 se mueve a atrapar a Gengar a la posicion (7, 5)
+[INFO] 16:55:56:732 Team/(8113:8116): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:733 Team/(8113:8116): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:734 Team/(8113:8116): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:735 Team/(8113:8116): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:735 Team/(8113:8116): El entrenador de id 2 llegó al pokemon Gengar.
+[INFO] 16:55:56:736 Team/(8113:8116): Ejecuté 1 ciclo de cpu
+[INFO] 16:55:56:736 Team/(8113:8116): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Gengar
+[INFO] 16:55:56:737 Team/(8113:8116): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:55:56:737 Team/(8113:8116): El pokemon Gengar ha sido atrapado con exito
+[INFO] 16:55:56:739 Team/(8113:8116): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[DEBUG] 01:51:07:711 Team/(19795:19804): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
-[INFO] 01:51:07:711 Team/(19795:19801): La estimacion de 4 es 1.000000
-[INFO] 01:51:07:711 Team/(19795:19801): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
-[INFO] 01:51:07:711 Team/(19795:19801): Agregue el pokemon Vaporeon con coordenadas (4, 10) al mapa
+[WARNING] 16:55:56:745 Team/(8113:8119): Deadlock detectado
+[INFO] 16:55:56:747 Team/(8113:8119): La cantidad de entrenadores en deadlock es 3
+[INFO] 16:55:56:751 Team/(8113:8119): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 16:55:56:765 Team/(8113:8119): Hay deadlock entre el entrenador 0 y el entrenador 1
+[INFO] 16:55:56:767 Team/(8113:8119): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 16:55:56:773 Team/(8113:8119): Haciendo el intercambio
+[INFO] 16:55:56:774 Team/(8113:8114): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 16:55:56:775 Team/(8113:8114): El entrenador 0 se mueve a la posicion de coordenadas (3, 5)
+[INFO] 16:55:56:782 Team/(8113:8114): El entrenador de id 0 llegó a la posicion del entrenador de id 1
+[INFO] 16:55:56:804 Team/(8113:8114): Se intercambiaron los pokemones Pikachu y Squirtle entre los entrenadores 0 y 1
+[INFO] 16:55:56:809 Team/(8113:8119): Luego de hacer un intercambio el entrenador 1 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 16:55:56:811 Team/(8113:8114): El entrenador 0 finalizo
+[WARNING] 16:55:56:838 Team/(8113:8119): Deadlock detectado
+[INFO] 16:55:56:838 Team/(8113:8119): La cantidad de entrenadores en deadlock es 2
+[INFO] 16:55:56:839 Team/(8113:8119): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
+[INFO] 16:55:56:841 Team/(8113:8119): Hay deadlock entre el entrenador 2 y el entrenador 1
+[INFO] 16:55:56:844 Team/(8113:8119): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 16:55:56:844 Team/(8113:8119): Haciendo el intercambio
+[INFO] 16:55:56:845 Team/(8113:8116): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
+[INFO] 16:55:56:845 Team/(8113:8116): El entrenador 2 se mueve a la posicion de coordenadas (3, 5)
+[INFO] 16:55:56:854 Team/(8113:8116): El entrenador de id 2 llegó a la posicion del entrenador de id 1
+[INFO] 16:55:56:857 Team/(8113:8116): Se intercambiaron los pokemones Gengar y Onix entre los entrenadores 2 y 1
+[DEBUG] 16:55:56:859 Team/(8113:8115): El entrenador 1 finalizo
+[DEBUG] 16:55:56:859 Team/(8113:8116): El entrenador 2 finalizo
+[INFO] 16:55:56:861 Team/(8113:8119): Objetivo global cumplido!!!!! :D
+[INFO] 16:55:56:862 Team/(8113:8119): La cantidad de ciclos de CPU totales es: 45
+[INFO] 16:55:56:863 Team/(8113:8119): La cantidad de cambios de contextos realizados es: 0
+[INFO] 16:55:56:869 Team/(8113:8119): La cantidad de ciclos de CPU realizados por el entrenador 0 es: 15
+[INFO] 16:55:56:873 Team/(8113:8119): La cantidad de ciclos de CPU realizados por el entrenador 2 es: 17
+[INFO] 16:55:56:875 Team/(8113:8119): La cantidad de ciclos de CPU realizados por el entrenador 1 es: 13
+[INFO] 16:55:56:877 Team/(8113:8119): La cantidad de deadlocks producidos es: 0
+[INFO] 16:55:56:881 Team/(8113:8119): La cantidad de deadlocks resueltos es: 0
+[INFO] 16:55:56:884 Team/(8113:8119): Cerrando team...
+[INFO] 16:57:34:262 Team/(8162:8162): Hi, bienvenido a Team
+[INFO] 16:57:34:363 Team/(8162:8162): Cargando el archivo de configuracion...
+[DEBUG] 16:57:34:425 Team/(8162:8162): Las posiciones de entrenadores recuperadas
+[DEBUG] 16:57:34:436 Team/(8162:8162): Los pokemon de los entrenadores recuperados
+[DEBUG] 16:57:34:448 Team/(8162:8162): Los objetivos de los entrenadores recuperados
+[DEBUG] 16:57:34:457 Team/(8162:8162): El tiempo de reconexion es: 30
+[DEBUG] 16:57:34:459 Team/(8162:8162): El retardo de ciclo de cpu es: 5
+[DEBUG] 16:57:34:460 Team/(8162:8162): El algoritmo de planificacion es: RR
+[DEBUG] 16:57:34:466 Team/(8162:8162): El quantum es: 1
+[DEBUG] 16:57:34:468 Team/(8162:8162): La estimacion_inicial es: 5
+[DEBUG] 16:57:34:477 Team/(8162:8162): La ip del broker es: 127.0.0.1
+[DEBUG] 16:57:34:483 Team/(8162:8162): El puerto del broker es: 5003
+[DEBUG] 16:57:34:489 Team/(8162:8162): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 16:57:34:492 Team/(8162:8162): Mi ID es: 1
+[INFO] 16:57:34:496 Team/(8162:8162): Archivo de configuracion cargado correctamente :)
 
-[INFO] 01:51:07:711 Team/(19795:19800): Soy el entrenador que va a ejecutar, mi id es: 4.
-[INFO] 01:51:07:711 Team/(19795:19800): El entrenador 4 se mueve a atrapar a Vaporeon a la posicion (4, 10)
-[INFO] 01:51:07:711 Team/(19795:19800): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:712 Team/(19795:19800): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:713 Team/(19795:19800): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:713 Team/(19795:19800): El entrenador de id 4 llegó al pokemon Vaporeon.
-[INFO] 01:51:07:714 Team/(19795:19800): Ejecuté 1 ciclo de cpu
-[INFO] 01:51:07:714 Team/(19795:19800): El entrenador 4 hizo el pedido de catch pokemon para esta especie: Vaporeon
-[INFO] 01:51:07:714 Team/(19795:19800): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 01:51:07:714 Team/(19795:19800): El pokemon Vaporeon ha sido atrapado con exito
-[INFO] 01:51:07:714 Team/(19795:19800): El entrenador 4 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 16:57:34:555 Team/(8162:8162): Cargando el objetivo global...
+[INFO] 16:57:34:583 Team/(8162:8162): Objetivo global cargado
 
-[WARNING] 01:51:07:714 Team/(19795:19803): Deadlock detectado
-[INFO] 01:51:07:714 Team/(19795:19803): La cantidad de entrenadores en deadlock es 5
-[INFO] 01:51:07:714 Team/(19795:19803): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
-[INFO] 01:51:07:714 Team/(19795:19803): Hay deadlock entre el entrenador 0 y el entrenador 1
-[INFO] 01:51:07:714 Team/(19795:19803): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
-[INFO] 01:51:07:714 Team/(19795:19803): Haciendo el intercambio
-[INFO] 01:51:07:714 Team/(19795:19796): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
-[INFO] 01:51:07:714 Team/(19795:19796): El entrenador 0 se mueve a la posicion de coordenadas (4, 6)
-[INFO] 01:51:07:720 Team/(19795:19796): El entrenador de id 0 llegó a la posicion del entrenador de id 1
-[INFO] 01:51:07:725 Team/(19795:19796): Se intercambiaron los pokemones Jolteon y Flareon entre los entrenadores 0 y 1
-[INFO] 01:51:07:725 Team/(19795:19803): Luego de hacer un intercambio el entrenador 0 paso a la lista de bloqueados con cantidad maxima
-[DEBUG] 01:51:07:725 Team/(19795:19797): El entrenador 1 finalizo
-[WARNING] 01:51:07:725 Team/(19795:19803): Deadlock detectado
-[INFO] 01:51:07:725 Team/(19795:19803): La cantidad de entrenadores en deadlock es 4
-[INFO] 01:51:07:725 Team/(19795:19803): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
-[INFO] 01:51:07:725 Team/(19795:19803): Hay deadlock entre el entrenador 2 y el entrenador 3
-[INFO] 01:51:07:725 Team/(19795:19803): El entrenador 3 pasó a la lista de bloqueados esperando resolucion de deadlock
-[INFO] 01:51:07:725 Team/(19795:19803): Haciendo el intercambio
-[INFO] 01:51:07:725 Team/(19795:19798): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
-[INFO] 01:51:07:725 Team/(19795:19798): El entrenador 2 se mueve a la posicion de coordenadas (7, 1)
-[INFO] 01:51:07:730 Team/(19795:19798): El entrenador de id 2 llegó a la posicion del entrenador de id 3
-[INFO] 01:51:07:735 Team/(19795:19798): Se intercambiaron los pokemones Umbreon y Espeon entre los entrenadores 2 y 3
-[INFO] 01:51:07:735 Team/(19795:19803): Luego de hacer un intercambio el entrenador 2 paso a la lista de bloqueados con cantidad maxima
-[DEBUG] 01:51:07:735 Team/(19795:19799): El entrenador 3 finalizo
-[WARNING] 01:51:07:735 Team/(19795:19803): Deadlock detectado
-[INFO] 01:51:07:736 Team/(19795:19803): La cantidad de entrenadores en deadlock es 3
-[INFO] 01:51:07:736 Team/(19795:19803): El entrenador 4 pasó a la lista de listos para resolucion de deadlock
-[INFO] 01:51:07:736 Team/(19795:19803): Hay deadlock entre el entrenador 4 y el entrenador 0
-[INFO] 01:51:07:736 Team/(19795:19803): El entrenador 0 pasó a la lista de bloqueados esperando resolucion de deadlock
-[INFO] 01:51:07:736 Team/(19795:19803): Haciendo el intercambio
-[INFO] 01:51:07:736 Team/(19795:19800): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 4.
-[INFO] 01:51:07:736 Team/(19795:19800): El entrenador 4 se mueve a la posicion de coordenadas (4, 6)
-[INFO] 01:51:07:736 Team/(19795:19800): El entrenador de id 4 llegó a la posicion del entrenador de id 0
-[INFO] 01:51:07:741 Team/(19795:19800): Se intercambiaron los pokemones Vaporeon y Flareon entre los entrenadores 4 y 0
-[INFO] 01:51:07:741 Team/(19795:19803): Luego de hacer un intercambio el entrenador 4 paso a la lista de bloqueados con cantidad maxima
-[DEBUG] 01:51:07:741 Team/(19795:19796): El entrenador 0 finalizo
-[WARNING] 01:51:07:741 Team/(19795:19803): Deadlock detectado
-[INFO] 01:51:07:741 Team/(19795:19803): La cantidad de entrenadores en deadlock es 2
-[INFO] 01:51:07:741 Team/(19795:19803): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
-[INFO] 01:51:07:741 Team/(19795:19803): Hay deadlock entre el entrenador 2 y el entrenador 4
-[INFO] 01:51:07:741 Team/(19795:19803): El entrenador 4 pasó a la lista de bloqueados esperando resolucion de deadlock
-[INFO] 01:51:07:741 Team/(19795:19803): Haciendo el intercambio
-[INFO] 01:51:07:741 Team/(19795:19798): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
-[INFO] 01:51:07:741 Team/(19795:19798): El entrenador 2 se mueve a la posicion de coordenadas (4, 6)
-[INFO] 01:51:07:746 Team/(19795:19798): El entrenador de id 2 llegó a la posicion del entrenador de id 4
-[INFO] 01:51:07:750 Team/(19795:19798): Se intercambiaron los pokemones Espeon y Flareon entre los entrenadores 2 y 4
-[DEBUG] 01:51:07:750 Team/(19795:19800): El entrenador 4 finalizo
-[DEBUG] 01:51:07:750 Team/(19795:19798): El entrenador 2 finalizo
-[INFO] 01:51:07:750 Team/(19795:19803): Objetivo global cumplido!!!!! :D
-[INFO] 01:51:07:750 Team/(19795:19803): La cantidad de ciclos de CPU totales es: 65
-[INFO] 01:51:07:750 Team/(19795:19803): La cantidad de cambios de contextos realizados es: 0
-[INFO] 01:51:07:750 Team/(19795:19803): La cantidad de ciclos de CPU realizados por el entrenador 1 es: 4
-[INFO] 01:51:07:750 Team/(19795:19803): La cantidad de ciclos de CPU realizados por el entrenador 3 es: 4
-[INFO] 01:51:07:750 Team/(19795:19803): La cantidad de ciclos de CPU realizados por el entrenador 0 es: 13
-[INFO] 01:51:07:750 Team/(19795:19803): La cantidad de ciclos de CPU realizados por el entrenador 2 es: 31
-[INFO] 01:51:07:751 Team/(19795:19803): La cantidad de ciclos de CPU realizados por el entrenador 4 es: 13
-[INFO] 01:51:07:751 Team/(19795:19803): La cantidad de deadlocks producidos es: 0
-[INFO] 01:51:07:751 Team/(19795:19803): La cantidad de deadlocks resueltos es: 0
-[INFO] 01:51:07:751 Team/(19795:19803): Cerrando team...
+[INFO] 16:57:34:670 Team/(8162:8162): Entrenadores ubicados
+
+[INFO] 16:57:34:694 Team/(8162:8162): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 16:57:34:747 Team/(8162:8162): Enviado pedido de get pokemon para esta especie: Vaporeon
+[INFO] 16:57:34:749 Team/(8162:8162): No existen locaciones para esta especie: Vaporeon, cant 1
+[INFO] 16:57:34:753 Team/(8162:8162): Enviado pedido de get pokemon para esta especie: Umbreon
+[INFO] 16:57:34:754 Team/(8162:8162): No existen locaciones para esta especie: Umbreon, cant 1
+[INFO] 16:57:34:755 Team/(8162:8162): Enviado pedido de get pokemon para esta especie: Jolteon
+[INFO] 16:57:34:756 Team/(8162:8162): No existen locaciones para esta especie: Jolteon, cant 1
+[INFO] 16:57:34:761 Team/(8162:8162): Enviado pedido de get pokemon para esta especie: Flareon
+[INFO] 16:57:34:762 Team/(8162:8162): No existen locaciones para esta especie: Flareon, cant 1
+[INFO] 16:57:34:763 Team/(8162:8162): Enviado pedido de get pokemon para esta especie: Espeon
+[INFO] 16:57:34:764 Team/(8162:8162): No existen locaciones para esta especie: Espeon, cant 1
+[DEBUG] 16:57:41:425 Team/(8162:8171): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Jolteon en las coordenadas (2, 2)
+[INFO] 16:57:41:494 Team/(8162:8168): La estimacion de 0 es 5.000000
+[DEBUG] 16:57:41:496 Team/(8162:8171): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
+[DEBUG] 16:57:41:498 Team/(8162:8171): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
+[DEBUG] 16:57:41:499 Team/(8162:8171): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
+[INFO] 16:57:41:501 Team/(8162:8168): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
+[INFO] 16:57:41:509 Team/(8162:8168): Agregue el pokemon Jolteon con coordenadas (2, 2) al mapa
+
+[DEBUG] 16:57:41:501 Team/(8162:8171): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
+[INFO] 16:57:41:513 Team/(8162:8163): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 16:57:41:515 Team/(8162:8163): El entrenador 0 se mueve a atrapar a Jolteon a la posicion (2, 2)
+[INFO] 16:57:41:522 Team/(8162:8168): La estimacion de 1 es 5.000000
+[INFO] 16:57:41:523 Team/(8162:8168): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
+[INFO] 16:57:41:524 Team/(8162:8168): Agregue el pokemon Flareon con coordenadas (4, 6) al mapa
+
+[INFO] 16:57:41:524 Team/(8162:8168): La estimacion de 2 es 5.000000
+[INFO] 16:57:41:526 Team/(8162:8168): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
+[INFO] 16:57:41:527 Team/(8162:8168): Agregue el pokemon Umbreon con coordenadas (10, 6) al mapa
+
+[INFO] 16:57:41:536 Team/(8162:8168): La estimacion de 3 es 5.000000
+[INFO] 16:57:41:537 Team/(8162:8168): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
+[INFO] 16:57:41:538 Team/(8162:8168): Agregue el pokemon Espeon con coordenadas (7, 1) al mapa
+
+[INFO] 16:57:41:538 Team/(8162:8168): La estimacion de 4 es 5.000000
+[INFO] 16:57:41:540 Team/(8162:8168): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
+[INFO] 16:57:41:541 Team/(8162:8168): Agregue el pokemon Vaporeon con coordenadas (4, 10) al mapa
+
+[INFO] 16:57:46:526 Team/(8162:8163): Ejecuté 1 ciclo de cpu
+[INFO] 16:57:46:544 Team/(8162:8163): El entrenador de id 0 llegó al pokemon Jolteon.
+[INFO] 16:57:51:561 Team/(8162:8163): El entrenador de id 0 fue desalojado y paso a Ready
+
+[INFO] 16:57:51:562 Team/(8162:8164): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 16:57:51:564 Team/(8162:8164): El entrenador 1 se mueve a atrapar a Flareon a la posicion (4, 6)
+[INFO] 16:57:56:566 Team/(8162:8164): Ejecuté 1 ciclo de cpu
+[INFO] 16:58:01:569 Team/(8162:8164): El entrenador de id 1 fue desalojado y paso a Ready
+
+[INFO] 16:58:01:574 Team/(8162:8165): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 16:58:01:575 Team/(8162:8165): El entrenador 2 se mueve a atrapar a Umbreon a la posicion (10, 6)
+[INFO] 16:58:06:577 Team/(8162:8165): Ejecuté 1 ciclo de cpu
+[INFO] 16:58:11:580 Team/(8162:8165): El entrenador de id 2 fue desalojado y paso a Ready
+
+[INFO] 16:58:11:582 Team/(8162:8166): Soy el entrenador que va a ejecutar, mi id es: 3.
+[INFO] 16:58:11:583 Team/(8162:8166): El entrenador 3 se mueve a atrapar a Espeon a la posicion (7, 1)
+[INFO] 16:58:16:586 Team/(8162:8166): Ejecuté 1 ciclo de cpu
+[INFO] 16:58:21:588 Team/(8162:8166): El entrenador de id 3 fue desalojado y paso a Ready
+
+[INFO] 16:58:21:592 Team/(8162:8167): Soy el entrenador que va a ejecutar, mi id es: 4.
+[INFO] 16:58:21:596 Team/(8162:8167): El entrenador 4 se mueve a atrapar a Vaporeon a la posicion (4, 10)
+[INFO] 16:58:26:600 Team/(8162:8167): Ejecuté 1 ciclo de cpu
+[INFO] 16:58:31:603 Team/(8162:8167): El entrenador de id 4 fue desalojado y paso a Ready
+
+[INFO] 16:58:31:616 Team/(8162:8163): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Jolteon
+[INFO] 16:58:31:623 Team/(8162:8163): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:58:31:630 Team/(8162:8163): El pokemon Jolteon ha sido atrapado con exito
+[INFO] 16:58:31:661 Team/(8162:8163): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[INFO] 16:58:36:663 Team/(8162:8164): Ejecuté 1 ciclo de cpu
+[INFO] 16:58:36:667 Team/(8162:8164): El entrenador de id 1 llegó al pokemon Flareon.
+[INFO] 16:58:41:669 Team/(8162:8164): El entrenador de id 1 fue desalojado y paso a Ready
+
+[INFO] 16:58:46:673 Team/(8162:8165): Ejecuté 1 ciclo de cpu
+[INFO] 16:58:51:677 Team/(8162:8165): El entrenador de id 2 fue desalojado y paso a Ready
+
+[INFO] 16:58:56:680 Team/(8162:8166): Ejecuté 1 ciclo de cpu
+[INFO] 16:58:56:681 Team/(8162:8166): El entrenador de id 3 llegó al pokemon Espeon.
+[INFO] 16:59:01:684 Team/(8162:8166): El entrenador de id 3 fue desalojado y paso a Ready
+
+[INFO] 16:59:06:685 Team/(8162:8167): Ejecuté 1 ciclo de cpu
+[INFO] 16:59:06:686 Team/(8162:8167): El entrenador de id 4 llegó al pokemon Vaporeon.
+[INFO] 16:59:11:687 Team/(8162:8167): El entrenador de id 4 fue desalojado y paso a Ready
+
+[INFO] 16:59:11:695 Team/(8162:8164): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Flareon
+[INFO] 16:59:11:698 Team/(8162:8164): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:59:11:704 Team/(8162:8164): El pokemon Flareon ha sido atrapado con exito
+[INFO] 16:59:11:713 Team/(8162:8164): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[INFO] 16:59:11:714 Team/(8162:8165): El entrenador de id 2 llegó al pokemon Umbreon.
+[INFO] 16:59:16:716 Team/(8162:8165): Ejecuté 1 ciclo de cpu
+[INFO] 16:59:16:718 Team/(8162:8165): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Umbreon
+[INFO] 16:59:16:719 Team/(8162:8165): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:59:16:721 Team/(8162:8165): El pokemon Umbreon ha sido atrapado con exito
+[INFO] 16:59:16:726 Team/(8162:8165): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[INFO] 16:59:16:735 Team/(8162:8166): El entrenador 3 hizo el pedido de catch pokemon para esta especie: Espeon
+[INFO] 16:59:16:737 Team/(8162:8166): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:59:16:739 Team/(8162:8166): El pokemon Espeon ha sido atrapado con exito
+[INFO] 16:59:16:742 Team/(8162:8166): El entrenador 3 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[INFO] 16:59:16:744 Team/(8162:8167): El entrenador 4 hizo el pedido de catch pokemon para esta especie: Vaporeon
+[INFO] 16:59:16:746 Team/(8162:8167): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 16:59:16:747 Team/(8162:8167): El pokemon Vaporeon ha sido atrapado con exito
+[INFO] 16:59:16:752 Team/(8162:8167): El entrenador 4 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[WARNING] 16:59:16:757 Team/(8162:8170): Deadlock detectado
+[INFO] 16:59:16:759 Team/(8162:8170): La cantidad de entrenadores en deadlock es 5
+[INFO] 16:59:16:761 Team/(8162:8170): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 16:59:16:772 Team/(8162:8170): Hay deadlock entre el entrenador 0 y el entrenador 1
+[INFO] 16:59:16:779 Team/(8162:8170): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 16:59:16:780 Team/(8162:8170): Haciendo el intercambio
+[INFO] 16:59:16:781 Team/(8162:8163): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 16:59:16:782 Team/(8162:8163): El entrenador 0 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 16:59:46:791 Team/(8162:8163): El entrenador de id 0 llegó a la posicion del entrenador de id 1
+[WARNING] 16:59:57:711 Team/(8162:8162): Team deja de funcionar
+[INFO] 16:59:57:713 Team/(8162:8162): Cerrando team...
+[INFO] 17:00:12:781 Team/(8350:8350): Hi, bienvenido a Team
+[INFO] 17:00:12:895 Team/(8350:8350): Cargando el archivo de configuracion...
+[DEBUG] 17:00:12:975 Team/(8350:8350): Las posiciones de entrenadores recuperadas
+[DEBUG] 17:00:12:989 Team/(8350:8350): Los pokemon de los entrenadores recuperados
+[DEBUG] 17:00:12:991 Team/(8350:8350): Los objetivos de los entrenadores recuperados
+[DEBUG] 17:00:12:0 Team/(8350:8350): El tiempo de reconexion es: 30
+[DEBUG] 17:00:13:5 Team/(8350:8350): El retardo de ciclo de cpu es: 0
+[DEBUG] 17:00:13:7 Team/(8350:8350): El algoritmo de planificacion es: RR
+[DEBUG] 17:00:13:13 Team/(8350:8350): El quantum es: 1
+[DEBUG] 17:00:13:14 Team/(8350:8350): La estimacion_inicial es: 5
+[DEBUG] 17:00:13:15 Team/(8350:8350): La ip del broker es: 127.0.0.1
+[DEBUG] 17:00:13:18 Team/(8350:8350): El puerto del broker es: 5003
+[DEBUG] 17:00:13:21 Team/(8350:8350): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 17:00:13:23 Team/(8350:8350): Mi ID es: 1
+[INFO] 17:00:13:25 Team/(8350:8350): Archivo de configuracion cargado correctamente :)
+
+[INFO] 17:00:13:94 Team/(8350:8350): Cargando el objetivo global...
+[INFO] 17:00:13:119 Team/(8350:8350): Objetivo global cargado
+
+[INFO] 17:00:13:210 Team/(8350:8350): Entrenadores ubicados
+
+[INFO] 17:00:13:244 Team/(8350:8350): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+
+[INFO] 17:00:13:283 Team/(8350:8350): Enviado pedido de get pokemon para esta especie: Vaporeon
+[INFO] 17:00:13:285 Team/(8350:8350): No existen locaciones para esta especie: Vaporeon, cant 1
+[INFO] 17:00:13:288 Team/(8350:8350): Enviado pedido de get pokemon para esta especie: Umbreon
+[INFO] 17:00:13:288 Team/(8350:8350): No existen locaciones para esta especie: Umbreon, cant 1
+[INFO] 17:00:13:289 Team/(8350:8350): Enviado pedido de get pokemon para esta especie: Jolteon
+[INFO] 17:00:13:292 Team/(8350:8350): No existen locaciones para esta especie: Jolteon, cant 1
+[INFO] 17:00:13:293 Team/(8350:8350): Enviado pedido de get pokemon para esta especie: Flareon
+[INFO] 17:00:13:294 Team/(8350:8350): No existen locaciones para esta especie: Flareon, cant 1
+[INFO] 17:00:13:294 Team/(8350:8350): Enviado pedido de get pokemon para esta especie: Espeon
+[INFO] 17:00:13:295 Team/(8350:8350): No existen locaciones para esta especie: Espeon, cant 1
+[DEBUG] 17:00:16:447 Team/(8350:8359): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Jolteon en las coordenadas (2, 2)
+[INFO] 17:00:16:520 Team/(8350:8356): La estimacion de 0 es 5.000000
+[DEBUG] 17:00:16:521 Team/(8350:8359): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
+[DEBUG] 17:00:16:526 Team/(8350:8359): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
+[DEBUG] 17:00:16:528 Team/(8350:8359): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
+[DEBUG] 17:00:16:529 Team/(8350:8359): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
+[INFO] 17:00:16:533 Team/(8350:8356): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
+[INFO] 17:00:16:536 Team/(8350:8356): Agregue el pokemon Jolteon con coordenadas (2, 2) al mapa
+
+[INFO] 17:00:16:544 Team/(8350:8351): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 17:00:16:545 Team/(8350:8351): El entrenador 0 se mueve a atrapar a Jolteon a la posicion (2, 2)
+[INFO] 17:00:16:553 Team/(8350:8356): La estimacion de 1 es 5.000000
+[INFO] 17:00:16:557 Team/(8350:8351): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:558 Team/(8350:8356): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
+[INFO] 17:00:16:560 Team/(8350:8351): El entrenador de id 0 llegó al pokemon Jolteon.
+[INFO] 17:00:16:560 Team/(8350:8356): Agregue el pokemon Flareon con coordenadas (4, 6) al mapa
+
+[INFO] 17:00:16:561 Team/(8350:8356): La estimacion de 2 es 5.000000
+[INFO] 17:00:16:562 Team/(8350:8356): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
+[INFO] 17:00:16:562 Team/(8350:8356): Agregue el pokemon Umbreon con coordenadas (10, 6) al mapa
+
+[INFO] 17:00:16:564 Team/(8350:8356): La estimacion de 3 es 5.000000
+[INFO] 17:00:16:581 Team/(8350:8356): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
+[INFO] 17:00:16:582 Team/(8350:8356): Agregue el pokemon Espeon con coordenadas (7, 1) al mapa
+
+[INFO] 17:00:16:583 Team/(8350:8352): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 17:00:16:583 Team/(8350:8352): El entrenador 1 se mueve a atrapar a Flareon a la posicion (4, 6)
+[INFO] 17:00:16:584 Team/(8350:8356): La estimacion de 4 es 5.000000
+[INFO] 17:00:16:585 Team/(8350:8352): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:586 Team/(8350:8356): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
+[INFO] 17:00:16:586 Team/(8350:8356): Agregue el pokemon Vaporeon con coordenadas (4, 10) al mapa
+
+[INFO] 17:00:16:586 Team/(8350:8352): El entrenador de id 1 fue desalojado y paso a Ready
+
+[INFO] 17:00:16:587 Team/(8350:8353): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 17:00:16:587 Team/(8350:8353): El entrenador 2 se mueve a atrapar a Umbreon a la posicion (10, 6)
+[INFO] 17:00:16:588 Team/(8350:8353): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:580 Team/(8350:8351): El entrenador de id 0 fue desalojado y paso a Ready
+
+[INFO] 17:00:16:590 Team/(8350:8353): El entrenador de id 2 fue desalojado y paso a Ready
+
+[INFO] 17:00:16:590 Team/(8350:8354): Soy el entrenador que va a ejecutar, mi id es: 3.
+[INFO] 17:00:16:591 Team/(8350:8354): El entrenador 3 se mueve a atrapar a Espeon a la posicion (7, 1)
+[INFO] 17:00:16:592 Team/(8350:8354): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:592 Team/(8350:8354): El entrenador de id 3 fue desalojado y paso a Ready
+
+[INFO] 17:00:16:594 Team/(8350:8351): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Jolteon
+[INFO] 17:00:16:595 Team/(8350:8351): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 17:00:16:599 Team/(8350:8351): El pokemon Jolteon ha sido atrapado con exito
+[INFO] 17:00:16:618 Team/(8350:8351): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[INFO] 17:00:16:637 Team/(8350:8355): Soy el entrenador que va a ejecutar, mi id es: 4.
+[INFO] 17:00:16:638 Team/(8350:8355): El entrenador 4 se mueve a atrapar a Vaporeon a la posicion (4, 10)
+[INFO] 17:00:16:639 Team/(8350:8355): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:640 Team/(8350:8355): El entrenador de id 4 fue desalojado y paso a Ready
+
+[INFO] 17:00:16:642 Team/(8350:8352): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:643 Team/(8350:8352): El entrenador de id 1 llegó al pokemon Flareon.
+[INFO] 17:00:16:644 Team/(8350:8352): El entrenador de id 1 fue desalojado y paso a Ready
+
+[INFO] 17:00:16:645 Team/(8350:8353): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:646 Team/(8350:8353): El entrenador de id 2 fue desalojado y paso a Ready
+
+[INFO] 17:00:16:647 Team/(8350:8354): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:647 Team/(8350:8354): El entrenador de id 3 llegó al pokemon Espeon.
+[INFO] 17:00:16:649 Team/(8350:8354): El entrenador de id 3 fue desalojado y paso a Ready
+
+[INFO] 17:00:16:650 Team/(8350:8355): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:650 Team/(8350:8355): El entrenador de id 4 llegó al pokemon Vaporeon.
+[INFO] 17:00:16:651 Team/(8350:8355): El entrenador de id 4 fue desalojado y paso a Ready
+
+[INFO] 17:00:16:652 Team/(8350:8352): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Flareon
+[INFO] 17:00:16:652 Team/(8350:8352): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 17:00:16:653 Team/(8350:8352): El pokemon Flareon ha sido atrapado con exito
+[INFO] 17:00:16:654 Team/(8350:8352): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[INFO] 17:00:16:658 Team/(8350:8353): El entrenador de id 2 llegó al pokemon Umbreon.
+[INFO] 17:00:16:659 Team/(8350:8353): Ejecuté 1 ciclo de cpu
+[INFO] 17:00:16:660 Team/(8350:8353): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Umbreon
+[INFO] 17:00:16:661 Team/(8350:8353): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 17:00:16:661 Team/(8350:8353): El pokemon Umbreon ha sido atrapado con exito
+[INFO] 17:00:16:662 Team/(8350:8353): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[INFO] 17:00:16:663 Team/(8350:8354): El entrenador 3 hizo el pedido de catch pokemon para esta especie: Espeon
+[INFO] 17:00:16:664 Team/(8350:8354): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 17:00:16:664 Team/(8350:8354): El pokemon Espeon ha sido atrapado con exito
+[INFO] 17:00:16:665 Team/(8350:8354): El entrenador 3 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[INFO] 17:00:16:666 Team/(8350:8355): El entrenador 4 hizo el pedido de catch pokemon para esta especie: Vaporeon
+[INFO] 17:00:16:667 Team/(8350:8355): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 17:00:16:667 Team/(8350:8355): El pokemon Vaporeon ha sido atrapado con exito
+[INFO] 17:00:16:669 Team/(8350:8355): El entrenador 4 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+
+[WARNING] 17:00:16:673 Team/(8350:8358): Deadlock detectado
+[INFO] 17:00:16:677 Team/(8350:8358): La cantidad de entrenadores en deadlock es 5
+[INFO] 17:00:16:680 Team/(8350:8358): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 17:00:16:690 Team/(8350:8358): Hay deadlock entre el entrenador 0 y el entrenador 1
+[INFO] 17:00:16:698 Team/(8350:8358): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 17:00:16:698 Team/(8350:8358): Haciendo el intercambio
+[INFO] 17:00:16:705 Team/(8350:8351): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 17:00:16:706 Team/(8350:8351): El entrenador 0 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 17:00:16:713 Team/(8350:8351): El entrenador de id 0 llegó a la posicion del entrenador de id 1
+[INFO] 17:00:16:732 Team/(8350:8351): Se intercambiaron los pokemones Jolteon y Flareon entre los entrenadores 0 y 1
+[INFO] 17:00:16:739 Team/(8350:8358): Luego de hacer un intercambio el entrenador 0 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 17:00:16:744 Team/(8350:8352): El entrenador 1 finalizo
+[WARNING] 17:00:16:756 Team/(8350:8358): Deadlock detectado
+[INFO] 17:00:16:757 Team/(8350:8358): La cantidad de entrenadores en deadlock es 4
+[INFO] 17:00:16:758 Team/(8350:8358): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
+[INFO] 17:00:16:761 Team/(8350:8358): Hay deadlock entre el entrenador 2 y el entrenador 3
+[INFO] 17:00:16:762 Team/(8350:8358): El entrenador 3 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 17:00:16:762 Team/(8350:8358): Haciendo el intercambio
+[INFO] 17:00:16:764 Team/(8350:8353): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
+[INFO] 17:00:16:765 Team/(8350:8353): El entrenador 2 se mueve a la posicion de coordenadas (7, 1)
+[INFO] 17:00:16:773 Team/(8350:8353): El entrenador de id 2 llegó a la posicion del entrenador de id 3
+[INFO] 17:00:16:777 Team/(8350:8353): Se intercambiaron los pokemones Umbreon y Espeon entre los entrenadores 2 y 3
+[INFO] 17:00:16:778 Team/(8350:8358): Luego de hacer un intercambio el entrenador 2 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 17:00:16:779 Team/(8350:8354): El entrenador 3 finalizo
+[WARNING] 17:00:16:780 Team/(8350:8358): Deadlock detectado
+[INFO] 17:00:16:780 Team/(8350:8358): La cantidad de entrenadores en deadlock es 3
+[INFO] 17:00:16:781 Team/(8350:8358): El entrenador 4 pasó a la lista de listos para resolucion de deadlock
+[INFO] 17:00:16:782 Team/(8350:8358): Hay deadlock entre el entrenador 4 y el entrenador 0
+[INFO] 17:00:16:784 Team/(8350:8358): El entrenador 0 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 17:00:16:788 Team/(8350:8358): Haciendo el intercambio
+[INFO] 17:00:16:789 Team/(8350:8355): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 4.
+[INFO] 17:00:16:789 Team/(8350:8355): El entrenador 4 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 17:00:16:793 Team/(8350:8355): El entrenador de id 4 llegó a la posicion del entrenador de id 0
+[INFO] 17:00:16:800 Team/(8350:8355): Se intercambiaron los pokemones Vaporeon y Flareon entre los entrenadores 4 y 0
+[INFO] 17:00:16:801 Team/(8350:8358): Luego de hacer un intercambio el entrenador 4 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 17:00:16:802 Team/(8350:8351): El entrenador 0 finalizo
+[WARNING] 17:00:16:803 Team/(8350:8358): Deadlock detectado
+[INFO] 17:00:16:804 Team/(8350:8358): La cantidad de entrenadores en deadlock es 2
+[INFO] 17:00:16:805 Team/(8350:8358): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
+[INFO] 17:00:16:806 Team/(8350:8358): Hay deadlock entre el entrenador 2 y el entrenador 4
+[INFO] 17:00:16:809 Team/(8350:8358): El entrenador 4 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 17:00:16:809 Team/(8350:8358): Haciendo el intercambio
+[INFO] 17:00:16:810 Team/(8350:8353): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
+[INFO] 17:00:16:810 Team/(8350:8353): El entrenador 2 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 17:00:16:818 Team/(8350:8353): El entrenador de id 2 llegó a la posicion del entrenador de id 4
+[INFO] 17:00:16:821 Team/(8350:8353): Se intercambiaron los pokemones Espeon y Flareon entre los entrenadores 2 y 4
+[DEBUG] 17:00:16:823 Team/(8350:8355): El entrenador 4 finalizo
+[DEBUG] 17:00:16:823 Team/(8350:8353): El entrenador 2 finalizo
+[INFO] 17:00:16:825 Team/(8350:8358): Objetivo global cumplido!!!!! :D
+[INFO] 17:00:16:826 Team/(8350:8358): La cantidad de ciclos de CPU totales es: 65
+[INFO] 17:00:16:826 Team/(8350:8358): La cantidad de cambios de contextos realizados es: 0
+[INFO] 17:00:16:827 Team/(8350:8358): La cantidad de ciclos de CPU realizados por el entrenador 1 es: 4
+[INFO] 17:00:16:835 Team/(8350:8358): La cantidad de ciclos de CPU realizados por el entrenador 3 es: 4
+[INFO] 17:00:16:835 Team/(8350:8358): La cantidad de ciclos de CPU realizados por el entrenador 0 es: 13
+[INFO] 17:00:16:836 Team/(8350:8358): La cantidad de ciclos de CPU realizados por el entrenador 2 es: 31
+[INFO] 17:00:16:836 Team/(8350:8358): La cantidad de ciclos de CPU realizados por el entrenador 4 es: 13
+[INFO] 17:00:16:837 Team/(8350:8358): La cantidad de deadlocks producidos es: 0
+[INFO] 17:00:16:837 Team/(8350:8358): La cantidad de deadlocks resueltos es: 0
+[INFO] 17:00:16:838 Team/(8350:8358): Cerrando team...
