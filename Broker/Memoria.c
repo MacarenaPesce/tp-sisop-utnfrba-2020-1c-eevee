@@ -92,6 +92,8 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 	Esta deberia ser la que tiene que llamar la cola de mensajes*/
 void asignar_particion_memoria(t_mensaje_cola* estructura_mensaje){
 
+    printf("\n");
+    printf("\n");
     if(debug_broker) log_debug(broker_logger, "Nueva peticion de memoria de: %i", estructura_mensaje->tamanio_mensaje );
     printf("\n");
 
@@ -158,7 +160,8 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
         //me fijo si puedo alojarla a la primera
         if(sePuedeAlojar == true){ 
             
-            if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
+            log_info(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);            
+            //if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
 	        printf("\n");
 
             /* Si puede alojarse a la primera, corro algoritmo de particion libre*/             
@@ -187,6 +190,7 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
             log_info(broker_logger, "Por compactar mayor 0...",NULL);
             algoritmo_de_reemplazo();
             frec_para_compactar = frec_para_compactar - 1;
+            log_info(broker_logger, "Frecuencia de compactacion, faltan vaciar %d particiones", frec_para_compactar);
         }
         else{  //en caso de no estar habilitada , porque ya se agoto
 
@@ -356,7 +360,9 @@ void algoritmo_de_reemplazo(){
 
     t_bloque_memoria* bloque;
 
-    if(debug_broker) log_debug(broker_logger,"Por ejecutar algoritmo de reemplazo %s", algoritmo_reemplazo);
+    log_info(broker_logger,"Por ejecutar algoritmo de reemplazo %s", algoritmo_reemplazo);
+
+    //if(debug_broker) log_debug(broker_logger,"Por ejecutar algoritmo de reemplazo %s", algoritmo_reemplazo);
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
     if (strcmp( algoritmo_reemplazo, "LRU") == 0){
@@ -416,7 +422,7 @@ t_bloque_memoria* algoritmo_fifo(){
 
     /* Calculo la posicion relativa */
     void* posicion_relativa = calcular_posicion_relativa(bloque);
-    log_info(broker_logger, "Eliminado de una particion en la posicion relativa %p",posicion_relativa);
+    log_info(broker_logger, "Eliminado de una particion en la posicion relativa %d",posicion_relativa);
 
 
     //libero la memoria de un determinado bloque de mi lista , y me lo devuelve
@@ -467,7 +473,7 @@ t_bloque_memoria* algoritmo_lru(){
 
     /* Calculo la posicion relativa */
     void* posicion_relativa = calcular_posicion_relativa(bloque);
-    log_info(broker_logger, "Eliminado de una particion en la posicion relativa %p",posicion_relativa);
+    log_info(broker_logger, "Eliminado de una particion en la posicion relativa %d",posicion_relativa);
 
     //libero la memoria de un determinado bloque de mi lista , y me lo devuelve
     liberar_bloque_memoria(bloque);

@@ -98,17 +98,20 @@ int main(){
 */
 
 	/* Cargar memoria simple */
-	/*t_get_pokemon get_pokemon1;
+	/*
+	t_get_pokemon get_pokemon1;
 	get_pokemon1.pokemon = "Pikachu";
 	t_get_pokemon get_pokemon2;
 	get_pokemon2.pokemon = "Charmander";
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon1);
 	free(ack);
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon2);
-	free(ack);*/
+	free(ack);
+	*/
 
 
 	/* Cargar memoria complejo */
+	/*
 	t_catch_pokemon catch_pokemon1;
 	catch_pokemon1.coordenadas.posx = 9;
 	catch_pokemon1.coordenadas.posy = 3;
@@ -126,6 +129,7 @@ int main(){
 	caught_pokemon1.status = 10;
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
 	free(ack); 	
+
 	t_caught_pokemon caught_pokemon2;
 	caught_pokemon2.status = 11;
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon2);
@@ -152,7 +156,53 @@ int main(){
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon3);
 	free(ack);
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon4);
-	free(ack);	
+	free(ack);
+	*/	
+
+
+	/* Prueba base consolidacion */
+	t_caught_pokemon caught_pokemon1;
+	caught_pokemon1.status = 10;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
+	free(ack); 	
+
+	t_caught_pokemon caught_pokemon2;
+	caught_pokemon2.status = 11;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon2);
+	free(ack); 
+
+	t_catch_pokemon catch_pokemon3;
+	catch_pokemon3.coordenadas.posx = 1;
+	catch_pokemon3.coordenadas.posy = 7;
+	catch_pokemon3.pokemon = "Pikachu";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon3);
+	free(ack);
+
+	t_catch_pokemon catch_pokemon4;
+	catch_pokemon4.coordenadas.posx = 1;
+	catch_pokemon4.coordenadas.posy = 7;
+	catch_pokemon4.pokemon = "Squirtle";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
+	free(ack);
+
+	t_catch_pokemon catch_pokemon5;
+	catch_pokemon5.coordenadas.posx = 4;
+	catch_pokemon5.coordenadas.posy = 5;
+	catch_pokemon5.pokemon = "Onyx";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon5);
+	free(ack);
+
+
+	int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON);
+
+
+	t_catch_pokemon catch_pokemon6;
+	catch_pokemon6.coordenadas.posx = 9;
+	catch_pokemon6.coordenadas.posy = 3;
+	catch_pokemon6.pokemon = "Charmander";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon6);
+	free(ack);
+
 
 	printf("TERMINE DE PROBAR LISTO   \n");
 
