@@ -50,7 +50,7 @@ t_dictionary* semaforosPokemon;
 
 void cargarRutasFs();//ok
 int abrir_ruta(char *ruta);
-void cargarMetadataFs(char *ruta);//ok
+void cargarMetadataFs();//ok
 void crearFileSystemVacio();//ok
 bool noCumpleConRutasfs();//ok
 void crearMetadataFs();//ok

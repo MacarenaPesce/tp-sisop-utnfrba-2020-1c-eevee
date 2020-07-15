@@ -6,7 +6,7 @@ int main() {
 	inicializar_archivo_de_configuracion();
 
 	cargarRutasFs();
-	cargarMetadataFs("gamecard.config");
+	cargarMetadataFs();
 
 	if (noCumpleConRutasfs()) {
 		log_info(gameCard_logger, "No existe el FileSytem requerido");

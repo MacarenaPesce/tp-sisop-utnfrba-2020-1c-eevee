@@ -89,44 +89,17 @@ int abrir_ruta(char *ruta) {
 
 }
 
-void cargarMetadataFs(char *ruta) {
+void cargarMetadataFs() {
 
 	log_info(gameCard_logger, "Cargando Metadata del FileSystem");
 
 	metadata_fs = malloc(sizeof(t_metadata_fs));
 
-	char* tamanioBloque = string_new();
-	char* cantidadBloques = string_new();
-	char* magicNumber = string_new();
-
-	//el archivo metadata.bin se parece al archivo de configuracion
-	//se reutilizan estructuras
-	t_config* configMetataNueva = config_create(ruta);
-
-	string_append(&tamanioBloque,
-			(string_itoa(config_get_int_value(configMetataNueva, "BLOCK_SIZE"))));
-	//string_append(&tamanioBloque,"/0");
-
-	string_append(&cantidadBloques,
-			(string_itoa(config_get_int_value(configMetataNueva, "BLOCKS"))));
-	//string_append(&tamanioBloque,"/0");
-
-
-	string_append(&magicNumber,
-			config_get_string_value(configMetataNueva, "MAGIC_NUMBER"));
-	//string_append(&tamanioBloque,"/0");
-
-	// atoi: convierte cadena de caracteres a un int
-	metadata_fs->cantidadBloques = atoi(cantidadBloques);
-	metadata_fs->tamanioBLoques = atoi(tamanioBloque);
+	metadata_fs->cantidadBloques =cantidadBloques;
+	metadata_fs->tamanioBLoques = tamanioDeBloque;
 	metadata_fs->magicNumber = magicNumber;
 
 	log_info(gameCard_logger,"Se ha cargado correctamente la metadata del FileSystem");
-
-	config_destroy(configMetataNueva);
-	free(tamanioBloque);
-	free(cantidadBloques);
-	free(magicNumber);
 
 }
 
@@ -253,14 +226,13 @@ void abrirBitmap() {
 
 	if (metadata_fs->tamanioBLoques % 8 != 0){ bytesAEscribirAux++;}
 
-	bitarray = bitarray_create_with_mode(bmap, bytesAEscribirAux,LSB_FIRST);
+	bitarray = bitarray_create_with_mode(bmap,bytesAEscribirAux,LSB_FIRST);
 
 	log_info(gameCard_logger,"se ha abierto correctamente el bitmap");
 
 	close(bitmap);
 
 }
-
 
 void desconectarFs(){
 
