@@ -26,7 +26,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 			sem_post(&orden_para_planificar);
 			return NULL;
 		}
-
+		sem_post(&termine_carajo);
 		if(entrenador->cant_maxima_objetivos == 0){
 			break;
 		}
@@ -41,7 +41,6 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 void realizar_las_operaciones_de_deadlock(t_entrenador * entrenador){
 	//HAY INTERBLOQUEO
 	while(GLOBAL_SEGUIR){
-
 		sem_wait(&array_semaforos_deadlock[entrenador->id]);
 		
 		if(!objetivo_personal_cumplido(entrenador)){
@@ -66,8 +65,6 @@ void realizar_las_operaciones_de_deadlock(t_entrenador * entrenador){
 	log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 	sem_post(&todos_los_entrenadores_finalizaron);
 	sem_post(&puedo_volver_a_ejecutar);
-
-	//sem_post(&chequeo_de_deadlock);
 
 }
 
@@ -218,6 +215,7 @@ void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 
 t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
 	t_objetivo_entrenador* pokemon_innecesario = malloc(sizeof(t_objetivo_entrenador));
+	
 	for (int i = 0; i < list_size(entrenador->pokemones); i++){
 		t_objetivo_entrenador* pokemon_en_posesion = list_get(entrenador->pokemones, i);
 		log_info(team_logger, "Un pokemon en posesion de %i es %s, cantidad %i", entrenador->id, pokemon_en_posesion->especie, pokemon_en_posesion->cantidad);

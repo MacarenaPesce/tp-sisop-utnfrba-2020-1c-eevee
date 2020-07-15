@@ -110,12 +110,9 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
 
 	log_info(team_logger, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
-
 	log_info(team_logger, "Haciendo el intercambio");
-	log_error(team_logger, "EL ENTRENADOR 1 ES: %d", entrenador1->id);
 	
 	sem_post(&array_semaforos_deadlock[entrenador1->id]);
-	log_error(team_logger, "SE HIZO EL POST PARA EL ENTRENADOR 1 ES: %d", entrenador1->id);
 
 	//ESPERAR A ENTRENADOR
 	sem_wait(&aviso_entrenador_hizo_intercambio);

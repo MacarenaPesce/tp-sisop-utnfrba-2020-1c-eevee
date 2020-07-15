@@ -117,6 +117,7 @@ void inicializar_semaforos(){
 	sem_init(&todos_los_entrenadores_finalizaron, 0, 0);
 	sem_init(&me_bloquee, 0, 0);
 	sem_init(&puedo_volver_a_ejecutar, 0, 0);
+	sem_init(&termine_carajo, 0, 0);
 
 
 }
