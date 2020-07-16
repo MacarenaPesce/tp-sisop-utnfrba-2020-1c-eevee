@@ -356,8 +356,6 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
 			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
-			
-			//log_error(team_logger, "EN LA LISTA MAPA HAY %d", list_size(lista_mapa));
 
 			chequeo_si_puedo_atrapar_otro(entrenador);
 			sem_post(&orden_para_planificar);
@@ -382,17 +380,9 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar\n", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
-
-			log_error(team_logger, "ESTOY EN CANT MAX ALCANZADA --- EN LA LISTA MAPA HAY %d", list_size(lista_mapa));
-			
-			if(hay_pokemones_en_el_mapa()){
-				t_pokemon * pokemon = list_get(lista_mapa, 0);
-				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-				sem_post(&orden_para_planificar);
-			}
-
+	
 			sem_post(&me_bloquee);
-			//sem_post(&orden_para_planificar);
+			sem_post(&orden_para_planificar);
 
 			break;
 		default:

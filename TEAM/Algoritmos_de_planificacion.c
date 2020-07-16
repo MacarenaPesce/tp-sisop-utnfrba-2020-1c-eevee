@@ -55,21 +55,8 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 				estimar_entrenador(entrenador_mas_cercano);
 			}
 			
-			/*if(!strcmp(algoritmo_planificacion, "RR")){
-				if(esta_en_ready(entrenador_mas_cercano)){
-					log_error(team_logger, "PASO POR ACA");
-					entrenador_mas_cercano->objetivo_actual = pokemon;
-					sem_post(&orden_para_planificar);
-					break;
-				}
-			}*/
-
 			entrenador_mas_cercano->objetivo_actual = pokemon;
-			
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
-			objetivo_actual_verdadero = entrenador_mas_cercano->objetivo_actual;
-			log_error(team_logger, "AGREGUE AL ENTRENADOR %d A READY %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
-			
 			pthread_mutex_unlock(&lista_listos_mutex);
 			
 			nuevo_entrenador = entrenador_mas_cercano;
