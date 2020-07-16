@@ -1,13 +1,6 @@
 #include "gameCard.h"
 
-#include <stdio.h>
-#include <time.h>
-
 int main() {
-
-	int anterior;
-	anterior=time(NULL);
-
 
 	inicializar_logger();
 	inicializar_archivo_de_configuracion();
