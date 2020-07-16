@@ -348,7 +348,7 @@ void chequeo_si_puedo_atrapar_otro(t_entrenador * entrenador){
 
 void bloquear_entrenador(t_entrenador* entrenador){
 	entrenador_en_ejecucion = NULL;
-
+	cambios_de_contexto++;
 	switch(entrenador->razon_de_bloqueo){
 		case ESPERANDO_POKEMON:
 			log_info(team_logger,"La estimacion de este entrenador al bloquearse es %f", entrenador->estimacion_real);
@@ -384,15 +384,9 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
 			log_error(team_logger, "ESTOY EN CANT MAX ALCANZADA --- EN LA LISTA MAPA HAY %d", list_size(lista_mapa));
-			
-			if(hay_pokemones_en_el_mapa()){
-				t_pokemon * pokemon = list_get(lista_mapa, 0);
-				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-				sem_post(&orden_para_planificar);
-			}
 
 			sem_post(&me_bloquee);
-			//sem_post(&orden_para_planificar);
+			sem_post(&orden_para_planificar);
 
 			break;
 		default:
@@ -440,6 +434,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			pthread_mutex_lock(&lista_listos_mutex);
 			list_add(lista_listos, entrenador);
 			pthread_mutex_unlock(&lista_listos_mutex);
+			cambios_de_contexto++;
 			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
 
 			sem_post(&orden_para_planificar);
@@ -463,6 +458,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			pthread_mutex_lock(&lista_listos_mutex);
 			list_add(lista_listos, entrenador);
 			pthread_mutex_unlock(&lista_listos_mutex);
+			cambios_de_contexto++;
 			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
 
 			sem_post(&orden_para_planificar);
