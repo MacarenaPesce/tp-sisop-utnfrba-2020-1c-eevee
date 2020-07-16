@@ -195,8 +195,6 @@ int main(){
 
 	int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON);
 
-	sleep(10);
-
 	t_catch_pokemon catch_pokemon6;
 	catch_pokemon6.coordenadas.posx = 9;
 	catch_pokemon6.coordenadas.posy = 3;
@@ -204,6 +202,7 @@ int main(){
 	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon6);
 	free(ack);
 
+	eliminar_localized_pokemon(localized_pokemon);
 
 	printf("TERMINE DE PROBAR LISTO   \n");
 

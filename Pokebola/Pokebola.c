@@ -856,9 +856,11 @@ t_localized_pokemon* generar_localized(char* nombre_pokemon){
 	
 	t_localized_pokemon* localized_pokemon = malloc(sizeof(t_localized_pokemon));
 
+	printf("tamanio nombre %d\n",strlen(nombre_pokemon));
+
 	if(nombre_pokemon != NULL){
-		localized_pokemon->pokemon = malloc(sizeof(strlen(nombre_pokemon)+1));
-		localized_pokemon->pokemon = nombre_pokemon;
+		localized_pokemon->pokemon = malloc(strlen(nombre_pokemon)+1);
+		memcpy(localized_pokemon->pokemon,nombre_pokemon,strlen(nombre_pokemon)+1);
 	}
 
 	localized_pokemon->lista_coordenadas = list_create();
@@ -867,6 +869,14 @@ t_localized_pokemon* generar_localized(char* nombre_pokemon){
 
 	return localized_pokemon;
 
+}
+
+void eliminar_localized_pokemon(t_localized_pokemon* localized_pokemon){
+
+	list_destroy_and_destroy_elements(localized_pokemon->lista_coordenadas,free);
+	free(localized_pokemon->pokemon);
+	free(localized_pokemon);
+	
 }
 
 /**************FUNCIONES PARA EL LOG*********************/
