@@ -154,7 +154,8 @@ char* traerAmemoriaUltimoBloque(char* ultBloque);
 
 char* bloqEnMemo;
 
-void agregarPosicionPokemonAbloquesNuevos();
+void agregarPosicionPokemonAbloquesNuevos(char* ultBloque, char* stringAcopiar,
+		int espacioOcupadoBloque, int espacioEnBloque, int espacioNuevaLinea, int nuevoSizeMetadata);
 
 void modificarBloquesMetadata(char* poke,t_list* bloquesPokemon);
 
@@ -185,7 +186,7 @@ void cerrarArchivo(char* poke);
 uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar);
 
 void agregarPosicionSinSaltoDeLinea(int espacioEnBloque, int espacioNuevaLinea,
-		char* ultBloque);
+		char* ultBloque, int nuevoSizeMetadata);
 
 //semaforos
 

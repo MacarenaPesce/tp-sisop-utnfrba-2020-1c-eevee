@@ -203,14 +203,17 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 					switch(paquete->cola_de_mensajes){
 						case COLA_NEW_POKEMON:
 							enviar_ack(servidor,paquete->id_mensaje);
+							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_new_pokemon_desde_broker(paquete);
 							break;
 						case COLA_CATCH_POKEMON:
 							enviar_ack(servidor,paquete->id_mensaje);
+							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_catch_pokemon_desde_broker(paquete);
 							break;
 						case COLA_GET_POKEMON:
 							enviar_ack(servidor,paquete->id_mensaje);
+							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_get_pokemon_desde_broker(paquete);
 							break;
 						default:
