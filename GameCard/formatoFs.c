@@ -128,11 +128,11 @@ void crearBitmap() {
 
 	 bitarray =	bitarray_create_with_mode(bitmapData, blocksChar, LSB_FIRST);
 
-	 msync(bitarray, sizeof(bitarray), MS_SYNC);
+	// msync(bitarray, sizeof(bitarray), MS_SYNC);
 
 		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
 
-		fclose(bitmapArch);
+		//fclose(bitmapArch);
 
 }
 
@@ -200,7 +200,6 @@ void InicializarBloquesDeDatosFs() {
 
 void abrirBitmap() {
 
-
 	log_info(gameCard_logger,"abriendo el bitmap...");
 
 	int bitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR);
@@ -224,17 +223,15 @@ void abrirBitmap() {
 		log_error(gameCard_logger, "Fallo el mmap");
 	}
 
-	int bytesAEscribirAux = metadata_fs->tamanioBLoques / 8;
+	int bytesAEscribirAux = metadata_fs->cantidadBloques / 8;
 
-	if (metadata_fs->tamanioBLoques % 8 != 0){ bytesAEscribirAux++;}
+	if (metadata_fs->cantidadBloques % 8 != 0){ bytesAEscribirAux++;}
 
 	bitarray = bitarray_create_with_mode(bmap,bytesAEscribirAux,LSB_FIRST);
 
-	msync(bitarray, sizeof(bitarray), MS_SYNC);
+	//msync(bitarray, sizeof(bitarray), MS_SYNC);
 
 	log_info(gameCard_logger,"se ha abierto correctamente el bitmap");
-
-	close(bitmap);
 
 }
 

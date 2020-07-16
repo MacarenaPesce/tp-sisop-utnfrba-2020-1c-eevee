@@ -1,6 +1,13 @@
 #include "gameCard.h"
 
+#include <stdio.h>
+#include <time.h>
+
 int main() {
+
+	int anterior;
+	anterior=time(NULL);
+
 
 	inicializar_logger();
 	inicializar_archivo_de_configuracion();
@@ -16,6 +23,7 @@ int main() {
 
 	abrirBitmap();
 	inicializarSemaforosParaPokemon();
+
 
 	/*Esto es lo necesario para comunicarse con gameboy*/
 	int serv_socket = iniciar_servidor(PUERTO);
