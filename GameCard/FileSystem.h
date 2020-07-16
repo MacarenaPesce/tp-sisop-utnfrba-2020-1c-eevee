@@ -1,9 +1,21 @@
 #ifndef FILESYSTEM_H_
 #define FILESYSTEM_H_
 
-#include "Herramientas_gameCard.h"
 #include "formatoFs.h"
-#include "Contexto_gameCard.h"
+#include <sys/stat.h>
+#include <sys/types.h>
+
+// semaforos
+
+pthread_mutex_t mutexSemPokemones;
+t_dictionary* semaforosPokemones;
+pthread_mutex_t semMutexBitmap;
+
+void inicializarSemaforosParaPokemon();
+void agregarSemaforoPokemon(char* poke);
+void eliminarSemaforoPokemon(char* poke);
+
+//fin semaforos
 
 void marcarBloqueOcupado(int bloqueLibre);
 bool existePokemon(char* pokemon);
@@ -177,8 +189,6 @@ void agregarPosicionSinSaltoDeLinea(int espacioEnBloque, int espacioNuevaLinea,
 
 //semaforos
 
-pthread_mutex_t mutexBitmap;
-
 //localized
 
 t_list* pokemonesParaLocalized;
@@ -187,4 +197,9 @@ void agregarPosicionAlistaParaLocalized(char* posicion);
 
 void crearDirectorioPokemon(char* pokemon);
 
+int obtenerEspacioMetadata(char* pokemon);
+
+void copiarPokemonEnMemoria(void* unBloque);
+
+void liberarMemoria();
 #endif /* FILESYSTEM_H_ */

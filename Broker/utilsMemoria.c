@@ -43,10 +43,10 @@ int obtener_indice_particion(t_bloque_memoria* bloque){
 
         t_bloque_memoria* bloque_memoria = (t_bloque_memoria*) _bloque;        
 
-        if(bloque_memoria->esta_vacio) {
+        /*if(bloque_memoria->esta_vacio) {
             indice++;
             return false;
-        }
+        }*/
 
         if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje){
             indice++;
@@ -57,7 +57,7 @@ int obtener_indice_particion(t_bloque_memoria* bloque){
     }
 
     list_find(cache_mensajes->memoria, buscar_bloque);
-    if(debug_broker) log_debug(broker_logger,"El id malo es: %d",indice);
+    if(debug_broker) log_debug(broker_logger,"El indice es: %d",indice);
 
 	return indice-1;
 }
@@ -82,8 +82,16 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 
 
 
-/*Libero la memoria de un determinado bloque y lo retorno */
+/* Libero la memoria de un determinado bloque y lo retorno */
 void liberar_bloque_memoria(t_bloque_memoria* bloque){
+
+    
+    t_bloque_memoria* bloque_auxiliar = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
+    memcpy(bloque_auxiliar,bloque,sizeof(t_bloque_memoria));
+    bloque_auxiliar->estructura_mensaje = bloque->estructura_mensaje->mensaje;
+
+    bloque->estructura_mensaje = bloque_auxiliar->estructura_mensaje;
+    
 
     /* Marco el bloque como vacio */
     bloque->esta_vacio = true;
@@ -116,6 +124,33 @@ bool puede_alojarse(int tamanio_bytes){
 
     return bloque_posible != NULL;
 
+}
+
+
+
+/* Calcula la posicion relativa de memoria*/
+void* calcular_posicion_relativa(t_bloque_memoria* bloque){
+
+    /* Obtengo el primer bloque de mi lista para saber donde empieza la memoria*/
+    t_bloque_memoria* primer_bloque = list_get(cache_mensajes->memoria,0);
+
+    log_warning(broker_logger, "Puntero primer bloque %d", primer_bloque->estructura_mensaje->mensaje);
+    log_warning(broker_logger, "Puntero mi bloque %d", bloque->estructura_mensaje->mensaje);
+
+    void* resultado;
+
+    if(primer_bloque->esta_vacio){
+        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje);
+    }
+    else{
+        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje->mensaje);    
+    }
+
+    /* Casteo a char* resto y lo devuelvo */
+
+    log_warning(broker_logger, "Puntero mi bloque %d", resultado);
+
+    return resultado;
 }
 
 

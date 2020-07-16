@@ -29,7 +29,6 @@
 #include <pthread.h>
 #include <Pokebola.h>
 
-
 /* Keys config file*/
 #define KEY_TIEMPO_DE_REINTENTO_CONEXION "TIEMPO_DE_REINTENTO_CONEXION"
 #define KEY_TIEMPO_DE_REINTENTO_OPERACION "TIEMPO_DE_REINTENTO_DE_OPERACION"
@@ -38,7 +37,6 @@
 #define KEY_IP_BROKER "IP_BROKER"
 #define KEY_PUERTO_BROKER "PUERTO_BROKER"
 #define KEY_CONFIG_ID "ID"
-
 #define IP "127.0.0.3"
 #define PUERTO "5001"
 

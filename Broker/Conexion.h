@@ -23,4 +23,6 @@ void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente);
 void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente);
 void recibir_ack(t_packed *paquete,int socket_cliente);
 
+
+
 #endif /* HILOS_BROKER_H_ */

@@ -28,7 +28,7 @@ all: libPokebola.so
 libPokebola.so: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -shared -o "Debug/libPokebola.so" -lm $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -shared -o "libPokebola.so" -lm $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -9,7 +9,6 @@
 #define FORMATOFS_H_
 
 #include "Herramientas_gameCard.h"
-#include "Contexto_gameCard.h"
 
 typedef struct {
 	char* puntoDeMontaje;
@@ -61,7 +60,6 @@ void crearDirectoriosParaFs();//ok
 void InicializarBloquesDeDatosFs();//ok
 void crearMetadataDirectorioFiles();//ok
 void abrirBitmap();
-void inicializarSemaforoPokemon();
 void inicializarSemaforosBitmapYMetadata();
 void desconectarFs();
 
