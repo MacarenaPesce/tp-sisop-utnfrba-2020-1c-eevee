@@ -50,91 +50,47 @@ int obtener_indice_particion(t_bloque_memoria* bloque){
         }*/
 
         
-        if(bloque->esta_vacio){
-            if(bloque_memoria->esta_vacio){
-                if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje){
-                    indice++;
-                }
-            
-                return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje;
+        if(bloque->esta_vacio && bloque_memoria->esta_vacio){
+            if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje){
+                indice++;
             }
-            else{
-                if(bloque_memoria->estructura_mensaje->mensaje != bloque->estructura_mensaje){
-                    indice++;
-                }
             
-                return bloque_memoria->estructura_mensaje->mensaje == bloque->estructura_mensaje;                
-            }
+            return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje;
         }
-        else {
-            if(bloque_memoria->esta_vacio){
-                if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje->mensaje){
-                    indice++;
-                }
-            
-                return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje->mensaje;
+        if(bloque->esta_vacio && !bloque_memoria->esta_vacio){
+            if(bloque_memoria->estructura_mensaje->mensaje != bloque->estructura_mensaje){
+                indice++;
             }
-            else{
-                if(bloque_memoria->estructura_mensaje->mensaje != bloque->estructura_mensaje->mensaje){
-                    indice++;
-                }
             
-                return bloque_memoria->estructura_mensaje->mensaje == bloque->estructura_mensaje->mensaje;                
+            return bloque_memoria->estructura_mensaje->mensaje == bloque->estructura_mensaje;                
+        }
+        if(!bloque->esta_vacio && bloque_memoria->esta_vacio){
+            if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje->mensaje){
+                indice++;
             }
+            
+            return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje->mensaje;
+        }
+        if(!bloque->esta_vacio && !bloque_memoria->esta_vacio){
+            if(bloque_memoria->estructura_mensaje->mensaje != bloque->estructura_mensaje->mensaje){
+                indice++;
+            }
+            
+            return bloque_memoria->estructura_mensaje->mensaje == bloque->estructura_mensaje->mensaje;                
+        
         }
 
 
+        if(debug_broker) log_debug(broker_logger,"El indice es: %d",indice);
 
 
     }
 
     list_find(cache_mensajes->memoria, buscar_bloque);
 
-/*
-    t_bloque_memoria* elemento;
-
-    for(int i=0; i<list_size(cache_mensajes->memoria);i++){
-
-        elemento = list_get(cache_mensajes->memoria, i);
-
-        if(bloque->esta_vacio){
-            if(elemento->esta_vacio){
-                if(elemento->estructura_mensaje == bloque->estructura_mensaje){
-                    indice = i;
-                    break;
-                }
-            }
-            else{
-                if(elemento->estructura_mensaje->mensaje == bloque->estructura_mensaje){
-                    indice = i;
-                    break;
-                }
-
-            }
-        }
-        else{
-            if(elemento->esta_vacio){
-                if(elemento->estructura_mensaje == bloque->estructura_mensaje->mensaje){
-                    indice = i;
-                    break;
-                }
-            }
-            else{
-                if(elemento->estructura_mensaje->mensaje == bloque->estructura_mensaje->mensaje){
-                    indice = i;
-                    break;
-                }
-
-            }
-
-        }
-
-    }*/
-
-
     if(debug_broker) log_debug(broker_logger,"El indice es: %d",indice);
 
-	return indice;
+	return indice-1;
 }
 
 
