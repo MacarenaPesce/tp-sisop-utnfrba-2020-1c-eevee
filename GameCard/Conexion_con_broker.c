@@ -129,13 +129,6 @@ void * atender_new_pokemon(t_packed * paquete){
 
 void * recibir_new_pokemon_desde_broker(t_packed * paquete){
 
-	/*Al recibir un mensaje de cualquier hilo se deberá:
-
-		1) Informar al Broker la recepción del mismo (ACK).
-		2) Crear un hilo que atienda dicha solicitud.
-		3) Volver a estar a la escucha de nuevos mensajes de la cola de mensajes en cuestión.
-	*/
-
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)atender_new_pokemon, (void*)paquete);
 	pthread_join(hilo, NULL);
@@ -145,13 +138,6 @@ void * recibir_new_pokemon_desde_broker(t_packed * paquete){
 
 void * recibir_catch_pokemon_desde_broker(t_packed * paquete){
 
-	/*Al recibir un mensaje de cualquier hilo se deberá:
-
-		1) Informar al Broker la recepción del mismo (ACK).
-		2) Crear un hilo que atienda dicha solicitud.
-		3) Volver a estar a la escucha de nuevos mensajes de la cola de mensajes en cuestión.
-	*/
-
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)atender_catch_pokemon, (void*)paquete);
 	pthread_join(hilo, NULL);
@@ -160,13 +146,6 @@ void * recibir_catch_pokemon_desde_broker(t_packed * paquete){
 }
 
 void * recibir_get_pokemon_desde_broker(t_packed * paquete){
-
-	/*Al recibir un mensaje de cualquier hilo se deberá:
-
-		1) Informar al Broker la recepción del mismo (ACK).
-		2) Crear un hilo que atienda dicha solicitud.
-		3) Volver a estar a la escucha de nuevos mensajes de la cola de mensajes en cuestión.
-	*/
 
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)atender_get_pokemon, (void*)paquete);
@@ -223,12 +202,15 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 				if(paquete->operacion == ENVIAR_MENSAJE){
 					switch(paquete->cola_de_mensajes){
 						case COLA_NEW_POKEMON:
+							enviar_ack(servidor,paquete->id_mensaje);
 							recibir_new_pokemon_desde_broker(paquete);
 							break;
 						case COLA_CATCH_POKEMON:
+							enviar_ack(servidor,paquete->id_mensaje);
 							recibir_catch_pokemon_desde_broker(paquete);
 							break;
 						case COLA_GET_POKEMON:
+							enviar_ack(servidor,paquete->id_mensaje);
 							recibir_get_pokemon_desde_broker(paquete);
 							break;
 						default:
