@@ -158,15 +158,16 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
         //me fijo si la frecuencia de compactacion esta habilitada para seguir vaciando particiones
         if(frec_para_compactar == -1){ //si la frecuencia esta seteada en -1
-            //corro el algoritmo y tengo que compactar si o si 
+            //corro el algoritmo y NO compacto nunca
+
+            log_info(broker_logger, "Frecuencia de compactación -1. No compacto, solo elimino.",NULL);
+
             algoritmo_de_reemplazo();
 
-            log_info(broker_logger, "Por compactar -1...",NULL);
-
-            compactar();
+            //compactar();
         }
         else if(frec_para_compactar > 0){ //en caso de estar habilitada la frecuencia
-            log_info(broker_logger, "Por compactar mayor 0...",NULL);
+            log_info(broker_logger, "Frecuencia de compactacion > 0...",NULL);
             algoritmo_de_reemplazo();
             frec_para_compactar = frec_para_compactar - 1;
             log_info(broker_logger, "Frecuencia de compactacion, faltan vaciar %d particiones", frec_para_compactar);
@@ -644,6 +645,78 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 
 //----------------------------DUMP DE LA MEMORIA--------------------------
 
+
+void dump_memoria(){
+    
+    FILE* dumpeo = fopen("../dump.log","a");
+
+    log_info(broker_logger, "Dump de memoria");
+    printf("\n");
+
+    char fecha[50];
+    time_t hoy;
+    struct tm* timeinfo;
+    time(&hoy);
+    timeinfo = localtime(&hoy);
+    strftime(fecha, 50, "%d/%m/%Y %T", timeinfo);
+
+    char* header = malloc(500);
+    header = "Dump ";
+
+    fprintf(dumpeo,"-------------------------------------------------------------------------------------------------------");
+    fprintf(dumpeo, header);
+    fprintf(dumpeo, fecha);
+    fprintf(dumpeo, "\n");
+
+    escribir_estado_de_memoria(dumpeo);
+
+    fprintf(dumpeo,"-------------------------------------------------------------------------------------------------------");
+    fprintf(dumpeo, "\n");
+
+    fclose(dumpeo);
+
+}
+
+
+void escribir_estado_de_memoria(FILE* archivo){
+
+    t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_particiones_memoria);
+
+    for(int i=0; i < list_size(listadeparticiones); i++){
+        t_bloque_memoria* bloque = list_get(listadeparticiones, i);
+        char fecha[50];
+        struct tm* timeinfo;
+        timeinfo = localtime(bloque->last_time);
+        strftime(fecha, 50, "%H:%M:%S", timeinfo);
+
+        char* ocupado = bloque->esta_vacio ? "X" : "L";
+        char* cola;
+
+        switch(bloque->estructura_mensaje->cola_de_mensajes){
+            case COLA_NEW_POKEMON: cola = "NEW_POKEMON"; break;
+            case COLA_APPEARED_POKEMON: cola = "APPEARED_POKEMON"; break;
+            case COLA_GET_POKEMON: cola = "GET_POKEMON"; break;
+            case COLA_LOCALIZED_POKEMON: cola = "LOCALIZED_POKEMON"; break;
+            case COLA_CATCH_POKEMON: cola = "CATCH_POKEMON"; break;
+            case COLA_CAUGHT_POKEMON: cola = "CAUGHT_POKEMON"; break;
+            default: cola = "NO_ASIGNADA"; break;
+        }
+
+        if(!bloque->esta_vacio){
+            fprintf(archivo, string_from_format ("Particion %d: %p - %p.    [%s]    Size: %db   LRU: %s     Cola: %s    ID: %d",
+            i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje->mensaje + bloque->tamanio_particion,
+            ocupado, bloque->tamanio_mensaje, bloque->last_time, cola, bloque->estructura_mensaje->id_mensaje));
+        }
+        else{
+            int id=0;
+            fprintf(archivo, string_from_format ("Particion %d: %p - %p.    [%s]    Size: %db   LRU: %s     Cola: %s    ID: %d",
+            i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje + bloque->tamanio_particion,
+            ocupado, bloque->tamanio_mensaje, bloque->last_time, cola, id));
+        }
+
+    }
+
+}
 
 
 //-----------------------------FIN DEL DUMP--------------------------------

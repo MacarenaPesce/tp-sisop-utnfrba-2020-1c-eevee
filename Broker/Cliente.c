@@ -161,7 +161,7 @@ int main(){
 
 
 	/* Prueba base consolidacion */
-	t_caught_pokemon caught_pokemon1;
+	/* t_caught_pokemon caught_pokemon1;
 	caught_pokemon1.status = 10;
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
 	free(ack); 	
@@ -202,8 +202,36 @@ int main(){
 	catch_pokemon6.coordenadas.posy = 3;
 	catch_pokemon6.pokemon = "Charmander";
 	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon6);
+	free(ack);*/
+
+
+	t_catch_pokemon catch_pokemon1;
+	catch_pokemon1.coordenadas.posx = 9;
+	catch_pokemon1.coordenadas.posy = 3;
+	catch_pokemon1.pokemon = "Pika";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon1);
 	free(ack);
 
+	t_catch_pokemon catch_pokemon2;
+	catch_pokemon2.coordenadas.posx = 9;
+	catch_pokemon2.coordenadas.posy = 3;
+	catch_pokemon2.pokemon = "Pika";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon2);
+	free(ack);
+
+	t_catch_pokemon catch_pokemon3;
+	catch_pokemon3.coordenadas.posx = 9;
+	catch_pokemon3.coordenadas.posy = 3;
+	catch_pokemon3.pokemon = "Pika";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon3);
+	free(ack);
+
+	t_catch_pokemon catch_pokemon4;
+	catch_pokemon4.coordenadas.posx = 9;
+	catch_pokemon4.coordenadas.posy = 3;
+	catch_pokemon4.pokemon = "Pika";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
+	free(ack);
 
 	printf("TERMINE DE PROBAR LISTO   \n");
 

@@ -79,6 +79,9 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 //Compactacion
 void compactar();
 
+void dump_memoria();
+void escribir_estado_de_memoria(FILE* archivo);
+
 
 
 #endif /* MEMORIA_BROKER_H_ */
