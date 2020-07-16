@@ -160,16 +160,15 @@ void cargar_objetivos(t_list* pokemones, t_list* lista){
 t_list* obtener_pokemones(t_list* lista_global,t_list* lista, uint32_t posicion){
 
 	char* pokemones_de_entrenador;
-	lista_pokemones_objetivos_aux = list_create();//este list_create es el culpable de la mayoria de los leaks
+	lista_pokemones_objetivos_aux = list_create();
 	pokemones_de_entrenador = list_get(lista_global, posicion);
 
-	separar_pokemones_de_entrenador(pokemones_de_entrenador, lista);
-	list_sort(lista, (void*)ordenar);
-	cargar_objetivos(lista, lista_pokemones_objetivos_aux);
-	list_remove(lista_pokemones_objetivos_aux, list_size(lista_pokemones_objetivos_aux)-1);
-
-	return lista_pokemones_objetivos_aux;
-
+	separar_pokemones_de_entrenador(pokemones_de_entrenador, lista_pokemones_objetivos_aux);
+	list_sort(lista_pokemones_objetivos_aux, (void*)ordenar);
+	cargar_objetivos(lista_pokemones_objetivos_aux, lista);
+	list_remove(lista, list_size(lista)-1);
+	list_destroy(lista_pokemones_objetivos_aux);
+	return lista;
 }
 
 uint32_t obtener_cantidad_maxima(t_list* lista){

@@ -61,7 +61,7 @@ void inicializar_logger(){
 	team_logger = log_create("team.log", "Team", 1, LOG_LEVEL_DEBUG);
 	log_info(team_logger,"Hi, bienvenido a Team");
 
-	team_logger_oficial = log_create("./log_team", "Team", 0, LOG_LEVEL_DEBUG);
+	team_logger_oficial = log_create("/home/utnso/log_team1", "Team", 0, LOG_LEVEL_DEBUG);
 }
 
 void inicializar_semaforos(){

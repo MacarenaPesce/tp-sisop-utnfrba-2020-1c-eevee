@@ -255,6 +255,15 @@ void chequear_si_fue_cumplido_el_objetivo_global(){
 		printf("************************************************************************************************************");
 		printf("\n");
 
+		log_info(team_logger,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
+		log_info(team_logger,"La cantidad de cambios de contextos realizados es: %i", cambios_de_contexto);
+		for (int i = 0; i < MAXIMO_ENTRENADORES; i++){
+			t_entrenador* entrenador = list_get(lista_finalizar, i);
+			log_info(team_logger, "La cantidad de ciclos de CPU realizados por el entrenador %i es: %i", entrenador->id, entrenador->ciclos_de_cpu);
+		}
+		log_info(team_logger, "La cantidad de deadlocks producidos es: %i", deadlocks_producidos);
+		log_info(team_logger, "La cantidad de deadlocks resueltos es: %i", deadlocks_resueltos);
+
 		terminar_team_correctamente();
 	}
 }
@@ -348,7 +357,7 @@ void chequeo_si_puedo_atrapar_otro(t_entrenador * entrenador){
 
 void bloquear_entrenador(t_entrenador* entrenador){
 	entrenador_en_ejecucion = NULL;
-
+	cambios_de_contexto++;
 	switch(entrenador->razon_de_bloqueo){
 		case ESPERANDO_POKEMON:
 			log_info(team_logger,"La estimacion de este entrenador al bloquearse es %f", entrenador->estimacion_real);
@@ -380,7 +389,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar\n", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
-	
+
 			sem_post(&me_bloquee);
 			sem_post(&orden_para_planificar);
 
@@ -430,6 +439,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			pthread_mutex_lock(&lista_listos_mutex);
 			list_add(lista_listos, entrenador);
 			pthread_mutex_unlock(&lista_listos_mutex);
+			cambios_de_contexto++;
 			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
 
 			sem_post(&orden_para_planificar);
@@ -453,6 +463,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			pthread_mutex_lock(&lista_listos_mutex);
 			list_add(lista_listos, entrenador);
 			pthread_mutex_unlock(&lista_listos_mutex);
+			cambios_de_contexto++;
 			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
 
 			sem_post(&orden_para_planificar);

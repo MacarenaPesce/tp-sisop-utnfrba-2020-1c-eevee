@@ -111,7 +111,7 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	log_info(team_logger, "Haciendo el intercambio");
 	
 	sem_post(&array_semaforos_deadlock[entrenador1->id]);
-
+	cambios_de_contexto++;
 	//ESPERAR A ENTRENADOR
 	sem_wait(&aviso_entrenador_hizo_intercambio);
 	
@@ -166,7 +166,7 @@ void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
 		sem_post(&chequeo_de_deadlock);
 		chequear_deadlock();
 	}else{
-
+		deadlocks_resueltos++;
 		for(int i=0; i < MAXIMO_ENTRENADORES; i++){
 			sem_wait(&todos_los_entrenadores_finalizaron);
 		}
