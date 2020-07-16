@@ -13,12 +13,6 @@ extern t_config* config;
 
 extern t_cache_colas* cache_mensajes;
 
-
-
-//TODO: revisar los valores de compactacion segun lo indicado de nuevo y los logs de dicha parte
-
-
-
 	/*
 		FUNCIONAMIENTO
 

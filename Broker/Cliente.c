@@ -205,33 +205,51 @@ int main(){
 	free(ack);*/
 
 
-	t_catch_pokemon catch_pokemon1;
-	catch_pokemon1.coordenadas.posx = 9;
-	catch_pokemon1.coordenadas.posy = 3;
-	catch_pokemon1.pokemon = "Pika";
-	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon1);
-	free(ack);
+	/*Prueba compactacion basico*/
+	t_caught_pokemon caught_pokemon1;
+	caught_pokemon1.status = 1;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
+	free(ack); 	
 
-	t_catch_pokemon catch_pokemon2;
-	catch_pokemon2.coordenadas.posx = 9;
-	catch_pokemon2.coordenadas.posy = 3;
-	catch_pokemon2.pokemon = "Pika";
-	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon2);
-	free(ack);
+	t_caught_pokemon caught_pokemon2;
+	caught_pokemon2.status = 2;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon2);
+	free(ack); 
 
 	t_catch_pokemon catch_pokemon3;
-	catch_pokemon3.coordenadas.posx = 9;
-	catch_pokemon3.coordenadas.posy = 3;
-	catch_pokemon3.pokemon = "Pika";
+	catch_pokemon3.coordenadas.posx = 1;
+	catch_pokemon3.coordenadas.posy = 7;
+	catch_pokemon3.pokemon = "Pikachu";
 	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon3);
 	free(ack);
 
 	t_catch_pokemon catch_pokemon4;
-	catch_pokemon4.coordenadas.posx = 9;
-	catch_pokemon4.coordenadas.posy = 3;
-	catch_pokemon4.pokemon = "Pika";
+	catch_pokemon4.coordenadas.posx = 1;
+	catch_pokemon4.coordenadas.posy = 7;
+	catch_pokemon4.pokemon = "Squirtle";
 	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
 	free(ack);
+
+	t_catch_pokemon catch_pokemon5;
+	catch_pokemon5.coordenadas.posx = 4;
+	catch_pokemon5.coordenadas.posy = 5;
+	catch_pokemon5.pokemon = "Onyx";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon5);
+	free(ack);
+
+
+	int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON);
+
+	sleep(5);
+
+	t_catch_pokemon catch_pokemon6;
+	catch_pokemon6.coordenadas.posx = 9;
+	catch_pokemon6.coordenadas.posy = 3;
+	catch_pokemon6.pokemon = "Vaporeon";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon6);
+	free(ack);
+
+
 
 	printf("TERMINE DE PROBAR LISTO   \n");
 

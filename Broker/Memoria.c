@@ -172,9 +172,11 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
             frec_para_compactar = frec_para_compactar - 1;
             log_info(broker_logger, "Frecuencia de compactacion, faltan vaciar %d particiones", frec_para_compactar);
         }
-        else{  //en caso de no estar habilitada , porque ya se agoto
 
-            log_info(broker_logger, "Por compactar default...",NULL);
+
+        if(frec_para_compactar==0){  //en caso de no estar habilitada , porque ya se agoto
+
+            log_info(broker_logger, "Por compactar... Frecuencia = 0",NULL);
 
             compactar();
             //seteo de nuevo la frecuencia para la prox compactacion
@@ -554,7 +556,10 @@ void compactar(){
         //si el bloque siguiente esta vacio
         if(bloque_siguiente->esta_vacio){
             consolidar_dos_bloques(bloque, bloque_siguiente);
-        }else {
+        }
+        else if(!bloque_siguiente->esta_vacio){
+
+            log_warning(broker_logger,"jueguito de compactar ");
 
             /* clonar bloque memoria */
             t_bloque_memoria* bloque_auxiliar = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
@@ -584,7 +589,7 @@ void compactar(){
             /* libero los auxiliares */
             free(auxiliar_mensaje);
             free(bloque_auxiliar);
-        
+
         }
 
 
@@ -680,7 +685,8 @@ void dump_memoria(){
 
 void escribir_estado_de_memoria(FILE* archivo){
 
-    t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_particiones_memoria);
+    //t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
+    t_list* listadeparticiones ;
 
     for(int i=0; i < list_size(listadeparticiones); i++){
         t_bloque_memoria* bloque = list_get(listadeparticiones, i);
@@ -705,13 +711,13 @@ void escribir_estado_de_memoria(FILE* archivo){
         if(!bloque->esta_vacio){
             fprintf(archivo, string_from_format ("Particion %d: %p - %p.    [%s]    Size: %db   LRU: %s     Cola: %s    ID: %d",
             i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje->mensaje + bloque->tamanio_particion,
-            ocupado, bloque->tamanio_mensaje, bloque->last_time, cola, bloque->estructura_mensaje->id_mensaje));
+            ocupado, bloque->tamanio_particion, bloque->last_time, cola, bloque->estructura_mensaje->id_mensaje));
         }
         else{
             int id=0;
             fprintf(archivo, string_from_format ("Particion %d: %p - %p.    [%s]    Size: %db   LRU: %s     Cola: %s    ID: %d",
             i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje + bloque->tamanio_particion,
-            ocupado, bloque->tamanio_mensaje, bloque->last_time, cola, id));
+            ocupado, bloque->tamanio_particion, bloque->last_time, cola, id));
         }
 
     }
