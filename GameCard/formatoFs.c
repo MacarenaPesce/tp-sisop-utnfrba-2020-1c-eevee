@@ -128,6 +128,8 @@ void crearBitmap() {
 
 	 bitarray =	bitarray_create_with_mode(bitmapData, blocksChar, LSB_FIRST);
 
+	 msync(bitarray, sizeof(bitarray), MS_SYNC);
+
 		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
 
 		fclose(bitmapArch);
@@ -227,6 +229,8 @@ void abrirBitmap() {
 	if (metadata_fs->tamanioBLoques % 8 != 0){ bytesAEscribirAux++;}
 
 	bitarray = bitarray_create_with_mode(bmap,bytesAEscribirAux,LSB_FIRST);
+
+	msync(bitarray, sizeof(bitarray), MS_SYNC);
 
 	log_info(gameCard_logger,"se ha abierto correctamente el bitmap");
 
