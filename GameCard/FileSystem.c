@@ -763,8 +763,6 @@ void agregarPosicionPokemonAbloquesNuevos(char* ultBloque, char* stringAcopiar,
 
 	string_append(&copiarEnUltBloque, bloqEnMemo);
 
-	log_info(gameCard_logger,"mostrame bloque en memoria  bloqEnMemo: %s",bloqEnMemo);
-
 	if ((espacioEnBloque == 0) & (!string_ends_with(copiarEnUltBloque, "\n"))) {
 
 		string_append(&copiarEnUltBloque, "\n");
@@ -773,13 +771,13 @@ void agregarPosicionPokemonAbloquesNuevos(char* ultBloque, char* stringAcopiar,
 	}
 
 	log_info(gameCard_logger,"mostrame que hay en copiarEnULtimoBloque %s", copiarEnUltBloque);
+
 	string_append(&copiarEnUltBloque,
 			string_substring(stringAcopiar, espacioOcupadoBloque,
 					espacioEnBloque));
 
-	log_info(gameCard_logger,"y ahora qué hay en copiarEnULtimoBloque %s", copiarEnUltBloque);
+	log_info(gameCard_logger, "aca se va a copiar en ult bloque %s",copiarEnUltBloque);
 
-	log_info(gameCard_logger, "aca se va a copiar en bloque %s",copiarEnUltBloque);
 	copiarEnBloque(ultBloque, copiarEnUltBloque);
 
 	int cantBloquesNecesarios = cantBloquesNecesariosPara(
@@ -793,67 +791,55 @@ void agregarPosicionPokemonAbloquesNuevos(char* ultBloque, char* stringAcopiar,
 
 	bloquesNuevos = obtenerBloquesNuevos(cantBloquesNecesarios);
 
-	copiado = desde = 0;
+	copiado = 0;
+
+	desde= metadata_fs->tamanioBLoques;
+
+	int aCopiar = string_length(
+					string_substring(stringAcopiar, desde,
+							string_length(stringAcopiar)));
 
 	for (int i = 0; i < list_size(bloquesNuevos); i++) {
 
-		//copiado = 0;
-		int aCopiar = string_length(
-				string_substring(stringAcopiar, espacioEnBloque,
-						espacioNuevaLinea - espacioEnBloque));
-
 		log_info(gameCard_logger,"ACA QÉ COPIAS? %s",string_substring(stringAcopiar, metadata_fs->tamanioBLoques,
-				espacioNuevaLinea - espacioEnBloque));
+				aCopiar));
 
 		if ((aCopiar - copiado) <= metadata_fs->tamanioBLoques) {
 
 			log_info(gameCard_logger, "mostrame que va a copiar: %s",
-					string_substring(stringAcopiar, espacioEnBloque,
-							espacioNuevaLinea - espacioEnBloque));
-			log_info(gameCard_logger,
-					"aca mostrame desde: %d y aCopiar-desde : %d ", desde,
-					aCopiar - desde);
-
-			log_info(gameCard_logger, "mostrame que vas a copiar",
-					string_substring(
-							string_substring(stringAcopiar, espacioEnBloque,
-									espacioNuevaLinea - espacioEnBloque), desde,
-							aCopiar - desde));
+					string_substring(stringAcopiar, desde,
+							aCopiar-copiado));
 
 			copiarEnBloque(list_get(bloquesNuevos, i),
-					string_substring(
-							string_substring(stringAcopiar, espacioEnBloque,
-									espacioNuevaLinea - espacioEnBloque), desde,
-							aCopiar - desde));
+							string_substring(stringAcopiar, desde,aCopiar));
 		}
 
 		else {
 
 			log_error(gameCard_logger,"copiar-copiado = %d",(aCopiar - copiado));
 
-			log_warning(gameCard_logger,"mostrame que le mandas a copiaEnBloq");
-
 			log_info(gameCard_logger,"avisame el desde %d",desde);
 
-			log_info(gameCard_logger,"mostrame que vas a copiar %s", posAcopiar);
+			log_warning(gameCard_logger,"mostrame que le mandas a copiaEnBloq");
 
-			log_info(gameCard_logger,"%s",string_substring(stringAcopiar, desde,
+			log_info(gameCard_logger," se va a copiar : %s",string_substring(stringAcopiar, desde,
 					metadata_fs->tamanioBLoques));
 
 			copiarEnBloque(list_get(bloquesNuevos, i),
-					string_substring(posAcopiar, desde,
+					string_substring(stringAcopiar, desde,
 							metadata_fs->tamanioBLoques));
 
 			desde = desde + metadata_fs->tamanioBLoques;
 
 		}
 
-		pthread_mutex_lock(dictionary_get(semaforosPokemon, pokemon));
-		cambiarTamanioMetadata(pokemon, nuevaSizeMetadata);
-		modificarBloquesMetadata(pokemon, bloquesMetadataPokemon);
-		pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
-
 	}
+
+	pthread_mutex_lock(dictionary_get(semaforosPokemon, pokemon));
+	cambiarTamanioMetadata(pokemon, nuevaSizeMetadata);
+	modificarBloquesMetadata(pokemon, bloquesMetadataPokemon);
+	pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
+
 }
 
 bool estaPosicionEnMemoria(char* pokemonEnMemoria, char* nuevaPos) {
