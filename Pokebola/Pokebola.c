@@ -557,7 +557,7 @@ int distribuir_ack(int socket,uint32_t id_mensaje, uint32_t id_cliente){
 
 	int send_status = _enviar_mensaje(socket, paquete);
 
-	eliminar_mensaje(paquete);
+	_eliminar_mensaje(paquete);
 
 	return send_status;
 };

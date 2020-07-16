@@ -143,7 +143,7 @@ void capturar_signal(int signo){
     }
     else if(signo == SIGSEGV)
 	{
-		log_info(broker_logger,"SEGMENTATION FAULT");
+	//	log_info(broker_logger,"SEGMENTATION FAULT");
 	}
 
 }

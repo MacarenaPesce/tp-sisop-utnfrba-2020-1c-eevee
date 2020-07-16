@@ -38,59 +38,20 @@ int tamanio_a_alojar(int tamanio){
 int obtener_indice_particion(t_bloque_memoria* bloque){
 
 	int indice=0;
-
     
     bool buscar_bloque(void* _bloque){
-
-        t_bloque_memoria* bloque_memoria = (t_bloque_memoria*) _bloque;        
-
-        /*if(bloque_memoria->esta_vacio) {
-            indice++;
-            return false;
-        }*/
-
         
-        if(bloque->esta_vacio && bloque_memoria->esta_vacio){
-            if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje){
-                indice++;
-            }
-            
-            return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje;
-        }
-        if(bloque->esta_vacio && !bloque_memoria->esta_vacio){
-            if(bloque_memoria->estructura_mensaje->mensaje != bloque->estructura_mensaje){
-                indice++;
-            }
-            
-            return bloque_memoria->estructura_mensaje->mensaje == bloque->estructura_mensaje;                
-        }
-        if(!bloque->esta_vacio && bloque_memoria->esta_vacio){
-            if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje->mensaje){
-                indice++;
-            }
-            
-            return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje->mensaje;
-        }
-        if(!bloque->esta_vacio && !bloque_memoria->esta_vacio){
-            if(bloque_memoria->estructura_mensaje->mensaje != bloque->estructura_mensaje->mensaje){
-                indice++;
-            }
-            
-            return bloque_memoria->estructura_mensaje->mensaje == bloque->estructura_mensaje->mensaje;                
-        
+        if(_bloque!=bloque){
+            indice ++;
         }
 
-
-        if(debug_broker) log_debug(broker_logger,"El indice es: %d",indice);
-
+        return _bloque == bloque;
 
     }
 
     list_find(cache_mensajes->memoria, buscar_bloque);
 
-    if(debug_broker) log_debug(broker_logger,"El indice es: %d",indice);
-
-	return indice-1;
+	return indice;
 }
 
 
@@ -116,13 +77,11 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 /* Libero la memoria de un determinado bloque y lo retorno */
 void liberar_bloque_memoria(t_bloque_memoria* bloque){
 
-    
-    t_bloque_memoria* bloque_auxiliar = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
-    memcpy(bloque_auxiliar,bloque,sizeof(t_bloque_memoria));
-    bloque_auxiliar->estructura_mensaje = bloque->estructura_mensaje->mensaje;
+    void* aux = bloque->estructura_mensaje;
 
-    bloque->estructura_mensaje = bloque_auxiliar->estructura_mensaje;
-    
+    bloque->estructura_mensaje = bloque->estructura_mensaje->mensaje;
+
+    free(aux);    
 
     /* Marco el bloque como vacio */
     bloque->esta_vacio = true;
@@ -132,6 +91,7 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque){
 
 	/* Vacio el last_time del bloque*/
 	bloque->last_time = 0;
+
 
     return ;
 
