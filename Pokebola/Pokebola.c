@@ -857,7 +857,6 @@ t_localized_pokemon* generar_localized(char* nombre_pokemon){
 	t_localized_pokemon* localized_pokemon = malloc(sizeof(t_localized_pokemon));
 
 	if(nombre_pokemon != NULL){
-		printf("\n el tamaño del nombre del pokemon es %d \n",strlen(nombre_pokemon)+1);
 		localized_pokemon->pokemon = malloc(sizeof(strlen(nombre_pokemon)+1));
 		localized_pokemon->pokemon = nombre_pokemon;
 	}
