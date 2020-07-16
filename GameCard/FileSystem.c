@@ -1310,7 +1310,7 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 				limpiarBloque(elem);
 
-if(list_empty(bloquesMetadataPokemon)){log_error(gameCard_logger,"lista de bloques vacia");}
+if(list_is_empty(bloquesMetadataPokemon)){log_error(gameCard_logger,"lista de bloques vacia");}
 
 log_warning(gameCard_logger,"validame valor a borrar %d",tamanioListBloques - 1 + i);
 				list_remove_and_destroy_element(bloquesMetadataPokemon,
