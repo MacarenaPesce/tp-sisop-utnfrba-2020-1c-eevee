@@ -37,7 +37,6 @@ void * chequear_deadlock(){
 
 			log_info(team_logger_oficial, "La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
 			log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
-			deadlocks_producidos++;
 
 			break;
 		}

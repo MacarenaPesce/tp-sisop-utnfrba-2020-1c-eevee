@@ -181,6 +181,7 @@ void obtener_proximo_ejecucion(void){
 			}
 			sem_post(&chequeo_de_deadlock);
 		}
+		chequear_si_fue_cumplido_el_objetivo_global();
 		return;
 	}
 
