@@ -24,6 +24,13 @@ void crear_hilo_para_planificar(){
 	pthread_detach(hilo);
 }
 
+bool esta_en_ready(t_entrenador * entrenador){
+	bool es_el_buscado(t_entrenador* entrenador){
+		return entrenador->id == id;
+	}
+	return (list_find(lista_listos,(void*)es_el_buscado));
+}
+
 void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	//Para poder planificar un entrenador, se seleccionará el hilo del entrenador más cercano al Pokémon.
 
@@ -41,16 +48,28 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	while(i < cantidad_entrenadores){
 		i++;
 		if(i == cantidad_entrenadores){
-			entrenador_mas_cercano->objetivo_actual = pokemon;
-			
+
 			pthread_mutex_lock(&lista_listos_mutex);
 
 			if((!strcmp(algoritmo_planificacion, "SJF-CD")) || (!strcmp(algoritmo_planificacion, "SJF-SD"))){
 				estimar_entrenador(entrenador_mas_cercano);
-				
 			}
+			
+			/*if(!strcmp(algoritmo_planificacion, "RR")){
+				if(esta_en_ready(entrenador_mas_cercano)){
+					log_error(team_logger, "PASO POR ACA");
+					entrenador_mas_cercano->objetivo_actual = pokemon;
+					sem_post(&orden_para_planificar);
+					break;
+				}
+			}*/
 
+			entrenador_mas_cercano->objetivo_actual = pokemon;
+			
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
+			objetivo_actual_verdadero = entrenador_mas_cercano->objetivo_actual;
+			log_error(team_logger, "AGREGUE AL ENTRENADOR %d A READY %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
+			
 			pthread_mutex_unlock(&lista_listos_mutex);
 			
 			nuevo_entrenador = entrenador_mas_cercano;
@@ -77,7 +96,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	} else {
 		log_info(team_logger, "La estimacion de %i es %f", entrenador_mas_cercano->id, entrenador_mas_cercano->estimacion_real);
 		log_info(team_logger_oficial, "El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
-		log_info(team_logger,"El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
+		log_info(team_logger,"El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, pokemon->especie);//entrenador_mas_cercano->objetivo_actual->especie);
 	}
 	if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
 		if(entrenador_en_ejecucion != NULL && nuevo_entrenador->estimacion_real < entrenador_en_ejecucion->estimacion_actual)

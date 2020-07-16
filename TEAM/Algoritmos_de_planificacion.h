@@ -11,6 +11,7 @@
 #include "Contexto_team.h"
 #include "Herramientas_team.h"
 
+bool esta_en_ready(t_entrenador *);
 void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon*);
 bool esta_mas_cerca(t_entrenador*, t_entrenador*, t_pokemon*);
 int distancia_a_pokemon(t_entrenador*, t_pokemon*);

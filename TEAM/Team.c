@@ -262,7 +262,7 @@ void chequear_si_fue_cumplido_el_objetivo_global(){
 void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_entrenador * entrenador){
 
 	log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
-	log_debug(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
+	log_debug(team_logger, "El pokemon %s ha sido atrapado con exito por el entrenador %d", catch_pokemon->pokemon, entrenador->id);
 	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %d %d", 
 		catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
 
@@ -335,13 +335,12 @@ bool el_pokemon_no_es_objetivo_de_alguien(t_pokemon * pokemon){
 			chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(pokemon));
 }
 
-void chequeo_si_puedo_atrapar_otro(){
+void chequeo_si_puedo_atrapar_otro(t_entrenador * entrenador){
 	if(hay_pokemones_en_el_mapa()){
 		for(int i=0; i<list_size(lista_mapa);i++){
 			t_pokemon * pokemon = list_get(lista_mapa, i);
 			if(el_pokemon_no_es_objetivo_de_alguien(pokemon)){
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-				break;
 			}
 		}
 	}
@@ -358,9 +357,11 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
 			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
 			
-			chequeo_si_puedo_atrapar_otro();
+			//log_error(team_logger, "EN LA LISTA MAPA HAY %d", list_size(lista_mapa));
 
+			chequeo_si_puedo_atrapar_otro(entrenador);
 			sem_post(&orden_para_planificar);
+
 			break;
 
 		case ESPERANDO_MENSAJE_CAUGHT:
@@ -382,14 +383,21 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar\n", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
+			log_error(team_logger, "ESTOY EN CANT MAX ALCANZADA --- EN LA LISTA MAPA HAY %d", list_size(lista_mapa));
+			
+			if(hay_pokemones_en_el_mapa()){
+				t_pokemon * pokemon = list_get(lista_mapa, 0);
+				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+				sem_post(&orden_para_planificar);
+			}
+
 			sem_post(&me_bloquee);
-			sem_post(&orden_para_planificar);
+			//sem_post(&orden_para_planificar);
 
 			break;
 		default:
 			break;
 	}
-
 }
 
 void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
