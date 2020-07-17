@@ -355,6 +355,8 @@ void copiarPokemonEnMemoria(void* unBloque) {
 
 void llenarListaBloquesPoke(char* poke) {
 
+	agregarSemaforoPokemon(poke);
+
 	char* rutaMetadataPokemon = string_new();
 
 	string_append(&rutaMetadataPokemon, rutas_fs->pathDirectorioFilesMetadata);
@@ -976,10 +978,10 @@ void persistirCambiosEnBloquesPropios(void* bloque) {
 
 	int aCopiar = string_length(posAcopiar);
 
-	log_warning(gameCard_logger,"aca entro en persistir en bloques propios");
+	//log_warning(gameCard_logger,"aca entro en persistir en bloques propios");
 	if ((aCopiar - copiado) < metadata_fs->tamanioBLoques) {
 
-		log_warning(gameCard_logger,"aCopiar %d,copiado %d, desde %d",aCopiar,copiado,desde);
+		//log_warning(gameCard_logger,"aCopiar %d,copiado %d, desde %d",aCopiar,copiado,desde);
 		copiarEnBloque(bloque,
 				string_substring(posAcopiar, desde, aCopiar - desde));
 	}
@@ -1312,9 +1314,6 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 				for (int i = 0; i < list_size(bloquesMetadataPokemon); i++) {
 
-
-					log_warning(gameCard_logger,"mostrame indice %d", i);
-					log_warning(gameCard_logger,"mostrame elemento %s",list_get(bloquesMetadataPokemon, i));
 					desde=0;
 					persistirCambiosEnBloquesPropios(
 								list_get(bloquesMetadataPokemon, i));
@@ -1520,19 +1519,19 @@ else {
 
 t_list* obtenerPosicionesPokemon(char* pokemon) {
 
-pokemonEnMemoria = string_new();
+log_info(gameCard_logger,"se intenta obtener las posiciones del pokemon : %s",pokemon);
 
+bloquesMetadataPokemon=list_create();
 llenarListaBloquesPoke(pokemon);
 
-log_info(gameCard_logger, "CANT BLOQUES METADATA: %d",
-		list_size(bloquesMetadataPokemon));
-
+pokemonEnMemoria = string_new();
 copiarPokemonAmemoria(bloquesMetadataPokemon);
 
-log_info(gameCard_logger, "ACA poke en memoria %s", pokemonEnMemoria);
+log_info(gameCard_logger, "Se cargo en memoria las posiciones: %s", pokemonEnMemoria);
 
 char** posiciones = string_split(pokemonEnMemoria, "\n");
 
+pokemonesParaLocalized = list_create();
 string_iterate_lines(posiciones, agregarPosicionAlistaParaLocalized);
 
 log_info(gameCard_logger, " las posiciones y cantidades del pokemon %s son :",
@@ -1550,8 +1549,6 @@ return pokemonesParaLocalized;
 }
 
 void agregarPosicionAlistaParaLocalized(char* posicion) {
-
-pokemonesParaLocalized = list_create();
 
 list_add(pokemonesParaLocalized, posicion);
 }
