@@ -259,8 +259,7 @@ t_socket_cliente* crear_socket_cliente(int socket, int cola_de_mensajes){
 
 t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* mensaje_recibido){
 
-    t_mensaje_cola* mensaje;
-	mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
+    t_mensaje_cola* mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
 
 	mensaje->id_mensaje = cache_mensajes->proximo_id_mensaje;
     cache_mensajes->proximo_id_mensaje++;
@@ -453,6 +452,14 @@ void eliminar_mensaje_enviado(t_cola_mensajes* cola){
 
 void eliminar_envio_pendiente(void* pendiente){
 	free(pendiente);
+	return;
+}
+
+void eliminar_mensaje_cola(t_mensaje_cola* mensaje){
+
+	list_destroy_and_destroy_elements(mensaje->suscriptores_enviados,free);
+	list_destroy_and_destroy_elements(mensaje->suscriptores_ack,free);	
+	free(mensaje);
 	return;
 }
 

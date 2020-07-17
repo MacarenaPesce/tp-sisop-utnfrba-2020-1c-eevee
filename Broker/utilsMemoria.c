@@ -77,11 +77,13 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 /* Libero la memoria de un determinado bloque y lo retorno */
 void liberar_bloque_memoria(t_bloque_memoria* bloque){
 
-    void* aux = bloque->estructura_mensaje;
+    //log_warning(broker_logger, "estoy liberando un bloque vacio? %d", bloque->esta_vacio);
 
-    bloque->estructura_mensaje = bloque->estructura_mensaje->mensaje;
+    void* aux = bloque->estructura_mensaje->mensaje;
 
-    free(aux);    
+    //eliminar_mensaje_cola(bloque->estructura_mensaje);
+
+    bloque->estructura_mensaje = aux;   
 
     /* Marco el bloque como vacio */
     bloque->esta_vacio = true;
