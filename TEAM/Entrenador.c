@@ -133,8 +133,6 @@ atrapado con éxito.*/
 		return;
 	}
 
-	consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
-
 	 t_packed* ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 
 	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para esta especie: %s", entrenador->id, entrenador->objetivo_actual->especie);
@@ -142,6 +140,7 @@ atrapado con éxito.*/
 	if(ack == (t_packed*) -1){
 		log_info(team_logger, "El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon");
 		hacer_procedimiento_para_atrapar_default(catch_pokemon, entrenador);
+		consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 	}else{
 		//Recibo ACK
 		if(ack->operacion == ACK){
@@ -158,6 +157,7 @@ atrapado con éxito.*/
 			pthread_mutex_unlock(&mensaje_chequear_id_mutex);
 
 			hacer_procedimiento_para_atrapar_pokemon_con_broker(entrenador);
+			consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 
 			sem_wait(&array_semaforos_caught[entrenador->id]);
 
@@ -268,7 +268,7 @@ t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
 				//log_info(team_logger, "Todavia necesito de esta especie o tengo justito");
 			} else {
 				log_warning(team_logger, "ENTRO POR EL ELSE");
-				
+
 				pokemon_innecesario = pokemon_en_posesion;
 				pokemon_objetivo->cantidad++;
 				break;
