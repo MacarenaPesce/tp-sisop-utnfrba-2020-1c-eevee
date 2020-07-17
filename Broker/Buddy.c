@@ -13,7 +13,7 @@ extern t_config* config;
 
 extern t_cache_colas* cache_mensajes;
 
-	/*
+/*
 		FUNCIONAMIENTO
 
 		Busco particion libre:
@@ -27,9 +27,7 @@ extern t_cache_colas* cache_mensajes;
 				- Corro el algoritmo de eliminacion
 				- Consolidar buddies
 				- Vuelvo a intentar alojas, repito hasta poder alojar
-
-	*/
-
+*/
 
 /*
 	Bueno algunas cosas a tener en cuenta para Buddy:
@@ -76,8 +74,7 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 			if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
 	        printf("\n");
 
-            /* 	Si puede alojarse a la primera: 
-				Alojo la partición según el funcionamiento de buddies  */
+            /* 	Si puede alojarse a la primera: Alojo la partición según el funcionamiento de buddies  */
 			asignar_bloque_BS(estructura_mensaje, bytes_potencia_dos);
 
             if(debug_broker) log_debug(broker_logger, "Aloje la nueva particion , BS");
@@ -86,10 +83,8 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
             alojado = true;
 
             continue;
-        }	
-
-		/* En caso de no alojarse a la primera */ 
-		else {
+        }		
+		else { /* En caso de no alojarse a la primera */ 
 
 			/* Elimino una particion */
 			bloque_borrado = reemplazar_bloque_BS();
@@ -100,14 +95,9 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 
 		/* Me fijo de nuevo si puede alojarse */
         sePuedeAlojar = puede_alojarse(bytes_potencia_dos);
-
 	}
-
-
     return;
 }
-
-
 
 
 /*	Busca una particion libre, la mas chica (best_fit).
@@ -126,8 +116,6 @@ void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_de_partic
 }
 
 
-
-
 /*	Es el algoritmo best fit , que se encarga de encontrar la particion libre
 	pero teniendo en cuenta, que es la que mejor se ajuste */
 t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
@@ -139,17 +127,14 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
     int tam_minimo=0; 
 
 	if(debug_broker) log_debug(broker_logger,"Buscando particion libre");
-	
     
-	/* Recorro la lista para obtener el primer bloque
-		donde quepa mi particion nueva */
+	/* Recorro la lista para obtener el primer bloque donde quepa mi particion nueva */
 	for(int i=0; i<list_size(cache_mensajes->memoria); i++){
 
         /* Obtengo el bloque en la posicion de la lista que estamos */
         bloque_auxiliar = list_get(cache_mensajes->memoria, i);
 
-        /* Me fijo si el tamaño que quiero alojar cabe o no en el bloque actual 
-			y ademas si el bloque en el que estoy esta vacio o no */
+        /* Me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no */
         if((bloque_auxiliar->esta_vacio == true) && (bloque_auxiliar->tamanio_particion >= tamanio_de_particion)){
             
             /* Me fijo si el tamaño mas chico de particiones sigue siendo 0 */
@@ -157,16 +142,12 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
                 tam_minimo = bloque_auxiliar->tamanio_particion;
             }
 
-            /* Me fijo si el tamaño mas chico de particion es menor o 
-				igual al tamaño del bloque auxiliar actual, en caso de serlo, 
-				al bloque le asigno el auxiliar y asi me quedo con el bloque mas 
-				chico de toda la lista */
+            /* Me fijo si el tamaño mas chico de particion es menor o igual al tamaño del bloque auxiliar actual, 
+				en caso de serlo, al bloque le asigno el auxiliar y asi me quedo con el bloque mas chico de toda la lista */
             if(tam_minimo <= bloque_auxiliar->tamanio_particion){
                 bloque_encontrado = bloque_auxiliar;
             }
-
         }
-
     }
 
 	if(debug_broker) log_debug(broker_logger,"Encontre particion libre");
@@ -174,8 +155,6 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 
 	return bloque_encontrado;
 }
-
-
 
 
 /* 	Dado un bloque de memoria, se encarga de particionar el bloque.
@@ -230,8 +209,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 
 	}
 
-	/* En caso de no poder particionar mas, porque el bloque es justo del 
-	tamaño que necesito */
+	/* En caso de no poder particionar mas, porque el bloque es justo del tamaño que necesito */
 	if(!puedo_particionar && (tamanio_bytes_pot_dos == particion_inicial->tamanio_particion)){
 
     	log_info(broker_logger, "Almacenado mensaje en la posicion real %p", particion_inicial->estructura_mensaje);
@@ -314,8 +292,7 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 	*/
 	
 	/* Me fijo si son buddies los bloques siguiente y anterior, si son buddies consolido */
-	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true 
-		&& son_buddies(bloque,bloque_siguiente)){
+	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true && son_buddies(bloque,bloque_siguiente)){
 
 		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre");
 		
@@ -330,8 +307,7 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 		consolidacion_BS(bloque);
 	}
 
-	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true 
-		&& son_buddies(bloque_anterior,bloque)){
+	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true && son_buddies(bloque_anterior,bloque)){
 
 		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre");
 
@@ -355,26 +331,18 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 }
 
 
-
-
 /* Determina si 2 bloques son buddies o no */
 bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
 
 	/* Me fijo si ambos tienen el mismo tamaño para ver si son buddies*/
 	if(bloque_anterior->tamanio_particion == bloque_siguiente->tamanio_particion){
-
 		/* ACA VIENE LA PARTE DEL XOR */
 		return ((int)bloque_anterior->estructura_mensaje) == ((int)bloque_siguiente->estructura_mensaje ^ bloque_anterior->tamanio_particion);
-
 	}
 	else{
 		return false;
 	}
-
 }
-
-
-
 
 /* Se encarga de realizar la consolidacion en si */
 void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
@@ -384,27 +352,18 @@ void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memo
 	return;
 }
 
-
-
 //*****************Auxiliares especificas Buddy System******************************
 
 /*Calculo si un numero es potencia de dos para buddy system*/
 bool tamanio_potencia_dos(int tamanio_en_bytes){
 	
 	if((tamanio_en_bytes == 0) && (tamanio_en_bytes < 0)){
-
 		return false;
-
 	}
 	else{
-
 		return ((tamanio_en_bytes & (tamanio_en_bytes - 1)) == 0);
-
 	}
-
 }
-
-
 
 /*Me fijo si un numero es potencia de dos. Si lo es, devuelvo ese numero, y si no lo es, busco el numero mayor mas cercano potencia de 2*/
 int numero_potencia_dos(int tamanio_en_bytes){
@@ -414,10 +373,9 @@ int numero_potencia_dos(int tamanio_en_bytes){
 
 	while(!num_pot_dos){
 		bytes = bytes + 1;
-		
+
 		num_pot_dos = tamanio_potencia_dos(bytes);
 	}
 
 	return bytes;
-
 }
