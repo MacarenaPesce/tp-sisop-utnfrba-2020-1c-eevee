@@ -249,7 +249,7 @@ t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
 	
 	for (int i = 0; i < list_size(entrenador->pokemones); i++){
 		t_objetivo_entrenador* pokemon_en_posesion = list_get(entrenador->pokemones, i);
-		//log_info(team_logger, "Un pokemon en posesion de %i es %s", entrenador->id, pokemon_en_posesion->especie);
+		log_warning(team_logger, "Un pokemon en posesion de %i es %s", entrenador->id, pokemon_en_posesion->especie);
 		t_objetivo_entrenador* pokemon_objetivo = buscar_pokemon_objetivo_por_especie(entrenador->objetivo, pokemon_en_posesion->especie);
 
 		int cantidad_en_posesion = pokemon_en_posesion->cantidad;
@@ -267,6 +267,8 @@ t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
 			if(cantidad_objetivo >= 0){
 				//log_info(team_logger, "Todavia necesito de esta especie o tengo justito");
 			} else {
+				log_warning(team_logger, "ENTRO POR EL ELSE");
+				
 				pokemon_innecesario = pokemon_en_posesion;
 				pokemon_objetivo->cantidad++;
 				break;

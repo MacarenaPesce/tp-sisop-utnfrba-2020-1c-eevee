@@ -562,7 +562,7 @@ void * tratamiento_de_mensajes(){
 		}
 
 		chequear_si_fue_cumplido_el_objetivo_global();
-		free(mensaje);
+		//free(mensaje);
 
 	}
 
