@@ -42,8 +42,6 @@ extern t_cache_colas* cache_mensajes;
 */
 
 
-
-
 /* Funcion que arranca con el funcionamiento del Buddy en si */
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 
@@ -150,7 +148,8 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
         }
     }
 
-	if(debug_broker) log_debug(broker_logger,"Encontre particion libre");
+	void* posicion_relativa = calcular_posicion_relativa(bloque_encontrado);
+	if(debug_broker) log_debug(broker_logger,"Encontre particion libre, posicion relativa %d", posicion_relativa);
 	printf("\n");
 
 	return bloque_encontrado;
@@ -172,7 +171,9 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 	/* Obtengo el indice de la particion a particionar*/
 	int indice_nodo_particionar = obtener_indice_particion(particion_inicial);
 
-	if(debug_broker) log_debug(broker_logger,"Puedo particionar el bloque y achicarlo %d", puedo_particionar);
+    if(debug_broker) log_debug(broker_logger,"Indice a particionar del nodo: %d",indice_nodo_particionar);
+
+	if(debug_broker) log_debug(broker_logger,"Puedo particionar el bloque y achicarlo: %d", puedo_particionar);
 
 	/* Mientras pueda particionar
 		1- Tengo que crear una nueva particion del tamaño divido 2, 
@@ -191,7 +192,11 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 		if(es_potencia_de_dos){ /* Si el tamaño restante es potencia de dos, particiono */
 
 			/* Como me sobra espacio lo separo en un nuevo nodo */
-    		void* particion_restante = ((char *)particion_inicial->estructura_mensaje) + tamanio_bytes_pot_dos;
+    		void* particion_restante = ((char *)particion_inicial->estructura_mensaje) + tamanio_restante;
+			if(debug_broker) log_debug(broker_logger,"particion restante: %p", particion_restante);
+			
+			/* Seteo el nuevo tamaño de la particion inicial donde quiero alojar*/
+			particion_inicial->tamanio_particion = tamanio_restante;
 
 			/* Seteo el bloque buddie */
         	bloque_restante = crear_bloque_vacio(tamanio_restante, particion_restante);
@@ -199,14 +204,14 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
         	/* Agrego el buddie a la lista de bloques*/
 			list_add_in_index(cache_mensajes->memoria, indice_nodo_particionar + 1, bloque_restante);  
 		
-			if(debug_broker) log_debug(broker_logger,"Buddies particionados");
+			void* pos_relativa_buddie = calcular_posicion_relativa(bloque_restante);
+			if(debug_broker) log_debug(broker_logger,"Buddies particionados, nuevo buddie en: %d , de tamaño: %d", pos_relativa_buddie, tamanio_restante);
 			printf("\n");
 		}
-  
 
 		/* Me fijo de nuevo si puedo particionar para ver si sigo en el while o corto*/
 		puedo_particionar = (particion_inicial->tamanio_particion > tamanio_bytes_pot_dos);
-
+		if(debug_broker) log_debug(broker_logger,"Puedo particionar el bloque y achicarlo: %d", puedo_particionar);
 	}
 
 	/* En caso de no poder particionar mas, porque el bloque es justo del tamaño que necesito */
@@ -224,19 +229,24 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
     	/* Copio el mensaje a MP y apunto a la estructura_mensaje */      
     	memcpy((void*)(particion_inicial->estructura_mensaje),estructura_mensaje->mensaje,estructura_mensaje->tamanio_mensaje);
 
-    	void* aux_mensaje = particion_inicial->estructura_mensaje; 
-    	particion_inicial->estructura_mensaje = estructura_mensaje;
+		//free(estructura_mensaje->mensaje);
 
+		//seteo el payload en aux
+    	void* aux_mensaje = particion_inicial->estructura_mensaje; 
+		//cargo la estructura en bloque
+    	particion_inicial->estructura_mensaje = estructura_mensaje;
+	    //seteo el payload en mensaje
     	particion_inicial->estructura_mensaje->mensaje = aux_mensaje;  
 
 		/* Calculo la posicion relativa */
     	void* posicion_relativa = calcular_posicion_relativa(particion_inicial);
-    	log_info(broker_logger, "Almacenado en la posicion relativa %p",posicion_relativa);
+    	log_info(broker_logger, "Almacenado en la posicion relativa %d",posicion_relativa);
 
 		if(debug_broker) log_debug(broker_logger, "Bloque particionado...");
     	printf("\n");
-
 	}
+    //muestro por pantalla antes de compactar como estaba la memoria
+    if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
 	return ;
 }
