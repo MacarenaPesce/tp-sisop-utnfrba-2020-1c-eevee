@@ -80,6 +80,9 @@ extern uint32_t cambios_de_contexto;
 extern uint32_t deadlocks_producidos;
 extern uint32_t deadlocks_resueltos;
 
+extern uint32_t es_el_primer_deadlock;
+extern uint32_t espera_circular;
+
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
 extern t_config* config;
@@ -204,6 +207,7 @@ typedef struct {
 	uint32_t quantum_restante;
 	bool agoto_quantum;
 	uint32_t ciclos_de_cpu;
+	bool espera_asignada;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global

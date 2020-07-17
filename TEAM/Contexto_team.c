@@ -37,6 +37,8 @@ bool hayPokeNuevo = false;
 uint32_t quantum_actual = 0;
 
 bool hayDeadlock = false;
+uint32_t es_el_primer_deadlock = true;
+uint32_t espera_circular = 0;
 
 t_log* team_logger;
 t_log* team_logger_oficial;
