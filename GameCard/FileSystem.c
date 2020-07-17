@@ -1299,11 +1299,13 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 				string_append(&elem,
 						list_get(bloquesMetadataPokemon,
-								tamanioListBloques - 1 + i));
+								tamanioListBloques - 1 - i));
 
 				marcarBloqueLibreBitmap(atoi(elem));
 
 				limpiarBloque(elem);
+
+				list_remove(bloquesMetadataPokemon,tamanioListBloques-1-i);
 
 				log_info(gameCard_logger,
 						" se va a actualizar el contenido del archivo");
