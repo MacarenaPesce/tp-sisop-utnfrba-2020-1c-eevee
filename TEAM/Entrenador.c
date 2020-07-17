@@ -255,26 +255,31 @@ t_objetivo_entrenador* elegir_pokemon_innecesario(t_entrenador* entrenador){
 		int cantidad_en_posesion = pokemon_en_posesion->cantidad;
 
 		if(pokemon_objetivo == NULL && cantidad_en_posesion > 0){
-			//log_info(team_logger, "No necesito nada de esta especie y tengo varios");
+			log_info(team_logger, "No necesito nada de esta especie y tengo varios");
 			pokemon_innecesario = pokemon_en_posesion;
 			break;
 		} else if(pokemon_objetivo == NULL && cantidad_en_posesion == 0){
-			//log_info(team_logger, "Ya no tengo mas pokes de esta especie no necesitada");
-		}
+			log_info(team_logger, "Ya no tengo mas pokes de esta especie no necesitada");
+		}  
 
 		else if(pokemon_objetivo != NULL){
 			int cantidad_objetivo = pokemon_objetivo->cantidad;
 			if(cantidad_objetivo >= 0){
-				//log_info(team_logger, "Todavia necesito de esta especie o tengo justito");
+				log_info(team_logger, "Todavia necesito de esta especie o tengo justito");
 			} else {
 				log_warning(team_logger, "ENTRO POR EL ELSE");
 				
 				pokemon_innecesario = pokemon_en_posesion;
-				pokemon_objetivo->cantidad++;
+				if(!es_el_primer_deadlock){
+					pokemon_objetivo->cantidad++;
+				}
 				break;
 			}
+		} else {
+			log_info(team_logger, "Doy otra vuelta");
 		}
 	}
+	log_info(team_logger, "Dentro de elegir, El pokemon innecesario es %s", pokemon_innecesario->especie);
 	return pokemon_innecesario;
 }
 
@@ -316,7 +321,9 @@ t_objetivo_entrenador * elegir_pokemon_innecesario_util(t_entrenador * entrenado
 					}
 				}
 				if(encontre_uno_util){
-					pokemon_objetivo->cantidad++;
+					if(!es_el_primer_deadlock){
+						pokemon_objetivo->cantidad++;	
+					}
 					break;
 				}	
 			}
@@ -329,7 +336,7 @@ t_objetivo_entrenador * elegir_pokemon_innecesario_util(t_entrenador * entrenado
 }
 
 void realizar_intercambio(t_entrenador* entrenador1){
-
+	log_info(team_logger, "INTERCAMBIO TIME!!");
 	for (int ciclo = 0; ciclo < 5; ciclo++){ //cada intercambio consume 5 ciclos de cpu
 		consumir_un_ciclo_de_cpu(entrenador1);
 	}
@@ -339,12 +346,17 @@ void realizar_intercambio(t_entrenador* entrenador1){
 	pthread_mutex_unlock(&lista_comun_deadlock);
 
 	log_info(team_logger_oficial, "Se va a realizar un intercambio entre el entrenador %i y %i", entrenador1->id, entrenador2->id);
+	log_info(team_logger, "Se va a realizar un intercambio entre el entrenador %i y %i", entrenador1->id, entrenador2->id);
 
 	t_objetivo_entrenador* pokemon2 = elegir_pokemon_innecesario_util(entrenador2, entrenador1); //pokemon innecesario de E2 que le sirva a E1
-
+	if(pokemon2 == NULL){
+		log_info(team_logger, "El pokemon innecesario de 2 es NULO");
+	} else {
+		log_info(team_logger, "El pokemon innecesario de %i es %s", entrenador2->id,pokemon2->especie);
+	}
 	//pokemon1 es el pokemon innecesario de E1
 	t_objetivo_entrenador* pokemon1 = buscar_pokemon_objetivo_por_especie(entrenador1->pokemones, entrenador1->objetivo_actual->especie);
-
+	log_info(team_logger, "El pokemon innecesario de %i es %s",entrenador1->id, pokemon1->especie);
 	//Entre los objetivos del E1 busco si esta la especie del innecesario del E2
 	t_objetivo_entrenador* pokemon1_nuevo = buscar_pokemon_objetivo_por_especie(entrenador1->objetivo, pokemon2->especie);
 	if(pokemon1_nuevo != NULL){ //si es una especie que E1 queria, le resto la cantidad necesitada
@@ -360,9 +372,9 @@ void realizar_intercambio(t_entrenador* entrenador1){
 	//Entre los objetivos del E2, busco la especie innecesaria del E1
 	t_objetivo_entrenador* pokemon2_nuevo = buscar_pokemon_objetivo_por_especie(entrenador2->objetivo, entrenador1->objetivo_actual->especie);
 	if(pokemon2_nuevo != NULL){ //si es una especie que necesito disminuyo la cantidad necesitada
-		pthread_mutex_lock(&tocando_pokemones_objetivos);
+		//pthread_mutex_lock(&tocando_pokemones_objetivos);
 		pokemon2_nuevo->cantidad--;
-		pthread_mutex_unlock(&tocando_pokemones_objetivos);
+		//pthread_mutex_unlock(&tocando_pokemones_objetivos);
 	}
 	pokemon2->cantidad--;
 	//si no lo necesitaba lo agrego

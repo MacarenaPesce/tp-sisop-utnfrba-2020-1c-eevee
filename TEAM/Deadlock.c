@@ -25,6 +25,11 @@ void chequear_cantidad_de_deadlocks_producidos(){
 		t_list * lista_espera_circular = list_create();
 		t_entrenador * un_entrenador;
 		t_entrenador * otro_entrenador;
+		t_objetivo_entrenador * pokemon_innecesario_de_uno;
+		t_objetivo_entrenador * pokemon_innecesario_de_otro;
+		t_objetivo_entrenador* pokemon_objetivo_de_entrenador;
+		 t_objetivo_entrenador * pokemon_objetivo_de_uno;
+		 t_objetivo_entrenador * pokemon_objetivo_de_otro;
 
 		while(SIN_ESPERA_ASIGNADA != 0){
 			if(list_size(aux_a_recorrer) == 1){
@@ -40,7 +45,7 @@ void chequear_cantidad_de_deadlocks_producidos(){
 				uint32_t id_de_entrenador_nuevo = -1;
 			}
 		
-			t_objetivo_entrenador * pokemon_innecesario_de_uno = elegir_pokemon_innecesario(un_entrenador);
+			pokemon_innecesario_de_uno = elegir_pokemon_innecesario(un_entrenador);
 	
 			for(int i = 1; i < list_size(aux_a_recorrer); i++){
 				otro_entrenador = list_get(aux_a_recorrer, i);
@@ -48,7 +53,7 @@ void chequear_cantidad_de_deadlocks_producidos(){
 					break;
 				}
 				if(!otro_entrenador->espera_asignada){
-					t_objetivo_entrenador* pokemon_objetivo_de_otro = buscar_pokemon_objetivo_por_especie(otro_entrenador->objetivo, pokemon_innecesario_de_uno->especie);
+					pokemon_objetivo_de_otro = buscar_pokemon_objetivo_por_especie(otro_entrenador->objetivo, pokemon_innecesario_de_uno->especie);
 					if(pokemon_objetivo_de_otro != NULL){
 						otro_entrenador->espera_asignada = true;
 						SIN_ESPERA_ASIGNADA--;			
@@ -57,9 +62,9 @@ void chequear_cantidad_de_deadlocks_producidos(){
 				}
 			}
 		
-			t_objetivo_entrenador * pokemon_innecesario_de_otro = elegir_pokemon_innecesario_util(otro_entrenador, un_entrenador);
+			pokemon_innecesario_de_otro = elegir_pokemon_innecesario_util(otro_entrenador, un_entrenador);
 	
-			t_objetivo_entrenador* pokemon_objetivo_de_uno = buscar_pokemon_objetivo_por_especie(un_entrenador->objetivo, pokemon_innecesario_de_otro->especie);
+			pokemon_objetivo_de_uno = buscar_pokemon_objetivo_por_especie(un_entrenador->objetivo, pokemon_innecesario_de_otro->especie);
 			if(pokemon_objetivo_de_uno != NULL){
 				t_entrenador * entrenador_eliminado = sacar_entrenador_de_lista_pid(aux_a_recorrer, un_entrenador->id);
 				list_add(lista_espera_circular, un_entrenador);
@@ -73,7 +78,7 @@ void chequear_cantidad_de_deadlocks_producidos(){
 				if(lista_espera_circular != NULL){
 					for(int j = 0; j < list_size(lista_espera_circular); j++){
 						t_entrenador * entrenador = list_get(lista_espera_circular, 0);
-						t_objetivo_entrenador* pokemon_objetivo_de_entrenador = buscar_pokemon_objetivo_por_especie(entrenador->objetivo, pokemon_innecesario_de_otro->especie);
+						pokemon_objetivo_de_entrenador = buscar_pokemon_objetivo_por_especie(entrenador->objetivo, pokemon_innecesario_de_otro->especie);
 						if(pokemon_objetivo_de_entrenador != NULL){
 							sacar_entrenador_de_lista_pid(aux_a_recorrer, un_entrenador->id);
 							sacar_entrenador_de_lista_pid(aux_a_recorrer, otro_entrenador->id);
@@ -87,7 +92,6 @@ void chequear_cantidad_de_deadlocks_producidos(){
 		es_el_primer_deadlock = false;
 		deadlocks_producidos = espera_circular;
 		log_info(team_logger, "La cantidad de deadlocks producidos es %i", espera_circular);
-		sem_post(&contador_de_deadlocks_producidos);
 		list_destroy(aux_a_recorrer);
 		list_destroy(lista_espera_circular);
 	}
@@ -119,7 +123,7 @@ void * chequear_deadlock(){
 			log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
 			
 			chequear_cantidad_de_deadlocks_producidos();
-			sem_wait(&contador_de_deadlocks_producidos);
+			//sem_wait(&contador_de_deadlocks_producidos);
 			break;
 		}
 	}
@@ -138,7 +142,9 @@ void * chequear_deadlock(){
 	log_info(team_logger_oficial, "El entrenador %d pasó a la lista de listos para resolucion de deadlock", entrenador1->id);
 	entrenador1->estado = EJECUTANDO;
 
+	//pthread_mutex_lock(&tocando_pokemones_objetivos);
 	ver_entre_quienes_hay_deadlock_y_resolverlo(entrenador1);
+	//pthread_mutex_unlock(&tocando_pokemones_objetivos);
 	printf("\n");
 
 	return NULL;
@@ -148,27 +154,33 @@ void ver_entre_quienes_hay_deadlock_y_resolverlo(t_entrenador * entrenador1){
 
 	t_entrenador* entrenador2;
 	t_objetivo_entrenador* pokemon1 = elegir_pokemon_innecesario(entrenador1);
+  
+	log_info(team_logger, "El pokemon innecesario del entrenador %i es  %s", entrenador1->id, pokemon1->especie);
+	
 	int cant;
 
 	for(int i = 0; i < list_size(lista_bloqueados_cant_max_alcanzada); i++){
-
+		if(pokemon1 == NULL){
+			log_info(team_logger, "El pokemon innecesario del entrenador %i es NULO", entrenador1->id);
+		}
 		pthread_mutex_lock(&lista_bloq_max_mutex);
 		entrenador2 = list_get(lista_bloqueados_cant_max_alcanzada, i);
 		pthread_mutex_unlock(&lista_bloq_max_mutex);
 
-		for(int i = 0; i<(list_size(entrenador2->objetivo));i++){
+		/*for(int i = 0; i<(list_size(entrenador2->objetivo));i++){
 			t_objetivo_entrenador* pokemonnn = list_get(entrenador2->objetivo, i);
 			log_error(team_logger, "POKEMON %s VUELTA %d", pokemonnn->especie, i);
-		}
+		}*/
 
 		log_error(team_logger, "EL POKEMON INNECESARIO ES %s", pokemon1->especie);
 
 		t_objetivo_entrenador* pokemon2 = buscar_pokemon_objetivo_por_especie(entrenador2->objetivo, pokemon1->especie);
-
+		log_info(team_logger, "La especie del pokemon2 es %s", pokemon2->especie);
 		if(pokemon2 != NULL){
-			pthread_mutex_lock(&tocando_pokemones_objetivos);
+			//pthread_mutex_lock(&tocando_pokemones_objetivos);
 			cant = (int)pokemon2->cantidad;
-			pthread_mutex_unlock(&tocando_pokemones_objetivos);
+			//log_info(team_logger, "La cantidad es %i", cant);
+			//pthread_mutex_unlock(&tocando_pokemones_objetivos);
 			if(cant > 0){
 				log_info(team_logger, "Hay deadlock entre el entrenador %d y el entrenador %d", entrenador1->id, entrenador2->id);
 				break;
