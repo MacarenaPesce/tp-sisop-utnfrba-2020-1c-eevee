@@ -880,14 +880,14 @@ void eliminar_localized_pokemon(t_localized_pokemon* localized_pokemon){
 }
 
 void dynamic_list_iterate(t_list* self, void(*closure)(void*)) {
-        t_link_element *element = self->head;
-        t_link_element *aux = NULL;
-        while (element != NULL) {
-            closure(element->data);
-            aux = element->next;
-            element = aux;
-        }
+    t_link_element *element = self->head;
+    t_link_element *aux = NULL;
+    while (element != NULL) {
+        closure(element->data);
+        aux = element->next;
+        element = aux;
     }
+}
 
 /**************FUNCIONES PARA EL LOG*********************/
 void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer, char* log_colors[8], char* msj_salida){
