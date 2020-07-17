@@ -22,7 +22,7 @@ bool chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(t_pokemon 
 bool chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(t_pokemon *);
 bool chequear_que_no_sea_un_objetivo_del_entrenador_en_ejecucion(t_pokemon *);
 bool el_pokemon_no_es_objetivo_de_alguien(t_pokemon *);
-void chequeo_si_puedo_atrapar_otro(t_entrenador*);
+void chequeo_si_puedo_atrapar_otro();
 void operar_con_appeared_pokemon(t_pokemon *);
 void operar_con_caught_pokemon(uint32_t, uint32_t);
 void agregar_pokemon_a_mapa(t_pokemon *);

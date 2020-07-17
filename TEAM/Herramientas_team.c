@@ -99,6 +99,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&lista_comun_deadlock, NULL);
 	pthread_mutex_init(&mutex_para_colas, NULL);
 	pthread_mutex_init(&mutex_ciclos_cpu, NULL);
+	pthread_mutex_init(&pokemones_asignados, NULL);
 
 
 	sem_init(&entrenadores_ubicados, 0, 0);
@@ -402,6 +403,15 @@ t_entrenador * buscar_entrenador_por_ubicacion(t_list* lista, uint32_t posx, uin
 	}
 	return (list_find(lista,(void*)es_el_buscado));
 }
+
+t_pokemon * buscar_pokemon_por_especie_y_ubicacion(t_list * lista, t_pokemon * pokemon){
+	bool es_la_especie_buscada(t_pokemon* pokemon1){
+		return (string_equals_ignore_case(pokemon1->especie, pokemon->especie)) && pokemon1->posx == pokemon->posx && pokemon1->posy == pokemon->posy;
+	}
+	return (list_find(lista,(void*)es_la_especie_buscada));
+}
+
+
 
 t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_pokemon){
 	t_pokemon * pokemon = malloc(sizeof(t_pokemon));

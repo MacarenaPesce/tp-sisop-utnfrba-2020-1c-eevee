@@ -54,7 +54,17 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 			if((!strcmp(algoritmo_planificacion, "SJF-CD")) || (!strcmp(algoritmo_planificacion, "SJF-SD"))){
 				estimar_entrenador(entrenador_mas_cercano);
 			}
-      
+
+			/*pthread_mutex_lock(&mapa_mutex);
+			t_pokemon * poke1 = buscar_pokemon_por_especie_y_ubicacion(lista_mapa, pokemon);
+			if(poke1 == pokemon){
+				pthread_mutex_lock(&pokemones_asignados);
+				pokemon->asignado = true;
+				log_error(team_logger, "EL POKEMON EN SELEC... POKEMON: %s, ASIGNADO: %d", pokemon->especie, pokemon->asignado);
+				pthread_mutex_unlock(&pokemones_asignados);	
+			}
+			pthread_mutex_unlock(&mapa_mutex);*/
+
 			entrenador_mas_cercano->objetivo_actual = pokemon;
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
 
@@ -82,7 +92,6 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	if(entrenador_mas_cercano == NULL){
 		log_info(team_logger, "No hay mas entrenadores disponibles");
 	} else {
-		pokemon->asignado = true;
 		//log_info(team_logger, "La estimacion de %i es %f", entrenador_mas_cercano->id, entrenador_mas_cercano->estimacion_real);
 		log_info(team_logger_oficial, "El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
 		log_info(team_logger,"El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, pokemon->especie);//entrenador_mas_cercano->objetivo_actual->especie);
@@ -100,7 +109,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 bool esta_mas_cerca(t_entrenador* entrenador1, t_entrenador* entrenador2, t_pokemon* pokemon){
 	int distancia_entrenador1 = distancia_a_pokemon(entrenador1, pokemon);
 	int distancia_entrenador2 = distancia_a_pokemon(entrenador2, pokemon);
-	return distancia_entrenador1 < distancia_entrenador2;
+	return distancia_entrenador1 <= distancia_entrenador2;
 }
 
 int distancia_a_pokemon(t_entrenador* entrenador, t_pokemon* pokemon){

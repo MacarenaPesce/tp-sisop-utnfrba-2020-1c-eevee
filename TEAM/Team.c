@@ -58,7 +58,10 @@ void agregar_pokemon_a_mapa(t_pokemon * pokemon){
 		log_info(team_logger, "No necesito este pokemon");
 	}
 
+	pthread_mutex_lock(&pokemones_asignados);
 	pokemon->asignado = false;
+	pthread_mutex_unlock(&pokemones_asignados);
+
 	pthread_mutex_lock(&mapa_mutex);
 	list_add(lista_mapa, (void*)pokemon);
 	pthread_mutex_unlock(&mapa_mutex);
@@ -246,6 +249,8 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 		ver_razon_de_bloqueo(entrenador);
 		bloquear_entrenador(entrenador);
 	}
+
+	chequeo_si_puedo_atrapar_otro();
 }
 
 void chequear_si_fue_cumplido_el_objetivo_global(){
@@ -350,15 +355,18 @@ bool chequear_que_no_sea_un_objetivo_del_entrenador_en_ejecucion(t_pokemon * pok
 }
 
 bool el_pokemon_no_es_objetivo_de_alguien(t_pokemon * pokemon){
-	return (chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(pokemon) &&
-			chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(pokemon));
+	return chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(pokemon); 
+	//(chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(pokemon) && chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(pokemon));
 }
 
-void chequeo_si_puedo_atrapar_otro(t_entrenador * entrenador){
+void chequeo_si_puedo_atrapar_otro(){
 	if(hay_pokemones_en_el_mapa()){
 		for(int i=0; i<list_size(lista_mapa);i++){
+			pthread_mutex_lock(&mapa_mutex);
 			t_pokemon * pokemon = list_get(lista_mapa, i);
-			if(el_pokemon_no_es_objetivo_de_alguien(pokemon)){
+			log_info(team_logger, "POKEMON DEL MAPA EN LA SEGUNDA VUELTA %s, ASIGNADO: %d", pokemon->especie, pokemon->asignado);
+			pthread_mutex_unlock(&mapa_mutex);
+			if(pokemon->asignado == 0){
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 			}
 		}
@@ -375,15 +383,6 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
 			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
-
-			t_entrenador * entrenador_aux = buscar_entrenador_por_id(lista_listos, entrenador->id);
-			if(entrenador_aux != NULL ){
-				pthread_mutex_lock(&lista_listos_mutex);
-				sacar_entrenador_de_lista_pid(lista_listos, entrenador->id);
-				pthread_mutex_unlock(&lista_listos_mutex);
-
-				chequeo_si_puedo_atrapar_otro(entrenador);
-			}
 
 			sem_post(&orden_para_planificar);
 
