@@ -9,6 +9,9 @@
 #define FORMATOFS_H_
 
 #include "Herramientas_gameCard.h"
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 typedef struct {
 	char* puntoDeMontaje;

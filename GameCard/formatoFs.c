@@ -111,7 +111,7 @@ void crearBitmap() {
 
 	FILE* bitmapArch = fopen(rutas_fs->pathArchivoBitMap,"wb");
 
-	int fdBitmap=fileno(bitmapArch);
+	//int fdBitmap=fileno(bitmapArch);
 
 
 		int blocksChar = metadata_fs->cantidadBloques/8;
