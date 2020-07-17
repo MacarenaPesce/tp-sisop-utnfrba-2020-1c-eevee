@@ -107,6 +107,10 @@ void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_de_partic
 	/* Encontrar particion libre */
 	t_bloque_memoria* particion = encontrar_particion_libre(tamanio_de_particion); 
 
+	void* posicion_relativa = calcular_posicion_relativa(particion);
+	if(debug_broker) log_debug(broker_logger,"Encontre particion libre, posicion relativa %d", posicion_relativa);
+	printf("\n");
+
 	/* Particionar el bloque y asignar datos*/
 	particionar_bloque_buddies( particion, estructura_mensaje, tamanio_de_particion);
 
@@ -122,7 +126,8 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 
     t_bloque_memoria* bloque_auxiliar;
     
-    int tam_minimo=0; 
+	t_bloque_memoria* primer_bloque = list_get(cache_mensajes, 0);
+    int tam_minimo= primer_bloque->tamanio_particion; 
 
 	if(debug_broker) log_debug(broker_logger,"Buscando particion libre");
     
@@ -134,23 +139,15 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 
         /* Me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no */
         if((bloque_auxiliar->esta_vacio == true) && (bloque_auxiliar->tamanio_particion >= tamanio_de_particion)){
-            
-            /* Me fijo si el tamaño mas chico de particiones sigue siendo 0 */
-            if(tam_minimo==0){
-                tam_minimo = bloque_auxiliar->tamanio_particion;
-            }
 
             /* Me fijo si el tamaño mas chico de particion es menor o igual al tamaño del bloque auxiliar actual, 
 				en caso de serlo, al bloque le asigno el auxiliar y asi me quedo con el bloque mas chico de toda la lista */
-            if(tam_minimo <= bloque_auxiliar->tamanio_particion){
+            if(tam_minimo >= bloque_auxiliar->tamanio_particion){
                 bloque_encontrado = bloque_auxiliar;
+				tam_minimo = bloque_auxiliar->tamanio_particion;
             }
         }
     }
-
-	void* posicion_relativa = calcular_posicion_relativa(bloque_encontrado);
-	if(debug_broker) log_debug(broker_logger,"Encontre particion libre, posicion relativa %d", posicion_relativa);
-	printf("\n");
 
 	return bloque_encontrado;
 }
@@ -194,7 +191,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 			/* Como me sobra espacio lo separo en un nuevo nodo */
     		void* particion_restante = ((char *)particion_inicial->estructura_mensaje) + tamanio_restante;
 			if(debug_broker) log_debug(broker_logger,"particion restante: %p", particion_restante);
-			
+
 			/* Seteo el nuevo tamaño de la particion inicial donde quiero alojar*/
 			particion_inicial->tamanio_particion = tamanio_restante;
 
@@ -302,12 +299,14 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 	*/
 	
 	/* Me fijo si son buddies los bloques siguiente y anterior, si son buddies consolido */
-	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true && son_buddies(bloque,bloque_siguiente)){
+	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true && son_buddies(bloque_siguiente,bloque)){
 
-		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre");
+		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre, a derecha");
 		
 		/* Si cumple con las condiciones, consolido bloques*/
 		consolidar_bloques_buddies(bloque,bloque_siguiente);
+
+		log_error(broker_logger, "El tamaño del nuevo bloque es %d", bloque->tamanio_particion);
 
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
@@ -319,10 +318,12 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 
 	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true && son_buddies(bloque_anterior,bloque)){
 
-		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre");
+		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre, a izquierda");
 
 		/* Si cumple con las condiciones, consolido bloques*/
 		consolidar_bloques_buddies(bloque_anterior,bloque);
+
+		log_error(broker_logger, "El tamaño del nuevo bloque es %d", bloque->tamanio_particion);		
 
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");

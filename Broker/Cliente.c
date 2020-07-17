@@ -291,10 +291,10 @@ int main(){
 	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon3);
 	free(ack);
 
-	//int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_NEW_POKEMON);
+	int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_NEW_POKEMON);
 
-	//ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
-	//free(ack);	
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
+	free(ack);	
 
 
 	eliminar_localized_pokemon(localized_pokemon);
