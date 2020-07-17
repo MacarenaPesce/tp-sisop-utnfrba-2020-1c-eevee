@@ -247,10 +247,11 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 
 	} else {
 		ver_razon_de_bloqueo(entrenador);
+		chequeo_si_puedo_atrapar_otro();
 		bloquear_entrenador(entrenador);
 	}
 
-	chequeo_si_puedo_atrapar_otro();
+	
 }
 
 void chequear_si_fue_cumplido_el_objetivo_global(){
@@ -364,13 +365,21 @@ void chequeo_si_puedo_atrapar_otro(){
 		for(int i=0; i<list_size(lista_mapa);i++){
 			pthread_mutex_lock(&mapa_mutex);
 			t_pokemon * pokemon = list_get(lista_mapa, i);
-			log_info(team_logger, "POKEMON DEL MAPA EN LA SEGUNDA VUELTA %s, ASIGNADO: %d", pokemon->especie, pokemon->asignado);
+			//log_info(team_logger, "POKEMON DEL MAPA EN LA SEGUNDA VUELTA %s, ASIGNADO: %d", pokemon->especie, pokemon->asignado);
 			pthread_mutex_unlock(&mapa_mutex);
-			if(pokemon->asignado == 0){
+			if(!esta_en_lista_asignados(pokemon)){
+				log_info(team_logger, "POKEMON DEL MAPA %s no esta en la lista de asignados", pokemon->especie);
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+				break;
 			}
 		}
 	}
+}
+
+bool esta_en_lista_asignados(t_pokemon * pokemon){
+	pokemon = buscar_pokemon_por_especie_y_ubicacion(lista_asignados, pokemon);
+	//Si esta en la lista de asignados, da verdadero
+	return pokemon != NULL;
 }
 
 void bloquear_entrenador(t_entrenador* entrenador){

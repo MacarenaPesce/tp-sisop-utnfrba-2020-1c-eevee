@@ -43,5 +43,6 @@ void * tratamiento_de_mensajes();
 void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list *);
 bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char *);
 void confirmar_desalojo_en_ejecucion(void);
+bool esta_en_lista_asignados(t_pokemon *);
 
 #endif /* TEAM_H_ */

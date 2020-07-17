@@ -51,6 +51,7 @@ void inicializar_listas(){
 	mensajes_que_llegan_nuevos = list_create();
 	mensajes_para_chequear_id = list_create();
 	lista_bloqueados_esperando_caught = list_create();
+	lista_asignados = list_create();
 
 }
 
