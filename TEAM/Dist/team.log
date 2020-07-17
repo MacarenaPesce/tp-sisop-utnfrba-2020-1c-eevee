@@ -1,113 +1,143 @@
-[INFO] 04:03:52:226 Team/(19457:19457): Hi, bienvenido a Team
-[INFO] 04:03:52:343 Team/(19457:19457): Cargando el archivo de configuracion...
-[DEBUG] 04:03:52:410 Team/(19457:19457): Las posiciones de entrenadores recuperadas
-[DEBUG] 04:03:52:424 Team/(19457:19457): Los pokemon de los entrenadores recuperados
-[DEBUG] 04:03:52:425 Team/(19457:19457): Los objetivos de los entrenadores recuperados
-[DEBUG] 04:03:52:435 Team/(19457:19457): El tiempo de reconexion es: 30
-[DEBUG] 04:03:52:437 Team/(19457:19457): El retardo de ciclo de cpu es: 5
-[DEBUG] 04:03:52:440 Team/(19457:19457): El algoritmo de planificacion es: RR
-[DEBUG] 04:03:52:442 Team/(19457:19457): El quantum es: 2
-[DEBUG] 04:03:52:454 Team/(19457:19457): La ip del broker es: 127.0.0.1
-[DEBUG] 04:03:52:458 Team/(19457:19457): El puerto del broker es: 5003
-[DEBUG] 04:03:52:462 Team/(19457:19457): El log file es: /home/utnso/log_team1.txt
-[DEBUG] 04:03:52:467 Team/(19457:19457): Mi ID es: 1
-[INFO] 04:03:52:467 Team/(19457:19457): Archivo de configuracion cargado correctamente :)
+[INFO] 18:25:01:801 Team/(31318:31318): Hi, bienvenido a Team
+[INFO] 18:25:01:907 Team/(31318:31318): Cargando el archivo de configuracion...
+[DEBUG] 18:25:01:967 Team/(31318:31318): Las posiciones de entrenadores recuperadas
+[DEBUG] 18:25:01:994 Team/(31318:31318): Los pokemon de los entrenadores recuperados
+[DEBUG] 18:25:01:997 Team/(31318:31318): Los objetivos de los entrenadores recuperados
+[DEBUG] 18:25:02:15 Team/(31318:31318): El tiempo de reconexion es: 30
+[DEBUG] 18:25:02:18 Team/(31318:31318): El retardo de ciclo de cpu es: 1
+[DEBUG] 18:25:02:21 Team/(31318:31318): El algoritmo de planificacion es: FIFO
+[DEBUG] 18:25:02:26 Team/(31318:31318): El quantum es: 2
+[DEBUG] 18:25:02:27 Team/(31318:31318): La ip del broker es: 127.0.0.1
+[DEBUG] 18:25:02:35 Team/(31318:31318): El puerto del broker es: 5003
+[DEBUG] 18:25:02:37 Team/(31318:31318): El log file es: /home/utnso/log_team1.txt
+[DEBUG] 18:25:02:41 Team/(31318:31318): Mi ID es: 1
+[INFO] 18:25:02:45 Team/(31318:31318): Archivo de configuracion cargado correctamente :)
 
-[INFO] 04:03:52:536 Team/(19457:19457): Cargando el objetivo global...
-[INFO] 04:03:52:553 Team/(19457:19457): Objetivo global cargado
+[INFO] 18:25:02:116 Team/(31318:31318): Cargando el objetivo global...
+[INFO] 18:25:02:150 Team/(31318:31318): Objetivo global cargado
 
-[INFO] 04:03:52:666 Team/(19457:19457): Entrenadores ubicados
+[INFO] 18:25:02:285 Team/(31318:31318): Entrenadores ubicados
 
-[INFO] 04:03:52:677 Team/(19457:19457): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
+[INFO] 18:25:02:319 Team/(31318:31318): Team esta listo para recibir mensajes de gameboy en el socket servidor (5)
 
-[INFO] 04:03:52:730 Team/(19457:19457): Enviado pedido de get pokemon para esta especie: Squirtle
-[INFO] 04:03:52:733 Team/(19457:19457): No existen locaciones para esta especie: Squirtle, cant 2
-[INFO] 04:03:52:740 Team/(19457:19457): Enviado pedido de get pokemon para esta especie: Pikachu
-[INFO] 04:03:52:741 Team/(19457:19457): No existen locaciones para esta especie: Pikachu, cant 2
-[INFO] 04:03:52:742 Team/(19457:19457): Enviado pedido de get pokemon para esta especie: Onix
-[INFO] 04:03:52:750 Team/(19457:19457): No existen locaciones para esta especie: Onix, cant 1
-[INFO] 04:03:52:756 Team/(19457:19457): Enviado pedido de get pokemon para esta especie: Gengar
-[INFO] 04:03:52:757 Team/(19457:19457): No existen locaciones para esta especie: Gengar, cant 1
-[DEBUG] 04:03:56:297 Team/(19457:19464): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (9, 9)
-[DEBUG] 04:03:56:346 Team/(19457:19464): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (6, 7)
-[INFO] 04:03:56:348 Team/(19457:19461): El entrenador 2 pasa a Ready por ser el mas cercano a Pikachu
-[DEBUG] 04:03:56:354 Team/(19457:19464): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 8)
-[INFO] 04:03:56:360 Team/(19457:19461): Agregue el pokemon Pikachu con coordenadas (9, 9) al mapa
+[INFO] 18:25:02:365 Team/(31318:31318): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 18:25:02:373 Team/(31318:31318): No existen locaciones para esta especie: Squirtle, cant 2
+[INFO] 18:25:02:376 Team/(31318:31318): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 18:25:02:386 Team/(31318:31318): No existen locaciones para esta especie: Pikachu, cant 2
+[INFO] 18:25:02:388 Team/(31318:31318): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 18:25:02:390 Team/(31318:31318): No existen locaciones para esta especie: Onix, cant 1
+[INFO] 18:25:02:391 Team/(31318:31318): Enviado pedido de get pokemon para esta especie: Gengar
+[INFO] 18:25:02:392 Team/(31318:31318): No existen locaciones para esta especie: Gengar, cant 1
+[DEBUG] 18:25:05:41 Team/(31318:31326): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (9, 9)
+[DEBUG] 18:25:05:86 Team/(31318:31326): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (6, 7)
+[INFO] 18:25:05:88 Team/(31318:31323): El entrenador 1 pasa a Ready por ser el mas cercano a Pikachu
+[DEBUG] 18:25:05:89 Team/(31318:31326): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 8)
+[INFO] 18:25:05:93 Team/(31318:31323): Agregue el pokemon Pikachu con coordenadas (9, 9) al mapa
 
-[DEBUG] 04:03:56:361 Team/(19457:19464): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (6, 6)
-[DEBUG] 04:03:56:362 Team/(19457:19464): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (5, 5)
-[INFO] 04:03:56:366 Team/(19457:19460): Soy el entrenador que va a ejecutar, mi id es: 2.
-[INFO] 04:03:56:368 Team/(19457:19460): El entrenador 2 se mueve a atrapar a Pikachu a la posicion (9, 9)
-[INFO] 04:03:56:375 Team/(19457:19461): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
-[INFO] 04:03:56:378 Team/(19457:19461): Soy el entrenador EN EJECUCION EN LA FUNCION DE TRATAMIENTO, mi id es: 2.
-[INFO] 04:03:56:379 Team/(19457:19461): Agregue el pokemon Squirtle con coordenadas (6, 7) al mapa
+[DEBUG] 18:25:05:94 Team/(31318:31326): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (6, 6)
+[DEBUG] 18:25:05:95 Team/(31318:31326): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (5, 5)
+[INFO] 18:25:05:100 Team/(31318:31321): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 18:25:05:101 Team/(31318:31321): El entrenador 1 se mueve a atrapar a Pikachu a la posicion (9, 9)
+[INFO] 18:25:05:111 Team/(31318:31323): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 18:25:05:112 Team/(31318:31323): Agregue el pokemon Squirtle con coordenadas (6, 7) al mapa
 
-[INFO] 04:03:56:388 Team/(19457:19461): El entrenador 0 pasa a Ready por ser el mas cercano a Onix
-[INFO] 04:03:56:388 Team/(19457:19461): Soy el entrenador EN EJECUCION EN LA FUNCION DE TRATAMIENTO, mi id es: 2.
-[INFO] 04:03:56:389 Team/(19457:19461): Agregue el pokemon Onix con coordenadas (2, 8) al mapa
+[INFO] 18:25:05:114 Team/(31318:31323): El entrenador 0 pasa a Ready por ser el mas cercano a Onix
+[INFO] 18:25:05:118 Team/(31318:31323): Agregue el pokemon Onix con coordenadas (2, 8) al mapa
 
-[INFO] 04:03:56:390 Team/(19457:19461): No hay mas entrenadores disponibles
-[INFO] 04:03:56:391 Team/(19457:19461): Soy el entrenador EN EJECUCION EN LA FUNCION DE TRATAMIENTO, mi id es: 2.
-[INFO] 04:03:56:391 Team/(19457:19461): Agregue el pokemon Gengar con coordenadas (6, 6) al mapa
+[INFO] 18:25:05:118 Team/(31318:31323): No hay mas entrenadores disponibles
+[INFO] 18:25:05:119 Team/(31318:31323): Agregue el pokemon Gengar con coordenadas (6, 6) al mapa
 
-[INFO] 04:03:56:392 Team/(19457:19461): No hay mas entrenadores disponibles
-[INFO] 04:03:56:392 Team/(19457:19461): Soy el entrenador EN EJECUCION EN LA FUNCION DE TRATAMIENTO, mi id es: 2.
-[INFO] 04:03:56:393 Team/(19457:19461): Agregue el pokemon Squirtle con coordenadas (5, 5) al mapa
+[INFO] 18:25:05:120 Team/(31318:31323): No hay mas entrenadores disponibles
+[INFO] 18:25:05:120 Team/(31318:31323): Agregue el pokemon Squirtle con coordenadas (5, 5) al mapa
 
-[INFO] 04:04:01:376 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:06:379 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:06:380 Team/(19457:19460): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 18:25:06:114 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:07:117 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:08:119 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:09:121 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:10:123 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:11:125 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:12:126 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:13:128 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:14:132 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:15:133 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:16:134 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:17:135 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:18:137 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:18:140 Team/(31318:31321): El entrenador de id 1 llegó al pokemon Pikachu.
+[INFO] 18:25:18:155 Team/(31318:31321): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Pikachu
+[INFO] 18:25:18:155 Team/(31318:31321): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 18:25:18:157 Team/(31318:31321): El pokemon Pikachu ha sido atrapado con exito por el entrenador 1
+[INFO] 18:25:18:205 Team/(31318:31321): La estimacion de este entrenador al bloquearse es 0.000000
+[INFO] 18:25:18:210 Team/(31318:31321): El entrenador 1 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 18:25:18:212 Team/(31318:31321): Un objetivo es de la especie Gengar, cantidad necesitada 1
+[INFO] 18:25:18:215 Team/(31318:31322): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 18:25:18:216 Team/(31318:31322): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (6, 7)
+[INFO] 18:25:18:218 Team/(31318:31321): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Squirtle, ASIGNADO: 0
+[INFO] 18:25:18:219 Team/(31318:31321): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 18:25:18:225 Team/(31318:31321): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Onix, ASIGNADO: 0
+[INFO] 18:25:18:226 Team/(31318:31321): El entrenador 1 pasa a Ready por ser el mas cercano a Onix
+[INFO] 18:25:18:226 Team/(31318:31321): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Gengar, ASIGNADO: 0
+[INFO] 18:25:18:227 Team/(31318:31321): El entrenador 1 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 18:25:18:227 Team/(31318:31321): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Squirtle, ASIGNADO: 0
+[INFO] 18:25:18:228 Team/(31318:31321): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 18:25:19:217 Team/(31318:31322): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:19:240 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:20:218 Team/(31318:31322): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:21:219 Team/(31318:31322): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:22:220 Team/(31318:31322): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:23:221 Team/(31318:31322): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:24:222 Team/(31318:31322): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:25:224 Team/(31318:31322): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:26:225 Team/(31318:31322): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:26:226 Team/(31318:31322): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 18:25:26:227 Team/(31318:31322): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 18:25:26:228 Team/(31318:31322): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 18:25:26:228 Team/(31318:31322): El pokemon Squirtle ha sido atrapado con exito por el entrenador 2
+[INFO] 18:25:26:230 Team/(31318:31322): La estimacion de este entrenador al bloquearse es 0.000000
+[INFO] 18:25:26:232 Team/(31318:31322): El entrenador 2 esta bloqueado esperando que aparezcan los siguientes pokemones:
+[INFO] 18:25:26:234 Team/(31318:31322): Un objetivo es de la especie Onix, cantidad necesitada 1
+[INFO] 18:25:26:235 Team/(31318:31320): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 18:25:26:236 Team/(31318:31320): El entrenador 0 se mueve a atrapar a Onix a la posicion (2, 8)
+[INFO] 18:25:26:237 Team/(31318:31322): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Onix, ASIGNADO: 0
+[INFO] 18:25:26:245 Team/(31318:31322): El entrenador 2 pasa a Ready por ser el mas cercano a Onix
+[INFO] 18:25:26:246 Team/(31318:31322): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Gengar, ASIGNADO: 0
+[INFO] 18:25:26:247 Team/(31318:31322): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 18:25:26:247 Team/(31318:31322): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Squirtle, ASIGNADO: 0
+[INFO] 18:25:26:248 Team/(31318:31322): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 18:25:27:238 Team/(31318:31320): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:27:249 Team/(31318:31322): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:28:243 Team/(31318:31320): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:29:245 Team/(31318:31320): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:30:246 Team/(31318:31320): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:31:247 Team/(31318:31320): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:32:248 Team/(31318:31320): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:32:249 Team/(31318:31320): El entrenador de id 0 llegó al pokemon Onix.
+[INFO] 18:25:32:250 Team/(31318:31320): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Onix
+[INFO] 18:25:32:251 Team/(31318:31320): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 18:25:32:252 Team/(31318:31320): El pokemon Onix ha sido atrapado con exito por el entrenador 0
+[INFO] 18:25:32:261 Team/(31318:31320): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[INFO] 04:04:06:386 Team/(19457:19459): Soy el entrenador que va a ejecutar, mi id es: 1.
-[INFO] 04:04:06:387 Team/(19457:19459): El entrenador 1 se mueve a atrapar a Squirtle a la posicion (6, 7)
-[INFO] 04:04:11:387 Team/(19457:19459): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:16:555 Team/(19457:19459): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:16:556 Team/(19457:19459): El entrenador de id 1 fue desalojado y paso a Ready
+[INFO] 18:25:32:262 Team/(31318:31321): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 18:25:32:263 Team/(31318:31321): El entrenador 1 se mueve a atrapar a Squirtle a la posicion (5, 5)
+[INFO] 18:25:32:265 Team/(31318:31320): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Gengar, ASIGNADO: 0
+[INFO] 18:25:32:269 Team/(31318:31320): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 18:25:32:270 Team/(31318:31320): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Squirtle, ASIGNADO: 0
+[INFO] 18:25:32:272 Team/(31318:31320): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 18:25:33:265 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:33:278 Team/(31318:31320): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:34:266 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:35:267 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:36:268 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:37:270 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:38:273 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:39:275 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:40:276 Team/(31318:31321): Ejecuté 1 ciclo de cpu
+[INFO] 18:25:40:281 Team/(31318:31321): El entrenador de id 1 llegó al pokemon Squirtle.
+[INFO] 18:25:40:284 Team/(31318:31321): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 18:25:40:289 Team/(31318:31321): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 18:25:40:298 Team/(31318:31321): El pokemon Squirtle ha sido atrapado con exito por el entrenador 1
+[INFO] 18:25:40:303 Team/(31318:31321): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
 
-[INFO] 04:04:21:558 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:26:559 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:26:560 Team/(19457:19460): El entrenador de id 2 fue desalojado y paso a Ready
-
-[INFO] 04:04:26:560 Team/(19457:19458): Soy el entrenador que va a ejecutar, mi id es: 0.
-[INFO] 04:04:26:561 Team/(19457:19458): El entrenador 0 se mueve a atrapar a Onix a la posicion (2, 8)
-[INFO] 04:04:31:562 Team/(19457:19458): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:36:564 Team/(19457:19458): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:36:565 Team/(19457:19458): El entrenador de id 0 fue desalojado y paso a Ready
-
-[INFO] 04:04:41:567 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:46:569 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:46:570 Team/(19457:19460): El entrenador de id 2 fue desalojado y paso a Ready
-
-[INFO] 04:04:51:572 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:56:574 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:04:56:576 Team/(19457:19460): El entrenador de id 2 fue desalojado y paso a Ready
-
-[INFO] 04:05:01:580 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:06:582 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:06:583 Team/(19457:19460): El entrenador de id 2 fue desalojado y paso a Ready
-
-[INFO] 04:05:11:585 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:16:587 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:16:589 Team/(19457:19460): El entrenador de id 2 fue desalojado y paso a Ready
-
-[INFO] 04:05:21:594 Team/(19457:19459): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:26:597 Team/(19457:19459): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:26:598 Team/(19457:19459): El entrenador de id 1 fue desalojado y paso a Ready
-
-[INFO] 04:05:31:600 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:31:602 Team/(19457:19460): El entrenador de id 2 llegó al pokemon Pikachu.
-[INFO] 04:05:31:606 Team/(19457:19460): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Pikachu
-[INFO] 04:05:31:609 Team/(19457:19460): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
-[DEBUG] 04:05:31:612 Team/(19457:19460): El pokemon Pikachu ha sido atrapado con exito por el entrenador 2
-[INFO] 04:05:31:661 Team/(19457:19460): La estimacion de este entrenador al bloquearse es 0.000000
-[INFO] 04:05:31:662 Team/(19457:19460): El entrenador 2 esta bloqueado esperando que aparezcan los siguientes pokemones:
-[INFO] 04:05:31:666 Team/(19457:19460): Un objetivo es de la especie Squirtle, cantidad necesitada 1
-[INFO] 04:05:31:667 Team/(19457:19460): Un objetivo es de la especie Onix, cantidad necesitada 1
-[INFO] 04:05:36:684 Team/(19457:19458): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:36:691 Team/(19457:19460): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:36:692 Team/(19457:19460): El entrenador de id 2 fue desalojado y paso a Ready
-
-[INFO] 04:05:41:685 Team/(19457:19458): Ejecuté 1 ciclo de cpu
-[INFO] 04:05:41:687 Team/(19457:19458): El entrenador de id 0 fue desalojado y paso a Ready
-
-[INFO] 04:05:41:689 Team/(19457:19460): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 18:25:40:316 Team/(31318:31321): POKEMON DEL MAPA EN LA SEGUNDA VUELTA Gengar, ASIGNADO: 0
+[INFO] 18:25:40:317 Team/(31318:31321): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 18:25:41:318 Team/(31318:31321): Ejecuté 1 ciclo de cpu
