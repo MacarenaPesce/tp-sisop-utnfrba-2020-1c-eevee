@@ -151,6 +151,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->agoto_quantum = false;
 	entrenador->quantum_restante = quantum;
 	entrenador->ciclos_de_cpu = 0;
+	entrenador->espera_asignada = false;
 
 	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
 	entrenador->pokemones = list_create();
