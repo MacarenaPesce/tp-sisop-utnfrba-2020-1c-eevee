@@ -380,8 +380,10 @@ void llenarListaBloquesPoke(char* poke) {
 
 	for (int j = 0; j < cantBloq; j++) {
 
+		if(listaBloques[j]!=NULL){
 		list_add(bloquesMetadataPokemon, listaBloques[j]);
 		log_info(gameCard_logger, "%s", listaBloques[j]);
+		}
 	}
 
 	pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
