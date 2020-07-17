@@ -246,7 +246,8 @@ void algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
     t_bloque_memoria* bloque;
     t_bloque_memoria* aux;
     int indice;
-    int tam_minimo=0; 
+    t_bloque_memoria* primer_bloque = list_get(cache_mensajes, 0);
+    int tam_minimo= primer_bloque->tamanio_particion;  
 
     if(debug_broker) log_debug(broker_logger, "BEST FIT");
 
@@ -258,16 +259,12 @@ void algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
 
         //me fijo si el tamaño que quiero alojar cabe o no en el bloque actual y ademas si el bloque en el que estoy esta vacio o no 
         if((aux->esta_vacio == true) && (aux->tamanio_particion >= tamanio_parti)){
-            
-            //me fijo si el tamaño mas chico de particiones sigue siendo 0 
-            if(tam_minimo==0){
-                tam_minimo = aux->tamanio_particion;
-            }
 
             //me fijo si el tamaño mas chico de particion es menor o igual al tamaño del bloque auxiliar actual, en caso de serlo, al bloque le asigno el aux
             //y asi me quedo con el bloque mas chico de toda la lista
-            if(tam_minimo <= aux->tamanio_particion){
+            if(tam_minimo >= aux->tamanio_particion){
                 bloque = aux;
+                tam_minimo = aux->tamanio_particion;
             }
         }
     }
