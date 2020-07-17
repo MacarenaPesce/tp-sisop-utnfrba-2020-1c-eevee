@@ -17,7 +17,10 @@ void operar_con_appeared_pokemon(t_pokemon * pokemon){
 
 	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa\n", pokemon->especie, pokemon->posx, pokemon->posy);
 
-	sem_post(&orden_para_planificar);
+	if(strcmp(algoritmo_planificacion, "RR")){
+		sem_post(&orden_para_planificar);
+	}
+
 }
 
 void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
@@ -55,6 +58,7 @@ void agregar_pokemon_a_mapa(t_pokemon * pokemon){
 		log_info(team_logger, "No necesito este pokemon");
 	}
 
+	pokemon->asignado = false;
 	pthread_mutex_lock(&mapa_mutex);
 	list_add(lista_mapa, (void*)pokemon);
 	pthread_mutex_unlock(&mapa_mutex);
@@ -308,25 +312,30 @@ bool chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(t_pokemon 
 }
 
 bool chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(t_pokemon * pokemon){
-	bool no_esta_asignado = true;
+	/*bool no_esta_asignado = true;
+	t_entrenador * entrenador;
 
-	pthread_mutex_lock(&lista_listos_mutex);
 	if(list_size(lista_listos) > 0){
 		
 		for(int i=0; i<list_size(lista_listos);i++){
-			
-			t_entrenador * entrenador = list_get(lista_listos, i);
+			pthread_mutex_lock(&lista_listos_mutex);
+			entrenador = list_get(lista_listos, i);
+			log_error(team_logger, "EL POKEMON ACTUAL DEL ENTRE EN LA LISTOS ES %s", entrenador->objetivo_actual->especie);
+			log_error(team_logger, "LA POSICION DEL POKEMON ACTUAL DEL ENTRE EN LA LISTOS EN X ES %d", entrenador->objetivo_actual->posx);
+			log_error(team_logger, "LA POSICION DEL POKEMON ACTUAL DEL ENTRE EN LA LISTOS EN Y ES %d", entrenador->objetivo_actual->posy);
+			pthread_mutex_unlock(&lista_listos_mutex);
+			log_error(team_logger, "EL POKEMON DEL MAPA %s", pokemon->especie);
+			log_error(team_logger, "LA POSICION DEL POKEMON DEL MAPA EN X ES %d", pokemon->posx);
+			log_error(team_logger, "LA POSICION DEL POKEMON DEL MAPA EN Y ES %d", pokemon->posy);
 
-			if((entrenador->objetivo_actual->especie == pokemon->especie) &&
-					(entrenador->objetivo_actual->posx == pokemon->posx) &&
-					(entrenador->objetivo_actual->posy == pokemon->posy)){
+			if(pokemon->asignado){
 				no_esta_asignado = false;
 				break;
 			}
 		}
 	}
-	pthread_mutex_unlock(&lista_listos_mutex);
-	return no_esta_asignado;
+	return no_esta_asignado;*/
+	return pokemon->asignado;
 }
 
 bool chequear_que_no_sea_un_objetivo_del_entrenador_en_ejecucion(t_pokemon * pokemon){
@@ -367,7 +376,15 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
 			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
 
-			chequeo_si_puedo_atrapar_otro(entrenador);
+			t_entrenador * entrenador_aux = buscar_entrenador_por_id(lista_listos, entrenador->id);
+			if(entrenador_aux != NULL ){
+				pthread_mutex_lock(&lista_listos_mutex);
+				sacar_entrenador_de_lista_pid(lista_listos, entrenador->id);
+				pthread_mutex_unlock(&lista_listos_mutex);
+
+				chequeo_si_puedo_atrapar_otro(entrenador);
+			}
+
 			sem_post(&orden_para_planificar);
 
 			break;
@@ -390,7 +407,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar\n", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
-
+			
 			sem_post(&me_bloquee);
 			sem_post(&orden_para_planificar);
 
@@ -453,10 +470,11 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 
-		if(entrenador->quantum_restante > 0){
+		if(entrenador->quantum_restante > 1){
 			log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 			entrenador->quantum_restante--;
 		}else{
+			log_info(team_logger, "Ejecuté 1 ciclo de cpu");
 			entrenador_en_ejecucion = NULL;
 			entrenador->agoto_quantum = true;
 			entrenador->quantum_restante = quantum;
@@ -519,9 +537,29 @@ void * tratamiento_de_mensajes(){
 			pokemon->posx = contenido->coordenadas.posx;
 			pokemon->posy = contenido->coordenadas.posy;
 
-			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-			operar_con_appeared_pokemon(pokemon);
+			if(!strcmp(algoritmo_planificacion, "RR")){
+				/*CADA VEZ QUE LLEGA UN POKEMON SELECCIONO AL ENTRENADOR MAS CERCANO AL MISMO*/
+				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+				if(es_el_primer_pokemon){
+					/*MANDO AL PRIMERO A EJECUTAR*/
+					es_el_primer_pokemon = false;
+					operar_con_appeared_pokemon(pokemon);
+					sem_post(&orden_para_planificar);					
+				}else{
+					/*NO ES EL PRIMER MENSAJE DE APPEARED, POR LO CUAL ES UNA INTERRUPCION*/
+					log_info(team_logger, "Soy el entrenador EN EJECUCION EN LA FUNCION DE TRATAMIENTO, mi id es: %d.", entrenador_en_ejecucion->id);
+					operar_con_appeared_pokemon(pokemon);
+					
+					pthread_mutex_lock(&lista_listos_mutex);
+					list_add(lista_listos, entrenador_en_ejecucion);
+					pthread_mutex_unlock(&lista_listos_mutex);
+				}
+			}else{
 
+				/*EL ALGORITMO NO ES RR*/
+				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+				operar_con_appeared_pokemon(pokemon);
+			}
 		}
 
 		if(mensaje->operacion == LOCALIZED){

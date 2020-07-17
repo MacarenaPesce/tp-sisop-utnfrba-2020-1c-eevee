@@ -81,6 +81,7 @@ extern uint32_t deadlocks_producidos;
 extern uint32_t deadlocks_resueltos;
 
 extern uint32_t es_el_primer_deadlock;
+extern uint32_t es_el_primer_pokemon;
 extern uint32_t espera_circular;
 
 extern t_log* team_logger;
@@ -187,6 +188,7 @@ typedef struct { //estructura del objetivo global
 	char* especie;
 	uint32_t posx;
 	uint32_t posy;
+	bool asignado;
 } t_pokemon;
 
 typedef struct {

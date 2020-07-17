@@ -82,7 +82,8 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	if(entrenador_mas_cercano == NULL){
 		log_info(team_logger, "No hay mas entrenadores disponibles");
 	} else {
-		log_info(team_logger, "La estimacion de %i es %f", entrenador_mas_cercano->id, entrenador_mas_cercano->estimacion_real);
+		pokemon->asignado = true;
+		//log_info(team_logger, "La estimacion de %i es %f", entrenador_mas_cercano->id, entrenador_mas_cercano->estimacion_real);
 		log_info(team_logger_oficial, "El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
 		log_info(team_logger,"El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, pokemon->especie);//entrenador_mas_cercano->objetivo_actual->especie);
 	}
