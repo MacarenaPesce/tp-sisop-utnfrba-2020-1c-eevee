@@ -116,6 +116,7 @@ void inicializar_semaforos(){
 	sem_init(&me_bloquee, 0, 0);
 	sem_init(&puedo_volver_a_ejecutar, 0, 0);
 	sem_init(&termine_carajo, 0, 0);
+	sem_init(&contador_de_deadlocks_producidos, 0, 0);
 
 }
 

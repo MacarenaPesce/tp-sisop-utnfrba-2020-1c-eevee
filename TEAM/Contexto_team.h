@@ -154,6 +154,7 @@ sem_t todos_los_entrenadores_finalizaron;
 sem_t me_bloquee;
 sem_t puedo_volver_a_ejecutar; 
 sem_t termine_carajo;
+sem_t contador_de_deadlocks_producidos;
 
 extern bool hayDeadlock;
 extern bool me_desalojaron;
