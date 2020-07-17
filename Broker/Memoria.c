@@ -496,7 +496,6 @@ void compactar(){
         int indice = obtener_indice_particion(bloque);
 
         if(debug_broker) log_debug(broker_logger, "Indice a compactar: %d",indice);
-        printf("\n");
 
         t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria,indice+1);
 
@@ -537,16 +536,16 @@ void compactar(){
 
             /* libero los auxiliares */
             free(bloque_auxiliar);
-
         }
-
-
     }    
 
+    //muestro por pantalla antes de compactar como estaba la memoria
     if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
+    //itero la funcion compactar_bloque para compactaar la memoria
     dynamic_list_iterate(cache_mensajes->memoria, compactar_bloque);
 
+    //muestro luego de compactar el estado de la memoria
     if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
     if(debug_broker) log_debug(broker_logger, "Compactacion terminada");
@@ -561,8 +560,6 @@ void compactar(){
 /* Se encarga de realizar la consolidacion en Particiones dinamicas*/
 void consolidar(t_bloque_memoria* bloque){
     
-    log_error(broker_logger,"Entre en consolidar");
-
     int indice_bloque = obtener_indice_particion(bloque);
 
     t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria,(indice_bloque-1));
@@ -577,8 +574,6 @@ void consolidar(t_bloque_memoria* bloque){
        if(debug_broker) log_debug(broker_logger,"Realizando consolidacion a izquierda");
         consolidar_dos_bloques(bloque_anterior,bloque);
     }
-
-    log_error(broker_logger,"Sali de consolidar");
 
     return ;
 }
