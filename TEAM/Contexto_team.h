@@ -112,6 +112,7 @@ extern t_list* mensajes_que_llegan_nuevos;
 extern t_list* mensajes_para_chequear_id;
 extern t_list* lista_bloqueados_esperando_caught;
 extern t_list * lista_pokemones_objetivos_aux;
+extern t_list * lista_asignados;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_rr;

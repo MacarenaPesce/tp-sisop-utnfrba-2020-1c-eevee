@@ -1,0 +1,181 @@
+[INFO] 01:39:03:162 Team/(20761:20761): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:39:03:163 Team/(20761:20761): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:39:03:163 Team/(20761:20761): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:39:03:164 Team/(20761:20761): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:39:05:678 Team/(20761:20768): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (9, 9)
+[INFO] 01:39:05:678 Team/(20761:20765): El entrenador 1 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 01:39:05:678 Team/(20761:20763): El entrenador 1 se mueve a atrapar a Pikachu a la posicion 9 9
+[INFO] 01:39:05:686 Team/(20761:20768): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (6, 7)
+[INFO] 01:39:05:686 Team/(20761:20765): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 01:39:05:686 Team/(20761:20764): El entrenador 2 se mueve a atrapar a Squirtle a la posicion 6 7
+[INFO] 01:39:05:695 Team/(20761:20763): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:39:05:695 Team/(20761:20763): Se ha atrapado el pokemon Pikachu en la posicion 9 9
+[INFO] 01:39:05:695 Team/(20761:20763): El entrenador 1 esta bloqueado esperando pokemones
+[INFO] 01:39:05:699 Team/(20761:20764): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:39:05:699 Team/(20761:20764): Se ha atrapado el pokemon Squirtle en la posicion 6 7
+[INFO] 01:39:05:699 Team/(20761:20764): El entrenador 2 esta bloqueado esperando pokemones
+[INFO] 01:39:05:703 Team/(20761:20768): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 8)
+[INFO] 01:39:05:703 Team/(20761:20765): El entrenador 2 pasa a Ready por ser el mas cercano a Onix
+[INFO] 01:39:05:703 Team/(20761:20764): El entrenador 2 se mueve a atrapar a Onix a la posicion 2 8
+[INFO] 01:39:05:708 Team/(20761:20764): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:39:05:708 Team/(20761:20764): Se ha atrapado el pokemon Onix en la posicion 2 8
+[INFO] 01:39:05:708 Team/(20761:20764): El entrenador 2 finalizo
+[INFO] 01:39:05:717 Team/(20761:20768): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (6, 6)
+[INFO] 01:39:05:717 Team/(20761:20765): El entrenador 1 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 01:39:05:718 Team/(20761:20763): El entrenador 1 se mueve a atrapar a Gengar a la posicion 6 6
+[INFO] 01:39:05:723 Team/(20761:20763): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:39:05:723 Team/(20761:20763): Se ha atrapado el pokemon Gengar en la posicion 6 6
+[INFO] 01:39:05:723 Team/(20761:20763): El entrenador 1 finalizo
+[INFO] 01:39:05:731 Team/(20761:20768): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (5, 5)
+[INFO] 01:39:05:731 Team/(20761:20765): El entrenador 0 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 01:39:05:731 Team/(20761:20762): El entrenador 0 se mueve a atrapar a Squirtle a la posicion 5 5
+[INFO] 01:39:05:736 Team/(20761:20762): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:39:05:736 Team/(20761:20762): Se ha atrapado el pokemon Squirtle en la posicion 5 5
+[INFO] 01:39:05:736 Team/(20761:20762): El entrenador 0 finalizo
+[INFO] 01:41:48:996 Team/(20866:20866): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:41:48:997 Team/(20866:20866): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:41:48:997 Team/(20866:20866): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:41:48:998 Team/(20866:20866): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:41:54:860 Team/(20866:20873): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (9, 9)
+[INFO] 01:41:54:860 Team/(20866:20870): El entrenador 1 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 01:41:54:861 Team/(20866:20868): El entrenador 1 se mueve a atrapar a Pikachu a la posicion 9 9
+[INFO] 01:41:54:868 Team/(20866:20873): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (6, 7)
+[INFO] 01:41:54:868 Team/(20866:20870): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 01:41:54:870 Team/(20866:20869): El entrenador 2 se mueve a atrapar a Squirtle a la posicion 6 7
+[INFO] 01:41:54:875 Team/(20866:20868): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:41:54:875 Team/(20866:20868): Se ha atrapado el pokemon Pikachu en la posicion 9 9
+[INFO] 01:41:54:875 Team/(20866:20868): El entrenador 1 esta bloqueado esperando pokemones
+[INFO] 01:41:54:877 Team/(20866:20873): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 8)
+[INFO] 01:41:54:877 Team/(20866:20870): El entrenador 0 pasa a Ready por ser el mas cercano a Onix
+[INFO] 01:41:54:878 Team/(20866:20867): El entrenador 0 se mueve a atrapar a Onix a la posicion 2 8
+[INFO] 01:41:54:882 Team/(20866:20869): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:41:54:882 Team/(20866:20869): Se ha atrapado el pokemon Squirtle en la posicion 6 7
+[INFO] 01:41:54:882 Team/(20866:20869): El entrenador 2 esta bloqueado esperando pokemones
+[INFO] 01:41:54:886 Team/(20866:20867): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:41:54:886 Team/(20866:20867): Se ha atrapado el pokemon Onix en la posicion 2 8
+[INFO] 01:41:54:886 Team/(20866:20867): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 01:41:54:886 Team/(20866:20873): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (6, 6)
+[INFO] 01:41:54:886 Team/(20866:20870): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 01:41:54:886 Team/(20866:20869): El entrenador 2 se mueve a atrapar a Gengar a la posicion 6 6
+[INFO] 01:41:54:888 Team/(20866:20869): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:41:54:888 Team/(20866:20869): Se ha atrapado el pokemon Gengar en la posicion 6 6
+[INFO] 01:41:54:888 Team/(20866:20869): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 01:41:54:902 Team/(20866:20873): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (5, 5)
+[INFO] 01:41:54:902 Team/(20866:20870): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 01:41:54:902 Team/(20866:20868): El entrenador 1 se mueve a atrapar a Squirtle a la posicion 5 5
+[INFO] 01:41:54:913 Team/(20866:20868): Falló la conexión con Broker; inicia la operación default
+[INFO] 01:41:54:913 Team/(20866:20868): Se ha atrapado el pokemon Squirtle en la posicion 5 5
+[INFO] 01:41:54:913 Team/(20866:20868): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 01:41:54:914 Team/(20866:20872): Deadlock detectado
+[INFO] 01:41:54:914 Team/(20866:20872): La cantidad de entrenadores en deadlock es 3
+[INFO] 01:41:54:914 Team/(20866:20872): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 01:41:54:914 Team/(20866:20867): El entrenador 0 se mueve a la posicion de coordenadas (6, 6)
+[INFO] 01:41:54:919 Team/(20866:20867): Se va a realizar un intercambio entre el entrenador 0 y 2
+[INFO] 01:41:54:919 Team/(20866:20869): El entrenador 2 finalizo
+[INFO] 01:41:54:919 Team/(20866:20872): Deadlock detectado
+[INFO] 01:41:54:919 Team/(20866:20872): La cantidad de entrenadores en deadlock es 2
+[INFO] 01:41:54:919 Team/(20866:20872): El entrenador 1 pasó a la lista de listos para resolucion de deadlock
+[INFO] 01:41:54:920 Team/(20866:20868): El entrenador 1 se mueve a la posicion de coordenadas (6, 6)
+[INFO] 01:41:54:926 Team/(20866:20868): Se va a realizar un intercambio entre el entrenador 1 y 0
+[INFO] 01:41:54:926 Team/(20866:20867): El entrenador 0 finalizo
+[INFO] 01:41:54:926 Team/(20866:20868): El entrenador 1 finalizo
+[INFO] 02:11:36:584 Team/(21848:21848): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:11:36:585 Team/(21848:21848): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:11:36:585 Team/(21848:21848): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:11:36:586 Team/(21848:21848): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:11:39:452 Team/(21848:21855): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (9, 9)
+[INFO] 02:11:39:452 Team/(21848:21852): El entrenador 1 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 02:11:39:452 Team/(21848:21850): El entrenador 1 se mueve a atrapar a Pikachu a la posicion 9 9
+[INFO] 02:11:39:459 Team/(21848:21855): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (6, 7)
+[INFO] 02:11:39:459 Team/(21848:21852): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 02:11:39:459 Team/(21848:21851): El entrenador 2 se mueve a atrapar a Squirtle a la posicion 6 7
+[INFO] 02:11:39:469 Team/(21848:21855): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 8)
+[INFO] 02:11:39:469 Team/(21848:21852): El entrenador 0 pasa a Ready por ser el mas cercano a Onix
+[INFO] 02:11:39:469 Team/(21848:21850): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:11:39:469 Team/(21848:21850): Se ha atrapado el pokemon Pikachu en la posicion 9 9
+[INFO] 02:11:39:469 Team/(21848:21850): El entrenador 1 esta bloqueado esperando pokemones
+[INFO] 02:11:39:472 Team/(21848:21849): El entrenador 0 se mueve a atrapar a Onix a la posicion 2 8
+[INFO] 02:11:39:476 Team/(21848:21851): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:11:39:476 Team/(21848:21851): Se ha atrapado el pokemon Squirtle en la posicion 6 7
+[INFO] 02:11:39:476 Team/(21848:21851): El entrenador 2 esta bloqueado esperando pokemones
+[INFO] 02:11:39:478 Team/(21848:21855): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (6, 6)
+[INFO] 02:11:39:478 Team/(21848:21852): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 02:11:39:478 Team/(21848:21849): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:11:39:478 Team/(21848:21849): Se ha atrapado el pokemon Onix en la posicion 2 8
+[INFO] 02:11:39:478 Team/(21848:21849): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 02:11:39:478 Team/(21848:21851): El entrenador 2 se mueve a atrapar a Gengar a la posicion 6 6
+[INFO] 02:11:39:479 Team/(21848:21851): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:11:39:479 Team/(21848:21851): Se ha atrapado el pokemon Gengar en la posicion 6 6
+[INFO] 02:11:39:479 Team/(21848:21851): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 02:11:39:493 Team/(21848:21855): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (5, 5)
+[INFO] 02:11:39:493 Team/(21848:21852): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 02:11:39:493 Team/(21848:21850): El entrenador 1 se mueve a atrapar a Squirtle a la posicion 5 5
+[INFO] 02:11:39:502 Team/(21848:21850): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:11:39:502 Team/(21848:21850): Se ha atrapado el pokemon Squirtle en la posicion 5 5
+[INFO] 02:11:39:502 Team/(21848:21850): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 02:11:39:502 Team/(21848:21854): Deadlock detectado
+[INFO] 02:11:39:502 Team/(21848:21854): La cantidad de entrenadores en deadlock es 3
+[INFO] 02:11:39:502 Team/(21848:21854): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 02:11:39:502 Team/(21848:21849): El entrenador 0 se mueve a la posicion de coordenadas (6, 6)
+[INFO] 02:11:39:510 Team/(21848:21849): Se va a realizar un intercambio entre el entrenador 0 y 2
+[INFO] 02:11:39:511 Team/(21848:21851): El entrenador 2 finalizo
+[INFO] 02:11:39:511 Team/(21848:21854): Deadlock detectado
+[INFO] 02:11:39:511 Team/(21848:21854): La cantidad de entrenadores en deadlock es 2
+[INFO] 02:11:39:511 Team/(21848:21854): El entrenador 1 pasó a la lista de listos para resolucion de deadlock
+[INFO] 02:11:39:511 Team/(21848:21850): El entrenador 1 se mueve a la posicion de coordenadas (6, 6)
+[INFO] 02:11:39:514 Team/(21848:21850): Se va a realizar un intercambio entre el entrenador 1 y 0
+[INFO] 02:11:39:514 Team/(21848:21849): El entrenador 0 finalizo
+[INFO] 02:11:39:514 Team/(21848:21850): El entrenador 1 finalizo
+[INFO] 02:21:21:505 Team/(22062:22062): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:21:21:506 Team/(22062:22062): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:21:21:507 Team/(22062:22062): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:21:44:578 Team/(22062:22069): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (9, 9)
+[INFO] 02:21:44:578 Team/(22062:22066): El entrenador 0 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 02:21:44:578 Team/(22062:22063): El entrenador 0 se mueve a atrapar a Pikachu a la posicion 9 9
+[INFO] 02:21:44:590 Team/(22062:22069): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Eevee en las coordenadas (1, 1)
+[INFO] 02:21:44:590 Team/(22062:22066): El entrenador 1 pasa a Ready por ser el mas cercano a Eevee
+[INFO] 02:21:44:608 Team/(22062:22069): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Charmander en las coordenadas (2, 2)
+[INFO] 02:21:44:608 Team/(22062:22066): El entrenador 2 pasa a Ready por ser el mas cercano a Charmander
+[INFO] 02:21:45:579 Team/(22062:22063): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:21:45:580 Team/(22062:22063): Se ha atrapado el pokemon Pikachu en la posicion 9 9
+[INFO] 02:21:45:580 Team/(22062:22063): El entrenador 0 finalizo
+[INFO] 02:21:45:580 Team/(22062:22064): El entrenador 1 se mueve a atrapar a Eevee a la posicion 1 1
+[INFO] 02:21:46:582 Team/(22062:22064): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:21:46:582 Team/(22062:22064): Se ha atrapado el pokemon Eevee en la posicion 1 1
+[INFO] 02:21:46:583 Team/(22062:22064): El entrenador 1 finalizo
+[INFO] 02:21:46:583 Team/(22062:22065): El entrenador 2 se mueve a atrapar a Charmander a la posicion 2 2
+[INFO] 02:21:47:584 Team/(22062:22065): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:21:47:584 Team/(22062:22065): Se ha atrapado el pokemon Charmander en la posicion 2 2
+[INFO] 02:21:47:584 Team/(22062:22065): El entrenador 2 finalizo
+[INFO] 02:22:40:378 Team/(22170:22170): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:22:40:379 Team/(22170:22170): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:22:40:379 Team/(22170:22170): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:22:43:796 Team/(22170:22177): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (9, 9)
+[INFO] 02:22:43:796 Team/(22170:22174): El entrenador 0 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 02:22:43:796 Team/(22170:22171): El entrenador 0 se mueve a atrapar a Pikachu a la posicion 9 9
+[INFO] 02:22:43:808 Team/(22170:22177): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Eevee en las coordenadas (1, 1)
+[INFO] 02:22:43:808 Team/(22170:22174): El entrenador 1 pasa a Ready por ser el mas cercano a Eevee
+[INFO] 02:22:43:821 Team/(22170:22177): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Charmander en las coordenadas (2, 2)
+[INFO] 02:22:43:821 Team/(22170:22174): El entrenador 2 pasa a Ready por ser el mas cercano a Charmander
+[INFO] 02:22:44:797 Team/(22170:22171): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:22:44:797 Team/(22170:22171): Se ha atrapado el pokemon Pikachu en la posicion 9 9
+[INFO] 02:22:44:797 Team/(22170:22171): El entrenador 0 finalizo
+[INFO] 02:22:44:797 Team/(22170:22172): El entrenador 1 se mueve a atrapar a Eevee a la posicion 1 1
+[INFO] 02:22:45:799 Team/(22170:22172): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:22:45:800 Team/(22170:22172): Se ha atrapado el pokemon Eevee en la posicion 1 1
+[INFO] 02:22:45:800 Team/(22170:22172): El entrenador 1 finalizo
+[INFO] 02:22:45:800 Team/(22170:22173): El entrenador 2 se mueve a atrapar a Charmander a la posicion 2 2
+[INFO] 02:22:46:803 Team/(22170:22173): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:22:46:803 Team/(22170:22173): Se ha atrapado el pokemon Charmander en la posicion 2 2
+[INFO] 02:22:46:803 Team/(22170:22173): El entrenador 2 finalizo
+[INFO] 02:27:22:337 Team/(22429:22429): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:27:22:338 Team/(22429:22429): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:27:22:338 Team/(22429:22429): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:27:22:339 Team/(22429:22429): Falló la conexión con Broker; inicia la operación default
+[INFO] 02:27:26:99 Team/(22429:22436): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (9, 9)
+[INFO] 02:27:26:99 Team/(22429:22433): El entrenador 1 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 02:27:26:99 Team/(22429:22431): El entrenador 1 se mueve a atrapar a Pikachu a la posicion 9 9
+[INFO] 02:27:26:116 Team/(22429:22436): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Eevee en las coordenadas (1, 1)
+[INFO] 02:27:26:116 Team/(22429:22433): El entrenador 2 pasa a Ready por ser el mas cercano a Eevee
+[INFO] 02:27:26:122 Team/(22429:22436): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Charmander en las coordenadas (2, 2)
+[INFO] 02:27:26:123 Team/(22429:22433): El entrenador 0 pasa a Ready por ser el mas cercano a Charmander
