@@ -131,8 +131,6 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
     
     while(alojado == false){  //mientras no  este alojado hago la secuencia pueda alojarlo tengo que ir vaciando particiones y fijandome si tengo que compactar
 
-        //log_warning(broker_logger, "A - puedo alojar la particion %d", sePuedeAlojar);
-
         //me fijo si puedo alojarla a la primera
         if(sePuedeAlojar == true){ 
             
@@ -159,23 +157,23 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
             algoritmo_de_reemplazo();
 
-            //compactar();
-        }
-        else if(frec_para_compactar > 0){ //en caso de estar habilitada la frecuencia
+        } else if(frec_para_compactar > 0){ 
+            //en caso de estar habilitada la frecuencia
+            
             log_info(broker_logger, "Frecuencia de compactacion > 0...",NULL);
             algoritmo_de_reemplazo();
-            frec_para_compactar = frec_para_compactar - 1;
+            frec_para_compactar--;
             log_info(broker_logger, "Frecuencia de compactacion, faltan vaciar %d particiones", frec_para_compactar);
-        }
 
+            if(frec_para_compactar==0){  //en caso de no estar habilitada , porque ya se agoto
 
-        if(frec_para_compactar==0){  //en caso de no estar habilitada , porque ya se agoto
+                log_info(broker_logger, "Por compactar... Frecuencia = 0",NULL);
 
-            log_info(broker_logger, "Por compactar... Frecuencia = 0",NULL);
-
-            compactar();
-            //seteo de nuevo la frecuencia para la prox compactacion
-            frec_para_compactar = frecuencia_compactacion;
+                compactar();
+                //seteo de nuevo la frecuencia para la prox compactacion
+                frec_para_compactar = frecuencia_compactacion;
+            }
+        
         }
 
         //me fijo de nuevo si puede alojarse
@@ -548,6 +546,9 @@ void compactar(){
 
         int indice = obtener_indice_particion(bloque);
 
+        if(debug_broker) log_debug(broker_logger, "Indice a compactar: %d",indice);
+        printf("\n");
+
         t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria,indice+1);
 
         if(bloque_siguiente == NULL) return;
@@ -557,8 +558,6 @@ void compactar(){
             consolidar_dos_bloques(bloque, bloque_siguiente);
         }
         else if(!bloque_siguiente->esta_vacio){
-
-            log_warning(broker_logger,"jueguito de compactar ");
 
             /* clonar bloque memoria */
             t_bloque_memoria* bloque_auxiliar = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
@@ -595,10 +594,13 @@ void compactar(){
 
     }    
 
-    list_iterate(cache_mensajes->memoria, compactar_bloque);
+    if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+
+    dynamic_list_iterate(cache_mensajes->memoria, compactar_bloque);
+
+    if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
     if(debug_broker) log_debug(broker_logger, "Compactacion terminada");
-    printf("\n");
 
 	return ;
 }
@@ -637,7 +639,7 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
     int indice = obtener_indice_particion(segundoBloque);
 
     /* Borro y destruyo el segundo bloque */
-	//list_remove(cache_mensajes->memoria, indice);
+	list_remove(cache_mensajes->memoria, indice);
 
     /* Modifico el tamaño del primer bloque */
     primerBloque->tamanio_particion += segundoBloque->tamanio_particion;
