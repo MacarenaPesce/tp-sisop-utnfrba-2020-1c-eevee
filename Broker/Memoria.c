@@ -628,11 +628,10 @@ void dump_memoria(){
 
 }
 
-//TODO : funcion ordenar bloques memoria
+
 void escribir_estado_de_memoria(FILE* archivo){
 
-    //t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
-    t_list* listadeparticiones ;
+    t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
 
     for(int i=0; i < list_size(listadeparticiones); i++){
         t_bloque_memoria* bloque = list_get(listadeparticiones, i);

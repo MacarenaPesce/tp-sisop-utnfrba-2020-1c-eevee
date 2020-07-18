@@ -113,6 +113,22 @@ void print_memoria(void* _bloque){
 
 }
 
+/* Ordena las posiciones de memoria */
+bool ordenar_bloques_memoria(void* puntero1, void* puntero2){
+
+    t_bloque_memoria* particion1 = (t_bloque_memoria*) puntero1;
+    t_bloque_memoria* particion2 = (t_bloque_memoria*) puntero2;
+
+    if(particion1->esta_vacio){
+        if(particion2->esta_vacio)  return particion1->estructura_mensaje < particion2->estructura_mensaje;
+        else    return particion1->estructura_mensaje < particion2->estructura_mensaje->mensaje;
+    }
+    else{
+        if(particion2->esta_vacio)  return particion1->estructura_mensaje->mensaje < particion2->estructura_mensaje;
+        else    return particion1->estructura_mensaje->mensaje < particion2->estructura_mensaje->mensaje;        
+    }
+}
+
 /*Obtengo el tiempo actual en segundos*/ 
 uint64_t get_timestamp(){
 	struct timeval tv;
