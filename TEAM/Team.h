@@ -17,6 +17,8 @@
 #include "Interaccion_con_broker.h"
 #include "Deadlock.h"
 
+bool soy_el_ultimo_entrenador();
+void atrapar_el_pokemon_que_este_en_el_mapa(t_entrenador *);
 bool hay_pokemones_en_el_mapa();
 bool chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(t_pokemon *);
 bool chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(t_pokemon *);

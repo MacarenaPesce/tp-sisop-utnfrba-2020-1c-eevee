@@ -55,16 +55,6 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 				estimar_entrenador(entrenador_mas_cercano);
 			}
 
-			/*pthread_mutex_lock(&mapa_mutex);
-			t_pokemon * poke1 = buscar_pokemon_por_especie_y_ubicacion(lista_mapa, pokemon);
-			if(poke1 == pokemon){
-				pthread_mutex_lock(&pokemones_asignados);
-				pokemon->asignado = true;
-				log_error(team_logger, "EL POKEMON EN SELEC... POKEMON: %s, ASIGNADO: %d", pokemon->especie, pokemon->asignado);
-				pthread_mutex_unlock(&pokemones_asignados);	
-			}
-			pthread_mutex_unlock(&mapa_mutex);*/
-
 			entrenador_mas_cercano->objetivo_actual = pokemon;
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
 			list_add(lista_asignados, pokemon);
@@ -202,6 +192,10 @@ void obtener_proximo_ejecucion(void){
 	pthread_mutex_unlock(&lista_listos_mutex);
 
 	entrenador_en_ejecucion->estado = EJECUTANDO;
+
+	if(list_size(lista_listos)==1){
+		sem_post(&ultimo_entrenador);
+	}
 
 	sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);
 	

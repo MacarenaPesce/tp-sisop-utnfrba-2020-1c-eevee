@@ -100,6 +100,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&mutex_para_colas, NULL);
 	pthread_mutex_init(&mutex_ciclos_cpu, NULL);
 	pthread_mutex_init(&pokemones_asignados, NULL);
+	pthread_mutex_init(&mutex_ciclos_cpu_entrenador, NULL);
 
 
 	sem_init(&entrenadores_ubicados, 0, 0);
@@ -118,6 +119,7 @@ void inicializar_semaforos(){
 	sem_init(&puedo_volver_a_ejecutar, 0, 0);
 	sem_init(&termine_carajo, 0, 0);
 	sem_init(&contador_de_deadlocks_producidos, 0, 0);
+	sem_init(&ultimo_entrenador, 0, 0);
 
 }
 
