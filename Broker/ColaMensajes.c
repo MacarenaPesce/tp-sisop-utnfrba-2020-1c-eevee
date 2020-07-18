@@ -123,9 +123,10 @@ void* sender_suscriptores(void* cola_mensajes){
 			if(debug_broker) log_debug(broker_logger,"El mensaje %d ya no se encuentra en la memoria y será descartado",envio_pendiente->id);
 			eliminar_mensaje_enviado(cola);
 			pthread_mutex_unlock(&mutex_queue_mensajes);
-			return;
+			continue;
 		}
 
+		printf(" \n LLEGUE HASTA ACA\n");
 		t_cliente* cliente = obtener_cliente_por_id(envio_pendiente->cliente);
 		
 		t_socket_cliente* socket_cliente = obtener_socket_cliente_de_cola(cliente,cola->cola_de_mensajes);
@@ -137,6 +138,7 @@ void* sender_suscriptores(void* cola_mensajes){
 												mensaje->tamanio_mensaje,
 												mensaje->mensaje);
 
+		actualizar_lru_de_mensaje(mensaje);
 
 		agregar_cliente_a_enviados(mensaje,cliente->id);
 

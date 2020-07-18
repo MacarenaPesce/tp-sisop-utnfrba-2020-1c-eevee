@@ -156,3 +156,30 @@ uint64_t get_timestamp(){
 	uint64_t  x = (uint64_t)( (tv.tv_sec)*1000 + (tv.tv_usec)/1000 );
 	return x;
 }
+
+void actualizar_lru_de_mensaje(t_mensaje_cola* mensaje){
+
+    t_bloque_memoria* bloque = buscar_bloque_de_mensaje(mensaje);
+
+    bloque->last_time = get_timestamp();
+
+}
+
+t_bloque_memoria* buscar_bloque_de_mensaje(t_mensaje_cola* mensaje){
+
+    bool encontrar_bloque(void* _bloque){
+        
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+        if(bloque->esta_vacio){
+            return false;
+        }
+
+        return bloque->estructura_mensaje->id_mensaje == mensaje->id_mensaje;
+    }
+
+    t_bloque_memoria* bloque_encontrado = list_find(cache_mensajes->memoria,encontrar_bloque);
+
+    return bloque_encontrado;
+
+}
