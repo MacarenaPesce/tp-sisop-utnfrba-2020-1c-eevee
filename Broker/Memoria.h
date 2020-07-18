@@ -37,21 +37,23 @@
 
 
 //--------------- ADMINISTRACION DE MEMORIA-------------------
-void asignar_memoria_inicial(int tamanio_en_bytes); //LISTO
-void asignar_particion_memoria(t_mensaje_cola* estructura_mensaje); //LISTO
+void asignar_memoria_inicial(int tamanio_en_bytes); 
+void asignar_particion_memoria(t_mensaje_cola* estructura_mensaje); 
 
 //---ALGORITMOS DE MEMORIA----
-void algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje); //LISTO
-void particiones_dinamicas( t_mensaje_cola* estructura_mensaje);  //LISTO
-void buddy_system( t_mensaje_cola* estructura_mensaje); //EN PROCESO
+void algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje); 
+void particiones_dinamicas( t_mensaje_cola* estructura_mensaje); 
+void buddy_system( t_mensaje_cola* estructura_mensaje);
 
 //********Funciones de Algoritmos de memoria************
-void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
-void algoritmo_first_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
-void algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje); //LISTO
-void algoritmo_de_reemplazo(); //LISTO --- falta validar en este y en los otros que son con opciones, si mandan una opcion por el archivo config que no es valida
-t_bloque_memoria* algoritmo_fifo(); //LISTO
-t_bloque_memoria* algoritmo_lru(); //LISTO 
+void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_mensaje); 
+void algoritmo_first_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje);
+void algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje); 
+void algoritmo_de_reemplazo(); 
+t_bloque_memoria* algoritmo_fifo();
+t_bloque_memoria* algoritmo_lru(); 
+t_bloque_memoria* obtener_bloque_mas_viejo();
+t_bloque_memoria* obtener_bloque_menos_referenciado();
 
 //-----DUMP-----
 void dump_memoria();
@@ -71,7 +73,7 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 
 //Compactacion
 void compactar();
-t_bloque_memoria* obtener_bloque_mas_viejo();
+
 
 #endif /* MEMORIA_BROKER_H_ */
 
