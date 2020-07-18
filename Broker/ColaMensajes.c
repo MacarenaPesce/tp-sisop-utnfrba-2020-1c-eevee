@@ -120,6 +120,7 @@ void* sender_suscriptores(void* cola_mensajes){
 		t_mensaje_cola * mensaje = obtener_mensaje_por_id(envio_pendiente->id);
 
 		if(mensaje == NULL){
+			if(debug_broker) log_debug(broker_logger,"El mensaje %d ya no se encuentra en la memoria y será descartado",envio_pendiente->id);
 			eliminar_mensaje_enviado(cola);
 			pthread_mutex_unlock(&mutex_queue_mensajes);
 			return;
