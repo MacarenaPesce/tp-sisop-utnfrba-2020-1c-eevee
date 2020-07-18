@@ -652,44 +652,57 @@ void escribir_estado_de_memoria(FILE* archivo){
         //timeinfo = localtime(bloque->last_time);
         //strftime(fecha, 50, "%H:%M:%S", timeinfo);
 
-        char* ocupado = bloque->esta_vacio ? "X" : "L";
-        char* cola ;
-        int id=0;
+        
+        
 
         if(!bloque->esta_vacio) log_warning(broker_logger, "Cola: %d",bloque->estructura_mensaje->cola_de_mensajes);
-        else    log_warning(broker_logger, "Cola vacia");
+        else    log_warning(broker_logger, "Cola vacia"); 
 
         if(!bloque->esta_vacio){
-            switch(bloque->estructura_mensaje->cola_de_mensajes){
-                case COLA_NEW_POKEMON: cola = "NEW_POKEMON"; break;
-                case COLA_APPEARED_POKEMON: cola = "APPEARED_POKEMON"; break;
-                case COLA_GET_POKEMON: cola = "GET_POKEMON"; break;
-                case COLA_LOCALIZED_POKEMON: cola = "LOCALIZED_POKEMON"; break;
-                case COLA_CATCH_POKEMON: cola = "CATCH_POKEMON"; break;
-                case COLA_CAUGHT_POKEMON: cola = "CAUGHT_POKEMON"; break;
-                //default: cola = "NO_ASIGNADA"; break;
-            }
-        }
-        else cola = "NO_ASIGNADA";
 
-        log_warning(broker_logger, "Cola: %s",cola);
-        log_warning(broker_logger, "last_time: %d", bloque->last_time);
+            char* dump = crear_string_dump(bloque,i);
 
-        if(!bloque->esta_vacio){
-            fprintf(archivo, "Particion %d: %p - %p.    [%s]    Size: %db   LRU: %d     Cola: %s    ID: %d",
-            i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje->mensaje + bloque->tamanio_particion,
-            ocupado, bloque->tamanio_particion, bloque->last_time, cola , bloque->estructura_mensaje->id_mensaje);
+            log_warning(broker_logger, "dump: %s",dump);
+
+            fprintf(archivo, "%s",dump);
+            fprintf(archivo, "\n");
+
+        }else{
+
+            t_bloque_memoria* ptr_final = (char*)bloque->estructura_mensaje + bloque->tamanio_particion;
+
+            fprintf(archivo,"Particion %d: %p - %p.    [L]    Size: %db",
+                i , 
+                bloque->estructura_mensaje, 
+                ptr_final,
+                bloque->tamanio_particion
+            );
             fprintf(archivo, "\n");
         }
-        else{
-            fprintf(archivo,"Particion %d: %p - %p.    [%s]    Size: %db   LRU: %d     Cola: NO_ASIGNADA    ID: 0",
-            i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje + bloque->tamanio_particion,
-            ocupado, bloque->tamanio_particion, bloque->last_time);
-            fprintf(archivo, "\n");
-        }
+
+
 
     }
 
+}
+
+char* crear_string_dump(t_bloque_memoria* bloque,int indice){
+
+    char* dump = string_new();
+
+    char* cola = strdup(obtener_nombre_cola(bloque->estructura_mensaje->cola_de_mensajes));
+
+    t_bloque_memoria* ptr_final = (char*)bloque->estructura_mensaje->mensaje + bloque->tamanio_particion;
+
+    string_append_with_format(&dump,"Particion %d: ",indice);
+    string_append_with_format(&dump,"%p - ",bloque->estructura_mensaje->mensaje);
+    string_append_with_format(&dump,"%p.    [X]",ptr_final);
+    string_append_with_format(&dump,"    Size: %db",bloque->tamanio_particion);
+    string_append_with_format(&dump,"    LRU: %d",bloque->last_time);
+    string_append_with_format(&dump,"    Cola: %s",cola);
+    string_append_with_format(&dump,"    ID: %d",bloque->estructura_mensaje->id_mensaje);
+
+    return dump;
 }
 
 

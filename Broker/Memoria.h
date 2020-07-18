@@ -56,6 +56,7 @@ t_bloque_memoria* algoritmo_lru(); //LISTO
 //-----DUMP-----
 void dump_memoria();
 void escribir_estado_de_memoria(FILE* archivo);
+char* crear_string_dump(t_bloque_memoria* bloque,int indice);
 
 
 //*******************AUXILIARES DE PD*******************
