@@ -22,6 +22,7 @@ void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list * lista){
 	while(!list_is_empty(lista)){
 		objetivo = list_get(lista, k);
 		if(objetivo == NULL){
+			free(objetivo);
 			break;
 		}
 		if(objetivo->cantidad > 0){
@@ -305,7 +306,7 @@ int destruir_pokemon(t_pokemon * pokemon){
 }
 
 int destruir_entrenador(t_entrenador * entrenador){
-	list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo);
+	list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo_entrenador);
 	list_destroy_and_destroy_elements(entrenador->pokemones, (void*)destruir_pokemon);
 	destruir_objetivo(entrenador->objetivo_actual);
 	free(entrenador);
@@ -317,10 +318,24 @@ int destruir_objetivo(t_objetivo * objetivo){
 	return 0;
 }
 
+int destruir_objetivo_entrenador(t_objetivo_entrenador * objetivo){
+	free(objetivo);
+	return 0;
+}
+
 int destruir_mensaje(t_mensaje_guardado * mensaje){
 	free(mensaje->contenido);
 	free(mensaje);
 	return 0;
+}
+
+void liberar_lista_char(char** lista){
+	int contador = 0;
+	while(lista[contador] != NULL){
+		free(lista[contador]);
+		contador++;
+	}
+	//free(lista);
 }
 
 void terminar_team_correctamente(){
@@ -332,7 +347,7 @@ void terminar_team_correctamente(){
 	list_destroy(pokemones_ordenada);
 	list_destroy(lista_entrenadores);
 	list_destroy_and_destroy_elements(lista_listos,(void*)destruir_entrenador);
-	list_destroy(lista_finalizar);
+	list_destroy_and_destroy_elements(lista_finalizar,(void*)destruir_entrenador);
 	list_destroy_and_destroy_elements(lista_bloqueados_esperando_caught,(void*)destruir_entrenador);
 	list_destroy_and_destroy_elements(lista_bloqueados_deadlock,(void*)destruir_entrenador);
 	list_destroy(lista_bloqueados_cant_max_alcanzada);
@@ -346,7 +361,7 @@ void terminar_team_correctamente(){
 	list_destroy_and_destroy_elements(mensajes_que_llegan_nuevos,(void*)destruir_mensaje);
 	list_destroy_and_destroy_elements(lista_objetivos, (void*)destruir_objetivo);
 	list_destroy(mensajes);
-
+	//liberar_lista_char(pokes);
 
 	log_destroy(team_logger);
 	log_destroy(team_logger_oficial);

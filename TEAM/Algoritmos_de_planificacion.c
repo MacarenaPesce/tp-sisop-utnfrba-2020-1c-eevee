@@ -10,7 +10,6 @@
 void * planificar(){
 
 	while(GLOBAL_SEGUIR){
-
 		sem_wait(&orden_para_planificar);
 		obtener_proximo_ejecucion();
 	}
@@ -81,7 +80,7 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 
 	list_destroy(lista_aux);
 	if(entrenador_mas_cercano == NULL){
-		log_info(team_logger, "No hay mas entrenadores disponibles");
+		//log_info(team_logger, "No hay mas entrenadores disponibles");
 	} else {
 		//log_info(team_logger, "La estimacion de %i es %f", entrenador_mas_cercano->id, entrenador_mas_cercano->estimacion_real);
 		log_info(team_logger_oficial, "El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
@@ -154,9 +153,7 @@ void obtener_proximo_ejecucion(void){
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
 		ordenar_lista_estimacion(lista_listos);
 	}
-
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
-
 	if(entrenador_en_ejecucion != NULL){
 		/* Hay un entrenador ejecutando */
 		return;
@@ -191,6 +188,7 @@ void obtener_proximo_ejecucion(void){
 	entrenador_en_ejecucion = sacar_entrenador_de_lista_pid(lista_listos, entrenador_en_ejecucion->id);
 	pthread_mutex_unlock(&lista_listos_mutex);
 
+	log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador_en_ejecucion->id);
 	entrenador_en_ejecucion->estado = EJECUTANDO;
 
 	if(list_size(lista_listos)==1){
