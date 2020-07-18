@@ -44,13 +44,14 @@
 #define KEY_CONFIG_ESTIMACION_INICIAL "ESTIMACION_INICIAL"
 #define KEY_CONFIG_IP_BROKER "IP_BROKER"
 #define KEY_CONFIG_PUERTO_BROKER "PUERTO_BROKER"
+#define KEY_CONFIG_PUERTO_TEAM "PUERTO_TEAM"
 #define KEY_CONFIG_LOG_FILE "LOG_FILE"
 #define KEY_CONFIG_ALPHA "ALPHA"
 #define KEY_CONFIG_ID "ID"
 
 #define NO_SOCKET -1
 #define IP "127.0.0.2"
-#define PUERTO "5002"
+#define PUERTO "5000"
 
 extern char** posiciones_entrenadores;
 extern char** pokemon_entrenadores;
@@ -63,6 +64,7 @@ extern float alpha;
 extern char* ip_broker;
 extern int estimacion_inicial;
 extern char* puerto_broker;
+extern char* puerto_team;
 extern char* log_file;
 extern int id;
 

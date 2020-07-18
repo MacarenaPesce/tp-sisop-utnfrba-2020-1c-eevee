@@ -19,6 +19,7 @@ float alpha;
 char* ip_broker;
 int estimacion_inicial;
 char* puerto_broker;
+char* puerto_team;
 char* log_file;
 int id;
 

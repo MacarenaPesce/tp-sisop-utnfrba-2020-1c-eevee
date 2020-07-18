@@ -179,6 +179,7 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_CONFIG_ESTIMACION_INICIAL, config, obtener_la_estimacion_inicial);
 		obtener_valor_config(KEY_CONFIG_IP_BROKER, config, obtener_la_ip_del_broker);
 		obtener_valor_config(KEY_CONFIG_PUERTO_BROKER, config, obtener_el_puerto_del_broker);
+		obtener_valor_config(KEY_CONFIG_PUERTO_TEAM, config, obtener_el_puerto_de_team);
 		obtener_valor_config(KEY_CONFIG_LOG_FILE, config, obtener_el_log_file);
 		obtener_valor_config(KEY_CONFIG_ID, config, obtener_el_id);
 
@@ -258,6 +259,11 @@ void obtener_la_ip_del_broker(){
 void obtener_el_puerto_del_broker(){
 	puerto_broker = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER));
 	log_debug(team_logger,"El puerto del broker es: %s",puerto_broker);
+}
+
+void obtener_el_puerto_de_team(){
+	puerto_team = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_TEAM));
+	log_debug(team_logger,"El puerto de Team es: %s",puerto_team);
 }
 
 void obtener_el_log_file(){

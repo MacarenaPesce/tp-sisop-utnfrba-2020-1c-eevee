@@ -1,5 +1,5 @@
 gamecard : Conexion_con_broker.c Conexion_con_gameboy.c Contexto_gameCard.c FileSystem.c formatoFs.c Funciones_de_conexion.c Herramientas_gameCard.c mensajesParaFs.c gameCard.c
-	mkdir -p ./Debug ./Dist
+	mkdir -p ./Debug ./Dist /home/utnso/desktop/tall-grass
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Contexto_broker.d" -MT"./Conexion_con_broker.o" -o "./Debug/Conexion_con_broker.o" "./Conexion_con_broker.c"
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Conexion_con_gameboy.d" -MT"Conexion_con_gameboy.o" -o "./Debug/Conexion_con_gameboy.o" "./Conexion_con_gameboy.c"
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Contexto_gameCard.d" -MT"Contexto_gameCard.o" -o "./Debug/Contexto_gameCard.o" "./Contexto_gameCard.c"
@@ -15,7 +15,7 @@ clean :
 	rm -f ./Dist/gameCard ./Debug/*
 
 all:  Conexion_con_broker.c Conexion_con_gameboy.c Contexto_gameCard.c FileSystem.c formatoFs.c Funciones_de_conexion.c Herramientas_gameCard.c mensajesParaFs.c gameCard.c
-	mkdir -p ./Debug ./Dist
+	mkdir -p ./Debug ./Dist /home/utnso/desktop/tall-grass
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Contexto_broker.d" -MT"./Conexion_con_broker.o" -o "./Debug/Conexion_con_broker.o" "./Conexion_con_broker.c"
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Conexion_con_gameboy.d" -MT"Conexion_con_gameboy.o" -o "./Debug/Conexion_con_gameboy.o" "./Conexion_con_gameboy.c"
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Contexto_gameCard.d" -MT"Contexto_gameCard.o" -o "./Debug/Contexto_gameCard.o" "./Contexto_gameCard.c"

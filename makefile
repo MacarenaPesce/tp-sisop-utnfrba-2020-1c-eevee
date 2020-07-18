@@ -17,3 +17,7 @@ clean:
 	cd ./GameCard && $(MAKE) clean
 	cd ./TEAM && $(MAKE) clean
 	rm -Rf ./Dist/bin
+
+cleanfs:
+
+	rm -Rf /home/utnso/desktop/tall-grass/

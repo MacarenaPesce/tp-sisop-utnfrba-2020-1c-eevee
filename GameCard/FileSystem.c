@@ -402,7 +402,7 @@ void llenarListaBloquesPoke(char* poke) {
 
 	t_config* metadataPokemon = config_create(rutaMetadataPokemon);
 
-	pthread_mutex_lock(dictionary_get(semaforosPokemon, pokemon));
+	pthread_mutex_lock(dictionary_get(semaforosPokemon, poke));
 
 	int tamanioArch = config_get_int_value(metadataPokemon, "SIZE");
 
@@ -1630,38 +1630,65 @@ else {
 
 t_list* obtenerPosicionesPokemon(char* pokemon) {
 
-log_info(gameCard_logger,"se intenta obtener las posiciones del pokemon : %s",pokemon);
+	log_info(gameCard_logger,"se intenta obtener las posiciones del pokemon : %s",pokemon);
 
-bloquesMetadataPokemon=list_create();
-llenarListaBloquesPoke(pokemon);
+	bloquesMetadataPokemon=list_create();
+	llenarListaBloquesPoke(pokemon);
 
-pokemonEnMemoria = string_new();
-copiarPokemonAmemoria(bloquesMetadataPokemon);
+	pokemonEnMemoria = string_new();
+	copiarPokemonAmemoria(bloquesMetadataPokemon);
 
-log_info(gameCard_logger, "Se cargo en memoria las posiciones: %s", pokemonEnMemoria);
+	log_info(gameCard_logger, "Se cargo en memoria las posiciones: %s", pokemonEnMemoria);
 
-char** posiciones = string_split(pokemonEnMemoria, "\n");
+	char** posiciones = string_split(pokemonEnMemoria, "\n");
 
-pokemonesParaLocalized = list_create();
-string_iterate_lines(posiciones, agregarPosicionAlistaParaLocalized);
+	pokemonesParaLocalized = list_create();
+	string_iterate_lines(posiciones, agregarPosicionAlistaParaLocalized);
 
-log_info(gameCard_logger, " las posiciones y cantidades del pokemon %s son :",
-		pokemon);
-for (int i = 0; i < list_size(pokemonesParaLocalized); i++) {
+	log_info(gameCard_logger, " las posiciones y cantidades del pokemon %s son :",
+			pokemon);
+	for (int i = 0; i < list_size(pokemonesParaLocalized); i++) {
 
-	log_info(gameCard_logger, "%s \n", list_get(pokemonesParaLocalized, i));
-}
+		log_info(gameCard_logger, "%s \n", list_get(pokemonesParaLocalized, i));
+	}
 
-sleep(tiempo_retardo_operacion);
-cerrarArchivo(pokemon);
+	sleep(tiempo_retardo_operacion);
+	cerrarArchivo(pokemon);
 
-return pokemonesParaLocalized;
+	return pokemonesParaLocalized;
 
 }
 
 void agregarPosicionAlistaParaLocalized(char* posicion) {
 
-list_add(pokemonesParaLocalized, posicion);
+	char** parse = string_split(posicion, "=");
+
+	int cantidad_pokemons = atoi(parse[1]);
+
+	/* free(parse[0]);
+	free(parse[1]);
+	free(parse); */	
+
+	parse = string_split(parse, "-");
+
+	int posx = atoi(parse[0]);
+	int posy = atoi(parse[1]);
+
+	/* free(parse[0]);
+	free(parse[1]);
+	free(parse); */
+
+	for (int i = 0; i < cantidad_pokemons; i++){
+
+		t_coordenadas* coordenadas = (t_coordenadas*)malloc(sizeof(t_coordenadas));
+
+		coordenadas->posx = posx;
+		coordenadas->posy = posy;
+
+		list_add(pokemonesParaLocalized, (void*) coordenadas);
+		
+	}	
+
 }
 
 void liberarMemoria() {
@@ -1677,20 +1704,20 @@ config_destroy(config_game_card);
 
 void agregarSemaforoPokemon(char* poke) {
 
-pthread_mutex_lock(&mutexSemPokemones);
+	pthread_mutex_lock(&mutexSemPokemones);
 
-if (!dictionary_has_key(semaforosPokemon, poke)) {
+	if (!dictionary_has_key(semaforosPokemon, poke)) {
 
-	static pthread_mutex_t semPoke = PTHREAD_MUTEX_INITIALIZER;
+		static pthread_mutex_t semPoke = PTHREAD_MUTEX_INITIALIZER;
 
-	dictionary_put(semaforosPokemon, poke, &semPoke);
+		dictionary_put(semaforosPokemon, poke, &semPoke);
 
-	log_info(gameCard_logger, "Se agrega un semáforo "
-			"para la metadata del pokemon %s", poke);
+		log_info(gameCard_logger, "Se agrega un semáforo "
+				"para la metadata del pokemon %s", poke);
 
-}
+	}
 
-pthread_mutex_unlock(&mutexSemPokemones);
+	pthread_mutex_unlock(&mutexSemPokemones);
 
 }
 
