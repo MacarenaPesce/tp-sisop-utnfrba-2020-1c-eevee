@@ -17,9 +17,7 @@ void operar_con_appeared_pokemon(t_pokemon * pokemon){
 
 	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa\n", pokemon->especie, pokemon->posx, pokemon->posy);
 
-	if(strcmp(algoritmo_planificacion, "RR")){
-		sem_post(&orden_para_planificar);
-	}
+	sem_post(&orden_para_planificar);
 
 }
 
@@ -160,7 +158,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->ciclos_de_cpu = 0;
 	entrenador->espera_asignada = false;
 
-	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
+	t_pokemon* un_pokemon;
 	entrenador->pokemones = list_create();
 
 	for(int i = 0; i < list_size(lista_pokemones_de_entrenador); i++){
@@ -169,7 +167,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	}
 
 	entrenador->objetivo = list_create();
-	t_objetivo_entrenador * una_meta = malloc(sizeof(t_objetivo_entrenador));
+	t_objetivo_entrenador * una_meta;
 	for(int i = 0; i < list_size(lista_objetivos_de_entrenador); i++){
 		una_meta = list_get(lista_objetivos_de_entrenador, i);
 		list_add(entrenador->objetivo, (void*)una_meta);
@@ -235,6 +233,7 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 
 			pthread_mutex_lock(&mapa_mutex);
 			list_remove(lista_mapa, i); //elimino el poke del mapa
+			//remover al pokemon de la lista de asignados
 			pthread_mutex_unlock(&mapa_mutex);
 			break;
 		}
@@ -247,7 +246,7 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 
 	} else {
 		ver_razon_de_bloqueo(entrenador);
-		chequeo_si_puedo_atrapar_otro();
+		//chequeo_si_puedo_atrapar_otro();
 		bloquear_entrenador(entrenador);
 	}
 
@@ -267,13 +266,18 @@ void chequear_si_fue_cumplido_el_objetivo_global(){
 		printf("\n");
 
 		log_info(team_logger,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
+		log_info(team_logger_oficial,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
 		log_info(team_logger,"La cantidad de cambios de contextos realizados es: %i", cambios_de_contexto);
+		log_info(team_logger_oficial,"La cantidad de cambios de contextos realizados es: %i", cambios_de_contexto);
 		for (int i = 0; i < MAXIMO_ENTRENADORES; i++){
 			t_entrenador* entrenador = list_get(lista_finalizar, i);
 			log_info(team_logger, "La cantidad de ciclos de CPU realizados por el entrenador %i es: %i", entrenador->id, entrenador->ciclos_de_cpu);
+			log_info(team_logger_oficial, "La cantidad de ciclos de CPU realizados por el entrenador %i es: %i", entrenador->id, entrenador->ciclos_de_cpu);
 		}
 		log_info(team_logger, "La cantidad de deadlocks producidos es: %i", deadlocks_producidos);
+		log_info(team_logger_oficial, "La cantidad de deadlocks producidos es: %i", deadlocks_producidos);
 		log_info(team_logger, "La cantidad de deadlocks resueltos es: %i", deadlocks_resueltos);
+		log_info(team_logger_oficial, "La cantidad de deadlocks resueltos es: %i", deadlocks_resueltos);
 
 		terminar_team_correctamente();
 	}
@@ -318,29 +322,6 @@ bool chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(t_pokemon 
 }
 
 bool chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(t_pokemon * pokemon){
-	/*bool no_esta_asignado = true;
-	t_entrenador * entrenador;
-
-	if(list_size(lista_listos) > 0){
-		
-		for(int i=0; i<list_size(lista_listos);i++){
-			pthread_mutex_lock(&lista_listos_mutex);
-			entrenador = list_get(lista_listos, i);
-			log_error(team_logger, "EL POKEMON ACTUAL DEL ENTRE EN LA LISTOS ES %s", entrenador->objetivo_actual->especie);
-			log_error(team_logger, "LA POSICION DEL POKEMON ACTUAL DEL ENTRE EN LA LISTOS EN X ES %d", entrenador->objetivo_actual->posx);
-			log_error(team_logger, "LA POSICION DEL POKEMON ACTUAL DEL ENTRE EN LA LISTOS EN Y ES %d", entrenador->objetivo_actual->posy);
-			pthread_mutex_unlock(&lista_listos_mutex);
-			log_error(team_logger, "EL POKEMON DEL MAPA %s", pokemon->especie);
-			log_error(team_logger, "LA POSICION DEL POKEMON DEL MAPA EN X ES %d", pokemon->posx);
-			log_error(team_logger, "LA POSICION DEL POKEMON DEL MAPA EN Y ES %d", pokemon->posy);
-
-			if(pokemon->asignado){
-				no_esta_asignado = false;
-				break;
-			}
-		}
-	}
-	return no_esta_asignado;*/
 	return pokemon->asignado;
 }
 
@@ -357,7 +338,6 @@ bool chequear_que_no_sea_un_objetivo_del_entrenador_en_ejecucion(t_pokemon * pok
 
 bool el_pokemon_no_es_objetivo_de_alguien(t_pokemon * pokemon){
 	return chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(pokemon); 
-	//(chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(pokemon) && chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(pokemon));
 }
 
 void chequeo_si_puedo_atrapar_otro(){
@@ -365,10 +345,9 @@ void chequeo_si_puedo_atrapar_otro(){
 		for(int i=0; i<list_size(lista_mapa);i++){
 			pthread_mutex_lock(&mapa_mutex);
 			t_pokemon * pokemon = list_get(lista_mapa, i);
-			//log_info(team_logger, "POKEMON DEL MAPA EN LA SEGUNDA VUELTA %s, ASIGNADO: %d", pokemon->especie, pokemon->asignado);
 			pthread_mutex_unlock(&mapa_mutex);
 			if(!esta_en_lista_asignados(pokemon)){
-				log_info(team_logger, "POKEMON DEL MAPA %s no esta en la lista de asignados", pokemon->especie);
+				//log_info(team_logger, "POKEMON DEL MAPA %s no esta en la lista de asignados", pokemon->especie);
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				break;
 			}
@@ -382,16 +361,28 @@ bool esta_en_lista_asignados(t_pokemon * pokemon){
 	return pokemon != NULL;
 }
 
+bool soy_el_ultimo_entrenador(){
+	return list_size(lista_listos) == 1;
+}
+
+void atrapar_el_pokemon_que_este_en_el_mapa(t_entrenador * entrenador){
+	t_pokemon * pokemon = list_get(lista_mapa, 0);
+	entrenador->objetivo_actual = pokemon;
+	sem_post(&array_semaforos[entrenador->id]);
+}
+
 void bloquear_entrenador(t_entrenador* entrenador){
 	entrenador_en_ejecucion = NULL;
 	cambios_de_contexto++;
 	switch(entrenador->razon_de_bloqueo){
 		case ESPERANDO_POKEMON:
-			log_info(team_logger,"La estimacion de este entrenador al bloquearse es %f", entrenador->estimacion_real);
+			//log_info(team_logger,"La estimacion de este entrenador al bloquearse es %f", entrenador->estimacion_real);
 			list_add(lista_bloqueados_esperando, (void*)entrenador);
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
-			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
-			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
+
+			//log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
+			//mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
+			chequeo_si_puedo_atrapar_otro();
 
 			sem_post(&orden_para_planificar);
 
@@ -406,7 +397,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			break;
 
 		case CANTIDAD_MAXIMA_ALCANZADA:
-
+			entrenador->quantum_restante = quantum;
 			pthread_mutex_lock(&lista_bloq_max_mutex);
 			list_add(lista_bloqueados_cant_max_alcanzada, (void*)entrenador);
 			pthread_mutex_unlock(&lista_bloq_max_mutex);
@@ -415,7 +406,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar\n", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
-			
+
 			sem_post(&me_bloquee);
 			sem_post(&orden_para_planificar);
 
@@ -426,9 +417,80 @@ void bloquear_entrenador(t_entrenador* entrenador){
 }
 
 void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
-	ciclos_de_cpu++;
-	entrenador->ciclos_de_cpu++;
-	sleep(retardo_ciclo_cpu);
+	if((!strcmp(algoritmo_planificacion, "FIFO"))){
+		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+	}
+
+	if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
+		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+
+		entrenador->instruccion_actual++;
+		entrenador->estimacion_actual--;
+		entrenador->ejec_anterior = 0;
+	}
+
+	if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+		entrenador_en_ejecucion->instruccion_actual++;
+		entrenador_en_ejecucion->estimacion_actual--;
+		log_info(team_logger, "Mi estimacion actual es %f", entrenador_en_ejecucion->estimacion_actual);
+		entrenador_en_ejecucion->ejec_anterior = 0;
+
+		if(desalojo_en_ejecucion){
+			entrenador_en_ejecucion = NULL;
+			pthread_mutex_lock(&lista_listos_mutex);
+			list_add(lista_listos, entrenador);
+			pthread_mutex_unlock(&lista_listos_mutex);
+			cambios_de_contexto++;
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+
+			sem_post(&orden_para_planificar);
+			log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
+			sem_wait(&array_semaforos[entrenador->id]);
+		}
+	}
+
+	if(!strcmp(algoritmo_planificacion, "RR")){
+		ciclos_de_cpu++;
+
+		pthread_mutex_lock(&mutex_ciclos_cpu_entrenador);
+		entrenador->ciclos_de_cpu++;
+		pthread_mutex_unlock(&mutex_ciclos_cpu_entrenador);
+
+		sleep(retardo_ciclo_cpu);
+
+		if(entrenador->quantum_restante > 1){
+			log_info(team_logger, "Ejecuté 1 ciclo de cpu, ENTRENADOR %d", entrenador->id);
+			entrenador->quantum_restante--;
+		}else{
+			log_info(team_logger, "Ejecuté 1 ciclo de cpu, ENTRENADOR %d", entrenador->id);
+			entrenador_en_ejecucion = NULL;
+			entrenador->agoto_quantum = true;
+			entrenador->quantum_restante = quantum;
+			cambios_de_contexto++;
+			
+				pthread_mutex_lock(&lista_listos_mutex);
+				list_add(lista_listos, entrenador);
+				pthread_mutex_unlock(&lista_listos_mutex);
+				//cambios_de_contexto++;
+				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+				sem_post(&orden_para_planificar);
+				log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
+				//sem_wait(&array_semaforos[entrenador->id]);
+			
+		}
+	}
 }
 
 void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
@@ -467,6 +529,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			pthread_mutex_unlock(&lista_listos_mutex);
 			cambios_de_contexto++;
 			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
 
 			sem_post(&orden_para_planificar);
 			sem_wait(&array_semaforos[entrenador->id]);
@@ -486,15 +549,20 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			entrenador_en_ejecucion = NULL;
 			entrenador->agoto_quantum = true;
 			entrenador->quantum_restante = quantum;
-
-			pthread_mutex_lock(&lista_listos_mutex);
-			list_add(lista_listos, entrenador);
-			pthread_mutex_unlock(&lista_listos_mutex);
 			cambios_de_contexto++;
-			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+			if(entrenador->cant_maxima_objetivos == 0){
+				sem_post(&orden_para_planificar);
+			} else {
+				pthread_mutex_lock(&lista_listos_mutex);
+				list_add(lista_listos, entrenador);
+				pthread_mutex_unlock(&lista_listos_mutex);
+				//cambios_de_contexto++;
+				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+				sem_post(&orden_para_planificar);
+				sem_wait(&array_semaforos[entrenador->id]);
+			}
 
-			sem_post(&orden_para_planificar);
-			sem_wait(&array_semaforos[entrenador->id]);
 
 		}
 	}
@@ -545,29 +613,8 @@ void * tratamiento_de_mensajes(){
 			pokemon->posx = contenido->coordenadas.posx;
 			pokemon->posy = contenido->coordenadas.posy;
 
-			if(!strcmp(algoritmo_planificacion, "RR")){
-				/*CADA VEZ QUE LLEGA UN POKEMON SELECCIONO AL ENTRENADOR MAS CERCANO AL MISMO*/
-				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-				if(es_el_primer_pokemon){
-					/*MANDO AL PRIMERO A EJECUTAR*/
-					es_el_primer_pokemon = false;
-					operar_con_appeared_pokemon(pokemon);
-					sem_post(&orden_para_planificar);					
-				}else{
-					/*NO ES EL PRIMER MENSAJE DE APPEARED, POR LO CUAL ES UNA INTERRUPCION*/
-					log_info(team_logger, "Soy el entrenador EN EJECUCION EN LA FUNCION DE TRATAMIENTO, mi id es: %d.", entrenador_en_ejecucion->id);
-					operar_con_appeared_pokemon(pokemon);
-					
-					pthread_mutex_lock(&lista_listos_mutex);
-					list_add(lista_listos, entrenador_en_ejecucion);
-					pthread_mutex_unlock(&lista_listos_mutex);
-				}
-			}else{
-
-				/*EL ALGORITMO NO ES RR*/
-				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-				operar_con_appeared_pokemon(pokemon);
-			}
+			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+			operar_con_appeared_pokemon(pokemon);
 		}
 
 		if(mensaje->operacion == LOCALIZED){
@@ -608,7 +655,7 @@ void * tratamiento_de_mensajes(){
 		}
 
 		chequear_si_fue_cumplido_el_objetivo_global();
-		//free(mensaje);
+		free(mensaje);
 
 	}
 

@@ -25,7 +25,7 @@ void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 
 	sem_post(&mensaje_nuevo_disponible);
 
-	free(paquete);
+	eliminar_mensaje(paquete);
 
 	return NULL;
 }
@@ -49,7 +49,7 @@ void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 
 	sem_post(&mensaje_nuevo_disponible);
 
-	free(paquete);
+	eliminar_mensaje(paquete);
 
 	return NULL;
 }
@@ -73,7 +73,7 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 
 	sem_post(&mensaje_nuevo_disponible);
 
-	free(paquete);
+	eliminar_mensaje(paquete);
 
 	return NULL;
 }

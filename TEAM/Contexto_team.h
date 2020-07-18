@@ -75,6 +75,8 @@ extern int CANTIDAD_EN_DEADLOCK;
 extern bool hayPokeNuevo;
 extern uint32_t quantum_actual;
 extern bool desalojo_en_ejecucion;
+extern char** pokes;
+extern bool hayDeadlock;
 
 extern uint32_t cambios_de_contexto;
 extern uint32_t deadlocks_producidos;
@@ -132,9 +134,11 @@ pthread_mutex_t tocando_pokemones_objetivos;
 pthread_mutex_t tocando_semaforos_deadlock;
 pthread_mutex_t lista_comun_deadlock;
 pthread_mutex_t mutex_ciclos_cpu;
+pthread_mutex_t mutex_ciclos_cpu_entrenador;
 
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
+sem_t ultimo_entrenador;
 
 t_list * semaforos_deadlock;
 
