@@ -1,12 +1,5 @@
-[INFO] 17:19:43:605 Broker/(21608:21608): *************** INICIANDO EJECUCION DE BROKER ***************
-[DEBUG] 17:19:43:605 Broker/(21608:21608): 1) Cache de mensajes lista!!!
-[DEBUG] 17:19:43:605 Broker/(21608:21608): 2) Inicializando archivo de configuracion...
-[INFO] 17:20:08:558 Broker/(21671:21671): *************** INICIANDO EJECUCION DE BROKER ***************
-[DEBUG] 17:20:08:559 Broker/(21671:21671): 1) Cache de mensajes lista!!!
-[DEBUG] 17:20:08:559 Broker/(21671:21671): 2) Inicializando archivo de configuracion...
-[INFO] 17:21:21:831 Broker/(21812:21812): *************** INICIANDO EJECUCION DE BROKER ***************
-[DEBUG] 17:21:21:831 Broker/(21812:21812): 1) Cache de mensajes lista!!!
-[DEBUG] 17:21:21:831 Broker/(21812:21812): 2) Inicializando archivo de configuracion...
-[INFO] 17:22:47:928 Broker/(21924:21924): *************** INICIANDO EJECUCION DE BROKER ***************
-[DEBUG] 17:22:47:929 Broker/(21924:21924): 1) Cache de mensajes lista!!!
-[DEBUG] 17:22:47:929 Broker/(21924:21924): 2) Inicializando archivo de configuracion...
+[INFO] 21:35:40:358 Broker/(4819:4819): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 21:35:40:358 Broker/(4819:4819): 1) Cache de mensajes lista!!!
+[DEBUG] 21:35:40:358 Broker/(4819:4819): 2) Inicializando archivo de configuracion...
+[INFO] 21:35:40:358 Broker/(4819:4819): El archivo de configuracion no existe. Fijate en la carpeta Debug.
+[INFO] 21:35:40:358 Broker/(4819:4819): Chau!

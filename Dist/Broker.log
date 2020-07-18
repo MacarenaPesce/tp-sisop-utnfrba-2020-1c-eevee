@@ -1,0 +1,25 @@
+[INFO] 21:39:51:906 Broker/(5259:5259): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 21:39:51:906 Broker/(5259:5259): 1) Cache de mensajes lista!!!
+[DEBUG] 21:39:51:906 Broker/(5259:5259): 2) Inicializando archivo de configuracion...
+[INFO] 21:39:51:907 Broker/(5259:5259): Cargando el archivo de configuracion...
+[DEBUG] 21:39:51:907 Broker/(5259:5259): El tamaño inicial de memoria: 64
+[DEBUG] 21:39:51:907 Broker/(5259:5259): El tamaño minimo de particion: 4
+[DEBUG] 21:39:51:908 Broker/(5259:5259): El algoritmo de memoria es: BS
+[DEBUG] 21:39:51:908 Broker/(5259:5259): El algoritmo de reemplazo es: FIFO
+[DEBUG] 21:39:51:908 Broker/(5259:5259): El algoritmo para particiones libre es: FF
+[DEBUG] 21:39:51:908 Broker/(5259:5259): la ip del broker es: 127.0.0.1
+[DEBUG] 21:39:51:909 Broker/(5259:5259): el puerto del broker es: 5002
+[DEBUG] 21:39:51:909 Broker/(5259:5259): La frecuencia de compactacion es: 1
+[DEBUG] 21:39:51:910 Broker/(5259:5259): El log file es: Broker.log
+[INFO] 21:39:51:910 Broker/(5259:5259): Archivo de configuracion cargado...
+[DEBUG] 21:39:51:910 Broker/(5259:5259): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 21:39:51:910 Broker/(5259:5259): 4) Configurando signals...
+[DEBUG] 21:39:51:910 Broker/(5259:5259): 5) Signals configuradas correctamente!!!
+[DEBUG] 21:39:51:910 Broker/(5259:5259): 6) Inicializando cache de mensajes...
+[DEBUG] 21:39:51:914 Broker/(5259:5259): la direccion de memoria en memoria l51 es: 164913616 
+[INFO] 21:39:51:914 Broker/(5259:5259): Se asigno memoria inicial. La direccion inicial de memoria es: 0x9d47ff0
+[INFO] 21:39:51:914 Broker/(5259:5259): Particion de memoria inicial creada con: 64
+[DEBUG] 21:39:51:915 Broker/(5259:5259): 7) Iniciando servidor...
+[DEBUG] 21:39:51:915 Broker/(5259:5259): 8) Intentando bindear sever...
+[DEBUG] 21:39:51:915 Broker/(5259:5259): 9) Server bindeado correctamente!!!
+[DEBUG] 21:39:51:915 Broker/(5259:5259): 10) Hilo del servidor cargado correctamente!!!

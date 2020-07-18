@@ -10,7 +10,7 @@ gamecard : Conexion_con_broker.c Conexion_con_gameboy.c Contexto_gameCard.c File
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Herramientas_gameCard.d" -MT"./Herramientas_gameCard.o" -o "./Debug/Herramientas_gameCard.o" "./Herramientas_gameCard.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/mensajesParaFs.d" -MT"./mensajesParaFs.o" -o "./Debug/mensajesParaFs.o" "./mensajesParaFs.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/gameCard.d" -MT"./gameCard.o" -o "./Debug/gameCard.o" "./gameCard.c"
-	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/gameCard" ./Debug/Conexion_con_broker.o ./Debug/Conexion_con_gameboy.o  ./Debug/Contexto_gameCard.o ./Debug/FileSystem.o ./Debug/formatoFs.o ./Debug/Funciones_de_conexion.o ./Debug/Herramientas_gameCard.o ./Debug/mensajesParaFs.o ./Debug/gameCard.o   -lPokebola -lcommons -lpthread
+	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/gamecard" ./Debug/Conexion_con_broker.o ./Debug/Conexion_con_gameboy.o  ./Debug/Contexto_gameCard.o ./Debug/FileSystem.o ./Debug/formatoFs.o ./Debug/Funciones_de_conexion.o ./Debug/Herramientas_gameCard.o ./Debug/mensajesParaFs.o ./Debug/gameCard.o   -lPokebola -lcommons -lpthread
 
 clean :
 	rm -f ./Dist/gameCard ./Debug/*
@@ -27,4 +27,4 @@ all:  Conexion_con_broker.c Conexion_con_gameboy.c Contexto_gameCard.c FileSyste
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Herramientas_gameCard.d" -MT"./Herramientas_gameCard.o" -o "./Debug/Herramientas_gameCard.o" "./Herramientas_gameCard.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/mensajesParaFs.d" -MT"./mensajesParaFs.o" -o "./Debug/mensajesParaFs.o" "./mensajesParaFs.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/gameCard.d" -MT"./gameCard.o" -o "./Debug/gameCard.o" "./gameCard.c"
-	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/gameCard" ./Debug/Conexion_con_broker.o ./Debug/Conexion_con_gameboy.o  ./Debug/Contexto_gameCard.o ./Debug/FileSystem.o ./Debug/formatoFs.o ./Debug/Funciones_de_conexion.o ./Debug/Herramientas_gameCard.o ./Debug/mensajesParaFs.o ./Debug/gameCard.o -lPokebola -lcommons -lpthread
+	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/gamecard" ./Debug/Conexion_con_broker.o ./Debug/Conexion_con_gameboy.o  ./Debug/Contexto_gameCard.o ./Debug/FileSystem.o ./Debug/formatoFs.o ./Debug/Funciones_de_conexion.o ./Debug/Herramientas_gameCard.o ./Debug/mensajesParaFs.o ./Debug/gameCard.o -lPokebola -lcommons -lpthread

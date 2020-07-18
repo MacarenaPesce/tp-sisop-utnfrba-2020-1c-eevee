@@ -1,5 +1,6 @@
 gameboy : Comunicacion_con_broker.c Comunicacion_con_gamecard.c Comunicacion_con_team.c Contexto_gameboy.c Herramientas_gameboy.c GameBoy.c 
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/utnso/tp-2020-1c-eevee/Pokebola/Debug
+	mkdir -p ./Debug ./Dist
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Comunicacion_con_broker.d" -MT"./Comunicacion_con_broker.o" -o "./Debug/Comunicacion_con_broker.o" "./Comunicacion_con_broker.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Comunicacion_con_gamecard.d" -MT"Comunicacion_con_gamecard.o" -o "./Debug/Comunicacion_con_gamecard.o" "./Comunicacion_con_gamecard.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Comunicacion_con_team.d" -MT"Comunicacion_con_team.o" -o "./Debug/Comunicacion_con_team.o" "./Comunicacion_con_team.c"
@@ -13,6 +14,7 @@ clean :
 
 all : Comunicacion_con_broker.c Comunicacion_con_gamecard.c Comunicacion_con_team.c Contexto_gameboy.c Herramientas_gameboy.c GameBoy.c 
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/utnso/tp-2020-1c-eevee/Pokebola/Debug
+	mkdir -p ./Debug ./Dist
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Comunicacion_con_broker.d" -MT"./Comunicacion_con_broker.o" -o "./Debug/Comunicacion_con_broker.o" "./Comunicacion_con_broker.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Comunicacion_con_gamecard.d" -MT"Comunicacion_con_gamecard.o" -o "./Debug/Comunicacion_con_gamecard.o" "./Comunicacion_con_gamecard.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Comunicacion_con_team.d" -MT"Comunicacion_con_team.o" -o "./Debug/Comunicacion_con_team.o" "./Comunicacion_con_team.c"

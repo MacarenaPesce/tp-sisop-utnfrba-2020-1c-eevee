@@ -1,5 +1,6 @@
 Broker : Contexto_broker.c Herramientas_broker.c Memoria.c Buddy.c utilsMemoria.c ColaMensajes.c Conexion.c Broker.c
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/utnso/tp-2020-1c-eevee/Pokebola/Debug
+	mkdir -p ./Debug ./Dist
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Contexto_broker.d" -MT"./Contexto_broker.o" -o "./Debug/Contexto_broker.o" "./Contexto_broker.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Memoria.d" -MT"Memoria.o" -o "./Debug/Memoria.o" "./Memoria.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Buddy.d" -MT"Buddy.o" -o "./Debug/Buddy.o" "./Buddy.c"
@@ -12,6 +13,7 @@ Broker : Contexto_broker.c Herramientas_broker.c Memoria.c Buddy.c utilsMemoria.
 
 Cliente : Cliente.c
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/utnso/tp-2020-1c-eevee/Pokebola/Debug
+	mkdir -p ./Debug ./Dist
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Cliente.d" -MT"./Cliente.o" -o "./Debug/Cliente.o" "./Cliente.c"
 	gcc -L"/home/utnso/tp-2020-1c-eevee/Pokebola/Debug" -o "./Dist/Cliente"  ./Debug/Cliente.o   -lPokebola -lcommons
 
@@ -21,6 +23,7 @@ clean :
 
 all:  Contexto_broker.c Herramientas_broker.c Memoria.c Buddy.c utilsMemoria.c Cliente.c ColaMensajes.c Conexion.c Broker.c
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/utnso/tp-2020-1c-eevee/Pokebola/Debug
+	mkdir -p ./Debug ./Dist
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Contexto_broker.d" -MT"./Contexto_broker.o" -o "./Debug/Contexto_broker.o" "./Contexto_broker.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Memoria.d" -MT"Memoria.o" -o "./Debug/Memoria.o" "./Memoria.c"
 	gcc -I"/home/utnso/tp-2020-1c-eevee/Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/ColaMensajes.d" -MT"./ColaMensajes.o" -o "./Debug/ColaMensajes.o" "./ColaMensajes.c"
