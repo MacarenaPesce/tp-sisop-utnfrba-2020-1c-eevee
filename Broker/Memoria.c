@@ -612,19 +612,16 @@ void dump_memoria(){
     char* header = malloc(500);
     header = "Dump ";
 
-    fprintf(dumpeo,"-------------------------------------------------------------------------------------------------------");
+    fprintf(dumpeo,"---------------------------------------------------------------------------------------------------------------------------------------------------------------");
+    fprintf(dumpeo, "\n");
     fprintf(dumpeo, header);
     fprintf(dumpeo, fecha);
     fprintf(dumpeo, "\n");
 
-    log_error(broker_logger,"hasta aca llego1");
-
     escribir_estado_de_memoria(dumpeo);
 
-    fprintf(dumpeo,"-------------------------------------------------------------------------------------------------------");
+    fprintf(dumpeo,"-----------------------------------------------------------------------------------------------------------------------------------------------------------------");
     fprintf(dumpeo, "\n");
-
-    log_error(broker_logger,"hasta aca llego2");
 
     fclose(dumpeo);
 
@@ -635,40 +632,49 @@ void escribir_estado_de_memoria(FILE* archivo){
 
     t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
 
-    log_error(broker_logger, "llegue hasta aca?");
-
     if(debug_broker) list_iterate(listadeparticiones, print_memoria);
 
     for(int i=0; i < list_size(listadeparticiones); i++){
         t_bloque_memoria* bloque = list_get(listadeparticiones, i);
         char fecha[50];
-        struct tm* timeinfo;
-        timeinfo = localtime(bloque->last_time);
-        strftime(fecha, 50, "%H:%M:%S", timeinfo);
+        //struct tm* timeinfo;
+        //timeinfo = localtime(bloque->last_time);
+        //strftime(fecha, 50, "%H:%M:%S", timeinfo);
 
         char* ocupado = bloque->esta_vacio ? "X" : "L";
-        char* cola;
+        char* cola ;
+        int id=0;
 
-        switch(bloque->estructura_mensaje->cola_de_mensajes){
-            case COLA_NEW_POKEMON: cola = "NEW_POKEMON"; break;
-            case COLA_APPEARED_POKEMON: cola = "APPEARED_POKEMON"; break;
-            case COLA_GET_POKEMON: cola = "GET_POKEMON"; break;
-            case COLA_LOCALIZED_POKEMON: cola = "LOCALIZED_POKEMON"; break;
-            case COLA_CATCH_POKEMON: cola = "CATCH_POKEMON"; break;
-            case COLA_CAUGHT_POKEMON: cola = "CAUGHT_POKEMON"; break;
-            default: cola = "NO_ASIGNADA"; break;
-        }
+        if(!bloque->esta_vacio) log_warning(broker_logger, "Cola: %d",bloque->estructura_mensaje->cola_de_mensajes);
+        else    log_warning(broker_logger, "Cola vacia");
 
         if(!bloque->esta_vacio){
-            fprintf(archivo, string_from_format ("Particion %d: %p - %p.    [%s]    Size: %db   LRU: %s     Cola: %s    ID: %d",
+            switch(bloque->estructura_mensaje->cola_de_mensajes){
+                case COLA_NEW_POKEMON: cola = "NEW_POKEMON"; break;
+                case COLA_APPEARED_POKEMON: cola = "APPEARED_POKEMON"; break;
+                case COLA_GET_POKEMON: cola = "GET_POKEMON"; break;
+                case COLA_LOCALIZED_POKEMON: cola = "LOCALIZED_POKEMON"; break;
+                case COLA_CATCH_POKEMON: cola = "CATCH_POKEMON"; break;
+                case COLA_CAUGHT_POKEMON: cola = "CAUGHT_POKEMON"; break;
+                //default: cola = "NO_ASIGNADA"; break;
+            }
+        }
+        else cola = "NO_ASIGNADA";
+
+        log_warning(broker_logger, "Cola: %s",cola);
+        log_warning(broker_logger, "last_time: %d", bloque->last_time);
+
+        if(!bloque->esta_vacio){
+            fprintf(archivo, "Particion %d: %p - %p.    [%s]    Size: %db   LRU: %d     Cola: %s    ID: %d",
             i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje->mensaje + bloque->tamanio_particion,
-            ocupado, bloque->tamanio_particion, bloque->last_time, cola, bloque->estructura_mensaje->id_mensaje));
+            ocupado, bloque->tamanio_particion, bloque->last_time, cola , bloque->estructura_mensaje->id_mensaje);
+            fprintf(archivo, "\n");
         }
         else{
-            int id=0;
-            fprintf(archivo, string_from_format ("Particion %d: %p - %p.    [%s]    Size: %db   LRU: %s     Cola: %s    ID: %d",
+            fprintf(archivo,"Particion %d: %p - %p.    [%s]    Size: %db   LRU: %d     Cola: NO_ASIGNADA    ID: 0",
             i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje + bloque->tamanio_particion,
-            ocupado, bloque->tamanio_particion, bloque->last_time, cola, id));
+            ocupado, bloque->tamanio_particion, bloque->last_time);
+            fprintf(archivo, "\n");
         }
 
     }
