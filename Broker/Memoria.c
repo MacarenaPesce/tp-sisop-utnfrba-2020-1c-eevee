@@ -581,7 +581,7 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
     int indice = obtener_indice_particion(segundoBloque);
 
     /* Borro y destruyo el segundo bloque */
-	list_remove(cache_mensajes->memoria, indice);
+	list_remove_and_destroy_element(cache_mensajes->memoria, indice, free);
 
     //TODO : funcion para eliminar elementos
 

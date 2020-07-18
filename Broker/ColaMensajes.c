@@ -119,6 +119,12 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		t_mensaje_cola * mensaje = obtener_mensaje_por_id(envio_pendiente->id);
 
+		if(mensaje == NULL){
+			eliminar_mensaje_enviado(cola);
+			pthread_mutex_unlock(&mutex_queue_mensajes);
+			return;
+		}
+
 		t_cliente* cliente = obtener_cliente_por_id(envio_pendiente->cliente);
 
 		t_socket_cliente* socket_cliente = obtener_socket_cliente_de_cola(cliente,cola->cola_de_mensajes);
