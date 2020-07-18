@@ -16,7 +16,7 @@ void broker_appeared_pokemon(char* pokemon, char *, char *, char *);
 void broker_catch_pokemon(char *, char*, char*);
 void broker_caught_pokemon(char *, char *);
 void broker_get_pokemon(char *);
-void mostrar_contenido_del_mensaje(int);
+void* mostrar_contenido_del_mensaje(void*);
 void mostrar_appeared_pokemon(t_appeared_pokemon *);
 void mostrar_caught_pokemon(t_caught_pokemon *);
 void mostrar_localized_pokemon(t_localized_pokemon *);
@@ -25,5 +25,7 @@ void mostrar_new_pokemon(t_new_pokemon *);
 void mostrar_catch_pokemon(t_catch_pokemon *);
 //void * tiempo_suscripto(t_suscripcion_gameboy *);
 void consola_suscriptor(char*, char*);
+void* suscribirse_a_cola(char* cola_de_mensajes);
+void recibir_mensaje_de_broker(t_packed* paquete);
 
 #endif /* COMUNICACION_CON_BROKER_H_ */

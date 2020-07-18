@@ -7,6 +7,8 @@
 
 #include "Comunicacion_con_broker.h"
 
+t_servidor * servidor;
+
 void broker_new_pokemon(char * pokemon, char * posx, char * posy, char * cantidad){
 	validar_parametros_cuatro_argumentos(pokemon, posx, posy, cantidad);
 	log_info(gameboy_logger,"Le voy a mandar a broker los parametros para un nuevo pokemon %s",pokemon);
@@ -142,40 +144,70 @@ void broker_get_pokemon(char * pokemon){
 	}
 }
 
-void mostrar_contenido_del_mensaje(int socket){
+void* mostrar_contenido_del_mensaje(void* _socket){
+
+	int socket = *((int*)_socket);
+
 	while(1){
 	//Recibo ACK
 		t_packed * paquete = recibir_mensaje(socket);
 
-		if(paquete != (t_packed*)-1){
+		if(paquete != (t_packed*)-1){ 
 			//Quedo a la espera de recibir notificaciones
-			if(paquete->operacion == ENVIAR_MENSAJE){
-				switch(paquete->cola_de_mensajes){
-					case COLA_APPEARED_POKEMON:
-						mostrar_appeared_pokemon(paquete->mensaje);
+			switch(paquete->operacion){
+
+				case ENVIAR_MENSAJE:
+					log_info(gameboy_logger,"recibido  mensaje %d",paquete->id_mensaje);
+					recibir_mensaje_de_broker(paquete);
+					enviar_ack(servidor,paquete->id_mensaje);
+					eliminar_mensaje(paquete);
+					break;
+
+				case ACK:
+					printf("el paquete es %d",paquete);
+					if(paquete->id_mensaje == -1){
+						log_info(gameboy_logger,"recibido ack de suscripcion");
+						free(paquete);
 						break;
-					case COLA_CAUGHT_POKEMON:
-						mostrar_caught_pokemon(paquete->mensaje);
-						break;
-					case COLA_LOCALIZED_POKEMON:
-						mostrar_localized_pokemon(paquete->mensaje);
-						break;
-					case COLA_GET_POKEMON:
-						mostrar_get_pokemon(paquete->mensaje);
-						break;
-					case COLA_NEW_POKEMON:
-						mostrar_new_pokemon(paquete->mensaje);
-						break;
-					case COLA_CATCH_POKEMON:
-						mostrar_catch_pokemon(paquete->mensaje);
-						break;
-					default:
-						break;
-				}
+					}
+
+					log_info(gameboy_logger,"recibido ack de mensaje %d",paquete->id_mensaje);
+
+					break;
+
 			}
-			free(paquete);
+
 		}
 	}
+
+	return NULL;
+}
+
+void recibir_mensaje_de_broker(t_packed* paquete){
+
+	switch(paquete->cola_de_mensajes){
+		case COLA_APPEARED_POKEMON:
+			mostrar_appeared_pokemon(paquete->mensaje);
+			break;
+		case COLA_CAUGHT_POKEMON:
+			mostrar_caught_pokemon(paquete->mensaje);
+			break;
+		case COLA_LOCALIZED_POKEMON:
+			mostrar_localized_pokemon(paquete->mensaje);
+			break;
+		case COLA_GET_POKEMON:
+			mostrar_get_pokemon(paquete->mensaje);
+			break;
+		case COLA_NEW_POKEMON:
+			mostrar_new_pokemon(paquete->mensaje);
+			break;
+		case COLA_CATCH_POKEMON:
+			mostrar_catch_pokemon(paquete->mensaje);
+			break;
+		default:
+			break;
+	}
+
 }
 
 void mostrar_appeared_pokemon(t_appeared_pokemon * pokemon){
@@ -225,93 +257,77 @@ void mostrar_catch_pokemon(t_catch_pokemon * pokemon){
 	log_info(gameboy_logger,"Coordenada x: %d", pokemon->coordenadas.posx);
 	log_info(gameboy_logger,"Coordenada y: %d", pokemon->coordenadas.posy);
 }
-/*
+
 void * tiempo_suscripto(t_suscripcion_gameboy * info){
 	sleep(atoi(info->tiempo));
 	free(info);
 	log_info(gameboy_logger,"Se acabo el tiempo de suscripcion");
 	terminar_gameboy_correctamente();
 	return NULL;
-}*/
+}
 
 void consola_suscriptor(char* cola_de_mensajes, char* tiempo){
-	/*pthread_t hilo;
 
-	t_servidor * servidor = malloc(sizeof(t_servidor));
+	servidor = (t_servidor*)malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = (uint32_t)id;
 
 	t_suscripcion_gameboy * info_para_hilo = malloc(sizeof(t_suscripcion_gameboy));
 	info_para_hilo->servidor = servidor;
-	info_para_hilo->suscripcion = suscripcion;
 	info_para_hilo->tiempo = tiempo;
-
-	pthread_create(&hilo,NULL,(void*)tiempo_suscripto, (void*)info_para_hilo);
 
 	validar_parametros_dos_argumentos(cola_de_mensajes, tiempo);
 	log_info(gameboy_logger," Envio a broker la solicitud de suscripcion para la cola %s y estare suscripto por %s segundos",cola_de_mensajes, tiempo);
 
+	suscribirse_a_cola(cola_de_mensajes);
+
+	tiempo_suscripto(info_para_hilo);
+
+}
+
+void* suscribirse_a_cola(char* cola_de_mensajes){
+
+	pthread_t hilo;
+
+	int socket = 0;
 
 	if(string_equals_ignore_case(cola_de_mensajes, "COLA_NEW_POKEMON")){
-		int solicitud = enviar_solicitud_suscripcion(servidor,COLA_NEW_POKEMON,suscripcion);
-		if(solicitud < 0){
-			log_info(gameboy_logger,"Broker caído");
-		}else{
-			log_info(gameboy_logger,"Pedido de solicitud de suscripcion a la cola NEW_POKEMON enviado correctamente");
-			mostrar_contenido_del_mensaje(solicitud);
-		}
+		socket = enviar_solicitud_suscripcion(servidor,COLA_NEW_POKEMON);	
 	}
 
 	if(string_equals_ignore_case(cola_de_mensajes, "COLA_APPEARED_POKEMON")){
-		int solicitud = enviar_solicitud_suscripcion(servidor,COLA_APPEARED_POKEMON,suscripcion);
-		if(solicitud < 0){
-			log_info(gameboy_logger,"Broker caído");
-		}else{
-			log_info(gameboy_logger,"Pedido de solicitud de suscripcion a la cola APPEARED_POKEMON enviado correctamente");
-			mostrar_contenido_del_mensaje(solicitud);
-		}
+		socket = enviar_solicitud_suscripcion(servidor,COLA_APPEARED_POKEMON);
 	}
 
 	if(string_equals_ignore_case(cola_de_mensajes, "COLA_CATCH_POKEMON")){
-		int solicitud = enviar_solicitud_suscripcion(servidor,COLA_CATCH_POKEMON,suscripcion);
-		if(solicitud < 0){
-			log_info(gameboy_logger,"Broker caído");
-		}else{
-			log_info(gameboy_logger,"Pedido de solicitud de suscripcion a la cola CATCH_POKEMON enviado correctamente");
-			mostrar_contenido_del_mensaje(solicitud);
-		}
+		socket = enviar_solicitud_suscripcion(servidor,COLA_CATCH_POKEMON);
 	}
 
 	if(string_equals_ignore_case(cola_de_mensajes, "COLA_CAUGHT_POKEMON")){
-		int solicitud = enviar_solicitud_suscripcion(servidor,COLA_CAUGHT_POKEMON,suscripcion);
-		if(solicitud < 0){
-			log_info(gameboy_logger,"Broker caído");
-		}else{
-			log_info(gameboy_logger,"Pedido de solicitud de suscripcion a la cola CAUGHT_POKEMON enviado correctamente");
-			mostrar_contenido_del_mensaje(solicitud);
-		}
+		socket = enviar_solicitud_suscripcion(servidor,COLA_CAUGHT_POKEMON);
 	}
 
 	if(string_equals_ignore_case(cola_de_mensajes, "COLA_GET_POKEMON")){
-		int solicitud = enviar_solicitud_suscripcion(servidor,COLA_GET_POKEMON,suscripcion);
-		if(solicitud < 0){
-			log_info(gameboy_logger,"Broker caído");
-		}else{
-			log_info(gameboy_logger,"Pedido de solicitud de suscripcion a la cola GET_POKEMON enviado correctamente");
-			mostrar_contenido_del_mensaje(solicitud);
-		}
+		socket = enviar_solicitud_suscripcion(servidor,COLA_GET_POKEMON);
 	}
 
 	if(string_equals_ignore_case(cola_de_mensajes, "COLA_LOCALIZED_POKEMON")){
-		int solicitud = enviar_solicitud_suscripcion(servidor,COLA_LOCALIZED_POKEMON,suscripcion);
-		if(solicitud < 0){
-			log_info(gameboy_logger,"Broker caído");
+		socket = enviar_solicitud_suscripcion(servidor,COLA_LOCALIZED_POKEMON);
+	}
 
-		}else{
-			log_info(gameboy_logger,"Pedido de solicitud de suscripcion a la cola LOCALIZED_POKEMON enviado correctamente");
-			mostrar_contenido_del_mensaje(solicitud);
-		}
-	}*/
+	if(socket <= 0){
+		log_info(gameboy_logger,"Broker caído");
+		return;
+	}
+
+	void* socket_server = (int*)malloc(sizeof(int));
+	memcpy(socket_server,&socket,sizeof(int));
+
+	log_info(gameboy_logger,"Pedido de solicitud de suscripcion enviado correctamente");
+
+	pthread_create(&hilo, NULL, mostrar_contenido_del_mensaje, socket_server);
+
+	pthread_detach(hilo);
+
 }
-
