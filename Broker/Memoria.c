@@ -580,14 +580,12 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
     /* Obtengo el indice del segundo bloque */
     int indice = obtener_indice_particion(segundoBloque);
 
-    /* Borro y destruyo el segundo bloque */
-	list_remove_and_destroy_element(cache_mensajes->memoria, indice, free);
-
-    //TODO : funcion para eliminar elementos
-
     /* Modifico el tamaño del primer bloque */
     primerBloque->tamanio_particion += segundoBloque->tamanio_particion;
 
+    /* Borro y destruyo el segundo bloque */
+	list_remove_and_destroy_element(cache_mensajes->memoria, indice, free);
+  
     return ;
 }
 

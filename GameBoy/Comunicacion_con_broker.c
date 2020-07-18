@@ -269,8 +269,8 @@ void * tiempo_suscripto(t_suscripcion_gameboy * info){
 void consola_suscriptor(char* cola_de_mensajes, char* tiempo){
 
 	servidor = (t_servidor*)malloc(sizeof(t_servidor));
-	servidor->ip = ip_broker;
-	servidor->puerto = puerto_broker;
+	servidor->ip = strdup(ip_broker);
+	servidor->puerto = strdup(puerto_broker);
 	servidor->id_cliente = (uint32_t)id;
 
 	t_suscripcion_gameboy * info_para_hilo = malloc(sizeof(t_suscripcion_gameboy));
@@ -292,29 +292,35 @@ void* suscribirse_a_cola(char* cola_de_mensajes){
 
 	int socket = 0;
 
-	if(string_equals_ignore_case(cola_de_mensajes, "COLA_NEW_POKEMON")){
+	if(string_equals_ignore_case(cola_de_mensajes, "NEW_POKEMON")){
 		socket = enviar_solicitud_suscripcion(servidor,COLA_NEW_POKEMON);	
 	}
 
-	if(string_equals_ignore_case(cola_de_mensajes, "COLA_APPEARED_POKEMON")){
+	if(string_equals_ignore_case(cola_de_mensajes, "APPEARED_POKEMON")){
 		socket = enviar_solicitud_suscripcion(servidor,COLA_APPEARED_POKEMON);
 	}
 
-	if(string_equals_ignore_case(cola_de_mensajes, "COLA_CATCH_POKEMON")){
+	if(string_equals_ignore_case(cola_de_mensajes, "CATCH_POKEMON")){
 		socket = enviar_solicitud_suscripcion(servidor,COLA_CATCH_POKEMON);
 	}
 
-	if(string_equals_ignore_case(cola_de_mensajes, "COLA_CAUGHT_POKEMON")){
+	if(string_equals_ignore_case(cola_de_mensajes, "CAUGHT_POKEMON")){
 		socket = enviar_solicitud_suscripcion(servidor,COLA_CAUGHT_POKEMON);
 	}
 
-	if(string_equals_ignore_case(cola_de_mensajes, "COLA_GET_POKEMON")){
+	if(string_equals_ignore_case(cola_de_mensajes, "GET_POKEMON")){
 		socket = enviar_solicitud_suscripcion(servidor,COLA_GET_POKEMON);
 	}
 
-	if(string_equals_ignore_case(cola_de_mensajes, "COLA_LOCALIZED_POKEMON")){
+	if(string_equals_ignore_case(cola_de_mensajes, "LOCALIZED_POKEMON")){
 		socket = enviar_solicitud_suscripcion(servidor,COLA_LOCALIZED_POKEMON);
 	}
+
+	log_info(gameboy_logger,"socket id  %d", socket);
+	log_info(gameboy_logger,"server ip  %d", servidor->ip);
+	log_info(gameboy_logger,"server port  %d", servidor->puerto);
+	log_info(gameboy_logger,"client id  %d", servidor->id_cliente);
+
 
 	if(socket <= 0){
 		log_info(gameboy_logger,"Broker caído");
