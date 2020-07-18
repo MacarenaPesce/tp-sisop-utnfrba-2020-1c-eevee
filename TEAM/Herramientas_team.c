@@ -304,7 +304,7 @@ int destruir_pokemon(t_pokemon * pokemon){
 }
 
 int destruir_entrenador(t_entrenador * entrenador){
-	list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo);
+	list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo_entrenador);
 	list_destroy_and_destroy_elements(entrenador->pokemones, (void*)destruir_pokemon);
 	destruir_objetivo(entrenador->objetivo_actual);
 	free(entrenador);
@@ -316,10 +316,24 @@ int destruir_objetivo(t_objetivo * objetivo){
 	return 0;
 }
 
+int destruir_objetivo_entrenador(t_objetivo_entrenador * objetivo){
+	free(objetivo);
+	return 0;
+}
+
 int destruir_mensaje(t_mensaje_guardado * mensaje){
 	free(mensaje->contenido);
 	free(mensaje);
 	return 0;
+}
+
+void liberar_lista_char(char** lista){
+	int contador = 0;
+	while(lista[contador] != NULL){
+		free(lista[contador]);
+		contador++;
+	}
+	//free(lista);
 }
 
 void terminar_team_correctamente(){
@@ -345,7 +359,7 @@ void terminar_team_correctamente(){
 	list_destroy_and_destroy_elements(mensajes_que_llegan_nuevos,(void*)destruir_mensaje);
 	list_destroy_and_destroy_elements(lista_objetivos, (void*)destruir_objetivo);
 	list_destroy(mensajes);
-
+	//liberar_lista_char(pokes);
 
 	log_destroy(team_logger);
 	log_destroy(team_logger_oficial);

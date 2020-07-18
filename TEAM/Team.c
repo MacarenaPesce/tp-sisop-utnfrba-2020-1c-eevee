@@ -160,7 +160,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->ciclos_de_cpu = 0;
 	entrenador->espera_asignada = false;
 
-	t_pokemon* un_pokemon = malloc(sizeof(t_pokemon));
+	t_pokemon* un_pokemon;
 	entrenador->pokemones = list_create();
 
 	for(int i = 0; i < list_size(lista_pokemones_de_entrenador); i++){
@@ -169,7 +169,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	}
 
 	entrenador->objetivo = list_create();
-	t_objetivo_entrenador * una_meta = malloc(sizeof(t_objetivo_entrenador));
+	t_objetivo_entrenador * una_meta;
 	for(int i = 0; i < list_size(lista_objetivos_de_entrenador); i++){
 		una_meta = list_get(lista_objetivos_de_entrenador, i);
 		list_add(entrenador->objetivo, (void*)una_meta);

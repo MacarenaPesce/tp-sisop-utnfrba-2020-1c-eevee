@@ -81,7 +81,7 @@ void separar_pokemones_de_entrenador(char* pokemones_de_entrenador, t_list* list
 	} else if(!(string_contains(pokemones_de_entrenador, un_char))) {
 		agregar_a_lista_pokemones(pokemones_de_entrenador, lista);
 	} else {
-		char**pokes = string_split(pokemones_de_entrenador, "|");
+		pokes = string_split(pokemones_de_entrenador, "|");
 		string_iterate_lines_with_list(pokes, lista, agregar_a_lista_pokemones);
 		free(pokes);
 	}
