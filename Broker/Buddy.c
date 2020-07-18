@@ -432,10 +432,7 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 			if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
 			printf("\n");
 
-			//if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
-
-			// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
-			//consolidacion_BS(bloque);
+			//seteo de nuevo tiene_buddies para ver si sigo en el while o lo corto
 			tiene_buddies = tiene_buddies_libres(bloque);
 		}
 
@@ -446,19 +443,15 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 			if(debug_broker) log_debug(broker_logger,"Tiene buddie libre, a izquierda");
 
 			// Si cumple con las condiciones, consolido bloques
-			//consolidar_bloques_buddies(bloque_anterior,bloque);
+			consolidar_bloques_buddies(bloque_anterior,bloque);
 
 			if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 			if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
 			printf("\n");
 
-			//if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
-
-			// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
-			//consolidacion_BS(bloque_anterior);
-			tiene_buddies = tiene_buddies_libres(bloque);
+			//seteo de nuevo tiene_buddies para ver si sigo en el while o lo corto
+			tiene_buddies = tiene_buddies_libres(bloque_anterior);
 		}
-
 	}
 	
     
