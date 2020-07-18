@@ -18,8 +18,10 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 			pthread_mutex_unlock(&llego_gameboy);
 
 			close(new_client_sock);
+			free(paquete);
 			break;
 		}
+		//free(paquete);
 	}
 }
 
@@ -64,6 +66,4 @@ void recibir_appeared_pokemon_desde_gameboy(t_packed * paquete){
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
-
-	free(paquete);
 }

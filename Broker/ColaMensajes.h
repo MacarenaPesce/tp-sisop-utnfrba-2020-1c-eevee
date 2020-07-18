@@ -35,7 +35,7 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 
 // Instanciación
 t_cola_mensajes* crear_cola_mensajes(int cola_mensajes);
-t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* mensaje_recibido);
+t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* _mensaje_recibido);
 t_cliente* crear_cliente(uint32_t id_cliente, int socket, int cola_de_mensajes);
 t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket, int cola);
 t_socket_cliente* crear_socket_cliente(int socket, int cola_de_mensajes);
@@ -58,7 +58,7 @@ void agregar_mensaje_a_cache(t_mensaje_cola* mensaje);
 void agregar_cliente_a_cache(t_cliente* cliente);
 void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, t_cliente* cliente);
 void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int cliente);
-void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, t_cliente* cliente);
+void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, int _id_cliente);
 void agregar_socket_cliente(t_cliente* cliente, int socket, int cola_de_mensajes);
 
 // Actualización
@@ -67,6 +67,7 @@ void actualizar_socket_cliente(t_cliente* cliente, int socket, int cola);
 // Eliminación
 void eliminar_mensaje_enviado();
 void eliminar_envio_pendiente(void* pendiente);
+void eliminar_mensaje_cola(t_mensaje_cola* mensaje);
 
 // Helpers
 void* print_operacion(void* mensaje);

@@ -10,6 +10,7 @@
 
 #include "Contexto_team.h"
 
+t_pokemon * buscar_pokemon_por_especie_y_ubicacion(t_list *, t_pokemon *);
 t_mensaje_guardado * buscar_mensaje_por_id(uint32_t, t_list*);
 int destruir_pokemon(t_pokemon *);
 void destruir_semaforos_finalizar(void *);
@@ -40,12 +41,13 @@ void obtener_la_estimacion_inicial();
 void obtener_la_ip_del_broker();
 void obtener_el_puerto_del_broker();
 void obtener_el_log_file();
-
+void obtener_el_puerto_de_team();
 
 /*PARA FINALIZAR EL PROCESO CORRECTAMENTE*/
 void terminar_team_correctamente();
 int destruir_entrenador(t_entrenador *);
 int destruir_objetivo(t_objetivo *);
+int destruir_objetivo_entrenador(t_objetivo_entrenador *);
 int destruir_mensaje(t_mensaje_guardado *);
 
 

@@ -15,16 +15,20 @@ int tiempo_reconexion;
 int retardo_ciclo_cpu;
 char* algoritmo_planificacion;
 int quantum;
-int alpha;
+float alpha;
 char* ip_broker;
 int estimacion_inicial;
 char* puerto_broker;
+char* puerto_team;
 char* log_file;
 int id;
 
 int GLOBAL_SEGUIR = 1;
 int CONTADOR_DE_MENSAJES;
 int ciclos_de_cpu = 0;
+uint32_t deadlocks_resueltos = 0;
+uint32_t deadlocks_producidos = 0;
+uint32_t cambios_de_contexto = 0;
 int MAXIMO_ENTRENADORES;
 int CANTIDAD_EN_DEADLOCK;
 bool desalojo_en_ejecucion = false;
@@ -33,7 +37,12 @@ bool me_desalojaron = false;
 bool hayPokeNuevo = false;
 uint32_t quantum_actual = 0;
 
+char** pokes;
+
 bool hayDeadlock = false;
+uint32_t es_el_primer_deadlock = true;
+uint32_t es_el_primer_pokemon = true;
+uint32_t espera_circular = 0;
 
 t_log* team_logger;
 t_log* team_logger_oficial;
@@ -60,3 +69,5 @@ t_list* lista_bloqueados_deadlock;
 t_list* mensajes_que_llegan_nuevos;
 t_list* mensajes_para_chequear_id;
 t_list* lista_bloqueados_esperando_caught;
+t_list * lista_pokemones_objetivos_aux;
+t_list * lista_asignados;

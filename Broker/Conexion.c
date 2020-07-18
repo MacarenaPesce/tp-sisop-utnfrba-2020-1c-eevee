@@ -145,6 +145,8 @@ void* esperar_mensajes(void* cliente){
 
 	}
 
+	free(cliente);
+
 	return NULL;
 	
 }
@@ -172,6 +174,8 @@ void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
 	agregar_suscriptor_a_cola(paquete->cola_de_mensajes, paquete->id_cliente, socket_cliente);
 	
 	distribuir_ack(socket_cliente,-1,-1);
+
+	eliminar_mensaje(paquete);
     
 	return;
 }

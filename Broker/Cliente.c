@@ -2,15 +2,14 @@
 
 t_servidor servidor;
 
-/*  
-	-Primera prueba con pokemons_maca
-	1)
-	Orden: 		new, 	get, 	apparead, 	caugth
-	Resultado:	23		11		19			4
-	Esperado:	23		11		19			4
+
+/*
+	Prueba base funca bien 
+
+	Prueba compleja  base, funca bien con 4 y 16 
 
 
-	*/
+*/
 
 int main(){
 
@@ -74,11 +73,11 @@ int main(){
 	pthread_t hilo_espera_mensajes;
 	pthread_create(&hilo_espera_mensajes,NULL,esperar_mensajes,(void*)&socket_get_pokemon);
  */
-
+	/*
 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon);
 	free(ack);
 
-/* 
+
 	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon);
 	free(ack);
 
@@ -98,52 +97,218 @@ int main(){
 	free(ack);
 */
 
-	/*Pokemons de prueba para Macaa*/
-	t_new_pokemon new_pokemon_maca;
-	new_pokemon_maca.coordenadas.posx = 5;
-	new_pokemon_maca.coordenadas.posy = 10;
-	new_pokemon_maca.cantidad = 2;
-	new_pokemon_maca.pokemon = "Pikachu";
+	/* Cargar memoria simple */
+	/*
+	t_get_pokemon get_pokemon1;
+	get_pokemon1.pokemon = "Pikachu";
+	t_get_pokemon get_pokemon2;
+	get_pokemon2.pokemon = "Charmander";
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon1);
+	free(ack);
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon2);
+	free(ack);
+	*/
 
-	t_get_pokemon get_pokemon_maca;
-	get_pokemon_maca.pokemon = "Pikachu";
 
-	t_catch_pokemon appeared_pokemon_maca;
-	appeared_pokemon_maca.coordenadas.posx = 1;
-	appeared_pokemon_maca.coordenadas.posy = 5;
-	appeared_pokemon_maca.pokemon = "Pikachu";
-
-	t_caught_pokemon caught_pokemon_maca;
-	caught_pokemon_maca.status = 0;
-
-	t_catch_pokemon appeared_pokemon_maca2;
-	appeared_pokemon_maca2.coordenadas.posx = 1;
-	appeared_pokemon_maca2.coordenadas.posy = 5;
-	appeared_pokemon_maca2.pokemon = "Tengotreintabytes";
-
-	t_new_pokemon new_pokemon_maca2;
-	new_pokemon_maca2.coordenadas.posx = 5;
-	new_pokemon_maca2.coordenadas.posy = 10;
-	new_pokemon_maca2.cantidad = 2;
-	new_pokemon_maca2.pokemon = "TengounnombremuylargoparaochentabytesysigosinllegarAAAAAAAAAAAA";
-
-/* 	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon_maca);
+	/* Cargar memoria complejo */
+	/*
+	t_catch_pokemon catch_pokemon1;
+	catch_pokemon1.coordenadas.posx = 9;
+	catch_pokemon1.coordenadas.posy = 3;
+	catch_pokemon1.pokemon = "Pikachu";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon1);
+	free(ack);
+	t_catch_pokemon catch_pokemon2;
+	catch_pokemon2.coordenadas.posx = 9;
+	catch_pokemon2.coordenadas.posy = 3;
+	catch_pokemon2.pokemon = "Squirtle";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon2);
 	free(ack);
 
- 	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon_maca);
+	t_caught_pokemon caught_pokemon1;
+	caught_pokemon1.status = 10;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
+	free(ack); 	
+
+	t_caught_pokemon caught_pokemon2;
+	caught_pokemon2.status = 11;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon2);
 	free(ack); 
 
-	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon_maca);
+	t_catch_pokemon catch_pokemon3;
+	catch_pokemon3.coordenadas.posx = 1;
+	catch_pokemon3.coordenadas.posy = 7;
+	catch_pokemon3.pokemon = "Bulbasaur";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon3);
 	free(ack);
 
-	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon_maca);
+	t_catch_pokemon catch_pokemon4;
+	catch_pokemon4.coordenadas.posx = 1;
+	catch_pokemon4.coordenadas.posy = 7;
+	catch_pokemon4.pokemon = "Charmander";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
 	free(ack);
 
-	ack = enviar_appeared_pokemon(&servidor,-1, &appeared_pokemon_maca2);
+	t_get_pokemon get_pokemon3;
+	get_pokemon3.pokemon = "Pichu";
+	t_get_pokemon get_pokemon4;
+	get_pokemon4.pokemon = "Raichu";
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon3);
+	free(ack);
+	ack = enviar_get_pokemon(&servidor,-1, &get_pokemon4);
+	free(ack);
+	*/	
+
+
+	/* Prueba base consolidacion */
+	/* t_caught_pokemon caught_pokemon1;
+	caught_pokemon1.status = 10;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
+	free(ack); 	
+
+	t_caught_pokemon caught_pokemon2;
+	caught_pokemon2.status = 11;
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon2);
+	free(ack); 
+
+	t_catch_pokemon catch_pokemon3;
+	catch_pokemon3.coordenadas.posx = 1;
+	catch_pokemon3.coordenadas.posy = 7;
+	catch_pokemon3.pokemon = "Pikachu";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon3);
 	free(ack);
 
-	ack = enviar_new_pokemon(&servidor,-1, &new_pokemon_maca2);
-	free(ack); */
+	t_catch_pokemon catch_pokemon4;
+	catch_pokemon4.coordenadas.posx = 1;
+	catch_pokemon4.coordenadas.posy = 7;
+	catch_pokemon4.pokemon = "Squirtle";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
+	free(ack);
+
+	t_catch_pokemon catch_pokemon5;
+	catch_pokemon5.coordenadas.posx = 4;
+	catch_pokemon5.coordenadas.posy = 5;
+	catch_pokemon5.pokemon = "Onyx";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon5);
+	free(ack);
+
+
+	int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON);
+
+	t_catch_pokemon catch_pokemon6;
+	catch_pokemon6.coordenadas.posx = 9;
+	catch_pokemon6.coordenadas.posy = 3;
+	catch_pokemon6.pokemon = "Charmander";
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon6);
+	free(ack);*/
+
+
+	/*Prueba compactacion basico*/
+	/*t_caught_pokemon caught_pokemon1;
+	caught_pokemon1.status = 1;
+	
+
+	t_caught_pokemon caught_pokemon2;
+	caught_pokemon2.status = 2;
+	
+
+	t_catch_pokemon catch_pokemon3;
+	catch_pokemon3.coordenadas.posx = 1;
+	catch_pokemon3.coordenadas.posy = 7;
+	catch_pokemon3.pokemon = "Pikachu";
+	
+
+	t_catch_pokemon catch_pokemon4;
+	catch_pokemon4.coordenadas.posx = 1;
+	catch_pokemon4.coordenadas.posy = 7;
+	catch_pokemon4.pokemon = "Squirtle";
+	
+
+	t_catch_pokemon catch_pokemon5;
+	catch_pokemon5.coordenadas.posx = 4;
+	catch_pokemon5.coordenadas.posy = 5;
+	catch_pokemon5.pokemon = "Onyx";
+
+
+	t_catch_pokemon catch_pokemon6;
+	catch_pokemon6.coordenadas.posx = 9;
+	catch_pokemon6.coordenadas.posy = 3;
+	catch_pokemon6.pokemon = "Vaporeon";
+
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
+	free(ack); 	
+
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon2);
+	free(ack); 
+
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon3);
+	free(ack);
+
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
+	free(ack);
+
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon5);
+	free(ack);
+
+	int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_CAUGHT_POKEMON);
+
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon6);
+	free(ack);*/
+
+
+	/* Prueba Buddy */
+	t_caught_pokemon caught_pokemon1;
+	caught_pokemon1.status = 1;
+	
+	t_caught_pokemon caught_pokemon2;
+	caught_pokemon2.status = 2;
+
+	t_new_pokemon new_pokemon1;
+	new_pokemon1.coordenadas.posx = 10;
+	new_pokemon1.coordenadas.posy = 20;
+	new_pokemon1.cantidad = 7;
+	new_pokemon1.pokemon = "pikachu";
+
+	t_catch_pokemon catch_pokemon3;
+	catch_pokemon3.coordenadas.posx = 1;
+	catch_pokemon3.coordenadas.posy = 7;
+	catch_pokemon3.pokemon = "Onyx";
+
+	t_catch_pokemon catch_pokemon4;
+	catch_pokemon4.coordenadas.posx = 1;
+	catch_pokemon4.coordenadas.posy = 7;
+	catch_pokemon4.pokemon = "Charmander";	
+
+	t_new_pokemon new_pokemon2;
+	new_pokemon2.coordenadas.posx = 10;
+	new_pokemon2.coordenadas.posy = 20;
+	new_pokemon2.cantidad = 7;
+	new_pokemon2.pokemon = "charmander";	
+
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
+	free(ack); 	
+
+	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon2);
+	free(ack); 
+
+	ack = enviar_new_pokemon(&servidor,-1,&new_pokemon1);
+	free(ack);
+
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon3);
+	free(ack);
+
+	int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_NEW_POKEMON);
+
+
+	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
+	free(ack);	
+
+	ack = enviar_new_pokemon(&servidor,-1, &new_pokemon2);
+	free(ack);
+
+	eliminar_localized_pokemon(localized_pokemon);
+
+
 
 	printf("TERMINE DE PROBAR LISTO   \n");
 

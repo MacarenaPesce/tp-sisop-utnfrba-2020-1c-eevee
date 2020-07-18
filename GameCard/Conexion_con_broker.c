@@ -48,18 +48,28 @@ void * atender_get_pokemon(t_packed * paquete){
 	 * */
 
 	//t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_correlacional, caught_pokemon);
-	t_localized_pokemon* localized_pokemon=malloc(sizeof(t_localized_pokemon));
+	t_localized_pokemon* localized_pokemon= generar_localized(get_pokemon->pokemon);
 
-	localized_pokemon->pokemon=get_pokemon->pokemon;
 	if (operar_con_get_pokemon(get_pokemon)!=-1){
 
-		localized_pokemon->lista_coordenadas=operar_con_get_pokemon(get_pokemon);
+		t_list* lista_coordenadas = operar_con_get_pokemon(get_pokemon);
+
+		void cargar_localized(void* _coordenadas){
+
+			t_coordenadas* coordenadas = (t_coordenadas*) _coordenadas;
+
+			agregar_coordenadas_a_localized(localized_pokemon,coordenadas);
+
+		}
+
+		list_iterate(lista_coordenadas,cargar_localized);
 
 	}
 
-	localized_pokemon->cantidad_coordenadas=list_size(localized_pokemon->lista_coordenadas);
+	enviar_localized_pokemon(servidor,paquete->id_mensaje,localized_pokemon);
 
-	free(localized_pokemon);
+	eliminar_localized_pokemon(localized_pokemon);
+
 	eliminar_mensaje(paquete);
 	free(servidor);
 	//free(ack);
