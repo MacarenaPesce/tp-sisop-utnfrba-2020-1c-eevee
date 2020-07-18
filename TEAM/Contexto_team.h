@@ -51,7 +51,7 @@
 
 #define NO_SOCKET -1
 #define IP "127.0.0.2"
-#define PUERTO "5000"
+#define PUERTO "5003"
 
 extern char** posiciones_entrenadores;
 extern char** pokemon_entrenadores;

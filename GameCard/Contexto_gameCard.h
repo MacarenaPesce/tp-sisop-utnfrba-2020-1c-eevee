@@ -65,4 +65,9 @@ typedef struct {
 	void *(*operacion)(t_packed*);
 }t_suscripcion_a_broker;
 
+typedef struct {
+	t_coordenadas coordenadas;
+	uint32_t cant;
+}t_coordenadas_cantidad;
+
 #endif /* CONTEXTO_GAMECARD_H_ */

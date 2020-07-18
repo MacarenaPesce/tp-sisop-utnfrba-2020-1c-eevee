@@ -163,8 +163,9 @@ void inicializar_semaforos_deadlock(){
 
 void inicializar_archivo_de_configuracion(){
 	config = config_create("../team.config");
+
 	if(config == NULL){
-		log_info(team_logger,"El archivo de configuracion no existe. Fijate en la carpeta Debug.");
+		log_info(team_logger,"Error al cargar el archivo de configuración.");
 		terminar_team_correctamente();
 	}else{
 		log_info(team_logger,"Cargando el archivo de configuracion...");
@@ -186,7 +187,6 @@ void inicializar_archivo_de_configuracion(){
 
 		log_info(team_logger,"Archivo de configuracion cargado correctamente :)\n");
 		config_destroy(config);
-
 	}
 
 }

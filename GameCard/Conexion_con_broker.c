@@ -14,7 +14,7 @@ void * atender_get_pokemon(t_packed * paquete){
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
-	t_get_pokemon * get_pokemon = paquete->mensaje;
+	t_get_pokemon * get_pokemon = (t_get_pokemon*)paquete->mensaje;
 	log_debug(gameCard_logger, "Recibi el pedido de get pokemon para esta especie: %s.", get_pokemon->pokemon);
 
 	/*Este mensaje cumplirá la función de obtener todas las posiciones y su cantidad de un Pokémon específico. Para esto recibirá:
