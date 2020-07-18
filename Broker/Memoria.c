@@ -364,21 +364,15 @@ t_bloque_memoria* obtener_bloque_mas_viejo(){
                 min_time= bloque->timestamp;
 
                 bloque_mas_viejo=bloque;
-
             }
-
         }
-
     }    
 
     dynamic_list_iterate(cache_mensajes->memoria,buscar_bloque_mas_viejo);
 
     return bloque_mas_viejo;
-
 }
 
-
-//TODO : actualizar en el uso de colas el tiempo de LRU
 
 //------------------------------LRU--------------------------------
 
@@ -388,28 +382,9 @@ t_bloque_memoria* obtener_bloque_mas_viejo(){
     superior, se elige como victima la pag de la parte inferior*/
 t_bloque_memoria* algoritmo_lru(){
 
-    t_bloque_memoria* elemento;
-    t_bloque_memoria* bloque;
-    uint64_t min_time = get_timestamp();
-
     if(debug_broker) log_debug(broker_logger, "Ejecutando Algoritmo LRU");
 
-	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
-
-        elemento = list_get(cache_mensajes->memoria, i);
-
-        //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero
-        if( (elemento->esta_vacio == false) && (elemento->timestamp > 0) ){
-            
-            //si el timestamp de la ultima vez usado, es menor al minimo time, lo guardo y me guardo el bloque
-            if(elemento->last_time < min_time){
-                
-                min_time= elemento->last_time;
-
-                bloque=elemento;
-            }
-        }
-    }
+    t_bloque_memoria* bloque = obtener_bloque_menos_referenciado();
 
     log_info(broker_logger, "Eliminado de una particion en la posicion %p", bloque->estructura_mensaje->mensaje);
 
@@ -425,6 +400,34 @@ t_bloque_memoria* algoritmo_lru(){
     return bloque;
 }
 
+
+t_bloque_memoria* obtener_bloque_menos_referenciado(){
+    
+    t_bloque_memoria* bloque_menor_referencia;
+
+    uint64_t min_time = get_timestamp();
+
+    void buscar_bloque_menos_referenciado(void* _bloque){
+
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+        //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero 
+        if( (bloque->esta_vacio == false) && (bloque->timestamp > 0) ){
+            
+            //si el timestamp de la ultima vez usado, es menor al minimo time, lo guardo y me guardo el bloque
+            if(bloque->last_time < min_time){
+                
+                min_time= bloque->last_time;
+
+                bloque_menor_referencia = bloque;
+            }
+        }
+    }
+
+    dynamic_list_iterate(cache_mensajes->memoria,buscar_bloque_menos_referenciado);
+
+    return bloque_menor_referencia;
+}
 
 //------------------------FIN ELIMINAR UNA PARTICION-----------------------
 
