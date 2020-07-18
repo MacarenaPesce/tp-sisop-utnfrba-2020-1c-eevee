@@ -205,4 +205,8 @@ int obtenerEspacioMetadata(char* pokemon);
 void copiarPokemonEnMemoria(void* unBloque);
 
 void liberarMemoria();
+
+void liberarElem(void* elem);
+
+void destruirBloque(char*);
 #endif /* FILESYSTEM_H_ */

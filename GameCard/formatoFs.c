@@ -268,10 +268,12 @@ void desconectarFs(){
 		free(rutas_fs->pathDirectorioMetadataFs);
 		free(rutas_fs->puntoDeMontaje);
 		free(rutas_fs);
-		log_info(gameCard_logger,"se va a liberaro correctamente");
+		log_info(gameCard_logger,"se ha liberado correctamente");
 	}
 
 	if(bitarray!=NULL){
+		if(bitarray->bitarray!=NULL){
+		free(bitarray->bitarray);}
 		log_info(gameCard_logger,"se va a liberar memoria que se utilizo para el bitarray...");
 		bitarray_destroy(bitarray);
 		log_info(gameCard_logger,"se ha liberado correctamente");
