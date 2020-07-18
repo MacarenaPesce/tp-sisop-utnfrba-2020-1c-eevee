@@ -38,12 +38,10 @@ bool objetivo_personal_cumplido(t_entrenador* entrenador){
 		printf("la lista es nula");
 	}
 	for (int i = 0; i < list_size(entrenador->objetivo); i++){
-		pthread_mutex_lock(&tocando_pokemones_objetivos);
 		t_objetivo_entrenador* un_objetivo = list_get(entrenador->objetivo, i);
 		if(un_objetivo->cantidad == 0){
 			contador++;
 		}
-		pthread_mutex_unlock(&tocando_pokemones_objetivos);
 	}
 	return (contador == list_size(entrenador->objetivo));
 }
@@ -63,7 +61,7 @@ void inicializar_logger(){
 	team_logger = log_create("team.log", "Team", 1, LOG_LEVEL_DEBUG);
 	log_info(team_logger,"Hi, bienvenido a Team");
 
-	team_logger_oficial = log_create("./log_team", "Team", 0, LOG_LEVEL_DEBUG);
+	team_logger_oficial = log_create("/home/utnso/log_team1", "Team", 0, LOG_LEVEL_DEBUG);
 }
 
 void inicializar_semaforos(){
@@ -101,6 +99,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&lista_comun_deadlock, NULL);
 	pthread_mutex_init(&mutex_para_colas, NULL);
 	pthread_mutex_init(&mutex_ciclos_cpu, NULL);
+	pthread_mutex_init(&pokemones_asignados, NULL);
 
 
 	sem_init(&entrenadores_ubicados, 0, 0);
@@ -117,7 +116,8 @@ void inicializar_semaforos(){
 	sem_init(&todos_los_entrenadores_finalizaron, 0, 0);
 	sem_init(&me_bloquee, 0, 0);
 	sem_init(&puedo_volver_a_ejecutar, 0, 0);
-
+	sem_init(&termine_carajo, 0, 0);
+	sem_init(&contador_de_deadlocks_producidos, 0, 0);
 
 }
 
@@ -303,9 +303,9 @@ int destruir_pokemon(t_pokemon * pokemon){
 }
 
 int destruir_entrenador(t_entrenador * entrenador){
-	free(entrenador->objetivo_actual);
 	list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo);
-	list_destroy(entrenador->pokemones);
+	list_destroy_and_destroy_elements(entrenador->pokemones, (void*)destruir_pokemon);
+	destruir_objetivo(entrenador->objetivo_actual);
 	free(entrenador);
 	return 0;
 }
@@ -328,19 +328,17 @@ void terminar_team_correctamente(){
 	/*HAY QUE DESTRUIR TODAS LAS LISTAS*/
 	list_destroy_and_destroy_elements(lista_mapa,(void*)destruir_pokemon);
 	list_destroy(pokemones_ordenada);
-	list_destroy_and_destroy_elements(lista_entrenadores,(void*)destruir_entrenador);
+	list_destroy(lista_entrenadores);
 	list_destroy_and_destroy_elements(lista_listos,(void*)destruir_entrenador);
-	list_destroy_and_destroy_elements(lista_finalizar,(void*)destruir_entrenador);
+	list_destroy(lista_finalizar);
 	list_destroy_and_destroy_elements(lista_bloqueados_esperando_caught,(void*)destruir_entrenador);
 	list_destroy_and_destroy_elements(lista_bloqueados_deadlock,(void*)destruir_entrenador);
-	list_destroy_and_destroy_elements(lista_bloqueados_cant_max_alcanzada,(void*)destruir_entrenador);
+	list_destroy(lista_bloqueados_cant_max_alcanzada);
 	list_destroy_and_destroy_elements(lista_bloqueados_esperando,(void*)destruir_entrenador);
 	list_destroy_and_destroy_elements(lista_bloqueados,(void*)destruir_entrenador);
 
 	list_destroy_and_destroy_elements(lista_global_objetivos,(void*)destruir_objetivo);
 	list_destroy_and_destroy_elements(lista_global_pokemones,(void*)destruir_pokemon);
-	//list_destroy_and_destroy_elements(lista_pokemones_objetivos,(void*)destruir_pokemon);
-
 
 	list_destroy_and_destroy_elements(mensajes_para_chequear_id,(void*)destruir_mensaje);
 	list_destroy_and_destroy_elements(mensajes_que_llegan_nuevos,(void*)destruir_mensaje);
@@ -350,9 +348,6 @@ void terminar_team_correctamente(){
 
 	log_destroy(team_logger);
 	log_destroy(team_logger_oficial);
-	free(posiciones_entrenadores);
-	free(pokemon_entrenadores);
-	free(objetivos_entrenadores);
 
 	if(log_file!=NULL){
 		free(log_file);
@@ -408,6 +403,15 @@ t_entrenador * buscar_entrenador_por_ubicacion(t_list* lista, uint32_t posx, uin
 	}
 	return (list_find(lista,(void*)es_el_buscado));
 }
+
+t_pokemon * buscar_pokemon_por_especie_y_ubicacion(t_list * lista, t_pokemon * pokemon){
+	bool es_la_especie_buscada(t_pokemon* pokemon1){
+		return (string_equals_ignore_case(pokemon1->especie, pokemon->especie)) && pokemon1->posx == pokemon->posx && pokemon1->posy == pokemon->posy;
+	}
+	return (list_find(lista,(void*)es_la_especie_buscada));
+}
+
+
 
 t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_pokemon){
 	t_pokemon * pokemon = malloc(sizeof(t_pokemon));

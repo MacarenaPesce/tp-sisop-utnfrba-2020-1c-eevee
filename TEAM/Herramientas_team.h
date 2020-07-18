@@ -10,6 +10,7 @@
 
 #include "Contexto_team.h"
 
+t_pokemon * buscar_pokemon_por_especie_y_ubicacion(t_list *, t_pokemon *);
 t_mensaje_guardado * buscar_mensaje_por_id(uint32_t, t_list*);
 int destruir_pokemon(t_pokemon *);
 void destruir_semaforos_finalizar(void *);

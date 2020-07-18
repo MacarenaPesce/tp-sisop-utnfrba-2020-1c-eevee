@@ -11,7 +11,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-#include <string.h>
+#include<string.h>
 #include<sys/socket.h>
 #include<commons/log.h>
 #include<signal.h>
@@ -21,16 +21,16 @@
 #include<commons/log.h>
 #include<commons/collections/list.h>
 #include<commons/config.h>
-#include <commons/bitarray.h>
+#include<commons/bitarray.h>
 #include<string.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <Pokebola.h>
-#include <commons/collections/queue.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include <math.h>
-#include <semaphore.h>
+#include<fcntl.h>
+#include<errno.h>
+#include<Pokebola.h>
+#include<commons/collections/queue.h>
+#include<pthread.h>
+#include<sys/time.h>
+#include<math.h>
+#include<semaphore.h>
 
 
 /* Keys config file*/
@@ -59,7 +59,7 @@ extern int tiempo_reconexion;
 extern int retardo_ciclo_cpu;
 extern char* algoritmo_planificacion;
 extern int quantum;
-extern int alpha;
+extern float alpha;
 extern char* ip_broker;
 extern int estimacion_inicial;
 extern char* puerto_broker;
@@ -75,6 +75,14 @@ extern int CANTIDAD_EN_DEADLOCK;
 extern bool hayPokeNuevo;
 extern uint32_t quantum_actual;
 extern bool desalojo_en_ejecucion;
+
+extern uint32_t cambios_de_contexto;
+extern uint32_t deadlocks_producidos;
+extern uint32_t deadlocks_resueltos;
+
+extern uint32_t es_el_primer_deadlock;
+extern uint32_t es_el_primer_pokemon;
+extern uint32_t espera_circular;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
@@ -103,6 +111,8 @@ extern t_list* lista_bloqueados_deadlock;
 extern t_list* mensajes_que_llegan_nuevos;
 extern t_list* mensajes_para_chequear_id;
 extern t_list* lista_bloqueados_esperando_caught;
+extern t_list * lista_pokemones_objetivos_aux;
+extern t_list * lista_asignados;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_rr;
@@ -145,6 +155,9 @@ sem_t chequeo_de_deadlock;
 sem_t todos_los_entrenadores_finalizaron;
 sem_t me_bloquee;
 sem_t puedo_volver_a_ejecutar; 
+sem_t termine_carajo;
+sem_t contador_de_deadlocks_producidos;
+pthread_mutex_t pokemones_asignados;
 
 extern bool hayDeadlock;
 extern bool me_desalojaron;
@@ -177,6 +190,7 @@ typedef struct { //estructura del objetivo global
 	char* especie;
 	uint32_t posx;
 	uint32_t posy;
+	bool asignado;
 } t_pokemon;
 
 typedef struct {
@@ -197,6 +211,8 @@ typedef struct {
 	bool desalojado;
 	uint32_t quantum_restante;
 	bool agoto_quantum;
+	uint32_t ciclos_de_cpu;
+	bool espera_asignada;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
