@@ -131,9 +131,6 @@ void capturar_signal(int signo){
 
     if(signo == SIGINT)
     {
-		
-		server_status = ENDING;
-
     	log_info(broker_logger," Broker DEJA DE FUNCIONAR ");
     	terminar_broker_correctamente();
 
