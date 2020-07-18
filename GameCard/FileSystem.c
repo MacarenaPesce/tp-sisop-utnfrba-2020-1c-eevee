@@ -374,7 +374,7 @@ void copiarPokemonEnMemoria(void* unBloque) {
 		MAP_SHARED, fdBloq, 0);
 
 		string_append(&pokemonEnMemoria, aux);
-		free(aux);
+		//free(aux);
 
 	}
 
@@ -422,7 +422,7 @@ void llenarListaBloquesPoke(char* poke) {
 		}
 	}
 
-	pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
+	pthread_mutex_unlock(dictionary_get(semaforosPokemon, poke));
 
 	free(rutaMetadataPokemon);
 	config_destroy(metadataPokemon);
@@ -1271,7 +1271,7 @@ bool estaAbiertoArchivo(char* pokemon) {
 		pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
 
 		free(rutaPoke);
-		config_destroy(configPoke);
+		//config_destroy(configPoke);
 
 		return string_equals_ignore_case(estadoArchivo, "Y");
 
@@ -1319,13 +1319,13 @@ void cerrarArchivo(char* poke) {
 
 	configPoke = config_create(rutaPoke);
 
-	pthread_mutex_lock(dictionary_get(semaforosPokemon, pokemon));
+	pthread_mutex_lock(dictionary_get(semaforosPokemon, poke));
 
 	config_set_value(configPoke, "OPEN", "N");
 
 	config_save_in_file(configPoke, rutaPoke);
 
-	pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
+	pthread_mutex_unlock(dictionary_get(semaforosPokemon, poke));
 
 	log_info(gameCard_logger, "se ha cerrado el archivo del pokemon");
 
@@ -1645,11 +1645,10 @@ t_list* obtenerPosicionesPokemon(char* pokemon) {
 	pokemonesParaLocalized = list_create();
 	string_iterate_lines(posiciones, agregarPosicionAlistaParaLocalized);
 
-	log_info(gameCard_logger, " las posiciones y cantidades del pokemon %s son :",
-			pokemon);
+	log_info(gameCard_logger, " las posiciones y cantidades del pokemon %s son :",	pokemon);
 	for (int i = 0; i < list_size(pokemonesParaLocalized); i++) {
-
-		log_info(gameCard_logger, "%s \n", list_get(pokemonesParaLocalized, i));
+		t_coordenadas * coord = list_get(pokemonesParaLocalized, i);
+		log_info(gameCard_logger, "(%d, %d) \n", coord->posx, coord->posy);
 	}
 
 	sleep(tiempo_retardo_operacion);
@@ -1662,33 +1661,31 @@ t_list* obtenerPosicionesPokemon(char* pokemon) {
 void agregarPosicionAlistaParaLocalized(char* posicion) {
 
 	char** parse = string_split(posicion, "=");
-
+	/*DOS ELEMENTOS
+	1-3=7
+	*/
 	int cantidad_pokemons = atoi(parse[1]);
 
-	/* free(parse[0]);
+	/*free(parse[0]);
 	free(parse[1]);
-	free(parse); */	
+	free(parse);*/
 
-	parse = string_split(parse, "-");
+	char** parse1 = string_split(parse[0], "-");
 
-	int posx = atoi(parse[0]);
-	int posy = atoi(parse[1]);
+	int posx = atoi(parse1[0]);
+	int posy = atoi(parse1[1]);
 
 	/* free(parse[0]);
 	free(parse[1]);
 	free(parse); */
 
-	for (int i = 0; i < cantidad_pokemons; i++){
+	t_coordenadas_cantidad * elemento = malloc(sizeof(t_coordenadas_cantidad));
 
-		t_coordenadas* coordenadas = (t_coordenadas*)malloc(sizeof(t_coordenadas));
+	elemento->cantidad = cantidad_pokemons
+	elemento->coordenadas->posx = posx;
+	elemento->coordenadas->posy = posy;
 
-		coordenadas->posx = posx;
-		coordenadas->posy = posy;
-
-		list_add(pokemonesParaLocalized, (void*) coordenadas);
-		
-	}	
-
+	list_add(pokemonesParaLocalized, (void*)elemento);
 }
 
 void liberarMemoria() {

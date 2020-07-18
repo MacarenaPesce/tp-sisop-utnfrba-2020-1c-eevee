@@ -662,10 +662,10 @@ void * tratamiento_de_mensajes(){
 	return NULL;
 }
 
-int main(){
+int main(int arcg, char **argv[]){
 
 	inicializar_logger();
-	inicializar_archivo_de_configuracion();
+	inicializar_archivo_de_configuracion(argv[1]);
 	inicializar_semaforos();
 	configurar_signals();
 	inicializar_listas();
