@@ -69,6 +69,24 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque){
 
 }
 
+void liberar_bloque_memoria_sin_mensaje(t_bloque_memoria* bloque){
+
+    bloque->estructura_mensaje = bloque->estructura_mensaje->mensaje;   
+
+    /* Marco el bloque como vacio */
+    bloque->esta_vacio = true;
+
+	/* Vacio el timestamp del bloque*/
+	bloque->timestamp = 0;
+
+	/* Vacio el last_time del bloque*/
+	bloque->last_time = 0;
+
+
+    return ;
+
+}
+
 /*Dado el tamaño de una particion, me fijo si puede alojarse a la primera 
 	o si hay que correr el algoritmo de eliminacion*/ 
 bool puede_alojarse(int tamanio_bytes){

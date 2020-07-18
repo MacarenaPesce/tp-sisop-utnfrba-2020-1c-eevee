@@ -67,9 +67,10 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 //Consolidacion
 void consolidar(t_bloque_memoria* bloque);
 void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* segundoBloque);
+
 //Compactacion
 void compactar();
-
+t_bloque_memoria* obtener_bloque_mas_viejo();
 
 #endif /* MEMORIA_BROKER_H_ */
 

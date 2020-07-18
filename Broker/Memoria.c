@@ -326,29 +326,9 @@ void algoritmo_de_reemplazo(){
     o con una cola fifo y se elige a la pagina que primero se agrego*/
 t_bloque_memoria* algoritmo_fifo(){
 
-    t_bloque_memoria* elemento;
-    t_bloque_memoria* bloque;
-    uint64_t min_time = get_timestamp();
-
     if(debug_broker) log_debug(broker_logger, "Ejecutando Algoritmo FIFO");
 
-	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
-
-        elemento = list_get(cache_mensajes->memoria, i);
-
-        //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero
-        if( (elemento->esta_vacio == false) && (elemento->timestamp > 0) ){
-            
-            //si el timestamp, es menor al minimo time, lo guardo y me guardo el bloque
-            if(elemento->timestamp < min_time){
-                
-                min_time= elemento->timestamp;
-
-                bloque=elemento;
-
-            }
-        }
-    }
+    t_bloque_memoria* bloque = obtener_bloque_mas_viejo();
     
     log_info(broker_logger, "Eliminado de una particion en la posicion %p", bloque->estructura_mensaje->mensaje);
 
@@ -363,6 +343,38 @@ t_bloque_memoria* algoritmo_fifo(){
     printf("\n");
 
     return bloque;
+}
+
+t_bloque_memoria* obtener_bloque_mas_viejo(){
+
+    t_bloque_memoria* bloque_mas_viejo;
+
+    uint64_t min_time = get_timestamp();
+
+    void buscar_bloque_mas_viejo(void* _bloque){
+
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+        //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero
+        if( (bloque->esta_vacio == false) && (bloque->timestamp > 0) ){
+            
+            //si el timestamp, es menor al minimo time, lo guardo y me guardo el bloque
+            if(bloque->timestamp < min_time){
+                
+                min_time= bloque->timestamp;
+
+                bloque_mas_viejo=bloque;
+
+            }
+
+        }
+
+    }    
+
+    dynamic_list_iterate(cache_mensajes->memoria,buscar_bloque_mas_viejo);
+
+    return bloque_mas_viejo;
+
 }
 
 
@@ -509,22 +521,21 @@ void compactar(){
             memcpy(bloque_auxiliar,bloque_siguiente,sizeof(t_bloque_memoria));
 
             /* clonar estructura mensaje */
-            t_mensaje_cola* nuevo_mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
-            memcpy(nuevo_mensaje,bloque_siguiente->estructura_mensaje,sizeof(t_mensaje_cola));
+            t_mensaje_cola* aux_estructura_mensaje = bloque_siguiente->estructura_mensaje;
 
             /* clonar mensaje de memoria principal */
             void* auxiliar_mensaje = malloc(bloque_siguiente->tamanio_particion);
             memcpy(auxiliar_mensaje, bloque_siguiente->estructura_mensaje->mensaje,bloque_siguiente->tamanio_particion);
             
             /* reapuntar estructuras de mensajes */
-            nuevo_mensaje->mensaje = auxiliar_mensaje;
+            aux_estructura_mensaje->mensaje = auxiliar_mensaje;
 
             /* liberar el siguiente bloque y consolida */
-            liberar_bloque_memoria(bloque_siguiente);
+            liberar_bloque_memoria_sin_mensaje(bloque_siguiente);
             consolidar_dos_bloques(bloque, bloque_siguiente);
 
             /* particiona el bloque resultante de consolidar, reinsertando los datos a izq */
-            particionar_bloque(bloque_auxiliar->tamanio_particion,indice, nuevo_mensaje);
+            particionar_bloque(bloque_auxiliar->tamanio_particion,indice, aux_estructura_mensaje);
             
             /* obtengo el nuevo bloque y seteo los viejos timestamp*/
             bloque = list_get(cache_mensajes->memoria,indice);

@@ -91,7 +91,7 @@ void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente, int socket_
 
 	int* id_cliente_ptr = (int*)malloc(sizeof(int));
 
-	*id_cliente_ptr = id_cliente;
+	memcpy(id_cliente_ptr,&id_cliente,sizeof(int));
 
 	list_add(mensaje->suscriptores_ack,id_cliente_ptr);
 
@@ -126,7 +126,7 @@ void* sender_suscriptores(void* cola_mensajes){
 		}
 
 		t_cliente* cliente = obtener_cliente_por_id(envio_pendiente->cliente);
-
+		
 		t_socket_cliente* socket_cliente = obtener_socket_cliente_de_cola(cliente,cola->cola_de_mensajes);
 
 		int envio = enviar_mensaje_a_suscriptor(envio_pendiente->id,
@@ -137,7 +137,7 @@ void* sender_suscriptores(void* cola_mensajes){
 												mensaje->mensaje);
 
 
-		agregar_cliente_a_enviados(mensaje,cliente);
+		agregar_cliente_a_enviados(mensaje,cliente->id);
 
 		if(envio != -1){			
 			log_info(broker_logger, "Se envió mensaje %d perteneciente a la cola %d al cliente %d", envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
@@ -260,9 +260,12 @@ t_socket_cliente* crear_socket_cliente(int socket, int cola_de_mensajes){
 
 }
 
-t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* mensaje_recibido){
+t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* _mensaje_recibido){
 
     t_mensaje_cola* mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
+	void* mensaje_recibido = malloc(tamanio_payload);
+
+	memcpy(mensaje_recibido,_mensaje_recibido,tamanio_payload);
 
 	mensaje->id_mensaje = cache_mensajes->proximo_id_mensaje;
     cache_mensajes->proximo_id_mensaje++;
@@ -435,9 +438,15 @@ void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cl
 
 }
 
-void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, t_cliente* cliente){
+void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, int _id_cliente){
 
-	list_add(mensaje->suscriptores_enviados,(void*)&cliente->id);
+	int* id_cliente = (int*)malloc(sizeof(int));
+
+	memcpy(id_cliente,&_id_cliente,sizeof(int));
+
+	if(debug_broker) log_error(broker_logger,"se encontro el cliente con id %d",*id_cliente);
+
+	list_add(mensaje->suscriptores_enviados,(void*)id_cliente);
 
 }
 
