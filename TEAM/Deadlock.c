@@ -15,7 +15,8 @@ void crear_hilo_para_deadlock(){
 
 void chequear_cantidad_de_deadlocks_producidos(){
 	
-	if(es_el_primer_deadlock){	
+	if(es_el_primer_deadlock){
+		log_info(team_logger_oficial, "Inicio del algoritmo de deteccion y resolucion de deadlock");	
 		pthread_mutex_lock(&lista_bloq_max_mutex);
 		t_list * aux_a_recorrer = list_duplicate(lista_bloqueados_cant_max_alcanzada);
 		pthread_mutex_unlock(&lista_bloq_max_mutex);
@@ -92,6 +93,7 @@ void chequear_cantidad_de_deadlocks_producidos(){
 		es_el_primer_deadlock = false;
 		deadlocks_producidos = espera_circular;
 		log_info(team_logger, "La cantidad de deadlocks producidos es %i", espera_circular);
+		log_info(team_logger_oficial, "Cantidad de deadlocks detectados: %i", espera_circular);
 		list_destroy(aux_a_recorrer);
 		list_destroy(lista_espera_circular);
 	}
@@ -113,7 +115,6 @@ void * chequear_deadlock(){
 		if(cant_nuevos == 0 && todos_bloqueados_por_cantidad_maxima() && cant_ready == 0){
 			printf("\n");
 			log_warning(team_logger, "Deadlock detectado");
-			log_info(team_logger_oficial, "Deadlock detectado");
 
 			pthread_mutex_lock(&lista_bloq_max_mutex);
 			CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
@@ -209,6 +210,7 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
 
 	log_info(team_logger, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
+	log_info(team_logger_oficial, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
 	log_info(team_logger, "Haciendo el intercambio");
 	
 	sem_post(&array_semaforos_deadlock[entrenador1->id]);
@@ -240,6 +242,7 @@ void verificar_si_entrenador_sigue_bloqueado(t_entrenador* entrenador){
 		pthread_mutex_unlock(&lista_comun_deadlock);
 
 		log_info(team_logger, "Luego de hacer un intercambio el entrenador %d paso a la lista de bloqueados con cantidad maxima", entrenador->id);
+		log_info(team_logger_oficial, "Luego de hacer un intercambio el entrenador %d paso a la lista de bloqueados con cantidad maxima", entrenador->id);
 
 	}
 
@@ -279,13 +282,18 @@ void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
 		printf("\n");
 
 		log_info(team_logger,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
+		log_info(team_logger_oficial,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
 		log_info(team_logger,"La cantidad de cambios de contextos realizados es: %i", cambios_de_contexto);
+		log_info(team_logger_oficial,"La cantidad de cambios de contextos realizados es: %i", cambios_de_contexto);
 		for (int i = 0; i < MAXIMO_ENTRENADORES; i++){
 			t_entrenador* entrenador = list_get(lista_finalizar, i);
 			log_info(team_logger, "La cantidad de ciclos de CPU realizados por el entrenador %i es: %i", entrenador->id, entrenador->ciclos_de_cpu);
+			log_info(team_logger_oficial, "La cantidad de ciclos de CPU realizados por el entrenador %i es: %i", entrenador->id, entrenador->ciclos_de_cpu);
 		}
 		log_info(team_logger, "La cantidad de deadlocks producidos es: %i", deadlocks_producidos);
+		log_info(team_logger_oficial, "La cantidad de deadlocks producidos es: %i", deadlocks_producidos);
 		log_info(team_logger, "La cantidad de deadlocks resueltos es: %i", deadlocks_resueltos);
+		log_info(team_logger_oficial, "La cantidad de deadlocks resueltos es: %i", deadlocks_resueltos);
 
 		terminar_team_correctamente();
 	}

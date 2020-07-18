@@ -121,6 +121,8 @@ atrapado con éxito.*/
 	catch_pokemon->coordenadas.posx = entrenador->objetivo_actual->posx;
 	catch_pokemon->coordenadas.posy = entrenador->objetivo_actual->posy;
 
+	
+
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
@@ -132,19 +134,23 @@ atrapado con éxito.*/
 		bloquear_entrenador(entrenador);
 		return;
 	}
+	
 
 	 t_packed* ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 		consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para esta especie: %s", entrenador->id, entrenador->objetivo_actual->especie);
+	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para %s en la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie, entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 
 	if(ack == (t_packed*) -1){
 		log_info(team_logger, "El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon");
+		log_info(team_logger_oficial, "El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon");
 		hacer_procedimiento_para_atrapar_default(catch_pokemon, entrenador);
 		//consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 	}else{
 		//Recibo ACK
 		if(ack->operacion == ACK){
 			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", entrenador->objetivo_actual->especie);
+			log_info(team_logger_oficial, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", entrenador->objetivo_actual->especie);
 			log_debug(team_logger, "ID DE MENSAJE CATCH: %d\n", ack->id_mensaje);
 
 			t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
@@ -210,6 +216,7 @@ void mover_entrenador_a_otra_posicion(t_entrenador* entrenador1){
 
 	if(entrenador1->posy == entrenador1->objetivo_actual->posy  && entrenador1->posx == entrenador1->objetivo_actual->posx){
 		log_info(team_logger, "El entrenador de id %d llegó a la posicion del entrenador de id %d", entrenador1->id, entrenador2->id);
+		log_info(team_logger_oficial, "El entrenador de id %d llegó a la posicion del entrenador de id %d", entrenador1->id, entrenador2->id);
 
 	}
 
@@ -336,7 +343,6 @@ t_objetivo_entrenador * elegir_pokemon_innecesario_util(t_entrenador * entrenado
 }
 
 void realizar_intercambio(t_entrenador* entrenador1){
-	//log_info(team_logger, "INTERCAMBIO TIME!!");
 	for (int ciclo = 0; ciclo < 5; ciclo++){ //cada intercambio consume 5 ciclos de cpu
 		consumir_un_ciclo_de_cpu(entrenador1);
 	}
@@ -383,6 +389,7 @@ void realizar_intercambio(t_entrenador* entrenador1){
 	pokemon1_inservible->cantidad++;
 
 	log_info(team_logger, "Se intercambiaron los pokemones %s y %s entre los entrenadores %d y %d", pokemon1->especie, pokemon2->especie, entrenador1->id, entrenador2->id);
+	log_info(team_logger_oficial, "Se intercambiaron los pokemones %s y %s entre los entrenadores %d y %d", pokemon1->especie, pokemon2->especie, entrenador1->id, entrenador2->id);
 
 	pthread_mutex_lock(&lista_comun_deadlock);
 	sacar_entrenador_de_lista_pid(lista_bloqueados_deadlock,entrenador2->id);
