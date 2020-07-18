@@ -389,7 +389,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			break;
 
 		case CANTIDAD_MAXIMA_ALCANZADA:
-
+			entrenador->quantum_restante = quantum;
 			pthread_mutex_lock(&lista_bloq_max_mutex);
 			list_add(lista_bloqueados_cant_max_alcanzada, (void*)entrenador);
 			pthread_mutex_unlock(&lista_bloq_max_mutex);
@@ -409,9 +409,76 @@ void bloquear_entrenador(t_entrenador* entrenador){
 }
 
 void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
-	ciclos_de_cpu++;
-	entrenador->ciclos_de_cpu++;
-	sleep(retardo_ciclo_cpu);
+	if((!strcmp(algoritmo_planificacion, "FIFO"))){
+		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+	}
+
+	if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
+		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+
+		entrenador->instruccion_actual++;
+		entrenador->estimacion_actual--;
+		entrenador->ejec_anterior = 0;
+	}
+
+	if(!strcmp(algoritmo_planificacion, "SJF-CD")){
+		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+		log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+		entrenador_en_ejecucion->instruccion_actual++;
+		entrenador_en_ejecucion->estimacion_actual--;
+		log_info(team_logger, "Mi estimacion actual es %f", entrenador_en_ejecucion->estimacion_actual);
+		entrenador_en_ejecucion->ejec_anterior = 0;
+
+		if(desalojo_en_ejecucion){
+			entrenador_en_ejecucion = NULL;
+			pthread_mutex_lock(&lista_listos_mutex);
+			list_add(lista_listos, entrenador);
+			pthread_mutex_unlock(&lista_listos_mutex);
+			cambios_de_contexto++;
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+
+			sem_post(&orden_para_planificar);
+			log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
+			sem_wait(&array_semaforos[entrenador->id]);
+		}
+	}
+
+	if(!strcmp(algoritmo_planificacion, "RR")){
+		ciclos_de_cpu++;
+		entrenador->ciclos_de_cpu++;
+		sleep(retardo_ciclo_cpu);
+
+		if(entrenador->quantum_restante > 1){
+			log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+			entrenador->quantum_restante--;
+		}else{
+			log_info(team_logger, "Ejecuté 1 ciclo de cpu");
+			entrenador_en_ejecucion = NULL;
+			entrenador->agoto_quantum = true;
+			entrenador->quantum_restante = quantum;
+			cambios_de_contexto++;
+			
+				pthread_mutex_lock(&lista_listos_mutex);
+				list_add(lista_listos, entrenador);
+				pthread_mutex_unlock(&lista_listos_mutex);
+				//cambios_de_contexto++;
+				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+				sem_post(&orden_para_planificar);
+				log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
+				//sem_wait(&array_semaforos[entrenador->id]);
+			
+		}
+	}
 }
 
 void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
@@ -483,8 +550,6 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 				sem_post(&orden_para_planificar);
 				sem_wait(&array_semaforos[entrenador->id]);
 			}
-
-			
 
 		}
 	}

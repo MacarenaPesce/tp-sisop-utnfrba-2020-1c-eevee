@@ -10,7 +10,6 @@
 void * planificar(){
 
 	while(GLOBAL_SEGUIR){
-
 		sem_wait(&orden_para_planificar);
 		obtener_proximo_ejecucion();
 	}
@@ -164,9 +163,7 @@ void obtener_proximo_ejecucion(void){
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
 		ordenar_lista_estimacion(lista_listos);
 	}
-
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
-
 	if(entrenador_en_ejecucion != NULL){
 		/* Hay un entrenador ejecutando */
 		return;
@@ -201,6 +198,7 @@ void obtener_proximo_ejecucion(void){
 	entrenador_en_ejecucion = sacar_entrenador_de_lista_pid(lista_listos, entrenador_en_ejecucion->id);
 	pthread_mutex_unlock(&lista_listos_mutex);
 
+	log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador_en_ejecucion->id);
 	entrenador_en_ejecucion->estado = EJECUTANDO;
 
 	sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);

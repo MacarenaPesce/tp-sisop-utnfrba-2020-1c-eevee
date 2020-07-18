@@ -13,9 +13,11 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 		sem_wait(&array_semaforos[entrenador->id]);
 
 		log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
-		llegar_a_el_pokemon(entrenador);
-		atrapar(entrenador);
-
+		
+		if(!hayDeadlock){
+			llegar_a_el_pokemon(entrenador);
+			atrapar(entrenador);
+		}
 		if(objetivo_personal_cumplido(entrenador)){
 			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando, entrenador->id);
 			list_add(lista_finalizar, entrenador);

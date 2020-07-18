@@ -14,7 +14,7 @@ void crear_hilo_para_deadlock(){
 }
 
 void chequear_cantidad_de_deadlocks_producidos(){
-	
+	hayDeadlock = true;
 	if(es_el_primer_deadlock){
 		log_info(team_logger_oficial, "Inicio del algoritmo de deteccion y resolucion de deadlock");	
 		pthread_mutex_lock(&lista_bloq_max_mutex);
@@ -211,6 +211,7 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 
 	log_info(team_logger, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
 	log_info(team_logger_oficial, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
+	log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador1->id);
 	log_info(team_logger, "Haciendo el intercambio");
 	
 	sem_post(&array_semaforos_deadlock[entrenador1->id]);
@@ -261,6 +262,7 @@ void verificar_si_entrenador_sigue_bloqueado(t_entrenador* entrenador){
 }
 
 void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
+	list_clean(lista_listos);
 	pthread_mutex_lock(&lista_bloq_max_mutex);
 	CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
@@ -270,6 +272,7 @@ void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
 		sem_post(&chequeo_de_deadlock);
 		chequear_deadlock();
 	}else{
+		hayDeadlock = false;
 		deadlocks_resueltos = espera_circular;
 		for(int i=0; i < MAXIMO_ENTRENADORES; i++){
 			sem_wait(&todos_los_entrenadores_finalizaron);

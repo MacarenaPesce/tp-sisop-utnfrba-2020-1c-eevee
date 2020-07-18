@@ -76,6 +76,7 @@ extern bool hayPokeNuevo;
 extern uint32_t quantum_actual;
 extern bool desalojo_en_ejecucion;
 extern char** pokes;
+extern bool hayDeadlock;
 
 extern uint32_t cambios_de_contexto;
 extern uint32_t deadlocks_producidos;
