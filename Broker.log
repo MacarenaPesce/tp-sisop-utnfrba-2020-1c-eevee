@@ -1,5 +1,0 @@
-[INFO] 21:35:40:358 Broker/(4819:4819): *************** INICIANDO EJECUCION DE BROKER ***************
-[DEBUG] 21:35:40:358 Broker/(4819:4819): 1) Cache de mensajes lista!!!
-[DEBUG] 21:35:40:358 Broker/(4819:4819): 2) Inicializando archivo de configuracion...
-[INFO] 21:35:40:358 Broker/(4819:4819): El archivo de configuracion no existe. Fijate en la carpeta Debug.
-[INFO] 21:35:40:358 Broker/(4819:4819): Chau!
