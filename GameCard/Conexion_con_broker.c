@@ -58,7 +58,7 @@ void * atender_get_pokemon(t_packed * paquete){
 
 	localized_pokemon->cantidad_coordenadas=list_size(localized_pokemon->lista_coordenadas);
 
-	free(paquete);
+	eliminar_mensaje(paquete);
 	free(servidor);
 
 	return NULL;
@@ -86,7 +86,7 @@ void * atender_catch_pokemon(t_packed * paquete){
 	}
 
 	free(servidor);
-	free(paquete);
+	eliminar_mensaje(paquete);
 	free(caught_pokemon);
 
 	return NULL;
@@ -121,7 +121,7 @@ void * atender_new_pokemon(t_packed * paquete){
 	}
 
 	free(servidor);
-	free(paquete);
+	eliminar_mensaje(paquete);
 	free(appeared_pokemon);
 
 	return NULL;

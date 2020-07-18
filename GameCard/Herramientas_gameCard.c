@@ -96,8 +96,6 @@ void obtener_nombre_fs(){
 void terminar_game_card(){
 	/*Aca deberias liberar todas las estructuras que usaste!!*/
 
-	log_info(gameCard_logger,"llegando al final");
-	log_info(gameCard_logger,"liberando recursos");
 	log_info(gameCard_logger,"finalizando GameCard");
 	log_destroy(gameCard_logger);
 	exit(EXIT_SUCCESS);

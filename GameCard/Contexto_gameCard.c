@@ -18,5 +18,7 @@ char* magicNumber;
 int tamanioDeBloque;
 int cantidadBloques;
 
+char* pokemonEnMemoria;
+
 t_log* gameCard_logger;
 t_config* config_game_card;
