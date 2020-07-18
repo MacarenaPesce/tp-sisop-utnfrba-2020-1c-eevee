@@ -906,9 +906,7 @@ void agregar_coordenadas_a_localized(t_localized_pokemon* localized_pokemon, t_c
 t_localized_pokemon* generar_localized(char* nombre_pokemon){
 	
 	t_localized_pokemon* localized_pokemon = malloc(sizeof(t_localized_pokemon));
-
-	printf("tamanio nombre %d\n",strlen(nombre_pokemon));
-
+	
 	if(nombre_pokemon != NULL){
 		localized_pokemon->pokemon = malloc(strlen(nombre_pokemon)+1);
 		memcpy(localized_pokemon->pokemon,nombre_pokemon,strlen(nombre_pokemon)+1);
