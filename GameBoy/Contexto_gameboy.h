@@ -56,11 +56,10 @@ extern t_config* config;
 //Enumeracion de los comandos de la consola
 enum comandos { broker, team, gamecard, suscriptor};
 enum tipo_mensaje { new_pokemon, appeared_pokemon, catch_pokemon, caught_pokemon, get_pokemon, localized_pokemon};
-/*
+
 typedef struct {
 	char* tiempo;
-	t_suscripcion * suscripcion;
 	t_servidor * servidor;
-} t_suscripcion_gameboy;*/
+} t_suscripcion_gameboy;
 
 #endif /* CONTEXTO_GAMEBOY_H_ */

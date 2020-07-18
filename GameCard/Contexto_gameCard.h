@@ -39,6 +39,9 @@
 #define KEY_CONFIG_ID "ID"
 #define IP "127.0.0.3"
 #define PUERTO "5001"
+#define KEY_TAM_BLOQUE "BLOCK_SIZE"
+#define KEY_CANT_BLOQUES "BLOCKS"
+#define KEY_NOMBRE_FS "MAGIC_NUMBER"
 
 extern int tiempo_reintento_conexion;
 extern int tiempo_reintento_operacion;
@@ -47,6 +50,11 @@ extern char* punto_montaje_fs;
 extern char* ip_broker;
 extern char* puerto_broker;
 extern int id;
+
+extern char* magicNumber;
+extern int tamanioDeBloque;
+extern int cantidadBloques;
+extern char* pokemonEnMemoria;
 
 //estas dos arreglarlas para cada proceso ojo
 extern t_log* gameCard_logger;

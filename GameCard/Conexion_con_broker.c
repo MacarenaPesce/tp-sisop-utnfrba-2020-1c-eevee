@@ -47,19 +47,32 @@ void * atender_get_pokemon(t_packed * paquete){
 	PARA COMPLETAR ACA LO QUE QUEDA, PERO ES SIMILAR A LO QUE ESTA ARRIBA!!
 	 * */
 
-	t_localized_pokemon* localized_pokemon=malloc(sizeof(t_localized_pokemon));
+	//t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_correlacional, caught_pokemon);
+	t_localized_pokemon* localized_pokemon= generar_localized(get_pokemon->pokemon);
 
-	localized_pokemon->pokemon=get_pokemon->pokemon;
 	if (operar_con_get_pokemon(get_pokemon)!=-1){
 
-		localized_pokemon->lista_coordenadas=operar_con_get_pokemon(get_pokemon);
+		t_list* lista_coordenadas = operar_con_get_pokemon(get_pokemon);
+
+		void cargar_localized(void* _coordenadas){
+
+			t_coordenadas* coordenadas = (t_coordenadas*) _coordenadas;
+
+			agregar_coordenadas_a_localized(localized_pokemon,coordenadas);
+
+		}
+
+		list_iterate(lista_coordenadas,cargar_localized);
 
 	}
 
-	localized_pokemon->cantidad_coordenadas=list_size(localized_pokemon->lista_coordenadas);
+	enviar_localized_pokemon(servidor,paquete->id_mensaje,localized_pokemon);
 
-	free(paquete);
+	eliminar_localized_pokemon(localized_pokemon);
+
+	eliminar_mensaje(paquete);
 	free(servidor);
+	//free(ack);
 
 	return NULL;
 }
@@ -86,8 +99,10 @@ void * atender_catch_pokemon(t_packed * paquete){
 	}
 
 	free(servidor);
-	free(paquete);
+	eliminar_mensaje(paquete);
 	free(caught_pokemon);
+	free(catch_pokemon);
+//	free(ack);
 
 	return NULL;
 }
@@ -120,21 +135,16 @@ void * atender_new_pokemon(t_packed * paquete){
 				appeared_pokemon->pokemon, appeared_pokemon->coordenadas.posx, appeared_pokemon->coordenadas.posy);
 	}
 
+	free(new_pokemon);
 	free(servidor);
 	free(paquete);
+	//eliminar_mensaje(paquete);
 	free(appeared_pokemon);
 
 	return NULL;
 }
 
 void * recibir_new_pokemon_desde_broker(t_packed * paquete){
-
-	/*Al recibir un mensaje de cualquier hilo se deberá:
-
-		1) Informar al Broker la recepción del mismo (ACK).
-		2) Crear un hilo que atienda dicha solicitud.
-		3) Volver a estar a la escucha de nuevos mensajes de la cola de mensajes en cuestión.
-	*/
 
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)atender_new_pokemon, (void*)paquete);
@@ -145,13 +155,6 @@ void * recibir_new_pokemon_desde_broker(t_packed * paquete){
 
 void * recibir_catch_pokemon_desde_broker(t_packed * paquete){
 
-	/*Al recibir un mensaje de cualquier hilo se deberá:
-
-		1) Informar al Broker la recepción del mismo (ACK).
-		2) Crear un hilo que atienda dicha solicitud.
-		3) Volver a estar a la escucha de nuevos mensajes de la cola de mensajes en cuestión.
-	*/
-
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)atender_catch_pokemon, (void*)paquete);
 	pthread_join(hilo, NULL);
@@ -160,13 +163,6 @@ void * recibir_catch_pokemon_desde_broker(t_packed * paquete){
 }
 
 void * recibir_get_pokemon_desde_broker(t_packed * paquete){
-
-	/*Al recibir un mensaje de cualquier hilo se deberá:
-
-		1) Informar al Broker la recepción del mismo (ACK).
-		2) Crear un hilo que atienda dicha solicitud.
-		3) Volver a estar a la escucha de nuevos mensajes de la cola de mensajes en cuestión.
-	*/
 
 	pthread_t hilo;
 	pthread_create(&hilo,NULL,(void*)atender_get_pokemon, (void*)paquete);
@@ -223,12 +219,18 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 				if(paquete->operacion == ENVIAR_MENSAJE){
 					switch(paquete->cola_de_mensajes){
 						case COLA_NEW_POKEMON:
+							enviar_ack(servidor,paquete->id_mensaje);
+							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_new_pokemon_desde_broker(paquete);
 							break;
 						case COLA_CATCH_POKEMON:
+							enviar_ack(servidor,paquete->id_mensaje);
+							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_catch_pokemon_desde_broker(paquete);
 							break;
 						case COLA_GET_POKEMON:
+							enviar_ack(servidor,paquete->id_mensaje);
+							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_get_pokemon_desde_broker(paquete);
 							break;
 						default:

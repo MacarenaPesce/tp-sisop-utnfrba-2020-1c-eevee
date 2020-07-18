@@ -675,7 +675,7 @@ int main(){
 	sem_post(&entrenadores_ubicados);
 
 	//Crea el socket servidor para recibir mensajes de gameboy
-	int serv_socket = iniciar_servidor(PUERTO);
+	int serv_socket = iniciar_servidor(puerto_team);
 
 	//Crea el socket cliente para conectarse al broker
 	enviar_get();
@@ -683,7 +683,7 @@ int main(){
 	crear_hilo_para_tratamiento_de_mensajes();
 	crear_hilo_para_planificar();
 	crear_hilo_para_deadlock();
-	//convertirse_en_suscriptor_global_del_broker();
+	convertirse_en_suscriptor_global_del_broker();
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 
 	close(serv_socket);

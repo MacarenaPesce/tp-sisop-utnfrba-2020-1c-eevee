@@ -20,6 +20,10 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_TIEMPO_DE_REINTENTO_OPERACION , config_game_card, obtener_tiempo_reintento_operacion);
 		obtener_valor_config(KEY_TIEMPO_RETARDO_OPERACION,config_game_card,obtener_tiempo_retardo_operacion);
 		obtener_valor_config(KEY_CONFIG_ID, config_game_card, obtener_el_id);
+		obtener_valor_config(KEY_CANT_BLOQUES , config_game_card,obtener_cantidad_bloques);
+		obtener_valor_config(KEY_TAM_BLOQUE,config_game_card,obtener_tamanio_bloques);
+		obtener_valor_config(KEY_NOMBRE_FS, config_game_card, obtener_nombre_fs);
+
 	    config_destroy(config_game_card);
 	    log_info(gameCard_logger,"Los datos del archivo de configuracion se han cargado correctamente");
 
@@ -72,11 +76,26 @@ void obtener_puerto_broker(){
 			strdup(config_get_string_value(config_game_card, KEY_PUERTO_BROKER));
 }
 
+void obtener_cantidad_bloques(){
+
+	cantidadBloques=config_get_int_value(config_game_card,KEY_CANT_BLOQUES);
+
+}
+
+void obtener_tamanio_bloques(){
+
+	tamanioDeBloque=config_get_int_value(config_game_card,KEY_TAM_BLOQUE);
+}
+
+void obtener_nombre_fs(){
+
+	magicNumber=strdup(config_get_string_value(config_game_card, KEY_NOMBRE_FS));
+}
+
+
 void terminar_game_card(){
 	/*Aca deberias liberar todas las estructuras que usaste!!*/
 
-	log_info(gameCard_logger,"llegando al final");
-	log_info(gameCard_logger,"liberando recursos");
 	log_info(gameCard_logger,"finalizando GameCard");
 	log_destroy(gameCard_logger);
 	exit(EXIT_SUCCESS);

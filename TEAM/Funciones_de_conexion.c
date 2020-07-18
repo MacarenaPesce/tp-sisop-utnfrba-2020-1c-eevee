@@ -36,7 +36,7 @@ int crear_listen_socket(char * puerto){
 }
 
 int iniciar_servidor(){
-	int server_socket = crear_listen_socket(PUERTO);
+	int server_socket = crear_listen_socket(puerto_team);
 
 	if(server_socket < 0){
 		log_info(team_logger, "\nFalló la creación del socket servidor");

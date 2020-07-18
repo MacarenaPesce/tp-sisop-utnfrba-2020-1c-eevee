@@ -14,6 +14,11 @@ char* ip_broker;
 char* puerto_broker;
 int id;
 
+char* magicNumber;
+int tamanioDeBloque;
+int cantidadBloques;
+
+char* pokemonEnMemoria;
 
 t_log* gameCard_logger;
 t_config* config_game_card;

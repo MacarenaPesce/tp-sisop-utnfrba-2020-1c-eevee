@@ -41,7 +41,7 @@ void obtener_la_estimacion_inicial();
 void obtener_la_ip_del_broker();
 void obtener_el_puerto_del_broker();
 void obtener_el_log_file();
-
+void obtener_el_puerto_de_team();
 
 /*PARA FINALIZAR EL PROCESO CORRECTAMENTE*/
 void terminar_team_correctamente();
