@@ -1681,9 +1681,9 @@ void agregarPosicionAlistaParaLocalized(char* posicion) {
 
 	t_coordenadas_cantidad * elemento = malloc(sizeof(t_coordenadas_cantidad));
 
-	elemento->cantidad = cantidad_pokemons
-	elemento->coordenadas->posx = posx;
-	elemento->coordenadas->posy = posy;
+	elemento->cant = cantidad_pokemons;
+	elemento->coordenadas.posx = posx;
+	elemento->coordenadas.posy = posy;
 
 	list_add(pokemonesParaLocalized, (void*)elemento);
 }
