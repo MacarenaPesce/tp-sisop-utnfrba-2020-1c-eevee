@@ -15,6 +15,7 @@
 #include "Entrenador.h"
 
 void crear_hilo_para_deadlock();
+void chequear_cantidad_de_deadlocks_producidos();
 void * chequear_deadlock();
 void interbloqueo();
 void planificar_para_deadlock(t_entrenador*, t_entrenador*, t_objetivo_entrenador*);

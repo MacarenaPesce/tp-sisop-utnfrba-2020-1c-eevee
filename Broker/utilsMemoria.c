@@ -51,6 +51,8 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque){
 
     void* aux = bloque->estructura_mensaje->mensaje;
 
+    eliminar_mensaje_cola(bloque->estructura_mensaje);
+
     bloque->estructura_mensaje = aux;   
 
     /* Marco el bloque como vacio */

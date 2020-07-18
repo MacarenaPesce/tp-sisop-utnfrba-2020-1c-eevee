@@ -118,8 +118,6 @@ typedef struct{
 	uint32_t status __attribute__((packed)); //OK o FAIL
 } t_caught_pokemon;
 
-
-
 typedef struct{
 	t_coordenadas coordenadas;
 	uint32_t cantidad __attribute__((packed));
@@ -214,6 +212,7 @@ void agregar_coordenadas_a_localized(t_localized_pokemon* localized_pokemon, t_c
 t_localized_pokemon* generar_localized(char* nombre_pokemon);
 void eliminar_localized_pokemon(t_localized_pokemon* localized_pokemon);
 void dynamic_list_iterate(t_list* self, void(*closure)(void*));
+void _eliminar_contenido_mensaje_segun_cola(t_packed* paquete);
 
 t_packed* enviar_mensaje_string(t_servidor* servidor, char* mensaje);
 t_packed* enviar_appeared_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );

@@ -202,13 +202,65 @@ void _recuperar_mensaje(t_packed *paquete){
 	}
 }
 
-void _eliminar_mensaje(t_packed* paquete){
+void _eliminar_mensaje(t_packed* paquete){	
 	free(paquete->mensaje);
 	free(paquete);
 }
 
 void eliminar_mensaje(t_packed* paquete){
-	free(paquete);
+	switch(paquete->operacion){
+
+		case ENVIAR_MENSAJE:
+			_eliminar_contenido_mensaje_segun_cola(paquete);
+			_eliminar_mensaje(paquete);			
+			break;
+
+		case SUSCRIBIRSE_A_COLA:
+		case ACK:
+			free(paquete);
+			break;
+
+		default:
+			printf("\nOperacion desconocida %d\n",paquete->operacion);
+
+	}
+		
+}
+
+void _eliminar_contenido_mensaje_segun_cola(t_packed* paquete){
+
+	switch (paquete->cola_de_mensajes)
+	{
+		case COLA_CATCH_POKEMON:;
+			t_catch_pokemon* catch_pokemon = (t_catch_pokemon*) paquete->mensaje;
+			free(catch_pokemon->pokemon);
+			break;
+
+		case COLA_APPEARED_POKEMON:;
+			t_appeared_pokemon* appeared_pokemon = (t_appeared_pokemon*) paquete->mensaje;
+			free(appeared_pokemon->pokemon);
+			break;
+
+		case COLA_NEW_POKEMON:;
+			t_new_pokemon* new_pokemon = (t_new_pokemon*) paquete->mensaje;
+			free(new_pokemon->pokemon);
+			break;
+
+		case COLA_GET_POKEMON:;
+			t_get_pokemon* get_pokemon = (t_get_pokemon*) paquete->mensaje;
+			free(get_pokemon->pokemon);
+			break;
+
+		case COLA_LOCALIZED_POKEMON:;
+			t_localized_pokemon* localized_pokemon = (t_localized_pokemon*) paquete->mensaje;
+			free(localized_pokemon->pokemon);
+			list_destroy_and_destroy_elements(localized_pokemon->lista_coordenadas,(void*)free);
+			break;
+	
+		default:
+			break;
+	}
+
 }
 
 //Serializacion
@@ -647,7 +699,6 @@ int enviar_solicitud_suscripcion(t_servidor* servidor,uint32_t cola_de_mensajes)
 
 	_eliminar_mensaje(paquete);	
 
-
 	return socket;
 
 }
@@ -855,9 +906,7 @@ void agregar_coordenadas_a_localized(t_localized_pokemon* localized_pokemon, t_c
 t_localized_pokemon* generar_localized(char* nombre_pokemon){
 	
 	t_localized_pokemon* localized_pokemon = malloc(sizeof(t_localized_pokemon));
-
-	printf("tamanio nombre %d\n",strlen(nombre_pokemon));
-
+	
 	if(nombre_pokemon != NULL){
 		localized_pokemon->pokemon = malloc(strlen(nombre_pokemon)+1);
 		memcpy(localized_pokemon->pokemon,nombre_pokemon,strlen(nombre_pokemon)+1);

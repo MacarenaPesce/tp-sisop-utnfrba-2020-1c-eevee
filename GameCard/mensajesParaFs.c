@@ -53,6 +53,8 @@ uint32_t operar_con_catch_pokemon(t_catch_pokemon * poke){
 
 		agregarSemaforoPokemon(poke->pokemon);
 
+		log_info(gameCard_logger,"existe el pokemon %s", poke->pokemon);
+
 		while (estaAbiertoArchivo(poke->pokemon)){
 
 			log_info(gameCard_logger,"el archivo se encuentra abierto "
@@ -80,21 +82,31 @@ uint32_t operar_con_catch_pokemon(t_catch_pokemon * poke){
 
 t_list* operar_con_get_pokemon(t_get_pokemon* poke){
 
-	agregarSemaforoPokemon(poke->pokemon);
 
 	if (existePokemon(poke->pokemon)){
 
+		log_info(gameCard_logger,"existe el pokemon %s", poke->pokemon);
+
+		agregarSemaforoPokemon(poke->pokemon);
+
 		while (estaAbiertoArchivo(poke->pokemon)){
+
+			log_info(gameCard_logger,"el archivo se encuentra abierto "
+								"por otro hilo o proceso");
+			log_info(gameCard_logger,"no se lo puede abrir");
+			log_info(gameCard_logger,"se reintenta abrir "
+											"el archivo en %d segundos",tiempo_reintento_operacion);
 
 			sleep(tiempo_reintento_operacion);
 			abrirArchivo(poke->pokemon);
 		}
 
 	return obtenerPosicionesPokemon(poke->pokemon);
+
 	}
 
 	else { log_error(gameCard_logger," No existe el pokemon %s, "
-						"no se puede capturar",poke->pokemon);
+						"no posee posiciones",poke->pokemon);
 
 				sleep(tiempo_retardo_operacion);
 				t_list* listaVacia=list_create();

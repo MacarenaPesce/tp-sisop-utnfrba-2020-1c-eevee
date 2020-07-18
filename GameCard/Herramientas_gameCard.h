@@ -19,5 +19,8 @@ void obtener_tiempo_retardo_operacion();
 void capturar_signal(int);
 void configurar_signal_gc();
 void obtener_el_id();
+void obtener_cantidad_bloques();
+void obtener_tamanio_bloques();
+void obtener_nombre_fs();
 
 #endif /* HERRAMIENTAS_GAMECARD_H_ */

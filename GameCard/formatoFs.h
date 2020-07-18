@@ -9,6 +9,9 @@
 #define FORMATOFS_H_
 
 #include "Herramientas_gameCard.h"
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 typedef struct {
 	char* puntoDeMontaje;
@@ -50,7 +53,7 @@ t_dictionary* semaforosPokemon;
 
 void cargarRutasFs();//ok
 int abrir_ruta(char *ruta);
-void cargarMetadataFs(char *ruta);//ok
+void cargarMetadataFs();//ok
 void crearFileSystemVacio();//ok
 bool noCumpleConRutasfs();//ok
 void crearMetadataFs();//ok

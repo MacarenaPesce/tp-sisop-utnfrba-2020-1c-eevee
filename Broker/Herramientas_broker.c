@@ -9,6 +9,7 @@ extern char* ip_broker;
 extern int frecuencia_compactacion;
 extern char* puerto_broker;
 extern char* log_file;
+extern t_cache_colas* cache_mensajes;
 
 extern t_config* config;
 extern t_log* broker_logger;
@@ -130,9 +131,6 @@ void capturar_signal(int signo){
 
     if(signo == SIGINT)
     {
-		
-		server_status = ENDING;
-
     	log_info(broker_logger," Broker DEJA DE FUNCIONAR ");
     	terminar_broker_correctamente();
 
@@ -149,7 +147,21 @@ void capturar_signal(int signo){
 }
 
 void terminar_broker_correctamente(){
+	
+	vaciar_sockets_de_clientes();
 	log_info(broker_logger,"Chau!");
 	exit(EXIT_SUCCESS);
+}
+
+void vaciar_sockets_de_clientes(){
+
+	void eliminar_sockets_cliente(void* _cliente){
+
+		t_cliente* cliente = (t_cliente*) _cliente;
+
+		list_destroy_and_destroy_elements(cliente->sockets,free);
+	}
+
+	list_iterate(cache_mensajes->clientes,eliminar_sockets_cliente);
 }
 

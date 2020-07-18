@@ -144,9 +144,6 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		pthread_mutex_unlock(&mutex_queue_mensajes);
 
-		if(server_status == ENDING){
-			break;
-		}
 	
 	}
 

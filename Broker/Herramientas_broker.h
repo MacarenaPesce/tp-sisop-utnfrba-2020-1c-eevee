@@ -49,6 +49,7 @@ void obtener_el_log_file();
 void configurar_signals(void);
 void capturar_signal(int signo);
 
+void vaciar_sockets_de_clientes();
 void terminar_broker_correctamente();
 
 
