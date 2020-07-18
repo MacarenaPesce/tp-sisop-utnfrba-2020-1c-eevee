@@ -461,8 +461,11 @@ void eliminar_envio_pendiente(void* pendiente){
 void eliminar_mensaje_cola(t_mensaje_cola* mensaje){
 
 	list_destroy_and_destroy_elements(mensaje->suscriptores_enviados,free);
+
 	list_destroy_and_destroy_elements(mensaje->suscriptores_ack,free);	
+
 	free(mensaje);
+	
 	return;
 }
 
