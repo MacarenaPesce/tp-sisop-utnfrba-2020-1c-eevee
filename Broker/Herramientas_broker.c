@@ -143,6 +143,10 @@ void capturar_signal(int signo){
 	{
 	//	log_info(broker_logger,"SEGMENTATION FAULT");
 	}
+	else if(signo == SIGUSR1){
+		dump_memoria();
+		log_info(broker_logger, "DUMP");
+	}
 
 }
 

@@ -617,10 +617,14 @@ void dump_memoria(){
     fprintf(dumpeo, fecha);
     fprintf(dumpeo, "\n");
 
+    log_error(broker_logger,"hasta aca llego1");
+
     escribir_estado_de_memoria(dumpeo);
 
     fprintf(dumpeo,"-------------------------------------------------------------------------------------------------------");
     fprintf(dumpeo, "\n");
+
+    log_error(broker_logger,"hasta aca llego2");
 
     fclose(dumpeo);
 
@@ -630,6 +634,10 @@ void dump_memoria(){
 void escribir_estado_de_memoria(FILE* archivo){
 
     t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
+
+    log_error(broker_logger, "llegue hasta aca?");
+
+    if(debug_broker) list_iterate(listadeparticiones, print_memoria);
 
     for(int i=0; i < list_size(listadeparticiones); i++){
         t_bloque_memoria* bloque = list_get(listadeparticiones, i);
