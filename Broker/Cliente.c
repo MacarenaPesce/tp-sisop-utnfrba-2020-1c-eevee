@@ -299,15 +299,12 @@ int main(){
 
 	int socket_suscrip = enviar_solicitud_suscripcion(&servidor,COLA_NEW_POKEMON);
 
-	sleep(2);
 
 	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
 	free(ack);	
 
-	//sleep(2);
-
-	//ack = enviar_new_pokemon(&servidor,-1, &new_pokemon2);
-	//free(ack);
+	ack = enviar_new_pokemon(&servidor,-1, &new_pokemon2);
+	free(ack);
 
 	eliminar_localized_pokemon(localized_pokemon);
 
