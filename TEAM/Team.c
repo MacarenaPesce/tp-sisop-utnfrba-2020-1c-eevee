@@ -319,29 +319,6 @@ bool chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(t_pokemon 
 }
 
 bool chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(t_pokemon * pokemon){
-	/*bool no_esta_asignado = true;
-	t_entrenador * entrenador;
-
-	if(list_size(lista_listos) > 0){
-		
-		for(int i=0; i<list_size(lista_listos);i++){
-			pthread_mutex_lock(&lista_listos_mutex);
-			entrenador = list_get(lista_listos, i);
-			log_error(team_logger, "EL POKEMON ACTUAL DEL ENTRE EN LA LISTOS ES %s", entrenador->objetivo_actual->especie);
-			log_error(team_logger, "LA POSICION DEL POKEMON ACTUAL DEL ENTRE EN LA LISTOS EN X ES %d", entrenador->objetivo_actual->posx);
-			log_error(team_logger, "LA POSICION DEL POKEMON ACTUAL DEL ENTRE EN LA LISTOS EN Y ES %d", entrenador->objetivo_actual->posy);
-			pthread_mutex_unlock(&lista_listos_mutex);
-			log_error(team_logger, "EL POKEMON DEL MAPA %s", pokemon->especie);
-			log_error(team_logger, "LA POSICION DEL POKEMON DEL MAPA EN X ES %d", pokemon->posx);
-			log_error(team_logger, "LA POSICION DEL POKEMON DEL MAPA EN Y ES %d", pokemon->posy);
-
-			if(pokemon->asignado){
-				no_esta_asignado = false;
-				break;
-			}
-		}
-	}
-	return no_esta_asignado;*/
 	return pokemon->asignado;
 }
 
@@ -369,7 +346,7 @@ void chequeo_si_puedo_atrapar_otro(){
 			//log_info(team_logger, "POKEMON DEL MAPA EN LA SEGUNDA VUELTA %s, ASIGNADO: %d", pokemon->especie, pokemon->asignado);
 			pthread_mutex_unlock(&mapa_mutex);
 			if(!esta_en_lista_asignados(pokemon)){
-				log_info(team_logger, "POKEMON DEL MAPA %s no esta en la lista de asignados", pokemon->especie);
+				//log_info(team_logger, "POKEMON DEL MAPA %s no esta en la lista de asignados", pokemon->especie);
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				break;
 			}
@@ -391,8 +368,8 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger,"La estimacion de este entrenador al bloquearse es %f", entrenador->estimacion_real);
 			list_add(lista_bloqueados_esperando, (void*)entrenador);
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
-			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
-			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
+			//log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
+			//mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
 			chequeo_si_puedo_atrapar_otro();
 			sem_post(&orden_para_planificar);
 
@@ -551,30 +528,9 @@ void * tratamiento_de_mensajes(){
 			pokemon->especie = contenido->pokemon;
 			pokemon->posx = contenido->coordenadas.posx;
 			pokemon->posy = contenido->coordenadas.posy;
-
-			/*if(!strcmp(algoritmo_planificacion, "RR")){
-				CADA VEZ QUE LLEGA UN POKEMON SELECCIONO AL ENTRENADOR MAS CERCANO AL MISMO
-				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-				if(es_el_primer_pokemon){
-					/*MANDO AL PRIMERO A EJECUTAR
-					es_el_primer_pokemon = false;
-					operar_con_appeared_pokemon(pokemon);
-					sem_post(&orden_para_planificar);					
-				}else{
-					/*NO ES EL PRIMER MENSAJE DE APPEARED, POR LO CUAL ES UNA INTERRUPCION
-					log_info(team_logger, "Soy el entrenador EN EJECUCION EN LA FUNCION DE TRATAMIENTO, mi id es: %d.", entrenador_en_ejecucion->id);
-					operar_con_appeared_pokemon(pokemon);
-					
-					pthread_mutex_lock(&lista_listos_mutex);
-					list_add(lista_listos, entrenador_en_ejecucion);
-					pthread_mutex_unlock(&lista_listos_mutex);
-				}*/
-			//}else//{
-
-				/*EL ALGORITMO NO ES RR*/
-				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-				operar_con_appeared_pokemon(pokemon);
-			//}
+			
+			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+			operar_con_appeared_pokemon(pokemon);
 		}
 
 		if(mensaje->operacion == LOCALIZED){
@@ -615,7 +571,7 @@ void * tratamiento_de_mensajes(){
 		}
 
 		chequear_si_fue_cumplido_el_objetivo_global();
-		//free(mensaje);
+		free(mensaje);
 
 	}
 

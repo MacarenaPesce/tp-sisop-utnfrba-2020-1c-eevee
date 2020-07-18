@@ -172,10 +172,10 @@ void ver_entre_quienes_hay_deadlock_y_resolverlo(t_entrenador * entrenador1){
 			log_error(team_logger, "POKEMON %s VUELTA %d", pokemonnn->especie, i);
 		}*/
 
-		log_error(team_logger, "EL POKEMON INNECESARIO ES %s", pokemon1->especie);
+		//log_error(team_logger, "EL POKEMON INNECESARIO ES %s", pokemon1->especie);
 
 		t_objetivo_entrenador* pokemon2 = buscar_pokemon_objetivo_por_especie(entrenador2->objetivo, pokemon1->especie);
-		log_info(team_logger, "La especie del pokemon2 es %s", pokemon2->especie);
+		//log_info(team_logger, "La especie del pokemon2 es %s", pokemon2->especie);
 		if(pokemon2 != NULL){
 			//pthread_mutex_lock(&tocando_pokemones_objetivos);
 			cant = (int)pokemon2->cantidad;
