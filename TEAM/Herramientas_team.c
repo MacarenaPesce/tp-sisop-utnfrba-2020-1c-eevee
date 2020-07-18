@@ -162,8 +162,8 @@ void inicializar_semaforos_deadlock(){
 }
 
 void inicializar_archivo_de_configuracion(char * path){
-	log_debug(team_logger, "EL PATH ES %s", path);
-	t_config * config = config_create(path);
+
+	config = config_create(path);
 
 	if(config == NULL){
 		log_info(team_logger,"Error al cargar el archivo de configuración.");
