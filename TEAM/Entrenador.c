@@ -134,13 +134,13 @@ atrapado con éxito.*/
 	}
 
 	 t_packed* ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
-
+		consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para esta especie: %s", entrenador->id, entrenador->objetivo_actual->especie);
 
 	if(ack == (t_packed*) -1){
 		log_info(team_logger, "El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon");
 		hacer_procedimiento_para_atrapar_default(catch_pokemon, entrenador);
-		consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
+		//consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 	}else{
 		//Recibo ACK
 		if(ack->operacion == ACK){

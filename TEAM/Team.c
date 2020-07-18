@@ -17,9 +17,9 @@ void operar_con_appeared_pokemon(t_pokemon * pokemon){
 
 	log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa\n", pokemon->especie, pokemon->posx, pokemon->posy);
 
-	if(strcmp(algoritmo_planificacion, "RR")){
+	//if(strcmp(algoritmo_planificacion, "RR")){
 		sem_post(&orden_para_planificar);
-	}
+	//}
 
 }
 
@@ -235,6 +235,7 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 
 			pthread_mutex_lock(&mapa_mutex);
 			list_remove(lista_mapa, i); //elimino el poke del mapa
+			//remover al pokemon de la lista de asignados
 			pthread_mutex_unlock(&mapa_mutex);
 			break;
 		}
@@ -247,7 +248,7 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 
 	} else {
 		ver_razon_de_bloqueo(entrenador);
-		chequeo_si_puedo_atrapar_otro();
+		//chequeo_si_puedo_atrapar_otro();
 		bloquear_entrenador(entrenador);
 	}
 
@@ -392,7 +393,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
 			mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
-
+			chequeo_si_puedo_atrapar_otro();
 			sem_post(&orden_para_planificar);
 
 			break;
@@ -486,15 +487,21 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			entrenador_en_ejecucion = NULL;
 			entrenador->agoto_quantum = true;
 			entrenador->quantum_restante = quantum;
-
-			pthread_mutex_lock(&lista_listos_mutex);
-			list_add(lista_listos, entrenador);
-			pthread_mutex_unlock(&lista_listos_mutex);
 			cambios_de_contexto++;
-			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+			if(entrenador->cant_maxima_objetivos == 0){
+				sem_post(&orden_para_planificar);
+			} else {
+				pthread_mutex_lock(&lista_listos_mutex);
+				list_add(lista_listos, entrenador);
+				pthread_mutex_unlock(&lista_listos_mutex);
+				//cambios_de_contexto++;
+				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
 
-			sem_post(&orden_para_planificar);
-			sem_wait(&array_semaforos[entrenador->id]);
+				sem_post(&orden_para_planificar);
+				sem_wait(&array_semaforos[entrenador->id]);
+			}
+
+			
 
 		}
 	}
@@ -545,29 +552,29 @@ void * tratamiento_de_mensajes(){
 			pokemon->posx = contenido->coordenadas.posx;
 			pokemon->posy = contenido->coordenadas.posy;
 
-			if(!strcmp(algoritmo_planificacion, "RR")){
-				/*CADA VEZ QUE LLEGA UN POKEMON SELECCIONO AL ENTRENADOR MAS CERCANO AL MISMO*/
+			/*if(!strcmp(algoritmo_planificacion, "RR")){
+				CADA VEZ QUE LLEGA UN POKEMON SELECCIONO AL ENTRENADOR MAS CERCANO AL MISMO
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				if(es_el_primer_pokemon){
-					/*MANDO AL PRIMERO A EJECUTAR*/
+					/*MANDO AL PRIMERO A EJECUTAR
 					es_el_primer_pokemon = false;
 					operar_con_appeared_pokemon(pokemon);
 					sem_post(&orden_para_planificar);					
 				}else{
-					/*NO ES EL PRIMER MENSAJE DE APPEARED, POR LO CUAL ES UNA INTERRUPCION*/
+					/*NO ES EL PRIMER MENSAJE DE APPEARED, POR LO CUAL ES UNA INTERRUPCION
 					log_info(team_logger, "Soy el entrenador EN EJECUCION EN LA FUNCION DE TRATAMIENTO, mi id es: %d.", entrenador_en_ejecucion->id);
 					operar_con_appeared_pokemon(pokemon);
 					
 					pthread_mutex_lock(&lista_listos_mutex);
 					list_add(lista_listos, entrenador_en_ejecucion);
 					pthread_mutex_unlock(&lista_listos_mutex);
-				}
-			}else{
+				}*/
+			//}else//{
 
 				/*EL ALGORITMO NO ES RR*/
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				operar_con_appeared_pokemon(pokemon);
-			}
+			//}
 		}
 
 		if(mensaje->operacion == LOCALIZED){
