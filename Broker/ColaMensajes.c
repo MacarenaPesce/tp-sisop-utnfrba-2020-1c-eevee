@@ -126,7 +126,6 @@ void* sender_suscriptores(void* cola_mensajes){
 			continue;
 		}
 
-		printf(" \n LLEGUE HASTA ACA\n");
 		t_cliente* cliente = obtener_cliente_por_id(envio_pendiente->cliente);
 		
 		t_socket_cliente* socket_cliente = obtener_socket_cliente_de_cola(cliente,cola->cola_de_mensajes);
@@ -446,8 +445,6 @@ void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, int _id_cliente){
 	int* id_cliente = (int*)malloc(sizeof(int));
 
 	memcpy(id_cliente,&_id_cliente,sizeof(int));
-
-	if(debug_broker) log_error(broker_logger,"se encontro el cliente con id %d",*id_cliente);
 
 	list_add(mensaje->suscriptores_enviados,(void*)id_cliente);
 

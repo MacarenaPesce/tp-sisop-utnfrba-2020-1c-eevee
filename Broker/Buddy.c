@@ -51,8 +51,12 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 	/* Busco el numero potencia de 2 mas cercano */
 	int bytes_potencia_dos = numero_potencia_dos(bytes_a_alojar);
 
+	if(debug_broker) log_warning(broker_logger,"pot 2 %d", bytes_potencia_dos);
+
     /* Me fijo si la particion puede alojarse a la primera */
     bool sePuedeAlojar = puede_alojarse(bytes_potencia_dos);
+
+	if(debug_broker) log_warning(broker_logger,"puede alojarse? %d", sePuedeAlojar);
 
 	/* Seteo un bool para controlar cuando ya aloje la particion */
     bool alojado = false;
@@ -97,7 +101,6 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
     return;
 }
 
-
 /*	Busca una particion libre, la mas chica (best_fit).
   	La particiona si sobra espacio.
 	Asigna los datos.  
@@ -116,7 +119,6 @@ void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_de_partic
 
 	return;
 }
-
 
 /*	Es el algoritmo best fit , que se encarga de encontrar la particion libre
 	pero teniendo en cuenta, que es la que mejor se ajuste */
@@ -151,7 +153,6 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 
 	return bloque_encontrado;
 }
-
 
 /* 	Dado un bloque de memoria, se encarga de particionar el bloque.
 	Teniendo en cuenta, que lo tiene que particionar la cantidad de veces necesarias 
@@ -248,9 +249,6 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 	return ;
 }
 
-
-
-
 /* Se encarga de ir borrando una particion, teniendo en cuenta los 
 	algoritmos de reemplazo*/
 t_bloque_memoria* reemplazar_bloque_BS(){
@@ -272,9 +270,6 @@ t_bloque_memoria* reemplazar_bloque_BS(){
 
 	return bloque_eliminado;
 }
-
-
-
 
 /* Realiza la consolidacion de buddies, dado un bloque.*/
 void consolidacion_BS(t_bloque_memoria* bloque){

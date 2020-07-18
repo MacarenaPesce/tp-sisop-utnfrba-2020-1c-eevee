@@ -151,8 +151,13 @@ void capturar_signal(int signo){
 }
 
 void terminar_broker_correctamente(){
-	
+
+	pthread_mutex_lock(&mutex_queue_mensajes);
+
 	vaciar_sockets_de_clientes();
+
+	pthread_mutex_unlock(&mutex_queue_mensajes);
+		
 	log_info(broker_logger,"Chau!");
 	exit(EXIT_SUCCESS);
 }

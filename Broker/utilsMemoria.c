@@ -106,19 +106,15 @@ bool puede_alojarse(int tamanio_bytes){
 }
 
 /* Calcula la posicion relativa de memoria*/
-void* calcular_posicion_relativa(t_bloque_memoria* bloque){
+void* calcular_posicion_relativa(t_bloque_memoria* _bloque){
 
     /* Obtengo el primer bloque de mi lista para saber donde empieza la memoria*/
     t_bloque_memoria* primer_bloque = list_get(cache_mensajes->memoria,0);
 
-    void* resultado;
+    void* posicion_bloque = _bloque->esta_vacio ? _bloque->estructura_mensaje : _bloque->estructura_mensaje->mensaje;
+    void* posicion_primer_bloque = primer_bloque->esta_vacio ? primer_bloque->estructura_mensaje : primer_bloque->estructura_mensaje->mensaje;
 
-    if(primer_bloque->esta_vacio){
-        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje);
-    }
-    else{
-        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje->mensaje);    
-    }
+    void* resultado =  posicion_bloque - posicion_primer_bloque;    
 
     return resultado;
 }
