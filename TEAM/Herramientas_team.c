@@ -161,8 +161,8 @@ void inicializar_semaforos_deadlock(){
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
 }
 
-void inicializar_archivo_de_configuracion(){
-	config = config_create("../team.config");
+void inicializar_archivo_de_configuracion(char * path){
+	t_config * config = config_create(path);
 
 	if(config == NULL){
 		log_info(team_logger,"Error al cargar el archivo de configuración.");
