@@ -4,7 +4,7 @@
 
 1. Ubicar el tp en la carpeta `/home/utnso/tp-2020-1c-eevee`
 2. Ubicado en al raiz del proyecto, compilar ejecutando `make clean all`
-3. Dentro de la carpeta Dist, en la raiz del proyecto deben ubicarse los archivos de config de los procesos a ejecutar
+3. Colocar los archivos de config de los procesos a ejecutar dentro de la carpeta Dist que se encuentra en la raiz del proyecto.
 
 ## Ejecución
 
