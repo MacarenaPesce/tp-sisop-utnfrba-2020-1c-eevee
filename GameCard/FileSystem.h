@@ -11,6 +11,8 @@ pthread_mutex_t mutexSemPokemones;
 t_dictionary* semaforosPokemones;
 pthread_mutex_t semMutexBitmap;
 
+char* lineaBloques;
+
 void inicializarSemaforosParaPokemon();
 void agregarSemaforoPokemon(char* poke);
 void eliminarSemaforoPokemon(char* poke);
@@ -32,7 +34,7 @@ void agregarAstring(void* elem);
 char*  cargarPokemon(t_new_pokemon* pokemon);
 void marcarBloqueOcupado(int bloqueLibre);
 //void agregarBloqueParaMetadataArchivo(char* bloqueLibre);
-void crearMetadataArchPoke(char* pokemon, int tamanio);
+void crearMetadataArchPoke(char* pokemon, int tamanio, t_list* bloques);
 
 //manejo del ultimo elemento
 
@@ -63,7 +65,7 @@ char* pokeLinea;
 //t_list* obtenerBloquesPokemon(char* poke);
 void llenarListaBloquesPoke(char* pok);
 
-char* pokemonEnMemoria;
+extern char* pokemonEnMemoria;
 
 char* pokemonAguardar;
 
@@ -203,4 +205,8 @@ int obtenerEspacioMetadata(char* pokemon);
 void copiarPokemonEnMemoria(void* unBloque);
 
 void liberarMemoria();
+
+void liberarElem(void* elem);
+
+void destruirBloque(char*);
 #endif /* FILESYSTEM_H_ */
