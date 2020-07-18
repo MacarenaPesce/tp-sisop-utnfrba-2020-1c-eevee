@@ -67,6 +67,7 @@ void actualizar_socket_cliente(t_cliente* cliente, int socket, int cola);
 // Eliminación
 void eliminar_mensaje_enviado();
 void eliminar_envio_pendiente(void* pendiente);
+void eliminar_mensaje_cola(t_mensaje_cola* mensaje);
 
 // Helpers
 void* print_operacion(void* mensaje);

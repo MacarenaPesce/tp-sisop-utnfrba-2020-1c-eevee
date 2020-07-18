@@ -1,24 +1,5 @@
 #include "utilsMemoria.h"
 
-//void LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria){
-    
-    /* Libero la memoria inicial */
-    //free(bloque_memoria_inicial);
-
-    /* Destruyo la lista y su contenido */
-    //list_destroy_and_destroy_elements(lista_memoria);
-    //return;
-//}
-
-/*
-    - Hay que modificar la compactacion, si esta seteada en -1 , no se compacta nunca y se sigue buscando, 
-    se compacta unicamente cuando no haya particiones ocupadas, pero con la consolidacion no hace falta compactar
-
-    - Hacer dump 
-*/
-
-
-
 /*Me fijo si el tamaño de mi mensaje a guardar, es menor que el minimo tamaño de particion*/
 int tamanio_a_alojar(int tamanio){
 
@@ -29,42 +10,28 @@ int tamanio_a_alojar(int tamanio){
 	}   
 
 	return tamanio_final;
-
 }
 
-
-
-/*Obtengo el indice de un determinado, recorriendo toda la lista y comparando los payload*/
+/* Obtengo el indice de un determinado, recorriendo toda la lista y comparando los payload */
 int obtener_indice_particion(t_bloque_memoria* bloque){
 
 	int indice=0;
-
+    
     bool buscar_bloque(void* _bloque){
-
-        t_bloque_memoria* bloque_memoria = (t_bloque_memoria*) _bloque;        
-
-        if(bloque_memoria->esta_vacio) {
-            indice++;
-            return false;
+        
+        if(_bloque!=bloque){
+            indice ++;
         }
 
-        if(bloque_memoria->estructura_mensaje != bloque->estructura_mensaje){
-            indice++;
-        }
-
-        return bloque_memoria->estructura_mensaje == bloque->estructura_mensaje;
-
+        return _bloque == bloque;
     }
 
     list_find(cache_mensajes->memoria, buscar_bloque);
-    if(debug_broker) log_debug(broker_logger,"El id malo es: %d",indice);
 
-	return indice-1;
+	return indice;
 }
 
-
-
-/* Seteo un bloque vacio*/
+/* Seteo un bloque vacio */
 t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 
     t_bloque_memoria* bloque = (t_bloque_memoria*)malloc(sizeof(t_bloque_memoria));
@@ -79,11 +46,12 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
 
 }
 
-
-
-
-/*Libero la memoria de un determinado bloque y lo retorno */
+/* Libero la memoria de un determinado bloque y lo retorno */
 void liberar_bloque_memoria(t_bloque_memoria* bloque){
+
+    void* aux = bloque->estructura_mensaje->mensaje;
+
+    bloque->estructura_mensaje = aux;   
 
     /* Marco el bloque como vacio */
     bloque->esta_vacio = true;
@@ -94,11 +62,10 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque){
 	/* Vacio el last_time del bloque*/
 	bloque->last_time = 0;
 
+
     return ;
 
 }
-
-
 
 /*Dado el tamaño de una particion, me fijo si puede alojarse a la primera 
 	o si hay que correr el algoritmo de eliminacion*/ 
@@ -118,8 +85,33 @@ bool puede_alojarse(int tamanio_bytes){
 
 }
 
+/* Calcula la posicion relativa de memoria*/
+void* calcular_posicion_relativa(t_bloque_memoria* bloque){
 
+    /* Obtengo el primer bloque de mi lista para saber donde empieza la memoria*/
+    t_bloque_memoria* primer_bloque = list_get(cache_mensajes->memoria,0);
 
+    void* resultado;
+
+    if(primer_bloque->esta_vacio){
+        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje);
+    }
+    else{
+        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje->mensaje);    
+    }
+
+    return resultado;
+}
+
+/* Imprime por pantalla el estado de la memoria*/
+void print_memoria(void* _bloque){
+    t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+    if(bloque->esta_vacio == false) printf("\nId : %d\n",bloque->estructura_mensaje->id_mensaje);
+
+    if(debug_broker) log_warning(broker_logger, "Tamaño: %d \n",bloque->tamanio_particion);
+
+}
 
 /*Obtengo el tiempo actual en segundos*/ 
 uint64_t get_timestamp(){

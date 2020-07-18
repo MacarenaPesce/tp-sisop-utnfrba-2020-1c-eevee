@@ -212,6 +212,8 @@ void _eliminar_mensaje(t_packed* paquete);
 int _enviar_mensaje(int sock, t_packed *paquete);
 void agregar_coordenadas_a_localized(t_localized_pokemon* localized_pokemon, t_coordenadas* _coordenadas);
 t_localized_pokemon* generar_localized(char* nombre_pokemon);
+void eliminar_localized_pokemon(t_localized_pokemon* localized_pokemon);
+void dynamic_list_iterate(t_list* self, void(*closure)(void*));
 
 t_packed* enviar_mensaje_string(t_servidor* servidor, char* mensaje);
 t_packed* enviar_appeared_pokemon(t_servidor* servidor, uint32_t id_correlacional, t_appeared_pokemon* appeared_pokemon );

@@ -116,8 +116,13 @@ void configurar_signals(void){
 		log_error(broker_logger, " SIGACTION error ");
 	}
 	sigaddset(&signal_struct.sa_mask, SIGSEGV);
-	if (sigaction(SIGINT, &signal_struct, NULL) < 0) {
+	if (sigaction(SIGSEGV, &signal_struct, NULL) < 0) {
 		log_error(broker_logger, " SIGACTION error ");
+	}
+	sigaddset(&signal_struct.sa_mask, SIGUSR1);
+	if (sigaction(SIGUSR1, &signal_struct, NULL) < 0) {
+		dump_memoria();
+		log_info(broker_logger, " Dump de memoria ");
 	}
 }
 
@@ -138,7 +143,7 @@ void capturar_signal(int signo){
     }
     else if(signo == SIGSEGV)
 	{
-		log_info(broker_logger,"SEGMENTATION FAULT");
+	//	log_info(broker_logger,"SEGMENTATION FAULT");
 	}
 
 }

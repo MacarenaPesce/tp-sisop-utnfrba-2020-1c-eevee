@@ -10,6 +10,7 @@
 
 #include "Contexto_gameCard.h"
 #include "Herramientas_gameCard.h"
+#include "mensajesParaFs.h"
 #include <pthread.h>
 
 void * atender_get_pokemon(t_packed *);

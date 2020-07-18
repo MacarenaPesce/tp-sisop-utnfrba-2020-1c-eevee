@@ -145,6 +145,8 @@ void* esperar_mensajes(void* cliente){
 
 	}
 
+	free(cliente);
+
 	return NULL;
 	
 }

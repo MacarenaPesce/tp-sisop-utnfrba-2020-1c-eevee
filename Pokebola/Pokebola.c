@@ -557,7 +557,7 @@ int distribuir_ack(int socket,uint32_t id_mensaje, uint32_t id_cliente){
 
 	int send_status = _enviar_mensaje(socket, paquete);
 
-	eliminar_mensaje(paquete);
+	_eliminar_mensaje(paquete);
 
 	return send_status;
 };
@@ -856,10 +856,11 @@ t_localized_pokemon* generar_localized(char* nombre_pokemon){
 	
 	t_localized_pokemon* localized_pokemon = malloc(sizeof(t_localized_pokemon));
 
+	printf("tamanio nombre %d\n",strlen(nombre_pokemon));
+
 	if(nombre_pokemon != NULL){
-		printf("\n el tamaño del nombre del pokemon es %d \n",strlen(nombre_pokemon)+1);
-		localized_pokemon->pokemon = malloc(sizeof(strlen(nombre_pokemon)+1));
-		localized_pokemon->pokemon = nombre_pokemon;
+		localized_pokemon->pokemon = malloc(strlen(nombre_pokemon)+1);
+		memcpy(localized_pokemon->pokemon,nombre_pokemon,strlen(nombre_pokemon)+1);
 	}
 
 	localized_pokemon->lista_coordenadas = list_create();
@@ -868,6 +869,24 @@ t_localized_pokemon* generar_localized(char* nombre_pokemon){
 
 	return localized_pokemon;
 
+}
+
+void eliminar_localized_pokemon(t_localized_pokemon* localized_pokemon){
+
+	list_destroy_and_destroy_elements(localized_pokemon->lista_coordenadas,free);
+	free(localized_pokemon->pokemon);
+	free(localized_pokemon);
+	
+}
+
+void dynamic_list_iterate(t_list* self, void(*closure)(void*)) {
+    t_link_element *element = self->head;
+    t_link_element *aux = NULL;
+    while (element != NULL) {
+        closure(element->data);
+        aux = element->next;
+        element = aux;
+    }
 }
 
 /**************FUNCIONES PARA EL LOG*********************/

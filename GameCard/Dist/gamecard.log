@@ -1,0 +1,26 @@
+[INFO] 20:16:56:599 gameCard/(7998:7998): Bienvenido al proceso Game Card
+[INFO] 20:16:56:599 gameCard/(7998:7998): llegando al final
+[INFO] 20:16:56:599 gameCard/(7998:7998): liberando recursos
+[INFO] 20:16:56:599 gameCard/(7998:7998): finalizando GameCard
+[INFO] 20:17:59:757 gameCard/(8031:8031): Bienvenido al proceso Game Card
+[INFO] 20:17:59:777 gameCard/(8031:8031): llegando al final
+[INFO] 20:17:59:779 gameCard/(8031:8031): liberando recursos
+[INFO] 20:17:59:779 gameCard/(8031:8031): finalizando GameCard
+[INFO] 20:20:35:103 gameCard/(8345:8345): Bienvenido al proceso Game Card
+[INFO] 20:20:35:135 gameCard/(8345:8345): Cargando los datos del archivo de configuración
+[INFO] 20:20:35:146 gameCard/(8345:8345): Los datos del archivo de configuracion se han cargado correctamente
+[INFO] 20:20:35:146 gameCard/(8345:8345): Carganado las rutas correspondientes al FileSystem
+[INFO] 20:20:35:148 gameCard/(8345:8345): Se han cargado todas las rutas correctamente
+[INFO] 20:20:35:148 gameCard/(8345:8345): Cargando Metadata del FileSystem
+[INFO] 20:21:47:751 gameCard/(8517:8517): Bienvenido al proceso Game Card
+[INFO] 20:21:47:797 gameCard/(8517:8517): Cargando los datos del archivo de configuración
+[INFO] 20:21:47:816 gameCard/(8517:8517): Los datos del archivo de configuracion se han cargado correctamente
+[INFO] 20:21:47:817 gameCard/(8517:8517): Carganado las rutas correspondientes al FileSystem
+[INFO] 20:21:47:821 gameCard/(8517:8517): Se han cargado todas las rutas correctamente
+[INFO] 20:21:47:822 gameCard/(8517:8517): Cargando Metadata del FileSystem
+[INFO] 20:23:39:662 gameCard/(8598:8598): Bienvenido al proceso Game Card
+[INFO] 20:23:39:697 gameCard/(8598:8598): Cargando los datos del archivo de configuración
+[INFO] 20:23:39:705 gameCard/(8598:8598): Los datos del archivo de configuracion se han cargado correctamente
+[INFO] 20:23:39:706 gameCard/(8598:8598): Carganado las rutas correspondientes al FileSystem
+[INFO] 20:23:39:708 gameCard/(8598:8598): Se han cargado todas las rutas correctamente
+[INFO] 20:23:39:708 gameCard/(8598:8598): Cargando Metadata del FileSystem

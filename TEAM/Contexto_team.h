@@ -105,6 +105,7 @@ extern t_list* mensajes_para_chequear_id;
 extern t_list* lista_bloqueados_esperando_caught;
 
 sem_t * array_semaforos;
+sem_t * array_semaforos_rr;
 sem_t * array_semaforos_finalizar;
 sem_t * array_semaforos_deadlock;
 sem_t * array_semaforos_caught;
@@ -133,7 +134,6 @@ sem_t hay_interbloqueo_avisar_a_entrenador;
 pthread_mutex_t mutex_deadlock;
 
 sem_t ejecucion;
-
 sem_t operar_con_catch;
 sem_t operar_con_appeared;
 sem_t operar_con_localized;
@@ -144,6 +144,7 @@ sem_t se_hizo_el_intercambio;
 sem_t chequeo_de_deadlock;
 sem_t todos_los_entrenadores_finalizaron;
 sem_t me_bloquee;
+sem_t puedo_volver_a_ejecutar; 
 
 extern bool hayDeadlock;
 extern bool me_desalojaron;

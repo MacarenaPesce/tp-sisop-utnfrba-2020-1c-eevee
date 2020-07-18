@@ -62,7 +62,6 @@ void recibir_appeared_pokemon_desde_gameboy(t_packed * paquete){
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
 	list_add(mensajes_que_llegan_nuevos, mensaje);
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
-	CONTADOR_DE_MENSAJES++;
 
 	sem_post(&mensaje_nuevo_disponible);
 

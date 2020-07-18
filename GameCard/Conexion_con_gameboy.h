@@ -8,9 +8,7 @@
 #ifndef CONEXION_CON_GAMEBOY_H_
 #define CONEXION_CON_GAMEBOY_H_
 
-#include "Contexto_gameCard.h"
 #include "Conexion_con_broker.h"
-#include <pthread.h>
 
 void escuchar_mensajes_entrantes(int);
 void * atender_a_gameboy(void *);
