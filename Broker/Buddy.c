@@ -281,6 +281,7 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 
 	/* Obtengo la posicion relativa de mi bloque */
 	void* posicion_relativa_bloque = calcular_posicion_relativa(bloque);
+	log_error(broker_logger, "posicion relativa del bloque actual %p", posicion_relativa_bloque);
 
 	/* Obtengo el indice de un buddy */
 	int indice_bloque = obtener_indice_particion(bloque);
@@ -297,25 +298,29 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 			-me fijo de nuevo si son buddies con alguno de los dos
 			y asi repito hasta que no pueda encontrar ninguna de estas condiciones
 	*/
+
+	if(bloque_siguiente!=NULL) log_warning(broker_logger, " tiene buddie a derecha? %d ", son_buddies(bloque,bloque_siguiente) );
 	
 	/* Me fijo si son buddies los bloques siguiente y anterior, si son buddies consolido */
-	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true && son_buddies(bloque_siguiente,bloque)){
+	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true && son_buddies(bloque,bloque_siguiente)){
 
 		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre, a derecha");
 		
 		/* Si cumple con las condiciones, consolido bloques*/
 		consolidar_bloques_buddies(bloque,bloque_siguiente);
 
-		log_error(broker_logger, "El tamaño del nuevo bloque es %d", bloque->tamanio_particion);
-
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
 		printf("\n");
+
+		//if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
 		/* Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar*/
 		consolidacion_BS(bloque);
 	}
 
+	if(bloque_anterior!=NULL) log_warning(broker_logger, " tiene buddie a izquierda? %d ", son_buddies(bloque_anterior,bloque) );
+	
 	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true && son_buddies(bloque_anterior,bloque)){
 
 		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre, a izquierda");
@@ -323,14 +328,14 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 		/* Si cumple con las condiciones, consolido bloques*/
 		consolidar_bloques_buddies(bloque_anterior,bloque);
 
-		log_error(broker_logger, "El tamaño del nuevo bloque es %d", bloque->tamanio_particion);		
-
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
 		printf("\n");
 
+		//if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+
 		/* Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar*/
-		consolidacion_BS(bloque);
+		consolidacion_BS(bloque_anterior);
 	}
     
 	if(debug_broker) log_debug(broker_logger,"No tengo más buddies libres.");

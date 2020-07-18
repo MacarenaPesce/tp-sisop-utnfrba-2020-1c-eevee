@@ -279,6 +279,12 @@ int main(){
 	catch_pokemon4.coordenadas.posy = 7;
 	catch_pokemon4.pokemon = "Charmander";	
 
+	t_new_pokemon new_pokemon2;
+	new_pokemon2.coordenadas.posx = 10;
+	new_pokemon2.coordenadas.posy = 20;
+	new_pokemon2.cantidad = 7;
+	new_pokemon2.pokemon = "charmander";	
+
 	ack = enviar_caught_pokemon(&servidor,-1, &caught_pokemon1);
 	free(ack); 	
 
@@ -296,6 +302,8 @@ int main(){
 	ack = enviar_catch_pokemon(&servidor,-1, &catch_pokemon4);
 	free(ack);	
 
+	//ack = enviar_new_pokemon(&servidor,-1, &new_pokemon2);
+	//free(ack);
 
 	eliminar_localized_pokemon(localized_pokemon);
 

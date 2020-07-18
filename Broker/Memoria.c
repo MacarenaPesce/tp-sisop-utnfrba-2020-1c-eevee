@@ -366,7 +366,7 @@ t_bloque_memoria* algoritmo_fifo(){
 }
 
 
-
+//TODO : actualizar en el uso de colas el tiempo de LRU
 
 //------------------------------LRU--------------------------------
 
@@ -628,7 +628,7 @@ void dump_memoria(){
 
 }
 
-
+//TODO : funcion ordenar bloques memoria
 void escribir_estado_de_memoria(FILE* archivo){
 
     //t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
