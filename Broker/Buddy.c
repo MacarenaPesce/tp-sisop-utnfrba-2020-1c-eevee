@@ -218,7 +218,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
     	/* Copio el mensaje a MP y apunto a la estructura_mensaje */      
     	memcpy((void*)(particion_inicial->estructura_mensaje),estructura_mensaje->mensaje,estructura_mensaje->tamanio_mensaje);
 
-		//free(estructura_mensaje->mensaje);
+		free(estructura_mensaje->mensaje);
 
 		//seteo el payload en aux
     	void* aux_mensaje = particion_inicial->estructura_mensaje; 
