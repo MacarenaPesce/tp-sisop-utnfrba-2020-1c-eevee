@@ -1643,10 +1643,13 @@ t_list* obtenerPosicionesPokemon(char* pokemon) {
 	char** posiciones = string_split(pokemonEnMemoria, "\n");
 
 	pokemonesParaLocalized = list_create();
+	
 	string_iterate_lines(posiciones, agregarPosicionAlistaParaLocalized);
 
 	log_info(gameCard_logger, " las posiciones y cantidades del pokemon %s son :",	pokemon);
+
 	for (int i = 0; i < list_size(pokemonesParaLocalized); i++) {
+		
 		t_coordenadas * coord = list_get(pokemonesParaLocalized, i);
 		log_info(gameCard_logger, "(%d, %d) \n", coord->posx, coord->posy);
 	}
@@ -1681,7 +1684,6 @@ void agregarPosicionAlistaParaLocalized(char* posicion) {
 
 	t_coordenadas_cantidad * elemento = malloc(sizeof(t_coordenadas_cantidad));
 
-	elemento->cant = cantidad_pokemons;
 	elemento->coordenadas.posx = posx;
 	elemento->coordenadas.posy = posy;
 

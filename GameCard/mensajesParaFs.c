@@ -101,18 +101,15 @@ t_list* operar_con_get_pokemon(t_get_pokemon* poke){
 			abrirArchivo(poke->pokemon);
 		}
 
-	return obtenerPosicionesPokemon(poke->pokemon);
+		return obtenerPosicionesPokemon(poke->pokemon);
 
 	}
 
-	else { log_error(gameCard_logger," No existe el pokemon %s, "
-						"no posee posiciones",poke->pokemon);
+	log_error(gameCard_logger," No existe el pokemon %s, no posee posiciones",poke->pokemon);
 
-				sleep(tiempo_retardo_operacion);
-				t_list* listaVacia=list_create();
-				return listaVacia;
+	sleep(tiempo_retardo_operacion);
 
-	}
+	return -1;	
 
 }
 
