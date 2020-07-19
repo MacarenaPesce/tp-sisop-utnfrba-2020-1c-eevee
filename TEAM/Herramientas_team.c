@@ -457,10 +457,13 @@ t_mensaje_guardado * buscar_mensaje(uint32_t id){
 }
 
 t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* mensajes){
-	bool es_el_buscado(t_mensaje_guardado* mensaje){
+
+	bool es_el_buscado(void* _mensaje){
+		t_mensaje_guardado* mensaje = (t_mensaje_guardado*) _mensaje;
 		return mensaje->id == id_correlativo;
 	}
-	return (list_find(mensajes,(void*)es_el_buscado));
+
+	return (list_find(mensajes,es_el_buscado));
 }
 
 t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char* especie, t_list* mensajes){

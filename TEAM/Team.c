@@ -31,6 +31,11 @@ void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
 
 	t_mensaje_guardado* mensaje_guardado_catch = buscar_mensaje_por_id(id_correlativo, mensajes_para_chequear_id);
 
+	if(mensaje_guardado_catch == NULL){
+		log_warning(team_logger, "No se encontro el mensaje de ID: %d", id_correlativo);
+		return;
+	}
+
 	t_catch_pokemon* catch_pokemon = malloc(sizeof(t_catch_pokemon));
 	catch_pokemon = mensaje_guardado_catch->contenido;
 

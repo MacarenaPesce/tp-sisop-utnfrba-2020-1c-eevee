@@ -97,7 +97,7 @@ void * atender_catch_pokemon(t_packed * paquete){
 	caught_pokemon->status = operar_con_catch_pokemon(catch_pokemon);
 			//OK; //Le pongo este rdo por poner, aca va el que hayas obtenido desde el FS
 
-	t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_correlacional, caught_pokemon);
+	t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_mensaje, caught_pokemon);
 
 	if(ack == (t_packed*) -1){
 		log_info(gameCard_logger, "El broker esta caído, no se pudo enviar el caught pokemon para la especie %s", catch_pokemon->pokemon);
@@ -108,8 +108,6 @@ void * atender_catch_pokemon(t_packed * paquete){
 	free(servidor);
 	eliminar_mensaje(paquete);
 	free(caught_pokemon);
-	free(catch_pokemon);
-//	free(ack);
 
 	return NULL;
 }
