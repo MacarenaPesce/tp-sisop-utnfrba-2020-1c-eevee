@@ -14,11 +14,9 @@ extern t_config* config;
 extern t_cache_colas* cache_mensajes;
 
 /*
-		FUNCIONAMIENTO
-
+	FUNCIONAMIENTO:
 		Busco particion libre:
-			- Encuentro particion libre -> usa el Best fit, el mejor ajuste,
-						necesito la particion mas pequeña donde quepa
+			- Encuentro particion libre -> usa el Best fit, el mejor ajuste, necesito la particion mas pequeña donde quepa
 			- Miro el tamaño de la particion 
 				- si es igual lo alojo
 				- si es menor no me sirve
@@ -29,21 +27,12 @@ extern t_cache_colas* cache_mensajes;
 				- Vuelvo a intentar alojas, repito hasta poder alojar
 */
 
-/*
-	Bueno algunas cosas a tener en cuenta para Buddy:
-		- Puedo plantear un arbol paralelo apenas arranque el funcionamiento del broker
-			- Cuando leo el config si es buddy hago esto
-			- En caso de plantear un arbol, me serviria guardar el id padre para consolidar
-			dos buddies.
-			- Puedo usar XOR para encontrar buddies, pero necesito posiciones relativas 
-			y no reales de memoria
-			- Usamos best fit -> problemas / soluciones de usar FF?
-			- Sin compactacion		
-*/
-
 
 /* Funcion que arranca con el funcionamiento del Buddy en si */
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
+
+    if(debug_broker) log_debug(broker_logger,"Buddy System", NULL);
+    if(debug_broker) log_debug(broker_logger,"Alojar: %i", estructura_mensaje->tamanio_mensaje );
 
 	/* Me fijo si cumple con el tamaño minimo de particion */
 	int bytes_a_alojar = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
@@ -51,29 +40,23 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 	/* Busco el numero potencia de 2 mas cercano */
 	int bytes_potencia_dos = numero_potencia_dos(bytes_a_alojar);
 
-	if(debug_broker) log_warning(broker_logger,"pot 2 %d", bytes_potencia_dos);
+    if(debug_broker) log_debug(broker_logger,"Particion a crear de: %i", bytes_potencia_dos);
+	printf("\n");
 
     /* Me fijo si la particion puede alojarse a la primera */
     bool sePuedeAlojar = puede_alojarse(bytes_potencia_dos);
-
-	if(debug_broker) log_warning(broker_logger,"puede alojarse? %d", sePuedeAlojar);
 
 	/* Seteo un bool para controlar cuando ya aloje la particion */
     bool alojado = false;
 
 	t_bloque_memoria* bloque_borrado;
 
-    if(debug_broker) log_debug(broker_logger,"Buddy System", NULL);
-    if(debug_broker) log_debug(broker_logger,"Alojar: %i", estructura_mensaje->tamanio_mensaje );
-    if(debug_broker) log_debug(broker_logger,"Particion a crear de: %i", bytes_potencia_dos);
-	printf("\n");
-
 	while(alojado == false){ /* Mientras no este alojado */
 
         /* Me fijo si puedo alojarla a la primera */
         if(sePuedeAlojar == true){ 
 
-			if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
+			//if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
 	        printf("\n");
 
             /* 	Si puede alojarse a la primera: Alojo la partición según el funcionamiento de buddies  */
@@ -91,8 +74,16 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 			/* Elimino una particion */
 			bloque_borrado = reemplazar_bloque_BS();
 
+			// Obtengo el indice de un buddy 
+			int indice_bloque = obtener_indice_particion(bloque_borrado);
+	
+			// Obtengo los bloques que rodean al que libero 
+			t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
+	
+			t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
+
 			/* Consolido buddies entorno a la particion eliminada*/
-			consolidacion_BS(bloque_borrado);
+			consolidacion_BS(bloque_anterior, bloque_borrado, bloque_siguiente);
 		}
 
 		/* Me fijo de nuevo si puede alojarse */
@@ -272,37 +263,21 @@ t_bloque_memoria* reemplazar_bloque_BS(){
 }
 
 /* Realiza la consolidacion de buddies, dado un bloque.*/
-void consolidacion_BS(t_bloque_memoria* bloque){
+void consolidacion_BS(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_borrado, t_bloque_memoria* bloque_siguiente){
 
 	// Obtengo la posicion relativa de mi bloque 
-	void* posicion_relativa_bloque = calcular_posicion_relativa(bloque);
-	log_error(broker_logger, "posicion relativa del bloque actual %p", posicion_relativa_bloque);
+	void* posicion_relativa_bloque = calcular_posicion_relativa(bloque_borrado);
+	log_error(broker_logger, "posicion relativa del bloque actual %d", posicion_relativa_bloque);
 
-	// Obtengo el indice de un buddy 
-	int indice_bloque = obtener_indice_particion(bloque);
-	
-	// Obtengo los bloques que rodean al que libero 
-	t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
-	
-	t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
-
-	/*
-		3- Mientras un bloque tenga buddies:
-			-consolido el bloque con su buddie
-			-seteo nuevamente el bloque siguiente y anterior
-			-me fijo de nuevo si son buddies con alguno de los dos
-			y asi repito hasta que no pueda encontrar ninguna de estas condiciones
-	*/
-
-	if(bloque_siguiente!=NULL) log_warning(broker_logger, " tiene buddie a derecha? %d ", son_buddies(bloque,bloque_siguiente) );
+	//if(bloque_siguiente!=NULL) log_warning(broker_logger, " tiene buddie a derecha? %d ", son_buddies(bloque,bloque_siguiente) );
 	
 	// Me fijo si son buddies los bloques siguiente y anterior, si son buddies consolido 
-	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true && son_buddies(bloque,bloque_siguiente)){
+	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true && son_buddies(bloque_borrado,bloque_siguiente)){
 
 		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre, a derecha");
 		
 		// Si cumple con las condiciones, consolido bloques
-		consolidar_bloques_buddies(bloque,bloque_siguiente);
+		consolidar_bloques_buddies(bloque_borrado,bloque_siguiente);
 
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
@@ -310,18 +285,22 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 
 		//if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
+		int indice_bloque = obtener_indice_particion(bloque_borrado);
+		t_bloque_memoria* nuevo_bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
+		t_bloque_memoria* nuevo_bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
+	
 		// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
-		consolidacion_BS(bloque);
+		consolidacion_BS(nuevo_bloque_anterior,bloque_borrado, nuevo_bloque_siguiente);
 	}
 
-	if(bloque_anterior!=NULL) log_warning(broker_logger, " tiene buddie a izquierda? %d ", son_buddies(bloque_anterior,bloque) );
+	//if(bloque_anterior!=NULL) log_warning(broker_logger, " tiene buddie a izquierda? %d ", son_buddies(bloque_anterior,bloque) );
 	
-	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true && son_buddies(bloque_anterior,bloque)){
+	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true && son_buddies(bloque_anterior,bloque_borrado)){
 
 		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre, a izquierda");
 
 		// Si cumple con las condiciones, consolido bloques
-		consolidar_bloques_buddies(bloque_anterior,bloque);
+		consolidar_bloques_buddies(bloque_anterior,bloque_borrado);
 
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
@@ -329,8 +308,12 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 
 		//if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
+		int indice_bloque = obtener_indice_particion(bloque_anterior);
+		t_bloque_memoria* nuevo_bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
+		t_bloque_memoria* nuevo_bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
+
 		// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
-		consolidacion_BS(bloque_anterior);
+		consolidacion_BS(nuevo_bloque_anterior,bloque_anterior,nuevo_bloque_siguiente);
 	}
     
 	if(debug_broker) log_debug(broker_logger,"No tengo más buddies libres.");
