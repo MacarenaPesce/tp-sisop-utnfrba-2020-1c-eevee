@@ -8,5 +8,3 @@
 ./gameboy SUSCRIPTOR NEW_POKEMON 10
 
 ./gameboy BROKER CATCH_POKEMON Charmander 4 5
-
-./gameboy BROKER CAUGHT_POKEMON 1 OK
