@@ -109,7 +109,16 @@ void* sender_suscriptores(void* cola_mensajes){
 
 	while(1){
 
-		sem_wait(cola->producciones);	
+		sem_wait(cola->producciones);		
+
+		pthread_mutex_lock(&mutex_server_status);
+
+		if(server_status == ENDING){
+			pthread_mutex_unlock(&mutex_server_status);
+			break;
+		} 
+
+		pthread_mutex_unlock(&mutex_server_status);
 
 		pthread_mutex_lock(&mutex_queue_mensajes);	
 
@@ -152,8 +161,9 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		pthread_mutex_unlock(&mutex_queue_mensajes);
 
-	
 	}
+
+	if(debug_broker) log_warning(broker_logger, "Finalizando sender de la cola %d", cola->cola_de_mensajes);
 
 	return NULL;
 }

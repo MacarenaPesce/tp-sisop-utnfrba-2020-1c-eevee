@@ -4,11 +4,17 @@ extern int tamanio_memoria;
 
 int main(){
 
+	pthread_mutex_lock(&mutex_server_status);
+	server_status = STARTING;
+	pthread_mutex_unlock(&mutex_server_status);
+	
+
 	inicializar_logger();
 
-	pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
+	
 	
 	debug_broker = true;
+
 
 	if(debug_broker) log_debug(broker_logger, "1) Cache de mensajes lista!!!", NULL);
 	
