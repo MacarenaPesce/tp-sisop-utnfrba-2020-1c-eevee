@@ -139,8 +139,8 @@ atrapado con éxito.*/
 	
 
 	 t_packed* ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
-		consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
-	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para esta especie: %s", entrenador->id, entrenador->objetivo_actual->especie);
+/* 		consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
+ */	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para esta especie: %s", entrenador->id, entrenador->objetivo_actual->especie);
 	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para %s en la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie, entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 
 	if(ack == (t_packed*) -1){

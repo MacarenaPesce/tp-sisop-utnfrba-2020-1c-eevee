@@ -109,7 +109,16 @@ void* sender_suscriptores(void* cola_mensajes){
 
 	while(1){
 
-		sem_wait(cola->producciones);	
+		sem_wait(cola->producciones);		
+
+		pthread_mutex_lock(&mutex_server_status);
+
+		if(server_status == ENDING){
+			pthread_mutex_unlock(&mutex_server_status);
+			break;
+		} 
+
+		pthread_mutex_unlock(&mutex_server_status);
 
 		pthread_mutex_lock(&mutex_queue_mensajes);	
 
@@ -123,7 +132,7 @@ void* sender_suscriptores(void* cola_mensajes){
 			if(debug_broker) log_debug(broker_logger,"El mensaje %d ya no se encuentra en la memoria y será descartado",envio_pendiente->id);
 			eliminar_mensaje_enviado(cola);
 			pthread_mutex_unlock(&mutex_queue_mensajes);
-			return;
+			continue;
 		}
 
 		t_cliente* cliente = obtener_cliente_por_id(envio_pendiente->cliente);
@@ -137,6 +146,7 @@ void* sender_suscriptores(void* cola_mensajes){
 												mensaje->tamanio_mensaje,
 												mensaje->mensaje);
 
+		actualizar_lru_de_mensaje(mensaje);
 
 		agregar_cliente_a_enviados(mensaje,cliente->id);
 
@@ -151,8 +161,9 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		pthread_mutex_unlock(&mutex_queue_mensajes);
 
-	
 	}
+
+	if(debug_broker) log_warning(broker_logger, "Finalizando sender de la cola %d", cola->cola_de_mensajes);
 
 	return NULL;
 }
@@ -444,8 +455,6 @@ void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, int _id_cliente){
 	int* id_cliente = (int*)malloc(sizeof(int));
 
 	memcpy(id_cliente,&_id_cliente,sizeof(int));
-
-	if(debug_broker) log_error(broker_logger,"se encontro el cliente con id %d",*id_cliente);
 
 	list_add(mensaje->suscriptores_enviados,(void*)id_cliente);
 

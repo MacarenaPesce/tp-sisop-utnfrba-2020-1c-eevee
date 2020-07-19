@@ -106,19 +106,15 @@ bool puede_alojarse(int tamanio_bytes){
 }
 
 /* Calcula la posicion relativa de memoria*/
-void* calcular_posicion_relativa(t_bloque_memoria* bloque){
+void* calcular_posicion_relativa(t_bloque_memoria* _bloque){
 
     /* Obtengo el primer bloque de mi lista para saber donde empieza la memoria*/
     t_bloque_memoria* primer_bloque = list_get(cache_mensajes->memoria,0);
 
-    void* resultado;
+    void* posicion_bloque = _bloque->esta_vacio ? _bloque->estructura_mensaje : _bloque->estructura_mensaje->mensaje;
+    void* posicion_primer_bloque = primer_bloque->esta_vacio ? primer_bloque->estructura_mensaje : primer_bloque->estructura_mensaje->mensaje;
 
-    if(primer_bloque->esta_vacio){
-        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje);
-    }
-    else{
-        resultado = ((char*)bloque->estructura_mensaje->mensaje) - ((char*)primer_bloque->estructura_mensaje->mensaje);    
-    }
+    void* resultado =  posicion_bloque - posicion_primer_bloque;    
 
     return resultado;
 }
@@ -155,4 +151,31 @@ uint64_t get_timestamp(){
 	gettimeofday(&tv,NULL);
 	uint64_t  x = (uint64_t)( (tv.tv_sec)*1000 + (tv.tv_usec)/1000 );
 	return x;
+}
+
+void actualizar_lru_de_mensaje(t_mensaje_cola* mensaje){
+
+    t_bloque_memoria* bloque = buscar_bloque_de_mensaje(mensaje);
+
+    bloque->last_time = get_timestamp();
+
+}
+
+t_bloque_memoria* buscar_bloque_de_mensaje(t_mensaje_cola* mensaje){
+
+    bool encontrar_bloque(void* _bloque){
+        
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+        if(bloque->esta_vacio){
+            return false;
+        }
+
+        return bloque->estructura_mensaje->id_mensaje == mensaje->id_mensaje;
+    }
+
+    t_bloque_memoria* bloque_encontrado = list_find(cache_mensajes->memoria,encontrar_bloque);
+
+    return bloque_encontrado;
+
 }

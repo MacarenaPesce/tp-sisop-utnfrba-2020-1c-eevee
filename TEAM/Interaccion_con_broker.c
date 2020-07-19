@@ -49,7 +49,7 @@ void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 
 	sem_post(&mensaje_nuevo_disponible);
 
-	eliminar_mensaje(paquete);
+	//eliminar_mensaje(paquete);
 
 	return NULL;
 }

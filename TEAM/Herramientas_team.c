@@ -161,10 +161,12 @@ void inicializar_semaforos_deadlock(){
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
 }
 
-void inicializar_archivo_de_configuracion(){
-	config = config_create("../team.config");
+void inicializar_archivo_de_configuracion(char * path){
+
+	config = config_create(path);
+
 	if(config == NULL){
-		log_info(team_logger,"El archivo de configuracion no existe. Fijate en la carpeta Debug.");
+		log_info(team_logger,"Error al cargar el archivo de configuración.");
 		terminar_team_correctamente();
 	}else{
 		log_info(team_logger,"Cargando el archivo de configuracion...");
@@ -186,7 +188,6 @@ void inicializar_archivo_de_configuracion(){
 
 		log_info(team_logger,"Archivo de configuracion cargado correctamente :)\n");
 		config_destroy(config);
-
 	}
 
 }
@@ -456,10 +457,13 @@ t_mensaje_guardado * buscar_mensaje(uint32_t id){
 }
 
 t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* mensajes){
-	bool es_el_buscado(t_mensaje_guardado* mensaje){
+
+	bool es_el_buscado(void* _mensaje){
+		t_mensaje_guardado* mensaje = (t_mensaje_guardado*) _mensaje;
 		return mensaje->id == id_correlativo;
 	}
-	return (list_find(mensajes,(void*)es_el_buscado));
+
+	return (list_find(mensajes,es_el_buscado));
 }
 
 t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char* especie, t_list* mensajes){

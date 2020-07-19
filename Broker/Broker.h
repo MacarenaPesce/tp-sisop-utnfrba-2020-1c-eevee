@@ -47,6 +47,7 @@ bool* debug_broker;
 
 static pthread_mutex_t mutex_queue_mensajes = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mutex_recibir_mensajes = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t mutex_server_status = PTHREAD_MUTEX_INITIALIZER;
 
 t_cache_colas* cache_mensajes;
 

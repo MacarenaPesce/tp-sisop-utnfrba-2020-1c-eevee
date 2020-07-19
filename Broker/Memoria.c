@@ -364,21 +364,15 @@ t_bloque_memoria* obtener_bloque_mas_viejo(){
                 min_time= bloque->timestamp;
 
                 bloque_mas_viejo=bloque;
-
             }
-
         }
-
     }    
 
     dynamic_list_iterate(cache_mensajes->memoria,buscar_bloque_mas_viejo);
 
     return bloque_mas_viejo;
-
 }
 
-
-//TODO : actualizar en el uso de colas el tiempo de LRU
 
 //------------------------------LRU--------------------------------
 
@@ -388,28 +382,9 @@ t_bloque_memoria* obtener_bloque_mas_viejo(){
     superior, se elige como victima la pag de la parte inferior*/
 t_bloque_memoria* algoritmo_lru(){
 
-    t_bloque_memoria* elemento;
-    t_bloque_memoria* bloque;
-    uint64_t min_time = get_timestamp();
-
     if(debug_broker) log_debug(broker_logger, "Ejecutando Algoritmo LRU");
 
-	for(int i=0; i< list_size(cache_mensajes->memoria); i++){
-
-        elemento = list_get(cache_mensajes->memoria, i);
-
-        //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero
-        if( (elemento->esta_vacio == false) && (elemento->timestamp > 0) ){
-            
-            //si el timestamp de la ultima vez usado, es menor al minimo time, lo guardo y me guardo el bloque
-            if(elemento->last_time < min_time){
-                
-                min_time= elemento->last_time;
-
-                bloque=elemento;
-            }
-        }
-    }
+    t_bloque_memoria* bloque = obtener_bloque_menos_referenciado();
 
     log_info(broker_logger, "Eliminado de una particion en la posicion %p", bloque->estructura_mensaje->mensaje);
 
@@ -425,6 +400,34 @@ t_bloque_memoria* algoritmo_lru(){
     return bloque;
 }
 
+
+t_bloque_memoria* obtener_bloque_menos_referenciado(){
+    
+    t_bloque_memoria* bloque_menor_referencia;
+
+    uint64_t min_time = get_timestamp();
+
+    void buscar_bloque_menos_referenciado(void* _bloque){
+
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+        //me fijo si el elemento actual de la lista vacio y si el timestamp es mayor a cero 
+        if( (bloque->esta_vacio == false) && (bloque->timestamp > 0) ){
+            
+            //si el timestamp de la ultima vez usado, es menor al minimo time, lo guardo y me guardo el bloque
+            if(bloque->last_time < min_time){
+                
+                min_time= bloque->last_time;
+
+                bloque_menor_referencia = bloque;
+            }
+        }
+    }
+
+    dynamic_list_iterate(cache_mensajes->memoria,buscar_bloque_menos_referenciado);
+
+    return bloque_menor_referencia;
+}
 
 //------------------------FIN ELIMINAR UNA PARTICION-----------------------
 
@@ -610,9 +613,6 @@ void dump_memoria(){
     
     FILE* dumpeo = fopen("../dump.log","a");
 
-    log_info(broker_logger, "Dump de memoria");
-    printf("\n");
-
     char fecha[50];
     time_t hoy;
     struct tm* timeinfo;
@@ -623,17 +623,21 @@ void dump_memoria(){
     char* header = malloc(500);
     header = "Dump ";
 
-    fprintf(dumpeo,"-------------------------------------------------------------------------------------------------------");
+    fprintf(dumpeo,"---------------------------------------------------------------------------------------------------------------------------------------------------------------");
+    fprintf(dumpeo, "\n");
     fprintf(dumpeo, header);
     fprintf(dumpeo, fecha);
     fprintf(dumpeo, "\n");
 
     escribir_estado_de_memoria(dumpeo);
 
-    fprintf(dumpeo,"-------------------------------------------------------------------------------------------------------");
+    fprintf(dumpeo,"-----------------------------------------------------------------------------------------------------------------------------------------------------------------");
     fprintf(dumpeo, "\n");
 
     fclose(dumpeo);
+
+    log_info(broker_logger, "Dump finalizado");
+    printf("\n");
 
 }
 
@@ -642,40 +646,61 @@ void escribir_estado_de_memoria(FILE* archivo){
 
     t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
 
+    if(debug_broker) list_iterate(listadeparticiones, print_memoria);
+
     for(int i=0; i < list_size(listadeparticiones); i++){
         t_bloque_memoria* bloque = list_get(listadeparticiones, i);
-        char fecha[50];
+        /*char fecha[50];
         struct tm* timeinfo;
         timeinfo = localtime(bloque->last_time);
         strftime(fecha, 50, "%H:%M:%S", timeinfo);
 
-        char* ocupado = bloque->esta_vacio ? "X" : "L";
-        char* cola;
+        log_info(broker_logger, "last_time ", fecha);*/
 
-        switch(bloque->estructura_mensaje->cola_de_mensajes){
-            case COLA_NEW_POKEMON: cola = "NEW_POKEMON"; break;
-            case COLA_APPEARED_POKEMON: cola = "APPEARED_POKEMON"; break;
-            case COLA_GET_POKEMON: cola = "GET_POKEMON"; break;
-            case COLA_LOCALIZED_POKEMON: cola = "LOCALIZED_POKEMON"; break;
-            case COLA_CATCH_POKEMON: cola = "CATCH_POKEMON"; break;
-            case COLA_CAUGHT_POKEMON: cola = "CAUGHT_POKEMON"; break;
-            default: cola = "NO_ASIGNADA"; break;
-        }
+        //if(!bloque->esta_vacio) log_warning(broker_logger, "Cola: %d",bloque->estructura_mensaje->cola_de_mensajes);
+        //else    log_warning(broker_logger, "Cola vacia"); 
 
         if(!bloque->esta_vacio){
-            fprintf(archivo, string_from_format ("Particion %d: %p - %p.    [%s]    Size: %db   LRU: %s     Cola: %s    ID: %d",
-            i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje->mensaje + bloque->tamanio_particion,
-            ocupado, bloque->tamanio_particion, bloque->last_time, cola, bloque->estructura_mensaje->id_mensaje));
-        }
-        else{
-            int id=0;
-            fprintf(archivo, string_from_format ("Particion %d: %p - %p.    [%s]    Size: %db   LRU: %s     Cola: %s    ID: %d",
-            i , bloque->estructura_mensaje->mensaje, (char*)bloque->estructura_mensaje + bloque->tamanio_particion,
-            ocupado, bloque->tamanio_particion, bloque->last_time, cola, id));
-        }
 
+            char* dump = crear_string_dump(bloque,i);
+
+            //log_warning(broker_logger, "dump: %s",dump);
+
+            fprintf(archivo, "%s",dump);
+            fprintf(archivo, "\n");
+
+        }else{
+
+            t_bloque_memoria* ptr_final = (char*)bloque->estructura_mensaje + bloque->tamanio_particion;
+
+            fprintf(archivo,"Particion %d: %p - %p.    [L]    Size: %db",
+                i , 
+                bloque->estructura_mensaje, 
+                ptr_final,
+                bloque->tamanio_particion
+            );
+            fprintf(archivo, "\n");
+        }
     }
+}
 
+char* crear_string_dump(t_bloque_memoria* bloque,int indice){
+
+    char* dump = string_new();
+
+    char* cola = strdup(obtener_nombre_cola(bloque->estructura_mensaje->cola_de_mensajes));
+
+    t_bloque_memoria* ptr_final = (char*)bloque->estructura_mensaje->mensaje + bloque->tamanio_particion;
+
+    string_append_with_format(&dump,"Particion %d: ",indice);
+    string_append_with_format(&dump,"%p - ",bloque->estructura_mensaje->mensaje);
+    string_append_with_format(&dump,"%p.    [X]",ptr_final);
+    string_append_with_format(&dump,"    Size: %db",bloque->tamanio_particion);
+    string_append_with_format(&dump,"    LRU: %d",bloque->last_time);
+    string_append_with_format(&dump,"    Cola: %s",cola);
+    string_append_with_format(&dump,"    ID: %d",bloque->estructura_mensaje->id_mensaje);
+
+    return dump;
 }
 
 

@@ -58,9 +58,13 @@ void iniciar_servidor(void){
 
 void* esperar_cliente(void* socket){
 
+	pthread_mutex_lock(&mutex_server_status);
+	server_status = RUNNING;
+	pthread_mutex_unlock(&mutex_server_status);
+
 	if(debug_broker) log_debug(broker_logger, "10) Hilo del servidor cargado correctamente!!!", NULL);
 
-	while(1){
+	while(server_status != ENDING){
 
 		struct sockaddr_in dir_cliente;
 
@@ -100,7 +104,7 @@ void* esperar_mensajes(void* cliente){
 	//Creo un paquete y recibo el mensaje
 	t_packed* paquete;
 
-	while(1){
+	while(server_status != ENDING){
 
 		paquete = recibir_mensaje_serializado(socket_cliente);
 
