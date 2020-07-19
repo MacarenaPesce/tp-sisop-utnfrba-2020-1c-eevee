@@ -613,9 +613,6 @@ void dump_memoria(){
     
     FILE* dumpeo = fopen("../dump.log","a");
 
-    log_info(broker_logger, "Dump de memoria");
-    printf("\n");
-
     char fecha[50];
     time_t hoy;
     struct tm* timeinfo;
@@ -639,6 +636,9 @@ void dump_memoria(){
 
     fclose(dumpeo);
 
+    log_info(broker_logger, "Dump finalizado");
+    printf("\n");
+
 }
 
 
@@ -650,22 +650,21 @@ void escribir_estado_de_memoria(FILE* archivo){
 
     for(int i=0; i < list_size(listadeparticiones); i++){
         t_bloque_memoria* bloque = list_get(listadeparticiones, i);
-        char fecha[50];
-        //struct tm* timeinfo;
-        //timeinfo = localtime(bloque->last_time);
-        //strftime(fecha, 50, "%H:%M:%S", timeinfo);
+        /*char fecha[50];
+        struct tm* timeinfo;
+        timeinfo = localtime(bloque->last_time);
+        strftime(fecha, 50, "%H:%M:%S", timeinfo);
 
-        
-        
+        log_info(broker_logger, "last_time ", fecha);*/
 
-        if(!bloque->esta_vacio) log_warning(broker_logger, "Cola: %d",bloque->estructura_mensaje->cola_de_mensajes);
-        else    log_warning(broker_logger, "Cola vacia"); 
+        //if(!bloque->esta_vacio) log_warning(broker_logger, "Cola: %d",bloque->estructura_mensaje->cola_de_mensajes);
+        //else    log_warning(broker_logger, "Cola vacia"); 
 
         if(!bloque->esta_vacio){
 
             char* dump = crear_string_dump(bloque,i);
 
-            log_warning(broker_logger, "dump: %s",dump);
+            //log_warning(broker_logger, "dump: %s",dump);
 
             fprintf(archivo, "%s",dump);
             fprintf(archivo, "\n");
@@ -682,11 +681,7 @@ void escribir_estado_de_memoria(FILE* archivo){
             );
             fprintf(archivo, "\n");
         }
-
-
-
     }
-
 }
 
 char* crear_string_dump(t_bloque_memoria* bloque,int indice){

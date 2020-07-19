@@ -45,28 +45,25 @@ extern t_cache_colas* cache_mensajes;
 /* Funcion que arranca con el funcionamiento del Buddy en si */
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 
+    if(debug_broker) log_debug(broker_logger,"Buddy System", NULL);
+    if(debug_broker) log_debug(broker_logger,"Alojar: %i", estructura_mensaje->tamanio_mensaje );
+
 	/* Me fijo si cumple con el tamaño minimo de particion */
 	int bytes_a_alojar = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
 
 	/* Busco el numero potencia de 2 mas cercano */
 	int bytes_potencia_dos = numero_potencia_dos(bytes_a_alojar);
 
-	if(debug_broker) log_warning(broker_logger,"pot 2 %d", bytes_potencia_dos);
+    if(debug_broker) log_debug(broker_logger,"Particion a crear de: %i", bytes_potencia_dos);
+	printf("\n");
 
     /* Me fijo si la particion puede alojarse a la primera */
     bool sePuedeAlojar = puede_alojarse(bytes_potencia_dos);
-
-	if(debug_broker) log_warning(broker_logger,"puede alojarse? %d", sePuedeAlojar);
 
 	/* Seteo un bool para controlar cuando ya aloje la particion */
     bool alojado = false;
 
 	t_bloque_memoria* bloque_borrado;
-
-    if(debug_broker) log_debug(broker_logger,"Buddy System", NULL);
-    if(debug_broker) log_debug(broker_logger,"Alojar: %i", estructura_mensaje->tamanio_mensaje );
-    if(debug_broker) log_debug(broker_logger,"Particion a crear de: %i", bytes_potencia_dos);
-	printf("\n");
 
 	while(alojado == false){ /* Mientras no este alojado */
 
