@@ -331,7 +331,7 @@ int destruir_objetivo_entrenador(t_objetivo_entrenador * objetivo){
 }
 
 int destruir_mensaje(t_mensaje_guardado * mensaje){
-	free(mensaje->contenido);
+	//free(mensaje->contenido);
 	free(mensaje);
 	return 0;
 }
@@ -435,8 +435,6 @@ t_pokemon * buscar_pokemon_por_especie_y_ubicacion(t_list * lista, t_pokemon * p
 	return (list_find(lista,(void*)es_la_especie_buscada));
 }
 
-
-
 t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_pokemon){
 	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
 	pokemon->especie = catch_pokemon->pokemon;
@@ -467,8 +465,9 @@ t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* mens
 }
 
 t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char* especie, t_list* mensajes){
-	bool es_el_buscado(t_mensaje_guardado* mensaje){
-		return mensaje->operacion == APPEARED && (((t_appeared_pokemon *)(mensaje->contenido))->pokemon == especie);
+	bool es_el_buscado(void* _mensaje){
+		t_mensaje_guardado* mensaje = (t_mensaje_guardado*) _mensaje;
+		return mensaje->operacion == APPEARED && (((t_appeared_pokemon*)(mensaje->contenido))->pokemon == especie);
 	}
 	return (list_find(mensajes,(void*)es_el_buscado));
 }

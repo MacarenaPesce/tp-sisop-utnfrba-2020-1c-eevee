@@ -17,6 +17,7 @@ void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 	mensaje->contenido = appeared;
 
 	log_debug(team_logger, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
+	log_debug(team_logger, "ID DEL mensaje APPEARED_POKEMON %d", mensaje->id);
 	log_info(team_logger_oficial, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
@@ -25,7 +26,7 @@ void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 
 	sem_post(&mensaje_nuevo_disponible);
 
-	eliminar_mensaje(paquete);
+	//eliminar_mensaje(paquete);
 
 	return NULL;
 }
@@ -40,7 +41,8 @@ void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 	mensaje->operacion = LOCALIZED;
 	mensaje->contenido = localized;
 
-	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON");
+	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
+	log_debug(team_logger, "ID CORRELACIONAL DEL mensaje LOCALIZED_POKEMON %d", paquete->id_correlacional);
 	log_debug(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
@@ -73,7 +75,7 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 
 	sem_post(&mensaje_nuevo_disponible);
 
-	eliminar_mensaje(paquete);
+	//eliminar_mensaje(paquete);
 
 	return NULL;
 }
@@ -110,6 +112,8 @@ void enviar_get(){
 				mensaje->id = ack->id_mensaje;
 				mensaje->operacion = GET;
 				mensaje->contenido = get_pokemon;
+
+				log_debug(team_logger, "ID DEL mensaje GET_POKEMON %d", ack->id_mensaje);
 
 				pthread_mutex_lock(&mensaje_chequear_id_mutex);
 				list_add(mensajes_para_chequear_id, mensaje);

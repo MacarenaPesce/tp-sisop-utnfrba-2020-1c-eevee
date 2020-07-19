@@ -123,8 +123,6 @@ atrapado con éxito.*/
 	catch_pokemon->coordenadas.posx = entrenador->objetivo_actual->posx;
 	catch_pokemon->coordenadas.posy = entrenador->objetivo_actual->posy;
 
-	
-
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
@@ -137,23 +135,22 @@ atrapado con éxito.*/
 		return;
 	}
 	
-
-	 t_packed* ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
-/* 		consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
- */	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para esta especie: %s", entrenador->id, entrenador->objetivo_actual->especie);
-	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para %s en la posicion %i %i", entrenador->id, entrenador->objetivo_actual->especie, entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
+	t_packed* ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
+ 	
+	log_info(team_logger, "El entrenador %d hizo el pedido de catch pokemon para esta especie: %s", entrenador->id, entrenador->objetivo_actual->especie);
+	log_info(team_logger_oficial, "El entrenador %d hizo el pedido de catch pokemon para %s en la posicion (%i ,%i)", entrenador->id, entrenador->objetivo_actual->especie, entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 
 	if(ack == (t_packed*) -1){
 		log_info(team_logger, "El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon");
 		log_info(team_logger_oficial, "El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon");
+		
 		hacer_procedimiento_para_atrapar_default(catch_pokemon, entrenador);
-		//consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
+		consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
 	}else{
 		//Recibo ACK
 		if(ack->operacion == ACK){
-			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", entrenador->objetivo_actual->especie);
+			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s, el id es %d\n", entrenador->objetivo_actual->especie, ack->id_mensaje);
 			log_info(team_logger_oficial, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", entrenador->objetivo_actual->especie);
-			log_debug(team_logger, "ID DE MENSAJE CATCH: %d\n", ack->id_mensaje);
 
 			t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
 			mensaje->id = ack->id_mensaje;
@@ -165,14 +162,6 @@ atrapado con éxito.*/
 			pthread_mutex_unlock(&mensaje_chequear_id_mutex);
 
 			hacer_procedimiento_para_atrapar_pokemon_con_broker(entrenador);
-			consumir_un_ciclo_de_cpu_mientras_planificamos(entrenador);
-
-			sem_wait(&array_semaforos_caught[entrenador->id]);
-
-			log_info(team_logger, "Soy el entrenador %d de nuevo, y voy a atrapar al pokemon para el cual esperaba el OK y me lo dieron!", entrenador->id);
-			log_info(team_logger, "El pokemon %s ha sido atrapado con exito", catch_pokemon->pokemon);
-
-			actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
 		}
 	}
 
