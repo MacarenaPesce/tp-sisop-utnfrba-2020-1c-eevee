@@ -6,6 +6,7 @@
  */
 
 #include "Conexion_con_broker.h"
+#include "Pokebola.h"
 
 void * atender_get_pokemon(t_packed * paquete){
 

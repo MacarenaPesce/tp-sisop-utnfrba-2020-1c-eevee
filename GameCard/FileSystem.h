@@ -13,6 +13,10 @@ pthread_mutex_t semMutexBitmap;
 
 char* lineaBloques;
 
+char* estadoArchivo;
+
+char* auxPokeEnMemo;
+
 void inicializarSemaforosParaPokemon();
 void agregarSemaforoPokemon(char* poke);
 void eliminarSemaforoPokemon(char* poke);
