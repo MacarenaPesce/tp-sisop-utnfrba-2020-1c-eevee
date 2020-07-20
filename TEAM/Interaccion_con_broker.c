@@ -45,9 +45,13 @@ void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 	log_debug(team_logger, "ID CORRELACIONAL DEL mensaje LOCALIZED_POKEMON %d", paquete->id_correlacional);
 	log_debug(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
 
+	log_warning(team_logger, "PASA 20");
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
+	log_warning(team_logger, "PASA 21");
 	list_add(mensajes_que_llegan_nuevos, mensaje);
+	log_warning(team_logger, "PASA 22");
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
+	log_warning(team_logger, "PASA 23");
 
 	sem_post(&mensaje_nuevo_disponible);
 

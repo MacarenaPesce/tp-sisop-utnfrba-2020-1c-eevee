@@ -166,7 +166,6 @@ atrapado con éxito.*/
 	}
 
 	free(servidor);
-	free(catch_pokemon);
 
 	return;
 
