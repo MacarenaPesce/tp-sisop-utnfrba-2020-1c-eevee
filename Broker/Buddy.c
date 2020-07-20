@@ -74,16 +74,8 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 			/* Elimino una particion */
 			bloque_borrado = reemplazar_bloque_BS();
 
-			// Obtengo el indice de un buddy 
-			int indice_bloque = obtener_indice_particion(bloque_borrado);
-	
-			// Obtengo los bloques que rodean al que libero 
-			t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
-	
-			t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
-
 			/* Consolido buddies entorno a la particion eliminada*/
-			consolidacion_BS(bloque_anterior, bloque_borrado, bloque_siguiente);
+			consolidacion_BS(bloque_borrado);
 		}
 
 		/* Me fijo de nuevo si puede alojarse */
@@ -263,11 +255,17 @@ t_bloque_memoria* reemplazar_bloque_BS(){
 }
 
 /* Realiza la consolidacion de buddies, dado un bloque.*/
-void consolidacion_BS(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_borrado, t_bloque_memoria* bloque_siguiente){
+void consolidacion_BS(t_bloque_memoria* bloque_borrado){
+
+	// Obtengo el indice de un buddy 
+	int indice_bloque = obtener_indice_particion(bloque_borrado);
+	// Obtengo los bloques que rodean al que libero 
+	t_bloque_memoria* bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
+	t_bloque_memoria* bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
 
 	// Obtengo la posicion relativa de mi bloque 
 	void* posicion_relativa_bloque = calcular_posicion_relativa(bloque_borrado);
-	log_error(broker_logger, "posicion relativa del bloque actual %d", posicion_relativa_bloque);
+	if(debug_broker) log_debug(broker_logger, "posicion relativa del bloque actual %d", posicion_relativa_bloque);
 
 	//if(bloque_siguiente!=NULL) log_warning(broker_logger, " tiene buddie a derecha? %d ", son_buddies(bloque,bloque_siguiente) );
 	
@@ -283,14 +281,8 @@ void consolidacion_BS(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloqu
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
 		printf("\n");
 
-		//if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
-
-		int indice_bloque = obtener_indice_particion(bloque_borrado);
-		t_bloque_memoria* nuevo_bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
-		t_bloque_memoria* nuevo_bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
-	
 		// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
-		consolidacion_BS(nuevo_bloque_anterior,bloque_borrado, nuevo_bloque_siguiente);
+		consolidacion_BS(bloque_borrado);
 	}
 
 	//if(bloque_anterior!=NULL) log_warning(broker_logger, " tiene buddie a izquierda? %d ", son_buddies(bloque_anterior,bloque) );
@@ -306,14 +298,8 @@ void consolidacion_BS(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloqu
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
 		printf("\n");
 
-		//if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
-
-		int indice_bloque = obtener_indice_particion(bloque_anterior);
-		t_bloque_memoria* nuevo_bloque_siguiente = list_get(cache_mensajes->memoria, indice_bloque+1);
-		t_bloque_memoria* nuevo_bloque_anterior = list_get(cache_mensajes->memoria, indice_bloque-1);
-
 		// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
-		consolidacion_BS(nuevo_bloque_anterior,bloque_anterior,nuevo_bloque_siguiente);
+		consolidacion_BS(bloque_anterior);
 	}
     
 	if(debug_broker) log_debug(broker_logger,"No tengo más buddies libres.");
