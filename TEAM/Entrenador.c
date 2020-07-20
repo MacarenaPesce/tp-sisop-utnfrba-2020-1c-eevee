@@ -19,7 +19,10 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 			atrapar(entrenador);
 		}
 		if(objetivo_personal_cumplido(entrenador)){
+			pthread_mutex_lock(&bloqueados_esperando_mutex);
 			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando, entrenador->id);
+			pthread_mutex_unlock(&bloqueados_esperando_mutex);
+
 			list_add(lista_finalizar, entrenador);
 			entrenador->estado = FINALIZANDO;
 			entrenador_en_ejecucion = NULL;

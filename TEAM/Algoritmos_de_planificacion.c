@@ -35,7 +35,10 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 
 	t_list* lista_aux;
 	lista_aux = list_duplicate(lista_entrenadores);
+
+	pthread_mutex_lock(&bloqueados_esperando_mutex);
 	list_add_all(lista_aux, lista_bloqueados_esperando);
+	pthread_mutex_unlock(&bloqueados_esperando_mutex);
 
 	int i = 0;
 	bool mas_cerca;
@@ -43,9 +46,9 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	t_entrenador* otro_entrenador;
 	entrenador_mas_cercano = list_get(lista_aux, i);
 
-	if(entrenador_mas_cercano->objetivo_actual != NULL){
+	/*if((void*)entrenador_mas_cercano->objetivo_actual != NULL){
 		entrenador_mas_cercano = list_get(lista_aux, i+1);
-	}
+	}*/
 
 	int cantidad_entrenadores = list_size(lista_aux);
 
@@ -70,6 +73,14 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 			pthread_mutex_lock(&lista_entrenadores_mutex);
 			sacar_entrenador_de_lista_pid(lista_entrenadores, entrenador_mas_cercano->id);
 			pthread_mutex_unlock(&lista_entrenadores_mutex);
+
+			t_entrenador * aux = buscar_entrenador_por_id(lista_bloqueados_esperando, entrenador_mas_cercano->id);
+			
+			if(aux != NULL){
+				pthread_mutex_lock(&bloqueados_esperando_mutex);
+				sacar_entrenador_de_lista_pid(lista_bloqueados_esperando, entrenador_mas_cercano->id);
+				pthread_mutex_unlock(&bloqueados_esperando_mutex);
+			}
 			
 			break;
 		}

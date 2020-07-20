@@ -328,7 +328,11 @@ void bloquear_entrenador(t_entrenador* entrenador){
 	switch(entrenador->razon_de_bloqueo){
 		case ESPERANDO_POKEMON:
 			//log_info(team_logger,"La estimacion de este entrenador al bloquearse es %f", entrenador->estimacion_real);
+
+			pthread_mutex_lock(&bloqueados_esperando_mutex);
 			list_add(lista_bloqueados_esperando, (void*)entrenador);
+			pthread_mutex_unlock(&bloqueados_esperando_mutex);
+
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan pokemones", entrenador->id);
 			//mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
@@ -352,7 +356,9 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			list_add(lista_bloqueados_cant_max_alcanzada, (void*)entrenador);
 			pthread_mutex_unlock(&lista_bloq_max_mutex);
 
+			pthread_mutex_lock(&bloqueados_esperando_mutex);
 			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando, entrenador->id);
+			pthread_mutex_unlock(&bloqueados_esperando_mutex);
 
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar\n", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
@@ -437,7 +443,7 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
 				sem_post(&orden_para_planificar);
 				log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
-				//sem_wait(&array_semaforos[entrenador->id]);
+				sem_wait(&array_semaforos[entrenador->id]);
 			
 		}
 	}

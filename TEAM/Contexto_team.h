@@ -137,6 +137,7 @@ pthread_mutex_t tocando_semaforos_deadlock;
 pthread_mutex_t lista_comun_deadlock;
 pthread_mutex_t mutex_ciclos_cpu;
 pthread_mutex_t mutex_ciclos_cpu_entrenador;
+pthread_mutex_t bloqueados_esperando_mutex;
 
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;

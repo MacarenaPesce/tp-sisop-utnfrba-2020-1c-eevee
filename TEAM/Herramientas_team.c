@@ -102,6 +102,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&mutex_ciclos_cpu, NULL);
 	pthread_mutex_init(&pokemones_asignados, NULL);
 	pthread_mutex_init(&mutex_ciclos_cpu_entrenador, NULL);
+	pthread_mutex_init(&bloqueados_esperando_mutex, NULL);
 
 
 	sem_init(&entrenadores_ubicados, 0, 0);
