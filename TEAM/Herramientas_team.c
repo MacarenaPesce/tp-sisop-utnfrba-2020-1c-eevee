@@ -121,6 +121,7 @@ void inicializar_semaforos(){
 	sem_init(&termine_carajo, 0, 0);
 	sem_init(&contador_de_deadlocks_producidos, 0, 0);
 	sem_init(&ultimo_entrenador, 0, 0);
+	sem_init(&podes_sacar_entrenador, 0, 0);
 
 }
 
@@ -436,13 +437,8 @@ t_pokemon * buscar_pokemon_por_especie_y_ubicacion(t_list * lista, t_pokemon * p
 }
 
 t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_pokemon){
-	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-	pokemon->especie = catch_pokemon->pokemon;
-	pokemon->posx = catch_pokemon->coordenadas.posx;
-	pokemon->posy = catch_pokemon->coordenadas.posy;
-
 	bool es_el_buscado(t_entrenador* entrenador){
-		return entrenador->objetivo_actual->especie == pokemon->especie;
+		return entrenador->objetivo_actual->especie == catch_pokemon->pokemon;
 	}
 	return (list_find(lista_bloqueados_esperando_caught,(void*)es_el_buscado));
 }

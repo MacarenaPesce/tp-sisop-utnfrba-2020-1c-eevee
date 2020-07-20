@@ -76,7 +76,7 @@ void llegar_a_el_pokemon(t_entrenador * entrenador){
 	/*Cada movimiento en el mapa responderá a un ciclo de CPU, y este NO realizará movimientos diagonales para llegar a la posición deseada.
 	 * Para simular más a la realidad esta funcionalidad, se deberá agregar un retardo de X segundos configurado por archivo de configuración.*/
 
-	log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion %i %i", 
+	log_info(team_logger_oficial, "El entrenador %i se mueve a atrapar a %s a la posicion (%i, %i)", 
 	entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);
 	log_info(team_logger, "El entrenador %i se mueve a atrapar a %s a la posicion (%i, %i)", 
 	entrenador->id, entrenador->objetivo_actual->especie,entrenador->objetivo_actual->posx, entrenador->objetivo_actual->posy);

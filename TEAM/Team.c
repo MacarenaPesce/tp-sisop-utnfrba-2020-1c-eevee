@@ -29,7 +29,6 @@ void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
 	t_mensaje_guardado* mensaje_guardado_catch = buscar_mensaje_por_id(id_correlativo, mensajes_para_chequear_id);
 
 	if(mensaje_guardado_catch == NULL){
-		log_warning(team_logger, "No se encontro el mensaje de ID: %d", id_correlativo);
 		return;
 	}
 
@@ -39,20 +38,13 @@ void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
 	if(catch_pokemon->pokemon != NULL){
 		if(status == OK){
 			t_entrenador * entrenador = malloc(sizeof(t_entrenador));
+			sem_wait(&podes_sacar_entrenador);
 			entrenador = buscar_entrenador_por_objetivo_actual(catch_pokemon);
-
-			log_info(team_logger, "El entrenador que estaba esperando ese mensaje caught es el %d\n", entrenador->id);
-			sem_post(&array_semaforos_caught[entrenador->id]);
-
+			entrenador->objetivo_actual = NULL;			
 			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando_caught, entrenador->id);
-
-			log_info(team_logger, "Soy el entrenador %d de nuevo, y voy a atrapar al pokemon para el cual esperaba el OK y me lo dieron!", entrenador->id);
 			log_info(team_logger, "El pokemon %s ha sido atrapado con exito por el entrenador %d", catch_pokemon->pokemon, entrenador->id);
-
 			actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
 		}
-	}else{
-		log_error(team_logger, "CATCH POKEMON EN EL CAUGHT ESTA VACIO\n");
 	}
 }
 
@@ -239,7 +231,6 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 			} else {
 				pokemon_encontrado->cantidad++; // o actualizo la cantidad de esa especie de atrapados del entrenador
 			}
-			entrenador->objetivo_actual = NULL;// no se si esto es necesario*/
 
 			pthread_mutex_lock(&mapa_mutex);
 			list_remove(lista_mapa, i); //elimino el poke del mapa
@@ -311,44 +302,6 @@ bool hay_pokemones_en_el_mapa(){
 	return (list_size(lista_mapa) > 0);
 }
 
-bool chequear_que_no_sea_un_objetivo_de_la_gente_esperando_por_caught(t_pokemon * pokemon){
-	bool no_esta_asignado = true;
-	if(list_size(lista_bloqueados_esperando_caught) > 0){
-		
-		for(int i=0; i<list_size(lista_bloqueados_esperando_caught);i++){
-			
-			t_entrenador * entrenador = list_get(lista_bloqueados_esperando_caught, i);
-
-			if((entrenador->objetivo_actual->especie == pokemon->especie) &&
-					(entrenador->objetivo_actual->posx == pokemon->posx) &&
-					(entrenador->objetivo_actual->posy == pokemon->posy)){
-				no_esta_asignado = false;
-				break;
-			}
-		}
-	}
-	return no_esta_asignado;
-}
-
-bool chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(t_pokemon * pokemon){
-	return pokemon->asignado;
-}
-
-bool chequear_que_no_sea_un_objetivo_del_entrenador_en_ejecucion(t_pokemon * pokemon){
-	bool no_esta_asignado = true;			
-
-	if((entrenador_en_ejecucion->objetivo_actual->especie == pokemon->especie) &&
-			(entrenador_en_ejecucion->objetivo_actual->posx == pokemon->posx) &&
-			(entrenador_en_ejecucion->objetivo_actual->posy == pokemon->posy)){
-		no_esta_asignado = false;
-	}
-	return no_esta_asignado;
-}
-
-bool el_pokemon_no_es_objetivo_de_alguien(t_pokemon * pokemon){
-	return chequear_que_no_sea_un_objetivo_de_la_gente_en_ready(pokemon); 
-}
-
 void chequeo_si_puedo_atrapar_otro(){
 	if(hay_pokemones_en_el_mapa()){
 		for(int i=0; i<list_size(lista_mapa);i++){
@@ -356,7 +309,6 @@ void chequeo_si_puedo_atrapar_otro(){
 			t_pokemon * pokemon = list_get(lista_mapa, i);
 			pthread_mutex_unlock(&mapa_mutex);
 			if(!esta_en_lista_asignados(pokemon)){
-				//log_info(team_logger, "POKEMON DEL MAPA %s no esta en la lista de asignados", pokemon->especie);
 				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 				break;
 			}
@@ -370,16 +322,6 @@ bool esta_en_lista_asignados(t_pokemon * pokemon){
 	return pokemon != NULL;
 }
 
-bool soy_el_ultimo_entrenador(){
-	return list_size(lista_listos) == 1;
-}
-
-void atrapar_el_pokemon_que_este_en_el_mapa(t_entrenador * entrenador){
-	t_pokemon * pokemon = list_get(lista_mapa, 0);
-	entrenador->objetivo_actual = pokemon;
-	sem_post(&array_semaforos[entrenador->id]);
-}
-
 void bloquear_entrenador(t_entrenador* entrenador){
 	entrenador_en_ejecucion = NULL;
 	cambios_de_contexto++;
@@ -388,11 +330,9 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			//log_info(team_logger,"La estimacion de este entrenador al bloquearse es %f", entrenador->estimacion_real);
 			list_add(lista_bloqueados_esperando, (void*)entrenador);
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
-
-			//log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan los siguientes pokemones:", entrenador->id);
+			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan pokemones", entrenador->id);
 			//mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
 			chequeo_si_puedo_atrapar_otro();
-
 			sem_post(&orden_para_planificar);
 
 			break;
@@ -403,7 +343,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando que llegue mensaje Caught", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught\n", entrenador->id);
 
-			sem_post(&orden_para_planificar);
+			sem_post(&podes_sacar_entrenador);
 			break;
 
 		case CANTIDAD_MAXIMA_ALCANZADA:
@@ -508,10 +448,6 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		ciclos_de_cpu++;
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
-
-		if(entrenador->razon_de_bloqueo == ESPERANDO_MENSAJE_CAUGHT){
-			sem_wait(&array_semaforos_caught[entrenador->id]);
-		}
 	}
 
 	if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
@@ -523,10 +459,6 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
 		entrenador->ejec_anterior = 0;
-
-		if(entrenador->razon_de_bloqueo == ESPERANDO_MENSAJE_CAUGHT){
-			sem_wait(&array_semaforos_caught[entrenador->id]);
-		}
 	}
 
 	if(!strcmp(algoritmo_planificacion, "SJF-CD")){
@@ -538,10 +470,6 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		entrenador_en_ejecucion->estimacion_actual--;
 		log_info(team_logger, "Mi estimacion actual es %f", entrenador_en_ejecucion->estimacion_actual);
 		entrenador_en_ejecucion->ejec_anterior = 0;
-
-		if(entrenador->razon_de_bloqueo == ESPERANDO_MENSAJE_CAUGHT){
-			sem_wait(&array_semaforos_caught[entrenador->id]);
-		}
 
 		if(desalojo_en_ejecucion){
 			entrenador_en_ejecucion = NULL;
@@ -574,10 +502,6 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			
 			if(entrenador->cant_maxima_objetivos == 0 || (entrenador->razon_de_bloqueo != NINGUNA)){
 				log_info(team_logger, "El entrenador de id %d fue desalojado\n", entrenador->id);
-
-				if(entrenador->razon_de_bloqueo == ESPERANDO_MENSAJE_CAUGHT){
-					sem_wait(&array_semaforos_caught[entrenador->id]);
-				}
 				sem_post(&orden_para_planificar);
 
 			}else{
@@ -602,12 +526,7 @@ void crear_hilo_para_tratamiento_de_mensajes(){
 
 bool chequear_si_recibi_appeared_de_especie_antes(char * pokemon){
 	t_mensaje_guardado * mensaje = buscar_mensaje_appeared_por_especie(pokemon, mensajes_para_chequear_id);
-
-	if(mensaje != NULL){
-		return true;
-	}else{
-		return false;
-	}
+	return mensaje != NULL;
 }
 
 bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char * pokemon){
@@ -618,101 +537,84 @@ bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char * pokemon){
 void * tratamiento_de_mensajes(){
 
 	while(GLOBAL_SEGUIR){
-		log_warning(team_logger, "PASA 30");
 		sem_wait(&mensaje_nuevo_disponible);
-		log_warning(team_logger, "PASA 31");
 
-		t_mensaje_guardado * mensaje;
+		while(GLOBAL_SEGUIR){
+			t_mensaje_guardado * mensaje;
 
-		pthread_mutex_lock(&mensaje_nuevo_mutex);
-		log_warning(team_logger, "PASA 32");
-		mensaje = list_remove(mensajes_que_llegan_nuevos, 0);
-		log_warning(team_logger, "PASA 33");
-		pthread_mutex_unlock(&mensaje_nuevo_mutex);
-		log_warning(team_logger, "PASA 34");
+			pthread_mutex_lock(&mensaje_nuevo_mutex);
+			mensaje = list_remove(mensajes_que_llegan_nuevos, 0);
+			pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
-		if(mensaje->operacion == APPEARED){
-			t_appeared_pokemon * contenido = mensaje->contenido;
+			if(mensaje->operacion == APPEARED){
+				t_appeared_pokemon * contenido = mensaje->contenido;
 
-			t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-			pokemon->especie = contenido->pokemon;
-			pokemon->posx = contenido->coordenadas.posx;
-			pokemon->posy = contenido->coordenadas.posy;
+				t_pokemon * pokemon = malloc(sizeof(t_pokemon));
+				pokemon->especie = contenido->pokemon;
+				pokemon->posx = contenido->coordenadas.posx;
+				pokemon->posy = contenido->coordenadas.posy;
 
-			t_objetivo* un_objetivo = buscar_pokemon_por_especie(lista_objetivos, pokemon->especie);
+				t_objetivo* un_objetivo = buscar_pokemon_por_especie(lista_objetivos, pokemon->especie);
 
-			if(un_objetivo == NULL){
-				log_info(team_logger, "No necesito este pokemon: %s", pokemon->especie);
-			}else{
-				seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-				operar_con_appeared_pokemon(pokemon);
-			}
-		}
-
-		if(mensaje->operacion == LOCALIZED){
-			t_localized_pokemon * contenido = mensaje->contenido;
-			log_warning(team_logger, "PASA 1");
-
-			pthread_mutex_lock(&mensaje_chequear_id_mutex);
-			log_warning(team_logger, "PASA 2");
-			t_mensaje_guardado * mensaje_buscado = buscar_mensaje_por_id(mensaje->id_correlacional, mensajes_para_chequear_id);
-			log_warning(team_logger, "PASA 3");
-			pthread_mutex_unlock(&mensaje_chequear_id_mutex);
-			
-			if(mensaje_buscado == NULL){
-				log_warning(team_logger, "PASA 4");
-				log_error(team_logger, "NO ENCONTRE EL ID DE MENSAJE CORRELACIONAL DEL GET E IGNORE EL LOCALIZED");
-			}else{
-				log_warning(team_logger, "PASA 5");
-				log_error(team_logger, "ENCONTRE EL ID DE MENSAJE CORRELACIONAL DEL GET Y NO IGNORE EL LOCALIZED");
-			}
-
-			log_warning(team_logger, "PASA 6");
-
-			if(!chequear_si_recibi_appeared_de_especie_antes(contenido->pokemon)){
-				log_warning(team_logger, "PASA 7");
-				t_objetivo* un_objetivo = buscar_pokemon_por_especie(lista_objetivos, contenido->pokemon);
 				if(un_objetivo == NULL){
-					log_warning(team_logger, "PASA 8");
-					log_info(team_logger, "No necesito este pokemon: %s", contenido->pokemon);
-					return;
-				}
-
-				log_warning(team_logger, "PASA 9");
-
-				void trabajar_con_localized(void* _coordenada){
-					log_warning(team_logger, "PASA 10");
-					t_coordenadas* coodenada = (t_coordenadas*) _coordenada;
-			
-					//Por cada elemento de la lista de coordenadas agrego un pokemon
-					t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-					pokemon->especie = contenido->pokemon;
-					pokemon->posx = coodenada->posx;
-					pokemon->posy = coodenada->posy;
-					
+					log_info(team_logger, "No necesito este pokemon: %s", pokemon->especie);
+					free(mensaje);
+					break;
+				}else{
 					seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-					log_warning(team_logger, "PASA 11");
 					operar_con_appeared_pokemon(pokemon);
-					log_warning(team_logger, "PASA 12");
+				}
+				free(mensaje);
+				break;
+			}
+
+			if(mensaje->operacion == LOCALIZED){
+				t_localized_pokemon * contenido = mensaje->contenido;
+
+				pthread_mutex_lock(&mensaje_chequear_id_mutex);
+				t_mensaje_guardado * mensaje_buscado = buscar_mensaje_por_id(mensaje->id_correlacional, mensajes_para_chequear_id);
+				pthread_mutex_unlock(&mensaje_chequear_id_mutex);
+				
+				if(mensaje_buscado == NULL){
+					free(mensaje);
+					break;
 				}
 
-				log_warning(team_logger, "PASA 13");
-				list_iterate(contenido->lista_coordenadas,trabajar_con_localized);
-				log_warning(team_logger, "PASA 14");
+				if(!chequear_si_recibi_appeared_de_especie_antes(contenido->pokemon)){
+					t_objetivo* un_objetivo = buscar_pokemon_por_especie(lista_objetivos, contenido->pokemon);
+					if(un_objetivo == NULL){
+						free(mensaje);
+						break;
+					}
+
+					void trabajar_con_localized(void* _coordenada){
+						t_coordenadas* coodenada = (t_coordenadas*) _coordenada;
+						//Por cada elemento de la lista de coordenadas agrego un pokemon
+						t_pokemon * pokemon = malloc(sizeof(t_pokemon));
+						pokemon->especie = contenido->pokemon;
+						pokemon->posx = coodenada->posx;
+						pokemon->posy = coodenada->posy;
+						
+						seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+						operar_con_appeared_pokemon(pokemon);
+					}
+
+					list_iterate(contenido->lista_coordenadas,trabajar_con_localized);
+					free(mensaje);
+					break;
+				}
 			}
-			log_warning(team_logger, "PASA 15");
-		}
 
-		if(mensaje->operacion == CAUGHT){
-			t_caught_pokemon * contenido = mensaje->contenido;
-			operar_con_caught_pokemon(contenido->status, mensaje->id_correlacional);
-		}
+			if(mensaje->operacion == CAUGHT){
+				t_caught_pokemon * contenido = mensaje->contenido;
+				operar_con_caught_pokemon(contenido->status, mensaje->id_correlacional);
+				free(mensaje);
+				break;
+			}
 
+		}
 		chequear_si_fue_cumplido_el_objetivo_global();
-		free(mensaje);
-
 	}
-
 	return NULL;
 }
 

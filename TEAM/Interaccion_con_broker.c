@@ -17,7 +17,6 @@ void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 	mensaje->contenido = appeared;
 
 	log_debug(team_logger, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
-	log_debug(team_logger, "ID DEL mensaje APPEARED_POKEMON %d", mensaje->id);
 	log_info(team_logger_oficial, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
@@ -25,8 +24,6 @@ void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
-
-	//eliminar_mensaje(paquete);
 
 	return NULL;
 }
@@ -42,20 +39,13 @@ void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 	mensaje->contenido = localized;
 
 	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
-	log_debug(team_logger, "ID CORRELACIONAL DEL mensaje LOCALIZED_POKEMON %d", paquete->id_correlacional);
 	log_debug(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
 
-	log_warning(team_logger, "PASA 20");
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
-	log_warning(team_logger, "PASA 21");
 	list_add(mensajes_que_llegan_nuevos, mensaje);
-	log_warning(team_logger, "PASA 22");
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
-	log_warning(team_logger, "PASA 23");
 
 	sem_post(&mensaje_nuevo_disponible);
-
-	//eliminar_mensaje(paquete);
 
 	return NULL;
 }
@@ -78,8 +68,6 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
-
-	//eliminar_mensaje(paquete);
 
 	return NULL;
 }
@@ -117,8 +105,6 @@ void enviar_get(){
 				mensaje->operacion = GET;
 				mensaje->contenido = get_pokemon;
 
-				log_debug(team_logger, "ID DEL mensaje GET_POKEMON %d", ack->id_mensaje);
-
 				pthread_mutex_lock(&mensaje_chequear_id_mutex);
 				list_add(mensajes_para_chequear_id, mensaje);
 				pthread_mutex_unlock(&mensaje_chequear_id_mutex);
@@ -132,7 +118,6 @@ void enviar_get(){
 		}
 		free(get_pokemon);
 	}
-
 	free(servidor);
 }
 
@@ -160,6 +145,8 @@ void hacer_intento_de_reconexion(){
 }
 
 void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
+	t_packed * paquete;
+
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
@@ -177,7 +164,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 		}else{
 			//Recibo ACK
-			t_packed * paquete = recibir_mensaje(broker_socket);
+			paquete = recibir_mensaje(broker_socket);
 
 			if(paquete != (t_packed*)-1){
 				//log_info(team_logger, "Me suscribi a la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
@@ -206,7 +193,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 	free(servidor);
 	free(paquete_suscripcion);
-
+	eliminar_mensaje(paquete);
 
 	return NULL;
 }

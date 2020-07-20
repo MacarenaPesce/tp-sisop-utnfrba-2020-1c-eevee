@@ -42,6 +42,11 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	t_entrenador* entrenador_mas_cercano;
 	t_entrenador* otro_entrenador;
 	entrenador_mas_cercano = list_get(lista_aux, i);
+
+	if(entrenador_mas_cercano->objetivo_actual != NULL){
+		entrenador_mas_cercano = list_get(lista_aux, i+1);
+	}
+
 	int cantidad_entrenadores = list_size(lista_aux);
 
 	while(i < cantidad_entrenadores){
@@ -190,10 +195,6 @@ void obtener_proximo_ejecucion(void){
 
 	log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador_en_ejecucion->id);
 	entrenador_en_ejecucion->estado = EJECUTANDO;
-
-	if(list_size(lista_listos)==1){
-		sem_post(&ultimo_entrenador);
-	}
 
 	sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);
 	
