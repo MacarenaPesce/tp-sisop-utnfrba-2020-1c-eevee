@@ -51,9 +51,7 @@ void iniciar_servidor(void){
 
 	memcpy(socket,&socket_servidor,sizeof(int));
 
-
 	esperar_cliente((void*)socket);
-	
 }
 
 void* esperar_cliente(void* socket){
@@ -86,13 +84,10 @@ void* esperar_cliente(void* socket){
 			pthread_create(&hilo_cliente,NULL,esperar_mensajes,(void *)soc_cliente);
 
 			pthread_detach(hilo_cliente);
-
 		}
-	
 	}
 	
 	return NULL;
-
 }
 
 void* esperar_mensajes(void* cliente){
@@ -108,14 +103,12 @@ void* esperar_mensajes(void* cliente){
 
 		paquete = recibir_mensaje_serializado(socket_cliente);
 
-		/* log_warning(broker_logger,"pase x el while del socket"); */
-
 		if(paquete > (t_packed*)0){
 			//Esto me devuelve el paquete con todos los datos
 			/* El nro de operacion y cola de mensajes indican el 
 			tipo de estructura que contiene el paquete */
 			
- 		 	if(debug_broker) log_debug(broker_logger,"Mensaje Recibido:",NULL);
+ 		 	if(debug_broker) log_debug(broker_logger,"Mensaje Recibido:");
 			if(debug_broker) log_debug(broker_logger,"operacion: %d ",paquete->operacion);
 			if(debug_broker) log_debug(broker_logger,"cola_de_mensajes: %d ",paquete->cola_de_mensajes);
 			if(debug_broker) log_debug(broker_logger,"id_correlacional: %d  ",paquete->id_correlacional);
@@ -142,17 +135,13 @@ void* esperar_mensajes(void* cliente){
 					log_error(broker_logger, "Error, operacion desconocida: %d", paquete->operacion);
 					break;
 			}
-
-		break;
-
+			break;
 		}
-
 	}
 
 	free(cliente);
 
 	return NULL;
-	
 }
 
 /* Recepcion de mensajes */

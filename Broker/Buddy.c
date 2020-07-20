@@ -266,8 +266,6 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 	// Obtengo la posicion relativa de mi bloque 
 	void* posicion_relativa_bloque = calcular_posicion_relativa(bloque_borrado);
 	if(debug_broker) log_debug(broker_logger, "posicion relativa del bloque actual %d", posicion_relativa_bloque);
-
-	//if(bloque_siguiente!=NULL) log_warning(broker_logger, " tiene buddie a derecha? %d ", son_buddies(bloque,bloque_siguiente) );
 	
 	// Me fijo si son buddies los bloques siguiente y anterior, si son buddies consolido 
 	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true && son_buddies(bloque_borrado,bloque_siguiente)){
@@ -284,8 +282,6 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 		// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
 		consolidacion_BS(bloque_borrado);
 	}
-
-	//if(bloque_anterior!=NULL) log_warning(broker_logger, " tiene buddie a izquierda? %d ", son_buddies(bloque_anterior,bloque) );
 	
 	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true && son_buddies(bloque_anterior,bloque_borrado)){
 

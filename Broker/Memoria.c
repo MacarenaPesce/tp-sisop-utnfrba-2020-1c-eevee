@@ -657,14 +657,9 @@ void escribir_estado_de_memoria(FILE* archivo){
 
         log_info(broker_logger, "last_time ", fecha);*/
 
-        //if(!bloque->esta_vacio) log_warning(broker_logger, "Cola: %d",bloque->estructura_mensaje->cola_de_mensajes);
-        //else    log_warning(broker_logger, "Cola vacia"); 
-
         if(!bloque->esta_vacio){
 
             char* dump = crear_string_dump(bloque,i);
-
-            //log_warning(broker_logger, "dump: %s",dump);
 
             fprintf(archivo, "%s",dump);
             fprintf(archivo, "\n");
@@ -702,6 +697,5 @@ char* crear_string_dump(t_bloque_memoria* bloque,int indice){
 
     return dump;
 }
-
 
 //-----------------------------FIN DEL DUMP--------------------------------

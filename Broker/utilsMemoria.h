@@ -41,6 +41,3 @@ t_bloque_memoria* buscar_bloque_de_mensaje(t_mensaje_cola* mensaje);
 
 //Auxiliar para LRU y FIFO
 uint64_t get_timestamp();
-
-
-//void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);
