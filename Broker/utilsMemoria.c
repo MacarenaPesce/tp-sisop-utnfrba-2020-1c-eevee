@@ -126,9 +126,17 @@ int calcular_posicion_relativa(t_bloque_memoria* _bloque){
 void print_memoria(void* _bloque){
     t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
 
-    if(bloque->esta_vacio == false) log_warning(broker_logger, "\nId : %d\n",bloque->estructura_mensaje->id_mensaje);
+    char* id_part = string_new();
 
-    if(debug_broker) log_warning(broker_logger, "Tamaño: %d \n",bloque->tamanio_particion);
+    if(bloque->esta_vacio == false) {
+        string_append_with_format(&id_part,"mensaje %d",bloque->estructura_mensaje->id_mensaje);
+    }else{
+        string_append(&id_part,"bloque_vacio");
+    }
+
+    if(debug_broker) log_warning(broker_logger, "contenido: %s | Tamaño: %d \n",id_part,bloque->tamanio_particion);
+
+    free(id_part);
 }
 
 /* Ordena las posiciones de memoria */
