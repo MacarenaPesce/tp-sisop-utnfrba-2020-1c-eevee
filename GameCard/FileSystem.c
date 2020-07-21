@@ -292,12 +292,12 @@ void crearPokemon(t_new_pokemon* poke) {
 	pokemonEnMemoria = string_new();
 	posAcopiar = string_new();
 
+	bloquesMetadataPokemon=list_create();
 	char* pokeCargado=cargarPokemon(poke);
 	string_append(&posAcopiar,pokeCargado);
 	free(pokeCargado);
 
-	bloquesMetadataPokemon = list_create();
-	bloquesNuevos = list_create();
+	//bloquesNuevos = list_create();
 
 	log_info(gameCard_logger, "iniciando la creacion del archivo...");
 
@@ -318,11 +318,10 @@ void crearPokemon(t_new_pokemon* poke) {
 	pthread_mutex_unlock(&semMutexBitmap);
 	crearMetadataArchPoke(poke->pokemon, string_length(posAcopiar),bloquesNuevos);
 
+	list_destroy_and_destroy_elements(bloquesNuevos,destruirBloque);
+	//free(bloquesNuevos);
 	free(pokemonEnMemoria);
 	free(posAcopiar);
-	list_destroy_and_destroy_elements(bloquesNuevos,(void*)destruirBloque);
-	list_destroy(bloquesMetadataPokemon);
-
 	log_info(gameCard_logger,
 			"se ha creado con éxito el archivo del pokemon %s", poke->pokemon);
 }
@@ -338,7 +337,7 @@ bool entraEnBloque(char* lineaPokemon) {
 
 void copiarPokemonEnMemoria(void* unBloque) {
 
-	log_info("abriendo el bloque %s para copiar pokemon en memoria",unBloque);
+	log_info(gameCard_logger,"abriendo el bloque %s para copiar pokemon en memoria",unBloque);
 	char* rutaBloque= string_new();
 	char* unBloq=string_new();
 
@@ -1780,3 +1779,51 @@ pthread_mutex_init(&mutexSemPokemones, NULL);
 }
 
 /****************fin semáforos***************************/
+
+void desconectarFs(){
+
+	if(metadata_fs!=NULL){
+		log_info(gameCard_logger,"se va a liberar estructuras de la metadata...");
+		free(metadata_fs->magicNumber);
+		free(metadata_fs);
+		log_info(gameCard_logger,"se ha liberado correctamente");
+	}
+
+
+	if(rutas_fs!=NULL){
+		log_info(gameCard_logger,"se va a liberar estructuras de las rutas del fs...");
+		free(rutas_fs->pathArchivoBitMap);
+		free(rutas_fs->pathArchivoMetadataFs);
+		free(rutas_fs->pathDirectorioBloques);
+		free(rutas_fs->pathDirectorioFilesMetadata);
+		free(rutas_fs->pathDirectorioMetadataFs);
+		free(rutas_fs->puntoDeMontaje);
+		free(rutas_fs);
+		log_info(gameCard_logger,"se ha liberado correctamente");
+	}
+
+	if(bitarray!=NULL){
+		log_info(gameCard_logger,"se va a liberar memoria que se utilizo para el bitarray...");
+		bitarray_destroy(bitarray);
+		log_info(gameCard_logger,"se ha liberado correctamente");
+	}
+
+	if(bmap!=NULL){
+		log_info(gameCard_logger,"se va a liberar memoria que se utilizo para el bitmap...");
+	munmap(bmap, mystat.st_size);
+	log_info(gameCard_logger,"se ha liberado correctamente");}
+
+	/*if (paquete!=NULL){
+		log_info(gameCard_logger,"se libera la memoria del paquete de conexion");
+		free(paquete);
+		log_info(gameCard_logger,"se ha liberado correctamente");
+	}
+	*/
+/*if(pokemonEnMemoria!=NULL){
+		log_info(gameCard_logger,"se va a liberar pokemon de memoria...");
+
+		free(pokemonEnMemoria);
+	log_info(gameCard_logger,"se ha liberado correctamente");
+
+}*/
+}

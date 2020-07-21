@@ -14,7 +14,7 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 	log_info(gameCard_logger, "Gameboy conectado, esperando mensajes...");
 
 	while(1){
-		t_packed * paquete = recibir_mensaje(new_client_sock);
+		paquete = recibir_mensaje(new_client_sock);
 		if(paquete != (t_packed*)-1){
 
 			switch(paquete->cola_de_mensajes){
@@ -32,7 +32,6 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 					log_error(gameCard_logger, "COLA DE MENSAJES:%d", paquete->cola_de_mensajes);
 					break;
 			}
-
 			close(new_client_sock);
 			break;
 		}

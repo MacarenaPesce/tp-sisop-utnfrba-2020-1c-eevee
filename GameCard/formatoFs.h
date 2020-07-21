@@ -64,6 +64,5 @@ void InicializarBloquesDeDatosFs();//ok
 void crearMetadataDirectorioFiles();//ok
 void abrirBitmap();
 void inicializarSemaforosBitmapYMetadata();
-void desconectarFs();
 
 #endif /* FORMATOFS_H_ */

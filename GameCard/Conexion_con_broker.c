@@ -49,9 +49,14 @@ void * atender_get_pokemon(t_packed * paquete){
 	PARA COMPLETAR ACA LO QUE QUEDA, PERO ES SIMILAR A LO QUE ESTA ARRIBA!!
 	*/
 
-	//t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_correlacional, caught_pokemon);
+//el ack se lo manda al broker para confirmar que me llego el pokemon
 
-	if (operar_con_get_pokemon(get_pokemon)!=-1){
+//	t_packed * ack = enviar_ack(servidor, paquete->id_mensaje);
+
+	t_list* listaPosicionesParaLocalized=list_create();
+	listaPosicionesParaLocalized=operar_con_get_pokemon(get_pokemon);
+
+	if (!list_is_empty(listaPosicionesParaLocalized)){
 
 		t_localized_pokemon* localized_pokemon= generar_localized(get_pokemon->pokemon);
 		
@@ -72,7 +77,7 @@ void * atender_get_pokemon(t_packed * paquete){
 		t_packed * ack = enviar_localized_pokemon(servidor,paquete->id_mensaje,localized_pokemon);
 		
 		//TODO: HACES ALGO CON EL ACK????
-		free(ack);
+	//	free(ack);
 
 		eliminar_localized_pokemon(localized_pokemon);
 
@@ -143,8 +148,8 @@ void * atender_new_pokemon(t_packed * paquete){
 
 	free(new_pokemon);
 	free(servidor);
-	free(paquete);
-	//eliminar_mensaje(paquete);
+	//free(paquete->mensaje);
+	//free(paquete);
 	free(appeared_pokemon);
 
 	return NULL;

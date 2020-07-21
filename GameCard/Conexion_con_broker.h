@@ -13,6 +13,7 @@
 #include "mensajesParaFs.h"
 #include <pthread.h>
 
+t_packed * paquete;
 void * atender_get_pokemon(t_packed *);
 void * atender_catch_pokemon(t_packed *);
 void * atender_new_pokemon(t_packed *);

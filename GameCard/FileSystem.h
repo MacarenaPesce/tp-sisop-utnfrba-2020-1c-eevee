@@ -2,6 +2,7 @@
 #define FILESYSTEM_H_
 
 #include "formatoFs.h"
+#include "Conexion_con_gameboy.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -213,4 +214,6 @@ void liberarMemoria();
 void liberarElem(void* elem);
 
 void destruirBloque(char*);
+
+void desconectarFs();
 #endif /* FILESYSTEM_H_ */
