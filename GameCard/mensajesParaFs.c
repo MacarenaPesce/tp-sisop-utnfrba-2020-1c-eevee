@@ -108,11 +108,16 @@ t_list* operar_con_get_pokemon(t_get_pokemon* poke){
 
 	}
 
+else{
 	log_error(gameCard_logger," No existe el pokemon %s, no posee posiciones",poke->pokemon);
 
-	sleep(tiempo_retardo_operacion);
+log_info(gameCard_logger, "te voy a mandar una lista vacia");
 
-	return -1;	
+t_list* listaVacia;
+listaVacia=list_create();
+
+	return listaVacia;	}
+
 
 }
 
