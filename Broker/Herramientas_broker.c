@@ -143,13 +143,33 @@ void capturar_signal(int signo){
 	{
 	//	log_info(broker_logger,"SEGMENTATION FAULT");
 	}
+	else if(signo == SIGUSR1){
+		log_info(broker_logger, "DUMP");
+		dump_memoria();
+	}
 
 }
 
 void terminar_broker_correctamente(){
+
+	pthread_mutex_lock(&mutex_server_status);
+
+	server_status = ENDING;
 	
+	pthread_mutex_unlock(&mutex_server_status);
+
+ 	pthread_mutex_lock(&mutex_queue_mensajes);
+
+	cerrar_senders();
+
 	vaciar_sockets_de_clientes();
+
+	pthread_mutex_unlock(&mutex_queue_mensajes); 
+
+	sleep(2);
+		
 	log_info(broker_logger,"Chau!");
+	
 	exit(EXIT_SUCCESS);
 }
 
@@ -165,3 +185,15 @@ void vaciar_sockets_de_clientes(){
 	list_iterate(cache_mensajes->clientes,eliminar_sockets_cliente);
 }
 
+void cerrar_senders(){
+
+	void despertar_senders(void* _cola){
+
+		t_cola_mensajes* cola = (t_cola_mensajes*) _cola;
+
+		sem_post(cola->producciones);
+	}
+
+	list_iterate(cache_mensajes->colas,despertar_senders);
+
+}

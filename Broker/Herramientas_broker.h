@@ -5,7 +5,6 @@
 #include <Pokebola.h>
 #include "Contexto_broker.h"
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -51,7 +50,7 @@ void capturar_signal(int signo);
 
 void vaciar_sockets_de_clientes();
 void terminar_broker_correctamente();
-
+void cerrar_senders();
 
 #endif /* HERRAMIENTAS_BROKER_H_ */
 

@@ -51,6 +51,8 @@ extern char* ip_broker;
 extern int frecuencia_compactacion;
 extern char* puerto_broker;
 extern char* log_file;
+extern enum SERVER_STATUS server_status;
+extern pthread_t hilo_sender[COLA_LOCALIZED_POKEMON];
 
 extern t_log* broker_logger;
 extern t_config* config;

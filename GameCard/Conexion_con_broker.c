@@ -14,10 +14,11 @@ void * atender_get_pokemon(t_packed * paquete){
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
-	t_get_pokemon * get_pokemon = paquete->mensaje;
+	t_get_pokemon * get_pokemon = (t_get_pokemon*)paquete->mensaje;
 	log_debug(gameCard_logger, "Recibi el pedido de get pokemon para esta especie: %s.", get_pokemon->pokemon);
 
-	/*Este mensaje cumplirá la función de obtener todas las posiciones y su cantidad de un Pokémon específico. Para esto recibirá:
+/*
+	Este mensaje cumplirá la función de obtener todas las posiciones y su cantidad de un Pokémon específico. Para esto recibirá:
 	El identificador del mensaje recibido. Pokémon a devolver.
 
 	Al recibir este mensaje se deberán realizar las siguientes operaciones:
@@ -45,13 +46,14 @@ void * atender_get_pokemon(t_packed * paquete){
 
 	PARA ESTO ULTIMO NOS FALTA EL LOCALIZED EN POKEBOLA, POR LO QUE ESPERAMOS A QUE ESO FUNCIONE
 	PARA COMPLETAR ACA LO QUE QUEDA, PERO ES SIMILAR A LO QUE ESTA ARRIBA!!
-	 * */
+	*/
 
 	//t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_correlacional, caught_pokemon);
-	t_localized_pokemon* localized_pokemon= generar_localized(get_pokemon->pokemon);
 
 	if (operar_con_get_pokemon(get_pokemon)!=-1){
 
+		t_localized_pokemon* localized_pokemon= generar_localized(get_pokemon->pokemon);
+		
 		t_list* lista_coordenadas = operar_con_get_pokemon(get_pokemon);
 
 		void cargar_localized(void* _coordenadas){
@@ -64,15 +66,20 @@ void * atender_get_pokemon(t_packed * paquete){
 
 		list_iterate(lista_coordenadas,cargar_localized);
 
-	}
+		log_warning(gameCard_logger, "Te envie un localized del get %d", paquete->id_mensaje);
 
-	enviar_localized_pokemon(servidor,paquete->id_mensaje,localized_pokemon);
+		t_packed * ack = enviar_localized_pokemon(servidor,paquete->id_mensaje,localized_pokemon);
+		
+		//TODO: HACES ALGO CON EL ACK????
+		free(ack);
 
-	eliminar_localized_pokemon(localized_pokemon);
+		eliminar_localized_pokemon(localized_pokemon);
+
+	}	
 
 	eliminar_mensaje(paquete);
+
 	free(servidor);
-	//free(ack);
 
 	return NULL;
 }
@@ -90,7 +97,7 @@ void * atender_catch_pokemon(t_packed * paquete){
 	caught_pokemon->status = operar_con_catch_pokemon(catch_pokemon);
 			//OK; //Le pongo este rdo por poner, aca va el que hayas obtenido desde el FS
 
-	t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_correlacional, caught_pokemon);
+	t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_mensaje, caught_pokemon);
 
 	if(ack == (t_packed*) -1){
 		log_info(gameCard_logger, "El broker esta caído, no se pudo enviar el caught pokemon para la especie %s", catch_pokemon->pokemon);
@@ -101,8 +108,6 @@ void * atender_catch_pokemon(t_packed * paquete){
 	free(servidor);
 	eliminar_mensaje(paquete);
 	free(caught_pokemon);
-	free(catch_pokemon);
-//	free(ack);
 
 	return NULL;
 }

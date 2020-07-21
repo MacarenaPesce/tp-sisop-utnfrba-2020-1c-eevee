@@ -51,7 +51,7 @@
 
 #define NO_SOCKET -1
 #define IP "127.0.0.2"
-#define PUERTO "5000"
+#define PUERTO "5003"
 
 extern char** posiciones_entrenadores;
 extern char** pokemon_entrenadores;
@@ -130,17 +130,18 @@ pthread_mutex_t lista_bloq_max_mutex;
 pthread_mutex_t lista_entrenadores_mutex;
 pthread_mutex_t lista_listos_mutex;
 pthread_mutex_t mensaje_chequear_id_mutex;
-pthread_mutex_t moverse;
+sem_t mapa_y_entrenador;
 pthread_mutex_t mutex_para_colas;
 pthread_mutex_t tocando_pokemones_objetivos;
 pthread_mutex_t tocando_semaforos_deadlock;
 pthread_mutex_t lista_comun_deadlock;
 pthread_mutex_t mutex_ciclos_cpu;
 pthread_mutex_t mutex_ciclos_cpu_entrenador;
-
+pthread_mutex_t bloqueados_esperando_mutex;
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
 sem_t ultimo_entrenador;
+pthread_mutex_t global_seguir_mutex;
 
 t_list * semaforos_deadlock;
 
@@ -164,6 +165,7 @@ sem_t puedo_volver_a_ejecutar;
 sem_t termine_carajo;
 sem_t contador_de_deadlocks_producidos;
 pthread_mutex_t pokemones_asignados;
+sem_t podes_sacar_entrenador;
 
 extern bool hayDeadlock;
 extern bool me_desalojaron;
@@ -189,7 +191,8 @@ enum RAZON_BLOQUEO{
 	ESPERANDO_MENSAJE_CAUGHT,
 	ESPERANDO_DEADLOCK,
 	CANTIDAD_MAXIMA_ALCANZADA,
-	ESPERANDO_POKEMON
+	ESPERANDO_POKEMON,
+	NINGUNA
 };
 
 typedef struct { //estructura del objetivo global
