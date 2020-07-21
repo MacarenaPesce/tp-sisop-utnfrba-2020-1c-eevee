@@ -33,7 +33,7 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion);
 bool puede_alojarse(int tamanio_en_bytes);
 void liberar_bloque_memoria(t_bloque_memoria* bloque);
 
-void* calcular_posicion_relativa(t_bloque_memoria* bloque);
+int calcular_posicion_relativa(t_bloque_memoria* bloque);
 void print_memoria(void* _bloque);
 bool ordenar_bloques_memoria(void* puntero1, void* puntero2);
 void actualizar_lru_de_mensaje(t_mensaje_cola* mensaje);

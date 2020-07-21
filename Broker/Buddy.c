@@ -306,18 +306,20 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 	return ;
 }
 
-
-/* Determina si 2 bloques son buddies o no */
 bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
 
 	/* Me fijo si ambos tienen el mismo tamaño para ver si son buddies*/
 	if(bloque_anterior->tamanio_particion == bloque_siguiente->tamanio_particion){
 		/* ACA VIENE LA PARTE DEL XOR */
-		return ((int)bloque_anterior->estructura_mensaje) == ((int)bloque_siguiente->estructura_mensaje ^ bloque_anterior->tamanio_particion);
+		int pos_relativa_bloque_anterior = calcular_posicion_relativa(bloque_anterior);
+		int pos_relativa_bloque_siguiente = calcular_posicion_relativa(bloque_siguiente);
+
+		if(debug_broker) log_error(broker_logger,"p1: %d | p2: %d", pos_relativa_bloque_anterior,pos_relativa_bloque_siguiente);
+		return (pos_relativa_bloque_anterior == (pos_relativa_bloque_siguiente ^ bloque_anterior->tamanio_particion));
 	}
-	else{
-		return false;
-	}
+
+	return false;
+
 }
 
 /* Se encarga de realizar la consolidacion en si */
