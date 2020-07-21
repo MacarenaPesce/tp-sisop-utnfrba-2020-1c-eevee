@@ -310,6 +310,7 @@ void capturar_signal(int signo){
 }
 
 int destruir_pokemon(t_pokemon * pokemon){
+	if(pokemon->especie != NULL) free(pokemon->especie);	
 	free(pokemon);
 	return 0;
 }

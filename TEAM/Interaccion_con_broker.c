@@ -8,19 +8,14 @@
 #include "Interaccion_con_broker.h"
 
 void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
-	t_appeared_pokemon * appeared = paquete->mensaje;
 
-	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
-	mensaje->id = paquete->id_mensaje;
-	mensaje->id_correlacional = paquete->id_correlacional;
-	mensaje->operacion = APPEARED;
-	mensaje->contenido = appeared;
+	t_appeared_pokemon* appeared = (t_appeared_pokemon*)paquete->mensaje;
 
 	log_debug(team_logger, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 	log_info(team_logger_oficial, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
-	list_add(mensajes_que_llegan_nuevos, mensaje);
+	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
@@ -30,19 +25,13 @@ void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 
 void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 
-	t_localized_pokemon * localized = paquete->mensaje;
-
-	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
-	mensaje->id = paquete->id_mensaje;
-	mensaje->id_correlacional = paquete->id_correlacional;
-	mensaje->operacion = LOCALIZED;
-	mensaje->contenido = localized;
+	t_localized_pokemon * localized = (t_localized_pokemon*)paquete->mensaje;
 
 	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
 	log_debug(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
-	list_add(mensajes_que_llegan_nuevos, mensaje);
+	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
@@ -54,17 +43,11 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 
 	t_caught_pokemon * caught = paquete->mensaje;
 
-	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
-	mensaje->id = paquete->id_mensaje;
-	mensaje->id_correlacional = paquete->id_correlacional;
-	mensaje->operacion = CAUGHT;
-	mensaje->contenido = caught;
-
 	log_debug(team_logger, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> %d y status %d", paquete->id_correlacional, caught->status);
 	log_debug(team_logger_oficial, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> %d y status %d", paquete->id_correlacional, caught->status);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
-	list_add(mensajes_que_llegan_nuevos, mensaje);
+	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);

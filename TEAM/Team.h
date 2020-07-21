@@ -47,4 +47,11 @@ bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char *);
 void confirmar_desalojo_en_ejecucion(void);
 bool esta_en_lista_asignados(t_pokemon *);
 
+
+
+/* Tratamiento de paquetes */
+void tratar_appeared_pokemon(t_packed* paquete);
+void tratar_localized_pokemon(t_packed* paquete);
+void tratar_caught_pokemon(t_packed* paquete);
+
 #endif /* TEAM_H_ */
