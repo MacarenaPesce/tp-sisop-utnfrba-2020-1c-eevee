@@ -171,6 +171,7 @@ atrapado con éxito.*/
 	}
 
 	free(servidor);
+	free(ack);
 
 	return;
 

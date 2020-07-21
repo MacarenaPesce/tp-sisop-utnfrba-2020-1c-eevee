@@ -32,14 +32,12 @@ void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
 		return;
 	}
 
-	t_catch_pokemon* catch_pokemon = malloc(sizeof(t_catch_pokemon));
-	catch_pokemon = mensaje_guardado_catch->contenido;
+	t_catch_pokemon* catch_pokemon = mensaje_guardado_catch->contenido;
 
 	if(catch_pokemon->pokemon != NULL){
 		if(status == OK){
-			t_entrenador * entrenador = malloc(sizeof(t_entrenador));
 			sem_wait(&podes_sacar_entrenador);
-			entrenador = buscar_entrenador_por_objetivo_actual(catch_pokemon);
+			t_entrenador * entrenador = buscar_entrenador_por_objetivo_actual(catch_pokemon);
 			entrenador->objetivo_actual = NULL;			
 			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando_caught, entrenador->id);
 			log_info(team_logger, "El pokemon %s ha sido atrapado con exito por el entrenador %d", catch_pokemon->pokemon, entrenador->id);
@@ -541,10 +539,16 @@ bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char * pokemon){
 
 void * tratamiento_de_mensajes(){
 
-	while(GLOBAL_SEGUIR){
+	while(1){
+		pthread_mutex_lock(&global_seguir_mutex);
+		if(GLOBAL_SEGUIR == 0){
+			break;
+		}
+		pthread_mutex_unlock(&global_seguir_mutex);
+		
 		sem_wait(&mensaje_nuevo_disponible);
 
-		while(GLOBAL_SEGUIR){
+		while(1){
 			t_mensaje_guardado * mensaje;
 
 			pthread_mutex_lock(&mensaje_nuevo_mutex);
@@ -563,6 +567,7 @@ void * tratamiento_de_mensajes(){
 
 				if(un_objetivo == NULL){
 					log_info(team_logger, "No necesito este pokemon: %s", pokemon->especie);
+					free(pokemon);
 					free(mensaje);
 					break;
 				}else{

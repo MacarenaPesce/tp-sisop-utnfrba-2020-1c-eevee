@@ -25,7 +25,13 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 
 void * atender_a_gameboy(void * serv_socket){
 
-	while(GLOBAL_SEGUIR){
+	while(1){
+		pthread_mutex_lock(&global_seguir_mutex);
+		if(GLOBAL_SEGUIR == 0){
+			break;
+		}
+		pthread_mutex_unlock(&global_seguir_mutex);
+
 		struct sockaddr_in client_addr;
 
 		//Setea la direccion en 0

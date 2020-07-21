@@ -102,7 +102,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&pokemones_asignados, NULL);
 	pthread_mutex_init(&mutex_ciclos_cpu_entrenador, NULL);
 	pthread_mutex_init(&bloqueados_esperando_mutex, NULL);
-
+	pthread_mutex_init(&global_seguir_mutex, NULL);
 
 	sem_init(&entrenadores_ubicados, 0, 0);
 	sem_init(&hay_interbloqueo, 0, 0);
@@ -333,7 +333,6 @@ int destruir_objetivo_entrenador(t_objetivo_entrenador * objetivo){
 }
 
 int destruir_mensaje(t_mensaje_guardado * mensaje){
-	free(mensaje->contenido);
 	free(mensaje);
 	return 0;
 }
@@ -348,7 +347,10 @@ void liberar_lista_char(char** lista){
 }
 
 void terminar_team_correctamente(){
+	pthread_mutex_lock(&global_seguir_mutex);
 	GLOBAL_SEGUIR = 0;
+	pthread_mutex_unlock(&global_seguir_mutex);
+
 	log_info(team_logger,"Cerrando team...");
 
 	/*HAY QUE DESTRUIR TODAS LAS LISTAS*/

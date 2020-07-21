@@ -9,7 +9,13 @@
 
 void * planificar(){
 
-	while(GLOBAL_SEGUIR){
+	while(1){
+		pthread_mutex_lock(&global_seguir_mutex);
+		if(GLOBAL_SEGUIR == 0){
+			break;
+		}
+		pthread_mutex_unlock(&global_seguir_mutex);
+		
 		sem_wait(&orden_para_planificar);
 		obtener_proximo_ejecucion();
 	}

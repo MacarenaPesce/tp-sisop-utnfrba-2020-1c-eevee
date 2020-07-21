@@ -117,6 +117,7 @@ void enviar_get(){
 			h++;
 		}
 		free(get_pokemon);
+		free(ack);
 	}
 	free(servidor);
 }
@@ -154,7 +155,12 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 	int broker_socket = enviar_solicitud_suscripcion(servidor,paquete_suscripcion->cola);
 
-	while(GLOBAL_SEGUIR){
+	while(1){
+		pthread_mutex_lock(&global_seguir_mutex);
+		if(GLOBAL_SEGUIR == 0){
+			break;
+		}
+		pthread_mutex_unlock(&global_seguir_mutex);
 
 		if(broker_socket <= 0){
 			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
@@ -167,8 +173,6 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			paquete = recibir_mensaje(broker_socket);
 
 			if(paquete != (t_packed*)-1){
-				//log_info(team_logger, "Me suscribi a la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
-
 				//Quedo a la espera de recibir notificaciones
 				if(paquete->operacion == ENVIAR_MENSAJE){
 					switch(paquete->cola_de_mensajes){
@@ -193,7 +197,6 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 	free(servidor);
 	free(paquete_suscripcion);
-	eliminar_mensaje(paquete);
 
 	return NULL;
 }

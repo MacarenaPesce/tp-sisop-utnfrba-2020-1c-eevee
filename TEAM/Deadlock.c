@@ -101,7 +101,13 @@ void chequear_cantidad_de_deadlocks_producidos(){
 
 void * chequear_deadlock(){
 
-	while(GLOBAL_SEGUIR){
+	while(1){
+		pthread_mutex_lock(&global_seguir_mutex);
+		if(GLOBAL_SEGUIR == 0){
+			break;
+		}
+		pthread_mutex_unlock(&global_seguir_mutex);
+		
 		sem_wait(&chequeo_de_deadlock);
 
 		pthread_mutex_lock(&lista_entrenadores_mutex);

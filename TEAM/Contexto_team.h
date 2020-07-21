@@ -141,6 +141,7 @@ pthread_mutex_t bloqueados_esperando_mutex;
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
 sem_t ultimo_entrenador;
+pthread_mutex_t global_seguir_mutex;
 
 t_list * semaforos_deadlock;
 
