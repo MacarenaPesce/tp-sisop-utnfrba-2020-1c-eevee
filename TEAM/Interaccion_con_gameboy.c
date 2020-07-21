@@ -18,7 +18,6 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 			pthread_mutex_unlock(&llego_gameboy);
 
 			close(new_client_sock);
-			eliminar_mensaje(paquete);
 			break;
 		}
 	}

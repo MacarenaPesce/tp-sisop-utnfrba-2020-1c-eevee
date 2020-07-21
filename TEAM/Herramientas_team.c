@@ -94,7 +94,6 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&lista_listos_mutex, NULL);
 	pthread_mutex_init(&mensaje_nuevo_mutex, NULL);
 	pthread_mutex_init(&mensaje_chequear_id_mutex, NULL);
-	pthread_mutex_init(&moverse, NULL);
 	pthread_mutex_init(&tocando_pokemones_objetivos, NULL);
 	pthread_mutex_init(&tocando_semaforos_deadlock, NULL);
 	pthread_mutex_init(&lista_comun_deadlock, NULL);
@@ -123,6 +122,7 @@ void inicializar_semaforos(){
 	sem_init(&contador_de_deadlocks_producidos, 0, 0);
 	sem_init(&ultimo_entrenador, 0, 0);
 	sem_init(&podes_sacar_entrenador, 0, 0);
+	sem_init(&mapa_y_entrenador, 0, 0);
 
 }
 
@@ -333,7 +333,7 @@ int destruir_objetivo_entrenador(t_objetivo_entrenador * objetivo){
 }
 
 int destruir_mensaje(t_mensaje_guardado * mensaje){
-	//free(mensaje->contenido);
+	free(mensaje->contenido);
 	free(mensaje);
 	return 0;
 }

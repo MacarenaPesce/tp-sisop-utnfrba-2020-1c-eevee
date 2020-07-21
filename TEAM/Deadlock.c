@@ -29,8 +29,8 @@ void chequear_cantidad_de_deadlocks_producidos(){
 		t_objetivo_entrenador * pokemon_innecesario_de_uno;
 		t_objetivo_entrenador * pokemon_innecesario_de_otro;
 		t_objetivo_entrenador* pokemon_objetivo_de_entrenador;
-		 t_objetivo_entrenador * pokemon_objetivo_de_uno;
-		 t_objetivo_entrenador * pokemon_objetivo_de_otro;
+		t_objetivo_entrenador * pokemon_objetivo_de_uno;
+		t_objetivo_entrenador * pokemon_objetivo_de_otro;
 
 		while(SIN_ESPERA_ASIGNADA != 0){
 			if(list_size(aux_a_recorrer) == 1){
@@ -124,7 +124,6 @@ void * chequear_deadlock(){
 			log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
 			
 			chequear_cantidad_de_deadlocks_producidos();
-			//sem_wait(&contador_de_deadlocks_producidos);
 			break;
 		}
 	}

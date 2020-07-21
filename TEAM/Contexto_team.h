@@ -130,7 +130,7 @@ pthread_mutex_t lista_bloq_max_mutex;
 pthread_mutex_t lista_entrenadores_mutex;
 pthread_mutex_t lista_listos_mutex;
 pthread_mutex_t mensaje_chequear_id_mutex;
-pthread_mutex_t moverse;
+sem_t mapa_y_entrenador;
 pthread_mutex_t mutex_para_colas;
 pthread_mutex_t tocando_pokemones_objetivos;
 pthread_mutex_t tocando_semaforos_deadlock;
@@ -138,7 +138,6 @@ pthread_mutex_t lista_comun_deadlock;
 pthread_mutex_t mutex_ciclos_cpu;
 pthread_mutex_t mutex_ciclos_cpu_entrenador;
 pthread_mutex_t bloqueados_esperando_mutex;
-
 pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
 sem_t ultimo_entrenador;

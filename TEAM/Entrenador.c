@@ -14,10 +14,11 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 
 		log_info(team_logger, "Soy el entrenador que va a ejecutar, mi id es: %d.", entrenador->id);
 		
-		if(!hayDeadlock){
-			llegar_a_el_pokemon(entrenador);
-			atrapar(entrenador);
-		}
+		llegar_a_el_pokemon(entrenador);
+		atrapar(entrenador);
+		
+		sem_wait(&mapa_y_entrenador);
+
 		if(objetivo_personal_cumplido(entrenador)){
 			pthread_mutex_lock(&bloqueados_esperando_mutex);
 			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando, entrenador->id);
@@ -32,6 +33,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 			sem_post(&orden_para_planificar);
 			return NULL;
 		}
+		
 		sem_post(&termine_carajo);
 		if(entrenador->cant_maxima_objetivos == 0){
 			break;

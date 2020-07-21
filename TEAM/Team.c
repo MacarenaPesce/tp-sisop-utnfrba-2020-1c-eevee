@@ -43,7 +43,9 @@ void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
 			entrenador->objetivo_actual = NULL;			
 			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando_caught, entrenador->id);
 			log_info(team_logger, "El pokemon %s ha sido atrapado con exito por el entrenador %d", catch_pokemon->pokemon, entrenador->id);
+
 			actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
+			sem_post(&mapa_y_entrenador);
 		}
 	}
 }
@@ -249,8 +251,6 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 		ver_razon_de_bloqueo(entrenador);
 		bloquear_entrenador(entrenador);
 	}
-
-	
 }
 
 void chequear_si_fue_cumplido_el_objetivo_global(){
@@ -287,9 +287,11 @@ void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_
 
 	log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 	log_debug(team_logger, "El pokemon %s ha sido atrapado con exito por el entrenador %d", catch_pokemon->pokemon, entrenador->id);
-	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %d %d", 
-		catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
+	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %d %d", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
+	
 	actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
+	sem_post(&mapa_y_entrenador);
+
 }
 
 void hacer_procedimiento_para_atrapar_pokemon_con_broker(t_entrenador * entrenador){
@@ -412,7 +414,6 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 
 			sem_post(&orden_para_planificar);
 			log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
-			sem_wait(&array_semaforos[entrenador->id]);
 		}
 	}
 
@@ -443,8 +444,6 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
 				sem_post(&orden_para_planificar);
 				log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
-				sem_wait(&array_semaforos[entrenador->id]);
-			
 		}
 	}
 }
@@ -624,7 +623,7 @@ void * tratamiento_de_mensajes(){
 	return NULL;
 }
 
-int main(int arcg, char **argv[]){
+int main(int arcg, char** argv[]){
 
 	inicializar_logger();
 	inicializar_archivo_de_configuracion(argv[1]);
