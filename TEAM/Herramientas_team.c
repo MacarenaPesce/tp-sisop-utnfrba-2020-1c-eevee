@@ -94,7 +94,6 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&lista_listos_mutex, NULL);
 	pthread_mutex_init(&mensaje_nuevo_mutex, NULL);
 	pthread_mutex_init(&mensaje_chequear_id_mutex, NULL);
-	pthread_mutex_init(&moverse, NULL);
 	pthread_mutex_init(&tocando_pokemones_objetivos, NULL);
 	pthread_mutex_init(&tocando_semaforos_deadlock, NULL);
 	pthread_mutex_init(&lista_comun_deadlock, NULL);
@@ -102,7 +101,8 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&mutex_ciclos_cpu, NULL);
 	pthread_mutex_init(&pokemones_asignados, NULL);
 	pthread_mutex_init(&mutex_ciclos_cpu_entrenador, NULL);
-
+	pthread_mutex_init(&bloqueados_esperando_mutex, NULL);
+	pthread_mutex_init(&global_seguir_mutex, NULL);
 
 	sem_init(&entrenadores_ubicados, 0, 0);
 	sem_init(&hay_interbloqueo, 0, 0);
@@ -121,6 +121,8 @@ void inicializar_semaforos(){
 	sem_init(&termine_carajo, 0, 0);
 	sem_init(&contador_de_deadlocks_producidos, 0, 0);
 	sem_init(&ultimo_entrenador, 0, 0);
+	sem_init(&podes_sacar_entrenador, 0, 0);
+	sem_init(&mapa_y_entrenador, 0, 0);
 
 }
 
@@ -331,7 +333,6 @@ int destruir_objetivo_entrenador(t_objetivo_entrenador * objetivo){
 }
 
 int destruir_mensaje(t_mensaje_guardado * mensaje){
-	free(mensaje->contenido);
 	free(mensaje);
 	return 0;
 }
@@ -346,7 +347,10 @@ void liberar_lista_char(char** lista){
 }
 
 void terminar_team_correctamente(){
+	pthread_mutex_lock(&global_seguir_mutex);
 	GLOBAL_SEGUIR = 0;
+	pthread_mutex_unlock(&global_seguir_mutex);
+
 	log_info(team_logger,"Cerrando team...");
 
 	/*HAY QUE DESTRUIR TODAS LAS LISTAS*/
@@ -435,16 +439,9 @@ t_pokemon * buscar_pokemon_por_especie_y_ubicacion(t_list * lista, t_pokemon * p
 	return (list_find(lista,(void*)es_la_especie_buscada));
 }
 
-
-
 t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon* catch_pokemon){
-	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-	pokemon->especie = catch_pokemon->pokemon;
-	pokemon->posx = catch_pokemon->coordenadas.posx;
-	pokemon->posy = catch_pokemon->coordenadas.posy;
-
 	bool es_el_buscado(t_entrenador* entrenador){
-		return entrenador->objetivo_actual->especie == pokemon->especie;
+		return entrenador->objetivo_actual->especie == catch_pokemon->pokemon;
 	}
 	return (list_find(lista_bloqueados_esperando_caught,(void*)es_el_buscado));
 }
@@ -467,8 +464,9 @@ t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* mens
 }
 
 t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char* especie, t_list* mensajes){
-	bool es_el_buscado(t_mensaje_guardado* mensaje){
-		return mensaje->operacion == APPEARED && (((t_appeared_pokemon *)(mensaje->contenido))->pokemon == especie);
+	bool es_el_buscado(void* _mensaje){
+		t_mensaje_guardado* mensaje = (t_mensaje_guardado*) _mensaje;
+		return mensaje->operacion == APPEARED && (((t_appeared_pokemon*)(mensaje->contenido))->pokemon == especie);
 	}
 	return (list_find(mensajes,(void*)es_el_buscado));
 }
