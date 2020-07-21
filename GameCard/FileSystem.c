@@ -340,7 +340,7 @@ void copiarPokemonEnMemoria(void* unBloque) {
 
 	log_info(gameCard_logger,"abriendo el bloque %s para copiar pokemon en memoria",unBloque);
 	char* rutaBloque= string_new();
-	char* unBloq=string_new();
+	unBloq=string_new();
 
 	string_append(&unBloq,unBloque);
 
@@ -366,26 +366,26 @@ void copiarPokemonEnMemoria(void* unBloque) {
 	}
 ;
 
-	if (pokemonEnMemoria == NULL) {
+/*	if (pokemonEnMemoria == NULL) {
 		pokemonEnMemoria = mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ,
 		MAP_SHARED, fdBloq, 0);
 	}
 
-	else {
+	else {*/
 
-		auxPokeEnMemo = string_new();
 
-		string_append(&auxPokeEnMemo ,(char*) mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ,
-		MAP_SHARED, fdBloq, 0));
+		char* mapeo=(char*) mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ,
+				MAP_SHARED, fdBloq, 0);
 
-		string_append(&pokemonEnMemoria, auxPokeEnMemo);
+		string_append(&pokemonEnMemoria, mapeo);
 
 		//free(auxPokeEnMemo);
 
-	}
+	//}
 
-	//free(rutaBloque);
-	//free(unBloq);
+	free(unBloq);
+	free(rutaBloque);
+
 	close(fdBloq);
 
 }
@@ -428,8 +428,9 @@ void llenarListaBloquesPoke(char* poke) {
 
 	pthread_mutex_unlock(dictionary_get(semaforosPokemon, poke));
 
-	//free(listaBloques);
-	//free(rutaMetadataPokemon);
+
+	free(listaBloques);
+	free(rutaMetadataPokemon);
 	config_destroy(metadataPokemon);
 
 
@@ -616,17 +617,18 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar) {
 			}
 		}
 
-		//free(stringAcopiar);
-		//free(nuevaPos);
+		free(stringAcopiar);
+		free(ultBloque);
 
 
 	}
 
 	free(pokemonEnMemoria);
 	free(pokemon);
-//	free(nuevaPos);
+	free(nuevaPos);
 
-	list_destroy_and_destroy_elements(bloquesMetadataPokemon,(void*)liberarElem);
+
+	//list_destroy_and_destroy_elements(bloquesMetadataPokemon,(void*)liberarElem);
 
 
 
@@ -1816,6 +1818,11 @@ void desconectarFs(){
 	munmap(bmap, mystat.st_size);
 	log_info(gameCard_logger,"se ha liberado correctamente");}
 
+
+
+	/*if(string_length(unBloq)>0){
+		free(unBloq);
+	}*/
 	/*if (paquete!=NULL){
 		log_info(gameCard_logger,"se libera la memoria del paquete de conexion");
 		free(paquete);
