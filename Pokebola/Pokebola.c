@@ -737,7 +737,7 @@ void _recibir_new_pokemon(t_packed *paquete){
 	int offset = 0;
 	uint32_t _tamanio_string_pokemon;
 	char* string_terminator = "\0";
-	t_new_pokemon *aux;
+	//t_new_pokemon *aux;
 
 	aux = (t_new_pokemon*)malloc(sizeof(t_new_pokemon));	
 
@@ -752,9 +752,9 @@ void _recibir_new_pokemon(t_packed *paquete){
 	memcpy(aux->pokemon,(paquete->mensaje)+offset,_tamanio_string_pokemon);
 	memcpy((aux->pokemon)+_tamanio_string_pokemon,string_terminator,1);
 
-	free(paquete->mensaje);
 
-	paquete->mensaje = aux;
+	free(paquete->mensaje);
+	paquete->mensaje=aux;
 
 	return;
 }

@@ -15,6 +15,8 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 
 	while(1){
 		paquete = recibir_mensaje(new_client_sock);
+		log_warning(gameCard_logger,"validame tamanio paquete %d",sizeof(paquete));
+			sleep(7);
 		if(paquete != (t_packed*)-1){
 
 			switch(paquete->cola_de_mensajes){
@@ -32,12 +34,15 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 					log_error(gameCard_logger, "COLA DE MENSAJES:%d", paquete->cola_de_mensajes);
 					break;
 			}
+
 			close(new_client_sock);
 			break;
 		}
 
 
 	}
+
+	//eliminar_mensaje(paquete);
 }
 
 void * atender_a_gameboy(void * serv_socket){
