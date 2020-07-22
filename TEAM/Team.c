@@ -528,8 +528,8 @@ void crear_hilo_para_tratamiento_de_mensajes(){
 }
 
 bool chequear_si_recibi_appeared_de_especie_antes(char * pokemon){
-	t_mensaje_guardado * mensaje = buscar_mensaje_appeared_por_especie(pokemon, mensajes_para_chequear_id);
-	return mensaje != NULL;
+	char* especie = buscar_mensaje_appeared_por_especie(pokemon, lista_historico_appeared_pokemon);
+	return especie != NULL;
 }
 
 bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char * pokemon){
@@ -588,6 +588,8 @@ void * tratamiento_de_mensajes(){
 void tratar_appeared_pokemon(t_packed* paquete){
 	t_appeared_pokemon * appeared = paquete->mensaje;
 
+	agregar_a_historico_appeared(appeared->pokemon);
+
 	t_pokemon * pokemon = malloc(sizeof(t_pokemon));
 	pokemon->posx = appeared->coordenadas.posx;
 	pokemon->posy = appeared->coordenadas.posy;
@@ -606,44 +608,49 @@ void tratar_appeared_pokemon(t_packed* paquete){
 	seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 	operar_con_appeared_pokemon(pokemon);
 
+
+
+
 	return;
 }
 
 void tratar_localized_pokemon(t_packed* paquete){
 	t_localized_pokemon * localized = paquete->mensaje;
 
+
+	/* Hice previamente un pedido de get_pokemon */
 	pthread_mutex_lock(&mensaje_chequear_id_mutex);
-	t_mensaje_guardado * mensaje_buscado = buscar_mensaje_por_id(paquete->id_correlacional, mensajes_para_chequear_id);
+	uint32_t * id_mensaje_buscado = buscar_mensaje_por_id(paquete->id_correlacional, mensajes_para_chequear_id);
 	pthread_mutex_unlock(&mensaje_chequear_id_mutex);
 	
-	if(mensaje_buscado == NULL){
+	if(id_mensaje_buscado == NULL){
 		return;
 	}
 
-	if(!chequear_si_recibi_appeared_de_especie_antes(localized->pokemon)){
-		t_objetivo* un_objetivo = buscar_pokemon_por_especie(lista_objetivos, localized->pokemon);
+	/* No recibí anteriormente un appeared de esta especie */
+	bool encontre_pokemon_en_historico = chequear_si_recibi_appeared_de_especie_antes(localized->pokemon);
 
-		if(un_objetivo == NULL){
-			return;
-		}
-
-		void trabajar_con_localized(void* _coordenada){
-			t_coordenadas* coodenada = (t_coordenadas*) _coordenada;
-			//Por cada elemento de la lista de coordenadas agrego un pokemon
-			t_pokemon * pokemon = malloc(sizeof(t_pokemon));
-			pokemon->posx = coodenada->posx;
-			pokemon->posy = coodenada->posy;
-
-			pokemon->especie = (char*)malloc(strlen(localized->pokemon)+1);
-			memcpy(pokemon->especie,localized->pokemon,strlen(localized->pokemon)+1);
-	
-			seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
-			operar_con_appeared_pokemon(pokemon);
-		}
-
-		list_iterate(localized->lista_coordenadas,trabajar_con_localized);
-
+	if(encontre_pokemon_en_historico){
+		return;
 	}
+
+	void trabajar_con_localized(void* _coordenada){
+		t_coordenadas* coodenada = (t_coordenadas*) _coordenada;
+		//Por cada elemento de la lista de coordenadas agrego un pokemon
+		t_pokemon * pokemon = malloc(sizeof(t_pokemon));
+		pokemon->posx = coodenada->posx;
+		pokemon->posy = coodenada->posy;
+
+		pokemon->especie = (char*)malloc(strlen(localized->pokemon)+1);
+		memcpy(pokemon->especie,localized->pokemon,strlen(localized->pokemon)+1);
+
+		seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
+		operar_con_appeared_pokemon(pokemon);
+	}
+
+	list_iterate(localized->lista_coordenadas,trabajar_con_localized);
+
+
 
 	return;
 

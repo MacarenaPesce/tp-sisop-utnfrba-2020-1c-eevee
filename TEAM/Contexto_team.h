@@ -117,6 +117,7 @@ extern t_list* mensajes_para_chequear_id;
 extern t_list* lista_bloqueados_esperando_caught;
 extern t_list * lista_pokemones_objetivos_aux;
 extern t_list * lista_asignados;
+extern t_list * lista_historico_appeared_pokemon;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_rr;
@@ -142,6 +143,7 @@ pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
 sem_t ultimo_entrenador;
 pthread_mutex_t global_seguir_mutex;
+pthread_mutex_t historico_appeared_pokemon;
 
 t_list * semaforos_deadlock;
 

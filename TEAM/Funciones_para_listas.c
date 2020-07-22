@@ -52,6 +52,7 @@ void inicializar_listas(){
 	mensajes_para_chequear_id = list_create();
 	lista_bloqueados_esperando_caught = list_create();
 	lista_asignados = list_create();
+	lista_historico_appeared_pokemon = list_create();
 
 }
 

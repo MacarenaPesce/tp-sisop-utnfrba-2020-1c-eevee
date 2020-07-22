@@ -66,5 +66,7 @@ bool objetivo_personal_cumplido(t_entrenador* entrenador);
 bool objetivo_global_cumplido();
 bool todos_bloqueados_por_cantidad_maxima();
 
+/* Agregar a listas */
+void agregar_a_historico_appeared(char* pokemon);
 
 #endif /* HERRAMIENTAS_TEAM_H_ */
