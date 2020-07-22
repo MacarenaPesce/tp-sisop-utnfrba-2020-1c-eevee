@@ -56,18 +56,18 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 }
 
 void enviar_get(){
+	
 	t_servidor * servidor = (t_servidor*)malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
-	int h = 0;
-	t_objetivo * objetivo;
+	void _enviar_get_pokemon(void* _objetivo){
 
-	while(lista_objetivos != NULL){
-		objetivo = list_get(lista_objetivos, h);
+		t_objetivo * objetivo = (t_objetivo*) _objetivo;
+
 		if(objetivo == NULL){
-			break;
+			return;
 		}
 
 		t_get_pokemon * get_pokemon = malloc(sizeof(t_get_pokemon));
@@ -76,33 +76,32 @@ void enviar_get(){
 		t_packed * ack = enviar_get_pokemon(servidor, -1, get_pokemon);
 		log_info(team_logger, "Enviado pedido de get pokemon para esta especie: %s", objetivo->especie);
 
-		if(ack != (t_packed*)-1){
-			h++;
+		//Recibo ACK
+		if(ack->operacion == ACK){
 
-			//Recibo ACK
-			if(ack->operacion == ACK){
-				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
+			log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
+			uint32_t* id_esperando_respuesta = (uint32_t*)malloc(sizeof(uint32_t));
+			memcpy(id_esperando_respuesta,&ack->id_mensaje,sizeof(uint32_t));
 
-				t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
-				mensaje->id = ack->id_mensaje;
-				mensaje->operacion = GET;
-				mensaje->contenido = get_pokemon;
+			pthread_mutex_lock(&mensaje_chequear_id_mutex);
+			list_add(mensajes_para_chequear_id, (void*)id_esperando_respuesta);
+			pthread_mutex_unlock(&mensaje_chequear_id_mutex);
 
-				pthread_mutex_lock(&mensaje_chequear_id_mutex);
-				list_add(mensajes_para_chequear_id, mensaje);
-				pthread_mutex_unlock(&mensaje_chequear_id_mutex);
-
-			}
+			eliminar_mensaje(ack);
 
 		}else{
 			log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 			log_info(team_logger, "No existen locaciones para esta especie: %s, cant %i", objetivo->especie, objetivo->cantidad_necesitada);
-			h++;
 		}
-		free(get_pokemon);
-		free(ack);
+		
+		free(get_pokemon->pokemon);
+
 	}
+
+	list_iterate(lista_objetivos,_enviar_get_pokemon);
+
 	free(servidor);
+	
 }
 
 void convertirse_en_suscriptor_global_del_broker(){

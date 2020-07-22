@@ -103,6 +103,8 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&mutex_ciclos_cpu_entrenador, NULL);
 	pthread_mutex_init(&bloqueados_esperando_mutex, NULL);
 	pthread_mutex_init(&global_seguir_mutex, NULL);
+	pthread_mutex_init(&historico_appeared_pokemon, NULL);
+	
 
 	sem_init(&entrenadores_ubicados, 0, 0);
 	sem_init(&hay_interbloqueo, 0, 0);
@@ -405,10 +407,17 @@ void terminar_team_correctamente(){
 
 t_objetivo * buscar_pokemon_por_especie(t_list* lista, char* especie){
 
-	bool es_la_especie_buscada(t_objetivo* pokemon){
+	bool es_la_especie_buscada(void* _pokemon){
+
+		t_objetivo* pokemon = (t_objetivo*) _pokemon;
+
+		printf("\nespecie: %s\n",especie);
+		printf("\npuntero: %p",pokemon->especie);
+		printf("\nlista: %s",pokemon->especie);
+
 		return (string_equals_ignore_case(pokemon->especie, especie));
 	}
-	return (list_find(lista,(void*)es_la_especie_buscada));
+	return (list_find(lista,es_la_especie_buscada));
 }
 
 t_objetivo_entrenador * buscar_pokemon_objetivo_por_especie(t_list* lista, char* especie){
@@ -454,20 +463,35 @@ t_mensaje_guardado * buscar_mensaje(uint32_t id){
 	return (list_find(mensajes,(void*)es_el_buscado));
 }
 
-t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* mensajes){
+t_mensaje_guardado * buscar_mensaje_por_id(uint32_t id_correlativo, t_list* lista_id_esperando_respuesta){
 
-	bool es_el_buscado(void* _mensaje){
-		t_mensaje_guardado* mensaje = (t_mensaje_guardado*) _mensaje;
-		return mensaje->id == id_correlativo;
+	bool es_el_buscado(void* _id_esperando_respuesta){
+
+		uint32_t* id_esperando_respuesta = (uint32_t*) _id_esperando_respuesta;
+
+		return *id_esperando_respuesta == id_correlativo;
 	}
 
-	return (list_find(mensajes,es_el_buscado));
+	return (list_find(lista_id_esperando_respuesta,es_el_buscado));
 }
 
-t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char* especie, t_list* mensajes){
-	bool es_el_buscado(void* _mensaje){
-		t_mensaje_guardado* mensaje = (t_mensaje_guardado*) _mensaje;
-		return mensaje->operacion == APPEARED && (((t_appeared_pokemon*)(mensaje->contenido))->pokemon == especie);
+t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char* especie_a_buscar, t_list* _lista_historico){
+	bool es_el_buscado(void* _especie){
+		char* especie = (char*) _especie;
+		return strcmp(especie,especie_a_buscar) == 0;
 	}
-	return (list_find(mensajes,(void*)es_el_buscado));
+	return (list_find(_lista_historico,es_el_buscado));
+}
+
+void agregar_a_historico_appeared(char* pokemon){
+
+	char* especie_pokemon = (char*)malloc(strlen(pokemon)+1);
+	memcpy(especie_pokemon,pokemon,strlen(pokemon)+1);
+
+	pthread_mutex_lock(&historico_appeared_pokemon);
+	list_add(lista_historico_appeared_pokemon,(void*)especie_pokemon);
+	pthread_mutex_unlock(&historico_appeared_pokemon);
+
+	return;
+
 }
