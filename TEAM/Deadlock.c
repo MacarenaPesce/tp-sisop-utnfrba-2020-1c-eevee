@@ -197,7 +197,6 @@ void ver_entre_quienes_hay_deadlock_y_resolverlo(t_entrenador * entrenador1){
 	planificar_para_deadlock(entrenador1, entrenador2, pokemon1);
 }
 
-
 void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenador2, t_objetivo_entrenador* pokemon){
 
 	t_pokemon* pokemon_innecesario = malloc(sizeof(t_pokemon));

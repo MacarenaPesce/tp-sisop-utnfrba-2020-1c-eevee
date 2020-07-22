@@ -157,13 +157,13 @@ atrapado con éxito.*/
 			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s, el id es %d\n", entrenador->objetivo_actual->especie, ack->id_mensaje);
 			log_info(team_logger_oficial, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", entrenador->objetivo_actual->especie);
 
-			t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
+			t_mensaje_guardado_catch * mensaje = malloc(sizeof(t_mensaje_guardado_catch));
 			mensaje->id = ack->id_mensaje;
 			mensaje->operacion = CATCH;
 			mensaje->contenido = catch_pokemon;
 
 			pthread_mutex_lock(&mensaje_chequear_id_mutex);
-			list_add(mensajes_para_chequear_id, mensaje);
+			list_add(mensajes_para_chequear_id_catch, mensaje);
 			pthread_mutex_unlock(&mensaje_chequear_id_mutex);
 
 			hacer_procedimiento_para_atrapar_pokemon_con_broker(entrenador);

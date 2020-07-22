@@ -53,6 +53,7 @@ void inicializar_listas(){
 	lista_bloqueados_esperando_caught = list_create();
 	lista_asignados = list_create();
 	lista_historico_appeared_pokemon = list_create();
+	mensajes_para_chequear_id_catch = list_create();
 
 }
 
@@ -86,7 +87,6 @@ void separar_pokemones_de_entrenador(char* pokemones_de_entrenador, t_list* list
 		string_iterate_lines_with_list(pokes, lista, agregar_a_lista_pokemones);
 		free(pokes);
 	}
-
 }
 
 void agregar_a_lista_pokemones(char* especie, t_list* lista){
@@ -169,6 +169,7 @@ t_list* obtener_pokemones(t_list* lista_global,t_list* lista, uint32_t posicion)
 	list_sort(lista_pokemones_objetivos_aux, (void*)ordenar);
 	cargar_objetivos(lista_pokemones_objetivos_aux, lista);
 	list_remove(lista, list_size(lista)-1);
+	list_clean(lista_pokemones_objetivos_aux);
 	list_destroy(lista_pokemones_objetivos_aux);
 	return lista;
 }

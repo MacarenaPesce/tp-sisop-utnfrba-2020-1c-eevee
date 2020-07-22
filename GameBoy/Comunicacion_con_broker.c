@@ -11,7 +11,6 @@ t_servidor * servidor;
 
 void broker_new_pokemon(char * pokemon, char * posx, char * posy, char * cantidad){
 	validar_parametros_cuatro_argumentos(pokemon, posx, posy, cantidad);
-	log_info(gameboy_logger,"Le voy a mandar a broker los parametros para un nuevo pokemon %s",pokemon);
 
 	t_new_pokemon* new_pokemon = malloc(sizeof(t_new_pokemon));
 	new_pokemon->cantidad = (uint32_t)atoi(cantidad);
@@ -24,11 +23,11 @@ void broker_new_pokemon(char * pokemon, char * posx, char * posy, char * cantida
 	if(socket < 0){
 		log_info(gameboy_logger,"Broker caído");
 	}else{
+		log_info(gameboy_logger,"Conectado a broker");
 		int status = distribuir_new_pokemon(socket, -1, -1, (uint32_t)id, new_pokemon);
 		if(status < 0){
-			log_info(gameboy_logger,"Broker caído");
+			log_info(gameboy_logger,"El broker se cayó");
 		}else{
-			log_info(gameboy_logger,"Pedido de new pokemon enviado correctamente");
 			close(socket);
 		}
 	}
@@ -39,7 +38,6 @@ void broker_new_pokemon(char * pokemon, char * posx, char * posy, char * cantida
 
 void broker_appeared_pokemon(char* pokemon, char * posx, char * posy, char * id_mensaje_correlativo){
 	validar_parametros_cuatro_argumentos(pokemon, posx, posy, id_mensaje_correlativo);
-	log_info(gameboy_logger,"Le voy a mandar a broker los parametros de un appeared pokemon %s",pokemon);
 
 	t_appeared_pokemon* appeared_pokemon = malloc(sizeof(t_appeared_pokemon));
 	appeared_pokemon->pokemon = pokemon;
@@ -51,11 +49,11 @@ void broker_appeared_pokemon(char* pokemon, char * posx, char * posy, char * id_
 	if(socket < 0){
 		log_info(gameboy_logger,"Broker caído");
 	}else{
+		log_info(gameboy_logger,"Conectado a broker");
 		int status = distribuir_appeared_pokemon(socket, -1, (uint32_t)atoi(id_mensaje_correlativo), (uint32_t)id, appeared_pokemon);
 		if(status < 0){
-			log_info(gameboy_logger,"Broker caído");
+			log_info(gameboy_logger,"El broker se cayó");
 		}else{
-			log_info(gameboy_logger,"Pedido de appeared pokemon enviado correctamente");
 			close(socket);
 		}
 	}
@@ -66,7 +64,6 @@ void broker_appeared_pokemon(char* pokemon, char * posx, char * posy, char * id_
 
 void broker_catch_pokemon(char * pokemon, char* posx, char* posy){
 	validar_parametros_tres_argumentos(pokemon, posx, posy);
-	log_info(gameboy_logger,"Le voy a mandar a broker los parametros para un catch pokemon %s",pokemon);
 
 	t_catch_pokemon* appeared_pokemon = malloc(sizeof(t_catch_pokemon));
 	appeared_pokemon->pokemon = pokemon;
@@ -78,11 +75,11 @@ void broker_catch_pokemon(char * pokemon, char* posx, char* posy){
 	if(socket < 0){
 		log_info(gameboy_logger,"Broker caído");
 	}else{
+		log_info(gameboy_logger,"Conectado a broker");
 		int status = distribuir_catch_pokemon(socket, -1, -1, (uint32_t)id, appeared_pokemon);
 		if(status < 0){
-			log_info(gameboy_logger,"Broker caído");
+			log_info(gameboy_logger,"El broker se cayó");
 		}else{
-			log_info(gameboy_logger,"Pedido de catch pokemon enviado correctamente");
 			close(socket);
 		}
 	}
@@ -93,7 +90,6 @@ void broker_catch_pokemon(char * pokemon, char* posx, char* posy){
 
 void broker_caught_pokemon(char * id_mensaje_correlativo, char *ok_or_fail){
 	validar_parametros_dos_argumentos(id_mensaje_correlativo, ok_or_fail);
-	log_info(gameboy_logger,"Le voy a mandar a broker los parametros para un caught pokemon id mensaje %s, status %s", id_mensaje_correlativo, ok_or_fail);
 
 	t_caught_pokemon* caught_pokemon = malloc(sizeof(t_caught_pokemon));
 	caught_pokemon->status = (uint32_t)atoi(ok_or_fail);
@@ -103,11 +99,11 @@ void broker_caught_pokemon(char * id_mensaje_correlativo, char *ok_or_fail){
 	if(socket < 0){
 		log_info(gameboy_logger,"Broker caído");
 	}else{
+		log_info(gameboy_logger,"Conectado a broker");
 		int status = distribuir_caught_pokemon(socket, -1, (uint32_t)atoi(id_mensaje_correlativo), (uint32_t)id, caught_pokemon);
 		if(status < 0){
-			log_info(gameboy_logger,"Broker caído");
+			log_info(gameboy_logger,"El broker se cayó");
 		}else{
-			log_info(gameboy_logger,"Pedido de caught pokemon enviado correctamente");
 			close(socket);
 		}
 	}
@@ -131,11 +127,11 @@ void broker_get_pokemon(char * pokemon){
 		if(socket < 0){
 			log_info(gameboy_logger,"Broker caído");
 		}else{
+			log_info(gameboy_logger,"Conectado a broker");
 			int status = distribuir_get_pokemon(socket, -1, -1, (uint32_t)id, get_pokemon);
 			if(status < 0){
-				log_info(gameboy_logger,"Broker caído");
+				log_info(gameboy_logger,"El broker se cayó");
 			}else{
-				log_info(gameboy_logger,"Pedido de get pokemon enviado correctamente");
 				close(socket);
 			}
 		}
@@ -157,21 +153,21 @@ void* mostrar_contenido_del_mensaje(void* _socket){
 			switch(paquete->operacion){
 
 				case ENVIAR_MENSAJE:
-					log_info(gameboy_logger,"recibido  mensaje %d",paquete->id_mensaje);
+					log_info(gameboy_logger,"Recibido mensaje de id %d",paquete->id_mensaje);
 					recibir_mensaje_de_broker(paquete);
 					enviar_ack(servidor,paquete->id_mensaje);
 					eliminar_mensaje(paquete);
 					break;
 
 				case ACK:
-					printf("el paquete es %d",paquete);
+					printf("El paquete es %d",paquete);
 					if(paquete->id_mensaje == -1){
-						log_info(gameboy_logger,"recibido ack de suscripcion");
+						log_info(gameboy_logger,"Recibido ack de suscripcion");
 						free(paquete);
 						break;
 					}
 
-					log_info(gameboy_logger,"recibido ack de mensaje %d",paquete->id_mensaje);
+					log_info(gameboy_logger,"Recibido ack de mensaje de id %d",paquete->id_mensaje);
 
 					break;
 
@@ -226,16 +222,6 @@ void mostrar_localized_pokemon(t_localized_pokemon * pokemon){
 	log_info(gameboy_logger,"Me llego un mensaje de localized pokemon");
 	log_info(gameboy_logger,"Pokemon: %s", pokemon->pokemon);
 	log_info(gameboy_logger,"Cantidad de coordenadas: %d", pokemon->cantidad_coordenadas);
-
-	/*t_coordenadas * coord = malloc(sizeof(t_coordenadas));
-	for(int i = 0; i < list_size(pokemon->lista_coordenadas); i++){
-		coord = list_get(pokemon->lista_coordenadas, i);
-		log_info(gameboy_logger,"Par de coordenadas nro %d:", i);
-		log_info(gameboy_logger,"Coordenada x: %d", coord->posx);
-		log_info(gameboy_logger,"Coordenada y: %d", coord->posy);
-	}
-
-	free(coord);*/
 }
 
 void mostrar_get_pokemon(t_get_pokemon * pokemon){
@@ -315,12 +301,6 @@ void* suscribirse_a_cola(char* cola_de_mensajes){
 	if(string_equals_ignore_case(cola_de_mensajes, "LOCALIZED_POKEMON")){
 		socket = enviar_solicitud_suscripcion(servidor,COLA_LOCALIZED_POKEMON);
 	}
-
-	log_info(gameboy_logger,"socket id  %d", socket);
-	log_info(gameboy_logger,"server ip  %d", servidor->ip);
-	log_info(gameboy_logger,"server port  %d", servidor->puerto);
-	log_info(gameboy_logger,"client id  %d", servidor->id_cliente);
-
 
 	if(socket <= 0){
 		log_info(gameboy_logger,"Broker caído");

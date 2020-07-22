@@ -26,7 +26,7 @@ void operar_con_caught_pokemon(uint32_t status, uint32_t id_correlativo){
 	Si es así se debe asignar al entrenador bloqueado el Pokémon y habilitarlo a poder volver operar.
 	 */
 
-	t_mensaje_guardado* mensaje_guardado_catch = buscar_mensaje_por_id(id_correlativo, mensajes_para_chequear_id);
+	t_mensaje_guardado_catch* mensaje_guardado_catch = buscar_mensaje_por_id_catch(id_correlativo, mensajes_para_chequear_id_catch);
 
 	if(mensaje_guardado_catch == NULL){
 		return;
@@ -84,6 +84,8 @@ void definir_objetivo_global(){
 
 	list_clean(pokemones_ordenada);
 
+	sem_post(&objetivos_listos);
+
 }
 
 void localizar_entrenadores_en_mapa(){
@@ -137,6 +139,8 @@ void localizar_entrenadores_en_mapa(){
 	}
 
 	log_info(team_logger,"Entrenadores ubicados\n");
+	list_destroy_and_destroy_elements(lista_pokemones_de_entrenador, (void*)destruir_objetivo_entrenador);
+	list_destroy_and_destroy_elements(lista_objetivos_de_entrenador, (void*)destruir_objetivo_entrenador);
 
 }
 
@@ -249,6 +253,8 @@ void actualizar_mapa_y_entrenador(t_catch_pokemon* catch_pokemon, t_entrenador* 
 		ver_razon_de_bloqueo(entrenador);
 		bloquear_entrenador(entrenador);
 	}
+
+	free(catch_pokemon);
 }
 
 void chequear_si_fue_cumplido_el_objetivo_global(){
@@ -538,7 +544,6 @@ bool fijarme_si_debo_atraparlo_usando_el_objetivo_global(char * pokemon){
 }
 
 void * tratamiento_de_mensajes(){
-
 	while(1){
 		pthread_mutex_lock(&global_seguir_mutex);
 		if(GLOBAL_SEGUIR == 0){
@@ -548,39 +553,30 @@ void * tratamiento_de_mensajes(){
 		
 		sem_wait(&mensaje_nuevo_disponible);
 
+		t_packed * paquete;
+
 		while(1){
-
-			t_packed * paquete;
-
 			pthread_mutex_lock(&mensaje_nuevo_mutex);
 			paquete = list_remove(mensajes_que_llegan_nuevos, 0);
 			pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 			switch (paquete->cola_de_mensajes){
-
 				case COLA_APPEARED_POKEMON:
 					tratar_appeared_pokemon(paquete);
 					break;
-
 				case COLA_LOCALIZED_POKEMON:
 					tratar_localized_pokemon(paquete);
 					break;
-
 				case COLA_CAUGHT_POKEMON:
 					tratar_caught_pokemon(paquete);
 					break;
-				
 				default:
 					break;
-
 			}
-
-			eliminar_mensaje(paquete);
-
 			break;
-
 		}
 		chequear_si_fue_cumplido_el_objetivo_global();
+		sem_post(&paquete_usado);
 	}
 	return NULL;
 }
@@ -608,15 +604,11 @@ void tratar_appeared_pokemon(t_packed* paquete){
 	seleccionar_el_entrenador_mas_cercano_al_pokemon(pokemon);
 	operar_con_appeared_pokemon(pokemon);
 
-
-
-
 	return;
 }
 
 void tratar_localized_pokemon(t_packed* paquete){
 	t_localized_pokemon * localized = paquete->mensaje;
-
 
 	/* Hice previamente un pedido de get_pokemon */
 	pthread_mutex_lock(&mensaje_chequear_id_mutex);
@@ -650,8 +642,6 @@ void tratar_localized_pokemon(t_packed* paquete){
 
 	list_iterate(localized->lista_coordenadas,trabajar_con_localized);
 
-
-
 	return;
 
 }
@@ -659,6 +649,8 @@ void tratar_localized_pokemon(t_packed* paquete){
 void tratar_caught_pokemon(t_packed* paquete){
 	t_caught_pokemon * caught = paquete->mensaje;
 	operar_con_caught_pokemon(caught->status, paquete->id_correlacional);
+
+	return;
 }
 
 int main(int arcg, char** argv[]){
