@@ -389,7 +389,7 @@ void terminar_team_correctamente(){
 
 
 	log_destroy(team_logger);
-	log_destroy(team_logger_oficial);
+	//log_destroy(team_logger_oficial);
 
 	if(log_file!=NULL){
 		free(log_file);

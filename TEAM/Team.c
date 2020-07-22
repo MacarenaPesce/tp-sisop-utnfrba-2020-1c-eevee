@@ -163,6 +163,7 @@ void agregar_entrenador(uint32_t posx, uint32_t posy, uint32_t id, t_list* lista
 	entrenador->ciclos_de_cpu = 0;
 	entrenador->espera_asignada = false;
 	entrenador->razon_de_bloqueo = NINGUNA;
+	entrenador->nuevo = true;
 
 	t_pokemon* un_pokemon;
 	entrenador->pokemones = list_create();
@@ -402,10 +403,10 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 		log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
-		entrenador_en_ejecucion->instruccion_actual++;
-		entrenador_en_ejecucion->estimacion_actual--;
-		log_info(team_logger, "Mi estimacion actual es %f", entrenador_en_ejecucion->estimacion_actual);
-		entrenador_en_ejecucion->ejec_anterior = 0;
+		entrenador->instruccion_actual++;
+		entrenador->estimacion_actual--;
+		log_info(team_logger, "Mi estimacion actual es %f", entrenador->estimacion_actual);
+		entrenador->ejec_anterior = 0;
 
 		if(desalojo_en_ejecucion){
 			entrenador_en_ejecucion = NULL;
@@ -475,10 +476,10 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
 		log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
-		entrenador_en_ejecucion->instruccion_actual++;
-		entrenador_en_ejecucion->estimacion_actual--;
-		log_info(team_logger, "Mi estimacion actual es %f", entrenador_en_ejecucion->estimacion_actual);
-		entrenador_en_ejecucion->ejec_anterior = 0;
+		entrenador->instruccion_actual++;
+		entrenador->estimacion_actual--;
+		log_info(team_logger, "Mi estimacion actual es %f", entrenador->estimacion_actual);
+		entrenador->ejec_anterior = 0;
 
 		if(desalojo_en_ejecucion){
 			entrenador_en_ejecucion = NULL;

@@ -224,6 +224,7 @@ typedef struct {
 	bool agoto_quantum;
 	uint32_t ciclos_de_cpu;
 	bool espera_asignada;
+	bool nuevo;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
