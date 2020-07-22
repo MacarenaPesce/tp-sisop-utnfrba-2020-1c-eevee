@@ -59,7 +59,7 @@ void asignar_particion_memoria(t_mensaje_cola* estructura_mensaje){
 
     printf("\n");
     printf("\n");
-    if(debug_broker) log_debug(broker_logger, "Nueva peticion de memoria de: %i", estructura_mensaje->tamanio_mensaje);
+    log_info(broker_logger, "Nueva peticion de memoria de: %i", estructura_mensaje->tamanio_mensaje);
 
     /* Corro el algoritmo de memoria */
     algoritmo_de_memoria(estructura_mensaje);
@@ -95,13 +95,13 @@ void algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
 void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
-    if(debug_broker) log_debug(broker_logger,"PARTICIONES DINAMICAS");
+    log_info(broker_logger,"PARTICIONES DINAMICAS");
     if(debug_broker) log_debug(broker_logger,"Alojar: %d", estructura_mensaje->tamanio_mensaje);
 
     /* Me fijo si el tamaño del mensaje es menor al minimo tamaño de particion */
     int tamanio_parti = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
     
-    if(debug_broker) log_debug(broker_logger,"Se hace una particion de: %d ", tamanio_parti);
+    log_info(broker_logger,"Se hace una particion de: %d ", tamanio_parti);
     printf("\n");
     
     /* Me fijo si la particion puede alojarse a la primera */
@@ -142,7 +142,7 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
             log_info(broker_logger, "Frecuencia de compactacion > 0...");
 
             algoritmo_de_reemplazo();
-            frec_para_compactar--;
+            frec_para_compactar = frec_para_compactar-1;
 
             log_info(broker_logger, "Frecuencia de compactacion, faltan vaciar %d particiones para compactar", frec_para_compactar);
 
@@ -194,6 +194,8 @@ void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_
 
     if(debug_broker) log_debug(broker_logger, "Algoritmo de particion libre ejecutado!");
 	printf("\n");
+
+    if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
     return ;
 }
@@ -344,6 +346,7 @@ t_bloque_memoria* algoritmo_fifo(){
 
     return bloque;
 }
+
 
 t_bloque_memoria* obtener_bloque_mas_viejo(){
 
@@ -632,8 +635,8 @@ void dump_memoria(){
     escribir_estado_de_memoria(dumpeo);
 
     fprintf(dumpeo,"-----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-    fprintf(dumpeo, "\n");
-
+    fprintf(dumpeo, "\n\n\n");
+    
     fclose(dumpeo);
 
     log_info(broker_logger, "Dump finalizado");
