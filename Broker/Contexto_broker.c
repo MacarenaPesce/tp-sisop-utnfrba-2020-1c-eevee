@@ -21,3 +21,4 @@ t_config* config;
 t_cache_colas* cache_mensajes;
 bool debug_broker;
 bool warn_broker;
+void* memoria_inicial;

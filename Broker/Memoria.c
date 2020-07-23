@@ -26,7 +26,7 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     cache_mensajes->memoria = list_create();
 
     /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
-    void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
+    memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
     memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
    
     log_info(broker_logger, "Se asigno memoria inicial. La direccion inicial de memoria es: %p", memoria_inicial);
@@ -632,22 +632,17 @@ void dump_memoria(){
 
 void escribir_estado_de_memoria(FILE* archivo){
 
-    t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
+    if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
-    if(warn_broker) list_iterate(listadeparticiones, print_memoria);
+    void hacer_fprint_de_bloque(void* _bloque){
 
-    for(int i=0; i < list_size(listadeparticiones); i++){
-        t_bloque_memoria* bloque = list_get(listadeparticiones, i);
-        /*char fecha[50];
-        struct tm* timeinfo;
-        timeinfo = localtime(bloque->last_time);
-        strftime(fecha, 50, "%H:%M:%S", timeinfo);
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
 
-        log_info(broker_logger, "last_time ", fecha);*/
+        int _id_bloque = obtener_indice_particion(bloque);
 
         if(!bloque->esta_vacio){
 
-            char* dump = crear_string_dump(bloque,i);
+            char* dump = crear_string_dump(bloque,_id_bloque);
 
             fprintf(archivo, "%s",dump);
             fprintf(archivo, "\n");
@@ -658,16 +653,18 @@ void escribir_estado_de_memoria(FILE* archivo){
             t_bloque_memoria* ptr_final = (char*)bloque->estructura_mensaje + bloque->tamanio_particion;
 
             fprintf(archivo,"Particion %d: %p - %p.    [L]    Size: %db",
-                i , 
+                _id_bloque , 
                 bloque->estructura_mensaje, 
                 ptr_final,
                 bloque->tamanio_particion
             );
             fprintf(archivo, "\n");
         }
+
     }
 
-    list_destroy_and_destroy_elements(listadeparticiones,free);
+    list_iterate(cache_mensajes->memoria,hacer_fprint_de_bloque);
+
 }
 
 char* crear_string_dump(t_bloque_memoria* bloque,int indice){

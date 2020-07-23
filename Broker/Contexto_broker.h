@@ -61,4 +61,5 @@ extern t_config* config;
 extern t_cache_colas* cache_mensajes;
 extern bool debug_broker;
 extern bool warn_broker;
+extern void* memoria_inicial;
 #endif
