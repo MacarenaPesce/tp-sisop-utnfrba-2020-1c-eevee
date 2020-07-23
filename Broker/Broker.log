@@ -12031,3 +12031,830 @@ Id : 4
 [INFO] 02:33:47:83 Broker/(8229:8229): Dump finalizado
 [INFO] 02:33:50:513 Broker/(8229:8229):  Broker DEJA DE FUNCIONAR 
 [INFO] 02:33:52:584 Broker/(8229:8229): Chau!
+[INFO] 02:35:31:660 Broker/(8368:8368): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 02:35:31:993 Broker/(8368:8368): Cargando el archivo de configuracion...
+[INFO] 02:35:32:89 Broker/(8368:8368): Archivo de configuracion cargado...
+[INFO] 02:35:32:295 Broker/(8368:8368): Se asigno memoria inicial. La direccion inicial de memoria es: 0x423d528
+[INFO] 02:35:32:314 Broker/(8368:8368): Particion de memoria inicial creada con: 64
+[INFO] 02:37:05:546 Broker/(8368:8369): El cliente 7 envió un mensaje para la cola 4 a través de socket 5
+[INFO] 02:37:05:634 Broker/(8368:8369): Nueva peticion de memoria de: 4
+[INFO] 02:37:05:664 Broker/(8368:8369): PARTICIONES DINAMICAS
+[INFO] 02:37:05:712 Broker/(8368:8369): Se hace una particion de: 4 
+[INFO] 02:37:05:769 Broker/(8368:8369): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:37:05:918 Broker/(8368:8369): Almacenado mensaje en la posicion real 0x423d528
+[INFO] 02:37:06:48 Broker/(8368:8369): Almacenado en la posicion relativa 0
+[WARNING] 02:37:06:136 Broker/(8368:8369): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:37:06:198 Broker/(8368:8369): contenido: bloque_vacio | Tamaño: 60 
+
+[INFO] 02:37:06:387 Broker/(8368:8369): El cliente 7 envió un mensaje para la cola 4 a través de socket 7
+[INFO] 02:37:06:400 Broker/(8368:8369): Nueva peticion de memoria de: 4
+[INFO] 02:37:06:407 Broker/(8368:8369): PARTICIONES DINAMICAS
+[INFO] 02:37:06:418 Broker/(8368:8369): Se hace una particion de: 4 
+[INFO] 02:37:06:423 Broker/(8368:8369): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:37:06:450 Broker/(8368:8369): Almacenado mensaje en la posicion real 0x423d52c
+[INFO] 02:37:06:463 Broker/(8368:8369): Almacenado en la posicion relativa 4
+[WARNING] 02:37:06:474 Broker/(8368:8369): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:37:06:487 Broker/(8368:8369): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:37:06:507 Broker/(8368:8369): contenido: bloque_vacio | Tamaño: 56 
+
+[INFO] 02:37:06:524 Broker/(8368:8369): El cliente 7 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 02:37:06:592 Broker/(8368:8369): Nueva peticion de memoria de: 19
+[INFO] 02:37:06:607 Broker/(8368:8369): PARTICIONES DINAMICAS
+[INFO] 02:37:06:625 Broker/(8368:8369): Se hace una particion de: 19 
+[INFO] 02:37:06:647 Broker/(8368:8369): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:37:06:671 Broker/(8368:8369): Almacenado mensaje en la posicion real 0x423d530
+[INFO] 02:37:06:682 Broker/(8368:8369): Almacenado en la posicion relativa 8
+[WARNING] 02:37:06:690 Broker/(8368:8369): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:37:06:714 Broker/(8368:8369): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:37:06:723 Broker/(8368:8369): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:37:06:754 Broker/(8368:8369): contenido: bloque_vacio | Tamaño: 37 
+
+[INFO] 02:37:06:756 Broker/(8368:8369): El cliente 7 envió un mensaje para la cola 2 a través de socket 9
+[INFO] 02:37:06:786 Broker/(8368:8369): Nueva peticion de memoria de: 20
+[INFO] 02:37:06:791 Broker/(8368:8369): PARTICIONES DINAMICAS
+[INFO] 02:37:06:797 Broker/(8368:8369): Se hace una particion de: 20 
+[INFO] 02:37:06:818 Broker/(8368:8369): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:37:06:819 Broker/(8368:8369): Almacenado mensaje en la posicion real 0x423d543
+[INFO] 02:37:06:823 Broker/(8368:8369): Almacenado en la posicion relativa 27
+[WARNING] 02:37:06:865 Broker/(8368:8369): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:37:06:878 Broker/(8368:8369): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:37:06:930 Broker/(8368:8369): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:37:06:946 Broker/(8368:8369): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:37:06:969 Broker/(8368:8369): contenido: bloque_vacio | Tamaño: 17 
+
+[INFO] 02:37:06:978 Broker/(8368:8369): El cliente 7 envió un mensaje para la cola 2 a través de socket 10
+[INFO] 02:37:06:986 Broker/(8368:8369): Nueva peticion de memoria de: 16
+[INFO] 02:37:06:988 Broker/(8368:8369): PARTICIONES DINAMICAS
+[INFO] 02:37:06:996 Broker/(8368:8369): Se hace una particion de: 16 
+[INFO] 02:37:07:22 Broker/(8368:8369): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:37:07:23 Broker/(8368:8369): Almacenado mensaje en la posicion real 0x423d557
+[INFO] 02:37:07:30 Broker/(8368:8369): Almacenado en la posicion relativa 47
+[WARNING] 02:37:07:38 Broker/(8368:8369): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:37:07:43 Broker/(8368:8369): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:37:07:58 Broker/(8368:8369): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:37:07:70 Broker/(8368:8369): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:37:07:77 Broker/(8368:8369): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:37:07:82 Broker/(8368:8369): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:37:07:88 Broker/(8368:8369): El cliente 7 solicitó suscribirse a la cola 4 a través del socket 11
+[INFO] 02:37:07:554 Broker/(8368:8369): El cliente 7 envió confirmación del mensaje 0 a través del socket 12 
+[INFO] 02:37:07:653 Broker/(8368:8374): Se envió mensaje 0 perteneciente a la cola 4 al cliente 7
+[INFO] 02:37:07:738 Broker/(8368:8374): Se envió mensaje 1 perteneciente a la cola 4 al cliente 7
+[INFO] 02:37:07:766 Broker/(8368:8369): El cliente 7 envió confirmación del mensaje 1 a través del socket 13 
+[INFO] 02:37:15:449 Broker/(8368:8369): El cliente 7 envió un mensaje para la cola 2 a través de socket 14
+[INFO] 02:37:15:451 Broker/(8368:8369): Nueva peticion de memoria de: 20
+[INFO] 02:37:15:452 Broker/(8368:8369): PARTICIONES DINAMICAS
+[INFO] 02:37:15:454 Broker/(8368:8369): Se hace una particion de: 20 
+[INFO] 02:37:15:456 Broker/(8368:8369): Frecuencia de compactacion > 0...
+[INFO] 02:37:15:523 Broker/(8368:8369): Eliminado de una particion en la posicion 0x423d528
+[INFO] 02:37:15:586 Broker/(8368:8369): Eliminado de una particion en la posicion relativa 0
+[INFO] 02:37:15:760 Broker/(8368:8369): Frecuencia de compactacion, faltan vaciar 9 particiones para compactar
+[INFO] 02:37:15:802 Broker/(8368:8369): Frecuencia de compactacion > 0...
+[INFO] 02:37:15:835 Broker/(8368:8369): Eliminado de una particion en la posicion 0x423d52c
+[INFO] 02:37:15:838 Broker/(8368:8369): Eliminado de una particion en la posicion relativa 4
+[INFO] 02:37:15:948 Broker/(8368:8369): Frecuencia de compactacion, faltan vaciar 8 particiones para compactar
+[INFO] 02:37:15:966 Broker/(8368:8369): Frecuencia de compactacion > 0...
+[INFO] 02:37:15:982 Broker/(8368:8369): Eliminado de una particion en la posicion 0x423d530
+[INFO] 02:37:15:986 Broker/(8368:8369): Eliminado de una particion en la posicion relativa 8
+[INFO] 02:37:15:998 Broker/(8368:8369): Frecuencia de compactacion, faltan vaciar 7 particiones para compactar
+[INFO] 02:37:16:6 Broker/(8368:8369): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:37:16:22 Broker/(8368:8369): Almacenado mensaje en la posicion real 0x423d528
+[INFO] 02:37:16:31 Broker/(8368:8369): Almacenado en la posicion relativa 0
+[WARNING] 02:37:16:32 Broker/(8368:8369): contenido: mensaje 5 | Tamaño: 20 
+
+[WARNING] 02:37:16:38 Broker/(8368:8369): contenido: bloque_vacio | Tamaño: 7 
+
+[WARNING] 02:37:16:42 Broker/(8368:8369): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:37:16:50 Broker/(8368:8369): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:37:16:58 Broker/(8368:8369): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:37:47:868 Broker/(8368:8368): DUMP
+[WARNING] 02:37:48:85 Broker/(8368:8368): contenido: mensaje 5 | Tamaño: 20 
+
+[WARNING] 02:37:48:95 Broker/(8368:8368): contenido: bloque_vacio | Tamaño: 7 
+
+[WARNING] 02:37:48:97 Broker/(8368:8368): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:37:48:100 Broker/(8368:8368): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:37:48:110 Broker/(8368:8368): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:37:48:194 Broker/(8368:8368): Dump finalizado
+[INFO] 02:37:57:201 Broker/(8368:8368):  Broker DEJA DE FUNCIONAR 
+[INFO] 02:37:59:274 Broker/(8368:8368): Chau!
+[INFO] 02:41:04:565 Broker/(8642:8642): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 02:41:04:967 Broker/(8642:8642): Cargando el archivo de configuracion...
+[INFO] 02:41:05:98 Broker/(8642:8642): Archivo de configuracion cargado...
+[INFO] 02:41:05:336 Broker/(8642:8642): Se asigno memoria inicial. La direccion inicial de memoria es: 0x423d528
+[INFO] 02:41:05:356 Broker/(8642:8642): Particion de memoria inicial creada con: 64
+[INFO] 02:41:08:689 Broker/(8642:8643): El cliente 7 envió un mensaje para la cola 4 a través de socket 5
+[INFO] 02:41:08:776 Broker/(8642:8643): Nueva peticion de memoria de: 4
+[INFO] 02:41:08:859 Broker/(8642:8643): PARTICIONES DINAMICAS
+[INFO] 02:41:08:880 Broker/(8642:8643): Se hace una particion de: 4 
+[INFO] 02:41:09:28 Broker/(8642:8643): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:41:09:333 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d528
+[INFO] 02:41:09:474 Broker/(8642:8643): Almacenado en la posicion relativa 0
+[WARNING] 02:41:09:521 Broker/(8642:8643): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:41:09:568 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 60 
+
+[INFO] 02:41:09:691 Broker/(8642:8643): El cliente 7 envió un mensaje para la cola 4 a través de socket 7
+[INFO] 02:41:09:710 Broker/(8642:8643): Nueva peticion de memoria de: 4
+[INFO] 02:41:09:718 Broker/(8642:8643): PARTICIONES DINAMICAS
+[INFO] 02:41:09:719 Broker/(8642:8643): Se hace una particion de: 4 
+[INFO] 02:41:09:730 Broker/(8642:8643): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:41:09:760 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d52c
+[INFO] 02:41:09:774 Broker/(8642:8643): Almacenado en la posicion relativa 4
+[WARNING] 02:41:09:782 Broker/(8642:8643): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:41:09:798 Broker/(8642:8643): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:41:09:806 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 56 
+
+[INFO] 02:41:09:830 Broker/(8642:8643): El cliente 7 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 02:41:09:871 Broker/(8642:8643): Nueva peticion de memoria de: 19
+[INFO] 02:41:09:876 Broker/(8642:8643): PARTICIONES DINAMICAS
+[INFO] 02:41:09:891 Broker/(8642:8643): Se hace una particion de: 19 
+[INFO] 02:41:09:902 Broker/(8642:8643): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:41:09:918 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d530
+[INFO] 02:41:09:926 Broker/(8642:8643): Almacenado en la posicion relativa 8
+[WARNING] 02:41:09:934 Broker/(8642:8643): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:41:09:942 Broker/(8642:8643): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:41:09:959 Broker/(8642:8643): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:41:09:976 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 37 
+
+[INFO] 02:41:09:978 Broker/(8642:8643): El cliente 7 envió un mensaje para la cola 2 a través de socket 9
+[INFO] 02:41:09:987 Broker/(8642:8643): Nueva peticion de memoria de: 20
+[INFO] 02:41:09:990 Broker/(8642:8643): PARTICIONES DINAMICAS
+[INFO] 02:41:09:999 Broker/(8642:8643): Se hace una particion de: 20 
+[INFO] 02:41:10:18 Broker/(8642:8643): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:41:10:26 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d543
+[INFO] 02:41:10:50 Broker/(8642:8643): Almacenado en la posicion relativa 27
+[WARNING] 02:41:10:58 Broker/(8642:8643): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:41:10:74 Broker/(8642:8643): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:41:10:77 Broker/(8642:8643): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:41:10:90 Broker/(8642:8643): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:10:127 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 17 
+
+[INFO] 02:41:10:138 Broker/(8642:8643): El cliente 7 envió un mensaje para la cola 2 a través de socket 10
+[INFO] 02:41:10:147 Broker/(8642:8643): Nueva peticion de memoria de: 16
+[INFO] 02:41:10:169 Broker/(8642:8643): PARTICIONES DINAMICAS
+[INFO] 02:41:10:171 Broker/(8642:8643): Se hace una particion de: 16 
+[INFO] 02:41:10:178 Broker/(8642:8643): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:41:10:182 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d557
+[INFO] 02:41:10:190 Broker/(8642:8643): Almacenado en la posicion relativa 47
+[WARNING] 02:41:10:214 Broker/(8642:8643): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:41:10:222 Broker/(8642:8643): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:41:10:230 Broker/(8642:8643): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:41:10:242 Broker/(8642:8643): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:10:254 Broker/(8642:8643): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:41:10:264 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:41:10:300 Broker/(8642:8643): El cliente 7 solicitó suscribirse a la cola 4 a través del socket 11
+[INFO] 02:41:10:609 Broker/(8642:8648): Se envió mensaje 0 perteneciente a la cola 4 al cliente 7
+[INFO] 02:41:10:622 Broker/(8642:8643): El cliente 7 envió confirmación del mensaje 0 a través del socket 12 
+[INFO] 02:41:10:685 Broker/(8642:8648): Se envió mensaje 1 perteneciente a la cola 4 al cliente 7
+[INFO] 02:41:10:745 Broker/(8642:8643): El cliente 7 envió confirmación del mensaje 1 a través del socket 13 
+[INFO] 02:41:18:591 Broker/(8642:8643): El cliente 7 envió un mensaje para la cola 2 a través de socket 14
+[INFO] 02:41:18:593 Broker/(8642:8643): Nueva peticion de memoria de: 20
+[INFO] 02:41:18:594 Broker/(8642:8643): PARTICIONES DINAMICAS
+[INFO] 02:41:18:596 Broker/(8642:8643): Se hace una particion de: 20 
+[INFO] 02:41:18:599 Broker/(8642:8643): Frecuencia de compactacion > 0...
+[INFO] 02:41:18:667 Broker/(8642:8643): Eliminado de una particion en la posicion 0x423d528
+[INFO] 02:41:18:691 Broker/(8642:8643): Eliminado de una particion en la posicion relativa 0
+[INFO] 02:41:18:812 Broker/(8642:8643): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 02:41:18:834 Broker/(8642:8643): Por compactar... La frecuencia = 0
+[WARNING] 02:41:18:854 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 4 
+
+[WARNING] 02:41:18:867 Broker/(8642:8643): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:41:18:876 Broker/(8642:8643): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:41:18:884 Broker/(8642:8643): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:18:891 Broker/(8642:8643): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:41:18:910 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:41:18:994 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d528
+[INFO] 02:41:19:10 Broker/(8642:8643): Almacenado en la posicion relativa 0
+[INFO] 02:41:19:28 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d52c
+[INFO] 02:41:19:43 Broker/(8642:8643): Almacenado en la posicion relativa 4
+[INFO] 02:41:19:50 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d53f
+[INFO] 02:41:19:57 Broker/(8642:8643): Almacenado en la posicion relativa 23
+[INFO] 02:41:19:68 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d553
+[INFO] 02:41:19:83 Broker/(8642:8643): Almacenado en la posicion relativa 43
+[WARNING] 02:41:19:89 Broker/(8642:8643): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:41:19:135 Broker/(8642:8643): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:41:19:143 Broker/(8642:8643): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:19:146 Broker/(8642:8643): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:41:19:151 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 5 
+
+[INFO] 02:41:19:169 Broker/(8642:8643): Frecuencia de compactacion > 0...
+[INFO] 02:41:19:202 Broker/(8642:8643): Eliminado de una particion en la posicion 0x423d528
+[INFO] 02:41:19:210 Broker/(8642:8643): Eliminado de una particion en la posicion relativa 0
+[INFO] 02:41:19:214 Broker/(8642:8643): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 02:41:19:226 Broker/(8642:8643): Por compactar... La frecuencia = 0
+[WARNING] 02:41:19:230 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 4 
+
+[WARNING] 02:41:19:242 Broker/(8642:8643): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:41:19:246 Broker/(8642:8643): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:19:254 Broker/(8642:8643): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:41:19:262 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 5 
+
+[INFO] 02:41:19:278 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d528
+[INFO] 02:41:19:279 Broker/(8642:8643): Almacenado en la posicion relativa 0
+[INFO] 02:41:19:283 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d53b
+[INFO] 02:41:19:306 Broker/(8642:8643): Almacenado en la posicion relativa 19
+[INFO] 02:41:19:314 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d54f
+[INFO] 02:41:19:323 Broker/(8642:8643): Almacenado en la posicion relativa 39
+[WARNING] 02:41:19:382 Broker/(8642:8643): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:41:19:394 Broker/(8642:8643): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:19:395 Broker/(8642:8643): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:41:19:401 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 9 
+
+[INFO] 02:41:19:407 Broker/(8642:8643): Frecuencia de compactacion > 0...
+[INFO] 02:41:19:418 Broker/(8642:8643): Eliminado de una particion en la posicion 0x423d528
+[INFO] 02:41:19:419 Broker/(8642:8643): Eliminado de una particion en la posicion relativa 0
+[INFO] 02:41:19:426 Broker/(8642:8643): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 02:41:19:434 Broker/(8642:8643): Por compactar... La frecuencia = 0
+[WARNING] 02:41:19:438 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 19 
+
+[WARNING] 02:41:19:444 Broker/(8642:8643): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:19:462 Broker/(8642:8643): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:41:19:472 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 9 
+
+[INFO] 02:41:19:476 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d528
+[INFO] 02:41:19:493 Broker/(8642:8643): Almacenado en la posicion relativa 0
+[INFO] 02:41:19:516 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d53c
+[INFO] 02:41:19:524 Broker/(8642:8643): Almacenado en la posicion relativa 20
+[WARNING] 02:41:19:532 Broker/(8642:8643): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:19:542 Broker/(8642:8643): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:41:19:551 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 28 
+
+[INFO] 02:41:19:560 Broker/(8642:8643): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:41:19:566 Broker/(8642:8643): Almacenado mensaje en la posicion real 0x423d54c
+[INFO] 02:41:19:578 Broker/(8642:8643): Almacenado en la posicion relativa 36
+[WARNING] 02:41:19:590 Broker/(8642:8643): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:19:591 Broker/(8642:8643): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:41:19:595 Broker/(8642:8643): contenido: mensaje 5 | Tamaño: 20 
+
+[WARNING] 02:41:19:602 Broker/(8642:8643): contenido: bloque_vacio | Tamaño: 8 
+
+[INFO] 02:41:31:124 Broker/(8642:8642): DUMP
+[WARNING] 02:41:31:296 Broker/(8642:8642): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:41:31:303 Broker/(8642:8642): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:41:31:306 Broker/(8642:8642): contenido: mensaje 5 | Tamaño: 20 
+
+[WARNING] 02:41:31:309 Broker/(8642:8642): contenido: bloque_vacio | Tamaño: 8 
+
+[INFO] 02:41:31:387 Broker/(8642:8642): Dump finalizado
+[INFO] 02:41:56:510 Broker/(8642:8642):  Broker DEJA DE FUNCIONAR 
+[INFO] 02:41:58:593 Broker/(8642:8642): Chau!
+[INFO] 02:42:09:131 Broker/(8671:8671): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 02:42:10:453 Broker/(8671:8671): Cargando el archivo de configuracion...
+[INFO] 02:42:10:547 Broker/(8671:8671): Archivo de configuracion cargado...
+[INFO] 02:42:10:816 Broker/(8671:8671): Se asigno memoria inicial. La direccion inicial de memoria es: 0x423d538
+[INFO] 02:42:10:851 Broker/(8671:8671): Particion de memoria inicial creada con: 64
+[INFO] 02:42:19:282 Broker/(8671:8672): El cliente 7 envió un mensaje para la cola 4 a través de socket 5
+[INFO] 02:42:19:394 Broker/(8671:8672): Nueva peticion de memoria de: 4
+[INFO] 02:42:19:426 Broker/(8671:8672): PARTICIONES DINAMICAS
+[INFO] 02:42:19:457 Broker/(8671:8672): Se hace una particion de: 4 
+[INFO] 02:42:19:522 Broker/(8671:8672): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:42:19:605 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d538
+[INFO] 02:42:19:684 Broker/(8671:8672): Almacenado en la posicion relativa 0
+[WARNING] 02:42:19:756 Broker/(8671:8672): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:42:19:799 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 60 
+
+[INFO] 02:42:19:909 Broker/(8671:8672): El cliente 7 envió un mensaje para la cola 4 a través de socket 7
+[INFO] 02:42:19:934 Broker/(8671:8672): Nueva peticion de memoria de: 4
+[INFO] 02:42:19:950 Broker/(8671:8672): PARTICIONES DINAMICAS
+[INFO] 02:42:19:952 Broker/(8671:8672): Se hace una particion de: 4 
+[INFO] 02:42:19:983 Broker/(8671:8672): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:42:19:995 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d53c
+[INFO] 02:42:20:23 Broker/(8671:8672): Almacenado en la posicion relativa 4
+[WARNING] 02:42:20:32 Broker/(8671:8672): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:42:20:48 Broker/(8671:8672): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:42:20:66 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 56 
+
+[INFO] 02:42:20:70 Broker/(8671:8672): El cliente 7 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 02:42:20:122 Broker/(8671:8672): Nueva peticion de memoria de: 19
+[INFO] 02:42:20:131 Broker/(8671:8672): PARTICIONES DINAMICAS
+[INFO] 02:42:20:138 Broker/(8671:8672): Se hace una particion de: 19 
+[INFO] 02:42:20:146 Broker/(8671:8672): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:42:20:171 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d540
+[INFO] 02:42:20:179 Broker/(8671:8672): Almacenado en la posicion relativa 8
+[WARNING] 02:42:20:186 Broker/(8671:8672): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:42:20:194 Broker/(8671:8672): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:42:20:197 Broker/(8671:8672): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:42:20:205 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 37 
+
+[INFO] 02:42:20:218 Broker/(8671:8672): El cliente 7 envió un mensaje para la cola 2 a través de socket 9
+[INFO] 02:42:20:221 Broker/(8671:8672): Nueva peticion de memoria de: 20
+[INFO] 02:42:20:231 Broker/(8671:8672): PARTICIONES DINAMICAS
+[INFO] 02:42:20:238 Broker/(8671:8672): Se hace una particion de: 20 
+[INFO] 02:42:20:274 Broker/(8671:8672): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:42:20:278 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d553
+[INFO] 02:42:20:292 Broker/(8671:8672): Almacenado en la posicion relativa 27
+[WARNING] 02:42:20:315 Broker/(8671:8672): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:42:20:317 Broker/(8671:8672): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:42:20:324 Broker/(8671:8672): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:42:20:350 Broker/(8671:8672): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:20:354 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 17 
+
+[INFO] 02:42:20:356 Broker/(8671:8672): El cliente 7 envió un mensaje para la cola 2 a través de socket 10
+[INFO] 02:42:20:369 Broker/(8671:8672): Nueva peticion de memoria de: 16
+[INFO] 02:42:20:376 Broker/(8671:8672): PARTICIONES DINAMICAS
+[INFO] 02:42:20:383 Broker/(8671:8672): Se hace una particion de: 16 
+[INFO] 02:42:20:393 Broker/(8671:8672): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:42:20:394 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d567
+[INFO] 02:42:20:414 Broker/(8671:8672): Almacenado en la posicion relativa 47
+[WARNING] 02:42:20:419 Broker/(8671:8672): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:42:20:437 Broker/(8671:8672): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:42:20:442 Broker/(8671:8672): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:42:20:444 Broker/(8671:8672): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:20:450 Broker/(8671:8672): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:42:20:454 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:42:20:481 Broker/(8671:8672): El cliente 7 solicitó suscribirse a la cola 4 a través del socket 11
+[INFO] 02:42:20:824 Broker/(8671:8677): Se envió mensaje 0 perteneciente a la cola 4 al cliente 7
+[INFO] 02:42:20:833 Broker/(8671:8672): El cliente 7 envió confirmación del mensaje 0 a través del socket 12 
+[INFO] 02:42:20:953 Broker/(8671:8677): Se envió mensaje 1 perteneciente a la cola 4 al cliente 7
+[INFO] 02:42:21:21 Broker/(8671:8672): El cliente 7 envió confirmación del mensaje 1 a través del socket 13 
+[INFO] 02:42:29:176 Broker/(8671:8672): El cliente 7 envió un mensaje para la cola 2 a través de socket 14
+[INFO] 02:42:29:177 Broker/(8671:8672): Nueva peticion de memoria de: 20
+[INFO] 02:42:29:178 Broker/(8671:8672): PARTICIONES DINAMICAS
+[INFO] 02:42:29:180 Broker/(8671:8672): Se hace una particion de: 20 
+[INFO] 02:42:29:184 Broker/(8671:8672): Frecuencia de compactacion > 0...
+[INFO] 02:42:29:276 Broker/(8671:8672): Eliminado de una particion en la posicion 0x423d538
+[INFO] 02:42:29:295 Broker/(8671:8672): Eliminado de una particion en la posicion relativa 0
+[INFO] 02:42:29:374 Broker/(8671:8672): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 02:42:29:392 Broker/(8671:8672): Por compactar... La frecuencia = 0
+[WARNING] 02:42:29:418 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 4 
+
+[WARNING] 02:42:29:442 Broker/(8671:8672): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:42:29:448 Broker/(8671:8672): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:42:29:450 Broker/(8671:8672): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:29:478 Broker/(8671:8672): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:42:29:490 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:42:29:602 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d538
+[INFO] 02:42:29:622 Broker/(8671:8672): Almacenado en la posicion relativa 0
+[INFO] 02:42:29:636 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d53c
+[INFO] 02:42:29:645 Broker/(8671:8672): Almacenado en la posicion relativa 4
+[INFO] 02:42:29:668 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d54f
+[INFO] 02:42:29:674 Broker/(8671:8672): Almacenado en la posicion relativa 23
+[INFO] 02:42:29:676 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d563
+[INFO] 02:42:29:683 Broker/(8671:8672): Almacenado en la posicion relativa 43
+[WARNING] 02:42:29:707 Broker/(8671:8672): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:42:29:722 Broker/(8671:8672): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:42:29:734 Broker/(8671:8672): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:29:743 Broker/(8671:8672): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:42:29:782 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 5 
+
+[INFO] 02:42:29:815 Broker/(8671:8672): Frecuencia de compactacion > 0...
+[INFO] 02:42:29:838 Broker/(8671:8672): Eliminado de una particion en la posicion 0x423d538
+[INFO] 02:42:29:845 Broker/(8671:8672): Eliminado de una particion en la posicion relativa 0
+[INFO] 02:42:29:854 Broker/(8671:8672): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 02:42:29:856 Broker/(8671:8672): Por compactar... La frecuencia = 0
+[WARNING] 02:42:29:858 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 4 
+
+[WARNING] 02:42:29:863 Broker/(8671:8672): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:42:29:882 Broker/(8671:8672): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:29:890 Broker/(8671:8672): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:42:29:891 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 5 
+
+[INFO] 02:42:29:903 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d538
+[INFO] 02:42:29:913 Broker/(8671:8672): Almacenado en la posicion relativa 0
+[INFO] 02:42:29:923 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d54b
+[INFO] 02:42:29:938 Broker/(8671:8672): Almacenado en la posicion relativa 19
+[INFO] 02:42:29:947 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d55f
+[INFO] 02:42:29:954 Broker/(8671:8672): Almacenado en la posicion relativa 39
+[WARNING] 02:42:29:958 Broker/(8671:8672): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:42:29:966 Broker/(8671:8672): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:29:971 Broker/(8671:8672): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:42:29:979 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 9 
+
+[INFO] 02:42:29:994 Broker/(8671:8672): Frecuencia de compactacion > 0...
+[INFO] 02:42:29:995 Broker/(8671:8672): Eliminado de una particion en la posicion 0x423d538
+[INFO] 02:42:29:4 Broker/(8671:8672): Eliminado de una particion en la posicion relativa 0
+[INFO] 02:42:30:10 Broker/(8671:8672): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 02:42:30:18 Broker/(8671:8672): Por compactar... La frecuencia = 0
+[WARNING] 02:42:30:27 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 19 
+
+[WARNING] 02:42:30:45 Broker/(8671:8672): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:30:50 Broker/(8671:8672): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:42:30:52 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 9 
+
+[INFO] 02:42:30:61 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d538
+[INFO] 02:42:30:74 Broker/(8671:8672): Almacenado en la posicion relativa 0
+[INFO] 02:42:30:91 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d54c
+[INFO] 02:42:30:102 Broker/(8671:8672): Almacenado en la posicion relativa 20
+[WARNING] 02:42:30:103 Broker/(8671:8672): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:30:113 Broker/(8671:8672): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:42:30:120 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 28 
+
+[INFO] 02:42:30:157 Broker/(8671:8672): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:42:30:159 Broker/(8671:8672): Almacenado mensaje en la posicion real 0x423d55c
+[INFO] 02:42:30:161 Broker/(8671:8672): Almacenado en la posicion relativa 36
+[WARNING] 02:42:30:182 Broker/(8671:8672): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:30:186 Broker/(8671:8672): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:42:30:214 Broker/(8671:8672): contenido: mensaje 5 | Tamaño: 20 
+
+[WARNING] 02:42:30:215 Broker/(8671:8672): contenido: bloque_vacio | Tamaño: 8 
+
+[INFO] 02:42:38:289 Broker/(8671:8671): DUMP
+[WARNING] 02:42:38:465 Broker/(8671:8671): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:42:38:471 Broker/(8671:8671): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:42:38:474 Broker/(8671:8671): contenido: mensaje 5 | Tamaño: 20 
+
+[WARNING] 02:42:38:476 Broker/(8671:8671): contenido: bloque_vacio | Tamaño: 8 
+
+[INFO] 02:42:38:551 Broker/(8671:8671): Dump finalizado
+[INFO] 02:43:30:161 Broker/(8671:8671):  Broker DEJA DE FUNCIONAR 
+[INFO] 02:43:32:260 Broker/(8671:8671): Chau!
+[INFO] 02:43:56:168 Broker/(8854:8854): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 02:43:57:484 Broker/(8854:8854): Cargando el archivo de configuracion...
+[INFO] 02:43:57:579 Broker/(8854:8854): Archivo de configuracion cargado...
+[INFO] 02:43:57:795 Broker/(8854:8854): Se asigno memoria inicial. La direccion inicial de memoria es: 0x423d528
+[INFO] 02:43:57:828 Broker/(8854:8854): Particion de memoria inicial creada con: 64
+[INFO] 02:44:02:312 Broker/(8854:8855): El cliente 7 envió un mensaje para la cola 4 a través de socket 5
+[INFO] 02:44:02:409 Broker/(8854:8855): Nueva peticion de memoria de: 4
+[INFO] 02:44:02:452 Broker/(8854:8855): PARTICIONES DINAMICAS
+[INFO] 02:44:02:482 Broker/(8854:8855): Se hace una particion de: 4 
+[INFO] 02:44:02:563 Broker/(8854:8855): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:44:02:660 Broker/(8854:8855): Almacenado mensaje en la posicion real 0x423d528
+[INFO] 02:44:02:735 Broker/(8854:8855): Almacenado en la posicion relativa 0
+[WARNING] 02:44:02:767 Broker/(8854:8855): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:44:02:806 Broker/(8854:8855): contenido: bloque_vacio | Tamaño: 60 
+
+[INFO] 02:44:02:894 Broker/(8854:8855): El cliente 7 envió un mensaje para la cola 4 a través de socket 7
+[INFO] 02:44:02:901 Broker/(8854:8855): Nueva peticion de memoria de: 4
+[INFO] 02:44:02:906 Broker/(8854:8855): PARTICIONES DINAMICAS
+[INFO] 02:44:02:909 Broker/(8854:8855): Se hace una particion de: 4 
+[INFO] 02:44:02:911 Broker/(8854:8855): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:44:02:922 Broker/(8854:8855): Almacenado mensaje en la posicion real 0x423d52c
+[INFO] 02:44:02:926 Broker/(8854:8855): Almacenado en la posicion relativa 4
+[WARNING] 02:44:02:938 Broker/(8854:8855): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:44:02:950 Broker/(8854:8855): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:44:02:957 Broker/(8854:8855): contenido: bloque_vacio | Tamaño: 56 
+
+[INFO] 02:44:02:978 Broker/(8854:8855): El cliente 7 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 02:44:03:5 Broker/(8854:8855): Nueva peticion de memoria de: 19
+[INFO] 02:44:03:19 Broker/(8854:8855): PARTICIONES DINAMICAS
+[INFO] 02:44:03:27 Broker/(8854:8855): Se hace una particion de: 19 
+[INFO] 02:44:03:51 Broker/(8854:8855): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:44:03:61 Broker/(8854:8855): Almacenado mensaje en la posicion real 0x423d530
+[INFO] 02:44:03:66 Broker/(8854:8855): Almacenado en la posicion relativa 8
+[WARNING] 02:44:03:83 Broker/(8854:8855): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:44:03:98 Broker/(8854:8855): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:44:03:102 Broker/(8854:8855): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:44:03:115 Broker/(8854:8855): contenido: bloque_vacio | Tamaño: 37 
+
+[INFO] 02:44:03:116 Broker/(8854:8855): El cliente 7 envió un mensaje para la cola 2 a través de socket 9
+[INFO] 02:44:03:126 Broker/(8854:8855): Nueva peticion de memoria de: 20
+[INFO] 02:44:03:130 Broker/(8854:8855): PARTICIONES DINAMICAS
+[INFO] 02:44:03:149 Broker/(8854:8855): Se hace una particion de: 20 
+[INFO] 02:44:03:158 Broker/(8854:8855): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:44:03:159 Broker/(8854:8855): Almacenado mensaje en la posicion real 0x423d543
+[INFO] 02:44:03:172 Broker/(8854:8855): Almacenado en la posicion relativa 27
+[WARNING] 02:44:03:190 Broker/(8854:8855): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:44:03:193 Broker/(8854:8855): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:44:03:202 Broker/(8854:8855): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:44:03:216 Broker/(8854:8855): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:44:03:231 Broker/(8854:8855): contenido: bloque_vacio | Tamaño: 17 
+
+[INFO] 02:44:03:238 Broker/(8854:8855): El cliente 7 envió un mensaje para la cola 2 a través de socket 10
+[INFO] 02:44:03:240 Broker/(8854:8855): Nueva peticion de memoria de: 16
+[INFO] 02:44:03:250 Broker/(8854:8855): PARTICIONES DINAMICAS
+[INFO] 02:44:03:251 Broker/(8854:8855): Se hace una particion de: 16 
+[INFO] 02:44:03:265 Broker/(8854:8855): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:44:03:271 Broker/(8854:8855): Almacenado mensaje en la posicion real 0x423d557
+[INFO] 02:44:03:282 Broker/(8854:8855): Almacenado en la posicion relativa 47
+[WARNING] 02:44:03:291 Broker/(8854:8855): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:44:03:293 Broker/(8854:8855): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:44:03:296 Broker/(8854:8855): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:44:03:306 Broker/(8854:8855): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:44:03:321 Broker/(8854:8855): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:44:03:333 Broker/(8854:8855): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:44:03:356 Broker/(8854:8855): El cliente 7 solicitó suscribirse a la cola 4 a través del socket 11
+[INFO] 02:44:03:635 Broker/(8854:8860): Se envió mensaje 0 perteneciente a la cola 4 al cliente 7
+[INFO] 02:44:03:642 Broker/(8854:8855): El cliente 7 envió confirmación del mensaje 0 a través del socket 12 
+[INFO] 02:44:03:699 Broker/(8854:8860): Se envió mensaje 1 perteneciente a la cola 4 al cliente 7
+[INFO] 02:44:03:762 Broker/(8854:8855): El cliente 7 envió confirmación del mensaje 1 a través del socket 13 
+[INFO] 02:44:12:226 Broker/(8854:8855): El cliente 7 envió un mensaje para la cola 2 a través de socket 14
+[INFO] 02:44:12:227 Broker/(8854:8855): Nueva peticion de memoria de: 20
+[INFO] 02:44:12:229 Broker/(8854:8855): PARTICIONES DINAMICAS
+[INFO] 02:44:12:231 Broker/(8854:8855): Se hace una particion de: 20 
+[INFO] 02:44:12:235 Broker/(8854:8855): Frecuencia de compactacion > 0...
+[INFO] 02:44:12:348 Broker/(8854:8855): Eliminado de una particion en la posicion 0x423d530
+[INFO] 02:44:12:393 Broker/(8854:8855): Eliminado de una particion en la posicion relativa 8
+[INFO] 02:44:12:501 Broker/(8854:8855): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 02:44:12:545 Broker/(8854:8855): Por compactar... La frecuencia = 0
+[WARNING] 02:44:12:607 Broker/(8854:8855): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:44:12:620 Broker/(8854:8855): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:44:12:642 Broker/(8854:8855): contenido: bloque_vacio | Tamaño: 19 
+
+[WARNING] 02:44:12:651 Broker/(8854:8855): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:44:12:674 Broker/(8854:8855): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:44:12:683 Broker/(8854:8855): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:44:12:888 Broker/(8854:8855): Almacenado mensaje en la posicion real 0x423d530
+[INFO] 02:44:12:919 Broker/(8854:8855): Almacenado en la posicion relativa 8
+[INFO] 02:44:12:964 Broker/(8854:8855): Almacenado mensaje en la posicion real 0x423d544
+[INFO] 02:44:12:995 Broker/(8854:8855): Almacenado en la posicion relativa 28
+[WARNING] 02:44:13:29 Broker/(8854:8855): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:44:13:64 Broker/(8854:8855): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:44:13:65 Broker/(8854:8855): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:44:13:71 Broker/(8854:8855): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:44:13:97 Broker/(8854:8855): contenido: bloque_vacio | Tamaño: 20 
+
+[INFO] 02:44:13:144 Broker/(8854:8855): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:44:13:153 Broker/(8854:8855): Almacenado mensaje en la posicion real 0x423d554
+[INFO] 02:44:13:174 Broker/(8854:8855): Almacenado en la posicion relativa 44
+[WARNING] 02:44:13:176 Broker/(8854:8855): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:44:13:183 Broker/(8854:8855): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:44:13:190 Broker/(8854:8855): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:44:13:214 Broker/(8854:8855): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:44:13:224 Broker/(8854:8855): contenido: mensaje 5 | Tamaño: 20 
+
+[INFO] 02:44:23:13 Broker/(8854:8854): DUMP
+[WARNING] 02:44:23:183 Broker/(8854:8854): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:44:23:190 Broker/(8854:8854): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:44:23:192 Broker/(8854:8854): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:44:23:196 Broker/(8854:8854): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:44:23:199 Broker/(8854:8854): contenido: mensaje 5 | Tamaño: 20 
+
+[INFO] 02:44:23:271 Broker/(8854:8854): Dump finalizado
+[INFO] 02:44:41:550 Broker/(8854:8854):  Broker DEJA DE FUNCIONAR 
+[INFO] 02:44:43:615 Broker/(8854:8854): Chau!
+[INFO] 02:44:49:822 Broker/(8882:8882): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 02:44:51:503 Broker/(8882:8882): Cargando el archivo de configuracion...
+[INFO] 02:44:51:709 Broker/(8882:8882): Archivo de configuracion cargado...
+[INFO] 02:44:52:80 Broker/(8882:8882): Se asigno memoria inicial. La direccion inicial de memoria es: 0x423d528
+[INFO] 02:44:52:151 Broker/(8882:8882): Particion de memoria inicial creada con: 64
+[INFO] 02:46:30:680 Broker/(8882:8882):  Broker DEJA DE FUNCIONAR 
+[INFO] 02:46:32:785 Broker/(8882:8882): Chau!
+[INFO] 02:46:39:524 Broker/(8975:8975): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 02:46:39:836 Broker/(8975:8975): Cargando el archivo de configuracion...
+[INFO] 02:46:39:973 Broker/(8975:8975): Archivo de configuracion cargado...
+[INFO] 02:46:40:177 Broker/(8975:8975): Se asigno memoria inicial. La direccion inicial de memoria es: 0x423d528
+[INFO] 02:46:40:195 Broker/(8975:8975): Particion de memoria inicial creada con: 64
+[INFO] 02:46:46:926 Broker/(8975:8976): El cliente 7 envió un mensaje para la cola 4 a través de socket 5
+[INFO] 02:46:47:15 Broker/(8975:8976): Nueva peticion de memoria de: 4
+[INFO] 02:46:47:50 Broker/(8975:8976): PARTICIONES DINAMICAS
+[INFO] 02:46:47:73 Broker/(8975:8976): Se hace una particion de: 4 
+[INFO] 02:46:47:139 Broker/(8975:8976): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:46:47:220 Broker/(8975:8976): Almacenado mensaje en la posicion real 0x423d528
+[INFO] 02:46:47:356 Broker/(8975:8976): Almacenado en la posicion relativa 0
+[WARNING] 02:46:47:402 Broker/(8975:8976): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:46:47:444 Broker/(8975:8976): contenido: bloque_vacio | Tamaño: 60 
+
+[INFO] 02:46:47:542 Broker/(8975:8976): El cliente 7 envió un mensaje para la cola 4 a través de socket 7
+[INFO] 02:46:47:558 Broker/(8975:8976): Nueva peticion de memoria de: 4
+[INFO] 02:46:47:569 Broker/(8975:8976): PARTICIONES DINAMICAS
+[INFO] 02:46:47:571 Broker/(8975:8976): Se hace una particion de: 4 
+[INFO] 02:46:47:575 Broker/(8975:8976): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:46:47:595 Broker/(8975:8976): Almacenado mensaje en la posicion real 0x423d52c
+[INFO] 02:46:47:604 Broker/(8975:8976): Almacenado en la posicion relativa 4
+[WARNING] 02:46:47:612 Broker/(8975:8976): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:46:47:622 Broker/(8975:8976): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:46:47:626 Broker/(8975:8976): contenido: bloque_vacio | Tamaño: 56 
+
+[INFO] 02:46:47:644 Broker/(8975:8976): El cliente 7 envió un mensaje para la cola 2 a través de socket 8
+[INFO] 02:46:47:685 Broker/(8975:8976): Nueva peticion de memoria de: 19
+[INFO] 02:46:47:698 Broker/(8975:8976): PARTICIONES DINAMICAS
+[INFO] 02:46:47:707 Broker/(8975:8976): Se hace una particion de: 19 
+[INFO] 02:46:47:718 Broker/(8975:8976): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:46:47:726 Broker/(8975:8976): Almacenado mensaje en la posicion real 0x423d530
+[INFO] 02:46:47:754 Broker/(8975:8976): Almacenado en la posicion relativa 8
+[WARNING] 02:46:47:770 Broker/(8975:8976): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:46:47:786 Broker/(8975:8976): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:46:47:788 Broker/(8975:8976): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:46:47:830 Broker/(8975:8976): contenido: bloque_vacio | Tamaño: 37 
+
+[INFO] 02:46:47:841 Broker/(8975:8976): El cliente 7 envió un mensaje para la cola 2 a través de socket 9
+[INFO] 02:46:47:857 Broker/(8975:8976): Nueva peticion de memoria de: 20
+[INFO] 02:46:47:870 Broker/(8975:8976): PARTICIONES DINAMICAS
+[INFO] 02:46:47:874 Broker/(8975:8976): Se hace una particion de: 20 
+[INFO] 02:46:47:896 Broker/(8975:8976): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:46:47:905 Broker/(8975:8976): Almacenado mensaje en la posicion real 0x423d543
+[INFO] 02:46:47:952 Broker/(8975:8976): Almacenado en la posicion relativa 27
+[WARNING] 02:46:47:966 Broker/(8975:8976): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:46:47:975 Broker/(8975:8976): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:46:47:979 Broker/(8975:8976): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:46:47:998 Broker/(8975:8976): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:46:48:6 Broker/(8975:8976): contenido: bloque_vacio | Tamaño: 17 
+
+[INFO] 02:46:48:18 Broker/(8975:8976): El cliente 7 envió un mensaje para la cola 2 a través de socket 10
+[INFO] 02:46:48:26 Broker/(8975:8976): Nueva peticion de memoria de: 16
+[INFO] 02:46:48:31 Broker/(8975:8976): PARTICIONES DINAMICAS
+[INFO] 02:46:48:45 Broker/(8975:8976): Se hace una particion de: 16 
+[INFO] 02:46:48:76 Broker/(8975:8976): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:46:48:80 Broker/(8975:8976): Almacenado mensaje en la posicion real 0x423d557
+[INFO] 02:46:48:113 Broker/(8975:8976): Almacenado en la posicion relativa 47
+[WARNING] 02:46:48:127 Broker/(8975:8976): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:46:48:151 Broker/(8975:8976): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:46:48:159 Broker/(8975:8976): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 02:46:48:185 Broker/(8975:8976): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:46:48:192 Broker/(8975:8976): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:46:48:212 Broker/(8975:8976): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:46:48:240 Broker/(8975:8976): El cliente 7 solicitó suscribirse a la cola 4 a través del socket 11
+[INFO] 02:46:48:568 Broker/(8975:8976): El cliente 7 envió confirmación del mensaje 0 a través del socket 12 
+[INFO] 02:46:48:620 Broker/(8975:8981): Se envió mensaje 0 perteneciente a la cola 4 al cliente 7
+[INFO] 02:46:48:794 Broker/(8975:8981): Se envió mensaje 1 perteneciente a la cola 4 al cliente 7
+[INFO] 02:46:48:799 Broker/(8975:8976): El cliente 7 envió confirmación del mensaje 1 a través del socket 13 
+[INFO] 02:46:56:857 Broker/(8975:8976): El cliente 7 envió un mensaje para la cola 2 a través de socket 14
+[INFO] 02:46:56:859 Broker/(8975:8976): Nueva peticion de memoria de: 20
+[INFO] 02:46:56:861 Broker/(8975:8976): PARTICIONES DINAMICAS
+[INFO] 02:46:56:863 Broker/(8975:8976): Se hace una particion de: 20 
+[INFO] 02:46:56:867 Broker/(8975:8976): Frecuencia de compactacion > 0...
+[INFO] 02:46:56:969 Broker/(8975:8976): Eliminado de una particion en la posicion 0x423d530
+[INFO] 02:46:56:2 Broker/(8975:8976): Eliminado de una particion en la posicion relativa 8
+[INFO] 02:46:57:72 Broker/(8975:8976): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 02:46:57:83 Broker/(8975:8976): Por compactar... La frecuencia = 0
+[WARNING] 02:46:57:98 Broker/(8975:8976): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:46:57:102 Broker/(8975:8976): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:46:57:105 Broker/(8975:8976): contenido: bloque_vacio | Tamaño: 19 
+
+[WARNING] 02:46:57:118 Broker/(8975:8976): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:46:57:127 Broker/(8975:8976): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:46:57:144 Broker/(8975:8976): contenido: bloque_vacio | Tamaño: 1 
+
+[INFO] 02:46:57:234 Broker/(8975:8976): Almacenado mensaje en la posicion real 0x423d530
+[INFO] 02:46:57:246 Broker/(8975:8976): Almacenado en la posicion relativa 8
+[INFO] 02:46:57:256 Broker/(8975:8976): Almacenado mensaje en la posicion real 0x423d544
+[INFO] 02:46:57:265 Broker/(8975:8976): Almacenado en la posicion relativa 28
+[WARNING] 02:46:57:284 Broker/(8975:8976): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:46:57:308 Broker/(8975:8976): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:46:57:322 Broker/(8975:8976): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:46:57:332 Broker/(8975:8976): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:46:57:343 Broker/(8975:8976): contenido: bloque_vacio | Tamaño: 20 
+
+[INFO] 02:46:57:399 Broker/(8975:8976): Ejecutando Algoritmo de Particion Libre FF
+[INFO] 02:46:57:414 Broker/(8975:8976): Almacenado mensaje en la posicion real 0x423d554
+[INFO] 02:46:57:430 Broker/(8975:8976): Almacenado en la posicion relativa 44
+[WARNING] 02:46:57:433 Broker/(8975:8976): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:46:57:447 Broker/(8975:8976): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:46:57:456 Broker/(8975:8976): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:46:57:478 Broker/(8975:8976): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:46:57:479 Broker/(8975:8976): contenido: mensaje 5 | Tamaño: 20 
+
+[INFO] 02:47:25:550 Broker/(8975:8975): DUMP
+[WARNING] 02:47:25:721 Broker/(8975:8975): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 02:47:25:728 Broker/(8975:8975): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 02:47:25:730 Broker/(8975:8975): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 02:47:25:734 Broker/(8975:8975): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 02:47:25:743 Broker/(8975:8975): contenido: mensaje 5 | Tamaño: 20 
+
+[INFO] 02:47:25:818 Broker/(8975:8975): Dump finalizado
+[INFO] 02:47:33:196 Broker/(8975:8975):  Broker DEJA DE FUNCIONAR 
+[INFO] 02:47:35:266 Broker/(8975:8975): Chau!
