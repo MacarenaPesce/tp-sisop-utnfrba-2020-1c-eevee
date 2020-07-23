@@ -20,3 +20,4 @@ t_log* broker_logger;
 t_config* config;
 t_cache_colas* cache_mensajes;
 bool debug_broker;
+bool warn_broker;

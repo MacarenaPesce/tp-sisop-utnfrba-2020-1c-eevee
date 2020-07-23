@@ -60,4 +60,5 @@ extern t_log* broker_logger;
 extern t_config* config;
 extern t_cache_colas* cache_mensajes;
 extern bool debug_broker;
+extern bool warn_broker;
 #endif

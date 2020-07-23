@@ -1,6 +1,15 @@
 #include "Broker.h"
 extern int tamanio_memoria;
 
+/*
+	Resultados de las pruebas: 
+		1- Consolidacion -> con FIFO -> OK -> 40 bytes de leaks
+		2- Consolidacion -> con LRU  ->	OK -> 48 bytes
+		3- Compactacion  -> con FIFO -> OK -> 32 bytes
+		4- Compactacion  -> con LRU  -> OK -> 40 bytes
+		5- Buddy         -> con FIFO -> OK -> 24 bytes
+		6- Buddy		 -> con LRU	 -> OK -> 16 bytes
+*/
 
 int main(){
 
@@ -11,7 +20,9 @@ int main(){
 	//inicializo los logs
 	inicializar_logger();
 	//activo los logs de debug
-	debug_broker = true;
+
+	debug_broker = false;
+	warn_broker = true;
 
 	if(debug_broker) log_debug(broker_logger, "1) Cache de mensajes lista!!!");
 	
