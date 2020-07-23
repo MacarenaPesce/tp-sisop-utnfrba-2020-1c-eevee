@@ -42,7 +42,6 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 
 	}
 
-	//eliminar_mensaje(paquete);
 }
 
 void * atender_a_gameboy(void * serv_socket){

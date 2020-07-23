@@ -1753,7 +1753,7 @@ t_list* obtenerPosicionesPokemon(char* pokemon) {
 
 
 	log_info(gameCard_logger,
-			" las posiciones y cantidades del pokemon %s obtenidas :", pokemon);
+			" las posiciones del pokemon %s obtenidas :", pokemon);
 
 	for (int i = 0; i < list_size(pokemonesParaLocalized); i++) {
 
@@ -1761,9 +1761,10 @@ t_list* obtenerPosicionesPokemon(char* pokemon) {
 		log_info(gameCard_logger, "(%d, %d) \n", coord->posx, coord->posy);
 	}
 
-
+log_info(gameCard_logger,"espera de acceso a disco : %d segundos",tiempo_retardo_operacion);
 	sleep(tiempo_retardo_operacion);
 	cerrarArchivo(pokemon);
+	free(posiciones);
 
 	return pokemonesParaLocalized;
 
@@ -1786,6 +1787,10 @@ void agregarPosicionAlistaParaLocalized(char* posicion) {
 	int posx = atoi(parse1[0]);
 	int posy = atoi(parse1[1]);
 
+	free(parse1[0]);
+	free(parse1[1]);
+	free(parse);
+	free(parse1);
 	/* free(parse[0]);
 	 free(parse[1]);
 	 free(parse); */
@@ -1798,6 +1803,7 @@ void agregarPosicionAlistaParaLocalized(char* posicion) {
 	list_add(pokemonesParaLocalized, (void*) elemento);
 	//free(parse);
 	//free(parse[1]);
+	free(posicion);
 }
 
 void liberarMemoria() {
