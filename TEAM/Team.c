@@ -401,6 +401,7 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 		ciclos_de_cpu++;
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
+		cambios_de_contexto++;
 		//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
@@ -412,7 +413,6 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 			pthread_mutex_lock(&lista_listos_mutex);
 			list_add(lista_listos, entrenador);
 			pthread_mutex_unlock(&lista_listos_mutex);
-			cambios_de_contexto++;
 			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
 			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
 
@@ -474,6 +474,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		ciclos_de_cpu++;
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
+		cambios_de_contexto++;
 		//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
@@ -482,15 +483,20 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 
 		if(desalojo_en_ejecucion){
 			entrenador_en_ejecucion = NULL;
-			pthread_mutex_lock(&lista_listos_mutex);
-			list_add(lista_listos, entrenador);
-			pthread_mutex_unlock(&lista_listos_mutex);
-			cambios_de_contexto++;
-			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
-			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+			if(entrenador->cant_maxima_objetivos == 0 || (entrenador->razon_de_bloqueo != NINGUNA)){
+				log_info(team_logger, "El entrenador de id %d fue desalojado", entrenador->id);
+				sem_post(&orden_para_planificar);
+			} else {
+				pthread_mutex_lock(&lista_listos_mutex);
+				list_add(lista_listos, entrenador);
+				pthread_mutex_unlock(&lista_listos_mutex);
+				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
 
-			sem_post(&orden_para_planificar);
-			sem_wait(&array_semaforos[entrenador->id]);
+				sem_post(&orden_para_planificar);
+				sem_wait(&array_semaforos[entrenador->id]);
+			}
+			
 		}
 	}
 
