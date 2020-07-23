@@ -609,12 +609,12 @@ void dump_memoria(){
     timeinfo = localtime(&hoy);
     strftime(fecha, 50, "%d/%m/%Y %T", timeinfo);
 
-    char* header = malloc(500);
-    header = "Dump ";
+    //char* header = malloc(500);
+    //header = "Dump ";
 
     fprintf(dumpeo,"---------------------------------------------------------------------------------------------------------------------------------------------------------------");
     fprintf(dumpeo, "\n");
-    fprintf(dumpeo, header);
+    fprintf(dumpeo, "Dump ");
     fprintf(dumpeo, fecha);
     fprintf(dumpeo, "\n");
 
@@ -651,6 +651,7 @@ void escribir_estado_de_memoria(FILE* archivo){
 
             fprintf(archivo, "%s",dump);
             fprintf(archivo, "\n");
+            free(dump);
 
         }else{
 
@@ -665,6 +666,8 @@ void escribir_estado_de_memoria(FILE* archivo){
             fprintf(archivo, "\n");
         }
     }
+
+    list_destroy_and_destroy_elements(listadeparticiones,free);
 }
 
 char* crear_string_dump(t_bloque_memoria* bloque,int indice){
@@ -682,6 +685,8 @@ char* crear_string_dump(t_bloque_memoria* bloque,int indice){
     string_append_with_format(&dump,"    LRU: %d",bloque->last_time);
     string_append_with_format(&dump,"    Cola: %s",cola);
     string_append_with_format(&dump,"    ID: %d",bloque->estructura_mensaje->id_mensaje);
+
+    free(cola);
 
     return dump;
 }
