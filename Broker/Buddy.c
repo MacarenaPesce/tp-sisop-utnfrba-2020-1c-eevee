@@ -71,6 +71,8 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 			/* Elimino una particion */
 			bloque_borrado = reemplazar_bloque_BS();
 
+			//if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+
 			/* Consolido buddies entorno a la particion eliminada*/
 			consolidacion_BS(bloque_borrado);
 		}
@@ -235,7 +237,7 @@ t_bloque_memoria* reemplazar_bloque_BS(){
 	t_bloque_memoria* bloque_eliminado;
 
     //segun el algoritmo del archivo de configuracion, utilizo un algoritmo
-    if (strcmp( algoritmo_reemplazo, "LRU") == 1){
+    if (strcmp( algoritmo_reemplazo, "LRU") == 0){
         bloque_eliminado = algoritmo_lru();
     }
     else{
@@ -271,6 +273,8 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
 
+		//if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+
 		// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
 		consolidacion_BS(bloque_borrado);
 	}
@@ -285,11 +289,15 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
 
+		//if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+
 		// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
 		consolidacion_BS(bloque_anterior);
 	}
     
 	if(debug_broker) log_debug(broker_logger,"No tengo más buddies libres.");
+
+	//if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
 	if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
 
