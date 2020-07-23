@@ -55,11 +55,11 @@ dkms.conf
 .vscode/
 .settings/
 
-./Broker/Dist/
-./Broker/Debug/
-./TEAM/Dist/
-./TEAM/Debug/
-./GameBoy/Dist/
-./GameBoy/Debug/
-./GameCard/Dist/
-./GameCard/Debug/
+/Broker/Dist/
+/Broker/Debug/
+/TEAM/Dist/
+/TEAM/Debug/
+/GameBoy/Dist/
+/GameBoy/Debug/
+/GameCard/Dist/
+/GameCard/Debug/
