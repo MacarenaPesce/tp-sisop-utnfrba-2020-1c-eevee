@@ -188,7 +188,7 @@ void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_
 
     if(debug_broker) log_debug(broker_logger, "Algoritmo de particion libre ejecutado!");
 
-    if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+    if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
     return ;
 }
@@ -541,13 +541,13 @@ void compactar(){
     }    
 
     //muestro por pantalla antes de compactar como estaba la memoria
-    if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+    if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
     //itero la funcion compactar_bloque para compactaar la memoria
     dynamic_list_iterate(cache_mensajes->memoria, compactar_bloque);
 
     //muestro luego de compactar el estado de la memoria
-    if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+    if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
     if(debug_broker) log_debug(broker_logger, "Compactacion terminada");
 
@@ -634,7 +634,7 @@ void escribir_estado_de_memoria(FILE* archivo){
 
     t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
 
-    if(debug_broker) list_iterate(listadeparticiones, print_memoria);
+    if(warn_broker) list_iterate(listadeparticiones, print_memoria);
 
     for(int i=0; i < list_size(listadeparticiones); i++){
         t_bloque_memoria* bloque = list_get(listadeparticiones, i);

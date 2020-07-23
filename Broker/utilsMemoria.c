@@ -134,7 +134,7 @@ void print_memoria(void* _bloque){
         string_append(&id_part,"bloque_vacio");
     }
 
-    if(debug_broker) log_warning(broker_logger, "contenido: %s | Tamaño: %d \n",id_part,bloque->tamanio_particion);
+    if(warn_broker) log_warning(broker_logger, "contenido: %s | Tamaño: %d \n",id_part,bloque->tamanio_particion);
 
     free(id_part);
 }
