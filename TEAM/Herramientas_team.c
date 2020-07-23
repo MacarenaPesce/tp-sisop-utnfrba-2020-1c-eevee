@@ -290,7 +290,7 @@ int destruir_entrenador(t_entrenador * entrenador){
 	}
 	list_destroy_and_destroy_elements(entrenador->objetivo,(void*)destruir_objetivo_entrenador);
 	list_destroy_and_destroy_elements(entrenador->pokemones, (void*)destruir_pokemon_plus);
-	destruir_objetivo(entrenador->objetivo_actual);
+	//destruir_objetivo(entrenador->objetivo_actual);
 	free(entrenador);
 	return 0;
 }
@@ -372,8 +372,7 @@ void terminar_team_correctamente(){
 	list_destroy_and_destroy_elements(lista_bloqueados,(void*)destruir_entrenador);
 	list_destroy(lista_global_objetivos);
 	list_destroy_and_destroy_elements(lista_global_pokemones,(void*)destruir_pokemon_plus);
-	list_destroy_and_destroy_elements(lista_asignados,(void*)destruir_pokemon);
-
+	list_destroy_and_destroy_elements(lista_asignados,(void*)destruir_pokemon_plus);
 	list_destroy_and_destroy_elements(mensajes_para_chequear_id, (void*)free);
 	list_destroy_and_destroy_elements(lista_historico_appeared_pokemon, (void*)free);
 	list_destroy_and_destroy_elements(mensajes_que_llegan_nuevos,(void*)eliminar_mensaje);

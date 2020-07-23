@@ -384,14 +384,14 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 		ciclos_de_cpu++;
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
-		log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
+		//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 	}
 
 	if((!strcmp(algoritmo_planificacion, "SJF-SD"))){
 		ciclos_de_cpu++;
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
-		log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
+		//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
@@ -402,7 +402,7 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 		ciclos_de_cpu++;
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
-		log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
+		//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
 		//log_info(team_logger, "Mi estimacion actual es %f", entrenador->estimacion_actual);
@@ -432,10 +432,10 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 		sleep(retardo_ciclo_cpu);
 
 		if(entrenador->quantum_restante > 1){
-			log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
+			//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 			entrenador->quantum_restante--;
 		}else{
-			log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
+			//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 			entrenador_en_ejecucion = NULL;
 			entrenador->agoto_quantum = true;
 			entrenador->quantum_restante = quantum;
@@ -464,7 +464,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		ciclos_de_cpu++;
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
-		log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
+		//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
@@ -475,7 +475,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		ciclos_de_cpu++;
 		entrenador->ciclos_de_cpu++;
 		sleep(retardo_ciclo_cpu);
-		log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
+		//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
 		//log_info(team_logger, "Mi estimacion actual es %f", entrenador->estimacion_actual);
@@ -501,10 +501,10 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		sleep(retardo_ciclo_cpu);
 
 		if(entrenador->quantum_restante > 1){
-			log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
+			//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 			entrenador->quantum_restante--;
 		}else{
-			log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
+			//log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 			entrenador_en_ejecucion = NULL;
 			entrenador->agoto_quantum = true;
 			entrenador->quantum_restante = quantum;

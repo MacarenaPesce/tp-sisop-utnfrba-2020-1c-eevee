@@ -157,9 +157,9 @@ void desalojar_ejecucion(void){
 }
 
 int estimar_entrenador(t_entrenador * entrenador){
-	log_info(team_logger, "El alpha es %f", alpha/100);
+	//log_info(team_logger, "El alpha es %f", alpha/100);
 	entrenador->estimacion_anterior = entrenador->estimacion_real;
-	entrenador->estimacion_real = ((alpha/100)*entrenador->instruccion_actual) + ((1-(alpha/100))*entrenador->estimacion_real);
+	entrenador->estimacion_real = (alpha*entrenador->instruccion_actual) + ((1-alpha)*entrenador->estimacion_real);
 	//log_info(team_logger, "La estimacion real de este entrenador es %f", entrenador->estimacion_real);
 	entrenador->estimacion_actual  = entrenador->estimacion_real;
 	entrenador->instruccion_actual = 0;
