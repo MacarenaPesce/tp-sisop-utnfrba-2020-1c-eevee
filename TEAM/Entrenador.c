@@ -171,7 +171,9 @@ atrapado con éxito.*/
 	}
 
 	free(servidor);
-	free(ack);
+	if(ack != (t_packed*)-1){
+		free(ack);
+	}
 
 	return;
 

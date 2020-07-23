@@ -83,20 +83,21 @@ void enviar_get(){
 		t_packed * ack = enviar_get_pokemon(servidor, -1, get_pokemon);
 		log_info(team_logger, "Enviado pedido de get pokemon para esta especie: %s", objetivo->especie);
 
-		//Recibo ACK
-		if(ack->operacion == ACK){
+		if(ack != (t_packed*)-1){
+			//Recibo ACK
+			if(ack->operacion == ACK){
+				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
+				uint32_t* id_esperando_respuesta = (uint32_t*)malloc(sizeof(uint32_t));
+				memcpy(id_esperando_respuesta,&ack->id_mensaje,sizeof(uint32_t));
 
-			log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
-			uint32_t* id_esperando_respuesta = (uint32_t*)malloc(sizeof(uint32_t));
-			memcpy(id_esperando_respuesta,&ack->id_mensaje,sizeof(uint32_t));
+				pthread_mutex_lock(&mensaje_chequear_id_mutex);
+				list_add(mensajes_para_chequear_id, (void*)id_esperando_respuesta);
+				pthread_mutex_unlock(&mensaje_chequear_id_mutex);
 
-			pthread_mutex_lock(&mensaje_chequear_id_mutex);
-			list_add(mensajes_para_chequear_id, (void*)id_esperando_respuesta);
-			pthread_mutex_unlock(&mensaje_chequear_id_mutex);
-
-			eliminar_mensaje(ack);
-
-		}else{
+				eliminar_mensaje(ack);
+			}
+		}
+		else{
 			log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 			log_info(team_logger, "No existen locaciones para esta especie: %s, cant %i", objetivo->especie, objetivo->cantidad_necesitada);
 		}

@@ -405,7 +405,7 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 		log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
-		log_info(team_logger, "Mi estimacion actual es %f", entrenador->estimacion_actual);
+		//log_info(team_logger, "Mi estimacion actual es %f", entrenador->estimacion_actual);
 		entrenador->ejec_anterior = 0;
 
 		if(desalojo_en_ejecucion){
@@ -478,7 +478,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 		log_info(team_logger, "El entrenador %d ejecutó 1 ciclo de cpu", entrenador->id);
 		entrenador->instruccion_actual++;
 		entrenador->estimacion_actual--;
-		log_info(team_logger, "Mi estimacion actual es %f", entrenador->estimacion_actual);
+		//log_info(team_logger, "Mi estimacion actual es %f", entrenador->estimacion_actual);
 		entrenador->ejec_anterior = 0;
 
 		if(desalojo_en_ejecucion){
