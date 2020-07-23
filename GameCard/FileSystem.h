@@ -2,6 +2,7 @@
 #define FILESYSTEM_H_
 
 #include "formatoFs.h"
+#include "Conexion_con_gameboy.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -12,6 +13,12 @@ t_dictionary* semaforosPokemones;
 pthread_mutex_t semMutexBitmap;
 
 char* lineaBloques;
+
+char* estadoArchivo;
+
+char* auxPokeEnMemo;
+
+char* unBloq;
 
 void inicializarSemaforosParaPokemon();
 void agregarSemaforoPokemon(char* poke);
@@ -209,4 +216,6 @@ void liberarMemoria();
 void liberarElem(void* elem);
 
 void destruirBloque(char*);
+
+void desconectarFs();
 #endif /* FILESYSTEM_H_ */

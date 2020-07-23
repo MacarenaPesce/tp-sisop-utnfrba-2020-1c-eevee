@@ -6,6 +6,7 @@
  */
 
 #include "Conexion_con_broker.h"
+#include "Pokebola.h"
 
 void * atender_get_pokemon(t_packed * paquete){
 
@@ -17,44 +18,14 @@ void * atender_get_pokemon(t_packed * paquete){
 	t_get_pokemon * get_pokemon = (t_get_pokemon*)paquete->mensaje;
 	log_debug(gameCard_logger, "Recibi el pedido de get pokemon para esta especie: %s.", get_pokemon->pokemon);
 
-/*
-	Este mensaje cumplirá la función de obtener todas las posiciones y su cantidad de un Pokémon específico. Para esto recibirá:
-	El identificador del mensaje recibido. Pokémon a devolver.
+	t_list* listaPosicionesParaLocalized;
+	listaPosicionesParaLocalized=operar_con_get_pokemon(get_pokemon);
 
-	Al recibir este mensaje se deberán realizar las siguientes operaciones:
-
-	1) Verificar si el Pokémon existe dentro de nuestro Filesystem: Para esto se deberá buscar dentro del directorio Pokemon,
-	si existe el archivo con el nombre de nuestro pokémon. En caso de no existir se deberá informar el mensaje sin posiciones ni cantidades.
-
-	2) Verificar si se puede abrir el archivo (si no hay otro proceso que lo esté abriendo). En caso que el archivo se encuentre abierto
-	se deberá reintentar la operación luego de un tiempo definido por configuración.
-
-	3) Obtener todas las posiciones y cantidades de Pokemon requerido.
-
-	4) Esperar la cantidad de segundos definidos por archivo de configuración
-
-	5) Cerrar el archivo.
-
-	6) Conectarse al Broker y enviar el mensaje con todas las posiciones y su cantidad.
-	En caso que se encuentre por lo menos una posición para el Pokémon solicitado se deberá enviar un mensaje al Broker a la Cola de Mensajes LOCALIZED_POKEMON indicando:
-	ID del mensaje recibido originalmente.
-	El Pokémon solicitado.
-	La lista de posiciones y la cantidad de posiciones X e Y de cada una de ellas en el mapa.
-	En caso que no se pueda realizar la conexión con el Broker se debe informar por logs y continuar la ejecución.
-
-
-
-	PARA ESTO ULTIMO NOS FALTA EL LOCALIZED EN POKEBOLA, POR LO QUE ESPERAMOS A QUE ESO FUNCIONE
-	PARA COMPLETAR ACA LO QUE QUEDA, PERO ES SIMILAR A LO QUE ESTA ARRIBA!!
-	*/
-
-	//t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_correlacional, caught_pokemon);
-
-	if (operar_con_get_pokemon(get_pokemon)!=-1){
+	if (!list_is_empty(listaPosicionesParaLocalized)){
 
 		t_localized_pokemon* localized_pokemon= generar_localized(get_pokemon->pokemon);
 		
-		t_list* lista_coordenadas = operar_con_get_pokemon(get_pokemon);
+		t_list* lista_coordenadas = listaPosicionesParaLocalized;
 
 		void cargar_localized(void* _coordenadas){
 
@@ -66,18 +37,13 @@ void * atender_get_pokemon(t_packed * paquete){
 
 		list_iterate(lista_coordenadas,cargar_localized);
 
-		log_warning(gameCard_logger, "Te envie un localized del get %d", paquete->id_mensaje);
-
 		t_packed * ack = enviar_localized_pokemon(servidor,paquete->id_mensaje,localized_pokemon);
-		
-		//TODO: HACES ALGO CON EL ACK????
-		free(ack);
 
 		eliminar_localized_pokemon(localized_pokemon);
 
-	}	
+	}
 
-	eliminar_mensaje(paquete);
+	free(get_pokemon->pokemon);
 
 	free(servidor);
 
@@ -95,7 +61,6 @@ void * atender_catch_pokemon(t_packed * paquete){
 
 	t_caught_pokemon * caught_pokemon = malloc(sizeof(t_caught_pokemon));
 	caught_pokemon->status = operar_con_catch_pokemon(catch_pokemon);
-			//OK; //Le pongo este rdo por poner, aca va el que hayas obtenido desde el FS
 
 	t_packed * ack = enviar_caught_pokemon(servidor, paquete->id_mensaje, caught_pokemon);
 
@@ -140,10 +105,10 @@ void * atender_new_pokemon(t_packed * paquete){
 				appeared_pokemon->pokemon, appeared_pokemon->coordenadas.posx, appeared_pokemon->coordenadas.posy);
 	}
 
+	free(new_pokemon->pokemon);
 	free(new_pokemon);
 	free(servidor);
 	free(paquete);
-	//eliminar_mensaje(paquete);
 	free(appeared_pokemon);
 
 	return NULL;
@@ -224,16 +189,19 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 				if(paquete->operacion == ENVIAR_MENSAJE){
 					switch(paquete->cola_de_mensajes){
 						case COLA_NEW_POKEMON:
+							//se envia ack al broker que llego bien
 							enviar_ack(servidor,paquete->id_mensaje);
 							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_new_pokemon_desde_broker(paquete);
 							break;
 						case COLA_CATCH_POKEMON:
+							//se envia ack al broker que llego bien
 							enviar_ack(servidor,paquete->id_mensaje);
 							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_catch_pokemon_desde_broker(paquete);
 							break;
 						case COLA_GET_POKEMON:
+							//se envia ack al broker que llego bien
 							enviar_ack(servidor,paquete->id_mensaje);
 							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_get_pokemon_desde_broker(paquete);
