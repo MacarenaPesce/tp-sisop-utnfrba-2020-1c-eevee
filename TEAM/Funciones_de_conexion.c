@@ -44,7 +44,7 @@ int iniciar_servidor(){
 		exit(1);
 	}
 	else{
-		log_info(team_logger, "Team esta listo para recibir mensajes de gameboy en el socket servidor (%d)\n", server_socket);
+		log_info(team_logger, "Team esta listo para recibir mensajes de gameboy en el socket servidor (%d)", server_socket);
 	}
 
 	return server_socket;

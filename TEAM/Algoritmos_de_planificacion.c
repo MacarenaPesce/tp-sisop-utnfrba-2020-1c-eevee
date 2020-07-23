@@ -109,11 +109,11 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 		log_info(team_logger,"El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, pokemon->especie);//entrenador_mas_cercano->objetivo_actual->especie);
 	}
 	if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
-		if(entrenador_en_ejecucion != NULL && nuevo_entrenador->estimacion_real < entrenador_en_ejecucion->estimacion_actual)
+		if(entrenador_en_ejecucion != NULL && entrenador_mas_cercano->nuevo && entrenador_mas_cercano->estimacion_real < entrenador_en_ejecucion->estimacion_actual)
 		{
-			log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
+			log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",entrenador_mas_cercano->id);
+			entrenador_mas_cercano->nuevo = false;
 			desalojo_en_ejecucion = true;
-			nuevo_entrenador == NULL;
 		}
 	}
 }
@@ -157,9 +157,9 @@ void desalojar_ejecucion(void){
 }
 
 int estimar_entrenador(t_entrenador * entrenador){
-	log_info(team_logger, "El alpha es %f", alpha/100);
+	//log_info(team_logger, "El alpha es %f", alpha/100);
 	entrenador->estimacion_anterior = entrenador->estimacion_real;
-	entrenador->estimacion_real = ((alpha/100)*entrenador->instruccion_actual) + ((1-(alpha/100))*entrenador->estimacion_real);
+	entrenador->estimacion_real = (alpha*entrenador->instruccion_actual) + ((1-alpha)*entrenador->estimacion_real);
 	//log_info(team_logger, "La estimacion real de este entrenador es %f", entrenador->estimacion_real);
 	entrenador->estimacion_actual  = entrenador->estimacion_real;
 	entrenador->instruccion_actual = 0;

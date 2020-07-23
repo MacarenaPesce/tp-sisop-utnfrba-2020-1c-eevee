@@ -67,7 +67,6 @@ extern char* puerto_broker;
 extern char* puerto_team;
 extern char* log_file;
 extern int id;
-
 extern int GLOBAL_SEGUIR;
 extern int CONTADOR_DE_MENSAJES;
 extern int ciclos_de_cpu;
@@ -75,23 +74,25 @@ extern int hilos_entrenadores_total;
 extern int MAXIMO_ENTRENADORES;
 extern int CANTIDAD_EN_DEADLOCK;
 extern bool hayPokeNuevo;
-extern uint32_t quantum_actual;
 extern bool desalojo_en_ejecucion;
 extern char** pokes;
 extern bool hayDeadlock;
+extern bool me_desalojaron;
 
+extern uint32_t quantum_actual;
 extern uint32_t cambios_de_contexto;
 extern uint32_t deadlocks_producidos;
 extern uint32_t deadlocks_resueltos;
-
 extern uint32_t es_el_primer_deadlock;
+extern uint32_t es_la_primera_vez_localized;
+extern uint32_t es_la_primera_vez_caught;
+extern uint32_t es_la_primera_vez_appeared;
 extern uint32_t es_el_primer_pokemon;
 extern uint32_t espera_circular;
 
 extern t_log* team_logger;
 extern t_log* team_logger_oficial;
 extern t_config* config;
-
 
 extern t_list* lista_entrenadores; //lista de entrenadores cargada.
 extern t_list* lista_objetivos;
@@ -118,6 +119,8 @@ extern t_list* lista_bloqueados_esperando_caught;
 extern t_list * lista_pokemones_objetivos_aux;
 extern t_list * lista_asignados;
 extern t_list * lista_historico_appeared_pokemon;
+extern t_list * mensajes_para_chequear_id_catch;
+extern t_list * semaforos_deadlock;
 
 sem_t * array_semaforos;
 sem_t * array_semaforos_rr;
@@ -125,33 +128,12 @@ sem_t * array_semaforos_finalizar;
 sem_t * array_semaforos_deadlock;
 sem_t * array_semaforos_caught;
 sem_t entrenadores_ubicados;
-pthread_mutex_t mapa_mutex;
-pthread_mutex_t llego_gameboy;
-pthread_mutex_t lista_bloq_max_mutex;
-pthread_mutex_t lista_entrenadores_mutex;
-pthread_mutex_t lista_listos_mutex;
-pthread_mutex_t mensaje_chequear_id_mutex;
 sem_t mapa_y_entrenador;
-pthread_mutex_t mutex_para_colas;
-pthread_mutex_t tocando_pokemones_objetivos;
-pthread_mutex_t tocando_semaforos_deadlock;
-pthread_mutex_t lista_comun_deadlock;
-pthread_mutex_t mutex_ciclos_cpu;
-pthread_mutex_t mutex_ciclos_cpu_entrenador;
-pthread_mutex_t bloqueados_esperando_mutex;
-pthread_mutex_t mensaje_nuevo_mutex;
 sem_t mensaje_nuevo_disponible;
 sem_t ultimo_entrenador;
-pthread_mutex_t global_seguir_mutex;
-pthread_mutex_t historico_appeared_pokemon;
-
-t_list * semaforos_deadlock;
-
 sem_t semaforos_listos;
 sem_t hay_interbloqueo;
 sem_t hay_interbloqueo_avisar_a_entrenador;
-pthread_mutex_t mutex_deadlock;
-
 sem_t ejecucion;
 sem_t operar_con_catch;
 sem_t operar_con_appeared;
@@ -166,11 +148,29 @@ sem_t me_bloquee;
 sem_t puedo_volver_a_ejecutar; 
 sem_t termine_carajo;
 sem_t contador_de_deadlocks_producidos;
-pthread_mutex_t pokemones_asignados;
 sem_t podes_sacar_entrenador;
+sem_t objetivos_listos;
+sem_t paquete_usado;
+sem_t fin;
 
-extern bool hayDeadlock;
-extern bool me_desalojaron;
+pthread_mutex_t mapa_mutex;
+pthread_mutex_t llego_gameboy;
+pthread_mutex_t lista_bloq_max_mutex;
+pthread_mutex_t lista_entrenadores_mutex;
+pthread_mutex_t lista_listos_mutex;
+pthread_mutex_t mensaje_chequear_id_mutex;
+pthread_mutex_t mutex_para_colas;
+pthread_mutex_t tocando_pokemones_objetivos;
+pthread_mutex_t tocando_semaforos_deadlock;
+pthread_mutex_t lista_comun_deadlock;
+pthread_mutex_t mutex_ciclos_cpu;
+pthread_mutex_t mutex_ciclos_cpu_entrenador;
+pthread_mutex_t bloqueados_esperando_mutex;
+pthread_mutex_t mensaje_nuevo_mutex;
+pthread_mutex_t global_seguir_mutex;
+pthread_mutex_t historico_appeared_pokemon;
+pthread_mutex_t mutex_deadlock;
+pthread_mutex_t pokemones_asignados;
 
 //Estructura de un entrenador
 enum ESTADO{
@@ -224,6 +224,7 @@ typedef struct {
 	bool agoto_quantum;
 	uint32_t ciclos_de_cpu;
 	bool espera_asignada;
+	bool nuevo;
 } t_entrenador;
 
 typedef struct { //estructura del objetivo global
@@ -249,7 +250,7 @@ typedef struct {
 	uint32_t id_correlacional;
 	void * contenido;
 	enum OPERACION operacion;
-}t_mensaje_ver_id;
+}t_mensaje_guardado_catch;
 
 typedef struct {
 	int cola;

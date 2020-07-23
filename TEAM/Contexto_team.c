@@ -41,6 +41,9 @@ char** pokes;
 
 bool hayDeadlock = false;
 uint32_t es_el_primer_deadlock = true;
+uint32_t es_la_primera_vez_localized = true;
+uint32_t es_la_primera_vez_caught = true;
+uint32_t es_la_primera_vez_appeared = true;
 uint32_t es_el_primer_pokemon = true;
 uint32_t espera_circular = 0;
 
@@ -72,3 +75,4 @@ t_list* lista_bloqueados_esperando_caught;
 t_list * lista_pokemones_objetivos_aux;
 t_list * lista_asignados;
 t_list * lista_historico_appeared_pokemon;
+t_list * mensajes_para_chequear_id_catch;

@@ -9,16 +9,15 @@
 
 void inicializar_logger(){
 	gameboy_logger = log_create("gameboy.log", "Gameboy", 1, LOG_LEVEL_DEBUG);
-	log_info(gameboy_logger,"Hi, bienvenido a Gameboy");
 }
 
 void inicializar_archivo_de_configuracion(){
 	config = config_create("../gameboy.config");
 	if(config == NULL){
-		log_info(gameboy_logger,"El archivo de configuracion no existe. Fijate en la carpeta Debug.");
+		log_info(gameboy_logger,"El archivo de configuracion no existe");
 		terminar_gameboy_correctamente();
 	}else{
-		log_info(gameboy_logger,"Cargando el archivo de configuracion...");
+		//log_info(gameboy_logger,"Cargando el archivo de configuracion...");
 		obtener_valor_config(KEY_CONFIG_IP_BROKER, config, obtener_la_ip_del_broker);
 		obtener_valor_config(KEY_CONFIG_IP_TEAM, config, obtener_la_ip_de_team);
 		obtener_valor_config(KEY_CONFIG_IP_GAMECARD, config, obtener_la_ip_de_gamecard);
@@ -27,7 +26,7 @@ void inicializar_archivo_de_configuracion(){
 		obtener_valor_config(KEY_CONFIG_PUERTO_GAMECARD, config, obtener_el_puerto_de_gamecard);
 		obtener_valor_config(KEY_CONFIG_ID, config, obtener_el_id);
 
-		log_info(gameboy_logger,"Archivo de configuracion cargado correctamente :)\n");
+		//log_info(gameboy_logger,"Archivo de configuracion cargado correctamente :)\n");
 		config_destroy(config);
 	}
 }
@@ -40,37 +39,37 @@ void obtener_valor_config(char* key, t_config* file, void(*obtener)(void)){
 
 void obtener_la_ip_del_broker(){
 	ip_broker = strdup(config_get_string_value(config, KEY_CONFIG_IP_BROKER));
-	log_info(gameboy_logger,"La ip del broker es: %s",ip_broker);
+	//log_info(gameboy_logger,"La ip del broker es: %s",ip_broker);
 }
 
 void obtener_la_ip_de_team(){
 	ip_team = strdup(config_get_string_value(config, KEY_CONFIG_IP_TEAM));
-	log_info(gameboy_logger,"La ip de team es: %s",ip_team);
+	//log_info(gameboy_logger,"La ip de team es: %s",ip_team);
 }
 
 void obtener_la_ip_de_gamecard(){
 	ip_gamecard = strdup(config_get_string_value(config, KEY_CONFIG_IP_GAMECARD));
-	log_info(gameboy_logger,"La ip del gamecard es: %s",ip_gamecard);
+	//log_info(gameboy_logger,"La ip del gamecard es: %s",ip_gamecard);
 }
 
 void obtener_el_puerto_del_broker(){
 	puerto_broker = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_BROKER));
-	log_info(gameboy_logger,"El puerto del broker es: %s",puerto_broker);
+	//log_info(gameboy_logger,"El puerto del broker es: %s",puerto_broker);
 }
 
 void obtener_el_puerto_de_team(){
 	puerto_team = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_TEAM));
-	log_info(gameboy_logger,"El puerto de team es: %s",puerto_team);
+	//log_info(gameboy_logger,"El puerto de team es: %s",puerto_team);
 }
 
 void obtener_el_puerto_de_gamecard(){
 	puerto_gamecard = strdup(config_get_string_value(config, KEY_CONFIG_PUERTO_GAMECARD));
-	log_info(gameboy_logger,"El puerto del gamecard es: %s",puerto_gamecard);
+	//log_info(gameboy_logger,"El puerto del gamecard es: %s",puerto_gamecard);
 }
 
 void obtener_el_id(){
 	id = config_get_int_value(config, KEY_CONFIG_ID);
-	log_info(gameboy_logger,"Mi ID es: %d",id);
+	//log_info(gameboy_logger,"Mi ID es: %d",id);
 }
 
 
@@ -83,16 +82,16 @@ void configurar_signals(void){
 
 	sigaddset(&signal_struct.sa_mask, SIGPIPE);
 	if (sigaction(SIGPIPE, &signal_struct, NULL) < 0) {
-		log_info(gameboy_logger," SIGACTION error ");
+		//log_info(gameboy_logger," SIGACTION error ");
 	}
 
 	sigaddset(&signal_struct.sa_mask, SIGINT);
 	if (sigaction(SIGINT, &signal_struct, NULL) < 0) {
-		log_info(gameboy_logger, " SIGACTION error ");
+		//log_info(gameboy_logger, " SIGACTION error ");
 	}
 	sigaddset(&signal_struct.sa_mask, SIGSEGV);
 	if (sigaction(SIGINT, &signal_struct, NULL) < 0) {
-		log_info(gameboy_logger," SIGACTION error ");
+		//log_info(gameboy_logger," SIGACTION error ");
 	}
 }
 
@@ -105,14 +104,11 @@ void capturar_signal(int signo){
     else if(signo == SIGPIPE){
     	log_info(gameboy_logger,"Desconectado");
     }
-    else if(signo == SIGSEGV){
-    	log_info(gameboy_logger,"SEGMENTATION FAULT");
-	}
 
 }
 
 void terminar_gameboy_correctamente(){
-	log_info(gameboy_logger,"Chau!");
+	log_info(gameboy_logger,"Hice lo que me pidieron, chau!");
 	log_destroy(gameboy_logger);
 	exit(EXIT_SUCCESS);
 }

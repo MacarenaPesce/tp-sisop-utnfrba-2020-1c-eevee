@@ -20,6 +20,8 @@ void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 
 	sem_post(&mensaje_nuevo_disponible);
 
+	sem_wait(&paquete_usado);
+
 	return NULL;
 }
 
@@ -35,6 +37,8 @@ void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
+
+	sem_wait(&paquete_usado);
 
 	return NULL;
 }
@@ -52,10 +56,13 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 
 	sem_post(&mensaje_nuevo_disponible);
 
+	sem_wait(&paquete_usado);
+
 	return NULL;
 }
 
 void enviar_get(){
+	sem_wait(&objetivos_listos);
 	
 	t_servidor * servidor = (t_servidor*)malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
@@ -76,30 +83,29 @@ void enviar_get(){
 		t_packed * ack = enviar_get_pokemon(servidor, -1, get_pokemon);
 		log_info(team_logger, "Enviado pedido de get pokemon para esta especie: %s", objetivo->especie);
 
-		//Recibo ACK
-		if(ack->operacion == ACK){
+		if(ack != (t_packed*)-1){
+			//Recibo ACK
+			if(ack->operacion == ACK){
+				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
+				uint32_t* id_esperando_respuesta = (uint32_t*)malloc(sizeof(uint32_t));
+				memcpy(id_esperando_respuesta,&ack->id_mensaje,sizeof(uint32_t));
 
-			log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
-			uint32_t* id_esperando_respuesta = (uint32_t*)malloc(sizeof(uint32_t));
-			memcpy(id_esperando_respuesta,&ack->id_mensaje,sizeof(uint32_t));
+				pthread_mutex_lock(&mensaje_chequear_id_mutex);
+				list_add(mensajes_para_chequear_id, (void*)id_esperando_respuesta);
+				pthread_mutex_unlock(&mensaje_chequear_id_mutex);
 
-			pthread_mutex_lock(&mensaje_chequear_id_mutex);
-			list_add(mensajes_para_chequear_id, (void*)id_esperando_respuesta);
-			pthread_mutex_unlock(&mensaje_chequear_id_mutex);
-
-			eliminar_mensaje(ack);
-
-		}else{
+				eliminar_mensaje(ack);
+			}
+		}
+		else{
 			log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 			log_info(team_logger, "No existen locaciones para esta especie: %s, cant %i", objetivo->especie, objetivo->cantidad_necesitada);
 		}
-		
-		free(get_pokemon->pokemon);
 
+		free(get_pokemon);
 	}
 
 	list_iterate(lista_objetivos,_enviar_get_pokemon);
-
 	free(servidor);
 	
 }
@@ -128,7 +134,6 @@ void hacer_intento_de_reconexion(){
 }
 
 void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
-	t_packed * paquete;
 
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
@@ -151,8 +156,9 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			suscribirse_a_cola(paquete_suscripcion);
 
 		}else{
+
 			//Recibo ACK
-			paquete = recibir_mensaje(broker_socket);
+			t_packed * paquete = recibir_mensaje(broker_socket);
 
 			if(paquete != (t_packed*)-1){
 				//Quedo a la espera de recibir notificaciones
@@ -160,17 +166,23 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 					switch(paquete->cola_de_mensajes){
 						case COLA_APPEARED_POKEMON:
 							recibir_appeared_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
 							break;
 						case COLA_LOCALIZED_POKEMON:
 							recibir_localized_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
 							break;
 						case COLA_CAUGHT_POKEMON:
 							recibir_caught_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
 							break;
 						default:
-							log_error(team_logger, "RECIBI COLA INVALIDA");
-							log_error(team_logger, "COLA DE MENSAJES:%d", paquete->cola_de_mensajes);
+							eliminar_mensaje(paquete);
 							break;
+					}
+				}else{
+					if(paquete->operacion == ACK){
+						free(paquete);
 					}
 				}
 			}
@@ -179,6 +191,13 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 	free(servidor);
 	free(paquete_suscripcion);
+	free(broker_socket);
 
 	return NULL;
 }
+
+/*if(es_la_primera_vez){
+						es_la_primera_vez = false;
+					}else{
+						free(paquete);
+					}*/
