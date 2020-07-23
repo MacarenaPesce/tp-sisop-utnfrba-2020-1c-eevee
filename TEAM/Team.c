@@ -63,7 +63,7 @@ void agregar_pokemon_a_mapa(t_pokemon * pokemon){
 		list_add(lista_mapa, (void*)pokemon);
 		pthread_mutex_unlock(&mapa_mutex);
 
-		log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa\n", pokemon->especie, pokemon->posx, pokemon->posy);
+		log_info(team_logger, "Agregue el pokemon %s con coordenadas (%d, %d) al mapa", pokemon->especie, pokemon->posx, pokemon->posy);
 	}
 }
 
@@ -78,7 +78,7 @@ void definir_objetivo_global(){
 	list_sort(pokemones_ordenada, (void*)ordenar);
 	log_info(team_logger,"Cargando el objetivo global...");
 	cargar_objetivos(pokemones_ordenada, lista_objetivos);
-	log_info(team_logger,"Objetivo global cargado\n");
+	log_info(team_logger,"Objetivo global cargado");
 	list_remove(lista_objetivos, list_size(lista_objetivos)-1);
 	//mostrar_lo_que_hay_en_la_lista_de_objetivos();
 
@@ -138,7 +138,6 @@ void localizar_entrenadores_en_mapa(){
 		}
 	}
 
-	log_info(team_logger,"Entrenadores ubicados\n");
 	list_destroy_and_destroy_elements(lista_pokemones_de_entrenador, (void*)destruir_objetivo_entrenador);
 	list_destroy_and_destroy_elements(lista_objetivos_de_entrenador, (void*)destruir_objetivo_entrenador);
 
@@ -352,7 +351,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 
 			list_add(lista_bloqueados_esperando_caught, (void*)entrenador);
 			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando que llegue mensaje Caught", entrenador->id);
-			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught\n", entrenador->id);
+			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught", entrenador->id);
 
 			sem_post(&podes_sacar_entrenador);
 			break;
@@ -367,7 +366,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			sacar_entrenador_de_lista_pid(lista_bloqueados_esperando, entrenador->id);
 			pthread_mutex_unlock(&bloqueados_esperando_mutex);
 
-			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar\n", entrenador->id);
+			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
 			sem_post(&me_bloquee);
@@ -414,8 +413,8 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 			list_add(lista_listos, entrenador);
 			pthread_mutex_unlock(&lista_listos_mutex);
 			cambios_de_contexto++;
-			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
-			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
 
 			sem_post(&orden_para_planificar);
 			log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
@@ -445,8 +444,8 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 				list_add(lista_listos, entrenador);
 				pthread_mutex_unlock(&lista_listos_mutex);
 				//cambios_de_contexto++;
-				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
-				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
 				sem_post(&orden_para_planificar);
 				log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
 		}
@@ -487,8 +486,8 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			list_add(lista_listos, entrenador);
 			pthread_mutex_unlock(&lista_listos_mutex);
 			cambios_de_contexto++;
-			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
-			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
 
 			sem_post(&orden_para_planificar);
 			sem_wait(&array_semaforos[entrenador->id]);
@@ -511,7 +510,7 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 			cambios_de_contexto++;
 			
 			if(entrenador->cant_maxima_objetivos == 0 || (entrenador->razon_de_bloqueo != NINGUNA)){
-				log_info(team_logger, "El entrenador de id %d fue desalojado\n", entrenador->id);
+				log_info(team_logger, "El entrenador de id %d fue desalojado", entrenador->id);
 				sem_post(&orden_para_planificar);
 
 			}else{
@@ -519,8 +518,8 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 				list_add(lista_listos, entrenador);
 				pthread_mutex_unlock(&lista_listos_mutex);
 				//cambios_de_contexto++;
-				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
-				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready\n", entrenador->id);
+				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
 				sem_post(&orden_para_planificar);
 				sem_wait(&array_semaforos[entrenador->id]);
 			}
@@ -650,14 +649,13 @@ void tratar_localized_pokemon(t_packed* paquete){
 void tratar_caught_pokemon(t_packed* paquete){
 	t_caught_pokemon * caught = paquete->mensaje;
 	operar_con_caught_pokemon(caught->status, paquete->id_correlacional);
-
 	return;
 }
 
 int main(int arcg, char** argv[]){
 
-	inicializar_logger();
 	inicializar_archivo_de_configuracion(argv[1]);
+	inicializar_logger();
 	inicializar_semaforos();
 	configurar_signals();
 	inicializar_listas();

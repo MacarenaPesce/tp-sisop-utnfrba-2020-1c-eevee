@@ -29,7 +29,7 @@ void mostrar_lo_que_hay_en_lista_entrenadores(){
 		if(entrenador == NULL){
 			break;
 		}
-		log_info(team_logger,"Un entrenador tiene id = %i, pos x = %i, y = %i, y puede atrapar %i pokemones\n", entrenador->id, entrenador->posx, entrenador->posy, entrenador->cant_maxima_objetivos);
+		log_info(team_logger,"Un entrenador tiene id = %i, pos x = %i, y = %i, y puede atrapar %i pokemones", entrenador->id, entrenador->posx, entrenador->posy, entrenador->cant_maxima_objetivos);
 		l++;
 	}
 	//free(entrenador);

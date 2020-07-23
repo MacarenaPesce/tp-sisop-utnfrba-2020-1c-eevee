@@ -154,8 +154,8 @@ atrapado con éxito.*/
 	}else{
 		//Recibo ACK
 		if(ack->operacion == ACK){
-			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s, el id es %d\n", entrenador->objetivo_actual->especie, ack->id_mensaje);
-			log_info(team_logger_oficial, "Confirmada recepcion del pedido CATCH para el pokemon: %s\n", entrenador->objetivo_actual->especie);
+			log_info(team_logger, "Confirmada recepcion del pedido CATCH para el pokemon: %s, el id es %d", entrenador->objetivo_actual->especie, ack->id_mensaje);
+			log_info(team_logger_oficial, "Confirmada recepcion del pedido CATCH para el pokemon: %s", entrenador->objetivo_actual->especie);
 
 			t_mensaje_guardado_catch * mensaje = malloc(sizeof(t_mensaje_guardado_catch));
 			mensaje->id = ack->id_mensaje;
