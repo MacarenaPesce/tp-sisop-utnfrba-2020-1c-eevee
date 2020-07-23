@@ -161,7 +161,6 @@ void* mostrar_contenido_del_mensaje(void* _socket){
 					break;
 
 				case ACK:
-					printf("el paquete es %d",paquete);
 					if(paquete->id_mensaje == -1){
 						log_info(gameboy_logger,"recibido ack de suscripcion");
 						free(paquete);
