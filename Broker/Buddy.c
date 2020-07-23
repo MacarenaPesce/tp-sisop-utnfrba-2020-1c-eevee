@@ -11,7 +11,6 @@ extern char* log_file;
 extern t_log* broker_logger;
 extern t_config* config;
 
-extern t_cache_colas* cache_mensajes;
 
 /*
 	FUNCIONAMIENTO:
@@ -41,7 +40,6 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 	int bytes_potencia_dos = numero_potencia_dos(bytes_a_alojar);
 
     if(debug_broker) log_debug(broker_logger,"Particion a crear de: %i", bytes_potencia_dos);
-	printf("\n");
 
     /* Me fijo si la particion puede alojarse a la primera */
     bool sePuedeAlojar = puede_alojarse(bytes_potencia_dos);
@@ -57,7 +55,6 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
         if(sePuedeAlojar == true){ 
 
 			//if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
-	        printf("\n");
 
             /* 	Si puede alojarse a la primera: Alojo la partición según el funcionamiento de buddies  */
 			asignar_bloque_BS(estructura_mensaje, bytes_potencia_dos);
@@ -95,7 +92,6 @@ void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_de_partic
 
 	void* posicion_relativa = calcular_posicion_relativa(particion);
 	if(debug_broker) log_debug(broker_logger,"Encontre particion libre, posicion relativa %d", posicion_relativa);
-	printf("\n");
 
 	/* Particionar el bloque y asignar datos*/
 	particionar_bloque_buddies( particion, estructura_mensaje, tamanio_de_particion);
@@ -187,7 +183,6 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 		
 			void* pos_relativa_buddie = calcular_posicion_relativa(bloque_restante);
 			if(debug_broker) log_debug(broker_logger,"Buddies particionados, nuevo buddie en: %d , de tamaño: %d", pos_relativa_buddie, tamanio_restante);
-			printf("\n");
 		}
 
 		/* Me fijo de nuevo si puedo particionar para ver si sigo en el while o corto*/
@@ -224,7 +219,6 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
     	log_info(broker_logger, "Almacenado en la posicion relativa %d",posicion_relativa);
 
 		if(debug_broker) log_debug(broker_logger, "Bloque particionado...");
-    	printf("\n");
 	}
     //muestro por pantalla antes de compactar como estaba la memoria
     if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
@@ -249,7 +243,6 @@ t_bloque_memoria* reemplazar_bloque_BS(){
     }
 
     if(debug_broker) log_debug(broker_logger,"Termine de ejecutar el reemplazo");
-    printf("\n");
 
 	return bloque_eliminado;
 }
@@ -277,7 +270,6 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
-		printf("\n");
 
 		// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
 		consolidacion_BS(bloque_borrado);
@@ -292,7 +284,6 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 
 		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
-		printf("\n");
 
 		// Como consolido, implemento recursividad para ver si tengo mas buddies para consolidar
 		consolidacion_BS(bloque_anterior);
@@ -301,7 +292,6 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 	if(debug_broker) log_debug(broker_logger,"No tengo más buddies libres.");
 
 	if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
-    printf("\n");
 
 	return ;
 }
@@ -391,7 +381,6 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 
 			if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 			if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
-			printf("\n");
 
 			//seteo de nuevo tiene_buddies para ver si sigo en el while o lo corto
 			tiene_buddies = tiene_buddies_libres(bloque);
@@ -408,7 +397,6 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 
 			if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
 			if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
-			printf("\n");
 
 			//seteo de nuevo tiene_buddies para ver si sigo en el while o lo corto
 			tiene_buddies = tiene_buddies_libres(bloque_anterior);
@@ -419,7 +407,6 @@ void consolidacion_BS(t_bloque_memoria* bloque){
 	if(debug_broker) log_debug(broker_logger,"No tengo más buddies libres.");
 
 	if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
-    printf("\n");
 
 	return ;
 }

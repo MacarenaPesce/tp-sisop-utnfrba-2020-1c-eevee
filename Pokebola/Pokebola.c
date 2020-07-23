@@ -50,9 +50,9 @@ void cerrar_conexion(int sock){
 //Envio y recepcion
 int recibir_paquete(int sock, void *mensaje, int tamanio){
 
-	int bytes_recibidos;
+	int bytes_recibidos = recv(sock, mensaje, tamanio, 0);
 
-	if((bytes_recibidos = recv(sock, mensaje, tamanio, 0)) < 0) {
+	if(bytes_recibidos < 0) {
 		perror("Error en el recv.\n");
 		return -1;
 	}

@@ -1,7 +1,5 @@
 #include "ColaMensajes.h"
 
-extern t_cache_colas* cache_mensajes;
-
 /* Flujo de mensajes */
 int agregar_mensaje_a_cola(t_packed* paquete){	
 
@@ -75,9 +73,7 @@ void enviar_mensajes_cacheados_a_suscriptor(t_cola_mensajes* cola,int cliente){
 
 /* Flujo de ACK */
 
-void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente, int socket_cliente){
-
-	log_info(broker_logger, "El cliente %d envió confirmación del mensaje %d a través del socket %d ",id_cliente, id_mensaje, socket_cliente);
+void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente){
 
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
@@ -123,7 +119,7 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		if(debug_broker) log_debug(broker_logger,"Los pendientes tienen %d mensajes",(cola->envios_pendientes)->elements_count);
 		
-		envio_pendiente = list_get(cola->envios_pendientes,0);
+		envio_pendiente = list_remove(cola->envios_pendientes,0);
 
 		t_mensaje_cola * mensaje = obtener_mensaje_por_id(envio_pendiente->id);
 
@@ -151,12 +147,12 @@ void* sender_suscriptores(void* cola_mensajes){
 
 		if(envio != -1){			
 			log_info(broker_logger, "Se envió mensaje %d perteneciente a la cola %d al cliente %d", envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
-			eliminar_mensaje_enviado(cola);
             if(debug_broker) log_debug(broker_logger,"Los pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
         }else{
 			log_error(broker_logger,"Falló el envío del mensaje %d perteneciente a la cola %d al cliente %d. Se reintentará cuando se vuelva a suscribir",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
-            eliminar_mensaje_enviado(cola);
 		}
+		
+		eliminar_envio_pendiente(envio_pendiente);
 
 		pthread_mutex_unlock(&mutex_queue_mensajes);
 	}

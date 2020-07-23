@@ -9,7 +9,6 @@ extern char* ip_broker;
 extern int frecuencia_compactacion;
 extern char* puerto_broker;
 extern char* log_file;
-extern t_cache_colas* cache_mensajes;
 
 extern t_config* config;
 extern t_log* broker_logger;
@@ -158,13 +157,15 @@ void terminar_broker_correctamente(){
 	
 	pthread_mutex_unlock(&mutex_server_status);
 
+	sem_post(&transaccionar_paquetes_pendientes);
+
  	pthread_mutex_lock(&mutex_queue_mensajes);
 
 	cerrar_senders();
 
 	vaciar_sockets_de_clientes();
 
-	pthread_mutex_unlock(&mutex_queue_mensajes); 
+	pthread_mutex_unlock(&mutex_queue_mensajes); 	
 
 	sleep(2);
 		
