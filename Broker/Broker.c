@@ -11,7 +11,7 @@ int main(){
 	//inicializo los logs
 	inicializar_logger();
 	//activo los logs de debug
-	debug_broker = false;
+	debug_broker = true;
 
 	if(debug_broker) log_debug(broker_logger, "1) Cache de mensajes lista!!!");
 	
