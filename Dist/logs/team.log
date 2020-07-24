@@ -1,0 +1,351 @@
+[INFO] 21:15:57:835 Team/(17187:17187): Cargando el objetivo global...
+[INFO] 21:15:57:866 Team/(17187:17187): Objetivo global cargado
+[INFO] 21:15:57:918 Team/(17187:17187): Team esta listo para recibir mensajes de gameboy en el socket servidor (15)
+[INFO] 21:15:57:948 Team/(17187:17187): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 21:15:57:948 Team/(17187:17187): Confirmada recepcion del pedido get para el pokemon: Squirtle
+
+[INFO] 21:15:57:963 Team/(17187:17187): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 21:15:57:963 Team/(17187:17187): Confirmada recepcion del pedido get para el pokemon: Pikachu
+
+[INFO] 21:15:57:987 Team/(17187:17187): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 21:15:57:988 Team/(17187:17187): Confirmada recepcion del pedido get para el pokemon: Onix
+
+[INFO] 21:15:57:0 Team/(17187:17187): Enviado pedido de get pokemon para esta especie: Gengar
+[INFO] 21:15:57:1 Team/(17187:17187): Confirmada recepcion del pedido get para el pokemon: Gengar
+
+[DEBUG] 21:15:58:31 Team/(17187:17200): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
+[INFO] 21:15:58:38 Team/(17187:17197): No necesito este pokemon: Flareon
+[DEBUG] 21:16:03:21 Team/(17187:17201): Llego el sgte mensaje: LOCALIZED_POKEMON de la especie Squirtle
+[INFO] 21:16:03:30 Team/(17187:17197): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 21:16:03:32 Team/(17187:17197): Agregue el pokemon Squirtle con coordenadas (5, 2) al mapa
+[INFO] 21:16:03:35 Team/(17187:17190): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 21:16:03:36 Team/(17187:17190): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (5, 2)
+[INFO] 21:16:06:928 Team/(17226:17226): Cargando el objetivo global...
+[INFO] 21:16:06:953 Team/(17226:17226): Objetivo global cargado
+[INFO] 21:16:06:976 Team/(17226:17226): Team esta listo para recibir mensajes de gameboy en el socket servidor (15)
+[INFO] 21:16:07:13 Team/(17226:17226): Enviado pedido de get pokemon para esta especie: Vaporeon
+[INFO] 21:16:07:13 Team/(17226:17226): Confirmada recepcion del pedido get para el pokemon: Vaporeon
+
+[INFO] 21:16:07:29 Team/(17226:17226): Enviado pedido de get pokemon para esta especie: Umbreon
+[INFO] 21:16:07:29 Team/(17226:17226): Confirmada recepcion del pedido get para el pokemon: Umbreon
+
+[INFO] 21:16:07:51 Team/(17226:17226): Enviado pedido de get pokemon para esta especie: Jolteon
+[INFO] 21:16:07:52 Team/(17226:17226): Confirmada recepcion del pedido get para el pokemon: Jolteon
+
+[INFO] 21:16:07:65 Team/(17226:17226): Enviado pedido de get pokemon para esta especie: Flareon
+[INFO] 21:16:07:65 Team/(17226:17226): Confirmada recepcion del pedido get para el pokemon: Flareon
+
+[INFO] 21:16:07:73 Team/(17226:17226): Enviado pedido de get pokemon para esta especie: Espeon
+[INFO] 21:16:07:73 Team/(17226:17226): Confirmada recepcion del pedido get para el pokemon: Espeon
+
+[DEBUG] 21:16:08:72 Team/(17187:17201): Llego el sgte mensaje: LOCALIZED_POKEMON de la especie Pikachu
+[DEBUG] 21:16:08:75 Team/(17226:17241): Llego el sgte mensaje: LOCALIZED_POKEMON de la especie Pikachu
+[INFO] 21:16:08:75 Team/(17187:17197): El entrenador 1 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 21:16:08:77 Team/(17187:17197): Agregue el pokemon Pikachu con coordenadas (9, 9) al mapa
+[INFO] 21:16:13:48 Team/(17187:17190): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 21:16:13:62 Team/(17187:17190): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 21:16:13:64 Team/(17187:17190): Confirmada recepcion del pedido CATCH para el pokemon: Squirtle, el id es 19
+[INFO] 21:16:13:67 Team/(17187:17190): El entrenador 2 esta bloqueado esperando que llegue mensaje caught
+[DEBUG] 21:16:13:122 Team/(17187:17201): Llego el sgte mensaje: LOCALIZED_POKEMON de la especie Jolteon
+[DEBUG] 21:16:13:123 Team/(17226:17241): Llego el sgte mensaje: LOCALIZED_POKEMON de la especie Jolteon
+[INFO] 21:16:13:131 Team/(17226:17237): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
+[INFO] 21:16:13:133 Team/(17226:17237): Agregue el pokemon Jolteon con coordenadas (2, 2) al mapa
+[INFO] 21:16:13:139 Team/(17226:17227): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 21:16:13:140 Team/(17226:17227): El entrenador 0 se mueve a atrapar a Jolteon a la posicion (2, 2)
+[DEBUG] 21:16:18:111 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 19 y status 0
+[DEBUG] 21:16:18:112 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 19 y status 0
+[INFO] 21:16:18:114 Team/(17187:17197): El pokemon Squirtle ha sido atrapado con exito por el entrenador 2
+[INFO] 21:16:18:117 Team/(17187:17197): El entrenador 2 esta bloqueado esperando que aparezcan pokemones
+[INFO] 21:16:18:122 Team/(17187:17189): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 21:16:18:122 Team/(17187:17189): El entrenador 1 se mueve a atrapar a Pikachu a la posicion (9, 9)
+[DEBUG] 21:16:18:138 Team/(17187:17201): Llego el sgte mensaje: LOCALIZED_POKEMON de la especie Flareon
+[DEBUG] 21:16:18:139 Team/(17226:17241): Llego el sgte mensaje: LOCALIZED_POKEMON de la especie Flareon
+[INFO] 21:16:18:140 Team/(17226:17237): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
+[INFO] 21:16:18:140 Team/(17226:17237): Agregue el pokemon Flareon con coordenadas (4, 6) al mapa
+[INFO] 21:16:18:142 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:16:18:143 Team/(17226:17228): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 21:16:18:144 Team/(17226:17228): El entrenador 1 se mueve a atrapar a Flareon a la posicion (4, 6)
+[INFO] 21:16:23:353 Team/(17226:17228): El entrenador de id 1 fue desalojado y paso a Ready
+[INFO] 21:16:23:355 Team/(17226:17227): El entrenador de id 0 llegó al pokemon Jolteon.
+[INFO] 21:16:23:368 Team/(17226:17227): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Jolteon
+[INFO] 21:16:23:369 Team/(17226:17227): Confirmada recepcion del pedido CATCH para el pokemon: Jolteon, el id es 23
+[INFO] 21:16:23:370 Team/(17226:17227): El entrenador 0 esta bloqueado esperando que llegue mensaje caught
+[INFO] 21:16:28:372 Team/(17226:17227): El entrenador de id 0 fue desalojado
+[DEBUG] 21:16:28:389 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 23 y status 0
+[DEBUG] 21:16:28:390 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 23 y status 0
+[INFO] 21:16:28:392 Team/(17226:17237): El pokemon Jolteon ha sido atrapado con exito por el entrenador 0
+[INFO] 21:16:28:395 Team/(17226:17237): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 21:16:33:397 Team/(17226:17228): El entrenador de id 1 fue desalojado y paso a Ready
+[INFO] 21:16:38:603 Team/(17226:17228): El entrenador de id 1 fue desalojado y paso a Ready
+[INFO] 21:16:38:605 Team/(17226:17228): El entrenador de id 1 llegó al pokemon Flareon.
+[INFO] 21:16:38:624 Team/(17226:17228): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Flareon
+[INFO] 21:16:38:625 Team/(17226:17228): Confirmada recepcion del pedido CATCH para el pokemon: Flareon, el id es 25
+[INFO] 21:16:38:626 Team/(17226:17228): El entrenador 1 esta bloqueado esperando que llegue mensaje caught
+[INFO] 21:16:43:626 Team/(17226:17228): El entrenador de id 1 fue desalojado
+[DEBUG] 21:16:43:654 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 25 y status 0
+[DEBUG] 21:16:43:655 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 25 y status 0
+[INFO] 21:16:43:656 Team/(17226:17237): El pokemon Flareon ha sido atrapado con exito por el entrenador 1
+[INFO] 21:16:43:657 Team/(17226:17237): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 21:17:23:650 Team/(17187:17189): El entrenador de id 1 llegó al pokemon Pikachu.
+[INFO] 21:17:23:662 Team/(17187:17189): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Pikachu
+[INFO] 21:17:23:662 Team/(17187:17189): Confirmada recepcion del pedido CATCH para el pokemon: Pikachu, el id es 27
+[INFO] 21:17:23:663 Team/(17187:17189): El entrenador 1 esta bloqueado esperando que llegue mensaje caught
+[DEBUG] 21:17:24:214 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 27 y status 0
+[INFO] 21:17:24:215 Team/(17187:17197): El pokemon Pikachu ha sido atrapado con exito por el entrenador 1
+[DEBUG] 21:17:24:215 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 27 y status 0
+[INFO] 21:17:24:216 Team/(17187:17197): El entrenador 1 esta bloqueado esperando que aparezcan pokemones
+[DEBUG] 21:17:48:256 Team/(17187:17200): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 8)
+[DEBUG] 21:17:48:258 Team/(17226:17240): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 8)
+[INFO] 21:17:48:259 Team/(17187:17197): El entrenador 0 pasa a Ready por ser el mas cercano a Onix
+[INFO] 21:17:48:259 Team/(17187:17197): Agregue el pokemon Onix con coordenadas (2, 8) al mapa
+[INFO] 21:17:48:261 Team/(17187:17188): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 21:17:48:261 Team/(17226:17237): No necesito este pokemon: Onix
+[INFO] 21:17:48:261 Team/(17187:17188): El entrenador 0 se mueve a atrapar a Onix a la posicion (2, 8)
+[DEBUG] 21:17:53:309 Team/(17187:17200): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (6, 6)
+[DEBUG] 21:17:53:310 Team/(17226:17240): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (6, 6)
+[INFO] 21:17:53:310 Team/(17226:17237): No necesito este pokemon: Gengar
+[INFO] 21:17:53:312 Team/(17187:17197): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 21:17:53:312 Team/(17187:17197): Agregue el pokemon Gengar con coordenadas (6, 6) al mapa
+[DEBUG] 21:17:58:373 Team/(17187:17200): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (5, 5)
+[DEBUG] 21:17:58:374 Team/(17226:17240): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (5, 5)
+[INFO] 21:17:58:375 Team/(17226:17237): No necesito este pokemon: Squirtle
+[INFO] 21:17:58:375 Team/(17187:17197): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 21:17:58:376 Team/(17187:17197): Agregue el pokemon Squirtle con coordenadas (5, 5) al mapa
+[DEBUG] 21:18:03:412 Team/(17226:17240): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
+[DEBUG] 21:18:03:412 Team/(17187:17200): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
+[INFO] 21:18:03:414 Team/(17187:17197): No necesito este pokemon: Umbreon
+[INFO] 21:18:03:415 Team/(17226:17237): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
+[INFO] 21:18:03:416 Team/(17226:17237): Agregue el pokemon Umbreon con coordenadas (10, 6) al mapa
+[INFO] 21:18:03:417 Team/(17226:17229): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 21:18:03:417 Team/(17226:17229): El entrenador 2 se mueve a atrapar a Umbreon a la posicion (10, 6)
+[INFO] 21:18:08:420 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[DEBUG] 21:18:08:444 Team/(17187:17200): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
+[INFO] 21:18:08:444 Team/(17187:17197): No necesito este pokemon: Espeon
+[DEBUG] 21:18:08:445 Team/(17226:17240): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
+[INFO] 21:18:08:445 Team/(17226:17237): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
+[INFO] 21:18:08:446 Team/(17226:17237): Agregue el pokemon Espeon con coordenadas (7, 1) al mapa
+[INFO] 21:18:13:432 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:18:13:435 Team/(17226:17230): Soy el entrenador que va a ejecutar, mi id es: 3.
+[INFO] 21:18:13:435 Team/(17226:17230): El entrenador 3 se mueve a atrapar a Espeon a la posicion (7, 1)
+[DEBUG] 21:18:13:476 Team/(17187:17200): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
+[INFO] 21:18:13:477 Team/(17187:17197): No necesito este pokemon: Vaporeon
+[DEBUG] 21:18:13:477 Team/(17226:17240): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
+[INFO] 21:18:13:477 Team/(17226:17237): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
+[INFO] 21:18:13:477 Team/(17226:17237): Agregue el pokemon Vaporeon con coordenadas (4, 10) al mapa
+[INFO] 21:18:18:309 Team/(17187:17188): El entrenador de id 0 llegó al pokemon Onix.
+[INFO] 21:18:18:318 Team/(17187:17188): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Onix
+[INFO] 21:18:18:318 Team/(17187:17188): Confirmada recepcion del pedido CATCH para el pokemon: Onix, el id es 41
+[INFO] 21:18:18:319 Team/(17187:17188): El entrenador 0 esta bloqueado esperando que llegue mensaje caught
+[DEBUG] 21:18:18:350 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 41 y status 0
+[DEBUG] 21:18:18:351 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 41 y status 0
+[INFO] 21:18:18:351 Team/(17187:17197): El pokemon Onix ha sido atrapado con exito por el entrenador 0
+[INFO] 21:18:18:353 Team/(17187:17197): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 21:18:18:354 Team/(17187:17190): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 21:18:18:354 Team/(17187:17190): El entrenador 2 se mueve a atrapar a Gengar a la posicion (6, 6)
+[INFO] 21:18:18:439 Team/(17226:17230): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 21:18:23:441 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:18:23:442 Team/(17226:17231): Soy el entrenador que va a ejecutar, mi id es: 4.
+[INFO] 21:18:23:442 Team/(17226:17231): El entrenador 4 se mueve a atrapar a Vaporeon a la posicion (4, 10)
+[INFO] 21:18:28:443 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:18:33:450 Team/(17226:17230): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 21:18:38:452 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:18:43:376 Team/(17187:17190): El entrenador de id 2 llegó al pokemon Gengar.
+[INFO] 21:18:43:387 Team/(17187:17190): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Gengar
+[INFO] 21:18:43:387 Team/(17187:17190): Confirmada recepcion del pedido CATCH para el pokemon: Gengar, el id es 43
+[INFO] 21:18:43:388 Team/(17187:17190): El entrenador 2 esta bloqueado esperando que llegue mensaje caught
+[DEBUG] 21:18:43:452 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 43 y status 0
+[DEBUG] 21:18:43:452 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 43 y status 0
+[INFO] 21:18:43:453 Team/(17187:17197): El pokemon Gengar ha sido atrapado con exito por el entrenador 2
+[INFO] 21:18:43:453 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:18:43:453 Team/(17187:17197): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 21:18:43:454 Team/(17187:17189): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 21:18:43:454 Team/(17187:17189): El entrenador 1 se mueve a atrapar a Squirtle a la posicion (5, 5)
+[INFO] 21:18:48:456 Team/(17226:17230): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 21:18:48:456 Team/(17226:17229): El entrenador de id 2 llegó al pokemon Umbreon.
+[INFO] 21:18:48:469 Team/(17226:17229): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Umbreon
+[INFO] 21:18:48:469 Team/(17226:17229): Confirmada recepcion del pedido CATCH para el pokemon: Umbreon, el id es 45
+[INFO] 21:18:48:470 Team/(17226:17229): El entrenador 2 esta bloqueado esperando que llegue mensaje caught
+[DEBUG] 21:18:48:490 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 45 y status 0
+[DEBUG] 21:18:48:491 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 45 y status 0
+[INFO] 21:18:48:492 Team/(17226:17237): El pokemon Umbreon ha sido atrapado con exito por el entrenador 2
+[INFO] 21:18:48:493 Team/(17226:17237): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 21:18:53:471 Team/(17226:17229): El entrenador de id 2 fue desalojado
+[INFO] 21:18:53:472 Team/(17226:17230): El entrenador de id 3 llegó al pokemon Espeon.
+[INFO] 21:18:53:482 Team/(17226:17230): El entrenador 3 hizo el pedido de catch pokemon para esta especie: Espeon
+[INFO] 21:18:53:483 Team/(17226:17230): Confirmada recepcion del pedido CATCH para el pokemon: Espeon, el id es 47
+[INFO] 21:18:53:484 Team/(17226:17230): El entrenador 3 esta bloqueado esperando que llegue mensaje caught
+[INFO] 21:18:53:494 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:18:53:495 Team/(17226:17231): El entrenador de id 4 llegó al pokemon Vaporeon.
+[DEBUG] 21:18:53:509 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 47 y status 0
+[DEBUG] 21:18:53:510 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 47 y status 0
+[INFO] 21:18:53:512 Team/(17226:17237): El pokemon Espeon ha sido atrapado con exito por el entrenador 3
+[INFO] 21:18:53:512 Team/(17226:17237): El entrenador 3 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 21:18:53:525 Team/(17226:17231): El entrenador 4 hizo el pedido de catch pokemon para esta especie: Vaporeon
+[INFO] 21:18:53:525 Team/(17226:17231): Confirmada recepcion del pedido CATCH para el pokemon: Vaporeon, el id es 49
+[INFO] 21:18:53:526 Team/(17226:17231): El entrenador 4 esta bloqueado esperando que llegue mensaje caught
+[DEBUG] 21:18:53:541 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 49 y status 0
+[DEBUG] 21:18:53:542 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 49 y status 0
+[INFO] 21:18:53:548 Team/(17226:17237): El pokemon Vaporeon ha sido atrapado con exito por el entrenador 4
+[INFO] 21:18:53:549 Team/(17226:17237): El entrenador 4 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 21:18:58:485 Team/(17226:17230): El entrenador de id 3 fue desalojado
+[INFO] 21:18:58:531 Team/(17226:17231): El entrenador de id 4 fue desalojado
+[WARNING] 21:18:58:541 Team/(17226:17239): Deadlock detectado
+[INFO] 21:18:58:542 Team/(17226:17239): La cantidad de entrenadores en deadlock es 5
+[INFO] 21:18:58:552 Team/(17226:17239): La cantidad de deadlocks producidos es 1
+[INFO] 21:18:58:555 Team/(17226:17239): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 21:18:58:558 Team/(17226:17239): El pokemon innecesario del entrenador 0 es  Jolteon
+[INFO] 21:18:58:559 Team/(17226:17239): Hay deadlock entre el entrenador 0 y el entrenador 1
+[INFO] 21:18:58:561 Team/(17226:17239): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 21:18:58:563 Team/(17226:17239): Haciendo el intercambio
+[INFO] 21:18:58:565 Team/(17226:17227): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 21:18:58:565 Team/(17226:17227): El entrenador 0 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 21:19:03:585 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:08:592 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:13:596 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:18:600 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:23:481 Team/(17187:17189): El entrenador de id 1 llegó al pokemon Squirtle.
+[INFO] 21:19:23:499 Team/(17187:17189): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 21:19:23:499 Team/(17187:17189): Confirmada recepcion del pedido CATCH para el pokemon: Squirtle, el id es 51
+[INFO] 21:19:23:500 Team/(17187:17189): El entrenador 1 esta bloqueado esperando que llegue mensaje caught
+[INFO] 21:19:23:605 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[DEBUG] 21:19:28:517 Team/(17187:17202): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 51 y status 0
+[INFO] 21:19:28:518 Team/(17187:17197): El pokemon Squirtle ha sido atrapado con exito por el entrenador 1
+[INFO] 21:19:28:519 Team/(17187:17197): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[DEBUG] 21:19:28:519 Team/(17226:17242): Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> 51 y status 0
+[WARNING] 21:19:28:523 Team/(17187:17199): Deadlock detectado
+[INFO] 21:19:28:524 Team/(17187:17199): La cantidad de entrenadores en deadlock es 3
+[INFO] 21:19:28:531 Team/(17187:17199): La cantidad de deadlocks producidos es 1
+[INFO] 21:19:28:533 Team/(17187:17199): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 21:19:28:535 Team/(17187:17199): El pokemon innecesario del entrenador 0 es  Onix
+[INFO] 21:19:28:536 Team/(17187:17199): Hay deadlock entre el entrenador 0 y el entrenador 2
+[INFO] 21:19:28:537 Team/(17187:17199): El entrenador 2 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 21:19:28:538 Team/(17187:17199): Haciendo el intercambio
+[INFO] 21:19:28:539 Team/(17187:17188): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 21:19:28:540 Team/(17187:17188): El entrenador 0 se mueve a la posicion de coordenadas (6, 6)
+[INFO] 21:19:28:619 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:28:623 Team/(17226:17227): El entrenador de id 0 llegó a la posicion del entrenador de id 1
+[INFO] 21:19:33:624 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:38:626 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:43:628 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:48:635 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:53:648 Team/(17226:17227): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 21:19:53:650 Team/(17226:17227): Se va a realizar un intercambio entre el entrenador 0 y 1
+[INFO] 21:19:53:654 Team/(17226:17227): Se intercambiaron los pokemones Jolteon y Flareon entre los entrenadores 0 y 1
+[INFO] 21:19:53:656 Team/(17226:17239): Luego de hacer un intercambio el entrenador 0 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 21:19:53:659 Team/(17226:17228): El entrenador 1 finalizo
+[WARNING] 21:19:53:664 Team/(17226:17239): Deadlock detectado
+[INFO] 21:19:53:664 Team/(17226:17239): La cantidad de entrenadores en deadlock es 4
+[INFO] 21:19:53:664 Team/(17226:17239): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
+[INFO] 21:19:53:665 Team/(17226:17239): El pokemon innecesario del entrenador 2 es  Umbreon
+[INFO] 21:19:53:665 Team/(17226:17239): Hay deadlock entre el entrenador 2 y el entrenador 3
+[INFO] 21:19:53:666 Team/(17226:17239): El entrenador 3 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 21:19:53:666 Team/(17226:17239): Haciendo el intercambio
+[INFO] 21:19:53:667 Team/(17226:17229): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
+[INFO] 21:19:53:668 Team/(17226:17229): El entrenador 2 se mueve a la posicion de coordenadas (7, 1)
+[INFO] 21:19:58:552 Team/(17187:17188): El entrenador de id 0 llegó a la posicion del entrenador de id 2
+[INFO] 21:19:58:669 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:03:679 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:08:724 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:13:732 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:18:733 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:23:579 Team/(17187:17188): Se va a realizar un intercambio entre el entrenador 0 y 2
+[INFO] 21:20:23:582 Team/(17187:17188): Se intercambiaron los pokemones Onix y Gengar entre los entrenadores 0 y 2
+[INFO] 21:20:23:585 Team/(17187:17199): Luego de hacer un intercambio el entrenador 0 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 21:20:23:588 Team/(17187:17190): El entrenador 2 finalizo
+[WARNING] 21:20:23:593 Team/(17187:17199): Deadlock detectado
+[INFO] 21:20:23:593 Team/(17187:17199): La cantidad de entrenadores en deadlock es 2
+[INFO] 21:20:23:593 Team/(17187:17199): El entrenador 1 pasó a la lista de listos para resolucion de deadlock
+[INFO] 21:20:23:594 Team/(17187:17199): El pokemon innecesario del entrenador 1 es  Squirtle
+[INFO] 21:20:23:595 Team/(17187:17199): Hay deadlock entre el entrenador 1 y el entrenador 0
+[INFO] 21:20:23:595 Team/(17187:17199): El entrenador 0 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 21:20:23:596 Team/(17187:17199): Haciendo el intercambio
+[INFO] 21:20:23:596 Team/(17187:17189): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 1.
+[INFO] 21:20:23:596 Team/(17187:17189): El entrenador 1 se mueve a la posicion de coordenadas (6, 6)
+[INFO] 21:20:23:736 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:28:746 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:33:699 Team/(17187:17189): El entrenador de id 1 llegó a la posicion del entrenador de id 0
+[INFO] 21:20:33:750 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:33:752 Team/(17226:17229): El entrenador de id 2 llegó a la posicion del entrenador de id 3
+[INFO] 21:20:38:757 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:43:760 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:48:763 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:53:764 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:58:711 Team/(17187:17189): Se va a realizar un intercambio entre el entrenador 1 y 0
+[INFO] 21:20:58:712 Team/(17187:17189): Se intercambiaron los pokemones Squirtle y Gengar entre los entrenadores 1 y 0
+[DEBUG] 21:20:58:713 Team/(17187:17188): El entrenador 0 finalizo
+[DEBUG] 21:20:58:714 Team/(17187:17189): El entrenador 1 finalizo
+[INFO] 21:20:58:718 Team/(17187:17199): Objetivo global cumplido!!!!! :D
+[INFO] 21:20:58:718 Team/(17187:17199): La cantidad de ciclos de CPU totales es: 57
+[INFO] 21:20:58:719 Team/(17187:17199): La cantidad de cambios de contextos realizados es: 12
+[INFO] 21:20:58:720 Team/(17187:17199): La cantidad de ciclos de CPU realizados por el entrenador 2 es: 9
+[INFO] 21:20:58:721 Team/(17187:17199): La cantidad de ciclos de CPU realizados por el entrenador 1 es: 30
+[INFO] 21:20:58:721 Team/(17187:17199): La cantidad de ciclos de CPU realizados por el entrenador 0 es: 18
+[INFO] 21:20:58:721 Team/(17187:17199): La cantidad de deadlocks producidos es: 1
+[INFO] 21:20:58:722 Team/(17187:17199): La cantidad de deadlocks resueltos es: 1
+[INFO] 21:20:58:722 Team/(17187:17199): Cerrando team...
+[INFO] 21:20:58:918 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:20:58:923 Team/(17226:17229): Se va a realizar un intercambio entre el entrenador 2 y 3
+[INFO] 21:20:58:929 Team/(17226:17229): Se intercambiaron los pokemones Umbreon y Espeon entre los entrenadores 2 y 3
+[INFO] 21:20:58:930 Team/(17226:17239): Luego de hacer un intercambio el entrenador 2 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 21:20:58:931 Team/(17226:17230): El entrenador 3 finalizo
+[WARNING] 21:20:58:932 Team/(17226:17239): Deadlock detectado
+[INFO] 21:20:58:932 Team/(17226:17239): La cantidad de entrenadores en deadlock es 3
+[INFO] 21:20:58:932 Team/(17226:17239): El entrenador 4 pasó a la lista de listos para resolucion de deadlock
+[INFO] 21:20:58:933 Team/(17226:17239): El pokemon innecesario del entrenador 4 es  Vaporeon
+[INFO] 21:20:58:933 Team/(17226:17239): Hay deadlock entre el entrenador 4 y el entrenador 0
+[INFO] 21:20:58:934 Team/(17226:17239): El entrenador 0 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 21:20:58:934 Team/(17226:17239): Haciendo el intercambio
+[INFO] 21:20:58:935 Team/(17226:17231): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 4.
+[INFO] 21:20:58:935 Team/(17226:17231): El entrenador 4 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 21:21:03:936 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:21:08:942 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:21:13:949 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:21:18:951 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:21:18:952 Team/(17226:17231): El entrenador de id 4 llegó a la posicion del entrenador de id 0
+[INFO] 21:21:23:958 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:21:28:963 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:21:33:995 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:21:38:999 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:21:44:4 Team/(17226:17231): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 21:21:44:5 Team/(17226:17231): Se va a realizar un intercambio entre el entrenador 4 y 0
+[INFO] 21:21:44:7 Team/(17226:17231): Se intercambiaron los pokemones Vaporeon y Flareon entre los entrenadores 4 y 0
+[INFO] 21:21:44:7 Team/(17226:17239): Luego de hacer un intercambio el entrenador 4 paso a la lista de bloqueados con cantidad maxima
+[DEBUG] 21:21:44:8 Team/(17226:17227): El entrenador 0 finalizo
+[WARNING] 21:21:44:9 Team/(17226:17239): Deadlock detectado
+[INFO] 21:21:44:9 Team/(17226:17239): La cantidad de entrenadores en deadlock es 2
+[INFO] 21:21:44:10 Team/(17226:17239): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
+[INFO] 21:21:44:10 Team/(17226:17239): El pokemon innecesario del entrenador 2 es  Espeon
+[INFO] 21:21:44:10 Team/(17226:17239): Hay deadlock entre el entrenador 2 y el entrenador 4
+[INFO] 21:21:44:11 Team/(17226:17239): El entrenador 4 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 21:21:44:11 Team/(17226:17239): Haciendo el intercambio
+[INFO] 21:21:44:11 Team/(17226:17229): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
+[INFO] 21:21:44:12 Team/(17226:17229): El entrenador 2 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 21:21:49:12 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:21:54:20 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:21:59:21 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:04:23 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:09:26 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:14:28 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:19:30 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:24:31 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:24:32 Team/(17226:17229): El entrenador de id 2 llegó a la posicion del entrenador de id 4
+[INFO] 21:22:29:36 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:34:38 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:39:44 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:44:56 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:49:57 Team/(17226:17229): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 21:22:49:58 Team/(17226:17229): Se va a realizar un intercambio entre el entrenador 2 y 4
+[INFO] 21:22:49:59 Team/(17226:17229): Se intercambiaron los pokemones Espeon y Flareon entre los entrenadores 2 y 4
+[DEBUG] 21:22:49:60 Team/(17226:17231): El entrenador 4 finalizo
+[DEBUG] 21:22:49:61 Team/(17226:17229): El entrenador 2 finalizo
+[INFO] 21:22:49:65 Team/(17226:17239): Objetivo global cumplido!!!!! :D
+[INFO] 21:22:49:65 Team/(17226:17239): La cantidad de ciclos de CPU totales es: 65
+[INFO] 21:22:49:66 Team/(17226:17239): La cantidad de cambios de contextos realizados es: 79
+[INFO] 21:22:49:66 Team/(17226:17239): La cantidad de ciclos de CPU realizados por el entrenador 1 es: 4
+[INFO] 21:22:49:67 Team/(17226:17239): La cantidad de ciclos de CPU realizados por el entrenador 3 es: 4
+[INFO] 21:22:49:67 Team/(17226:17239): La cantidad de ciclos de CPU realizados por el entrenador 0 es: 13
+[INFO] 21:22:49:68 Team/(17226:17239): La cantidad de ciclos de CPU realizados por el entrenador 2 es: 31
+[INFO] 21:22:49:68 Team/(17226:17239): La cantidad de ciclos de CPU realizados por el entrenador 4 es: 13
+[INFO] 21:22:49:69 Team/(17226:17239): La cantidad de deadlocks producidos es: 1
+[INFO] 21:22:49:69 Team/(17226:17239): La cantidad de deadlocks resueltos es: 1
+[INFO] 21:22:49:70 Team/(17226:17239): Cerrando team...

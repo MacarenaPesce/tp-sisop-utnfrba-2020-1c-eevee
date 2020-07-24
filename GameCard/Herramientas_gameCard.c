@@ -2,7 +2,7 @@
 
 void inicializar_logger(){
 	//si pongo 1 muestra por consola si muestra 0 no.
-	gameCard_logger = log_create("gamecard.log", "gameCard", 1, LOG_LEVEL_INFO);
+	gameCard_logger = log_create("../logs/gamecard.log", "gameCard", 1, LOG_LEVEL_INFO);
 	log_info(gameCard_logger, "Bienvenido al proceso Game Card");
 }
 

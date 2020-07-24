@@ -105,10 +105,9 @@ void * atender_new_pokemon(t_packed * paquete){
 				appeared_pokemon->pokemon, appeared_pokemon->coordenadas.posx, appeared_pokemon->coordenadas.posy);
 	}
 
-	free(new_pokemon->pokemon);
-	free(new_pokemon);
 	free(servidor);
-	free(paquete);
+	eliminar_mensaje(paquete);
+	eliminar_mensaje(ack);
 	free(appeared_pokemon);
 
 	return NULL;

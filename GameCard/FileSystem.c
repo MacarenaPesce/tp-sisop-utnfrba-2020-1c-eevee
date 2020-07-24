@@ -1701,6 +1701,8 @@ void eliminarMetadataPokemon(char* poke) {
 
 	int estaBorrado = remove(rutaPoke);
 
+	free(rutaPoke);
+
 	if (estaBorrado == 0) {
 		log_info(gameCard_logger, " Se ha borrado la metadata del pokemon:%s",
 				poke);

@@ -18,7 +18,7 @@ extern enum SERVER_STATUS server_status;
 
 //Logger inicializado
 void inicializar_logger(){
-	broker_logger = log_create("../Broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
+	broker_logger = log_create("../logs/Broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
 	log_info(broker_logger, "*************** INICIANDO EJECUCION DE BROKER ***************", NULL);
 }
 

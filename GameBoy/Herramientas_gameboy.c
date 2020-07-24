@@ -8,7 +8,7 @@
 #include "Herramientas_gameboy.h"
 
 void inicializar_logger(){
-	gameboy_logger = log_create("gameboy.log", "Gameboy", 1, LOG_LEVEL_DEBUG);
+	gameboy_logger = log_create("../logs/gameboy.log", "Gameboy", 1, LOG_LEVEL_DEBUG);
 }
 
 void inicializar_archivo_de_configuracion(){
