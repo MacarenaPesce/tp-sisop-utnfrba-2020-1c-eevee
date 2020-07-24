@@ -326,7 +326,7 @@ void crearPokemon(t_new_pokemon* poke) {
 			bloquesNuevos);
 
 	list_destroy_and_destroy_elements(bloquesNuevos, destruirBloque);
-	list_destroy(bloquesMetadataPokemon);
+
 	//free(bloquesNuevos);
 	free(pokemonEnMemoria);
 	free(posAcopiar);
@@ -395,7 +395,7 @@ void copiarPokemonEnMemoria(void* unBloque) {
 
 }
 
-void llenarListaBloquesPoke(char* poke) {
+void llenarListaBloquesPoke(char* poke, t_list* lista) {
 
 	agregarSemaforoPokemon(poke);
 
@@ -424,7 +424,7 @@ void llenarListaBloquesPoke(char* poke) {
 
 		if (listaBloques[j] != NULL) {
 			char* bloq = listaBloques[j];
-			list_add(bloquesMetadataPokemon, bloq);
+			list_add(lista, bloq);
 			log_info(gameCard_logger, "%s", bloq);
 			//free(bloq);
 		}
@@ -527,7 +527,7 @@ void modificarPokemon(t_new_pokemon* pokemonAeditar) {
 	pokeAmodificarInicializate(pokemonAeditar);
 
 	log_info(gameCard_logger, "Los bloques que conforman al archivo pokemon:");
-	llenarListaBloquesPoke(pokemon);
+	llenarListaBloquesPoke(pokemon, bloquesMetadataPokemon);
 
 	log_info(gameCard_logger,
 			"conociendo sus bloques, se carga pokemon en memoria");
@@ -987,13 +987,13 @@ void contardorDeBloquesOcupadosPorPokemon(char** bloksOcupadosPorPokemon) {
 	string_iterate_lines(bloksOcupadosPorPokemon, sumameBloques);
 }
 
-void copiarPokemonAmemoria(t_list* listBloqPokemon) {
+void copiarPokemonAmemoria(t_list* list) {
 
-	for (int i = 0; i < list_size(listBloqPokemon); i++) {
+	for (int i = 0; i < list_size(list); i++) {
 
 		//log_warning(gameCard_logger,"aca mostrame pos en lista");
 		//log_warning(gameCard_logger, "aca mostrame num bloque %s", bloq);
-		copiarPokemonEnMemoria(list_get(listBloqPokemon, i));
+		copiarPokemonEnMemoria(list_get(list, i));
 
 	}
 
@@ -1385,7 +1385,7 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 	posAcopiar=string_new();
 	log_info(gameCard_logger, "se intentará capturar un pokemon");
 
-	bloquesMetadataPokemon = list_create();
+	bloquesMetadata = list_create();
 
 	nuevaPos = string_new();
 
@@ -1409,11 +1409,11 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 	pokemon = string_new();
 	string_append(&pokemon, pokeAatrapar->pokemon);
 
-	llenarListaBloquesPoke(pokemon);
+	llenarListaBloquesPoke(pokemon, bloquesMetadata);
 
 	pokemonEnMemoria = string_new();
 
-	copiarPokemonAmemoria(bloquesMetadataPokemon);
+	copiarPokemonAmemoria(bloquesMetadata);
 
 	if (estaPosicionEnMemoria(pokemonEnMemoria, nuevaPos)) {
 
@@ -1448,10 +1448,10 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 					"los bloques del pokemon se quedaran vacios con su captura");
 
 			log_info(gameCard_logger, "se va a eliminar el pokemon");
-			marcarBloquesLibres(bloquesMetadataPokemon);
+			marcarBloquesLibres(bloquesMetadata);
 
 			pthread_mutex_lock(dictionary_get(semaforosPokemon, pokemon));
-			vaciarBloques(bloquesMetadataPokemon);
+			vaciarBloques(bloquesMetadata);
 			eliminarMetadataPokemon(pokemon);
 			pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
 
@@ -1465,7 +1465,7 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 					"la cantidad de bloques a liberar porque quedan vacios: %d",
 					cantBloqAliberar);
 
-			int tamanioListBloques = list_size(bloquesMetadataPokemon);
+			int tamanioListBloques = list_size(bloquesMetadata);
 
 			log_info(gameCard_logger,"mostrame cant bloque en metadata: %d",tamanioListBloques);
 
@@ -1473,10 +1473,10 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 		log_info(gameCard_logger, " se va a actualizar el contenido del archivo");
 
-		for (int i = 0; i < list_size(bloquesMetadataPokemon); i++) {
+		for (int i = 0; i < list_size(bloquesMetadata); i++) {
 
 			desde = 0;
-		persistirCambiosEnBloquesPropios(list_get(bloquesMetadataPokemon, i));
+		persistirCambiosEnBloquesPropios(list_get(bloquesMetadata, i));
 
 		}
 			}
@@ -1487,23 +1487,23 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 				char* elem = string_new();
 
 				string_append(&elem,
-						list_get(bloquesMetadataPokemon,
+						list_get(bloquesMetadata,
 								tamanioListBloques - 1 - i));
 
 				marcarBloqueLibreBitmap(atoi(elem));
 
 				limpiarBloque(elem);
 
-				list_remove(bloquesMetadataPokemon, tamanioListBloques - 1 - i);
+				list_remove(bloquesMetadata, tamanioListBloques - 1 - i);
 
 				log_info(gameCard_logger,
 						" se va a actualizar el contenido del archivo");
 
-				for (int i = 0; i < list_size(bloquesMetadataPokemon); i++) {
+				for (int i = 0; i < list_size(bloquesMetadata); i++) {
 
 					desde = 0;
 					persistirCambiosEnBloquesPropios(
-							list_get(bloquesMetadataPokemon, i));
+							list_get(bloquesMetadata, i));
 
 				}
 
@@ -1514,7 +1514,7 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 				cambiarTamanioMetadata(pokemon, string_length(posAcopiar));
 
-				modificarBloquesMetadata(pokemon, bloquesMetadataPokemon);
+				modificarBloquesMetadata(pokemon, bloquesMetadata);
 
 				pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
 
@@ -1615,8 +1615,6 @@ void capturarPokeEnPos(char* posicion) {
 			}
 
 		}
-
-
 	}
 
 	else {
@@ -1723,11 +1721,11 @@ t_list* obtenerPosicionesPokemon(char* pokemon) {
 			"se intenta obtener las posiciones del pokemon : %s", pokemon);
 	log_info(gameCard_logger, "los bloques que ocupa:");
 
-	bloquesMetadataPokemon = list_create();
-	llenarListaBloquesPoke(pokemon);
+	bloqMetadataPoke = list_create();
+	llenarListaBloquesPoke(pokemon, bloqMetadataPoke);
 
 	pokemonEnMemoria = string_new();
-	copiarPokemonAmemoria(bloquesMetadataPokemon);
+	copiarPokemonAmemoria(bloqMetadataPoke);
 
 	//log_info(gameCard_logger, "De ellos se copio en memoria las posiciones: %s", pokemonEnMemoria);
 
@@ -1751,7 +1749,6 @@ log_info(gameCard_logger,"espera de acceso a disco : %d segundos",tiempo_retardo
 	sleep(tiempo_retardo_operacion);
 	cerrarArchivo(pokemon);
 	free(posiciones);
-
 	return pokemonesParaLocalized;
 
 }
@@ -1883,6 +1880,12 @@ void desconectarFs() {
 
 	if(bloquesMetadataPokemon != NULL){
 	    list_destroy(bloquesMetadataPokemon);}
+
+		if(bloqMetadataPoke != NULL){
+	    list_destroy_and_destroy_elements(bloqMetadataPoke, (void*)liberarElem);}
+
+		if(bloquesMetadata!= NULL){
+	    list_destroy_and_destroy_elements(bloquesMetadata, (void*)liberarElem);}
 
 	if(listaPosicionesParaLocalized != NULL){
 	    list_destroy(listaPosicionesParaLocalized);}

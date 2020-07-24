@@ -44,9 +44,8 @@ void * atender_get_pokemon(t_packed * paquete){
 			eliminar_mensaje(ack);
 		}
 		list_destroy(lista_coordenadas);
-	}
-
-	free(get_pokemon->pokemon);
+	} 	
+	//free(get_pokemon->pokemon);
 
 	free(servidor);
 
@@ -111,9 +110,9 @@ void * atender_new_pokemon(t_packed * paquete){
 	}
 
 	free(servidor);
-	free(new_pokemon->pokemon);
+	/*free(new_pokemon->pokemon);
 	free(new_pokemon);
-	//eliminar_mensaje(ack);
+	eliminar_mensaje(ack);*/
 	free(appeared_pokemon);
 
 	return NULL;
@@ -198,6 +197,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 							enviar_ack(servidor,paquete->id_mensaje);
 							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_new_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
 							break;
 						case COLA_CATCH_POKEMON:
 							//se envia ack al broker que llego bien
@@ -211,15 +211,21 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 							enviar_ack(servidor,paquete->id_mensaje);
 							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_get_pokemon_desde_broker(paquete);
-							//eliminar_mensaje(paquete);
+							eliminar_mensaje(paquete);
 							break;
 						default:
 							log_error(gameCard_logger, "RECIBI COLA INVALIDA");
 							log_error(gameCard_logger, "COLA DE MENSAJES:%d", paquete->cola_de_mensajes);
+							eliminar_mensaje(paquete);
 							break;
 					}
 				}
+			}else {
+				if(paquete->operacion == ACK){
+					eliminar_mensaje(paquete);
+				}
 			}
+			
 		}
 	}
 

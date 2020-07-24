@@ -70,7 +70,7 @@ char* pokeLinea;
 //modificar pokemon
 
 //t_list* obtenerBloquesPokemon(char* poke);
-void llenarListaBloquesPoke(char* pok);
+void llenarListaBloquesPoke(char*, t_list*);
 
 extern char* pokemonEnMemoria;
 
