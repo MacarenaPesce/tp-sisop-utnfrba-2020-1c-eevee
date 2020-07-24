@@ -18,7 +18,7 @@ void * atender_get_pokemon(t_packed * paquete){
 	t_get_pokemon * get_pokemon = (t_get_pokemon*)paquete->mensaje;
 	log_debug(gameCard_logger, "Recibi el pedido de get pokemon para esta especie: %s.", get_pokemon->pokemon);
 
-	t_list* listaPosicionesParaLocalized;
+	//t_list* listaPosicionesParaLocalized;
 	listaPosicionesParaLocalized=operar_con_get_pokemon(get_pokemon);
 
 	if (!list_is_empty(listaPosicionesParaLocalized)){
@@ -40,7 +40,10 @@ void * atender_get_pokemon(t_packed * paquete){
 		t_packed * ack = enviar_localized_pokemon(servidor,paquete->id_mensaje,localized_pokemon);
 
 		eliminar_localized_pokemon(localized_pokemon);
-
+		if(ack != (t_packed*) -1){
+			eliminar_mensaje(ack);
+		}
+		list_destroy(lista_coordenadas);
 	}
 
 	free(get_pokemon->pokemon);

@@ -1882,7 +1882,10 @@ void desconectarFs() {
 	}
 
 	if(bloquesMetadataPokemon != NULL){
-	            list_destroy(bloquesMetadataPokemon);}
+	    list_destroy(bloquesMetadataPokemon);}
+
+	if(listaPosicionesParaLocalized != NULL){
+	    list_destroy(listaPosicionesParaLocalized);}
 
 	/*if(string_length(unBloq)>0){
 	 free(unBloq);
