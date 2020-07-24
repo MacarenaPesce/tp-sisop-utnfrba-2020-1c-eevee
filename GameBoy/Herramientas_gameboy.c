@@ -98,7 +98,6 @@ void configurar_signals(void){
 void capturar_signal(int signo){
 
     if(signo == SIGINT){
-    	log_info(gameboy_logger,"Gameboy murioU");
     	terminar_gameboy_correctamente();
     }
     else if(signo == SIGPIPE){
@@ -108,7 +107,6 @@ void capturar_signal(int signo){
 }
 
 void terminar_gameboy_correctamente(){
-	log_info(gameboy_logger,"Hice lo que me pidieron, chau!");
 	log_destroy(gameboy_logger);
 	exit(EXIT_SUCCESS);
 }

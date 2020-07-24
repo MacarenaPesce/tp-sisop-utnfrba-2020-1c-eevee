@@ -161,13 +161,13 @@ void ver_entre_quienes_hay_deadlock_y_resolverlo(t_entrenador * entrenador1){
 	t_entrenador* entrenador2;
 	t_objetivo_entrenador* pokemon1 = elegir_pokemon_innecesario(entrenador1);
   
-	log_info(team_logger, "El pokemon innecesario del entrenador %i es  %s", entrenador1->id, pokemon1->especie);
+	//log_info(team_logger, "El pokemon innecesario del entrenador %i es  %s", entrenador1->id, pokemon1->especie);
 	
 	int cant;
 
 	for(int i = 0; i < list_size(lista_bloqueados_cant_max_alcanzada); i++){
 		if(pokemon1 == NULL){
-			log_info(team_logger, "El pokemon innecesario del entrenador %i es NULO", entrenador1->id);
+			//log_info(team_logger, "El pokemon innecesario del entrenador %i es NULO", entrenador1->id);
 		}
 		pthread_mutex_lock(&lista_bloq_max_mutex);
 		entrenador2 = list_get(lista_bloqueados_cant_max_alcanzada, i);
@@ -216,6 +216,7 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	log_info(team_logger, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
 	log_info(team_logger_oficial, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
 	log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador1->id);
+	log_info(team_logger, "El entrenador %d pasó a ejecutar", entrenador1->id);
 	log_info(team_logger, "Haciendo el intercambio");
 	
 	sem_post(&array_semaforos_deadlock[entrenador1->id]);
@@ -282,11 +283,7 @@ void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
 			sem_wait(&todos_los_entrenadores_finalizaron);
 		}
 
-		printf("************************************************************************************************************");
-		printf("\n");
 		log_info(team_logger, "Objetivo global cumplido!!!!! :D");
-		printf("************************************************************************************************************");
-		printf("\n");
 
 		log_info(team_logger,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
 		log_info(team_logger_oficial,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
