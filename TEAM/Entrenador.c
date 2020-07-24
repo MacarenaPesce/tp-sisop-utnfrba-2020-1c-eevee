@@ -27,7 +27,7 @@ void * jugar_con_el_entrenador(t_entrenador * entrenador){
 			list_add(lista_finalizar, entrenador);
 			entrenador->estado = FINALIZANDO;
 			entrenador_en_ejecucion = NULL;
-			log_debug(team_logger, "El entrenador %d finalizo", entrenador->id);
+			log_info(team_logger, "El entrenador %d finalizo", entrenador->id);
 			log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 			sem_post(&todos_los_entrenadores_finalizaron);
 			sem_post(&orden_para_planificar);
@@ -69,7 +69,7 @@ void realizar_las_operaciones_de_deadlock(t_entrenador * entrenador){
 	}
 
 	sem_wait(&array_semaforos_finalizar[entrenador->id]);
-	log_debug(team_logger, "El entrenador %d finalizo", entrenador->id);
+	log_info(team_logger, "El entrenador %d finalizo", entrenador->id);
 	log_info(team_logger_oficial, "El entrenador %d finalizo", entrenador->id);
 	sem_post(&todos_los_entrenadores_finalizaron);
 	sem_post(&puedo_volver_a_ejecutar);
@@ -134,7 +134,7 @@ atrapado con éxito.*/
 	servidor->id_cliente = id;
 
 	if(!fijarme_si_debo_atraparlo_usando_el_objetivo_global(entrenador->objetivo_actual->especie)){
-		log_warning(team_logger, "No necesitamos mas de esta especie %s", entrenador->objetivo_actual->especie);
+		//log_warning(team_logger, "No necesitamos mas de esta especie %s", entrenador->objetivo_actual->especie);
 		entrenador->razon_de_bloqueo = ESPERANDO_POKEMON;
 		bloquear_entrenador(entrenador);
 		return;

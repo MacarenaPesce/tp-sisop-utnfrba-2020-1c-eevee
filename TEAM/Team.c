@@ -263,11 +263,7 @@ void chequear_si_fue_cumplido_el_objetivo_global(){
 			sem_wait(&todos_los_entrenadores_finalizaron);
 		}
 
-		printf("************************************************************************************************************");
-		printf("\n");
 		log_info(team_logger, "Objetivo global cumplido!!!!! :D");
-		printf("************************************************************************************************************");
-		printf("\n");
 
 		log_info(team_logger,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
 		log_info(team_logger_oficial,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);

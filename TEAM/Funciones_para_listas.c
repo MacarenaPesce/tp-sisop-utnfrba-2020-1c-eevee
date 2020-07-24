@@ -108,8 +108,6 @@ void agregar_objetivo(char* especie, uint32_t cantidad, t_list* lista){
 		objetivo->especie = especie;
 		objetivo->cantidad = cantidad;
 		list_add(lista, (void*)objetivo);
-		} else {
-			printf("El objetivo de este entrenador es nulo");
 		}
 	}
 }

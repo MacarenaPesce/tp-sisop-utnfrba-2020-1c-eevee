@@ -30,7 +30,7 @@ void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 	t_localized_pokemon * localized = (t_localized_pokemon*)paquete->mensaje;
 
 	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
-	log_debug(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
+	log_info(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
 	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
@@ -47,8 +47,8 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 
 	t_caught_pokemon * caught = paquete->mensaje;
 
-	log_debug(team_logger, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> %d y status %d", paquete->id_correlacional, caught->status);
-	log_debug(team_logger_oficial, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> %d y status %d", paquete->id_correlacional, caught->status);
+	log_debug(team_logger, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo %d y status %d", paquete->id_correlacional, caught->status);
+	log_info(team_logger_oficial, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo %d y status %d", paquete->id_correlacional, caught->status);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
 	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
