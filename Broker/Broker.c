@@ -1,6 +1,15 @@
 #include "Broker.h"
 extern int tamanio_memoria;
 
+/*
+	Resultados de las pruebas: 
+		1- Consolidacion -> con FIFO -> OK -> 0 bytes de leaks
+		2- Consolidacion -> con LRU  ->	OK -> 0 bytes
+		3- Compactacion  -> con FIFO -> OK -> 0 bytes
+		4- Compactacion  -> con LRU  -> OK -> 0 bytes
+		5- Buddy         -> con FIFO -> OK -> 0 bytes
+		6- Buddy		 -> con LRU	 -> OK -> 0 bytes
+*/
 
 int main(){
 
@@ -11,7 +20,9 @@ int main(){
 	//inicializo los logs
 	inicializar_logger();
 	//activo los logs de debug
-	debug_broker = true;
+
+	debug_broker = false;
+	warn_broker = true;
 
 	if(debug_broker) log_debug(broker_logger, "1) Cache de mensajes lista!!!");
 	
@@ -29,7 +40,16 @@ int main(){
 
 	if(debug_broker) log_debug(broker_logger, "6) Inicializando cache de mensajes...");
 
+	pthread_mutex_lock(&mutex_recepcion_mensajes);
+	
+	paquetes_pendientes = list_create();
+
+	sem_init(&transaccionar_paquetes_pendientes, 0, 0); 
+
+	pthread_mutex_unlock(&mutex_recepcion_mensajes);
+
 	pthread_mutex_lock(&mutex_queue_mensajes);
+
 
 	//TODO: levantame de config
 
@@ -37,8 +57,11 @@ int main(){
 	cache_mensajes->colas = list_create();
 	cache_mensajes->proximo_id_mensaje = 0;
 	cache_mensajes->clientes = list_create();
-
 	t_cola_mensajes* aux_crear_cola_mensajes; 
+
+	pthread_create(&hilo_transacciones,NULL,transaccionar_paquete_recibido,NULL);
+
+	pthread_detach(hilo_transacciones);
 
 	for(int i = COLA_APPEARED_POKEMON; i <= COLA_LOCALIZED_POKEMON; i++){
 

@@ -128,14 +128,17 @@ void crearBitmap() {
 
 		char* bitmapDato=string_repeat('0',blocksChar);
 
-
 		write(fileno(bitmapArch),bitmapDato,sizeof(char)*string_length(bitmapDato));
 
-	 bitarray=bitarray_create_with_mode(bitmapDato, blocksChar, LSB_FIRST);
+		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
+
+		/*log_info(gameCard_logger,"Se va a cargar en memoria...");
+
+	 bitarray=bitarray_create_with_mode(bitmapDato, blocksChar, LSB_FIRST);*/
 
 	 free(bitmapDato);
 
-		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
+	 //log_info(gameCard_logger,"Se ha cargado correctamente el bitmap a memoria");
 
 }
 
@@ -214,6 +217,8 @@ void InicializarBloquesDeDatosFs() {
 
 void abrirBitmap() {
 
+	//if(bitarray==NULL){
+
 	log_info(gameCard_logger,"abriendo el bitmap...");
 
 	int bitmap = open(rutas_fs->pathArchivoBitMap, O_RDWR);
@@ -247,49 +252,9 @@ void abrirBitmap() {
 
 	log_info(gameCard_logger,"se ha abierto correctamente el bitmap");
 
-}
-
-void desconectarFs(){
-
-	if(metadata_fs!=NULL){
-		log_info(gameCard_logger,"se va a liberar estructuras de la metadata...");
-		free(metadata_fs->magicNumber);
-		free(metadata_fs);
-		log_info(gameCard_logger,"se ha liberado correctamente");
-	}
-
-
-	if(rutas_fs!=NULL){
-		log_info(gameCard_logger,"se va a liberar estructuras de las rutas del fs...");
-		free(rutas_fs->pathArchivoBitMap);
-		free(rutas_fs->pathArchivoMetadataFs);
-		free(rutas_fs->pathDirectorioBloques);
-		free(rutas_fs->pathDirectorioFilesMetadata);
-		free(rutas_fs->pathDirectorioMetadataFs);
-		free(rutas_fs->puntoDeMontaje);
-		free(rutas_fs);
-		log_info(gameCard_logger,"se ha liberado correctamente");
-	}
-
-	if(bitarray!=NULL){
-		if(bitarray->bitarray!=NULL){
-		free(bitarray->bitarray);}
-		log_info(gameCard_logger,"se va a liberar memoria que se utilizo para el bitarray...");
-		bitarray_destroy(bitarray);
-		log_info(gameCard_logger,"se ha liberado correctamente");
-	}
-
-	if(bmap!=NULL){
-		log_info(gameCard_logger,"se va a liberar memoria que se utilizo para el bitmap...");
-	munmap(bmap, mystat.st_size);
-	log_info(gameCard_logger,"se ha liberado correctamente");}
-
-	/*
-if(pokemonEnMemoria!=NULL){
-		log_info(gameCard_logger,"se va a liberar pokemon de memoria...");
-
-		free(pokemonEnMemoria);
-	log_info(gameCard_logger,"se ha liberado correctamente");*/
+	//}
 
 }
+
+
 

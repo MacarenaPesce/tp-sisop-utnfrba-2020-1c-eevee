@@ -9,7 +9,6 @@ extern char* ip_broker;
 extern int frecuencia_compactacion;
 extern char* puerto_broker;
 extern char* log_file;
-extern t_cache_colas* cache_mensajes;
 
 extern t_config* config;
 extern t_log* broker_logger;
@@ -19,7 +18,7 @@ extern enum SERVER_STATUS server_status;
 
 //Logger inicializado
 void inicializar_logger(){
-	broker_logger = log_create("../Broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
+	broker_logger = log_create("../logs/Broker.log", "Broker", 1, LOG_LEVEL_DEBUG);
 	log_info(broker_logger, "*************** INICIANDO EJECUCION DE BROKER ***************", NULL);
 }
 
@@ -145,7 +144,9 @@ void capturar_signal(int signo){
 	}
 	else if(signo == SIGUSR1){
 		log_info(broker_logger, "DUMP");
+		pthread_mutex_lock(&mutex_queue_mensajes);
 		dump_memoria();
+		pthread_mutex_unlock(&mutex_queue_mensajes);
 	}
 
 }
@@ -158,13 +159,17 @@ void terminar_broker_correctamente(){
 	
 	pthread_mutex_unlock(&mutex_server_status);
 
+	sem_post(&transaccionar_paquetes_pendientes);
+
  	pthread_mutex_lock(&mutex_queue_mensajes);
 
 	cerrar_senders();
 
 	vaciar_sockets_de_clientes();
 
-	pthread_mutex_unlock(&mutex_queue_mensajes); 
+	vaciar_memoria();
+
+	pthread_mutex_unlock(&mutex_queue_mensajes); 	
 
 	sleep(2);
 		
@@ -195,5 +200,22 @@ void cerrar_senders(){
 	}
 
 	list_iterate(cache_mensajes->colas,despertar_senders);
+
+}
+
+void vaciar_memoria(){
+
+	void eliminar_bloque_memoria(void* _bloque){
+
+		t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
+
+		if(bloque->esta_vacio == false) liberar_bloque_memoria(bloque);
+
+		free(bloque);
+	}
+
+	list_iterate(cache_mensajes->memoria,eliminar_bloque_memoria);
+
+	free(memoria_inicial);
 
 }

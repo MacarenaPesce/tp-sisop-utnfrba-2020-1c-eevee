@@ -195,6 +195,11 @@ typedef struct{
 	enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));	 
 }t_socket_cliente;
 
+typedef struct{
+	int socket;
+	t_packed* paquete;
+} t_produccion_paquete;
+
 /*  */
 
 char* obtener_nombre_cola(int cola_de_mensajes);
@@ -245,5 +250,8 @@ void _recibir_mensaje_string(t_packed *paquete);
 void _recibir_catch_o_appeared_pokemon(t_packed *paquete);
 void _recibir_new_pokemon(t_packed *paquete);
 void _recibir_caught_pokemon(t_packed *paquete);
+
+/*****var aux******/
+t_new_pokemon *aux;
 
 #endif /* POKEBOLA_H_ */

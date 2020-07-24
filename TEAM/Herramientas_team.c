@@ -59,7 +59,7 @@ bool objetivo_global_cumplido(){
 }
 
 void inicializar_logger(){
-	team_logger = log_create("team.log", "Team", 1, LOG_LEVEL_DEBUG);
+	team_logger = log_create("../logs/team.log", "Team", 1, LOG_LEVEL_DEBUG);
 	team_logger_oficial = log_create(log_file, "Team", 0, LOG_LEVEL_DEBUG);
 }
 

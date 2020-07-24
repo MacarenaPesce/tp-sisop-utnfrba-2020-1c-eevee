@@ -1,0 +1,8 @@
+[INFO] 11:59:27:270 Broker/(9448:9448): *************** INICIANDO EJECUCION DE BROKER ***************
+[INFO] 11:59:27:314 Broker/(9448:9448): Cargando el archivo de configuracion...
+[INFO] 11:59:27:326 Broker/(9448:9448): Archivo de configuracion cargado...
+[INFO] 11:59:27:354 Broker/(9448:9448): Se asigno memoria inicial. La direccion inicial de memoria es: 0x423d538
+[INFO] 11:59:27:356 Broker/(9448:9448): Particion de memoria inicial creada con: 64
+[INFO] 11:59:32:799 Broker/(9448:9449): El cliente 7 solicitó suscribirse a la cola 3 a través del socket 15
+[INFO] 11:59:33:692 Broker/(9448:9448):  Broker DEJA DE FUNCIONAR 
+[INFO] 11:59:35:707 Broker/(9448:9448): Chau!
