@@ -16,6 +16,11 @@ void crearFileSystemVacio() {
 
 }
 
+int destruir_lista(char * bloques){
+       free(bloques);
+       return 0;
+}
+
 void crearMetadataFs() {
 
 int status= mkdir(rutas_fs->pathDirectorioMetadataFs, 0777);

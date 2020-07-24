@@ -17,6 +17,7 @@ int id;
 char* magicNumber;
 int tamanioDeBloque;
 int cantidadBloques;
+t_list* bloquesMetadataPokemon;
 
 char* pokemonEnMemoria;
 

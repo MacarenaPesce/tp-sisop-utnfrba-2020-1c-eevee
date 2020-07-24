@@ -1305,43 +1305,25 @@ bool estaAbiertoArchivo(char* pokemon) {
 
 	configPoke = config_create(rutaPoke);
 
-	estadoArchivo = string_new();
-
-	if (dictionary_get(semaforosPokemon, pokemon) == NULL) {
-		log_error(gameCard_logger, "error con los semáforos de los pokemones");
-		config_destroy(configPoke);
-		free(rutaPoke);
-	}
-
-	else {
-
 		log_info(gameCard_logger, "se va a activar el semaforo del pokemon");
 
 		pthread_mutex_lock(dictionary_get(semaforosPokemon, pokemon));
 
-		string_append(&estadoArchivo,
-				config_get_string_value(configPoke, "OPEN"));
+
+		char* estadoArchivo = string_new();
+		string_append(&estadoArchivo, config_get_string_value(configPoke, "OPEN"));
 
 		log_info(gameCard_logger, "El estado del archivo es %s", estadoArchivo);
 
 		pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
 
 		free(rutaPoke);
-
-		if (configPoke != NULL) {
-			config_destroy(configPoke);
-		}
-
-		if (estadoArchivo == NULL) {
-			log_error(gameCard_logger,
-					"No se ha podido cargar el estado del archivo");
-		}
+		config_destroy(configPoke);
 
 		return string_equals_ignore_case(estadoArchivo, "Y");
 
 	}
 
-}
 
 void abrirArchivo(char* poke) {
 
@@ -1538,6 +1520,7 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 			}
 
+
 			cerrarArchivo(pokemon);
 
 			sleep(tiempo_retardo_operacion);
@@ -1695,9 +1678,6 @@ void eliminarMetadataPokemon(char* poke) {
 	string_append(&rutaPoke, pokemon);
 	string_append(&rutaPoke, "/Metadata.bin");
 
-	/* int cerrateSiEstasAbierto = fclose(fileno(rutaPoke));
-
-	 if ((cerrateSiEstasAbierto == 0) | (cerrateSiEstasAbierto == EOF) ){*/
 
 	int estaBorrado = remove(rutaPoke);
 
@@ -1725,12 +1705,16 @@ void eliminarMetadataPokemon(char* poke) {
 					poke);
 		}
 
+		free(directorioPoke);
+
 	}
 
 	else {
 		log_error(gameCard_logger, "Error al intentar borrar metadata de %s",
 				poke);
 	}
+
+	//free(rutaPoke);
 }
 
 t_list* obtenerPosicionesPokemon(char* pokemon) {
@@ -1896,6 +1880,9 @@ void desconectarFs() {
 		munmap(bmap, mystat.st_size);
 		log_info(gameCard_logger, "se ha liberado correctamente");
 	}
+
+	if(bloquesMetadataPokemon != NULL){
+	            list_destroy(bloquesMetadataPokemon);}
 
 	/*if(string_length(unBloq)>0){
 	 free(unBloq);

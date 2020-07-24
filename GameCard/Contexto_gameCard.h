@@ -55,6 +55,7 @@ extern char* magicNumber;
 extern int tamanioDeBloque;
 extern int cantidadBloques;
 extern char* pokemonEnMemoria;
+extern t_list* bloquesMetadataPokemon;
 
 //estas dos arreglarlas para cada proceso ojo
 extern t_log* gameCard_logger;

@@ -103,7 +103,9 @@ t_list* operar_con_get_pokemon(t_get_pokemon* poke){
 			abrirArchivo(poke->pokemon);
 		}
 
-		if(estadoArchivo!=NULL){ free(estadoArchivo);}
+		if(estadoArchivo!=NULL){
+			free(estadoArchivo);
+		}
 		return obtenerPosicionesPokemon(poke->pokemon);
 
 	}

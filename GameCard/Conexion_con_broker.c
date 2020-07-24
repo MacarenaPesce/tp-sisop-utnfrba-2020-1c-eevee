@@ -68,10 +68,11 @@ void * atender_catch_pokemon(t_packed * paquete){
 		log_info(gameCard_logger, "El broker esta caído, no se pudo enviar el caught pokemon para la especie %s", catch_pokemon->pokemon);
 	}else{
 		log_info(gameCard_logger, "Enviado el status del caught pokemon para la especie %s", catch_pokemon->pokemon);
+	eliminar_mensaje(ack);
 	}
 
 	free(servidor);
-	eliminar_mensaje(paquete);
+	//eliminar_mensaje(paquete);
 	free(caught_pokemon);
 
 	return NULL;
@@ -103,11 +104,13 @@ void * atender_new_pokemon(t_packed * paquete){
 	}else{
 		log_info(gameCard_logger, "Enviado appeared pokemon para la especie %s, en la posicion ( %d, %d).",
 				appeared_pokemon->pokemon, appeared_pokemon->coordenadas.posx, appeared_pokemon->coordenadas.posy);
+		eliminar_mensaje(ack);
 	}
 
 	free(servidor);
-	eliminar_mensaje(paquete);
-	eliminar_mensaje(ack);
+	free(new_pokemon->pokemon);
+	free(new_pokemon);
+	//eliminar_mensaje(ack);
 	free(appeared_pokemon);
 
 	return NULL;
@@ -198,12 +201,14 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 							enviar_ack(servidor,paquete->id_mensaje);
 							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_catch_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
 							break;
 						case COLA_GET_POKEMON:
 							//se envia ack al broker que llego bien
 							enviar_ack(servidor,paquete->id_mensaje);
 							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
 							recibir_get_pokemon_desde_broker(paquete);
+							//eliminar_mensaje(paquete);
 							break;
 						default:
 							log_error(gameCard_logger, "RECIBI COLA INVALIDA");
