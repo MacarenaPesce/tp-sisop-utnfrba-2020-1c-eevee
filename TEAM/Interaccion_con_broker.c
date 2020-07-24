@@ -8,48 +8,37 @@
 #include "Interaccion_con_broker.h"
 
 void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
-	t_appeared_pokemon * appeared = paquete->mensaje;
 
-	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
-	mensaje->id = paquete->id_mensaje;
-	mensaje->id_correlacional = paquete->id_correlacional;
-	mensaje->operacion = APPEARED;
-	mensaje->contenido = appeared;
+	t_appeared_pokemon* appeared = (t_appeared_pokemon*)paquete->mensaje;
 
 	log_debug(team_logger, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 	log_info(team_logger_oficial, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
-	list_add(mensajes_que_llegan_nuevos, mensaje);
+	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
 
-	eliminar_mensaje(paquete);
+	sem_wait(&paquete_usado);
 
 	return NULL;
 }
 
 void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 
-	t_localized_pokemon * localized = paquete->mensaje;
+	t_localized_pokemon * localized = (t_localized_pokemon*)paquete->mensaje;
 
-	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
-	mensaje->id = paquete->id_mensaje;
-	mensaje->id_correlacional = paquete->id_correlacional;
-	mensaje->operacion = LOCALIZED;
-	mensaje->contenido = localized;
-
-	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON");
+	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
 	log_debug(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
-	list_add(mensajes_que_llegan_nuevos, mensaje);
+	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
 
-	//eliminar_mensaje(paquete);
+	sem_wait(&paquete_usado);
 
 	return NULL;
 }
@@ -58,39 +47,34 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 
 	t_caught_pokemon * caught = paquete->mensaje;
 
-	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
-	mensaje->id = paquete->id_mensaje;
-	mensaje->id_correlacional = paquete->id_correlacional;
-	mensaje->operacion = CAUGHT;
-	mensaje->contenido = caught;
-
 	log_debug(team_logger, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> %d y status %d", paquete->id_correlacional, caught->status);
 	log_debug(team_logger_oficial, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo --> %d y status %d", paquete->id_correlacional, caught->status);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
-	list_add(mensajes_que_llegan_nuevos, mensaje);
+	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
 
-	eliminar_mensaje(paquete);
+	sem_wait(&paquete_usado);
 
 	return NULL;
 }
 
 void enviar_get(){
+	sem_wait(&objetivos_listos);
+	
 	t_servidor * servidor = (t_servidor*)malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
 	servidor->id_cliente = id;
 
-	int h = 0;
-	t_objetivo * objetivo;
+	void _enviar_get_pokemon(void* _objetivo){
 
-	while(lista_objetivos != NULL){
-		objetivo = list_get(lista_objetivos, h);
+		t_objetivo * objetivo = (t_objetivo*) _objetivo;
+
 		if(objetivo == NULL){
-			break;
+			return;
 		}
 
 		t_get_pokemon * get_pokemon = malloc(sizeof(t_get_pokemon));
@@ -100,32 +84,30 @@ void enviar_get(){
 		log_info(team_logger, "Enviado pedido de get pokemon para esta especie: %s", objetivo->especie);
 
 		if(ack != (t_packed*)-1){
-			h++;
-
 			//Recibo ACK
 			if(ack->operacion == ACK){
 				log_info(team_logger, "Confirmada recepcion del pedido get para el pokemon: %s\n", objetivo->especie);
-
-				t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
-				mensaje->id = ack->id_mensaje;
-				mensaje->operacion = GET;
-				mensaje->contenido = get_pokemon;
+				uint32_t* id_esperando_respuesta = (uint32_t*)malloc(sizeof(uint32_t));
+				memcpy(id_esperando_respuesta,&ack->id_mensaje,sizeof(uint32_t));
 
 				pthread_mutex_lock(&mensaje_chequear_id_mutex);
-				list_add(mensajes_para_chequear_id, mensaje);
+				list_add(mensajes_para_chequear_id, (void*)id_esperando_respuesta);
 				pthread_mutex_unlock(&mensaje_chequear_id_mutex);
 
+				eliminar_mensaje(ack);
 			}
-
-		}else{
+		}
+		else{
 			log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 			log_info(team_logger, "No existen locaciones para esta especie: %s, cant %i", objetivo->especie, objetivo->cantidad_necesitada);
-			h++;
 		}
+
 		free(get_pokemon);
 	}
 
+	list_iterate(lista_objetivos,_enviar_get_pokemon);
 	free(servidor);
+	
 }
 
 void convertirse_en_suscriptor_global_del_broker(){
@@ -152,6 +134,7 @@ void hacer_intento_de_reconexion(){
 }
 
 void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
+
 	t_servidor * servidor = malloc(sizeof(t_servidor));
 	servidor->ip = ip_broker;
 	servidor->puerto = puerto_broker;
@@ -159,7 +142,12 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 	int broker_socket = enviar_solicitud_suscripcion(servidor,paquete_suscripcion->cola);
 
-	while(GLOBAL_SEGUIR){
+	while(1){
+		pthread_mutex_lock(&global_seguir_mutex);
+		if(GLOBAL_SEGUIR == 0){
+			break;
+		}
+		pthread_mutex_unlock(&global_seguir_mutex);
 
 		if(broker_socket <= 0){
 			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
@@ -168,28 +156,33 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			suscribirse_a_cola(paquete_suscripcion);
 
 		}else{
+
 			//Recibo ACK
 			t_packed * paquete = recibir_mensaje(broker_socket);
 
 			if(paquete != (t_packed*)-1){
-				//log_info(team_logger, "Me suscribi a la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
-
 				//Quedo a la espera de recibir notificaciones
 				if(paquete->operacion == ENVIAR_MENSAJE){
 					switch(paquete->cola_de_mensajes){
 						case COLA_APPEARED_POKEMON:
 							recibir_appeared_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
 							break;
 						case COLA_LOCALIZED_POKEMON:
 							recibir_localized_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
 							break;
 						case COLA_CAUGHT_POKEMON:
 							recibir_caught_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
 							break;
 						default:
-							log_error(team_logger, "RECIBI COLA INVALIDA");
-							log_error(team_logger, "COLA DE MENSAJES:%d", paquete->cola_de_mensajes);
+							eliminar_mensaje(paquete);
 							break;
+					}
+				}else{
+					if(paquete->operacion == ACK){
+						free(paquete);
 					}
 				}
 			}
@@ -198,7 +191,13 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 	free(servidor);
 	free(paquete_suscripcion);
-
+	free(broker_socket);
 
 	return NULL;
 }
+
+/*if(es_la_primera_vez){
+						es_la_primera_vez = false;
+					}else{
+						free(paquete);
+					}*/

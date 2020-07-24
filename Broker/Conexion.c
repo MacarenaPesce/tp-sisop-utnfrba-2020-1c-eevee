@@ -1,8 +1,6 @@
 #include "Conexion.h"
 
-extern t_cache_colas* cache_mensajes;
 extern enum SERVER_STATUS server_status;
-extern bool* debug_broker; 
 
 /* Setup de servidor */
 
@@ -51,9 +49,7 @@ void iniciar_servidor(void){
 
 	memcpy(socket,&socket_servidor,sizeof(int));
 
-
 	esperar_cliente((void*)socket);
-	
 }
 
 void* esperar_cliente(void* socket){
@@ -85,82 +81,116 @@ void* esperar_cliente(void* socket){
 
 			pthread_create(&hilo_cliente,NULL,esperar_mensajes,(void *)soc_cliente);
 
-			pthread_detach(hilo_cliente);
-
+			pthread_join(hilo_cliente,NULL);
+			
 		}
-	
 	}
 	
 	return NULL;
-
 }
 
 void* esperar_mensajes(void* cliente){
 
+	pthread_mutex_lock(&mutex_recepcion_mensajes);
 	int socket_cliente = *((int*)cliente);
-
-	log_info(broker_logger, "Se aceptó un nuevo proceso en el socket %d", socket_cliente);
 
 	//Creo un paquete y recibo el mensaje
 	t_packed* paquete;
 
-	while(server_status != ENDING){
+	while(1){
 
 		paquete = recibir_mensaje_serializado(socket_cliente);
 
-		/* log_warning(broker_logger,"pase x el while del socket"); */
-
 		if(paquete > (t_packed*)0){
-			//Esto me devuelve el paquete con todos los datos
-			/* El nro de operacion y cola de mensajes indican el 
-			tipo de estructura que contiene el paquete */
-			
- 		 	if(debug_broker) log_debug(broker_logger,"Mensaje Recibido:",NULL);
-			if(debug_broker) log_debug(broker_logger,"operacion: %d ",paquete->operacion);
-			if(debug_broker) log_debug(broker_logger,"cola_de_mensajes: %d ",paquete->cola_de_mensajes);
-			if(debug_broker) log_debug(broker_logger,"id_correlacional: %d  ",paquete->id_correlacional);
-			if(debug_broker) log_debug(broker_logger,"id_mensaje: %d ",paquete->id_mensaje);
-			if(debug_broker) log_debug(broker_logger,"id_cliente: %d ",paquete->id_cliente);
-			if(debug_broker) log_debug(broker_logger,"tamanio_payload: %d ",paquete->tamanio_payload); 
+			 
+			t_produccion_paquete* produccion = (t_produccion_paquete*)malloc(sizeof(t_produccion_paquete));
+			produccion->socket = socket_cliente;
+			produccion->paquete = paquete;
 
-			switch(paquete->operacion){
-				case ENVIAR_MENSAJE:
-					recibir_mensaje_de_colas(paquete,socket_cliente);
-					break;
-				
-				case SUSCRIBIRSE_A_COLA:
-					recibir_solicitud_suscripcion(paquete,socket_cliente);
-					break;
+			list_add(paquetes_pendientes,(void*)produccion);
 
-				case ACK:
-					if(paquete->id_mensaje != -1){
-						recibir_ack(paquete,socket_cliente);
-					}
-					break;
-				
-				default:
-					log_error(broker_logger, "Error, operacion desconocida: %d", paquete->operacion);
-					break;
-			}
+			sem_post(&transaccionar_paquetes_pendientes);			
 
-		break;
-
+			break;
 		}
-
 	}
+
+	pthread_mutex_unlock(&mutex_recepcion_mensajes);
 
 	free(cliente);
 
 	return NULL;
-	
 }
 
 /* Recepcion de mensajes */
 
+void* transaccionar_paquete_recibido(){
+
+	while(1){
+
+		sem_wait(&transaccionar_paquetes_pendientes);
+
+		pthread_mutex_lock(&mutex_server_status);
+		if(server_status == ENDING){
+			pthread_mutex_unlock(&mutex_server_status);
+			break;
+		} 
+		pthread_mutex_unlock(&mutex_server_status);
+
+		pthread_mutex_lock(&mutex_recepcion_mensajes);
+		t_produccion_paquete* produccion = list_remove(paquetes_pendientes,0);
+		pthread_mutex_unlock(&mutex_recepcion_mensajes);
+
+		if(produccion == NULL){
+			continue;
+		}
+		
+		t_packed* paquete = produccion->paquete;
+		int socket_cliente = produccion->socket;
+
+		free(produccion);
+
+	 if(debug_broker) {
+			log_debug(broker_logger,"Mensaje Recibido en el socket %d:\noperacion: %d \ncola_de_mensajes: %s \nid_correlacional: %d \nid_mensaje: %d \nid_cliente: %d \ntamanio_payload: %d",
+				socket_cliente,
+				paquete->operacion,
+				obtener_nombre_cola(paquete->cola_de_mensajes),
+				paquete->id_correlacional,
+				paquete->id_mensaje,
+				paquete->id_cliente,
+				paquete->tamanio_payload
+			);
+		}; 
+
+		switch(paquete->operacion){
+			case ENVIAR_MENSAJE:
+				recibir_mensaje_de_colas(paquete,socket_cliente);
+				break;
+			
+			case SUSCRIBIRSE_A_COLA:
+				recibir_solicitud_suscripcion(paquete,socket_cliente);
+				break;
+
+			case ACK:
+				if(paquete->id_mensaje != -1){
+					recibir_ack(paquete,socket_cliente);
+				}
+				break;
+			
+			default:
+				log_error(broker_logger, "Error, operacion desconocida: %d", paquete->operacion);
+				break;
+		}
+
+	}	
+
+	return NULL;
+
+}
+
 void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 
 	log_info(broker_logger, "El cliente %d envió un mensaje para la cola %d a través de socket %d", paquete->id_cliente, paquete->cola_de_mensajes,socket_cliente);
-
 	int id_mensaje = agregar_mensaje_a_cola(paquete);
 	
 	distribuir_ack(socket_cliente,id_mensaje,-1);
@@ -186,7 +216,9 @@ void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
 
 void recibir_ack(t_packed *paquete,int socket_cliente){
 
-	agregar_ack_a_mensaje(paquete->id_mensaje, paquete->id_cliente, socket_cliente);
+	log_info(broker_logger, "El cliente %d envió confirmación del mensaje %d a través del socket %d ",paquete->id_cliente, paquete->id_mensaje, socket_cliente);
+
+	agregar_ack_a_mensaje(paquete->id_mensaje, paquete->id_cliente);
 
 	eliminar_mensaje(paquete);
 

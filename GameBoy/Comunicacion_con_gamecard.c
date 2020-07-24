@@ -10,8 +10,6 @@
 void gamecard_new_pokemon(char * pokemon, char * posx, char * posy, char * cantidad, char * id_mensaje_correlativo){
 
 	validar_parametros_cinco_argumentos(pokemon,posx,posy,cantidad,id_mensaje_correlativo);
-	log_info(gameboy_logger," Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, con la cantidad %s del pokemon %s a crear en el mapa y id_correlativo %s",
-			posx,posy,cantidad,pokemon,id_mensaje_correlativo);
 
 	t_new_pokemon* new_pokemon = malloc(sizeof(t_new_pokemon));
 	new_pokemon->cantidad = (uint32_t)atoi(cantidad);
@@ -24,11 +22,11 @@ void gamecard_new_pokemon(char * pokemon, char * posx, char * posy, char * canti
 	if(socket < 0){
 		log_info(gameboy_logger,"Gamecard caído");
 	}else{
+		log_info(gameboy_logger,"Conectado a Gamecard");
 		int status = distribuir_new_pokemon(socket, -1, (uint32_t)atoi(id_mensaje_correlativo), (uint32_t)id, new_pokemon);
 		if(status < 0){
-			log_info(gameboy_logger,"Gamecard caído");
+			log_info(gameboy_logger,"Gamecard se cayó");
 		}else{
-			log_info(gameboy_logger,"Pedido de new pokemon enviado correctamente");
 			close(socket);
 		}
 	}
@@ -40,7 +38,6 @@ void gamecard_new_pokemon(char * pokemon, char * posx, char * posy, char * canti
 void gamecard_catch_pokemon(char * pokemon, char* posx, char* posy, char * id_mensaje){
 
 	validar_parametros_cuatro_argumentos(pokemon,posx,posy,id_mensaje);
-	log_info(gameboy_logger," Envio a gamecard la posicion en x -> %s, la posicion en y -> %s, del pokemon %s a crear en el mapa, y id_mensaje %s",posx,posy,pokemon,id_mensaje);
 
 	t_catch_pokemon* appeared_pokemon = malloc(sizeof(t_catch_pokemon));
 	appeared_pokemon->pokemon = pokemon;
@@ -52,11 +49,11 @@ void gamecard_catch_pokemon(char * pokemon, char* posx, char* posy, char * id_me
 	if(socket < 0){
 		log_info(gameboy_logger,"Gamecard caído");
 	}else{
+		log_info(gameboy_logger,"Conectado a Gamecard");
 		int status = distribuir_catch_pokemon(socket, (uint32_t)atoi(id_mensaje), -1, (uint32_t)id, appeared_pokemon);
 		if(status < 0){
-			log_info(gameboy_logger,"Gamecard caído");
-		}else{
-			log_info(gameboy_logger,"Pedido de appeared pokemon enviado correctamente");
+			log_info(gameboy_logger,"Gamecard se cayó");
+		}else{;
 			close(socket);
 		}
 	}
@@ -67,7 +64,6 @@ void gamecard_catch_pokemon(char * pokemon, char* posx, char* posy, char * id_me
 
 void gamecard_get_pokemon(char * pokemon, char * id_mensaje){
 	validar_parametros_dos_argumentos(pokemon, id_mensaje);
-	log_info(gameboy_logger," Envio a gamecard el pokemon %s y id_mensaje %s", pokemon, id_mensaje);
 
 	t_get_pokemon * get_pokemon = malloc(sizeof(t_get_pokemon));
 	get_pokemon->pokemon = pokemon;
@@ -77,11 +73,11 @@ void gamecard_get_pokemon(char * pokemon, char * id_mensaje){
 	if(socket < 0){
 		log_info(gameboy_logger,"Gamecard caído");
 	}else{
+		log_info(gameboy_logger,"Conectado a Gamecard");
 		int status = distribuir_get_pokemon(socket, (uint32_t)atoi(id_mensaje), -1, (uint32_t)id, get_pokemon);
 		if(status < 0){
-			log_info(gameboy_logger,"Gamecard caído");
+			log_info(gameboy_logger,"Gamecard se cayó");
 		}else{
-			log_info(gameboy_logger,"Pedido de get pokemon enviado correctamente");
 			close(socket);
 		}
 	}

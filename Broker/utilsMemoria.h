@@ -33,7 +33,7 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion);
 bool puede_alojarse(int tamanio_en_bytes);
 void liberar_bloque_memoria(t_bloque_memoria* bloque);
 
-void* calcular_posicion_relativa(t_bloque_memoria* bloque);
+int calcular_posicion_relativa(t_bloque_memoria* bloque);
 void print_memoria(void* _bloque);
 bool ordenar_bloques_memoria(void* puntero1, void* puntero2);
 void actualizar_lru_de_mensaje(t_mensaje_cola* mensaje);
@@ -41,6 +41,3 @@ t_bloque_memoria* buscar_bloque_de_mensaje(t_mensaje_cola* mensaje);
 
 //Auxiliar para LRU y FIFO
 uint64_t get_timestamp();
-
-
-//void  LiberarMemoriaInicial(void* bloque_memoria_inicial,t_list* lista_memoria);

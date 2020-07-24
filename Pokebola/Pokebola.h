@@ -195,6 +195,11 @@ typedef struct{
 	enum COLA_DE_MENSAJES cola_de_mensajes __attribute__((packed));	 
 }t_socket_cliente;
 
+typedef struct{
+	int socket;
+	t_packed* paquete;
+} t_produccion_paquete;
+
 /*  */
 
 char* obtener_nombre_cola(int cola_de_mensajes);

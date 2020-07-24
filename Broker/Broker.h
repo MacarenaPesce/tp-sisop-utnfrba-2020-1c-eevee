@@ -43,12 +43,11 @@ float* primer_bloque;
 t_list* lista_memoria; 
 int socket_servidor;
 enum SERVER_STATUS server_status;
-bool* debug_broker;
 
 static pthread_mutex_t mutex_queue_mensajes = PTHREAD_MUTEX_INITIALIZER;
-static pthread_mutex_t mutex_recibir_mensajes = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t mutex_recepcion_mensajes = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mutex_server_status = PTHREAD_MUTEX_INITIALIZER;
 
-t_cache_colas* cache_mensajes;
+
 
 #endif

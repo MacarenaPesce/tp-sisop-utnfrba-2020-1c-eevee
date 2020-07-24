@@ -31,10 +31,11 @@ void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_particion
 t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion); 
 void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_cola* estructura_mensaje, int tamanio_bytes_pot_dos);
 t_bloque_memoria* reemplazar_bloque_BS();
-void consolidacion_BS(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_borrado, t_bloque_memoria* bloque_siguiente);
+void consolidacion_BS(t_bloque_memoria* bloque_borrado);
 bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente);
 void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente);
-
+bool es_buddy_libre_siguiente(t_bloque_memoria* bloque_actual,t_bloque_memoria* bloque_validar);
+bool es_buddy_libre_anterior(t_bloque_memoria* bloque_actual,t_bloque_memoria* bloque_validar);
 
 //*****************Auxiliares especificas Buddy System******************************
 bool tamanio_potencia_dos(int tamanio_en_bytes);

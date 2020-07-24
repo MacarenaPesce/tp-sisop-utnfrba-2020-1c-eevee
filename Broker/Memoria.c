@@ -11,7 +11,6 @@ extern char* log_file;
 extern t_log* broker_logger;
 extern t_config* config;
 
-extern t_cache_colas* cache_mensajes;
 
 //ASCII boquitas en hexa
 //control + shift + u 3e y 3c 
@@ -27,7 +26,7 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     cache_mensajes->memoria = list_create();
 
     /* Asigno la memoria a un puntero auxiliar y la inicializo en cero */
-    void* memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
+    memoria_inicial = malloc(tamanio_en_bytes*sizeof(char));    
     memset(memoria_inicial, 0, tamanio_en_bytes*sizeof(char));
    
     log_info(broker_logger, "Se asigno memoria inicial. La direccion inicial de memoria es: %p", memoria_inicial);
@@ -44,7 +43,6 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
     bloque->estructura_mensaje = (t_mensaje_cola*) memoria_inicial;
 
     log_info(broker_logger, "Particion de memoria inicial creada con: %i", bloque->tamanio_particion );
-    printf("\n");
 
     /* Agrego el bloque a la lista */
     list_add(cache_mensajes->memoria,bloque);
@@ -57,14 +55,12 @@ void asignar_memoria_inicial(int tamanio_en_bytes){
 	Esta deberia ser la que tiene que llamar la cola de mensajes*/
 void asignar_particion_memoria(t_mensaje_cola* estructura_mensaje){
 
-    printf("\n");
-    printf("\n");
-    if(debug_broker) log_debug(broker_logger, "Nueva peticion de memoria de: %i", estructura_mensaje->tamanio_mensaje);
+
+    log_info(broker_logger, "Nueva peticion de memoria de: %i", estructura_mensaje->tamanio_mensaje);
 
     /* Corro el algoritmo de memoria */
     algoritmo_de_memoria(estructura_mensaje);
 
-    printf("\n");
 
     return ;
 }
@@ -95,14 +91,13 @@ void algoritmo_de_memoria(t_mensaje_cola* estructura_mensaje){
 //---------------------------PARTICIONES DINAMICAS CON COMPACTACION----------------------
 void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
 
-    if(debug_broker) log_debug(broker_logger,"PARTICIONES DINAMICAS");
+    log_info(broker_logger,"PARTICIONES DINAMICAS");
     if(debug_broker) log_debug(broker_logger,"Alojar: %d", estructura_mensaje->tamanio_mensaje);
 
     /* Me fijo si el tamaño del mensaje es menor al minimo tamaño de particion */
     int tamanio_parti = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
     
-    if(debug_broker) log_debug(broker_logger,"Se hace una particion de: %d ", tamanio_parti);
-    printf("\n");
+    log_info(broker_logger,"Se hace una particion de: %d ", tamanio_parti);
     
     /* Me fijo si la particion puede alojarse a la primera */
     bool sePuedeAlojar = puede_alojarse(tamanio_parti);
@@ -123,7 +118,6 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
             algoritmo_de_particion_libre( tamanio_parti, estructura_mensaje);
 
             if(debug_broker) log_debug(broker_logger, "Aloje la nueva particion , PD");
-            printf("\n");
 
             //seteo alojado en true, para salir del while
             alojado = true;
@@ -142,7 +136,7 @@ void particiones_dinamicas( t_mensaje_cola* estructura_mensaje){
             log_info(broker_logger, "Frecuencia de compactacion > 0...");
 
             algoritmo_de_reemplazo();
-            frec_para_compactar--;
+            frec_para_compactar = frec_para_compactar-1;
 
             log_info(broker_logger, "Frecuencia de compactacion, faltan vaciar %d particiones para compactar", frec_para_compactar);
 
@@ -193,7 +187,8 @@ void algoritmo_de_particion_libre(int tamanio_parti, t_mensaje_cola* estructura_
     }
 
     if(debug_broker) log_debug(broker_logger, "Algoritmo de particion libre ejecutado!");
-	printf("\n");
+
+    if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
     return ;
 }
@@ -229,7 +224,6 @@ void algoritmo_first_fit(int tamanio_parti,t_mensaje_cola* estructura_mensaje){
     particionar_bloque(tamanio_parti,indice,estructura_mensaje);
 
     if(debug_broker) log_debug(broker_logger, "Ya ejecute el algoritmo fist fit");
-    printf("\n");
 
     return ;
 }
@@ -278,7 +272,6 @@ void algoritmo_best_fit(int tamanio_parti, t_mensaje_cola* estructura_mensaje){
     particionar_bloque(tamanio_parti,indice,estructura_mensaje);
 
     if(debug_broker) log_debug(broker_logger, "Ya ejecute best fit");
-	printf("\n");
 
     return ;
 }
@@ -306,14 +299,12 @@ void algoritmo_de_reemplazo(){
     }
 
     if(debug_broker) log_debug(broker_logger,"Algoritmo de reemplazo ejecutado!");
-    printf("\n");
     
     //realizo la consolidacion siempre que corro el algoritmo de reemplazo
     consolidar(bloque);
 
     if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
-    printf("\n");
-    printf("\n");
+
 
     return;
 }
@@ -340,10 +331,10 @@ t_bloque_memoria* algoritmo_fifo(){
     liberar_bloque_memoria(bloque);
 
     if(debug_broker) log_debug(broker_logger, "Espacio liberado..");
-    printf("\n");
 
     return bloque;
 }
+
 
 t_bloque_memoria* obtener_bloque_mas_viejo(){
 
@@ -484,7 +475,6 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
     log_info(broker_logger, "Almacenado en la posicion relativa %d",posicion_relativa);
 
     if(debug_broker) log_debug(broker_logger, "Bloque particionado...");
-    printf("\n");
 
     return bloque_inicial;
 }
@@ -551,16 +541,15 @@ void compactar(){
     }    
 
     //muestro por pantalla antes de compactar como estaba la memoria
-    if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+    if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
     //itero la funcion compactar_bloque para compactaar la memoria
     dynamic_list_iterate(cache_mensajes->memoria, compactar_bloque);
 
     //muestro luego de compactar el estado de la memoria
-    if(debug_broker) list_iterate(cache_mensajes->memoria, print_memoria);
+    if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
     if(debug_broker) log_debug(broker_logger, "Compactacion terminada");
-    printf("\n");    
 
 	return ;
 }
@@ -620,68 +609,62 @@ void dump_memoria(){
     timeinfo = localtime(&hoy);
     strftime(fecha, 50, "%d/%m/%Y %T", timeinfo);
 
-    char* header = malloc(500);
-    header = "Dump ";
+    //char* header = malloc(500);
+    //header = "Dump ";
 
     fprintf(dumpeo,"---------------------------------------------------------------------------------------------------------------------------------------------------------------");
     fprintf(dumpeo, "\n");
-    fprintf(dumpeo, header);
+    fprintf(dumpeo, "Dump ");
     fprintf(dumpeo, fecha);
     fprintf(dumpeo, "\n");
 
     escribir_estado_de_memoria(dumpeo);
 
     fprintf(dumpeo,"-----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-    fprintf(dumpeo, "\n");
-
+    fprintf(dumpeo, "\n\n\n");
+    
     fclose(dumpeo);
 
     log_info(broker_logger, "Dump finalizado");
-    printf("\n");
 
 }
 
 
 void escribir_estado_de_memoria(FILE* archivo){
 
-    t_list* listadeparticiones = list_sorted(cache_mensajes->memoria, ordenar_bloques_memoria);
+    if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
-    if(debug_broker) list_iterate(listadeparticiones, print_memoria);
+    void hacer_fprint_de_bloque(void* _bloque){
 
-    for(int i=0; i < list_size(listadeparticiones); i++){
-        t_bloque_memoria* bloque = list_get(listadeparticiones, i);
-        /*char fecha[50];
-        struct tm* timeinfo;
-        timeinfo = localtime(bloque->last_time);
-        strftime(fecha, 50, "%H:%M:%S", timeinfo);
+        t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
 
-        log_info(broker_logger, "last_time ", fecha);*/
-
-        //if(!bloque->esta_vacio) log_warning(broker_logger, "Cola: %d",bloque->estructura_mensaje->cola_de_mensajes);
-        //else    log_warning(broker_logger, "Cola vacia"); 
+        int _id_bloque = obtener_indice_particion(bloque);
 
         if(!bloque->esta_vacio){
 
-            char* dump = crear_string_dump(bloque,i);
-
-            //log_warning(broker_logger, "dump: %s",dump);
+            char* dump = crear_string_dump(bloque,_id_bloque);
 
             fprintf(archivo, "%s",dump);
             fprintf(archivo, "\n");
+            free(dump);
 
         }else{
 
             t_bloque_memoria* ptr_final = (char*)bloque->estructura_mensaje + bloque->tamanio_particion;
 
             fprintf(archivo,"Particion %d: %p - %p.    [L]    Size: %db",
-                i , 
+                _id_bloque , 
                 bloque->estructura_mensaje, 
                 ptr_final,
                 bloque->tamanio_particion
             );
             fprintf(archivo, "\n");
         }
+
     }
+
+    list_iterate(cache_mensajes->memoria,hacer_fprint_de_bloque);
+
 }
 
 char* crear_string_dump(t_bloque_memoria* bloque,int indice){
@@ -700,8 +683,9 @@ char* crear_string_dump(t_bloque_memoria* bloque,int indice){
     string_append_with_format(&dump,"    Cola: %s",cola);
     string_append_with_format(&dump,"    ID: %d",bloque->estructura_mensaje->id_mensaje);
 
+    free(cola);
+
     return dump;
 }
-
 
 //-----------------------------FIN DEL DUMP--------------------------------

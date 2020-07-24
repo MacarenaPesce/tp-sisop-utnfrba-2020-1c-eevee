@@ -43,7 +43,6 @@ t_bloque_memoria* crear_bloque_vacio(int tamanio_particion, void* particion){
     bloque->last_time = 0;
 
     return bloque;
-
 }
 
 /* Libero la memoria de un determinado bloque y lo retorno */
@@ -66,7 +65,6 @@ void liberar_bloque_memoria(t_bloque_memoria* bloque){
 
 
     return ;
-
 }
 
 void liberar_bloque_memoria_sin_mensaje(t_bloque_memoria* bloque){
@@ -82,9 +80,7 @@ void liberar_bloque_memoria_sin_mensaje(t_bloque_memoria* bloque){
 	/* Vacio el last_time del bloque*/
 	bloque->last_time = 0;
 
-
     return ;
-
 }
 
 /*Dado el tamaño de una particion, me fijo si puede alojarse a la primera 
@@ -102,11 +98,10 @@ bool puede_alojarse(int tamanio_bytes){
     t_bloque_memoria *bloque_posible = list_find(cache_mensajes->memoria,tiene_espacio_suficiente);
 
     return bloque_posible != NULL;
-
 }
 
 /* Calcula la posicion relativa de memoria*/
-void* calcular_posicion_relativa(t_bloque_memoria* _bloque){
+int calcular_posicion_relativa(t_bloque_memoria* _bloque){
 
     /* Obtengo el primer bloque de mi lista para saber donde empieza la memoria*/
     t_bloque_memoria* primer_bloque = list_get(cache_mensajes->memoria,0);
@@ -114,7 +109,15 @@ void* calcular_posicion_relativa(t_bloque_memoria* _bloque){
     void* posicion_bloque = _bloque->esta_vacio ? _bloque->estructura_mensaje : _bloque->estructura_mensaje->mensaje;
     void* posicion_primer_bloque = primer_bloque->esta_vacio ? primer_bloque->estructura_mensaje : primer_bloque->estructura_mensaje->mensaje;
 
-    void* resultado =  posicion_bloque - posicion_primer_bloque;    
+    void* puntero_final =  posicion_bloque - posicion_primer_bloque;    
+
+    char* string_numero = string_new();
+
+    string_append_with_format(&string_numero,"%d",puntero_final);
+
+    int resultado = atoi(string_numero);
+
+    free(string_numero);
 
     return resultado;
 }
@@ -123,10 +126,17 @@ void* calcular_posicion_relativa(t_bloque_memoria* _bloque){
 void print_memoria(void* _bloque){
     t_bloque_memoria* bloque = (t_bloque_memoria*) _bloque;
 
-    if(bloque->esta_vacio == false) printf("\nId : %d\n",bloque->estructura_mensaje->id_mensaje);
+    char* id_part = string_new();
 
-    if(debug_broker) log_warning(broker_logger, "Tamaño: %d \n",bloque->tamanio_particion);
+    if(bloque->esta_vacio == false) {
+        string_append_with_format(&id_part,"mensaje %d",bloque->estructura_mensaje->id_mensaje);
+    }else{
+        string_append(&id_part,"bloque_vacio");
+    }
 
+    if(warn_broker) log_warning(broker_logger, "contenido: %s | Tamaño: %d \n",id_part,bloque->tamanio_particion);
+
+    free(id_part);
 }
 
 /* Ordena las posiciones de memoria */
@@ -158,7 +168,6 @@ void actualizar_lru_de_mensaje(t_mensaje_cola* mensaje){
     t_bloque_memoria* bloque = buscar_bloque_de_mensaje(mensaje);
 
     bloque->last_time = get_timestamp();
-
 }
 
 t_bloque_memoria* buscar_bloque_de_mensaje(t_mensaje_cola* mensaje){
@@ -177,5 +186,4 @@ t_bloque_memoria* buscar_bloque_de_mensaje(t_mensaje_cola* mensaje){
     t_bloque_memoria* bloque_encontrado = list_find(cache_mensajes->memoria,encontrar_bloque);
 
     return bloque_encontrado;
-
 }

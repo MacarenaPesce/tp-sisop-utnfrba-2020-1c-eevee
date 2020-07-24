@@ -5,7 +5,6 @@
 #include <Pokebola.h>
 #include "Contexto_broker.h"
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

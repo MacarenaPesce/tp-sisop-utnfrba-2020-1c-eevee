@@ -18,16 +18,20 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 			pthread_mutex_unlock(&llego_gameboy);
 
 			close(new_client_sock);
-			free(paquete);
 			break;
 		}
-		//free(paquete);
 	}
 }
 
 void * atender_a_gameboy(void * serv_socket){
 
-	while(GLOBAL_SEGUIR){
+	while(1){
+		pthread_mutex_lock(&global_seguir_mutex);
+		if(GLOBAL_SEGUIR == 0){
+			break;
+		}
+		pthread_mutex_unlock(&global_seguir_mutex);
+
 		struct sockaddr_in client_addr;
 
 		//Setea la direccion en 0
@@ -50,20 +54,17 @@ void crear_hilo_de_escucha_para_gameboy(int serv_socket){
 }
 
 void recibir_appeared_pokemon_desde_gameboy(t_packed * paquete){
-	t_appeared_pokemon * appeared = paquete->mensaje;
-
-	t_mensaje_guardado * mensaje = malloc(sizeof(t_mensaje_guardado));
-	mensaje->id = paquete->id_mensaje;
-	mensaje->id_correlacional = paquete->id_correlacional;
-	mensaje->operacion = APPEARED;
-	mensaje->contenido = appeared;
+	t_appeared_pokemon* appeared = (t_appeared_pokemon*)paquete->mensaje;
 
 	log_debug(team_logger, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 	log_info(team_logger_oficial, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
-	list_add(mensajes_que_llegan_nuevos, mensaje);
+	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
 	pthread_mutex_unlock(&mensaje_nuevo_mutex);
 
 	sem_post(&mensaje_nuevo_disponible);
+	
+	sem_wait(&paquete_usado);
+	eliminar_mensaje(paquete);
 }
