@@ -1,20 +1,3 @@
-[INFO] 21:14:30:197 Gameboy/(17119:17119): Recibí ACK del mensaje con ID: 0
-[INFO] 21:14:30:197 Gameboy/(17119:17119): Hice lo que me pidieron, chau!
-[INFO] 21:14:30:206 Gameboy/(17121:17121): Recibí ACK del mensaje con ID: 1
-[INFO] 21:14:30:206 Gameboy/(17121:17121): Hice lo que me pidieron, chau!
-[INFO] 21:14:30:236 Gameboy/(17125:17125): Recibí ACK del mensaje con ID: 2
-[INFO] 21:14:30:236 Gameboy/(17125:17125): Hice lo que me pidieron, chau!
-[INFO] 21:14:30:251 Gameboy/(17127:17127): Recibí ACK del mensaje con ID: 3
-[INFO] 21:14:30:251 Gameboy/(17127:17127): Hice lo que me pidieron, chau!
-[INFO] 21:17:43:219 Gameboy/(17379:17379): Recibí ACK del mensaje con ID: 29
-[INFO] 21:17:43:219 Gameboy/(17379:17379): Hice lo que me pidieron, chau!
-[INFO] 21:17:43:236 Gameboy/(17381:17381): Recibí ACK del mensaje con ID: 30
-[INFO] 21:17:43:236 Gameboy/(17381:17381): Hice lo que me pidieron, chau!
-[INFO] 21:17:43:251 Gameboy/(17385:17385): Recibí ACK del mensaje con ID: 31
-[INFO] 21:17:43:251 Gameboy/(17385:17385): Hice lo que me pidieron, chau!
-[INFO] 21:17:43:259 Gameboy/(17387:17387): Recibí ACK del mensaje con ID: 32
-[INFO] 21:17:43:259 Gameboy/(17387:17387): Hice lo que me pidieron, chau!
-[INFO] 21:17:43:268 Gameboy/(17389:17389): Recibí ACK del mensaje con ID: 33
-[INFO] 21:17:43:268 Gameboy/(17389:17389): Hice lo que me pidieron, chau!
-[INFO] 21:17:43:294 Gameboy/(17391:17391): Recibí ACK del mensaje con ID: 34
-[INFO] 21:17:43:294 Gameboy/(17391:17391): Hice lo que me pidieron, chau!
+[INFO] 11:59:32:764 Gameboy/(9456:9456):  Envio a broker la solicitud de suscripcion para la cola GET_POKEMON y estare suscripto por 5 segundos
+[INFO] 11:59:32:806 Gameboy/(9456:9458): Recibido ack de suscripcion
+[INFO] 11:59:37:813 Gameboy/(9456:9456): Se acabo el tiempo de suscripcion

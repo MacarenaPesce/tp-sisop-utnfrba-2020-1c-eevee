@@ -53,16 +53,15 @@ int recibir_paquete(int sock, void *mensaje, int tamanio){
 	int bytes_recibidos = recv(sock, mensaje, tamanio, 0);
 
 	if(bytes_recibidos < 0) {
-		perror("Error en el recv.\n");
+		//perror("Error en el recv.\n");
 		return -1;
 	}
 
 	//validación
 	// no recibe la cantidad esperada
 	if (bytes_recibidos < tamanio){
-		perror("No se recibió el mensaje completo");
+		//perror("No se recibió el mensaje completo");
 		return -2;
-
 	}
 
 	return bytes_recibidos;
@@ -84,8 +83,8 @@ int enviar_paquete(int sock, void *paquete, int tamanio){
 	//agrego validacion
 	// envia el mensaje pero no completo
 		if (bytes_enviados < tamanio){
-			perror("No se ha podido enviar el mensaje completo");
-					return -1;
+			//perror("No se ha podido enviar el mensaje completo");
+			return -1;
 		}
 	return bytes_enviados;
 
@@ -112,7 +111,7 @@ t_packed* recibir_mensaje(int sock){
 
 	t_packed* paquete = recibir_mensaje_serializado(sock);
 
-	if(paquete == (t_packed*)-1) return paquete;
+	if(paquete == (t_packed*)-1 || paquete == (t_packed*)-2) return paquete;
 
 	deserializar_paquete(paquete);	
 	
@@ -127,8 +126,14 @@ t_packed* recibir_mensaje_serializado(int sock){
 	
 	int cantidad_bytes = recibir_paquete(sock, paquete,sizeof(t_packed)-sizeof(paquete->mensaje));
 
-	if(cantidad_bytes < 0){
-		return (t_packed*)cantidad_bytes;
+	if(cantidad_bytes == -1){
+		free(paquete);
+		return (t_packed*)-1;
+	}
+
+	if(cantidad_bytes == -2){
+		free(paquete);
+		return(t_packed*)-2;
 	}
 
 	if(paquete->tamanio_payload <= 0) {
@@ -162,7 +167,7 @@ void deserializar_paquete(t_packed* paquete){
 			break;
 		
 		default:
-			printf("Error, operacion desconocida: %d\n",paquete->operacion);
+			//printf("Error, operacion desconocida: %d\n",paquete->operacion);
 			break;
 	}
 
@@ -197,7 +202,7 @@ void _recuperar_mensaje(t_packed *paquete){
 			break;			
 
 		default:
-			printf("Error, cola de mensajes desconocida: %d\n",paquete->cola_de_mensajes);
+			//printf("Error, cola de mensajes desconocida: %d\n",paquete->cola_de_mensajes);
 			break;
 	}
 }
@@ -221,7 +226,8 @@ void eliminar_mensaje(t_packed* paquete){
 			break;
 
 		default:
-			printf("\nOperacion desconocida %d\n",paquete->operacion);
+			//printf("\nOperacion desconocida %d\n",paquete->operacion);
+			break;
 
 	}
 		
@@ -885,7 +891,7 @@ char* obtener_nombre_cola(int cola_de_mensajes){
 		case COLA_NEW_POKEMON:
 			return "NEW_POKEMON";
 		default:
-			printf("Cola %d no reconocida\n",cola_de_mensajes);
+			//printf("Cola %d no reconocida\n",cola_de_mensajes);
 			return "";
 
 	}
@@ -936,59 +942,4 @@ void dynamic_list_iterate(t_list* self, void(*closure)(void*)) {
         aux = element->next;
         element = aux;
     }
-}
-
-/**************FUNCIONES PARA EL LOG*********************/
-void escribir_en_pantalla(int tipo_esc, int tipo_log, char* console_buffer, char* log_colors[8], char* msj_salida){
-
-	if ((tipo_esc == escribir) || (tipo_esc == escribir_loguear)) {
-		console_buffer = string_from_format("%s%s%s", log_colors[tipo_log],
-				msj_salida, log_colors[0]);
-		printf("%s", console_buffer);
-		printf("%s","\n");
-		fflush(stdout);
-		free(console_buffer);
-	}
-}
-
-void definir_nivel_y_loguear(int tipo_esc, int tipo_log, char* msj_salida) {
-	
-	/*if ((tipo_esc == loguear) || (tipo_esc == escribir_loguear)) {
-		if (tipo_log == l_info) {
-			log_info(logger, msj_salida);
-		} else if (tipo_log == l_warning) {
-			log_warning(logger, msj_salida);
-		} else if (tipo_log == l_error) {
-			log_error(logger, msj_salida);
-		} else if (tipo_log == l_debug) {
-			log_debug(logger, msj_salida);
-		} else if (tipo_log == l_trace) {
-			log_trace(logger, msj_salida);
-		}
-	}*/
-}
-
-void logger(int tipo_esc, int tipo_log, const char* mensaje, ...){
-
-	//Colores (reset,vacio,vacio,cian,verde,vacio,amarillo,rojo)
-	char *log_colors[8] = {"\x1b[0m","","","\x1b[36m", "\x1b[32m", "", "\x1b[33m", "\x1b[31m" };
-	char *console_buffer=NULL;
-	char *msj_salida = malloc(sizeof(char) * 256);
-
-	//Captura los argumenas en una lista
-	va_list args;
-	va_start(args, mensaje);
-
-	//Arma el mensaje formateado con sus argumenas en msj_salida.
-	vsprintf(msj_salida, mensaje, args);
-
-	escribir_en_pantalla(tipo_esc, tipo_log, console_buffer, log_colors,
-			msj_salida);
-
-	definir_nivel_y_loguear(tipo_esc, tipo_log, msj_salida);
-
-	va_end(args);
-	free(msj_salida);
-
-	return;
 }

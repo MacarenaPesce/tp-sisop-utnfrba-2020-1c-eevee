@@ -140,10 +140,17 @@ void broker_get_pokemon(char * pokemon){
 void* mostrar_contenido_del_mensaje(void* _socket){
 
 	int socket = *((int*)_socket);
+	bool socket_finalizado = false;
 
 	while(1){
 	//Recibo ACK
 		t_packed * paquete = recibir_mensaje(socket);
+
+		if(paquete == (t_packed*)-2){
+			socket_finalizado = true;
+			//El socket finalizó, esta suscripcion no sirve mas
+			break;
+		}
 
 		if(paquete != (t_packed*)-1){ 
 			//Quedo a la espera de recibir notificaciones
@@ -160,11 +167,12 @@ void* mostrar_contenido_del_mensaje(void* _socket){
 
 					if(paquete->id_mensaje == -1){
 						log_info(gameboy_logger,"Recibido ack de suscripcion");
-						free(paquete);
+						eliminar_mensaje(paquete);
 						break;
 					}
 
 					log_info(gameboy_logger,"Recibido ack de mensaje de id %d",paquete->id_mensaje);
+					eliminar_mensaje(paquete);
 
 					break;
 
@@ -172,6 +180,8 @@ void* mostrar_contenido_del_mensaje(void* _socket){
 
 		}
 	}
+
+	free(_socket);
 
 	return NULL;
 }
