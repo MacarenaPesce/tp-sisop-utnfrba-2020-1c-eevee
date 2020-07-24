@@ -12,7 +12,7 @@ void * recibir_appeared_pokemon_desde_broker(t_packed * paquete){
 	t_appeared_pokemon* appeared = (t_appeared_pokemon*)paquete->mensaje;
 
 	log_debug(team_logger, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
-	log_info(team_logger_oficial, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
+	log_debug(team_logger_oficial, "Llego el sgte mensaje: APPEARED_POKEMON, de la especie %s en las coordenadas (%d, %d)", appeared->pokemon, appeared->coordenadas.posx, appeared->coordenadas.posy);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
 	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
@@ -30,7 +30,19 @@ void * recibir_localized_pokemon_desde_broker(t_packed * paquete){
 	t_localized_pokemon * localized = (t_localized_pokemon*)paquete->mensaje;
 
 	log_debug(team_logger, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
-	log_info(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s", localized->pokemon);
+	log_debug(team_logger_oficial, "Llego el sgte mensaje: LOCALIZED_POKEMON de la especie %s, cant de coordenadas %d", localized->pokemon, localized->cantidad_coordenadas);
+
+	int k = 0;
+	t_coordenadas* coordenada;
+	while(!list_is_empty(localized->lista_coordenadas)){
+		coordenada = list_get(localized->lista_coordenadas, k);
+		if(coordenada == NULL){
+			break;
+		}
+	
+		log_debug(team_logger_oficial,"Coordenadas nro %d: (%d, %d)", k, coordenada->posx, coordenada->posy);
+		k++;
+	}
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
 	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
@@ -48,7 +60,7 @@ void * recibir_caught_pokemon_desde_broker(t_packed * paquete){
 	t_caught_pokemon * caught = paquete->mensaje;
 
 	log_debug(team_logger, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo %d y status %d", paquete->id_correlacional, caught->status);
-	log_info(team_logger_oficial, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo %d y status %d", paquete->id_correlacional, caught->status);
+	log_debug(team_logger_oficial, "Llego el sgte mensaje: CAUGHT_POKEMON, id correlativo %d y status %d", paquete->id_correlacional, caught->status);
 
 	pthread_mutex_lock(&mensaje_nuevo_mutex);
 	list_add(mensajes_que_llegan_nuevos, (void*)paquete);
@@ -98,8 +110,8 @@ void enviar_get(){
 			}
 		}
 		else{
-			log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
-			log_info(team_logger, "No existen locaciones para esta especie: %s, cant %i", objetivo->especie, objetivo->cantidad_necesitada);
+			log_warning(team_logger_oficial, "Falló la conexión con Broker, inicia la operación default para el pedido de get_pokemon");
+			log_info(team_logger_oficial, "No existen locaciones para esta especie: %s, cant %i", objetivo->especie, objetivo->cantidad_necesitada);
 		}
 
 		free(get_pokemon);
@@ -124,7 +136,6 @@ void convertirse_en_suscriptor_global_del_broker(){
 		pthread_create(&hilo,NULL,(void*)suscribirse_a_cola, (void*)paquete_suscripcion);
 		pthread_detach(hilo);
 	}
-
 }
 
 void hacer_intento_de_reconexion(){
@@ -150,39 +161,44 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 		pthread_mutex_unlock(&global_seguir_mutex);
 
 		if(broker_socket <= 0){
-			log_info(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
-			log_info(team_logger_oficial, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
+			log_warning(team_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
+			log_warning(team_logger_oficial, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
 			hacer_intento_de_reconexion();
 			suscribirse_a_cola(paquete_suscripcion);
-
 		}else{
-
 			//Recibo ACK
 			t_packed * paquete = recibir_mensaje(broker_socket);
 
-			if(paquete != (t_packed*)-1){
-				//Quedo a la espera de recibir notificaciones
-				if(paquete->operacion == ENVIAR_MENSAJE){
-					switch(paquete->cola_de_mensajes){
-						case COLA_APPEARED_POKEMON:
-							recibir_appeared_pokemon_desde_broker(paquete);
-							eliminar_mensaje(paquete);
-							break;
-						case COLA_LOCALIZED_POKEMON:
-							recibir_localized_pokemon_desde_broker(paquete);
-							eliminar_mensaje(paquete);
-							break;
-						case COLA_CAUGHT_POKEMON:
-							recibir_caught_pokemon_desde_broker(paquete);
-							eliminar_mensaje(paquete);
-							break;
-						default:
-							eliminar_mensaje(paquete);
-							break;
-					}
-				}else{
-					if(paquete->operacion == ACK){
-						free(paquete);
+			if(paquete == (t_packed*)-2){
+				log_info(team_logger, "El broker se cayó");
+				log_warning(team_logger_oficial, "El broker se cayó mientras TEAM estaba suscripto");
+				hacer_intento_de_reconexion();
+				suscribirse_a_cola(paquete_suscripcion);
+			}else{
+				if(paquete != (t_packed*)-1){
+					//Quedo a la espera de recibir notificaciones
+					if(paquete->operacion == ENVIAR_MENSAJE){
+						switch(paquete->cola_de_mensajes){
+							case COLA_APPEARED_POKEMON:
+								recibir_appeared_pokemon_desde_broker(paquete);
+								eliminar_mensaje(paquete);
+								break;
+							case COLA_LOCALIZED_POKEMON:
+								recibir_localized_pokemon_desde_broker(paquete);
+								eliminar_mensaje(paquete);
+								break;
+							case COLA_CAUGHT_POKEMON:
+								recibir_caught_pokemon_desde_broker(paquete);
+								eliminar_mensaje(paquete);
+								break;
+							default:
+								eliminar_mensaje(paquete);
+								break;
+						}
+					}else{
+						if(paquete->operacion == ACK){
+							free(paquete);
+						}
 					}
 				}
 			}
@@ -195,9 +211,3 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 
 	return NULL;
 }
-
-/*if(es_la_primera_vez){
-						es_la_primera_vez = false;
-					}else{
-						free(paquete);
-					}*/

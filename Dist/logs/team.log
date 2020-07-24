@@ -1,0 +1,538 @@
+[INFO] 20:30:32:640 Team/(11945:11945): Cargando el objetivo global...
+[INFO] 20:30:32:683 Team/(11945:11945): Objetivo global cargado
+[INFO] 20:30:32:752 Team/(11945:11945): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 20:30:32:767 Team/(11945:11945): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 20:30:32:769 Team/(11945:11945): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 20:30:32:770 Team/(11945:11945): Enviado pedido de get pokemon para esta especie: Gengar
+[WARNING] 20:30:32:788 Team/(11945:11953): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:30:32:794 Team/(11945:11954): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:30:32:795 Team/(11945:11952): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:30:32:814 Team/(11945:11952): Haciendo intento de reconexión
+[INFO] 20:30:32:816 Team/(11945:11954): Haciendo intento de reconexión
+[INFO] 20:30:32:820 Team/(11945:11953): Haciendo intento de reconexión
+[DEBUG] 20:30:36:100 Team/(11945:11955): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (1, 1)
+[INFO] 20:30:36:158 Team/(11945:11949): El entrenador 0 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 20:30:36:160 Team/(11945:11949): Agregue el pokemon Pikachu con coordenadas (1, 1) al mapa
+[INFO] 20:30:36:165 Team/(11945:11946): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 20:30:36:167 Team/(11945:11946): El entrenador 0 se mueve a atrapar a Pikachu a la posicion (1, 1)
+[DEBUG] 20:30:36:173 Team/(11945:11955): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (9, 7)
+[INFO] 20:30:36:176 Team/(11945:11949): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 20:30:36:176 Team/(11945:11949): Agregue el pokemon Squirtle con coordenadas (9, 7) al mapa
+[DEBUG] 20:30:36:177 Team/(11945:11955): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 2)
+[INFO] 20:30:36:178 Team/(11945:11949): El entrenador 1 pasa a Ready por ser el mas cercano a Onix
+[INFO] 20:30:36:178 Team/(11945:11949): Agregue el pokemon Onix con coordenadas (2, 2) al mapa
+[INFO] 20:30:51:177 Team/(11945:11946): El entrenador de id 0 llegó al pokemon Pikachu.
+[INFO] 20:30:51:181 Team/(11945:11946): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Pikachu
+[INFO] 20:30:51:183 Team/(11945:11946): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:30:51:184 Team/(11945:11946): El pokemon Pikachu ha sido atrapado con exito por el entrenador 0
+[INFO] 20:30:51:194 Team/(11945:11946): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:30:51:195 Team/(11945:11948): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 20:30:51:196 Team/(11945:11948): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (9, 7)
+[INFO] 20:31:01:197 Team/(11945:11948): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 20:31:01:200 Team/(11945:11948): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 20:31:01:202 Team/(11945:11948): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:31:01:203 Team/(11945:11948): El pokemon Squirtle ha sido atrapado con exito por el entrenador 2
+[INFO] 20:31:01:206 Team/(11945:11948): El entrenador 2 esta bloqueado esperando que aparezcan pokemones
+[INFO] 20:31:01:212 Team/(11945:11947): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 20:31:01:213 Team/(11945:11947): El entrenador 1 se mueve a atrapar a Onix a la posicion (2, 2)
+[WARNING] 20:31:02:818 Team/(11945:11954): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:31:02:819 Team/(11945:11954): Haciendo intento de reconexión
+[WARNING] 20:31:02:820 Team/(11945:11952): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:31:02:821 Team/(11945:11953): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[INFO] 20:31:02:822 Team/(11945:11952): Haciendo intento de reconexión
+[INFO] 20:31:02:823 Team/(11945:11953): Haciendo intento de reconexión
+[WARNING] 20:31:32:819 Team/(11945:11954): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:31:32:821 Team/(11945:11954): Haciendo intento de reconexión
+[WARNING] 20:31:32:823 Team/(11945:11953): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:31:32:824 Team/(11945:11952): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:31:32:826 Team/(11945:11953): Haciendo intento de reconexión
+[INFO] 20:31:32:826 Team/(11945:11952): Haciendo intento de reconexión
+[INFO] 20:31:36:215 Team/(11945:11947): El entrenador de id 1 llegó al pokemon Onix.
+[INFO] 20:31:36:217 Team/(11945:11947): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Onix
+[INFO] 20:31:36:218 Team/(11945:11947): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:31:36:220 Team/(11945:11947): El pokemon Onix ha sido atrapado con exito por el entrenador 1
+[INFO] 20:31:36:223 Team/(11945:11947): El entrenador 1 esta bloqueado esperando que aparezcan pokemones
+[DEBUG] 20:31:53:366 Team/(11945:11955): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (3, 5)
+[INFO] 20:31:53:370 Team/(11945:11949): El entrenador 1 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 20:31:53:370 Team/(11945:11949): Agregue el pokemon Squirtle con coordenadas (3, 5) al mapa
+[INFO] 20:31:53:371 Team/(11945:11947): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 20:31:53:371 Team/(11945:11947): El entrenador 1 se mueve a atrapar a Squirtle a la posicion (3, 5)
+[DEBUG] 20:31:53:373 Team/(11945:11955): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (7, 5)
+[INFO] 20:31:53:379 Team/(11945:11949): El entrenador 2 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 20:31:53:380 Team/(11945:11949): Agregue el pokemon Gengar con coordenadas (7, 5) al mapa
+[WARNING] 20:32:02:821 Team/(11945:11954): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:32:02:822 Team/(11945:11954): Haciendo intento de reconexión
+[WARNING] 20:32:02:827 Team/(11945:11952): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:32:02:828 Team/(11945:11953): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[INFO] 20:32:02:829 Team/(11945:11952): Haciendo intento de reconexión
+[INFO] 20:32:02:829 Team/(11945:11953): Haciendo intento de reconexión
+[INFO] 20:32:13:373 Team/(11945:11947): El entrenador de id 1 llegó al pokemon Squirtle.
+[INFO] 20:32:13:375 Team/(11945:11947): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 20:32:13:376 Team/(11945:11947): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:32:13:377 Team/(11945:11947): El pokemon Squirtle ha sido atrapado con exito por el entrenador 1
+[INFO] 20:32:13:378 Team/(11945:11947): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:32:13:379 Team/(11945:11948): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 20:32:13:380 Team/(11945:11948): El entrenador 2 se mueve a atrapar a Gengar a la posicion (7, 5)
+[WARNING] 20:32:32:823 Team/(11945:11954): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:32:32:824 Team/(11945:11954): Haciendo intento de reconexión
+[WARNING] 20:32:32:830 Team/(11945:11953): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:32:32:831 Team/(11945:11952): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:32:32:832 Team/(11945:11953): Haciendo intento de reconexión
+[INFO] 20:32:32:833 Team/(11945:11952): Haciendo intento de reconexión
+[INFO] 20:32:33:382 Team/(11945:11948): El entrenador de id 2 llegó al pokemon Gengar.
+[INFO] 20:32:33:383 Team/(11945:11948): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Gengar
+[INFO] 20:32:33:384 Team/(11945:11948): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:32:33:385 Team/(11945:11948): El pokemon Gengar ha sido atrapado con exito por el entrenador 2
+[INFO] 20:32:33:386 Team/(11945:11948): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[WARNING] 20:32:33:389 Team/(11945:11951): Deadlock detectado
+[INFO] 20:32:33:409 Team/(11945:11951): La cantidad de deadlocks producidos es 2
+[INFO] 20:32:33:418 Team/(11945:11951): La cantidad de entrenadores en deadlock es 3
+[INFO] 20:32:33:420 Team/(11945:11951): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:32:33:431 Team/(11945:11951): Hay deadlock entre el entrenador 0 y el entrenador 1
+[INFO] 20:32:33:436 Team/(11945:11951): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:32:33:441 Team/(11945:11951): El entrenador 0 pasó a ejecutar
+[INFO] 20:32:33:441 Team/(11945:11951): Haciendo el intercambio
+[INFO] 20:32:33:442 Team/(11945:11946): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 20:32:33:443 Team/(11945:11946): El entrenador 0 se mueve a la posicion de coordenadas (3, 5)
+[WARNING] 20:33:02:825 Team/(11945:11954): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:33:02:826 Team/(11945:11954): Haciendo intento de reconexión
+[WARNING] 20:33:02:834 Team/(11945:11952): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:33:02:835 Team/(11945:11953): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[INFO] 20:33:02:838 Team/(11945:11952): Haciendo intento de reconexión
+[INFO] 20:33:02:838 Team/(11945:11953): Haciendo intento de reconexión
+[INFO] 20:33:03:466 Team/(11945:11946): El entrenador de id 0 llegó a la posicion del entrenador de id 1
+[INFO] 20:33:28:472 Team/(11945:11946): Se va a realizar un intercambio entre el entrenador 0 y 1
+[INFO] 20:33:28:478 Team/(11945:11946): Se intercambiaron los pokemones Pikachu y Squirtle entre los entrenadores 0 y 1
+[INFO] 20:33:28:491 Team/(11945:11951): Luego de hacer un intercambio el entrenador 1 paso a la lista de bloqueados con cantidad maxima
+[INFO] 20:33:28:492 Team/(11945:11946): El entrenador 0 finalizo
+[WARNING] 20:33:28:504 Team/(11945:11951): Deadlock detectado
+[INFO] 20:33:28:505 Team/(11945:11951): La cantidad de entrenadores en deadlock es 2
+[INFO] 20:33:28:508 Team/(11945:11951): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:33:28:510 Team/(11945:11951): Hay deadlock entre el entrenador 2 y el entrenador 1
+[INFO] 20:33:28:510 Team/(11945:11951): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:33:28:511 Team/(11945:11951): El entrenador 2 pasó a ejecutar
+[INFO] 20:33:28:512 Team/(11945:11951): Haciendo el intercambio
+[INFO] 20:33:28:512 Team/(11945:11948): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
+[INFO] 20:33:28:512 Team/(11945:11948): El entrenador 2 se mueve a la posicion de coordenadas (3, 5)
+[WARNING] 20:33:32:827 Team/(11945:11954): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:33:32:830 Team/(11945:11954): Haciendo intento de reconexión
+[WARNING] 20:33:32:839 Team/(11945:11953): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:33:32:842 Team/(11945:11952): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:33:32:844 Team/(11945:11953): Haciendo intento de reconexión
+[INFO] 20:33:32:844 Team/(11945:11952): Haciendo intento de reconexión
+[INFO] 20:33:48:518 Team/(11945:11948): El entrenador de id 2 llegó a la posicion del entrenador de id 1
+[WARNING] 20:34:02:831 Team/(11945:11954): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:34:02:832 Team/(11945:11954): Haciendo intento de reconexión
+[WARNING] 20:34:02:846 Team/(11945:11952): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:34:02:847 Team/(11945:11953): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[INFO] 20:34:02:849 Team/(11945:11952): Haciendo intento de reconexión
+[INFO] 20:34:02:849 Team/(11945:11953): Haciendo intento de reconexión
+[INFO] 20:34:13:522 Team/(11945:11948): Se va a realizar un intercambio entre el entrenador 2 y 1
+[INFO] 20:34:13:523 Team/(11945:11948): Se intercambiaron los pokemones Gengar y Onix entre los entrenadores 2 y 1
+[INFO] 20:34:13:525 Team/(11945:11947): El entrenador 1 finalizo
+[INFO] 20:34:13:526 Team/(11945:11948): El entrenador 2 finalizo
+[INFO] 20:34:13:528 Team/(11945:11951): Objetivo global cumplido!!!!! :D
+[INFO] 20:34:13:528 Team/(11945:11951): La cantidad de ciclos de CPU totales es: 45
+[INFO] 20:34:13:530 Team/(11945:11951): La cantidad de cambios de contextos realizados es: 7
+[INFO] 20:34:13:532 Team/(11945:11951): La cantidad de ciclos de CPU realizados por el entrenador 0 es: 15
+[INFO] 20:34:13:535 Team/(11945:11951): La cantidad de ciclos de CPU realizados por el entrenador 2 es: 17
+[INFO] 20:34:13:536 Team/(11945:11951): La cantidad de ciclos de CPU realizados por el entrenador 1 es: 13
+[INFO] 20:34:13:541 Team/(11945:11951): La cantidad de deadlocks producidos es: 2
+[INFO] 20:34:13:542 Team/(11945:11951): La cantidad de deadlocks resueltos es: 2
+[INFO] 20:34:13:544 Team/(11945:11951): Cerrando team...
+[INFO] 20:35:07:467 Team/(12096:12096): Cargando el objetivo global...
+[INFO] 20:35:07:515 Team/(12096:12096): Objetivo global cargado
+[INFO] 20:35:07:575 Team/(12096:12096): Enviado pedido de get pokemon para esta especie: Vaporeon
+[INFO] 20:35:07:589 Team/(12096:12096): Enviado pedido de get pokemon para esta especie: Umbreon
+[INFO] 20:35:07:590 Team/(12096:12096): Enviado pedido de get pokemon para esta especie: Jolteon
+[INFO] 20:35:07:591 Team/(12096:12096): Enviado pedido de get pokemon para esta especie: Flareon
+[INFO] 20:35:07:593 Team/(12096:12096): Enviado pedido de get pokemon para esta especie: Espeon
+[WARNING] 20:35:07:609 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:35:07:621 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:35:07:621 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:35:07:638 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:35:07:638 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:35:07:639 Team/(12096:12107): Haciendo intento de reconexión
+[DEBUG] 20:35:16:684 Team/(12096:12108): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Jolteon en las coordenadas (2, 2)
+[INFO] 20:35:16:754 Team/(12096:12102): El entrenador 0 pasa a Ready por ser el mas cercano a Jolteon
+[INFO] 20:35:16:757 Team/(12096:12102): Agregue el pokemon Jolteon con coordenadas (2, 2) al mapa
+[INFO] 20:35:16:771 Team/(12096:12097): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 20:35:16:777 Team/(12096:12097): El entrenador 0 se mueve a atrapar a Jolteon a la posicion (2, 2)
+[DEBUG] 20:35:16:785 Team/(12096:12108): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Flareon en las coordenadas (4, 6)
+[INFO] 20:35:16:787 Team/(12096:12102): El entrenador 1 pasa a Ready por ser el mas cercano a Flareon
+[INFO] 20:35:16:787 Team/(12096:12102): Agregue el pokemon Flareon con coordenadas (4, 6) al mapa
+[DEBUG] 20:35:16:789 Team/(12096:12108): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Umbreon en las coordenadas (10, 6)
+[INFO] 20:35:16:790 Team/(12096:12102): El entrenador 2 pasa a Ready por ser el mas cercano a Umbreon
+[INFO] 20:35:16:791 Team/(12096:12102): Agregue el pokemon Umbreon con coordenadas (10, 6) al mapa
+[DEBUG] 20:35:16:792 Team/(12096:12108): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Espeon en las coordenadas (7, 1)
+[INFO] 20:35:16:794 Team/(12096:12102): El entrenador 3 pasa a Ready por ser el mas cercano a Espeon
+[INFO] 20:35:16:794 Team/(12096:12102): Agregue el pokemon Espeon con coordenadas (7, 1) al mapa
+[DEBUG] 20:35:16:794 Team/(12096:12108): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Vaporeon en las coordenadas (4, 10)
+[INFO] 20:35:16:796 Team/(12096:12102): El entrenador 4 pasa a Ready por ser el mas cercano a Vaporeon
+[INFO] 20:35:16:796 Team/(12096:12102): Agregue el pokemon Vaporeon con coordenadas (4, 10) al mapa
+[INFO] 20:35:21:781 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:35:21:783 Team/(12096:12098): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 20:35:21:784 Team/(12096:12098): El entrenador 1 se mueve a atrapar a Flareon a la posicion (4, 6)
+[INFO] 20:35:26:785 Team/(12096:12098): El entrenador de id 1 fue desalojado y paso a Ready
+[INFO] 20:35:26:787 Team/(12096:12099): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 20:35:26:787 Team/(12096:12099): El entrenador 2 se mueve a atrapar a Umbreon a la posicion (10, 6)
+[INFO] 20:35:31:788 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:35:31:789 Team/(12096:12100): Soy el entrenador que va a ejecutar, mi id es: 3.
+[INFO] 20:35:31:790 Team/(12096:12100): El entrenador 3 se mueve a atrapar a Espeon a la posicion (7, 1)
+[INFO] 20:35:36:791 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:35:36:794 Team/(12096:12101): Soy el entrenador que va a ejecutar, mi id es: 4.
+[INFO] 20:35:36:795 Team/(12096:12101): El entrenador 4 se mueve a atrapar a Vaporeon a la posicion (4, 10)
+[WARNING] 20:35:37:641 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:35:37:642 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:35:37:642 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:35:37:643 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:35:37:645 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:35:37:645 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:35:41:795 Team/(12096:12101): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 20:35:41:819 Team/(12096:12097): El entrenador de id 0 llegó al pokemon Jolteon.
+[INFO] 20:35:41:838 Team/(12096:12097): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Jolteon
+[INFO] 20:35:41:840 Team/(12096:12097): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:35:41:843 Team/(12096:12097): El pokemon Jolteon ha sido atrapado con exito por el entrenador 0
+[INFO] 20:35:41:861 Team/(12096:12097): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:35:46:869 Team/(12096:12098): El entrenador de id 1 fue desalojado y paso a Ready
+[INFO] 20:35:46:871 Team/(12096:12097): El entrenador de id 0 fue desalojado
+[INFO] 20:35:51:875 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:35:56:879 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:36:01:882 Team/(12096:12101): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 20:36:06:885 Team/(12096:12098): El entrenador de id 1 fue desalojado y paso a Ready
+[WARNING] 20:36:07:651 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:36:07:652 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:36:07:653 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:36:07:655 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:36:07:655 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:36:07:656 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:36:11:888 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:36:16:893 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:36:21:895 Team/(12096:12101): El entrenador de id 4 fue desalojado y paso a Ready
+[INFO] 20:36:21:897 Team/(12096:12098): El entrenador de id 1 llegó al pokemon Flareon.
+[INFO] 20:36:21:898 Team/(12096:12098): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Flareon
+[INFO] 20:36:21:899 Team/(12096:12098): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:36:21:900 Team/(12096:12098): El pokemon Flareon ha sido atrapado con exito por el entrenador 1
+[INFO] 20:36:21:902 Team/(12096:12098): El entrenador 1 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:36:26:904 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:36:26:904 Team/(12096:12098): El entrenador de id 1 fue desalojado
+[INFO] 20:36:26:909 Team/(12096:12100): El entrenador de id 3 llegó al pokemon Espeon.
+[INFO] 20:36:26:910 Team/(12096:12100): El entrenador 3 hizo el pedido de catch pokemon para esta especie: Espeon
+[INFO] 20:36:26:911 Team/(12096:12100): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:36:26:918 Team/(12096:12100): El pokemon Espeon ha sido atrapado con exito por el entrenador 3
+[INFO] 20:36:26:921 Team/(12096:12100): El entrenador 3 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:36:26:930 Team/(12096:12101): El entrenador de id 4 llegó al pokemon Vaporeon.
+[INFO] 20:36:26:934 Team/(12096:12101): El entrenador 4 hizo el pedido de catch pokemon para esta especie: Vaporeon
+[INFO] 20:36:26:935 Team/(12096:12101): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:36:26:936 Team/(12096:12101): El pokemon Vaporeon ha sido atrapado con exito por el entrenador 4
+[INFO] 20:36:26:947 Team/(12096:12101): El entrenador 4 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:36:26:950 Team/(12096:12099): El entrenador de id 2 llegó al pokemon Umbreon.
+[INFO] 20:36:26:951 Team/(12096:12099): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Umbreon
+[INFO] 20:36:26:952 Team/(12096:12099): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:36:26:952 Team/(12096:12099): El pokemon Umbreon ha sido atrapado con exito por el entrenador 2
+[INFO] 20:36:26:953 Team/(12096:12099): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:36:31:937 Team/(12096:12100): El entrenador de id 3 fue desalojado
+[INFO] 20:36:31:953 Team/(12096:12101): El entrenador de id 4 fue desalojado
+[INFO] 20:36:31:958 Team/(12096:12099): El entrenador de id 2 fue desalojado
+[WARNING] 20:36:31:963 Team/(12096:12104): Deadlock detectado
+[INFO] 20:36:31:981 Team/(12096:12104): La cantidad de deadlocks producidos es 1
+[INFO] 20:36:31:984 Team/(12096:12104): La cantidad de entrenadores en deadlock es 5
+[INFO] 20:36:31:987 Team/(12096:12104): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:36:31:994 Team/(12096:12104): Hay deadlock entre el entrenador 0 y el entrenador 1
+[INFO] 20:36:31:997 Team/(12096:12104): El entrenador 1 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:36:31:999 Team/(12096:12104): El entrenador 0 pasó a ejecutar
+[INFO] 20:36:31:999 Team/(12096:12104): Haciendo el intercambio
+[INFO] 20:36:31:4 Team/(12096:12097): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 20:36:32:5 Team/(12096:12097): El entrenador 0 se mueve a la posicion de coordenadas (4, 6)
+[INFO] 20:36:37:12 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[WARNING] 20:36:37:656 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:36:37:657 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:36:37:658 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[INFO] 20:36:37:661 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:36:37:661 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:36:37:662 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:36:42:15 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:36:47:17 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:36:52:19 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:36:57:22 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:37:02:23 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:37:02:28 Team/(12096:12097): El entrenador de id 0 llegó a la posicion del entrenador de id 1
+[INFO] 20:37:07:34 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[WARNING] 20:37:07:664 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:37:07:665 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:37:07:666 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[INFO] 20:37:07:681 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:37:07:689 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:37:07:690 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:37:12:38 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:37:17:45 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:37:22:46 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:37:27:48 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:37:27:50 Team/(12096:12097): Se va a realizar un intercambio entre el entrenador 0 y 1
+[INFO] 20:37:27:82 Team/(12096:12097): Se intercambiaron los pokemones Jolteon y Flareon entre los entrenadores 0 y 1
+[INFO] 20:37:27:89 Team/(12096:12104): Luego de hacer un intercambio el entrenador 0 paso a la lista de bloqueados con cantidad maxima
+[INFO] 20:37:27:103 Team/(12096:12098): El entrenador 1 finalizo
+[WARNING] 20:37:27:117 Team/(12096:12104): Deadlock detectado
+[INFO] 20:37:27:118 Team/(12096:12104): La cantidad de entrenadores en deadlock es 4
+[INFO] 20:37:27:118 Team/(12096:12104): El entrenador 3 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:37:27:119 Team/(12096:12104): Hay deadlock entre el entrenador 3 y el entrenador 4
+[INFO] 20:37:27:126 Team/(12096:12104): El entrenador 4 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:37:27:129 Team/(12096:12104): El entrenador 3 pasó a ejecutar
+[INFO] 20:37:27:130 Team/(12096:12104): Haciendo el intercambio
+[INFO] 20:37:27:130 Team/(12096:12100): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 3.
+[INFO] 20:37:27:130 Team/(12096:12100): El entrenador 3 se mueve a la posicion de coordenadas (4, 10)
+[INFO] 20:37:32:132 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:37:37:138 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[WARNING] 20:37:37:692 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:37:37:694 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:37:37:694 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:37:37:708 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:37:37:715 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:37:37:710 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:37:42:140 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:37:47:142 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:37:52:145 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:37:57:149 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:02:153 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:07:154 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[WARNING] 20:38:07:716 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:38:07:717 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:38:07:718 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:38:07:720 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:38:07:720 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:38:07:720 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:38:12:158 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:17:160 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:22:165 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:27:167 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:27:169 Team/(12096:12100): El entrenador de id 3 llegó a la posicion del entrenador de id 4
+[INFO] 20:38:32:171 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:37:173 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[WARNING] 20:38:37:721 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:38:37:722 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:38:37:723 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:38:37:726 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:38:37:726 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:38:37:727 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:38:42:175 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:47:178 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:52:180 Team/(12096:12100): El entrenador de id 3 fue desalojado y paso a Ready
+[INFO] 20:38:52:182 Team/(12096:12100): Se va a realizar un intercambio entre el entrenador 3 y 4
+[INFO] 20:38:52:183 Team/(12096:12100): Se intercambiaron los pokemones Espeon y Vaporeon entre los entrenadores 3 y 4
+[INFO] 20:38:52:184 Team/(12096:12104): Luego de hacer un intercambio el entrenador 3 paso a la lista de bloqueados con cantidad maxima
+[INFO] 20:38:52:185 Team/(12096:12101): El entrenador 4 finalizo
+[WARNING] 20:38:52:187 Team/(12096:12104): Deadlock detectado
+[INFO] 20:38:52:188 Team/(12096:12104): La cantidad de entrenadores en deadlock es 3
+[INFO] 20:38:52:188 Team/(12096:12104): El entrenador 2 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:38:52:190 Team/(12096:12104): Hay deadlock entre el entrenador 2 y el entrenador 3
+[INFO] 20:38:52:190 Team/(12096:12104): El entrenador 3 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:38:52:194 Team/(12096:12104): El entrenador 2 pasó a ejecutar
+[INFO] 20:38:52:194 Team/(12096:12104): Haciendo el intercambio
+[INFO] 20:38:52:194 Team/(12096:12099): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 2.
+[INFO] 20:38:52:195 Team/(12096:12099): El entrenador 2 se mueve a la posicion de coordenadas (4, 10)
+[INFO] 20:38:57:196 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:02:199 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:07:203 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[WARNING] 20:39:07:727 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:39:07:728 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:39:07:729 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:39:07:730 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:39:07:731 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:39:07:731 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:39:12:206 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:17:208 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:22:210 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:27:213 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:32:215 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:37:217 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[WARNING] 20:39:37:732 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:39:37:733 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:39:37:734 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:39:37:735 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:39:37:736 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:39:37:737 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:39:42:218 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:42:221 Team/(12096:12099): El entrenador de id 2 llegó a la posicion del entrenador de id 3
+[INFO] 20:39:47:223 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:52:227 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:39:57:229 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:40:02:232 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:40:07:234 Team/(12096:12099): El entrenador de id 2 fue desalojado y paso a Ready
+[INFO] 20:40:07:239 Team/(12096:12099): Se va a realizar un intercambio entre el entrenador 2 y 3
+[INFO] 20:40:07:243 Team/(12096:12099): Se intercambiaron los pokemones Umbreon y Vaporeon entre los entrenadores 2 y 3
+[INFO] 20:40:07:247 Team/(12096:12104): Luego de hacer un intercambio el entrenador 2 paso a la lista de bloqueados con cantidad maxima
+[INFO] 20:40:07:255 Team/(12096:12100): El entrenador 3 finalizo
+[WARNING] 20:40:07:256 Team/(12096:12104): Deadlock detectado
+[INFO] 20:40:07:257 Team/(12096:12104): La cantidad de entrenadores en deadlock es 2
+[INFO] 20:40:07:258 Team/(12096:12104): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:40:07:259 Team/(12096:12104): Hay deadlock entre el entrenador 0 y el entrenador 2
+[INFO] 20:40:07:260 Team/(12096:12104): El entrenador 2 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:40:07:262 Team/(12096:12104): El entrenador 0 pasó a ejecutar
+[INFO] 20:40:07:262 Team/(12096:12104): Haciendo el intercambio
+[INFO] 20:40:07:262 Team/(12096:12097): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 20:40:07:263 Team/(12096:12097): El entrenador 0 se mueve a la posicion de coordenadas (4, 10)
+[WARNING] 20:40:07:737 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:40:07:739 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:40:07:740 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:40:07:743 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:40:07:744 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:40:07:745 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:40:12:266 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:40:17:274 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:40:22:276 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:40:27:278 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:40:27:280 Team/(12096:12097): El entrenador de id 0 llegó a la posicion del entrenador de id 2
+[INFO] 20:40:32:281 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:40:37:282 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[WARNING] 20:40:37:746 Team/(12096:12106): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:40:37:747 Team/(12096:12107): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:40:37:747 Team/(12096:12105): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:40:37:750 Team/(12096:12106): Haciendo intento de reconexión
+[INFO] 20:40:37:750 Team/(12096:12105): Haciendo intento de reconexión
+[INFO] 20:40:37:751 Team/(12096:12107): Haciendo intento de reconexión
+[INFO] 20:40:42:284 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:40:47:287 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:40:52:293 Team/(12096:12097): El entrenador de id 0 fue desalojado y paso a Ready
+[INFO] 20:40:52:297 Team/(12096:12097): Se va a realizar un intercambio entre el entrenador 0 y 2
+[INFO] 20:40:52:301 Team/(12096:12097): Se intercambiaron los pokemones Flareon y Vaporeon entre los entrenadores 0 y 2
+[INFO] 20:40:52:304 Team/(12096:12099): El entrenador 2 finalizo
+[INFO] 20:40:52:305 Team/(12096:12097): El entrenador 0 finalizo
+[INFO] 20:40:52:310 Team/(12096:12104): Objetivo global cumplido!!!!! :D
+[INFO] 20:40:52:310 Team/(12096:12104): La cantidad de ciclos de CPU totales es: 71
+[INFO] 20:40:52:312 Team/(12096:12104): La cantidad de cambios de contextos realizados es: 80
+[INFO] 20:40:52:318 Team/(12096:12104): La cantidad de ciclos de CPU realizados por el entrenador 1 es: 4
+[INFO] 20:40:52:320 Team/(12096:12104): La cantidad de ciclos de CPU realizados por el entrenador 4 es: 4
+[INFO] 20:40:52:321 Team/(12096:12104): La cantidad de ciclos de CPU realizados por el entrenador 3 es: 21
+[INFO] 20:40:52:329 Team/(12096:12104): La cantidad de ciclos de CPU realizados por el entrenador 0 es: 22
+[INFO] 20:40:52:332 Team/(12096:12104): La cantidad de ciclos de CPU realizados por el entrenador 2 es: 20
+[INFO] 20:40:52:333 Team/(12096:12104): La cantidad de deadlocks producidos es: 1
+[INFO] 20:40:52:335 Team/(12096:12104): La cantidad de deadlocks resueltos es: 1
+[INFO] 20:40:52:342 Team/(12096:12104): Cerrando team...
+[INFO] 20:42:44:857 Team/(12735:12735): Cargando el objetivo global...
+[INFO] 20:42:44:900 Team/(12735:12735): Objetivo global cargado
+[INFO] 20:42:44:976 Team/(12735:12735): Enviado pedido de get pokemon para esta especie: Squirtle
+[INFO] 20:42:44:990 Team/(12735:12735): Enviado pedido de get pokemon para esta especie: Pikachu
+[INFO] 20:42:44:991 Team/(12735:12735): Enviado pedido de get pokemon para esta especie: Onix
+[INFO] 20:42:44:993 Team/(12735:12735): Enviado pedido de get pokemon para esta especie: Gengar
+[WARNING] 20:42:45:10 Team/(12735:12743): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:42:45:10 Team/(12735:12744): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:42:45:17 Team/(12735:12742): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:42:45:37 Team/(12735:12742): Haciendo intento de reconexión
+[INFO] 20:42:45:37 Team/(12735:12744): Haciendo intento de reconexión
+[INFO] 20:42:45:40 Team/(12735:12743): Haciendo intento de reconexión
+[DEBUG] 20:42:56:782 Team/(12735:12745): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Pikachu en las coordenadas (9, 9)
+[INFO] 20:42:56:849 Team/(12735:12739): El entrenador 1 pasa a Ready por ser el mas cercano a Pikachu
+[INFO] 20:42:56:852 Team/(12735:12739): Agregue el pokemon Pikachu con coordenadas (9, 9) al mapa
+[INFO] 20:42:56:870 Team/(12735:12737): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 20:42:56:874 Team/(12735:12737): El entrenador 1 se mueve a atrapar a Pikachu a la posicion (9, 9)
+[DEBUG] 20:42:56:877 Team/(12735:12745): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (5, 2)
+[INFO] 20:42:56:881 Team/(12735:12739): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 20:42:56:881 Team/(12735:12739): Agregue el pokemon Squirtle con coordenadas (5, 2) al mapa
+[DEBUG] 20:42:56:882 Team/(12735:12745): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Onix en las coordenadas (2, 8)
+[INFO] 20:42:56:883 Team/(12735:12739): El entrenador 0 pasa a Ready por ser el mas cercano a Onix
+[INFO] 20:42:56:884 Team/(12735:12739): Agregue el pokemon Onix con coordenadas (2, 8) al mapa
+[DEBUG] 20:42:56:884 Team/(12735:12745): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Gengar en las coordenadas (6, 6)
+[INFO] 20:42:56:886 Team/(12735:12739): Agregue el pokemon Gengar con coordenadas (6, 6) al mapa
+[DEBUG] 20:42:56:886 Team/(12735:12745): Llego el sgte mensaje: APPEARED_POKEMON, de la especie Squirtle en las coordenadas (5, 5)
+[INFO] 20:42:56:887 Team/(12735:12739): Agregue el pokemon Squirtle con coordenadas (5, 5) al mapa
+[WARNING] 20:43:15:40 Team/(12735:12744): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:43:15:41 Team/(12735:12743): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:43:15:42 Team/(12735:12742): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:43:15:44 Team/(12735:12744): Haciendo intento de reconexión
+[INFO] 20:43:15:44 Team/(12735:12743): Haciendo intento de reconexión
+[INFO] 20:43:15:45 Team/(12735:12742): Haciendo intento de reconexión
+[WARNING] 20:43:45:46 Team/(12735:12742): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:43:45:47 Team/(12735:12743): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:43:45:47 Team/(12735:12744): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:43:45:49 Team/(12735:12742): Haciendo intento de reconexión
+[INFO] 20:43:45:51 Team/(12735:12744): Haciendo intento de reconexión
+[INFO] 20:43:45:51 Team/(12735:12743): Haciendo intento de reconexión
+[INFO] 20:44:01:881 Team/(12735:12737): El entrenador de id 1 llegó al pokemon Pikachu.
+[INFO] 20:44:01:889 Team/(12735:12737): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Pikachu
+[INFO] 20:44:01:897 Team/(12735:12737): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:44:01:899 Team/(12735:12737): El pokemon Pikachu ha sido atrapado con exito por el entrenador 1
+[INFO] 20:44:01:909 Team/(12735:12737): El entrenador 1 esta bloqueado esperando que aparezcan pokemones
+[INFO] 20:44:01:919 Team/(12735:12737): El entrenador 1 pasa a Ready por ser el mas cercano a Gengar
+[INFO] 20:44:01:920 Team/(12735:12738): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 20:44:01:920 Team/(12735:12738): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (5, 2)
+[INFO] 20:44:11:921 Team/(12735:12738): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 20:44:11:922 Team/(12735:12738): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 20:44:11:923 Team/(12735:12738): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:44:11:924 Team/(12735:12738): El pokemon Squirtle ha sido atrapado con exito por el entrenador 2
+[INFO] 20:44:11:926 Team/(12735:12738): El entrenador 2 esta bloqueado esperando que aparezcan pokemones
+[INFO] 20:44:11:929 Team/(12735:12738): El entrenador 2 pasa a Ready por ser el mas cercano a Squirtle
+[INFO] 20:44:11:929 Team/(12735:12736): Soy el entrenador que va a ejecutar, mi id es: 0.
+[INFO] 20:44:11:930 Team/(12735:12736): El entrenador 0 se mueve a atrapar a Onix a la posicion (2, 8)
+[WARNING] 20:44:15:52 Team/(12735:12742): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:44:15:53 Team/(12735:12743): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:44:15:54 Team/(12735:12744): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:44:15:60 Team/(12735:12742): Haciendo intento de reconexión
+[INFO] 20:44:15:61 Team/(12735:12743): Haciendo intento de reconexión
+[INFO] 20:44:15:61 Team/(12735:12744): Haciendo intento de reconexión
+[INFO] 20:44:41:933 Team/(12735:12736): El entrenador de id 0 llegó al pokemon Onix.
+[INFO] 20:44:41:934 Team/(12735:12736): El entrenador 0 hizo el pedido de catch pokemon para esta especie: Onix
+[INFO] 20:44:41:934 Team/(12735:12736): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:44:41:935 Team/(12735:12736): El pokemon Onix ha sido atrapado con exito por el entrenador 0
+[INFO] 20:44:41:938 Team/(12735:12736): El entrenador 0 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[INFO] 20:44:41:939 Team/(12735:12737): Soy el entrenador que va a ejecutar, mi id es: 1.
+[INFO] 20:44:41:940 Team/(12735:12737): El entrenador 1 se mueve a atrapar a Gengar a la posicion (6, 6)
+[WARNING] 20:44:45:62 Team/(12735:12742): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:44:45:63 Team/(12735:12744): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:44:45:64 Team/(12735:12743): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[INFO] 20:44:45:66 Team/(12735:12742): Haciendo intento de reconexión
+[INFO] 20:44:45:67 Team/(12735:12744): Haciendo intento de reconexión
+[INFO] 20:44:45:67 Team/(12735:12743): Haciendo intento de reconexión
+[INFO] 20:45:11:944 Team/(12735:12737): El entrenador de id 1 llegó al pokemon Gengar.
+[INFO] 20:45:11:945 Team/(12735:12737): El entrenador 1 hizo el pedido de catch pokemon para esta especie: Gengar
+[INFO] 20:45:11:946 Team/(12735:12737): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:45:11:947 Team/(12735:12737): El pokemon Gengar ha sido atrapado con exito por el entrenador 1
+[WARNING] 20:45:15:68 Team/(12735:12743): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:45:15:70 Team/(12735:12744): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:45:15:71 Team/(12735:12742): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:45:15:75 Team/(12735:12743): Haciendo intento de reconexión
+[INFO] 20:45:15:76 Team/(12735:12744): Haciendo intento de reconexión
+[INFO] 20:45:15:77 Team/(12735:12742): Haciendo intento de reconexión
+[INFO] 20:45:16:952 Team/(12735:12737): El entrenador 1 finalizo
+[INFO] 20:45:16:956 Team/(12735:12738): Soy el entrenador que va a ejecutar, mi id es: 2.
+[INFO] 20:45:16:958 Team/(12735:12738): El entrenador 2 se mueve a atrapar a Squirtle a la posicion (5, 5)
+[INFO] 20:45:31:959 Team/(12735:12738): El entrenador de id 2 llegó al pokemon Squirtle.
+[INFO] 20:45:31:963 Team/(12735:12738): El entrenador 2 hizo el pedido de catch pokemon para esta especie: Squirtle
+[INFO] 20:45:31:966 Team/(12735:12738): El broker esta caído, pasamos a hacer el procedimiento default para atrapar un pokemon
+[DEBUG] 20:45:31:970 Team/(12735:12738): El pokemon Squirtle ha sido atrapado con exito por el entrenador 2
+[INFO] 20:45:31:982 Team/(12735:12738): El entrenador 2 está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar
+[WARNING] 20:45:32:4 Team/(12735:12741): Deadlock detectado
+[INFO] 20:45:32:44 Team/(12735:12741): La cantidad de deadlocks producidos es 1
+[INFO] 20:45:32:52 Team/(12735:12741): La cantidad de entrenadores en deadlock es 2
+[INFO] 20:45:32:54 Team/(12735:12741): El entrenador 0 pasó a la lista de listos para resolucion de deadlock
+[INFO] 20:45:32:58 Team/(12735:12741): Hay deadlock entre el entrenador 0 y el entrenador 2
+[INFO] 20:45:32:68 Team/(12735:12741): El entrenador 2 pasó a la lista de bloqueados esperando resolucion de deadlock
+[INFO] 20:45:32:74 Team/(12735:12741): El entrenador 0 pasó a ejecutar
+[INFO] 20:45:32:74 Team/(12735:12741): Haciendo el intercambio
+[INFO] 20:45:32:75 Team/(12735:12736): Soy el entrenador que va a ejecutar para resolver el deadlock, mi id es: 0.
+[INFO] 20:45:32:80 Team/(12735:12736): El entrenador 0 se mueve a la posicion de coordenadas (5, 5)
+[WARNING] 20:45:45:77 Team/(12735:12743): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:45:45:78 Team/(12735:12742): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[WARNING] 20:45:45:79 Team/(12735:12744): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[INFO] 20:45:45:81 Team/(12735:12743): Haciendo intento de reconexión
+[INFO] 20:45:45:81 Team/(12735:12742): Haciendo intento de reconexión
+[INFO] 20:45:45:82 Team/(12735:12744): Haciendo intento de reconexión
+[INFO] 20:46:02:87 Team/(12735:12736): El entrenador de id 0 llegó a la posicion del entrenador de id 2
+[WARNING] 20:46:15:83 Team/(12735:12744): No se pudo mandar al broker la solicitud de suscripcion para la cola CAUGHT_POKEMON
+[WARNING] 20:46:15:84 Team/(12735:12743): No se pudo mandar al broker la solicitud de suscripcion para la cola LOCALIZED_POKEMON
+[WARNING] 20:46:15:85 Team/(12735:12742): No se pudo mandar al broker la solicitud de suscripcion para la cola APPEARED_POKEMON
+[INFO] 20:46:15:91 Team/(12735:12744): Haciendo intento de reconexión
+[INFO] 20:46:15:92 Team/(12735:12743): Haciendo intento de reconexión
+[INFO] 20:46:15:93 Team/(12735:12742): Haciendo intento de reconexión
+[INFO] 20:46:27:95 Team/(12735:12736): Se va a realizar un intercambio entre el entrenador 0 y 2
+[INFO] 20:46:27:101 Team/(12735:12736): Se intercambiaron los pokemones Onix y Squirtle entre los entrenadores 0 y 2
+[INFO] 20:46:27:109 Team/(12735:12738): El entrenador 2 finalizo
+[INFO] 20:46:27:111 Team/(12735:12736): El entrenador 0 finalizo
+[INFO] 20:46:27:112 Team/(12735:12741): Objetivo global cumplido!!!!! :D
+[INFO] 20:46:27:113 Team/(12735:12741): La cantidad de ciclos de CPU totales es: 46
+[INFO] 20:46:27:114 Team/(12735:12741): La cantidad de cambios de contextos realizados es: 5
+[INFO] 20:46:27:116 Team/(12735:12741): La cantidad de ciclos de CPU realizados por el entrenador 1 es: 21
+[INFO] 20:46:27:117 Team/(12735:12741): La cantidad de ciclos de CPU realizados por el entrenador 0 es: 18
+[INFO] 20:46:27:118 Team/(12735:12741): La cantidad de ciclos de CPU realizados por el entrenador 2 es: 7
+[INFO] 20:46:27:118 Team/(12735:12741): La cantidad de deadlocks producidos es: 1
+[INFO] 20:46:27:119 Team/(12735:12741): La cantidad de deadlocks resueltos es: 1
+[INFO] 20:46:27:121 Team/(12735:12741): Cerrando team...

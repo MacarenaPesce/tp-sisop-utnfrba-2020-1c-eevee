@@ -59,8 +59,8 @@ bool objetivo_global_cumplido(){
 }
 
 void inicializar_logger(){
-	team_logger = log_create("../logs/team.log", "Team", 1, LOG_LEVEL_DEBUG);
-	team_logger_oficial = log_create(log_file, "Team", 0, LOG_LEVEL_DEBUG);
+	team_logger = log_create("../logs/team.log", "Team", 0, LOG_LEVEL_DEBUG);
+	team_logger_oficial = log_create(log_file, "Team", 1, LOG_LEVEL_DEBUG);
 }
 
 void inicializar_semaforos(){
@@ -295,15 +295,6 @@ int destruir_mensaje_catch(t_mensaje_guardado_catch * mensaje){
 	return 0;
 }
 
-/*void liberar_lista_char(char** lista){
-	int contador = 0;
-	while(lista[contador] != NULL){
-		free(lista[contador]);
-		contador++;
-	}
-	//free(lista);
-}*/
-
 void liberar_lista_char(char** lista){
 	int tamanio = sizeof(lista);
 
@@ -314,16 +305,6 @@ void liberar_lista_char(char** lista){
 	}
 	free(lista);	
 }
-
-/*void liberar_lista(char** lista){
-int contador = 0;
-while(lista[contador] != NULL){
-        free(lista[contador]);
-        contador++;
-}
-
-free(lista);
-}*/
 
 void terminar_team_correctamente(){
 	int destruir_pokemon_plus(t_pokemon * pokemon){	
@@ -366,7 +347,7 @@ void terminar_team_correctamente(){
 
 
 	log_destroy(team_logger);
-	//log_destroy(team_logger_oficial);
+	log_destroy(team_logger_oficial);
 
 	if(log_file!=NULL){
 		free(log_file);
