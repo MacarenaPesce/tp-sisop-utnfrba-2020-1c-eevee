@@ -68,7 +68,7 @@ int status= mkdir(rutas_fs->pathDirectorioMetadataFs, 0777);
 
 void cargarRutasFs() {
 
-	log_info(gameCard_logger, "Carganado las rutas correspondientes al FileSystem");
+	//log_info(gameCard_logger, "Carganado las rutas correspondientes al FileSystem");
 
 	rutas_fs = malloc(sizeof(t_rutas_fs));
 	rutas_fs->puntoDeMontaje = string_new();
@@ -94,7 +94,7 @@ void cargarRutasFs() {
 	string_append(&(rutas_fs->pathDirectorioBloques), rutas_fs->puntoDeMontaje);
 	string_append(&(rutas_fs->pathDirectorioBloques), "/Blocks");
 
-	log_info(gameCard_logger, "Se han cargado todas las rutas correctamente");
+	//log_info(gameCard_logger, "Se han cargado todas las rutas correctamente");
 }
 
 int abrir_ruta(char *ruta) {
@@ -104,7 +104,7 @@ int abrir_ruta(char *ruta) {
 
 void cargarMetadataFs() {
 
-	log_info(gameCard_logger, "Cargando Metadata del FileSystem");
+	//log_info(gameCard_logger, "Cargando Metadata del FileSystem");
 
 	metadata_fs = malloc(sizeof(t_metadata_fs));
 
@@ -112,7 +112,7 @@ void cargarMetadataFs() {
 	metadata_fs->tamanioBLoques = tamanioDeBloque;
 	metadata_fs->magicNumber = magicNumber;
 
-	log_info(gameCard_logger,"Se ha cargado correctamente la metadata del FileSystem");
+	//log_info(gameCard_logger,"Se ha cargado correctamente la metadata del FileSystem");
 
 }
 

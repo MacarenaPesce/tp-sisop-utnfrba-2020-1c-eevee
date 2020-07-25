@@ -15,20 +15,21 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 
 	while(1){
 		paquete = recibir_mensaje(new_client_sock);
-		log_warning(gameCard_logger,"validame tamanio paquete %d",sizeof(paquete));
-			sleep(7);
 		if(paquete != (t_packed*)-1){
 
 			switch(paquete->cola_de_mensajes){
 				case COLA_NEW_POKEMON:
+					log_info(gameCard_logger,"recibo mensaje de la cola NEW_POKEMON");
 					recibir_new_pokemon_desde_broker(paquete);
 					eliminar_mensaje(paquete);
 					break;
 				case COLA_CATCH_POKEMON:
+					log_info(gameCard_logger,"recibo mensaje de la cola CATCH_POKEMON");
 					recibir_catch_pokemon_desde_broker(paquete);
 					eliminar_mensaje(paquete);
 					break;
 				case COLA_GET_POKEMON:
+					log_info(gameCard_logger,"recibo mensaje de la cola GET_POKEMON");
 					recibir_get_pokemon_desde_broker(paquete);
 					eliminar_mensaje(paquete);
 					break;

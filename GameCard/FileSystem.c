@@ -87,11 +87,11 @@ void copiarEnBloque(char* bloqueLibre, char* lineaAcopiar) {
 
 	if (bloqueLibre != NULL) {
 
-		log_info(gameCard_logger, "se va a escribir en bloques del pokemon");
+		//log_info(gameCard_logger, "se va a escribir en bloques del pokemon");
 
-		log_info(gameCard_logger, "accediendo al bloque %s.bin", bloqueLibre);
+		//log_info(gameCard_logger, "accediendo al bloque %s.bin", bloqueLibre);
 
-		log_info(gameCard_logger, "se va a copiar: %s", lineaAcopiar);
+		//log_info(gameCard_logger, "se va a copiar: %s", lineaAcopiar);
 
 		char* rutaBloqueLibre = string_new();
 
@@ -109,7 +109,7 @@ void copiarEnBloque(char* bloqueLibre, char* lineaAcopiar) {
 		fwrite(lineaAcopiar, string_length(lineaAcopiar), 1, bloque);
 		fclose(bloque);
 
-		log_info(gameCard_logger, "se ha copiado correctamente");
+		//log_info(gameCard_logger, "se ha copiado correctamente");
 	}
 
 	else {
@@ -173,8 +173,6 @@ void crearMetadataArchPoke(char* pokemon, int tamanio, t_list* bloques) {
 
 	FILE* metadataPoke = fopen(rutaMetadata, "wb");
 
-	log_info(gameCard_logger, "ruta es: %s", rutaMetadata);
-
 	log_info(gameCard_logger, "Creando el archivo metadata del pokemon");
 
 	char* lineaDirectorio = string_new();
@@ -205,9 +203,9 @@ void crearMetadataArchPoke(char* pokemon, int tamanio, t_list* bloques) {
 	char* lineaBloq = string_new();
 
 	for (int i = 0; i < tamanioMaxList; i++) {
-		log_info(gameCard_logger, "aca entra en for");
-		log_info(gameCard_logger, "pos %d y elem : %s", i,
-				list_get(bloques, i));
+		//log_info(gameCard_logger, "aca entra en for");
+		//log_info(gameCard_logger, "pos %d y elem : %s", i,
+				//list_get(bloques, i));
 
 		if (list_get(bloques, i) != NULL) {
 
@@ -320,7 +318,9 @@ void crearPokemon(t_new_pokemon* poke) {
 	desde = 0;
 	bloquesMetadataPokemon=list_create();
 	bloquesNuevos = obtenerBloquesNuevos(cantBloquesNecesarios);
+	log_info(gameCard_logger,"se va a copiar en los bloques asignados del pokemon...");
 	list_iterate(bloquesNuevos, persistirCambiosEnBloquesPropios);
+	log_info(gameCard_logger,"se ha copiado exitosamente en los bloques: %s",posAcopiar);
 	pthread_mutex_unlock(&semMutexBitmap);
 	crearMetadataArchPoke(poke->pokemon, string_length(posAcopiar),
 			bloquesNuevos);
@@ -1108,11 +1108,8 @@ void persistirCambiosEnBloquesPropios(void* bloque) {
 
 	char* bloq = (char*) bloque;
 
-	log_warning(gameCard_logger, "aca entro en persistir en bloques propios");
 	if ((aCopiar - copiado) < metadata_fs->tamanioBLoques) {
 
-		log_warning(gameCard_logger, "aCopiar %d,copiado %d, desde %d", aCopiar,
-				copiado, desde);
 		char* auxString = string_substring(posAcopiar, desde, aCopiar - desde);
 		copiarEnBloque(bloq, auxString);
 		free(auxString);
@@ -1122,9 +1119,9 @@ void persistirCambiosEnBloquesPropios(void* bloque) {
 
 		/*log_warning(gameCard_logger,"aca me dijiste que llegabas");*/
 
-		log_warning(gameCard_logger, "aCopiar %d,copiado %d, desde %d", aCopiar,
+		/*log_warning(gameCard_logger, "aCopiar %d,copiado %d, desde %d", aCopiar,
 				copiado, desde);
-
+*/
 		char* auxString = string_substring(posAcopiar, desde,
 				metadata_fs->tamanioBLoques);
 		copiarEnBloque(bloq, auxString);
@@ -1426,10 +1423,10 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 		log_info(gameCard_logger,
 				"se validó que la posicion existe en el archivo");
 
-		log_info(gameCard_logger,"mostrame poke en memo: %s",pokemonEnMemoria);
+		//log_info(gameCard_logger,"mostrame poke en memo: %s",pokemonEnMemoria);
 		int cantBloqOcupados = cantBloquesNecesariosPara(pokemonEnMemoria);
 
-		log_info(gameCard_logger,"cant de bloques ocupados: %d",cantBloqOcupados);
+		//log_info(gameCard_logger,"cant de bloques ocupados: %d",cantBloqOcupados);
 
 		char** posiciones = string_split(pokemonEnMemoria, "\n");
 
@@ -1443,10 +1440,10 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 		free(posiciones);
 
-		log_info(gameCard_logger,"pos a copiar es: %s", posAcopiar);
+		//log_info(gameCard_logger,"pos a copiar es: %s", posAcopiar);
 		int cantBloqSinPosicion = cantBloquesNecesariosPara(posAcopiar);
 
-		log_info(gameCard_logger,"cant de bloques sin posicion: %d",cantBloqSinPosicion);
+	//	log_info(gameCard_logger,"cant de bloques sin posicion: %d",cantBloqSinPosicion);
 
 		if (cantBloqSinPosicion == 0) {
 
@@ -1563,9 +1560,6 @@ void marcarBloquesLibres(t_list* bloquesOcupados) {
 
 	for (int i = 0; i < list_size(bloquesOcupados); i++) {
 
-		log_info(gameCard_logger, "Marcar posicion %d del bitmap como libre",
-				i);
-
 		marcarBloqueLibreBitmap(atoi(list_get(bloquesOcupados, i)));
 
 		log_info(gameCard_logger, "La poscion del bitmap paso a: %d",
@@ -1612,7 +1606,7 @@ void capturarPokeEnPos(char* posicion) {
 			cantEnPos = cantEnPos - 1;
 
 			if (cantEnPos == 0) {
-				log_info(gameCard_logger, "la cantidad pasa a: %d", cantEnPos);
+			//	log_info(gameCard_logger, "la cantidad pasa a: %d", cantEnPos);
 				log_info(gameCard_logger, "se va a eliminar la posicion: %s",
 						posicion);
 			}
@@ -1634,7 +1628,7 @@ void capturarPokeEnPos(char* posicion) {
 
 	else {
 
-		log_info(gameCard_logger,"voy a copiar la pos : %s en posAcopiar:%s",posicion,posAcopiar);
+		//log_info(gameCard_logger,"voy a copiar la pos : %s en posAcopiar:%s",posicion,posAcopiar);
 
 				string_append(&posAcopiar, posicion);
 				string_append(&posAcopiar, "\n");
