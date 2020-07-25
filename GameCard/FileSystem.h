@@ -20,6 +20,8 @@ char* auxPokeEnMemo;
 
 char* unBloq;
 
+char* unPoke;
+
 void inicializarSemaforosParaPokemon();
 void agregarSemaforoPokemon(char* poke);
 void eliminarSemaforoPokemon(char* poke);

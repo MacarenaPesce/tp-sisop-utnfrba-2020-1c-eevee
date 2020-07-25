@@ -16,7 +16,10 @@ void operar_con_new_pokemon(t_new_pokemon * poke){
 
 		log_info(gameCard_logger,"existe el pokemon %s", poke->pokemon);
 
+
 		while (estaAbiertoArchivo(poke->pokemon)){
+
+			free(estaAbiertoArchivo);
 
 			log_info(gameCard_logger,"el archivo se encuentra abierto por otro hilo o proceso");
 			log_info(gameCard_logger,"no se lo puede abrir");
@@ -24,6 +27,8 @@ void operar_con_new_pokemon(t_new_pokemon * poke){
 					"el archivo en %d segundos",tiempo_reintento_operacion);
 			sleep(tiempo_reintento_operacion);
 			abrirArchivo(poke->pokemon);
+			free(estadoArchivo);
+
 		}
 
 		if(estadoArchivo!=NULL){ free(estadoArchivo);}

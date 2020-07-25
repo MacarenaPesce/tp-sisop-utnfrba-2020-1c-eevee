@@ -220,7 +220,7 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 							break;
 					}
 				}
-			}else {
+			} else {
 				if(paquete->operacion == ACK){
 					eliminar_mensaje(paquete);
 				}

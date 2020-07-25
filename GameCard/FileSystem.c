@@ -330,6 +330,7 @@ void crearPokemon(t_new_pokemon* poke) {
 	//free(bloquesNuevos);
 	free(pokemonEnMemoria);
 	free(posAcopiar);
+	list_destroy(bloquesMetadataPokemon);
 	log_info(gameCard_logger,
 			"se ha creado con éxito el archivo del pokemon %s", poke->pokemon);
 }
@@ -1256,9 +1257,9 @@ void modificarBloquesMetadata(char* poke, t_list* bloquesPokemon) {
 		/*log_info(gameCard_logger, "aca entra en for");
 		 log_info(gameCard_logger, "pos %d y elem : %s", i,list_get(bloquesMetadataPokemon, i));
 		 */
-		if (list_get(bloquesMetadataPokemon, i) != NULL) {
+		if (list_get(bloquesPokemon, i) != NULL) {
 			string_append(&lineaBloquesOcupados,
-					list_get(bloquesMetadataPokemon, i));
+					list_get(bloquesPokemon, i));
 		} else {
 			log_error(gameCard_logger,
 					"error inesperado,la pocion se encuentra en null!");
@@ -1272,7 +1273,7 @@ void modificarBloquesMetadata(char* poke, t_list* bloquesPokemon) {
 
 	}
 
-	list_clean(bloquesMetadataPokemon);
+	list_clean(bloquesPokemon);
 	string_append(&lineaBloquesOcupados, "]");
 
 	//pthread_mutex_lock(dictionary_get(semaforosPokemon,pokemon));
@@ -1320,9 +1321,14 @@ bool estaAbiertoArchivo(char* pokemon) {
 		free(rutaPoke);
 		config_destroy(configPoke);
 
-		return string_equals_ignore_case(estadoArchivo, "Y");
+		bool estaAbierto=string_equals_ignore_case(estadoArchivo, "Y");
+
+		free(estadoArchivo);
+
+		return estaAbierto;
 
 	}
+
 
 
 void abrirArchivo(char* poke) {
@@ -1455,6 +1461,8 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 			eliminarMetadataPokemon(pokemon);
 			pthread_mutex_unlock(dictionary_get(semaforosPokemon, pokemon));
 
+			//list_destroy_and_destroy_elements(bloquesMetadata,(void*)free);
+
 		}
 
 		else {
@@ -1525,6 +1533,10 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 			sleep(tiempo_retardo_operacion);
 
+			list_destroy_and_destroy_elements(bloquesMetadata,(void*)free);
+
+			free(nuevaPos);
+
 			return OK;
 		}
 	}
@@ -1537,7 +1549,10 @@ uint32_t capturarPokemon(t_catch_pokemon* pokeAatrapar) {
 
 		cerrarArchivo(pokemon);
 
+		list_destroy_and_destroy_elements(bloquesMetadata,(void*)free);
 		sleep(tiempo_retardo_operacion);
+
+		free(nuevaPos);
 
 		return FAIL;
 	}
@@ -1749,6 +1764,7 @@ log_info(gameCard_logger,"espera de acceso a disco : %d segundos",tiempo_retardo
 	sleep(tiempo_retardo_operacion);
 	cerrarArchivo(pokemon);
 	free(posiciones);
+	list_destroy_and_destroy_elements(bloqMetadataPoke,(void*)free);
 	return pokemonesParaLocalized;
 
 }
@@ -1878,14 +1894,15 @@ void desconectarFs() {
 		log_info(gameCard_logger, "se ha liberado correctamente");
 	}
 
-	if(bloquesMetadataPokemon != NULL){
-	    list_destroy(bloquesMetadataPokemon);}
+	/*if(bloquesMetadataPokemon != NULL){
+	    list_destroy(bloquesMetadataPokemon);}*/
 
-		if(bloqMetadataPoke != NULL){
-	    list_destroy_and_destroy_elements(bloqMetadataPoke, (void*)liberarElem);}
+	/*	if(bloqMetadataPoke != NULL){
+	    list_destroy_and_destroy_elements(bloqMetadataPoke, (void*)liberarElem);}*/
 
-		if(bloquesMetadata!= NULL){
-	    list_destroy_and_destroy_elements(bloquesMetadata, (void*)liberarElem);}
+		//22:30
+		/*if(bloquesMetadata!= NULL){
+	    list_destroy_and_destroy_elements(bloquesMetadata, (void*)liberarElem);}*/
 
 	if(listaPosicionesParaLocalized != NULL){
 	    list_destroy(listaPosicionesParaLocalized);}

@@ -22,18 +22,29 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 			switch(paquete->cola_de_mensajes){
 				case COLA_NEW_POKEMON:
 					recibir_new_pokemon_desde_broker(paquete);
+					eliminar_mensaje(paquete);
 					break;
 				case COLA_CATCH_POKEMON:
 					recibir_catch_pokemon_desde_broker(paquete);
+					eliminar_mensaje(paquete);
 					break;
 				case COLA_GET_POKEMON:
-					recibir_get_pokemon_desde_broker(paquete);;
+					recibir_get_pokemon_desde_broker(paquete);
+					eliminar_mensaje(paquete);
 					break;
 				default:
 					log_error(gameCard_logger, "RECIBI UN MENSAJE DESDE UNA COLA INVALIDA");
 					log_error(gameCard_logger, "COLA DE MENSAJES:%d", paquete->cola_de_mensajes);
+					eliminar_mensaje(paquete);
 					break;
 			}
+		}
+			else {
+
+				if(paquete->operacion == ACK){
+					eliminar_mensaje(paquete);
+							}
+						}
 
 			close(new_client_sock);
 			break;
@@ -42,7 +53,6 @@ void escuchar_mensajes_entrantes(int new_client_sock){
 
 	}
 
-}
 
 void * atender_a_gameboy(void * serv_socket){
 

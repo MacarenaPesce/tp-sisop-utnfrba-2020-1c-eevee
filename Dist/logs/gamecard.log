@@ -1,785 +1,785 @@
-[INFO] 21:14:21:309 gameCard/(17102:17102): Bienvenido al proceso Game Card
-[INFO] 21:14:21:343 gameCard/(17102:17102): Cargando los datos del archivo de configuración
-[INFO] 21:14:21:353 gameCard/(17102:17102): Los datos del archivo de configuracion se han cargado correctamente
-[INFO] 21:14:21:354 gameCard/(17102:17102): Carganado las rutas correspondientes al FileSystem
-[INFO] 21:14:21:355 gameCard/(17102:17102): Se han cargado todas las rutas correctamente
-[INFO] 21:14:21:356 gameCard/(17102:17102): Cargando Metadata del FileSystem
-[INFO] 21:14:21:356 gameCard/(17102:17102): Se ha cargado correctamente la metadata del FileSystem
-[INFO] 21:14:21:357 gameCard/(17102:17102): No existe el FileSytem requerido
-[INFO] 21:14:21:357 gameCard/(17102:17102): Creando estructura del FileSytem
-[INFO] 21:14:21:358 gameCard/(17102:17102): Se ha creado el directorio Matadata
-[INFO] 21:14:21:362 gameCard/(17102:17102):  Se ha creado el archivo metadata.bin de FileSystem
-[INFO] 21:14:21:363 gameCard/(17102:17102): Iniciando creación del bitmap
-[INFO] 21:14:21:365 gameCard/(17102:17102):  Se ha creado el archivo bitmap.bin
-[INFO] 21:14:21:366 gameCard/(17102:17102): Se ha creado el directorio /Files
-[INFO] 21:14:21:366 gameCard/(17102:17102): Se ha creado el directorio /Blocks
-[INFO] 21:14:21:367 gameCard/(17102:17102): Se ha creado el archivo metadata.bin del directorio Files
-[INFO] 21:14:21:444 gameCard/(17102:17102): abriendo el bitmap...
-[INFO] 21:14:21:447 gameCard/(17102:17102): se ha abierto correctamente el bitmap
-[INFO] 21:14:21:450 gameCard/(17102:17102): GameCard esta listo para recibir mensajes de gameboy en el socket servidor (16)
+[INFO] 23:38:16:575 gameCard/(31796:31796): Bienvenido al proceso Game Card
+[INFO] 23:38:16:703 gameCard/(31796:31796): Cargando los datos del archivo de configuración
+[INFO] 23:38:16:757 gameCard/(31796:31796): Los datos del archivo de configuracion se han cargado correctamente
+[INFO] 23:38:16:758 gameCard/(31796:31796): Carganado las rutas correspondientes al FileSystem
+[INFO] 23:38:16:767 gameCard/(31796:31796): Se han cargado todas las rutas correctamente
+[INFO] 23:38:16:769 gameCard/(31796:31796): Cargando Metadata del FileSystem
+[INFO] 23:38:16:771 gameCard/(31796:31796): Se ha cargado correctamente la metadata del FileSystem
+[INFO] 23:38:16:784 gameCard/(31796:31796): No existe el FileSytem requerido
+[INFO] 23:38:16:790 gameCard/(31796:31796): Creando estructura del FileSytem
+[INFO] 23:38:16:792 gameCard/(31796:31796): Se ha creado el directorio Matadata
+[INFO] 23:38:16:824 gameCard/(31796:31796):  Se ha creado el archivo metadata.bin de FileSystem
+[INFO] 23:38:16:827 gameCard/(31796:31796): Iniciando creación del bitmap
+[INFO] 23:38:16:834 gameCard/(31796:31796):  Se ha creado el archivo bitmap.bin
+[INFO] 23:38:16:850 gameCard/(31796:31796): Se ha creado el directorio /Files
+[INFO] 23:38:16:852 gameCard/(31796:31796): Se ha creado el directorio /Blocks
+[INFO] 23:38:16:862 gameCard/(31796:31796): Se ha creado el archivo metadata.bin del directorio Files
+[INFO] 23:38:17:123 gameCard/(31796:31796): abriendo el bitmap...
+[INFO] 23:38:17:130 gameCard/(31796:31796): se ha abierto correctamente el bitmap
+[INFO] 23:38:17:140 gameCard/(31796:31796): GameCard esta listo para recibir mensajes de gameboy en el socket servidor (8)
 
-[INFO] 21:14:30:199 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:14:30:203 gameCard/(17102:17123): validando si existe el pokemon: Pikachu
-[INFO] 21:14:30:208 gameCard/(17102:17123): el pokemon Pikachu no existe, hay que crearlo
-[INFO] 21:14:30:221 gameCard/(17102:17123): iniciando la creacion del archivo...
-[INFO] 21:14:30:225 gameCard/(17102:17123): cantidad de bloques que necesita: 1
-[INFO] 21:14:30:226 gameCard/(17102:17123): se le asigna al pokemon el bloque 1
-[INFO] 21:14:30:227 gameCard/(17102:17123):  el bloque 1 pasará a estar ocupado en el bitmap
-[INFO] 21:14:30:258 gameCard/(17102:17123): efectivamente paso a tener le valor : 1 en el bitmap 
-[INFO] 21:14:30:258 gameCard/(17102:17123): se ha agregado el bloque: 1 a la lista de bloques para la metadata
-[WARNING] 21:14:30:260 gameCard/(17102:17123): aca entro en persistir en bloques propios
-[WARNING] 21:14:30:260 gameCard/(17102:17123): aCopiar 6,copiado 0, desde 0
-[INFO] 21:14:30:262 gameCard/(17102:17123): se va a escribir en bloques del pokemon
-[INFO] 21:14:30:262 gameCard/(17102:17123): accediendo al bloque 1.bin
-[INFO] 21:14:30:263 gameCard/(17102:17123): se va a copiar: 9-9=1
+[INFO] 23:38:21:792 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:38:21:877 gameCard/(31796:31814): validando si existe el pokemon: Pikachu
+[INFO] 23:38:21:892 gameCard/(31796:31814): el pokemon Pikachu no existe, hay que crearlo
+[INFO] 23:38:21:914 gameCard/(31796:31814): iniciando la creacion del archivo...
+[INFO] 23:38:21:955 gameCard/(31796:31814): cantidad de bloques que necesita: 1
+[INFO] 23:38:21:960 gameCard/(31796:31814): se le asigna al pokemon el bloque 1
+[INFO] 23:38:21:964 gameCard/(31796:31814):  el bloque 1 pasará a estar ocupado en el bitmap
+[INFO] 23:38:21:977 gameCard/(31796:31814): efectivamente paso a tener le valor : 1 en el bitmap 
+[INFO] 23:38:21:985 gameCard/(31796:31814): se ha agregado el bloque: 1 a la lista de bloques para la metadata
+[WARNING] 23:38:21:988 gameCard/(31796:31814): aca entro en persistir en bloques propios
+[WARNING] 23:38:21:991 gameCard/(31796:31814): aCopiar 6,copiado 0, desde 0
+[INFO] 23:38:21:2 gameCard/(31796:31814): se va a escribir en bloques del pokemon
+[INFO] 23:38:21:4 gameCard/(31796:31814): accediendo al bloque 1.bin
+[INFO] 23:38:22:6 gameCard/(31796:31814): se va a copiar: 9-9=1
 
-[INFO] 21:14:30:267 gameCard/(17102:17123): se ha copiado correctamente
-[INFO] 21:14:30:268 gameCard/(17102:17123): Creando el directorio Pokemon : Pikachu
-[INFO] 21:14:30:268 gameCard/(17102:17123): Se ha creado el directorio / Pikachu
-[INFO] 21:14:30:269 gameCard/(17102:17123): ruta es: /home/utnso/desktop/tall-grass/Files/Pikachu/Metadata.bin
-[INFO] 21:14:30:270 gameCard/(17102:17123): Creando el archivo metadata del pokemon
-[INFO] 21:14:30:273 gameCard/(17102:17123): el tamanio del archivo en la metadata será: 6
-[INFO] 21:14:30:274 gameCard/(17102:17123): la cantidad de bloques que va a tener la metadata : 1
-[INFO] 21:14:30:274 gameCard/(17102:17123): aca entra en for
-[INFO] 21:14:30:275 gameCard/(17102:17123): pos 0 y elem : 1
-[INFO] 21:14:30:276 gameCard/(17102:17123): mostrame el bloque 1
-[INFO] 21:14:30:276 gameCard/(17102:17123): la lista de bloques en la metadata será:BLOCKS=[1]
+[INFO] 23:38:22:23 gameCard/(31796:31814): se ha copiado correctamente
+[INFO] 23:38:22:26 gameCard/(31796:31814): Creando el directorio Pokemon : Pikachu
+[INFO] 23:38:22:29 gameCard/(31796:31814): Se ha creado el directorio / Pikachu
+[INFO] 23:38:22:33 gameCard/(31796:31814): ruta es: /home/utnso/desktop/tall-grass/Files/Pikachu/Metadata.bin
+[INFO] 23:38:22:34 gameCard/(31796:31814): Creando el archivo metadata del pokemon
+[INFO] 23:38:22:48 gameCard/(31796:31814): el tamanio del archivo en la metadata será: 6
+[INFO] 23:38:22:50 gameCard/(31796:31814): la cantidad de bloques que va a tener la metadata : 1
+[INFO] 23:38:22:52 gameCard/(31796:31814): aca entra en for
+[INFO] 23:38:22:55 gameCard/(31796:31814): pos 0 y elem : 1
+[INFO] 23:38:22:57 gameCard/(31796:31814): mostrame el bloque 1
+[INFO] 23:38:22:66 gameCard/(31796:31814): la lista de bloques en la metadata será:BLOCKS=[1]
 
-[INFO] 21:14:30:277 gameCard/(17102:17123): Se ha creado el archivo metadata.bin del Pokemon
-[INFO] 21:14:30:279 gameCard/(17102:17123): se ha creado con éxito el archivo del pokemon Pikachu
-[INFO] 21:14:30:280 gameCard/(17102:17123): Se agrega un semáforo para la metadata del pokemon Pikachu
-[INFO] 21:14:30:280 gameCard/(17102:17123): el tiempo de acceso a disco es : 5
-[INFO] 21:14:35:309 gameCard/(17102:17123): Enviado appeared pokemon para la especie Pikachu, en la posicion ( 9, 9).
-[INFO] 21:14:35:314 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:14:35:317 gameCard/(17102:17139): validando si existe el pokemon: Squirtle
-[INFO] 21:14:35:318 gameCard/(17102:17139): el pokemon Squirtle no existe, hay que crearlo
-[INFO] 21:14:35:318 gameCard/(17102:17139): iniciando la creacion del archivo...
-[INFO] 21:14:35:319 gameCard/(17102:17139): cantidad de bloques que necesita: 1
-[INFO] 21:14:35:320 gameCard/(17102:17139): se le asigna al pokemon el bloque 2
-[INFO] 21:14:35:320 gameCard/(17102:17139):  el bloque 2 pasará a estar ocupado en el bitmap
-[INFO] 21:14:35:325 gameCard/(17102:17139): efectivamente paso a tener le valor : 1 en el bitmap 
-[INFO] 21:14:35:326 gameCard/(17102:17139): se ha agregado el bloque: 2 a la lista de bloques para la metadata
-[WARNING] 21:14:35:326 gameCard/(17102:17139): aca entro en persistir en bloques propios
-[WARNING] 21:14:35:327 gameCard/(17102:17139): aCopiar 6,copiado 0, desde 0
-[INFO] 21:14:35:327 gameCard/(17102:17139): se va a escribir en bloques del pokemon
-[INFO] 21:14:35:327 gameCard/(17102:17139): accediendo al bloque 2.bin
-[INFO] 21:14:35:328 gameCard/(17102:17139): se va a copiar: 5-2=2
+[INFO] 23:38:22:71 gameCard/(31796:31814): Se ha creado el archivo metadata.bin del Pokemon
+[INFO] 23:38:22:84 gameCard/(31796:31814): se ha creado con éxito el archivo del pokemon Pikachu
+[INFO] 23:38:22:87 gameCard/(31796:31814): Se agrega un semáforo para la metadata del pokemon Pikachu
+[INFO] 23:38:22:89 gameCard/(31796:31814): el tiempo de acceso a disco es : 5
+[INFO] 23:38:27:119 gameCard/(31796:31814): Enviado appeared pokemon para la especie Pikachu, en la posicion ( 9, 9).
+[INFO] 23:38:27:140 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:38:27:153 gameCard/(31796:31817): validando si existe el pokemon: Squirtle
+[INFO] 23:38:27:155 gameCard/(31796:31817): el pokemon Squirtle no existe, hay que crearlo
+[INFO] 23:38:27:156 gameCard/(31796:31817): iniciando la creacion del archivo...
+[INFO] 23:38:27:158 gameCard/(31796:31817): cantidad de bloques que necesita: 1
+[INFO] 23:38:27:168 gameCard/(31796:31817): se le asigna al pokemon el bloque 2
+[INFO] 23:38:27:170 gameCard/(31796:31817):  el bloque 2 pasará a estar ocupado en el bitmap
+[INFO] 23:38:27:173 gameCard/(31796:31817): efectivamente paso a tener le valor : 1 en el bitmap 
+[INFO] 23:38:27:173 gameCard/(31796:31817): se ha agregado el bloque: 2 a la lista de bloques para la metadata
+[WARNING] 23:38:27:174 gameCard/(31796:31817): aca entro en persistir en bloques propios
+[WARNING] 23:38:27:174 gameCard/(31796:31817): aCopiar 6,copiado 0, desde 0
+[INFO] 23:38:27:175 gameCard/(31796:31817): se va a escribir en bloques del pokemon
+[INFO] 23:38:27:175 gameCard/(31796:31817): accediendo al bloque 2.bin
+[INFO] 23:38:27:176 gameCard/(31796:31817): se va a copiar: 5-2=2
 
-[INFO] 21:14:35:328 gameCard/(17102:17139): se ha copiado correctamente
-[INFO] 21:14:35:328 gameCard/(17102:17139): Creando el directorio Pokemon : Squirtle
-[INFO] 21:14:35:329 gameCard/(17102:17139): Se ha creado el directorio / Squirtle
-[INFO] 21:14:35:329 gameCard/(17102:17139): ruta es: /home/utnso/desktop/tall-grass/Files/Squirtle/Metadata.bin
-[INFO] 21:14:35:329 gameCard/(17102:17139): Creando el archivo metadata del pokemon
-[INFO] 21:14:35:330 gameCard/(17102:17139): el tamanio del archivo en la metadata será: 6
-[INFO] 21:14:35:330 gameCard/(17102:17139): la cantidad de bloques que va a tener la metadata : 1
-[INFO] 21:14:35:330 gameCard/(17102:17139): aca entra en for
-[INFO] 21:14:35:330 gameCard/(17102:17139): pos 0 y elem : 2
-[INFO] 21:14:35:330 gameCard/(17102:17139): mostrame el bloque 2
-[INFO] 21:14:35:331 gameCard/(17102:17139): la lista de bloques en la metadata será:BLOCKS=[2]
+[INFO] 23:38:27:176 gameCard/(31796:31817): se ha copiado correctamente
+[INFO] 23:38:27:177 gameCard/(31796:31817): Creando el directorio Pokemon : Squirtle
+[INFO] 23:38:27:178 gameCard/(31796:31817): Se ha creado el directorio / Squirtle
+[INFO] 23:38:27:180 gameCard/(31796:31817): ruta es: /home/utnso/desktop/tall-grass/Files/Squirtle/Metadata.bin
+[INFO] 23:38:27:180 gameCard/(31796:31817): Creando el archivo metadata del pokemon
+[INFO] 23:38:27:181 gameCard/(31796:31817): el tamanio del archivo en la metadata será: 6
+[INFO] 23:38:27:182 gameCard/(31796:31817): la cantidad de bloques que va a tener la metadata : 1
+[INFO] 23:38:27:182 gameCard/(31796:31817): aca entra en for
+[INFO] 23:38:27:183 gameCard/(31796:31817): pos 0 y elem : 2
+[INFO] 23:38:27:184 gameCard/(31796:31817): mostrame el bloque 2
+[INFO] 23:38:27:184 gameCard/(31796:31817): la lista de bloques en la metadata será:BLOCKS=[2]
 
-[INFO] 21:14:35:331 gameCard/(17102:17139): Se ha creado el archivo metadata.bin del Pokemon
-[INFO] 21:14:35:331 gameCard/(17102:17139): se ha creado con éxito el archivo del pokemon Squirtle
-[INFO] 21:14:35:332 gameCard/(17102:17139): Se agrega un semáforo para la metadata del pokemon Squirtle
-[INFO] 21:14:35:332 gameCard/(17102:17139): el tiempo de acceso a disco es : 5
-[INFO] 21:14:40:338 gameCard/(17102:17139): Enviado appeared pokemon para la especie Squirtle, en la posicion ( 5, 2).
-[INFO] 21:14:40:339 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:14:40:339 gameCard/(17102:17150): validando si existe el pokemon: Jolteon
-[INFO] 21:14:40:339 gameCard/(17102:17150): el pokemon Jolteon no existe, hay que crearlo
-[INFO] 21:14:40:340 gameCard/(17102:17150): iniciando la creacion del archivo...
-[INFO] 21:14:40:340 gameCard/(17102:17150): cantidad de bloques que necesita: 1
-[INFO] 21:14:40:340 gameCard/(17102:17150): se le asigna al pokemon el bloque 3
-[INFO] 21:14:40:341 gameCard/(17102:17150):  el bloque 3 pasará a estar ocupado en el bitmap
-[INFO] 21:14:40:357 gameCard/(17102:17150): efectivamente paso a tener le valor : 1 en el bitmap 
-[INFO] 21:14:40:357 gameCard/(17102:17150): se ha agregado el bloque: 3 a la lista de bloques para la metadata
-[WARNING] 21:14:40:358 gameCard/(17102:17150): aca entro en persistir en bloques propios
-[WARNING] 21:14:40:358 gameCard/(17102:17150): aCopiar 6,copiado 0, desde 0
-[INFO] 21:14:40:358 gameCard/(17102:17150): se va a escribir en bloques del pokemon
-[INFO] 21:14:40:358 gameCard/(17102:17150): accediendo al bloque 3.bin
-[INFO] 21:14:40:359 gameCard/(17102:17150): se va a copiar: 2-2=3
+[INFO] 23:38:27:185 gameCard/(31796:31817): Se ha creado el archivo metadata.bin del Pokemon
+[INFO] 23:38:27:200 gameCard/(31796:31817): se ha creado con éxito el archivo del pokemon Squirtle
+[INFO] 23:38:27:201 gameCard/(31796:31817): Se agrega un semáforo para la metadata del pokemon Squirtle
+[INFO] 23:38:27:201 gameCard/(31796:31817): el tiempo de acceso a disco es : 5
+[INFO] 23:38:32:207 gameCard/(31796:31817): Enviado appeared pokemon para la especie Squirtle, en la posicion ( 5, 2).
+[INFO] 23:38:32:209 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:38:32:211 gameCard/(31796:31822): validando si existe el pokemon: Jolteon
+[INFO] 23:38:32:212 gameCard/(31796:31822): el pokemon Jolteon no existe, hay que crearlo
+[INFO] 23:38:32:213 gameCard/(31796:31822): iniciando la creacion del archivo...
+[INFO] 23:38:32:215 gameCard/(31796:31822): cantidad de bloques que necesita: 1
+[INFO] 23:38:32:215 gameCard/(31796:31822): se le asigna al pokemon el bloque 3
+[INFO] 23:38:32:216 gameCard/(31796:31822):  el bloque 3 pasará a estar ocupado en el bitmap
+[INFO] 23:38:32:222 gameCard/(31796:31822): efectivamente paso a tener le valor : 1 en el bitmap 
+[INFO] 23:38:32:223 gameCard/(31796:31822): se ha agregado el bloque: 3 a la lista de bloques para la metadata
+[WARNING] 23:38:32:224 gameCard/(31796:31822): aca entro en persistir en bloques propios
+[WARNING] 23:38:32:224 gameCard/(31796:31822): aCopiar 6,copiado 0, desde 0
+[INFO] 23:38:32:225 gameCard/(31796:31822): se va a escribir en bloques del pokemon
+[INFO] 23:38:32:226 gameCard/(31796:31822): accediendo al bloque 3.bin
+[INFO] 23:38:32:227 gameCard/(31796:31822): se va a copiar: 2-2=3
 
-[INFO] 21:14:40:359 gameCard/(17102:17150): se ha copiado correctamente
-[INFO] 21:14:40:360 gameCard/(17102:17150): Creando el directorio Pokemon : Jolteon
-[INFO] 21:14:40:360 gameCard/(17102:17150): Se ha creado el directorio / Jolteon
-[INFO] 21:14:40:360 gameCard/(17102:17150): ruta es: /home/utnso/desktop/tall-grass/Files/Jolteon/Metadata.bin
-[INFO] 21:14:40:360 gameCard/(17102:17150): Creando el archivo metadata del pokemon
-[INFO] 21:14:40:361 gameCard/(17102:17150): el tamanio del archivo en la metadata será: 6
-[INFO] 21:14:40:361 gameCard/(17102:17150): la cantidad de bloques que va a tener la metadata : 1
-[INFO] 21:14:40:361 gameCard/(17102:17150): aca entra en for
-[INFO] 21:14:40:361 gameCard/(17102:17150): pos 0 y elem : 3
-[INFO] 21:14:40:362 gameCard/(17102:17150): mostrame el bloque 3
-[INFO] 21:14:40:362 gameCard/(17102:17150): la lista de bloques en la metadata será:BLOCKS=[3]
+[INFO] 23:38:32:228 gameCard/(31796:31822): se ha copiado correctamente
+[INFO] 23:38:32:229 gameCard/(31796:31822): Creando el directorio Pokemon : Jolteon
+[INFO] 23:38:32:230 gameCard/(31796:31822): Se ha creado el directorio / Jolteon
+[INFO] 23:38:32:231 gameCard/(31796:31822): ruta es: /home/utnso/desktop/tall-grass/Files/Jolteon/Metadata.bin
+[INFO] 23:38:32:232 gameCard/(31796:31822): Creando el archivo metadata del pokemon
+[INFO] 23:38:32:233 gameCard/(31796:31822): el tamanio del archivo en la metadata será: 6
+[INFO] 23:38:32:234 gameCard/(31796:31822): la cantidad de bloques que va a tener la metadata : 1
+[INFO] 23:38:32:234 gameCard/(31796:31822): aca entra en for
+[INFO] 23:38:32:248 gameCard/(31796:31822): pos 0 y elem : 3
+[INFO] 23:38:32:249 gameCard/(31796:31822): mostrame el bloque 3
+[INFO] 23:38:32:250 gameCard/(31796:31822): la lista de bloques en la metadata será:BLOCKS=[3]
 
-[INFO] 21:14:40:362 gameCard/(17102:17150): Se ha creado el archivo metadata.bin del Pokemon
-[INFO] 21:14:40:363 gameCard/(17102:17150): se ha creado con éxito el archivo del pokemon Jolteon
-[INFO] 21:14:40:363 gameCard/(17102:17150): Se agrega un semáforo para la metadata del pokemon Jolteon
-[INFO] 21:14:40:363 gameCard/(17102:17150): el tiempo de acceso a disco es : 5
-[INFO] 21:14:45:376 gameCard/(17102:17150): Enviado appeared pokemon para la especie Jolteon, en la posicion ( 2, 2).
-[INFO] 21:14:45:377 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:14:45:377 gameCard/(17102:17163): validando si existe el pokemon: Flareon
-[INFO] 21:14:45:378 gameCard/(17102:17163): el pokemon Flareon no existe, hay que crearlo
-[INFO] 21:14:45:378 gameCard/(17102:17163): iniciando la creacion del archivo...
-[INFO] 21:14:45:378 gameCard/(17102:17163): cantidad de bloques que necesita: 1
-[INFO] 21:14:45:379 gameCard/(17102:17163): se le asigna al pokemon el bloque 6
-[INFO] 21:14:45:379 gameCard/(17102:17163):  el bloque 6 pasará a estar ocupado en el bitmap
-[INFO] 21:14:45:389 gameCard/(17102:17163): efectivamente paso a tener le valor : 1 en el bitmap 
-[INFO] 21:14:45:389 gameCard/(17102:17163): se ha agregado el bloque: 6 a la lista de bloques para la metadata
-[WARNING] 21:14:45:389 gameCard/(17102:17163): aca entro en persistir en bloques propios
-[WARNING] 21:14:45:390 gameCard/(17102:17163): aCopiar 6,copiado 0, desde 0
-[INFO] 21:14:45:390 gameCard/(17102:17163): se va a escribir en bloques del pokemon
-[INFO] 21:14:45:390 gameCard/(17102:17163): accediendo al bloque 6.bin
-[INFO] 21:14:45:390 gameCard/(17102:17163): se va a copiar: 4-6=4
+[INFO] 23:38:32:251 gameCard/(31796:31822): Se ha creado el archivo metadata.bin del Pokemon
+[INFO] 23:38:32:253 gameCard/(31796:31822): se ha creado con éxito el archivo del pokemon Jolteon
+[INFO] 23:38:32:257 gameCard/(31796:31822): Se agrega un semáforo para la metadata del pokemon Jolteon
+[INFO] 23:38:32:258 gameCard/(31796:31822): el tiempo de acceso a disco es : 5
+[INFO] 23:38:37:263 gameCard/(31796:31822): Enviado appeared pokemon para la especie Jolteon, en la posicion ( 2, 2).
+[INFO] 23:38:37:264 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:38:37:266 gameCard/(31796:31825): validando si existe el pokemon: Flareon
+[INFO] 23:38:37:267 gameCard/(31796:31825): el pokemon Flareon no existe, hay que crearlo
+[INFO] 23:38:37:268 gameCard/(31796:31825): iniciando la creacion del archivo...
+[INFO] 23:38:37:270 gameCard/(31796:31825): cantidad de bloques que necesita: 1
+[INFO] 23:38:37:278 gameCard/(31796:31825): se le asigna al pokemon el bloque 6
+[INFO] 23:38:37:279 gameCard/(31796:31825):  el bloque 6 pasará a estar ocupado en el bitmap
+[INFO] 23:38:37:283 gameCard/(31796:31825): efectivamente paso a tener le valor : 1 en el bitmap 
+[INFO] 23:38:37:283 gameCard/(31796:31825): se ha agregado el bloque: 6 a la lista de bloques para la metadata
+[WARNING] 23:38:37:284 gameCard/(31796:31825): aca entro en persistir en bloques propios
+[WARNING] 23:38:37:284 gameCard/(31796:31825): aCopiar 6,copiado 0, desde 0
+[INFO] 23:38:37:285 gameCard/(31796:31825): se va a escribir en bloques del pokemon
+[INFO] 23:38:37:285 gameCard/(31796:31825): accediendo al bloque 6.bin
+[INFO] 23:38:37:286 gameCard/(31796:31825): se va a copiar: 4-6=4
 
-[INFO] 21:14:45:391 gameCard/(17102:17163): se ha copiado correctamente
-[INFO] 21:14:45:391 gameCard/(17102:17163): Creando el directorio Pokemon : Flareon
-[INFO] 21:14:45:391 gameCard/(17102:17163): Se ha creado el directorio / Flareon
-[INFO] 21:14:45:391 gameCard/(17102:17163): ruta es: /home/utnso/desktop/tall-grass/Files/Flareon/Metadata.bin
-[INFO] 21:14:45:392 gameCard/(17102:17163): Creando el archivo metadata del pokemon
-[INFO] 21:14:45:392 gameCard/(17102:17163): el tamanio del archivo en la metadata será: 6
-[INFO] 21:14:45:392 gameCard/(17102:17163): la cantidad de bloques que va a tener la metadata : 1
-[INFO] 21:14:45:392 gameCard/(17102:17163): aca entra en for
-[INFO] 21:14:45:392 gameCard/(17102:17163): pos 0 y elem : 6
-[INFO] 21:14:45:392 gameCard/(17102:17163): mostrame el bloque 6
-[INFO] 21:14:45:393 gameCard/(17102:17163): la lista de bloques en la metadata será:BLOCKS=[6]
+[INFO] 23:38:37:287 gameCard/(31796:31825): se ha copiado correctamente
+[INFO] 23:38:37:297 gameCard/(31796:31825): Creando el directorio Pokemon : Flareon
+[INFO] 23:38:37:305 gameCard/(31796:31825): Se ha creado el directorio / Flareon
+[INFO] 23:38:37:306 gameCard/(31796:31825): ruta es: /home/utnso/desktop/tall-grass/Files/Flareon/Metadata.bin
+[INFO] 23:38:37:307 gameCard/(31796:31825): Creando el archivo metadata del pokemon
+[INFO] 23:38:37:308 gameCard/(31796:31825): el tamanio del archivo en la metadata será: 6
+[INFO] 23:38:37:308 gameCard/(31796:31825): la cantidad de bloques que va a tener la metadata : 1
+[INFO] 23:38:37:310 gameCard/(31796:31825): aca entra en for
+[INFO] 23:38:37:315 gameCard/(31796:31825): pos 0 y elem : 6
+[INFO] 23:38:37:316 gameCard/(31796:31825): mostrame el bloque 6
+[INFO] 23:38:37:317 gameCard/(31796:31825): la lista de bloques en la metadata será:BLOCKS=[6]
 
-[INFO] 21:14:45:393 gameCard/(17102:17163): Se ha creado el archivo metadata.bin del Pokemon
-[INFO] 21:14:45:393 gameCard/(17102:17163): se ha creado con éxito el archivo del pokemon Flareon
-[INFO] 21:14:45:393 gameCard/(17102:17163): Se agrega un semáforo para la metadata del pokemon Flareon
-[INFO] 21:14:45:393 gameCard/(17102:17163): el tiempo de acceso a disco es : 5
-[INFO] 21:14:50:405 gameCard/(17102:17163): Enviado appeared pokemon para la especie Flareon, en la posicion ( 4, 6).
-[INFO] 21:15:57:945 gameCard/(17102:17105): se informó la recepcion del mensaje al broker
-[INFO] 21:15:57:950 gameCard/(17102:17193): validando si existe el pokemon: Squirtle
-[INFO] 21:15:57:951 gameCard/(17102:17193): existe el pokemon Squirtle
-[INFO] 21:15:57:952 gameCard/(17102:17193): validando si el archivo se encuentra abierto
-[INFO] 21:15:57:954 gameCard/(17102:17193): se va a activar el semaforo del pokemon
-[INFO] 21:15:57:954 gameCard/(17102:17193): El estado del archivo es N
-[INFO] 21:15:57:957 gameCard/(17102:17193): se intenta obtener las posiciones del pokemon : Squirtle
-[INFO] 21:15:57:957 gameCard/(17102:17193): los bloques que ocupa:
-[INFO] 21:15:57:962 gameCard/(17102:17193): 2
-[INFO] 21:15:57:964 gameCard/(17102:17193): abriendo el bloque 2 para copiar pokemon en memoria
-[INFO] 21:15:57:968 gameCard/(17102:17193):  las posiciones del pokemon Squirtle obtenidas :
-[INFO] 21:15:57:969 gameCard/(17102:17193): (5, 2) 
+[INFO] 23:38:37:318 gameCard/(31796:31825): Se ha creado el archivo metadata.bin del Pokemon
+[INFO] 23:38:37:319 gameCard/(31796:31825): se ha creado con éxito el archivo del pokemon Flareon
+[INFO] 23:38:37:320 gameCard/(31796:31825): Se agrega un semáforo para la metadata del pokemon Flareon
+[INFO] 23:38:37:321 gameCard/(31796:31825): el tiempo de acceso a disco es : 5
+[INFO] 23:38:42:328 gameCard/(31796:31825): Enviado appeared pokemon para la especie Flareon, en la posicion ( 4, 6).
+[INFO] 23:39:21:758 gameCard/(31796:31799): se informó la recepcion del mensaje al broker
+[INFO] 23:39:21:793 gameCard/(31796:31843): validando si existe el pokemon: Squirtle
+[INFO] 23:39:21:794 gameCard/(31796:31843): existe el pokemon Squirtle
+[INFO] 23:39:21:798 gameCard/(31796:31843): validando si el archivo se encuentra abierto
+[INFO] 23:39:21:806 gameCard/(31796:31843): se va a activar el semaforo del pokemon
+[INFO] 23:39:21:812 gameCard/(31796:31843): El estado del archivo es N
+[INFO] 23:39:21:842 gameCard/(31796:31843): se intenta obtener las posiciones del pokemon : Squirtle
+[INFO] 23:39:21:852 gameCard/(31796:31843): los bloques que ocupa:
+[INFO] 23:39:21:877 gameCard/(31796:31843): 2
+[INFO] 23:39:21:881 gameCard/(31796:31843): abriendo el bloque 2 para copiar pokemon en memoria
+[INFO] 23:39:21:897 gameCard/(31796:31843):  las posiciones del pokemon Squirtle obtenidas :
+[INFO] 23:39:21:900 gameCard/(31796:31843): (5, 2) 
 
-[INFO] 21:15:57:969 gameCard/(17102:17193): espera de acceso a disco : 5 segundos
-[INFO] 21:16:02:989 gameCard/(17102:17193): se va a cerrar el archivo del pokemon Squirtle
-[INFO] 21:16:02:996 gameCard/(17102:17193): se ha cerrado el archivo del pokemon
-[INFO] 21:16:03:32 gameCard/(17102:17105): se informó la recepcion del mensaje al broker
-[INFO] 21:16:03:33 gameCard/(17102:17216): validando si existe el pokemon: Pikachu
-[INFO] 21:16:03:33 gameCard/(17102:17216): existe el pokemon Pikachu
-[INFO] 21:16:03:33 gameCard/(17102:17216): validando si el archivo se encuentra abierto
-[INFO] 21:16:03:34 gameCard/(17102:17216): se va a activar el semaforo del pokemon
-[INFO] 21:16:03:34 gameCard/(17102:17216): El estado del archivo es N
-[INFO] 21:16:03:34 gameCard/(17102:17216): se intenta obtener las posiciones del pokemon : Pikachu
-[INFO] 21:16:03:34 gameCard/(17102:17216): los bloques que ocupa:
-[INFO] 21:16:03:37 gameCard/(17102:17216): 1
-[INFO] 21:16:03:38 gameCard/(17102:17216): abriendo el bloque 1 para copiar pokemon en memoria
-[INFO] 21:16:03:38 gameCard/(17102:17216):  las posiciones del pokemon Pikachu obtenidas :
-[INFO] 21:16:03:39 gameCard/(17102:17216): (9, 9) 
+[INFO] 23:39:21:901 gameCard/(31796:31843): espera de acceso a disco : 5 segundos
+[INFO] 23:39:26:904 gameCard/(31796:31843): se va a cerrar el archivo del pokemon Squirtle
+[INFO] 23:39:26:927 gameCard/(31796:31843): se ha cerrado el archivo del pokemon
+[INFO] 23:39:26:952 gameCard/(31796:31799): se informó la recepcion del mensaje al broker
+[INFO] 23:39:26:952 gameCard/(31796:31858): validando si existe el pokemon: Pikachu
+[INFO] 23:39:26:953 gameCard/(31796:31858): existe el pokemon Pikachu
+[INFO] 23:39:26:954 gameCard/(31796:31858): validando si el archivo se encuentra abierto
+[INFO] 23:39:26:955 gameCard/(31796:31858): se va a activar el semaforo del pokemon
+[INFO] 23:39:26:956 gameCard/(31796:31858): El estado del archivo es N
+[INFO] 23:39:26:961 gameCard/(31796:31858): se intenta obtener las posiciones del pokemon : Pikachu
+[INFO] 23:39:26:961 gameCard/(31796:31858): los bloques que ocupa:
+[INFO] 23:39:26:963 gameCard/(31796:31858): 1
+[INFO] 23:39:26:964 gameCard/(31796:31858): abriendo el bloque 1 para copiar pokemon en memoria
+[INFO] 23:39:26:966 gameCard/(31796:31858):  las posiciones del pokemon Pikachu obtenidas :
+[INFO] 23:39:26:973 gameCard/(31796:31858): (9, 9) 
 
-[INFO] 21:16:03:39 gameCard/(17102:17216): espera de acceso a disco : 5 segundos
-[INFO] 21:16:08:47 gameCard/(17102:17216): se va a cerrar el archivo del pokemon Pikachu
-[INFO] 21:16:08:48 gameCard/(17102:17216): se ha cerrado el archivo del pokemon
-[INFO] 21:16:08:76 gameCard/(17102:17105): se informó la recepcion del mensaje al broker
-[INFO] 21:16:08:77 gameCard/(17102:17249): validando si existe el pokemon: Onix
-[ERROR] 21:16:08:78 gameCard/(17102:17249):  No existe el pokemon Onix, no posee posiciones
-[INFO] 21:16:08:79 gameCard/(17102:17249): te voy a mandar una lista vacia
-[INFO] 21:16:08:80 gameCard/(17102:17105): se informó la recepcion del mensaje al broker
-[INFO] 21:16:08:82 gameCard/(17102:17251): validando si existe el pokemon: Gengar
-[ERROR] 21:16:08:82 gameCard/(17102:17251):  No existe el pokemon Gengar, no posee posiciones
-[INFO] 21:16:08:83 gameCard/(17102:17251): te voy a mandar una lista vacia
-[INFO] 21:16:08:83 gameCard/(17102:17105): se informó la recepcion del mensaje al broker
-[INFO] 21:16:08:84 gameCard/(17102:17253): validando si existe el pokemon: Vaporeon
-[ERROR] 21:16:08:84 gameCard/(17102:17253):  No existe el pokemon Vaporeon, no posee posiciones
-[INFO] 21:16:08:84 gameCard/(17102:17253): te voy a mandar una lista vacia
-[INFO] 21:16:08:85 gameCard/(17102:17105): se informó la recepcion del mensaje al broker
-[INFO] 21:16:08:86 gameCard/(17102:17254): validando si existe el pokemon: Umbreon
-[ERROR] 21:16:08:86 gameCard/(17102:17254):  No existe el pokemon Umbreon, no posee posiciones
-[INFO] 21:16:08:86 gameCard/(17102:17254): te voy a mandar una lista vacia
-[INFO] 21:16:08:87 gameCard/(17102:17105): se informó la recepcion del mensaje al broker
-[INFO] 21:16:08:87 gameCard/(17102:17255): validando si existe el pokemon: Jolteon
-[INFO] 21:16:08:87 gameCard/(17102:17255): existe el pokemon Jolteon
-[INFO] 21:16:08:88 gameCard/(17102:17255): validando si el archivo se encuentra abierto
-[INFO] 21:16:08:88 gameCard/(17102:17255): se va a activar el semaforo del pokemon
-[INFO] 21:16:08:88 gameCard/(17102:17255): El estado del archivo es N
-[INFO] 21:16:08:88 gameCard/(17102:17255): se intenta obtener las posiciones del pokemon : Jolteon
-[INFO] 21:16:08:88 gameCard/(17102:17255): los bloques que ocupa:
-[INFO] 21:16:08:89 gameCard/(17102:17255): 3
-[INFO] 21:16:08:89 gameCard/(17102:17255): abriendo el bloque 3 para copiar pokemon en memoria
-[INFO] 21:16:08:90 gameCard/(17102:17255):  las posiciones del pokemon Jolteon obtenidas :
-[INFO] 21:16:08:90 gameCard/(17102:17255): (2, 2) 
+[INFO] 23:39:26:973 gameCard/(31796:31858): espera de acceso a disco : 5 segundos
+[INFO] 23:39:31:975 gameCard/(31796:31858): se va a cerrar el archivo del pokemon Pikachu
+[INFO] 23:39:31:978 gameCard/(31796:31858): se ha cerrado el archivo del pokemon
+[INFO] 23:39:31:989 gameCard/(31796:31799): se informó la recepcion del mensaje al broker
+[INFO] 23:39:31:990 gameCard/(31796:31860): validando si existe el pokemon: Onix
+[ERROR] 23:39:31:993 gameCard/(31796:31860):  No existe el pokemon Onix, no posee posiciones
+[INFO] 23:39:31:994 gameCard/(31796:31860): te voy a mandar una lista vacia
+[INFO] 23:39:31:996 gameCard/(31796:31799): se informó la recepcion del mensaje al broker
+[INFO] 23:39:31:6 gameCard/(31796:31863): validando si existe el pokemon: Gengar
+[ERROR] 23:39:32:7 gameCard/(31796:31863):  No existe el pokemon Gengar, no posee posiciones
+[INFO] 23:39:32:7 gameCard/(31796:31863): te voy a mandar una lista vacia
+[INFO] 23:39:32:965 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:39:32:969 gameCard/(31796:31866): validando si existe el pokemon: Squirtle
+[INFO] 23:39:32:971 gameCard/(31796:31866): existe el pokemon Squirtle
+[INFO] 23:39:32:972 gameCard/(31796:31866): validando si el archivo se encuentra abierto
+[INFO] 23:39:32:973 gameCard/(31796:31866): se va a activar el semaforo del pokemon
+[INFO] 23:39:32:974 gameCard/(31796:31866): El estado del archivo es N
+[INFO] 23:39:32:975 gameCard/(31796:31866): se intentará capturar un pokemon
+[INFO] 23:39:32:984 gameCard/(31796:31866): la posicion a buscar es (5,2) del pokemon Squirtle
+[INFO] 23:39:32:996 gameCard/(31796:31866): 2
+[INFO] 23:39:32:999 gameCard/(31796:31866): abriendo el bloque 2 para copiar pokemon en memoria
+[INFO] 23:39:32:2 gameCard/(31796:31866): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:39:32:4 gameCard/(31796:31866): se validó que la posicion existe en el archivo
+[INFO] 23:39:32:5 gameCard/(31796:31866): mostrame poke en memo: 5-2=2
 
-[INFO] 21:16:08:90 gameCard/(17102:17255): espera de acceso a disco : 5 segundos
-[INFO] 21:16:13:63 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:16:13:68 gameCard/(17102:17267): validando si existe el pokemon: Squirtle
-[INFO] 21:16:13:69 gameCard/(17102:17267): existe el pokemon Squirtle
-[INFO] 21:16:13:69 gameCard/(17102:17267): validando si el archivo se encuentra abierto
-[INFO] 21:16:13:71 gameCard/(17102:17267): se va a activar el semaforo del pokemon
-[INFO] 21:16:13:71 gameCard/(17102:17267): El estado del archivo es N
-[INFO] 21:16:13:72 gameCard/(17102:17267): se intentará capturar un pokemon
-[INFO] 21:16:13:74 gameCard/(17102:17267): la posicion a buscar es (5,2) del pokemon Squirtle
-[INFO] 21:16:13:76 gameCard/(17102:17267): 2
-[INFO] 21:16:13:76 gameCard/(17102:17267): abriendo el bloque 2 para copiar pokemon en memoria
-[INFO] 21:16:13:77 gameCard/(17102:17267): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:16:13:78 gameCard/(17102:17267): se validó que la posicion existe en el archivo
-[INFO] 21:16:13:79 gameCard/(17102:17267): mostrame poke en memo: 5-2=2
+[INFO] 23:39:32:6 gameCard/(31796:31866): cant de bloques ocupados: 1
+[INFO] 23:39:33:8 gameCard/(31796:31866): mostrame posicion : 5-2=2
+[INFO] 23:39:33:10 gameCard/(31796:31866): la posicion 5-2=2 existe en el archivo
+[INFO] 23:39:33:13 gameCard/(31796:31866): La cantidad es: 2
+[INFO] 23:39:33:14 gameCard/(31796:31866): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:39:33:15 gameCard/(31796:31866): la cantidad pasa a : 1
+[INFO] 23:39:33:17 gameCard/(31796:31866): la posicion queda: 5-2=
+[INFO] 23:39:33:19 gameCard/(31796:31866): pos a copiar es: 5-2=1
 
-[INFO] 21:16:13:80 gameCard/(17102:17267): cant de bloques ocupados: 1
-[INFO] 21:16:13:81 gameCard/(17102:17267): mostrame posicion : 5-2=2
-[INFO] 21:16:13:82 gameCard/(17102:17267): la posicion 5-2=2 existe en el archivo
-[INFO] 21:16:13:84 gameCard/(17102:17267): La cantidad es: 2
-[INFO] 21:16:13:84 gameCard/(17102:17267): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:16:13:85 gameCard/(17102:17267): la cantidad pasa a : 1
-[INFO] 21:16:13:86 gameCard/(17102:17267): la posicion queda: 5-2=
-[INFO] 21:16:13:87 gameCard/(17102:17267): pos a copiar es: 5-2=1
+[INFO] 23:39:33:21 gameCard/(31796:31866): cant de bloques sin posicion: 1
+[INFO] 23:39:33:22 gameCard/(31796:31866): la cantidad de bloques a liberar porque quedan vacios: 0
+[INFO] 23:39:33:24 gameCard/(31796:31866): mostrame cant bloque en metadata: 1
+[INFO] 23:39:33:25 gameCard/(31796:31866):  se va a actualizar el contenido del archivo
+[WARNING] 23:39:33:27 gameCard/(31796:31866): aca entro en persistir en bloques propios
+[WARNING] 23:39:33:31 gameCard/(31796:31866): aCopiar 6,copiado 0, desde 0
+[INFO] 23:39:33:31 gameCard/(31796:31866): se va a escribir en bloques del pokemon
+[INFO] 23:39:33:32 gameCard/(31796:31866): accediendo al bloque 2.bin
+[INFO] 23:39:33:32 gameCard/(31796:31866): se va a copiar: 5-2=1
 
-[INFO] 21:16:13:88 gameCard/(17102:17267): cant de bloques sin posicion: 1
-[INFO] 21:16:13:89 gameCard/(17102:17267): la cantidad de bloques a liberar porque quedan vacios: 0
-[INFO] 21:16:13:90 gameCard/(17102:17267): mostrame cant bloque en metadata: 1
-[INFO] 21:16:13:90 gameCard/(17102:17267):  se va a actualizar el contenido del archivo
-[WARNING] 21:16:13:91 gameCard/(17102:17267): aca entro en persistir en bloques propios
-[WARNING] 21:16:13:91 gameCard/(17102:17267): aCopiar 6,copiado 0, desde 0
-[INFO] 21:16:13:92 gameCard/(17102:17267): se va a escribir en bloques del pokemon
-[INFO] 21:16:13:93 gameCard/(17102:17267): accediendo al bloque 2.bin
-[INFO] 21:16:13:93 gameCard/(17102:17267): se va a copiar: 5-2=1
+[INFO] 23:39:33:34 gameCard/(31796:31866): se ha copiado correctamente
+[INFO] 23:39:33:35 gameCard/(31796:31866): se va a cerrar el archivo del pokemon Squirtle
+[INFO] 23:39:33:38 gameCard/(31796:31866): se ha cerrado el archivo del pokemon
+[INFO] 23:39:38:47 gameCard/(31796:31866): Enviado el status del caught pokemon para la especie Squirtle
+[INFO] 23:39:38:601 gameCard/(31796:31799): se informó la recepcion del mensaje al broker
+[INFO] 23:39:38:609 gameCard/(31796:31887): validando si existe el pokemon: Vaporeon
+[ERROR] 23:39:38:610 gameCard/(31796:31887):  No existe el pokemon Vaporeon, no posee posiciones
+[INFO] 23:39:38:611 gameCard/(31796:31887): te voy a mandar una lista vacia
+[INFO] 23:39:38:638 gameCard/(31796:31799): se informó la recepcion del mensaje al broker
+[INFO] 23:39:38:644 gameCard/(31796:31891): validando si existe el pokemon: Umbreon
+[ERROR] 23:39:38:646 gameCard/(31796:31891):  No existe el pokemon Umbreon, no posee posiciones
+[INFO] 23:39:38:648 gameCard/(31796:31891): te voy a mandar una lista vacia
+[INFO] 23:39:38:650 gameCard/(31796:31799): se informó la recepcion del mensaje al broker
+[INFO] 23:39:38:651 gameCard/(31796:31902): validando si existe el pokemon: Jolteon
+[INFO] 23:39:38:655 gameCard/(31796:31902): existe el pokemon Jolteon
+[INFO] 23:39:38:656 gameCard/(31796:31902): validando si el archivo se encuentra abierto
+[INFO] 23:39:38:658 gameCard/(31796:31902): se va a activar el semaforo del pokemon
+[INFO] 23:39:38:659 gameCard/(31796:31902): El estado del archivo es N
+[INFO] 23:39:38:660 gameCard/(31796:31902): se intenta obtener las posiciones del pokemon : Jolteon
+[INFO] 23:39:38:661 gameCard/(31796:31902): los bloques que ocupa:
+[INFO] 23:39:38:676 gameCard/(31796:31902): 3
+[INFO] 23:39:38:689 gameCard/(31796:31902): abriendo el bloque 3 para copiar pokemon en memoria
+[INFO] 23:39:38:698 gameCard/(31796:31902):  las posiciones del pokemon Jolteon obtenidas :
+[INFO] 23:39:38:699 gameCard/(31796:31902): (2, 2) 
 
-[INFO] 21:16:13:94 gameCard/(17102:17267): se ha copiado correctamente
-[INFO] 21:16:13:95 gameCard/(17102:17267): se va a cerrar el archivo del pokemon Squirtle
-[INFO] 21:16:13:95 gameCard/(17102:17255): se va a cerrar el archivo del pokemon Jolteon
-[INFO] 21:16:13:96 gameCard/(17102:17255): se ha cerrado el archivo del pokemon
-[INFO] 21:16:13:98 gameCard/(17102:17267): se ha cerrado el archivo del pokemon
-[INFO] 21:16:13:121 gameCard/(17102:17105): se informó la recepcion del mensaje al broker
-[INFO] 21:16:13:122 gameCard/(17102:17269): validando si existe el pokemon: Flareon
-[INFO] 21:16:13:122 gameCard/(17102:17269): existe el pokemon Flareon
-[INFO] 21:16:13:122 gameCard/(17102:17269): validando si el archivo se encuentra abierto
-[INFO] 21:16:13:123 gameCard/(17102:17269): se va a activar el semaforo del pokemon
-[INFO] 21:16:13:123 gameCard/(17102:17269): El estado del archivo es N
-[INFO] 21:16:13:123 gameCard/(17102:17269): se intenta obtener las posiciones del pokemon : Flareon
-[INFO] 21:16:13:124 gameCard/(17102:17269): los bloques que ocupa:
-[INFO] 21:16:13:125 gameCard/(17102:17269): 6
-[INFO] 21:16:13:125 gameCard/(17102:17269): abriendo el bloque 6 para copiar pokemon en memoria
-[INFO] 21:16:13:126 gameCard/(17102:17269):  las posiciones del pokemon Flareon obtenidas :
-[INFO] 21:16:13:126 gameCard/(17102:17269): (4, 6) 
+[INFO] 23:39:38:700 gameCard/(31796:31902): espera de acceso a disco : 5 segundos
+[INFO] 23:39:43:706 gameCard/(31796:31902): se va a cerrar el archivo del pokemon Jolteon
+[INFO] 23:39:43:710 gameCard/(31796:31902): se ha cerrado el archivo del pokemon
+[INFO] 23:39:43:738 gameCard/(31796:31799): se informó la recepcion del mensaje al broker
+[INFO] 23:39:43:740 gameCard/(31796:31907): validando si existe el pokemon: Flareon
+[INFO] 23:39:43:741 gameCard/(31796:31907): existe el pokemon Flareon
+[INFO] 23:39:43:744 gameCard/(31796:31907): validando si el archivo se encuentra abierto
+[INFO] 23:39:43:745 gameCard/(31796:31907): se va a activar el semaforo del pokemon
+[INFO] 23:39:43:757 gameCard/(31796:31907): El estado del archivo es N
+[INFO] 23:39:43:762 gameCard/(31796:31907): se intenta obtener las posiciones del pokemon : Flareon
+[INFO] 23:39:43:763 gameCard/(31796:31907): los bloques que ocupa:
+[INFO] 23:39:43:766 gameCard/(31796:31907): 6
+[INFO] 23:39:43:774 gameCard/(31796:31907): abriendo el bloque 6 para copiar pokemon en memoria
+[INFO] 23:39:43:777 gameCard/(31796:31907):  las posiciones del pokemon Flareon obtenidas :
+[INFO] 23:39:43:781 gameCard/(31796:31907): (4, 6) 
 
-[INFO] 21:16:13:127 gameCard/(17102:17269): espera de acceso a disco : 5 segundos
-[INFO] 21:16:18:110 gameCard/(17102:17267): Enviado el status del caught pokemon para la especie Squirtle
-[INFO] 21:16:18:127 gameCard/(17102:17269): se va a cerrar el archivo del pokemon Flareon
-[INFO] 21:16:18:129 gameCard/(17102:17269): se ha cerrado el archivo del pokemon
-[INFO] 21:16:18:137 gameCard/(17102:17105): se informó la recepcion del mensaje al broker
-[INFO] 21:16:18:140 gameCard/(17102:17282): validando si existe el pokemon: Espeon
-[ERROR] 21:16:18:141 gameCard/(17102:17282):  No existe el pokemon Espeon, no posee posiciones
-[INFO] 21:16:18:141 gameCard/(17102:17282): te voy a mandar una lista vacia
-[INFO] 21:16:23:366 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:16:23:367 gameCard/(17102:17293): validando si existe el pokemon: Jolteon
-[INFO] 21:16:23:368 gameCard/(17102:17293): existe el pokemon Jolteon
-[INFO] 21:16:23:368 gameCard/(17102:17293): validando si el archivo se encuentra abierto
-[INFO] 21:16:23:369 gameCard/(17102:17293): se va a activar el semaforo del pokemon
-[INFO] 21:16:23:369 gameCard/(17102:17293): El estado del archivo es N
-[INFO] 21:16:23:369 gameCard/(17102:17293): se intentará capturar un pokemon
-[INFO] 21:16:23:369 gameCard/(17102:17293): la posicion a buscar es (2,2) del pokemon Jolteon
-[INFO] 21:16:23:370 gameCard/(17102:17293): 3
-[INFO] 21:16:23:370 gameCard/(17102:17293): abriendo el bloque 3 para copiar pokemon en memoria
-[INFO] 21:16:23:370 gameCard/(17102:17293): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:16:23:371 gameCard/(17102:17293): se validó que la posicion existe en el archivo
-[INFO] 21:16:23:371 gameCard/(17102:17293): mostrame poke en memo: 2-2=3
+[INFO] 23:39:43:782 gameCard/(31796:31907): espera de acceso a disco : 5 segundos
+[INFO] 23:39:46:746 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:39:46:759 gameCard/(31796:31909): validando si existe el pokemon: Jolteon
+[INFO] 23:39:46:760 gameCard/(31796:31909): existe el pokemon Jolteon
+[INFO] 23:39:46:761 gameCard/(31796:31909): validando si el archivo se encuentra abierto
+[INFO] 23:39:46:762 gameCard/(31796:31909): se va a activar el semaforo del pokemon
+[INFO] 23:39:46:763 gameCard/(31796:31909): El estado del archivo es N
+[INFO] 23:39:46:763 gameCard/(31796:31909): se intentará capturar un pokemon
+[INFO] 23:39:46:764 gameCard/(31796:31909): la posicion a buscar es (2,2) del pokemon Jolteon
+[INFO] 23:39:46:780 gameCard/(31796:31909): 3
+[INFO] 23:39:46:784 gameCard/(31796:31909): abriendo el bloque 3 para copiar pokemon en memoria
+[INFO] 23:39:46:786 gameCard/(31796:31909): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:39:46:786 gameCard/(31796:31909): se validó que la posicion existe en el archivo
+[INFO] 23:39:46:787 gameCard/(31796:31909): mostrame poke en memo: 2-2=3
 
-[INFO] 21:16:23:371 gameCard/(17102:17293): cant de bloques ocupados: 1
-[INFO] 21:16:23:371 gameCard/(17102:17293): mostrame posicion : 2-2=3
-[INFO] 21:16:23:372 gameCard/(17102:17293): la posicion 2-2=3 existe en el archivo
-[INFO] 21:16:23:372 gameCard/(17102:17293): La cantidad es: 3
-[INFO] 21:16:23:372 gameCard/(17102:17293): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:16:23:373 gameCard/(17102:17293): la cantidad pasa a : 2
-[INFO] 21:16:23:373 gameCard/(17102:17293): la posicion queda: 2-2=
-[INFO] 21:16:23:373 gameCard/(17102:17293): pos a copiar es: 2-2=2
+[INFO] 23:39:46:788 gameCard/(31796:31909): cant de bloques ocupados: 1
+[INFO] 23:39:46:791 gameCard/(31796:31909): mostrame posicion : 2-2=3
+[INFO] 23:39:46:791 gameCard/(31796:31909): la posicion 2-2=3 existe en el archivo
+[INFO] 23:39:46:792 gameCard/(31796:31909): La cantidad es: 3
+[INFO] 23:39:46:792 gameCard/(31796:31909): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:39:46:793 gameCard/(31796:31909): la cantidad pasa a : 2
+[INFO] 23:39:46:794 gameCard/(31796:31909): la posicion queda: 2-2=
+[INFO] 23:39:46:794 gameCard/(31796:31909): pos a copiar es: 2-2=2
 
-[INFO] 21:16:23:374 gameCard/(17102:17293): cant de bloques sin posicion: 1
-[INFO] 21:16:23:374 gameCard/(17102:17293): la cantidad de bloques a liberar porque quedan vacios: 0
-[INFO] 21:16:23:375 gameCard/(17102:17293): mostrame cant bloque en metadata: 1
-[INFO] 21:16:23:375 gameCard/(17102:17293):  se va a actualizar el contenido del archivo
-[WARNING] 21:16:23:375 gameCard/(17102:17293): aca entro en persistir en bloques propios
-[WARNING] 21:16:23:376 gameCard/(17102:17293): aCopiar 6,copiado 0, desde 0
-[INFO] 21:16:23:377 gameCard/(17102:17293): se va a escribir en bloques del pokemon
-[INFO] 21:16:23:377 gameCard/(17102:17293): accediendo al bloque 3.bin
-[INFO] 21:16:23:377 gameCard/(17102:17293): se va a copiar: 2-2=2
+[INFO] 23:39:46:795 gameCard/(31796:31909): cant de bloques sin posicion: 1
+[INFO] 23:39:46:795 gameCard/(31796:31909): la cantidad de bloques a liberar porque quedan vacios: 0
+[INFO] 23:39:46:796 gameCard/(31796:31909): mostrame cant bloque en metadata: 1
+[INFO] 23:39:46:797 gameCard/(31796:31909):  se va a actualizar el contenido del archivo
+[WARNING] 23:39:46:797 gameCard/(31796:31909): aca entro en persistir en bloques propios
+[WARNING] 23:39:46:798 gameCard/(31796:31909): aCopiar 6,copiado 0, desde 0
+[INFO] 23:39:46:798 gameCard/(31796:31909): se va a escribir en bloques del pokemon
+[INFO] 23:39:46:799 gameCard/(31796:31909): accediendo al bloque 3.bin
+[INFO] 23:39:46:799 gameCard/(31796:31909): se va a copiar: 2-2=2
 
-[INFO] 21:16:23:378 gameCard/(17102:17293): se ha copiado correctamente
-[INFO] 21:16:23:379 gameCard/(17102:17293): se va a cerrar el archivo del pokemon Jolteon
-[INFO] 21:16:23:381 gameCard/(17102:17293): se ha cerrado el archivo del pokemon
-[INFO] 21:16:28:388 gameCard/(17102:17293): Enviado el status del caught pokemon para la especie Jolteon
-[INFO] 21:16:38:624 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:16:38:626 gameCard/(17102:17331): validando si existe el pokemon: Flareon
-[INFO] 21:16:38:627 gameCard/(17102:17331): existe el pokemon Flareon
-[INFO] 21:16:38:627 gameCard/(17102:17331): validando si el archivo se encuentra abierto
-[INFO] 21:16:38:628 gameCard/(17102:17331): se va a activar el semaforo del pokemon
-[INFO] 21:16:38:628 gameCard/(17102:17331): El estado del archivo es N
-[INFO] 21:16:38:629 gameCard/(17102:17331): se intentará capturar un pokemon
-[INFO] 21:16:38:629 gameCard/(17102:17331): la posicion a buscar es (4,6) del pokemon Flareon
-[INFO] 21:16:38:630 gameCard/(17102:17331): 6
-[INFO] 21:16:38:630 gameCard/(17102:17331): abriendo el bloque 6 para copiar pokemon en memoria
-[INFO] 21:16:38:631 gameCard/(17102:17331): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:16:38:631 gameCard/(17102:17331): se validó que la posicion existe en el archivo
-[INFO] 21:16:38:631 gameCard/(17102:17331): mostrame poke en memo: 4-6=4
+[INFO] 23:39:46:802 gameCard/(31796:31909): se ha copiado correctamente
+[INFO] 23:39:46:803 gameCard/(31796:31909): se va a cerrar el archivo del pokemon Jolteon
+[INFO] 23:39:46:806 gameCard/(31796:31909): se ha cerrado el archivo del pokemon
+[INFO] 23:39:48:784 gameCard/(31796:31907): se va a cerrar el archivo del pokemon Flareon
+[INFO] 23:39:48:789 gameCard/(31796:31907): se ha cerrado el archivo del pokemon
+[INFO] 23:39:48:805 gameCard/(31796:31799): se informó la recepcion del mensaje al broker
+[INFO] 23:39:48:806 gameCard/(31796:31912): validando si existe el pokemon: Espeon
+[ERROR] 23:39:48:827 gameCard/(31796:31912):  No existe el pokemon Espeon, no posee posiciones
+[INFO] 23:39:48:828 gameCard/(31796:31912): te voy a mandar una lista vacia
+[INFO] 23:39:51:814 gameCard/(31796:31909): Enviado el status del caught pokemon para la especie Jolteon
+[INFO] 23:39:57:813 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:39:57:816 gameCard/(31796:31918): validando si existe el pokemon: Flareon
+[INFO] 23:39:57:817 gameCard/(31796:31918): existe el pokemon Flareon
+[INFO] 23:39:57:818 gameCard/(31796:31918): validando si el archivo se encuentra abierto
+[INFO] 23:39:57:819 gameCard/(31796:31918): se va a activar el semaforo del pokemon
+[INFO] 23:39:57:820 gameCard/(31796:31918): El estado del archivo es N
+[INFO] 23:39:57:821 gameCard/(31796:31918): se intentará capturar un pokemon
+[INFO] 23:39:57:821 gameCard/(31796:31918): la posicion a buscar es (4,6) del pokemon Flareon
+[INFO] 23:39:57:823 gameCard/(31796:31918): 6
+[INFO] 23:39:57:839 gameCard/(31796:31918): abriendo el bloque 6 para copiar pokemon en memoria
+[INFO] 23:39:57:848 gameCard/(31796:31918): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:39:57:856 gameCard/(31796:31918): se validó que la posicion existe en el archivo
+[INFO] 23:39:57:857 gameCard/(31796:31918): mostrame poke en memo: 4-6=4
 
-[INFO] 21:16:38:632 gameCard/(17102:17331): cant de bloques ocupados: 1
-[INFO] 21:16:38:632 gameCard/(17102:17331): mostrame posicion : 4-6=4
-[INFO] 21:16:38:633 gameCard/(17102:17331): la posicion 4-6=4 existe en el archivo
-[INFO] 21:16:38:633 gameCard/(17102:17331): La cantidad es: 4
-[INFO] 21:16:38:634 gameCard/(17102:17331): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:16:38:634 gameCard/(17102:17331): la cantidad pasa a : 3
-[INFO] 21:16:38:635 gameCard/(17102:17331): la posicion queda: 4-6=
-[INFO] 21:16:38:635 gameCard/(17102:17331): pos a copiar es: 4-6=3
+[INFO] 23:39:57:858 gameCard/(31796:31918): cant de bloques ocupados: 1
+[INFO] 23:39:57:859 gameCard/(31796:31918): mostrame posicion : 4-6=4
+[INFO] 23:39:57:860 gameCard/(31796:31918): la posicion 4-6=4 existe en el archivo
+[INFO] 23:39:57:861 gameCard/(31796:31918): La cantidad es: 4
+[INFO] 23:39:57:862 gameCard/(31796:31918): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:39:57:863 gameCard/(31796:31918): la cantidad pasa a : 3
+[INFO] 23:39:57:866 gameCard/(31796:31918): la posicion queda: 4-6=
+[INFO] 23:39:57:868 gameCard/(31796:31918): pos a copiar es: 4-6=3
 
-[INFO] 21:16:38:635 gameCard/(17102:17331): cant de bloques sin posicion: 1
-[INFO] 21:16:38:636 gameCard/(17102:17331): la cantidad de bloques a liberar porque quedan vacios: 0
-[INFO] 21:16:38:636 gameCard/(17102:17331): mostrame cant bloque en metadata: 1
-[INFO] 21:16:38:636 gameCard/(17102:17331):  se va a actualizar el contenido del archivo
-[WARNING] 21:16:38:636 gameCard/(17102:17331): aca entro en persistir en bloques propios
-[WARNING] 21:16:38:637 gameCard/(17102:17331): aCopiar 6,copiado 0, desde 0
-[INFO] 21:16:38:637 gameCard/(17102:17331): se va a escribir en bloques del pokemon
-[INFO] 21:16:38:637 gameCard/(17102:17331): accediendo al bloque 6.bin
-[INFO] 21:16:38:638 gameCard/(17102:17331): se va a copiar: 4-6=3
+[INFO] 23:39:57:869 gameCard/(31796:31918): cant de bloques sin posicion: 1
+[INFO] 23:39:57:869 gameCard/(31796:31918): la cantidad de bloques a liberar porque quedan vacios: 0
+[INFO] 23:39:57:870 gameCard/(31796:31918): mostrame cant bloque en metadata: 1
+[INFO] 23:39:57:871 gameCard/(31796:31918):  se va a actualizar el contenido del archivo
+[WARNING] 23:39:57:872 gameCard/(31796:31918): aca entro en persistir en bloques propios
+[WARNING] 23:39:57:873 gameCard/(31796:31918): aCopiar 6,copiado 0, desde 0
+[INFO] 23:39:57:874 gameCard/(31796:31918): se va a escribir en bloques del pokemon
+[INFO] 23:39:57:875 gameCard/(31796:31918): accediendo al bloque 6.bin
+[INFO] 23:39:57:875 gameCard/(31796:31918): se va a copiar: 4-6=3
 
-[INFO] 21:16:38:638 gameCard/(17102:17331): se ha copiado correctamente
-[INFO] 21:16:38:640 gameCard/(17102:17331): se va a cerrar el archivo del pokemon Flareon
-[INFO] 21:16:38:642 gameCard/(17102:17331): se ha cerrado el archivo del pokemon
-[INFO] 21:16:43:653 gameCard/(17102:17331): Enviado el status del caught pokemon para la especie Flareon
-[INFO] 21:17:23:663 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:17:23:663 gameCard/(17102:17356): validando si existe el pokemon: Pikachu
-[INFO] 21:17:23:663 gameCard/(17102:17356): existe el pokemon Pikachu
-[INFO] 21:17:23:664 gameCard/(17102:17356): validando si el archivo se encuentra abierto
-[INFO] 21:17:23:664 gameCard/(17102:17356): se va a activar el semaforo del pokemon
-[INFO] 21:17:23:664 gameCard/(17102:17356): El estado del archivo es N
-[INFO] 21:17:23:664 gameCard/(17102:17356): se intentará capturar un pokemon
-[INFO] 21:17:23:665 gameCard/(17102:17356): la posicion a buscar es (9,9) del pokemon Pikachu
-[INFO] 21:17:23:666 gameCard/(17102:17356): 1
-[INFO] 21:17:23:666 gameCard/(17102:17356): abriendo el bloque 1 para copiar pokemon en memoria
-[INFO] 21:17:23:667 gameCard/(17102:17356): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:17:23:667 gameCard/(17102:17356): se validó que la posicion existe en el archivo
-[INFO] 21:17:23:667 gameCard/(17102:17356): mostrame poke en memo: 9-9=1
+[INFO] 23:39:57:877 gameCard/(31796:31918): se ha copiado correctamente
+[INFO] 23:39:57:878 gameCard/(31796:31918): se va a cerrar el archivo del pokemon Flareon
+[INFO] 23:39:57:897 gameCard/(31796:31918): se ha cerrado el archivo del pokemon
+[INFO] 23:40:02:902 gameCard/(31796:31918): Enviado el status del caught pokemon para la especie Flareon
+[INFO] 23:40:17:65 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:40:17:76 gameCard/(31796:31922): validando si existe el pokemon: Pikachu
+[INFO] 23:40:17:81 gameCard/(31796:31922): existe el pokemon Pikachu
+[INFO] 23:40:17:82 gameCard/(31796:31922): validando si el archivo se encuentra abierto
+[INFO] 23:40:17:83 gameCard/(31796:31922): se va a activar el semaforo del pokemon
+[INFO] 23:40:17:83 gameCard/(31796:31922): El estado del archivo es N
+[INFO] 23:40:17:84 gameCard/(31796:31922): se intentará capturar un pokemon
+[INFO] 23:40:17:85 gameCard/(31796:31922): la posicion a buscar es (9,9) del pokemon Pikachu
+[INFO] 23:40:17:98 gameCard/(31796:31922): 1
+[INFO] 23:40:17:106 gameCard/(31796:31922): abriendo el bloque 1 para copiar pokemon en memoria
+[INFO] 23:40:17:107 gameCard/(31796:31922): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:40:17:108 gameCard/(31796:31922): se validó que la posicion existe en el archivo
+[INFO] 23:40:17:108 gameCard/(31796:31922): mostrame poke en memo: 9-9=1
 
-[INFO] 21:17:23:667 gameCard/(17102:17356): cant de bloques ocupados: 1
-[INFO] 21:17:23:668 gameCard/(17102:17356): mostrame posicion : 9-9=1
-[INFO] 21:17:23:668 gameCard/(17102:17356): la posicion 9-9=1 existe en el archivo
-[INFO] 21:17:23:668 gameCard/(17102:17356): La cantidad es: 1
-[INFO] 21:17:23:668 gameCard/(17102:17356): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:17:23:669 gameCard/(17102:17356): la cantidad pasa a: 0
-[INFO] 21:17:23:669 gameCard/(17102:17356): se va a eliminar la posicion: 9-9=1
-[INFO] 21:17:23:669 gameCard/(17102:17356): pos a copiar es: 
-[INFO] 21:17:23:670 gameCard/(17102:17356): cant de bloques sin posicion: 0
-[INFO] 21:17:23:670 gameCard/(17102:17356): los bloques del pokemon se quedaran vacios con su captura
-[INFO] 21:17:23:670 gameCard/(17102:17356): se va a eliminar el pokemon
-[INFO] 21:17:23:671 gameCard/(17102:17356): Marcar posicion 0 del bitmap como libre
-[INFO] 21:17:24:203 gameCard/(17102:17356): se ha marcado como libre en el bitmap el bloque 1
-[INFO] 21:17:24:204 gameCard/(17102:17356): La poscion del bitmap paso a: 0
-[INFO] 21:17:24:205 gameCard/(17102:17356): bloque accedido es : 1
-[INFO] 21:17:24:207 gameCard/(17102:17356): se ha borrado contenido correctamente
-[INFO] 21:17:24:208 gameCard/(17102:17356):  Se ha borrado la metadata del pokemon:Pikachu
-[INFO] 21:17:24:209 gameCard/(17102:17356): se ha borrado correctamente el pokemon: Pikachu
-[INFO] 21:17:24:213 gameCard/(17102:17356): Enviado el status del caught pokemon para la especie Pikachu
-[INFO] 21:17:43:220 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:17:43:220 gameCard/(17102:17383): validando si existe el pokemon: Onix
-[INFO] 21:17:43:221 gameCard/(17102:17383): el pokemon Onix no existe, hay que crearlo
-[INFO] 21:17:43:221 gameCard/(17102:17383): iniciando la creacion del archivo...
-[INFO] 21:17:43:222 gameCard/(17102:17383): cantidad de bloques que necesita: 1
-[INFO] 21:17:43:223 gameCard/(17102:17383): se le asigna al pokemon el bloque 1
-[INFO] 21:17:43:223 gameCard/(17102:17383):  el bloque 1 pasará a estar ocupado en el bitmap
-[INFO] 21:17:43:243 gameCard/(17102:17383): efectivamente paso a tener le valor : 1 en el bitmap 
-[INFO] 21:17:43:244 gameCard/(17102:17383): se ha agregado el bloque: 1 a la lista de bloques para la metadata
-[WARNING] 21:17:43:244 gameCard/(17102:17383): aca entro en persistir en bloques propios
-[WARNING] 21:17:43:244 gameCard/(17102:17383): aCopiar 6,copiado 0, desde 0
-[INFO] 21:17:43:244 gameCard/(17102:17383): se va a escribir en bloques del pokemon
-[INFO] 21:17:43:245 gameCard/(17102:17383): accediendo al bloque 1.bin
-[INFO] 21:17:43:245 gameCard/(17102:17383): se va a copiar: 2-8=1
+[INFO] 23:40:17:109 gameCard/(31796:31922): cant de bloques ocupados: 1
+[INFO] 23:40:17:110 gameCard/(31796:31922): mostrame posicion : 9-9=1
+[INFO] 23:40:17:111 gameCard/(31796:31922): la posicion 9-9=1 existe en el archivo
+[INFO] 23:40:17:111 gameCard/(31796:31922): La cantidad es: 1
+[INFO] 23:40:17:112 gameCard/(31796:31922): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:40:17:117 gameCard/(31796:31922): la cantidad pasa a: 0
+[INFO] 23:40:17:118 gameCard/(31796:31922): se va a eliminar la posicion: 9-9=1
+[INFO] 23:40:17:119 gameCard/(31796:31922): pos a copiar es: 
+[INFO] 23:40:17:122 gameCard/(31796:31922): cant de bloques sin posicion: 0
+[INFO] 23:40:17:123 gameCard/(31796:31922): los bloques del pokemon se quedaran vacios con su captura
+[INFO] 23:40:17:124 gameCard/(31796:31922): se va a eliminar el pokemon
+[INFO] 23:40:17:126 gameCard/(31796:31922): Marcar posicion 0 del bitmap como libre
+[INFO] 23:40:17:147 gameCard/(31796:31922): se ha marcado como libre en el bitmap el bloque 1
+[INFO] 23:40:17:149 gameCard/(31796:31922): La poscion del bitmap paso a: 0
+[INFO] 23:40:17:153 gameCard/(31796:31922): bloque accedido es : 1
+[INFO] 23:40:17:161 gameCard/(31796:31922): se ha borrado contenido correctamente
+[INFO] 23:40:17:171 gameCard/(31796:31922):  Se ha borrado la metadata del pokemon:Pikachu
+[INFO] 23:40:17:179 gameCard/(31796:31922): se ha borrado correctamente el pokemon: Pikachu
+[INFO] 23:40:17:184 gameCard/(31796:31922): Enviado el status del caught pokemon para la especie Pikachu
+[INFO] 23:41:02:68 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:41:02:73 gameCard/(31796:31935): validando si existe el pokemon: Onix
+[INFO] 23:41:02:73 gameCard/(31796:31935): el pokemon Onix no existe, hay que crearlo
+[INFO] 23:41:02:76 gameCard/(31796:31935): iniciando la creacion del archivo...
+[INFO] 23:41:02:84 gameCard/(31796:31935): cantidad de bloques que necesita: 1
+[INFO] 23:41:02:85 gameCard/(31796:31935): se le asigna al pokemon el bloque 1
+[INFO] 23:41:02:93 gameCard/(31796:31935):  el bloque 1 pasará a estar ocupado en el bitmap
+[INFO] 23:41:02:109 gameCard/(31796:31935): efectivamente paso a tener le valor : 1 en el bitmap 
+[INFO] 23:41:02:115 gameCard/(31796:31935): se ha agregado el bloque: 1 a la lista de bloques para la metadata
+[WARNING] 23:41:02:118 gameCard/(31796:31935): aca entro en persistir en bloques propios
+[WARNING] 23:41:02:119 gameCard/(31796:31935): aCopiar 6,copiado 0, desde 0
+[INFO] 23:41:02:119 gameCard/(31796:31935): se va a escribir en bloques del pokemon
+[INFO] 23:41:02:123 gameCard/(31796:31935): accediendo al bloque 1.bin
+[INFO] 23:41:02:124 gameCard/(31796:31935): se va a copiar: 2-8=1
 
-[INFO] 21:17:43:246 gameCard/(17102:17383): se ha copiado correctamente
-[INFO] 21:17:43:246 gameCard/(17102:17383): Creando el directorio Pokemon : Onix
-[INFO] 21:17:43:247 gameCard/(17102:17383): Se ha creado el directorio / Onix
-[INFO] 21:17:43:247 gameCard/(17102:17383): ruta es: /home/utnso/desktop/tall-grass/Files/Onix/Metadata.bin
-[INFO] 21:17:43:248 gameCard/(17102:17383): Creando el archivo metadata del pokemon
-[INFO] 21:17:43:248 gameCard/(17102:17383): el tamanio del archivo en la metadata será: 6
-[INFO] 21:17:43:248 gameCard/(17102:17383): la cantidad de bloques que va a tener la metadata : 1
-[INFO] 21:17:43:249 gameCard/(17102:17383): aca entra en for
-[INFO] 21:17:43:249 gameCard/(17102:17383): pos 0 y elem : 1
-[INFO] 21:17:43:249 gameCard/(17102:17383): mostrame el bloque 1
-[INFO] 21:17:43:249 gameCard/(17102:17383): la lista de bloques en la metadata será:BLOCKS=[1]
+[INFO] 23:41:02:125 gameCard/(31796:31935): se ha copiado correctamente
+[INFO] 23:41:02:148 gameCard/(31796:31935): Creando el directorio Pokemon : Onix
+[INFO] 23:41:02:149 gameCard/(31796:31935): Se ha creado el directorio / Onix
+[INFO] 23:41:02:155 gameCard/(31796:31935): ruta es: /home/utnso/desktop/tall-grass/Files/Onix/Metadata.bin
+[INFO] 23:41:02:157 gameCard/(31796:31935): Creando el archivo metadata del pokemon
+[INFO] 23:41:02:162 gameCard/(31796:31935): el tamanio del archivo en la metadata será: 6
+[INFO] 23:41:02:187 gameCard/(31796:31935): la cantidad de bloques que va a tener la metadata : 1
+[INFO] 23:41:02:188 gameCard/(31796:31935): aca entra en for
+[INFO] 23:41:02:191 gameCard/(31796:31935): pos 0 y elem : 1
+[INFO] 23:41:02:192 gameCard/(31796:31935): mostrame el bloque 1
+[INFO] 23:41:02:193 gameCard/(31796:31935): la lista de bloques en la metadata será:BLOCKS=[1]
 
-[INFO] 21:17:43:250 gameCard/(17102:17383): Se ha creado el archivo metadata.bin del Pokemon
-[INFO] 21:17:43:250 gameCard/(17102:17383): se ha creado con éxito el archivo del pokemon Onix
-[INFO] 21:17:43:250 gameCard/(17102:17383): Se agrega un semáforo para la metadata del pokemon Onix
-[INFO] 21:17:43:250 gameCard/(17102:17383): el tiempo de acceso a disco es : 5
-[INFO] 21:17:48:256 gameCard/(17102:17383): Enviado appeared pokemon para la especie Onix, en la posicion ( 2, 8).
-[INFO] 21:17:48:256 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:17:48:258 gameCard/(17102:17403): validando si existe el pokemon: Gengar
-[INFO] 21:17:48:258 gameCard/(17102:17403): el pokemon Gengar no existe, hay que crearlo
-[INFO] 21:17:48:259 gameCard/(17102:17403): iniciando la creacion del archivo...
-[INFO] 21:17:48:259 gameCard/(17102:17403): cantidad de bloques que necesita: 1
-[INFO] 21:17:48:259 gameCard/(17102:17403): se le asigna al pokemon el bloque 7
-[INFO] 21:17:48:260 gameCard/(17102:17403):  el bloque 7 pasará a estar ocupado en el bitmap
-[INFO] 21:17:48:278 gameCard/(17102:17403): efectivamente paso a tener le valor : 1 en el bitmap 
-[INFO] 21:17:48:279 gameCard/(17102:17403): se ha agregado el bloque: 7 a la lista de bloques para la metadata
-[WARNING] 21:17:48:279 gameCard/(17102:17403): aca entro en persistir en bloques propios
-[WARNING] 21:17:48:279 gameCard/(17102:17403): aCopiar 6,copiado 0, desde 0
-[INFO] 21:17:48:279 gameCard/(17102:17403): se va a escribir en bloques del pokemon
-[INFO] 21:17:48:280 gameCard/(17102:17403): accediendo al bloque 7.bin
-[INFO] 21:17:48:280 gameCard/(17102:17403): se va a copiar: 6-6=1
+[INFO] 23:41:02:211 gameCard/(31796:31935): Se ha creado el archivo metadata.bin del Pokemon
+[INFO] 23:41:02:218 gameCard/(31796:31935): se ha creado con éxito el archivo del pokemon Onix
+[INFO] 23:41:02:219 gameCard/(31796:31935): Se agrega un semáforo para la metadata del pokemon Onix
+[INFO] 23:41:02:230 gameCard/(31796:31935): el tiempo de acceso a disco es : 5
+[INFO] 23:41:07:241 gameCard/(31796:31935): Enviado appeared pokemon para la especie Onix, en la posicion ( 2, 8).
+[INFO] 23:41:07:243 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:41:07:244 gameCard/(31796:31949): validando si existe el pokemon: Gengar
+[INFO] 23:41:07:248 gameCard/(31796:31949): el pokemon Gengar no existe, hay que crearlo
+[INFO] 23:41:07:257 gameCard/(31796:31949): iniciando la creacion del archivo...
+[INFO] 23:41:07:258 gameCard/(31796:31949): cantidad de bloques que necesita: 1
+[INFO] 23:41:07:259 gameCard/(31796:31949): se le asigna al pokemon el bloque 7
+[INFO] 23:41:07:260 gameCard/(31796:31949):  el bloque 7 pasará a estar ocupado en el bitmap
+[INFO] 23:41:07:271 gameCard/(31796:31949): efectivamente paso a tener le valor : 1 en el bitmap 
+[INFO] 23:41:07:276 gameCard/(31796:31949): se ha agregado el bloque: 7 a la lista de bloques para la metadata
+[WARNING] 23:41:07:282 gameCard/(31796:31949): aca entro en persistir en bloques propios
+[WARNING] 23:41:07:282 gameCard/(31796:31949): aCopiar 6,copiado 0, desde 0
+[INFO] 23:41:07:283 gameCard/(31796:31949): se va a escribir en bloques del pokemon
+[INFO] 23:41:07:284 gameCard/(31796:31949): accediendo al bloque 7.bin
+[INFO] 23:41:07:288 gameCard/(31796:31949): se va a copiar: 6-6=1
 
-[INFO] 21:17:48:280 gameCard/(17102:17403): se ha copiado correctamente
-[INFO] 21:17:48:282 gameCard/(17102:17403): Creando el directorio Pokemon : Gengar
-[INFO] 21:17:48:282 gameCard/(17102:17403): Se ha creado el directorio / Gengar
-[INFO] 21:17:48:283 gameCard/(17102:17403): ruta es: /home/utnso/desktop/tall-grass/Files/Gengar/Metadata.bin
-[INFO] 21:17:48:283 gameCard/(17102:17403): Creando el archivo metadata del pokemon
-[INFO] 21:17:48:283 gameCard/(17102:17403): el tamanio del archivo en la metadata será: 6
-[INFO] 21:17:48:283 gameCard/(17102:17403): la cantidad de bloques que va a tener la metadata : 1
-[INFO] 21:17:48:283 gameCard/(17102:17403): aca entra en for
-[INFO] 21:17:48:284 gameCard/(17102:17403): pos 0 y elem : 7
-[INFO] 21:17:48:284 gameCard/(17102:17403): mostrame el bloque 7
-[INFO] 21:17:48:284 gameCard/(17102:17403): la lista de bloques en la metadata será:BLOCKS=[7]
+[INFO] 23:41:07:289 gameCard/(31796:31949): se ha copiado correctamente
+[INFO] 23:41:07:290 gameCard/(31796:31949): Creando el directorio Pokemon : Gengar
+[INFO] 23:41:07:290 gameCard/(31796:31949): Se ha creado el directorio / Gengar
+[INFO] 23:41:07:291 gameCard/(31796:31949): ruta es: /home/utnso/desktop/tall-grass/Files/Gengar/Metadata.bin
+[INFO] 23:41:07:292 gameCard/(31796:31949): Creando el archivo metadata del pokemon
+[INFO] 23:41:07:293 gameCard/(31796:31949): el tamanio del archivo en la metadata será: 6
+[INFO] 23:41:07:293 gameCard/(31796:31949): la cantidad de bloques que va a tener la metadata : 1
+[INFO] 23:41:07:294 gameCard/(31796:31949): aca entra en for
+[INFO] 23:41:07:295 gameCard/(31796:31949): pos 0 y elem : 7
+[INFO] 23:41:07:295 gameCard/(31796:31949): mostrame el bloque 7
+[INFO] 23:41:07:296 gameCard/(31796:31949): la lista de bloques en la metadata será:BLOCKS=[7]
 
-[INFO] 21:17:48:284 gameCard/(17102:17403): Se ha creado el archivo metadata.bin del Pokemon
-[INFO] 21:17:48:285 gameCard/(17102:17403): se ha creado con éxito el archivo del pokemon Gengar
-[INFO] 21:17:48:285 gameCard/(17102:17403): Se agrega un semáforo para la metadata del pokemon Gengar
-[INFO] 21:17:48:285 gameCard/(17102:17403): el tiempo de acceso a disco es : 5
-[INFO] 21:17:53:310 gameCard/(17102:17403): Enviado appeared pokemon para la especie Gengar, en la posicion ( 6, 6).
-[INFO] 21:17:53:312 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:17:53:313 gameCard/(17102:17413): validando si existe el pokemon: Squirtle
-[INFO] 21:17:53:315 gameCard/(17102:17413): existe el pokemon Squirtle
-[INFO] 21:17:53:317 gameCard/(17102:17413): validando si el archivo se encuentra abierto
-[INFO] 21:17:53:318 gameCard/(17102:17413): se va a activar el semaforo del pokemon
-[INFO] 21:17:53:320 gameCard/(17102:17413): El estado del archivo es N
-[INFO] 21:17:53:322 gameCard/(17102:17413): se va a modificar el archivo
-[INFO] 21:17:53:324 gameCard/(17102:17413): la posicion a cambiar es :5-5= 1 
-[INFO] 21:17:53:326 gameCard/(17102:17413): Los bloques que conforman al archivo pokemon:
-[INFO] 21:17:53:327 gameCard/(17102:17413): 2
-[INFO] 21:17:53:328 gameCard/(17102:17413): conociendo sus bloques, se carga pokemon en memoria
-[INFO] 21:17:53:330 gameCard/(17102:17413): abriendo el bloque 2 para copiar pokemon en memoria
-[INFO] 21:17:53:331 gameCard/(17102:17413): el pokemon que se cargo en memoria: 5-2=1
+[INFO] 23:41:07:297 gameCard/(31796:31949): Se ha creado el archivo metadata.bin del Pokemon
+[INFO] 23:41:07:297 gameCard/(31796:31949): se ha creado con éxito el archivo del pokemon Gengar
+[INFO] 23:41:07:298 gameCard/(31796:31949): Se agrega un semáforo para la metadata del pokemon Gengar
+[INFO] 23:41:07:299 gameCard/(31796:31949): el tiempo de acceso a disco es : 5
+[INFO] 23:41:12:311 gameCard/(31796:31949): Enviado appeared pokemon para la especie Gengar, en la posicion ( 6, 6).
+[INFO] 23:41:12:313 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:41:12:315 gameCard/(31796:31952): validando si existe el pokemon: Squirtle
+[INFO] 23:41:12:316 gameCard/(31796:31952): existe el pokemon Squirtle
+[INFO] 23:41:12:318 gameCard/(31796:31952): validando si el archivo se encuentra abierto
+[INFO] 23:41:12:319 gameCard/(31796:31952): se va a activar el semaforo del pokemon
+[INFO] 23:41:12:320 gameCard/(31796:31952): El estado del archivo es N
+[INFO] 23:41:12:322 gameCard/(31796:31952): se va a modificar el archivo
+[INFO] 23:41:12:341 gameCard/(31796:31952): la posicion a cambiar es :5-5= 1 
+[INFO] 23:41:12:354 gameCard/(31796:31952): Los bloques que conforman al archivo pokemon:
+[INFO] 23:41:12:358 gameCard/(31796:31952): 2
+[INFO] 23:41:12:366 gameCard/(31796:31952): conociendo sus bloques, se carga pokemon en memoria
+[INFO] 23:41:12:368 gameCard/(31796:31952): abriendo el bloque 2 para copiar pokemon en memoria
+[INFO] 23:41:12:370 gameCard/(31796:31952): el pokemon que se cargo en memoria: 5-2=1
 
-[INFO] 21:17:53:333 gameCard/(17102:17413): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:17:53:334 gameCard/(17102:17413): la posicion no existe en el archivo del pokemon Squirtle, hay que agregarla
-[INFO] 21:17:53:339 gameCard/(17102:17413): el archivo tiene espacio y se copia la posicion en el último bloque que le fue asignado
-[INFO] 21:17:53:340 gameCard/(17102:17413): Se copia 5-2=1
+[INFO] 23:41:12:371 gameCard/(31796:31952): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:41:12:373 gameCard/(31796:31952): la posicion no existe en el archivo del pokemon Squirtle, hay que agregarla
+[INFO] 23:41:12:386 gameCard/(31796:31952): el archivo tiene espacio y se copia la posicion en el último bloque que le fue asignado
+[INFO] 23:41:12:399 gameCard/(31796:31952): Se copia 5-2=1
 5-5=1
  en el bloque: 2.bin
-[INFO] 21:17:53:342 gameCard/(17102:17413): se va a escribir en bloques del pokemon
-[INFO] 21:17:53:343 gameCard/(17102:17413): accediendo al bloque 2.bin
-[INFO] 21:17:53:343 gameCard/(17102:17413): se va a copiar: 5-2=1
+[INFO] 23:41:12:401 gameCard/(31796:31952): se va a escribir en bloques del pokemon
+[INFO] 23:41:12:404 gameCard/(31796:31952): accediendo al bloque 2.bin
+[INFO] 23:41:12:405 gameCard/(31796:31952): se va a copiar: 5-2=1
 5-5=1
 
-[INFO] 21:17:53:345 gameCard/(17102:17413): se ha copiado correctamente
-[INFO] 21:17:53:347 gameCard/(17102:17413): se modifica el tamanio del archivo pokemon Squirtle
-[INFO] 21:17:53:349 gameCard/(17102:17413): El nuevo tamaño del archivo será: 12
-[INFO] 21:17:53:353 gameCard/(17102:17413): se ha modificado el size del archivo adecuadamente
-[INFO] 21:17:53:357 gameCard/(17102:17413): Se agrego correctamente la posicion
-[INFO] 21:17:53:360 gameCard/(17102:17413): el tiempo de acceso a disco es : 5
-[INFO] 21:17:58:362 gameCard/(17102:17413): se va a cerrar el archivo del pokemon Squirtle
-[INFO] 21:17:58:363 gameCard/(17102:17413): se ha cerrado el archivo del pokemon
-[INFO] 21:17:58:375 gameCard/(17102:17413): Enviado appeared pokemon para la especie Squirtle, en la posicion ( 5, 5).
-[INFO] 21:17:58:376 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:17:58:376 gameCard/(17102:17429): validando si existe el pokemon: Umbreon
-[INFO] 21:17:58:377 gameCard/(17102:17429): el pokemon Umbreon no existe, hay que crearlo
-[INFO] 21:17:58:378 gameCard/(17102:17429): iniciando la creacion del archivo...
-[INFO] 21:17:58:379 gameCard/(17102:17429): cantidad de bloques que necesita: 1
-[INFO] 21:17:58:380 gameCard/(17102:17429): se le asigna al pokemon el bloque 8
-[INFO] 21:17:58:380 gameCard/(17102:17429):  el bloque 8 pasará a estar ocupado en el bitmap
-[INFO] 21:17:58:393 gameCard/(17102:17429): efectivamente paso a tener le valor : 1 en el bitmap 
-[INFO] 21:17:58:393 gameCard/(17102:17429): se ha agregado el bloque: 8 a la lista de bloques para la metadata
-[WARNING] 21:17:58:394 gameCard/(17102:17429): aca entro en persistir en bloques propios
-[WARNING] 21:17:58:394 gameCard/(17102:17429): aCopiar 7,copiado 0, desde 0
-[INFO] 21:17:58:395 gameCard/(17102:17429): se va a escribir en bloques del pokemon
-[INFO] 21:17:58:395 gameCard/(17102:17429): accediendo al bloque 8.bin
-[INFO] 21:17:58:396 gameCard/(17102:17429): se va a copiar: 10-6=1
+[INFO] 23:41:12:407 gameCard/(31796:31952): se ha copiado correctamente
+[INFO] 23:41:12:409 gameCard/(31796:31952): se modifica el tamanio del archivo pokemon Squirtle
+[INFO] 23:41:12:412 gameCard/(31796:31952): El nuevo tamaño del archivo será: 12
+[INFO] 23:41:12:415 gameCard/(31796:31952): se ha modificado el size del archivo adecuadamente
+[INFO] 23:41:12:418 gameCard/(31796:31952): Se agrego correctamente la posicion
+[INFO] 23:41:12:427 gameCard/(31796:31952): el tiempo de acceso a disco es : 5
+[INFO] 23:41:17:431 gameCard/(31796:31952): se va a cerrar el archivo del pokemon Squirtle
+[INFO] 23:41:17:436 gameCard/(31796:31952): se ha cerrado el archivo del pokemon
+[INFO] 23:41:17:442 gameCard/(31796:31952): Enviado appeared pokemon para la especie Squirtle, en la posicion ( 5, 5).
+[INFO] 23:41:17:448 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:41:17:449 gameCard/(31796:31954): validando si existe el pokemon: Umbreon
+[INFO] 23:41:17:471 gameCard/(31796:31954): el pokemon Umbreon no existe, hay que crearlo
+[INFO] 23:41:17:471 gameCard/(31796:31954): iniciando la creacion del archivo...
+[INFO] 23:41:17:477 gameCard/(31796:31954): cantidad de bloques que necesita: 1
+[INFO] 23:41:17:478 gameCard/(31796:31954): se le asigna al pokemon el bloque 8
+[INFO] 23:41:17:479 gameCard/(31796:31954):  el bloque 8 pasará a estar ocupado en el bitmap
+[INFO] 23:41:17:485 gameCard/(31796:31954): efectivamente paso a tener le valor : 1 en el bitmap 
+[INFO] 23:41:17:486 gameCard/(31796:31954): se ha agregado el bloque: 8 a la lista de bloques para la metadata
+[WARNING] 23:41:17:488 gameCard/(31796:31954): aca entro en persistir en bloques propios
+[WARNING] 23:41:17:491 gameCard/(31796:31954): aCopiar 7,copiado 0, desde 0
+[INFO] 23:41:17:492 gameCard/(31796:31954): se va a escribir en bloques del pokemon
+[INFO] 23:41:17:495 gameCard/(31796:31954): accediendo al bloque 8.bin
+[INFO] 23:41:17:496 gameCard/(31796:31954): se va a copiar: 10-6=1
 
-[INFO] 21:17:58:397 gameCard/(17102:17429): se ha copiado correctamente
-[INFO] 21:17:58:397 gameCard/(17102:17429): Creando el directorio Pokemon : Umbreon
-[INFO] 21:17:58:397 gameCard/(17102:17429): Se ha creado el directorio / Umbreon
-[INFO] 21:17:58:398 gameCard/(17102:17429): ruta es: /home/utnso/desktop/tall-grass/Files/Umbreon/Metadata.bin
-[INFO] 21:17:58:399 gameCard/(17102:17429): Creando el archivo metadata del pokemon
-[INFO] 21:17:58:399 gameCard/(17102:17429): el tamanio del archivo en la metadata será: 7
-[INFO] 21:17:58:399 gameCard/(17102:17429): la cantidad de bloques que va a tener la metadata : 1
-[INFO] 21:17:58:400 gameCard/(17102:17429): aca entra en for
-[INFO] 21:17:58:400 gameCard/(17102:17429): pos 0 y elem : 8
-[INFO] 21:17:58:400 gameCard/(17102:17429): mostrame el bloque 8
-[INFO] 21:17:58:401 gameCard/(17102:17429): la lista de bloques en la metadata será:BLOCKS=[8]
+[INFO] 23:41:17:498 gameCard/(31796:31954): se ha copiado correctamente
+[INFO] 23:41:17:500 gameCard/(31796:31954): Creando el directorio Pokemon : Umbreon
+[INFO] 23:41:17:509 gameCard/(31796:31954): Se ha creado el directorio / Umbreon
+[INFO] 23:41:17:511 gameCard/(31796:31954): ruta es: /home/utnso/desktop/tall-grass/Files/Umbreon/Metadata.bin
+[INFO] 23:41:17:515 gameCard/(31796:31954): Creando el archivo metadata del pokemon
+[INFO] 23:41:17:519 gameCard/(31796:31954): el tamanio del archivo en la metadata será: 7
+[INFO] 23:41:17:521 gameCard/(31796:31954): la cantidad de bloques que va a tener la metadata : 1
+[INFO] 23:41:17:522 gameCard/(31796:31954): aca entra en for
+[INFO] 23:41:17:523 gameCard/(31796:31954): pos 0 y elem : 8
+[INFO] 23:41:17:524 gameCard/(31796:31954): mostrame el bloque 8
+[INFO] 23:41:17:526 gameCard/(31796:31954): la lista de bloques en la metadata será:BLOCKS=[8]
 
-[INFO] 21:17:58:401 gameCard/(17102:17429): Se ha creado el archivo metadata.bin del Pokemon
-[INFO] 21:17:58:402 gameCard/(17102:17429): se ha creado con éxito el archivo del pokemon Umbreon
-[INFO] 21:17:58:402 gameCard/(17102:17429): Se agrega un semáforo para la metadata del pokemon Umbreon
-[INFO] 21:17:58:402 gameCard/(17102:17429): el tiempo de acceso a disco es : 5
-[INFO] 21:18:03:413 gameCard/(17102:17429): Enviado appeared pokemon para la especie Umbreon, en la posicion ( 10, 6).
-[INFO] 21:18:03:415 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:18:03:415 gameCard/(17102:17440): validando si existe el pokemon: Espeon
-[INFO] 21:18:03:416 gameCard/(17102:17440): el pokemon Espeon no existe, hay que crearlo
-[INFO] 21:18:03:416 gameCard/(17102:17440): iniciando la creacion del archivo...
-[INFO] 21:18:03:419 gameCard/(17102:17440): cantidad de bloques que necesita: 1
-[INFO] 21:18:03:420 gameCard/(17102:17440): se le asigna al pokemon el bloque 9
-[INFO] 21:18:03:420 gameCard/(17102:17440):  el bloque 9 pasará a estar ocupado en el bitmap
-[INFO] 21:18:03:428 gameCard/(17102:17440): efectivamente paso a tener le valor : 1 en el bitmap 
-[INFO] 21:18:03:428 gameCard/(17102:17440): se ha agregado el bloque: 9 a la lista de bloques para la metadata
-[WARNING] 21:18:03:428 gameCard/(17102:17440): aca entro en persistir en bloques propios
-[WARNING] 21:18:03:428 gameCard/(17102:17440): aCopiar 6,copiado 0, desde 0
-[INFO] 21:18:03:429 gameCard/(17102:17440): se va a escribir en bloques del pokemon
-[INFO] 21:18:03:429 gameCard/(17102:17440): accediendo al bloque 9.bin
-[INFO] 21:18:03:429 gameCard/(17102:17440): se va a copiar: 7-1=1
+[INFO] 23:41:17:527 gameCard/(31796:31954): Se ha creado el archivo metadata.bin del Pokemon
+[INFO] 23:41:17:528 gameCard/(31796:31954): se ha creado con éxito el archivo del pokemon Umbreon
+[INFO] 23:41:17:529 gameCard/(31796:31954): Se agrega un semáforo para la metadata del pokemon Umbreon
+[INFO] 23:41:17:540 gameCard/(31796:31954): el tiempo de acceso a disco es : 5
+[INFO] 23:41:22:544 gameCard/(31796:31954): Enviado appeared pokemon para la especie Umbreon, en la posicion ( 10, 6).
+[INFO] 23:41:22:549 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:41:22:551 gameCard/(31796:31958): validando si existe el pokemon: Espeon
+[INFO] 23:41:22:552 gameCard/(31796:31958): el pokemon Espeon no existe, hay que crearlo
+[INFO] 23:41:22:553 gameCard/(31796:31958): iniciando la creacion del archivo...
+[INFO] 23:41:22:555 gameCard/(31796:31958): cantidad de bloques que necesita: 1
+[INFO] 23:41:22:570 gameCard/(31796:31958): se le asigna al pokemon el bloque 9
+[INFO] 23:41:22:578 gameCard/(31796:31958):  el bloque 9 pasará a estar ocupado en el bitmap
+[INFO] 23:41:22:587 gameCard/(31796:31958): efectivamente paso a tener le valor : 1 en el bitmap 
+[INFO] 23:41:22:588 gameCard/(31796:31958): se ha agregado el bloque: 9 a la lista de bloques para la metadata
+[WARNING] 23:41:22:589 gameCard/(31796:31958): aca entro en persistir en bloques propios
+[WARNING] 23:41:22:590 gameCard/(31796:31958): aCopiar 6,copiado 0, desde 0
+[INFO] 23:41:22:591 gameCard/(31796:31958): se va a escribir en bloques del pokemon
+[INFO] 23:41:22:592 gameCard/(31796:31958): accediendo al bloque 9.bin
+[INFO] 23:41:22:592 gameCard/(31796:31958): se va a copiar: 7-1=1
 
-[INFO] 21:18:03:430 gameCard/(17102:17440): se ha copiado correctamente
-[INFO] 21:18:03:430 gameCard/(17102:17440): Creando el directorio Pokemon : Espeon
-[INFO] 21:18:03:431 gameCard/(17102:17440): Se ha creado el directorio / Espeon
-[INFO] 21:18:03:431 gameCard/(17102:17440): ruta es: /home/utnso/desktop/tall-grass/Files/Espeon/Metadata.bin
-[INFO] 21:18:03:431 gameCard/(17102:17440): Creando el archivo metadata del pokemon
-[INFO] 21:18:03:432 gameCard/(17102:17440): el tamanio del archivo en la metadata será: 6
-[INFO] 21:18:03:432 gameCard/(17102:17440): la cantidad de bloques que va a tener la metadata : 1
-[INFO] 21:18:03:432 gameCard/(17102:17440): aca entra en for
-[INFO] 21:18:03:433 gameCard/(17102:17440): pos 0 y elem : 9
-[INFO] 21:18:03:433 gameCard/(17102:17440): mostrame el bloque 9
-[INFO] 21:18:03:434 gameCard/(17102:17440): la lista de bloques en la metadata será:BLOCKS=[9]
+[INFO] 23:41:22:594 gameCard/(31796:31958): se ha copiado correctamente
+[INFO] 23:41:22:594 gameCard/(31796:31958): Creando el directorio Pokemon : Espeon
+[INFO] 23:41:22:595 gameCard/(31796:31958): Se ha creado el directorio / Espeon
+[INFO] 23:41:22:596 gameCard/(31796:31958): ruta es: /home/utnso/desktop/tall-grass/Files/Espeon/Metadata.bin
+[INFO] 23:41:22:597 gameCard/(31796:31958): Creando el archivo metadata del pokemon
+[INFO] 23:41:22:598 gameCard/(31796:31958): el tamanio del archivo en la metadata será: 6
+[INFO] 23:41:22:599 gameCard/(31796:31958): la cantidad de bloques que va a tener la metadata : 1
+[INFO] 23:41:22:600 gameCard/(31796:31958): aca entra en for
+[INFO] 23:41:22:600 gameCard/(31796:31958): pos 0 y elem : 9
+[INFO] 23:41:22:601 gameCard/(31796:31958): mostrame el bloque 9
+[INFO] 23:41:22:602 gameCard/(31796:31958): la lista de bloques en la metadata será:BLOCKS=[9]
 
-[INFO] 21:18:03:434 gameCard/(17102:17440): Se ha creado el archivo metadata.bin del Pokemon
-[INFO] 21:18:03:435 gameCard/(17102:17440): se ha creado con éxito el archivo del pokemon Espeon
-[INFO] 21:18:03:435 gameCard/(17102:17440): Se agrega un semáforo para la metadata del pokemon Espeon
-[INFO] 21:18:03:436 gameCard/(17102:17440): el tiempo de acceso a disco es : 5
-[INFO] 21:18:08:445 gameCard/(17102:17440): Enviado appeared pokemon para la especie Espeon, en la posicion ( 7, 1).
-[INFO] 21:18:08:446 gameCard/(17102:17103): se informó la recepcion del mensaje al broker
-[INFO] 21:18:08:447 gameCard/(17102:17453): validando si existe el pokemon: Vaporeon
-[INFO] 21:18:08:448 gameCard/(17102:17453): el pokemon Vaporeon no existe, hay que crearlo
-[INFO] 21:18:08:448 gameCard/(17102:17453): iniciando la creacion del archivo...
-[INFO] 21:18:08:449 gameCard/(17102:17453): cantidad de bloques que necesita: 1
-[INFO] 21:18:08:450 gameCard/(17102:17453): se le asigna al pokemon el bloque 10
-[INFO] 21:18:08:450 gameCard/(17102:17453):  el bloque 10 pasará a estar ocupado en el bitmap
-[INFO] 21:18:08:452 gameCard/(17102:17453): efectivamente paso a tener le valor : 1 en el bitmap 
-[INFO] 21:18:08:453 gameCard/(17102:17453): se ha agregado el bloque: 10 a la lista de bloques para la metadata
-[WARNING] 21:18:08:453 gameCard/(17102:17453): aca entro en persistir en bloques propios
-[WARNING] 21:18:08:453 gameCard/(17102:17453): aCopiar 7,copiado 0, desde 0
-[INFO] 21:18:08:454 gameCard/(17102:17453): se va a escribir en bloques del pokemon
-[INFO] 21:18:08:454 gameCard/(17102:17453): accediendo al bloque 10.bin
-[INFO] 21:18:08:455 gameCard/(17102:17453): se va a copiar: 4-10=1
+[INFO] 23:41:22:603 gameCard/(31796:31958): Se ha creado el archivo metadata.bin del Pokemon
+[INFO] 23:41:22:604 gameCard/(31796:31958): se ha creado con éxito el archivo del pokemon Espeon
+[INFO] 23:41:22:605 gameCard/(31796:31958): Se agrega un semáforo para la metadata del pokemon Espeon
+[INFO] 23:41:22:607 gameCard/(31796:31958): el tiempo de acceso a disco es : 5
+[INFO] 23:41:25:251 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:41:25:253 gameCard/(31796:31960): validando si existe el pokemon: Onix
+[INFO] 23:41:25:254 gameCard/(31796:31960): existe el pokemon Onix
+[INFO] 23:41:25:254 gameCard/(31796:31960): validando si el archivo se encuentra abierto
+[INFO] 23:41:25:265 gameCard/(31796:31960): se va a activar el semaforo del pokemon
+[INFO] 23:41:25:265 gameCard/(31796:31960): El estado del archivo es N
+[INFO] 23:41:25:267 gameCard/(31796:31960): se intentará capturar un pokemon
+[INFO] 23:41:25:268 gameCard/(31796:31960): la posicion a buscar es (2,8) del pokemon Onix
+[INFO] 23:41:25:271 gameCard/(31796:31960): 1
+[INFO] 23:41:25:273 gameCard/(31796:31960): abriendo el bloque 1 para copiar pokemon en memoria
+[INFO] 23:41:25:274 gameCard/(31796:31960): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:41:25:275 gameCard/(31796:31960): se validó que la posicion existe en el archivo
+[INFO] 23:41:25:284 gameCard/(31796:31960): mostrame poke en memo: 2-8=1
 
-[INFO] 21:18:08:456 gameCard/(17102:17453): se ha copiado correctamente
-[INFO] 21:18:08:457 gameCard/(17102:17453): Creando el directorio Pokemon : Vaporeon
-[INFO] 21:18:08:457 gameCard/(17102:17453): Se ha creado el directorio / Vaporeon
-[INFO] 21:18:08:457 gameCard/(17102:17453): ruta es: /home/utnso/desktop/tall-grass/Files/Vaporeon/Metadata.bin
-[INFO] 21:18:08:458 gameCard/(17102:17453): Creando el archivo metadata del pokemon
-[INFO] 21:18:08:458 gameCard/(17102:17453): el tamanio del archivo en la metadata será: 7
-[INFO] 21:18:08:459 gameCard/(17102:17453): la cantidad de bloques que va a tener la metadata : 1
-[INFO] 21:18:08:459 gameCard/(17102:17453): aca entra en for
-[INFO] 21:18:08:460 gameCard/(17102:17453): pos 0 y elem : 10
-[INFO] 21:18:08:460 gameCard/(17102:17453): mostrame el bloque 10
-[INFO] 21:18:08:461 gameCard/(17102:17453): la lista de bloques en la metadata será:BLOCKS=[10]
+[INFO] 23:41:25:285 gameCard/(31796:31960): cant de bloques ocupados: 1
+[INFO] 23:41:25:290 gameCard/(31796:31960): mostrame posicion : 2-8=1
+[INFO] 23:41:25:291 gameCard/(31796:31960): la posicion 2-8=1 existe en el archivo
+[INFO] 23:41:25:292 gameCard/(31796:31960): La cantidad es: 1
+[INFO] 23:41:25:292 gameCard/(31796:31960): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:41:25:293 gameCard/(31796:31960): la cantidad pasa a: 0
+[INFO] 23:41:25:293 gameCard/(31796:31960): se va a eliminar la posicion: 2-8=1
+[INFO] 23:41:25:294 gameCard/(31796:31960): pos a copiar es: 
+[INFO] 23:41:25:297 gameCard/(31796:31960): cant de bloques sin posicion: 0
+[INFO] 23:41:25:302 gameCard/(31796:31960): los bloques del pokemon se quedaran vacios con su captura
+[INFO] 23:41:25:303 gameCard/(31796:31960): se va a eliminar el pokemon
+[INFO] 23:41:25:304 gameCard/(31796:31960): Marcar posicion 0 del bitmap como libre
+[INFO] 23:41:25:310 gameCard/(31796:31960): se ha marcado como libre en el bitmap el bloque 1
+[INFO] 23:41:25:311 gameCard/(31796:31960): La poscion del bitmap paso a: 0
+[INFO] 23:41:25:311 gameCard/(31796:31960): bloque accedido es : 1
+[INFO] 23:41:25:312 gameCard/(31796:31960): se ha borrado contenido correctamente
+[INFO] 23:41:25:313 gameCard/(31796:31960):  Se ha borrado la metadata del pokemon:Onix
+[INFO] 23:41:25:314 gameCard/(31796:31960): se ha borrado correctamente el pokemon: Onix
+[INFO] 23:41:25:329 gameCard/(31796:31960): Enviado el status del caught pokemon para la especie Onix
+[INFO] 23:41:27:624 gameCard/(31796:31958): Enviado appeared pokemon para la especie Espeon, en la posicion ( 7, 1).
+[INFO] 23:41:27:627 gameCard/(31796:31797): se informó la recepcion del mensaje al broker
+[INFO] 23:41:27:633 gameCard/(31796:31965): validando si existe el pokemon: Vaporeon
+[INFO] 23:41:27:634 gameCard/(31796:31965): el pokemon Vaporeon no existe, hay que crearlo
+[INFO] 23:41:27:635 gameCard/(31796:31965): iniciando la creacion del archivo...
+[INFO] 23:41:27:644 gameCard/(31796:31965): cantidad de bloques que necesita: 1
+[INFO] 23:41:27:644 gameCard/(31796:31965): se le asigna al pokemon el bloque 1
+[INFO] 23:41:27:645 gameCard/(31796:31965):  el bloque 1 pasará a estar ocupado en el bitmap
+[INFO] 23:41:27:655 gameCard/(31796:31965): efectivamente paso a tener le valor : 1 en el bitmap 
+[INFO] 23:41:27:664 gameCard/(31796:31965): se ha agregado el bloque: 1 a la lista de bloques para la metadata
+[WARNING] 23:41:27:664 gameCard/(31796:31965): aca entro en persistir en bloques propios
+[WARNING] 23:41:27:665 gameCard/(31796:31965): aCopiar 7,copiado 0, desde 0
+[INFO] 23:41:27:665 gameCard/(31796:31965): se va a escribir en bloques del pokemon
+[INFO] 23:41:27:666 gameCard/(31796:31965): accediendo al bloque 1.bin
+[INFO] 23:41:27:667 gameCard/(31796:31965): se va a copiar: 4-10=1
 
-[INFO] 21:18:08:461 gameCard/(17102:17453): Se ha creado el archivo metadata.bin del Pokemon
-[INFO] 21:18:08:462 gameCard/(17102:17453): se ha creado con éxito el archivo del pokemon Vaporeon
-[INFO] 21:18:08:462 gameCard/(17102:17453): Se agrega un semáforo para la metadata del pokemon Vaporeon
-[INFO] 21:18:08:463 gameCard/(17102:17453): el tiempo de acceso a disco es : 5
-[INFO] 21:18:13:477 gameCard/(17102:17453): Enviado appeared pokemon para la especie Vaporeon, en la posicion ( 4, 10).
-[INFO] 21:18:18:319 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:18:18:320 gameCard/(17102:17473): validando si existe el pokemon: Onix
-[INFO] 21:18:18:320 gameCard/(17102:17473): existe el pokemon Onix
-[INFO] 21:18:18:320 gameCard/(17102:17473): validando si el archivo se encuentra abierto
-[INFO] 21:18:18:321 gameCard/(17102:17473): se va a activar el semaforo del pokemon
-[INFO] 21:18:18:321 gameCard/(17102:17473): El estado del archivo es N
-[INFO] 21:18:18:321 gameCard/(17102:17473): se intentará capturar un pokemon
-[INFO] 21:18:18:321 gameCard/(17102:17473): la posicion a buscar es (2,8) del pokemon Onix
-[INFO] 21:18:18:323 gameCard/(17102:17473): 1
-[INFO] 21:18:18:323 gameCard/(17102:17473): abriendo el bloque 1 para copiar pokemon en memoria
-[INFO] 21:18:18:323 gameCard/(17102:17473): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:18:18:323 gameCard/(17102:17473): se validó que la posicion existe en el archivo
-[INFO] 21:18:18:323 gameCard/(17102:17473): mostrame poke en memo: 2-8=1
+[INFO] 23:41:27:668 gameCard/(31796:31965): se ha copiado correctamente
+[INFO] 23:41:27:669 gameCard/(31796:31965): Creando el directorio Pokemon : Vaporeon
+[INFO] 23:41:27:670 gameCard/(31796:31965): Se ha creado el directorio / Vaporeon
+[INFO] 23:41:27:671 gameCard/(31796:31965): ruta es: /home/utnso/desktop/tall-grass/Files/Vaporeon/Metadata.bin
+[INFO] 23:41:27:672 gameCard/(31796:31965): Creando el archivo metadata del pokemon
+[INFO] 23:41:27:672 gameCard/(31796:31965): el tamanio del archivo en la metadata será: 7
+[INFO] 23:41:27:673 gameCard/(31796:31965): la cantidad de bloques que va a tener la metadata : 1
+[INFO] 23:41:27:674 gameCard/(31796:31965): aca entra en for
+[INFO] 23:41:27:674 gameCard/(31796:31965): pos 0 y elem : 1
+[INFO] 23:41:27:675 gameCard/(31796:31965): mostrame el bloque 1
+[INFO] 23:41:27:675 gameCard/(31796:31965): la lista de bloques en la metadata será:BLOCKS=[1]
 
-[INFO] 21:18:18:324 gameCard/(17102:17473): cant de bloques ocupados: 1
-[INFO] 21:18:18:324 gameCard/(17102:17473): mostrame posicion : 2-8=1
-[INFO] 21:18:18:324 gameCard/(17102:17473): la posicion 2-8=1 existe en el archivo
-[INFO] 21:18:18:324 gameCard/(17102:17473): La cantidad es: 1
-[INFO] 21:18:18:325 gameCard/(17102:17473): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:18:18:325 gameCard/(17102:17473): la cantidad pasa a: 0
-[INFO] 21:18:18:325 gameCard/(17102:17473): se va a eliminar la posicion: 2-8=1
-[INFO] 21:18:18:325 gameCard/(17102:17473): pos a copiar es: 
-[INFO] 21:18:18:326 gameCard/(17102:17473): cant de bloques sin posicion: 0
-[INFO] 21:18:18:326 gameCard/(17102:17473): los bloques del pokemon se quedaran vacios con su captura
-[INFO] 21:18:18:326 gameCard/(17102:17473): se va a eliminar el pokemon
-[INFO] 21:18:18:326 gameCard/(17102:17473): Marcar posicion 0 del bitmap como libre
-[INFO] 21:18:18:344 gameCard/(17102:17473): se ha marcado como libre en el bitmap el bloque 1
-[INFO] 21:18:18:345 gameCard/(17102:17473): La poscion del bitmap paso a: 0
-[INFO] 21:18:18:345 gameCard/(17102:17473): bloque accedido es : 1
-[INFO] 21:18:18:345 gameCard/(17102:17473): se ha borrado contenido correctamente
-[INFO] 21:18:18:345 gameCard/(17102:17473):  Se ha borrado la metadata del pokemon:Onix
-[INFO] 21:18:18:345 gameCard/(17102:17473): se ha borrado correctamente el pokemon: Onix
-[INFO] 21:18:18:350 gameCard/(17102:17473): Enviado el status del caught pokemon para la especie Onix
-[INFO] 21:18:43:387 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:18:43:399 gameCard/(17102:17517): validando si existe el pokemon: Gengar
-[INFO] 21:18:43:399 gameCard/(17102:17517): existe el pokemon Gengar
-[INFO] 21:18:43:399 gameCard/(17102:17517): validando si el archivo se encuentra abierto
-[INFO] 21:18:43:399 gameCard/(17102:17517): se va a activar el semaforo del pokemon
-[INFO] 21:18:43:400 gameCard/(17102:17517): El estado del archivo es N
-[INFO] 21:18:43:400 gameCard/(17102:17517): se intentará capturar un pokemon
-[INFO] 21:18:43:400 gameCard/(17102:17517): la posicion a buscar es (6,6) del pokemon Gengar
-[INFO] 21:18:43:401 gameCard/(17102:17517): 7
-[INFO] 21:18:43:401 gameCard/(17102:17517): abriendo el bloque 7 para copiar pokemon en memoria
-[INFO] 21:18:43:401 gameCard/(17102:17517): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:18:43:402 gameCard/(17102:17517): se validó que la posicion existe en el archivo
-[INFO] 21:18:43:402 gameCard/(17102:17517): mostrame poke en memo: 6-6=1
+[INFO] 23:41:27:676 gameCard/(31796:31965): Se ha creado el archivo metadata.bin del Pokemon
+[INFO] 23:41:27:677 gameCard/(31796:31965): se ha creado con éxito el archivo del pokemon Vaporeon
+[INFO] 23:41:27:678 gameCard/(31796:31965): Se agrega un semáforo para la metadata del pokemon Vaporeon
+[INFO] 23:41:27:679 gameCard/(31796:31965): el tiempo de acceso a disco es : 5
+[INFO] 23:41:32:688 gameCard/(31796:31965): Enviado appeared pokemon para la especie Vaporeon, en la posicion ( 4, 10).
+[INFO] 23:41:40:338 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:41:40:340 gameCard/(31796:31968): validando si existe el pokemon: Gengar
+[INFO] 23:41:40:341 gameCard/(31796:31968): existe el pokemon Gengar
+[INFO] 23:41:40:341 gameCard/(31796:31968): validando si el archivo se encuentra abierto
+[INFO] 23:41:40:343 gameCard/(31796:31968): se va a activar el semaforo del pokemon
+[INFO] 23:41:40:344 gameCard/(31796:31968): El estado del archivo es N
+[INFO] 23:41:40:346 gameCard/(31796:31968): se intentará capturar un pokemon
+[INFO] 23:41:40:360 gameCard/(31796:31968): la posicion a buscar es (6,6) del pokemon Gengar
+[INFO] 23:41:40:362 gameCard/(31796:31968): 7
+[INFO] 23:41:40:363 gameCard/(31796:31968): abriendo el bloque 7 para copiar pokemon en memoria
+[INFO] 23:41:40:364 gameCard/(31796:31968): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:41:40:365 gameCard/(31796:31968): se validó que la posicion existe en el archivo
+[INFO] 23:41:40:374 gameCard/(31796:31968): mostrame poke en memo: 6-6=1
 
-[INFO] 21:18:43:402 gameCard/(17102:17517): cant de bloques ocupados: 1
-[INFO] 21:18:43:403 gameCard/(17102:17517): mostrame posicion : 6-6=1
-[INFO] 21:18:43:403 gameCard/(17102:17517): la posicion 6-6=1 existe en el archivo
-[INFO] 21:18:43:403 gameCard/(17102:17517): La cantidad es: 1
-[INFO] 21:18:43:403 gameCard/(17102:17517): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:18:43:403 gameCard/(17102:17517): la cantidad pasa a: 0
-[INFO] 21:18:43:404 gameCard/(17102:17517): se va a eliminar la posicion: 6-6=1
-[INFO] 21:18:43:404 gameCard/(17102:17517): pos a copiar es: 
-[INFO] 21:18:43:404 gameCard/(17102:17517): cant de bloques sin posicion: 0
-[INFO] 21:18:43:404 gameCard/(17102:17517): los bloques del pokemon se quedaran vacios con su captura
-[INFO] 21:18:43:404 gameCard/(17102:17517): se va a eliminar el pokemon
-[INFO] 21:18:43:405 gameCard/(17102:17517): Marcar posicion 0 del bitmap como libre
-[INFO] 21:18:43:431 gameCard/(17102:17517): se ha marcado como libre en el bitmap el bloque 7
-[INFO] 21:18:43:431 gameCard/(17102:17517): La poscion del bitmap paso a: 0
-[INFO] 21:18:43:432 gameCard/(17102:17517): bloque accedido es : 7
-[INFO] 21:18:43:432 gameCard/(17102:17517): se ha borrado contenido correctamente
-[INFO] 21:18:43:432 gameCard/(17102:17517):  Se ha borrado la metadata del pokemon:Gengar
-[INFO] 21:18:43:432 gameCard/(17102:17517): se ha borrado correctamente el pokemon: Gengar
-[INFO] 21:18:43:452 gameCard/(17102:17517): Enviado el status del caught pokemon para la especie Gengar
-[INFO] 21:18:48:468 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:18:48:469 gameCard/(17102:17530): validando si existe el pokemon: Umbreon
-[INFO] 21:18:48:469 gameCard/(17102:17530): existe el pokemon Umbreon
-[INFO] 21:18:48:470 gameCard/(17102:17530): validando si el archivo se encuentra abierto
-[INFO] 21:18:48:471 gameCard/(17102:17530): se va a activar el semaforo del pokemon
-[INFO] 21:18:48:471 gameCard/(17102:17530): El estado del archivo es N
-[INFO] 21:18:48:471 gameCard/(17102:17530): se intentará capturar un pokemon
-[INFO] 21:18:48:471 gameCard/(17102:17530): la posicion a buscar es (10,6) del pokemon Umbreon
-[INFO] 21:18:48:472 gameCard/(17102:17530): 8
-[INFO] 21:18:48:472 gameCard/(17102:17530): abriendo el bloque 8 para copiar pokemon en memoria
-[INFO] 21:18:48:472 gameCard/(17102:17530): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:18:48:472 gameCard/(17102:17530): se validó que la posicion existe en el archivo
-[INFO] 21:18:48:473 gameCard/(17102:17530): mostrame poke en memo: 10-6=1
+[INFO] 23:41:40:385 gameCard/(31796:31968): cant de bloques ocupados: 1
+[INFO] 23:41:40:386 gameCard/(31796:31968): mostrame posicion : 6-6=1
+[INFO] 23:41:40:387 gameCard/(31796:31968): la posicion 6-6=1 existe en el archivo
+[INFO] 23:41:40:388 gameCard/(31796:31968): La cantidad es: 1
+[INFO] 23:41:40:389 gameCard/(31796:31968): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:41:40:390 gameCard/(31796:31968): la cantidad pasa a: 0
+[INFO] 23:41:40:391 gameCard/(31796:31968): se va a eliminar la posicion: 6-6=1
+[INFO] 23:41:40:392 gameCard/(31796:31968): pos a copiar es: 
+[INFO] 23:41:40:393 gameCard/(31796:31968): cant de bloques sin posicion: 0
+[INFO] 23:41:40:394 gameCard/(31796:31968): los bloques del pokemon se quedaran vacios con su captura
+[INFO] 23:41:40:395 gameCard/(31796:31968): se va a eliminar el pokemon
+[INFO] 23:41:40:396 gameCard/(31796:31968): Marcar posicion 0 del bitmap como libre
+[INFO] 23:41:40:403 gameCard/(31796:31968): se ha marcado como libre en el bitmap el bloque 7
+[INFO] 23:41:40:403 gameCard/(31796:31968): La poscion del bitmap paso a: 0
+[INFO] 23:41:40:404 gameCard/(31796:31968): bloque accedido es : 7
+[INFO] 23:41:40:406 gameCard/(31796:31968): se ha borrado contenido correctamente
+[INFO] 23:41:40:416 gameCard/(31796:31968):  Se ha borrado la metadata del pokemon:Gengar
+[INFO] 23:41:40:416 gameCard/(31796:31968): se ha borrado correctamente el pokemon: Gengar
+[INFO] 23:41:40:422 gameCard/(31796:31968): Enviado el status del caught pokemon para la especie Gengar
+[INFO] 23:41:49:563 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:41:49:564 gameCard/(31796:31977): validando si existe el pokemon: Umbreon
+[INFO] 23:41:49:566 gameCard/(31796:31977): existe el pokemon Umbreon
+[INFO] 23:41:49:568 gameCard/(31796:31977): validando si el archivo se encuentra abierto
+[INFO] 23:41:49:582 gameCard/(31796:31977): se va a activar el semaforo del pokemon
+[INFO] 23:41:49:583 gameCard/(31796:31977): El estado del archivo es N
+[INFO] 23:41:49:583 gameCard/(31796:31977): se intentará capturar un pokemon
+[INFO] 23:41:49:584 gameCard/(31796:31977): la posicion a buscar es (10,6) del pokemon Umbreon
+[INFO] 23:41:49:586 gameCard/(31796:31977): 8
+[INFO] 23:41:49:587 gameCard/(31796:31977): abriendo el bloque 8 para copiar pokemon en memoria
+[INFO] 23:41:49:588 gameCard/(31796:31977): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:41:49:588 gameCard/(31796:31977): se validó que la posicion existe en el archivo
+[INFO] 23:41:49:589 gameCard/(31796:31977): mostrame poke en memo: 10-6=1
 
-[INFO] 21:18:48:473 gameCard/(17102:17530): cant de bloques ocupados: 1
-[INFO] 21:18:48:473 gameCard/(17102:17530): mostrame posicion : 10-6=1
-[INFO] 21:18:48:473 gameCard/(17102:17530): la posicion 10-6=1 existe en el archivo
-[INFO] 21:18:48:473 gameCard/(17102:17530): La cantidad es: 1
-[INFO] 21:18:48:474 gameCard/(17102:17530): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:18:48:474 gameCard/(17102:17530): la cantidad pasa a: 0
-[INFO] 21:18:48:474 gameCard/(17102:17530): se va a eliminar la posicion: 10-6=1
-[INFO] 21:18:48:474 gameCard/(17102:17530): pos a copiar es: 
-[INFO] 21:18:48:474 gameCard/(17102:17530): cant de bloques sin posicion: 0
-[INFO] 21:18:48:474 gameCard/(17102:17530): los bloques del pokemon se quedaran vacios con su captura
-[INFO] 21:18:48:475 gameCard/(17102:17530): se va a eliminar el pokemon
-[INFO] 21:18:48:475 gameCard/(17102:17530): Marcar posicion 0 del bitmap como libre
-[INFO] 21:18:48:479 gameCard/(17102:17530): se ha marcado como libre en el bitmap el bloque 8
-[INFO] 21:18:48:480 gameCard/(17102:17530): La poscion del bitmap paso a: 0
-[INFO] 21:18:48:480 gameCard/(17102:17530): bloque accedido es : 8
-[INFO] 21:18:48:480 gameCard/(17102:17530): se ha borrado contenido correctamente
-[INFO] 21:18:48:480 gameCard/(17102:17530):  Se ha borrado la metadata del pokemon:Umbreon
-[INFO] 21:18:48:480 gameCard/(17102:17530): se ha borrado correctamente el pokemon: Umbreon
-[INFO] 21:18:48:493 gameCard/(17102:17530): Enviado el status del caught pokemon para la especie Umbreon
-[INFO] 21:18:53:482 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:18:53:482 gameCard/(17102:17542): validando si existe el pokemon: Espeon
-[INFO] 21:18:53:483 gameCard/(17102:17542): existe el pokemon Espeon
-[INFO] 21:18:53:483 gameCard/(17102:17542): validando si el archivo se encuentra abierto
-[INFO] 21:18:53:484 gameCard/(17102:17542): se va a activar el semaforo del pokemon
-[INFO] 21:18:53:484 gameCard/(17102:17542): El estado del archivo es N
-[INFO] 21:18:53:484 gameCard/(17102:17542): se intentará capturar un pokemon
-[INFO] 21:18:53:485 gameCard/(17102:17542): la posicion a buscar es (7,1) del pokemon Espeon
-[INFO] 21:18:53:485 gameCard/(17102:17542): 9
-[INFO] 21:18:53:485 gameCard/(17102:17542): abriendo el bloque 9 para copiar pokemon en memoria
-[INFO] 21:18:53:486 gameCard/(17102:17542): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:18:53:486 gameCard/(17102:17542): se validó que la posicion existe en el archivo
-[INFO] 21:18:53:486 gameCard/(17102:17542): mostrame poke en memo: 7-1=1
+[INFO] 23:41:49:605 gameCard/(31796:31977): cant de bloques ocupados: 1
+[INFO] 23:41:49:606 gameCard/(31796:31977): mostrame posicion : 10-6=1
+[INFO] 23:41:49:606 gameCard/(31796:31977): la posicion 10-6=1 existe en el archivo
+[INFO] 23:41:49:607 gameCard/(31796:31977): La cantidad es: 1
+[INFO] 23:41:49:608 gameCard/(31796:31977): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:41:49:609 gameCard/(31796:31977): la cantidad pasa a: 0
+[INFO] 23:41:49:610 gameCard/(31796:31977): se va a eliminar la posicion: 10-6=1
+[INFO] 23:41:49:611 gameCard/(31796:31977): pos a copiar es: 
+[INFO] 23:41:49:612 gameCard/(31796:31977): cant de bloques sin posicion: 0
+[INFO] 23:41:49:613 gameCard/(31796:31977): los bloques del pokemon se quedaran vacios con su captura
+[INFO] 23:41:49:614 gameCard/(31796:31977): se va a eliminar el pokemon
+[INFO] 23:41:49:615 gameCard/(31796:31977): Marcar posicion 0 del bitmap como libre
+[INFO] 23:41:49:621 gameCard/(31796:31977): se ha marcado como libre en el bitmap el bloque 8
+[INFO] 23:41:49:623 gameCard/(31796:31977): La poscion del bitmap paso a: 0
+[INFO] 23:41:49:623 gameCard/(31796:31977): bloque accedido es : 8
+[INFO] 23:41:49:624 gameCard/(31796:31977): se ha borrado contenido correctamente
+[INFO] 23:41:49:625 gameCard/(31796:31977):  Se ha borrado la metadata del pokemon:Umbreon
+[INFO] 23:41:49:633 gameCard/(31796:31977): se ha borrado correctamente el pokemon: Umbreon
+[INFO] 23:41:49:644 gameCard/(31796:31977): Enviado el status del caught pokemon para la especie Umbreon
+[INFO] 23:41:49:651 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:41:49:655 gameCard/(31796:31981): validando si existe el pokemon: Espeon
+[INFO] 23:41:49:669 gameCard/(31796:31981): existe el pokemon Espeon
+[INFO] 23:41:49:669 gameCard/(31796:31981): validando si el archivo se encuentra abierto
+[INFO] 23:41:49:670 gameCard/(31796:31981): se va a activar el semaforo del pokemon
+[INFO] 23:41:49:676 gameCard/(31796:31981): El estado del archivo es N
+[INFO] 23:41:49:683 gameCard/(31796:31981): se intentará capturar un pokemon
+[INFO] 23:41:49:684 gameCard/(31796:31981): la posicion a buscar es (7,1) del pokemon Espeon
+[INFO] 23:41:49:685 gameCard/(31796:31981): 9
+[INFO] 23:41:49:686 gameCard/(31796:31981): abriendo el bloque 9 para copiar pokemon en memoria
+[INFO] 23:41:49:687 gameCard/(31796:31981): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:41:49:687 gameCard/(31796:31981): se validó que la posicion existe en el archivo
+[INFO] 23:41:49:696 gameCard/(31796:31981): mostrame poke en memo: 7-1=1
 
-[INFO] 21:18:53:486 gameCard/(17102:17542): cant de bloques ocupados: 1
-[INFO] 21:18:53:487 gameCard/(17102:17542): mostrame posicion : 7-1=1
-[INFO] 21:18:53:487 gameCard/(17102:17542): la posicion 7-1=1 existe en el archivo
-[INFO] 21:18:53:487 gameCard/(17102:17542): La cantidad es: 1
-[INFO] 21:18:53:487 gameCard/(17102:17542): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:18:53:488 gameCard/(17102:17542): la cantidad pasa a: 0
-[INFO] 21:18:53:488 gameCard/(17102:17542): se va a eliminar la posicion: 7-1=1
-[INFO] 21:18:53:488 gameCard/(17102:17542): pos a copiar es: 
-[INFO] 21:18:53:488 gameCard/(17102:17542): cant de bloques sin posicion: 0
-[INFO] 21:18:53:488 gameCard/(17102:17542): los bloques del pokemon se quedaran vacios con su captura
-[INFO] 21:18:53:489 gameCard/(17102:17542): se va a eliminar el pokemon
-[INFO] 21:18:53:489 gameCard/(17102:17542): Marcar posicion 0 del bitmap como libre
-[INFO] 21:18:53:493 gameCard/(17102:17542): se ha marcado como libre en el bitmap el bloque 9
-[INFO] 21:18:53:493 gameCard/(17102:17542): La poscion del bitmap paso a: 0
-[INFO] 21:18:53:493 gameCard/(17102:17542): bloque accedido es : 9
-[INFO] 21:18:53:494 gameCard/(17102:17542): se ha borrado contenido correctamente
-[INFO] 21:18:53:494 gameCard/(17102:17542):  Se ha borrado la metadata del pokemon:Espeon
-[INFO] 21:18:53:494 gameCard/(17102:17542): se ha borrado correctamente el pokemon: Espeon
-[INFO] 21:18:53:511 gameCard/(17102:17542): Enviado el status del caught pokemon para la especie Espeon
-[INFO] 21:18:53:525 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:18:53:525 gameCard/(17102:17546): validando si existe el pokemon: Vaporeon
-[INFO] 21:18:53:525 gameCard/(17102:17546): existe el pokemon Vaporeon
-[INFO] 21:18:53:525 gameCard/(17102:17546): validando si el archivo se encuentra abierto
-[INFO] 21:18:53:526 gameCard/(17102:17546): se va a activar el semaforo del pokemon
-[INFO] 21:18:53:526 gameCard/(17102:17546): El estado del archivo es N
-[INFO] 21:18:53:526 gameCard/(17102:17546): se intentará capturar un pokemon
-[INFO] 21:18:53:527 gameCard/(17102:17546): la posicion a buscar es (4,10) del pokemon Vaporeon
-[INFO] 21:18:53:527 gameCard/(17102:17546): 10
-[INFO] 21:18:53:528 gameCard/(17102:17546): abriendo el bloque 10 para copiar pokemon en memoria
-[INFO] 21:18:53:528 gameCard/(17102:17546): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:18:53:528 gameCard/(17102:17546): se validó que la posicion existe en el archivo
-[INFO] 21:18:53:528 gameCard/(17102:17546): mostrame poke en memo: 4-10=1
+[INFO] 23:41:49:700 gameCard/(31796:31981): cant de bloques ocupados: 1
+[INFO] 23:41:49:702 gameCard/(31796:31981): mostrame posicion : 7-1=1
+[INFO] 23:41:49:702 gameCard/(31796:31981): la posicion 7-1=1 existe en el archivo
+[INFO] 23:41:49:705 gameCard/(31796:31981): La cantidad es: 1
+[INFO] 23:41:49:706 gameCard/(31796:31981): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:41:49:707 gameCard/(31796:31981): la cantidad pasa a: 0
+[INFO] 23:41:49:708 gameCard/(31796:31981): se va a eliminar la posicion: 7-1=1
+[INFO] 23:41:49:709 gameCard/(31796:31981): pos a copiar es: 
+[INFO] 23:41:49:710 gameCard/(31796:31981): cant de bloques sin posicion: 0
+[INFO] 23:41:49:711 gameCard/(31796:31981): los bloques del pokemon se quedaran vacios con su captura
+[INFO] 23:41:49:712 gameCard/(31796:31981): se va a eliminar el pokemon
+[INFO] 23:41:49:714 gameCard/(31796:31981): Marcar posicion 0 del bitmap como libre
+[INFO] 23:41:49:728 gameCard/(31796:31981): se ha marcado como libre en el bitmap el bloque 9
+[INFO] 23:41:49:728 gameCard/(31796:31981): La poscion del bitmap paso a: 0
+[INFO] 23:41:49:729 gameCard/(31796:31981): bloque accedido es : 9
+[INFO] 23:41:49:735 gameCard/(31796:31981): se ha borrado contenido correctamente
+[INFO] 23:41:49:736 gameCard/(31796:31981):  Se ha borrado la metadata del pokemon:Espeon
+[INFO] 23:41:49:737 gameCard/(31796:31981): se ha borrado correctamente el pokemon: Espeon
+[INFO] 23:41:49:745 gameCard/(31796:31981): Enviado el status del caught pokemon para la especie Espeon
+[INFO] 23:41:52:753 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:41:52:765 gameCard/(31796:31985): validando si existe el pokemon: Vaporeon
+[INFO] 23:41:52:768 gameCard/(31796:31985): existe el pokemon Vaporeon
+[INFO] 23:41:52:769 gameCard/(31796:31985): validando si el archivo se encuentra abierto
+[INFO] 23:41:52:770 gameCard/(31796:31985): se va a activar el semaforo del pokemon
+[INFO] 23:41:52:771 gameCard/(31796:31985): El estado del archivo es N
+[INFO] 23:41:52:772 gameCard/(31796:31985): se intentará capturar un pokemon
+[INFO] 23:41:52:775 gameCard/(31796:31985): la posicion a buscar es (4,10) del pokemon Vaporeon
+[INFO] 23:41:52:785 gameCard/(31796:31985): 1
+[INFO] 23:41:52:790 gameCard/(31796:31985): abriendo el bloque 1 para copiar pokemon en memoria
+[INFO] 23:41:52:794 gameCard/(31796:31985): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:41:52:795 gameCard/(31796:31985): se validó que la posicion existe en el archivo
+[INFO] 23:41:52:796 gameCard/(31796:31985): mostrame poke en memo: 4-10=1
 
-[INFO] 21:18:53:529 gameCard/(17102:17546): cant de bloques ocupados: 1
-[INFO] 21:18:53:529 gameCard/(17102:17546): mostrame posicion : 4-10=1
-[INFO] 21:18:53:529 gameCard/(17102:17546): la posicion 4-10=1 existe en el archivo
-[INFO] 21:18:53:529 gameCard/(17102:17546): La cantidad es: 1
-[INFO] 21:18:53:529 gameCard/(17102:17546): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:18:53:530 gameCard/(17102:17546): la cantidad pasa a: 0
-[INFO] 21:18:53:530 gameCard/(17102:17546): se va a eliminar la posicion: 4-10=1
-[INFO] 21:18:53:530 gameCard/(17102:17546): pos a copiar es: 
-[INFO] 21:18:53:530 gameCard/(17102:17546): cant de bloques sin posicion: 0
-[INFO] 21:18:53:531 gameCard/(17102:17546): los bloques del pokemon se quedaran vacios con su captura
-[INFO] 21:18:53:531 gameCard/(17102:17546): se va a eliminar el pokemon
-[INFO] 21:18:53:531 gameCard/(17102:17546): Marcar posicion 0 del bitmap como libre
-[INFO] 21:18:53:533 gameCard/(17102:17546): se ha marcado como libre en el bitmap el bloque 10
-[INFO] 21:18:53:533 gameCard/(17102:17546): La poscion del bitmap paso a: 0
-[INFO] 21:18:53:533 gameCard/(17102:17546): bloque accedido es : 10
-[INFO] 21:18:53:534 gameCard/(17102:17546): se ha borrado contenido correctamente
-[INFO] 21:18:53:534 gameCard/(17102:17546):  Se ha borrado la metadata del pokemon:Vaporeon
-[INFO] 21:18:53:534 gameCard/(17102:17546): se ha borrado correctamente el pokemon: Vaporeon
-[INFO] 21:18:53:540 gameCard/(17102:17546): Enviado el status del caught pokemon para la especie Vaporeon
-[INFO] 21:19:23:499 gameCard/(17102:17104): se informó la recepcion del mensaje al broker
-[INFO] 21:19:23:500 gameCard/(17102:17599): validando si existe el pokemon: Squirtle
-[INFO] 21:19:23:500 gameCard/(17102:17599): existe el pokemon Squirtle
-[INFO] 21:19:23:500 gameCard/(17102:17599): validando si el archivo se encuentra abierto
-[INFO] 21:19:23:501 gameCard/(17102:17599): se va a activar el semaforo del pokemon
-[INFO] 21:19:23:501 gameCard/(17102:17599): El estado del archivo es N
-[INFO] 21:19:23:501 gameCard/(17102:17599): se intentará capturar un pokemon
-[INFO] 21:19:23:501 gameCard/(17102:17599): la posicion a buscar es (5,5) del pokemon Squirtle
-[INFO] 21:19:23:502 gameCard/(17102:17599): 2
-[INFO] 21:19:23:502 gameCard/(17102:17599): abriendo el bloque 2 para copiar pokemon en memoria
-[INFO] 21:19:23:503 gameCard/(17102:17599): verificando si la posicion existe en el archivo del pokemon
-[INFO] 21:19:23:503 gameCard/(17102:17599): se validó que la posicion existe en el archivo
-[INFO] 21:19:23:503 gameCard/(17102:17599): mostrame poke en memo: 5-2=1
+[INFO] 23:41:52:801 gameCard/(31796:31985): cant de bloques ocupados: 1
+[INFO] 23:41:52:803 gameCard/(31796:31985): mostrame posicion : 4-10=1
+[INFO] 23:41:52:804 gameCard/(31796:31985): la posicion 4-10=1 existe en el archivo
+[INFO] 23:41:52:807 gameCard/(31796:31985): La cantidad es: 1
+[INFO] 23:41:52:808 gameCard/(31796:31985): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:41:52:809 gameCard/(31796:31985): la cantidad pasa a: 0
+[INFO] 23:41:52:810 gameCard/(31796:31985): se va a eliminar la posicion: 4-10=1
+[INFO] 23:41:52:810 gameCard/(31796:31985): pos a copiar es: 
+[INFO] 23:41:52:812 gameCard/(31796:31985): cant de bloques sin posicion: 0
+[INFO] 23:41:52:813 gameCard/(31796:31985): los bloques del pokemon se quedaran vacios con su captura
+[INFO] 23:41:52:813 gameCard/(31796:31985): se va a eliminar el pokemon
+[INFO] 23:41:52:814 gameCard/(31796:31985): Marcar posicion 0 del bitmap como libre
+[INFO] 23:41:52:828 gameCard/(31796:31985): se ha marcado como libre en el bitmap el bloque 1
+[INFO] 23:41:52:829 gameCard/(31796:31985): La poscion del bitmap paso a: 0
+[INFO] 23:41:52:830 gameCard/(31796:31985): bloque accedido es : 1
+[INFO] 23:41:52:831 gameCard/(31796:31985): se ha borrado contenido correctamente
+[INFO] 23:41:52:832 gameCard/(31796:31985):  Se ha borrado la metadata del pokemon:Vaporeon
+[INFO] 23:41:52:833 gameCard/(31796:31985): se ha borrado correctamente el pokemon: Vaporeon
+[INFO] 23:41:52:842 gameCard/(31796:31985): Enviado el status del caught pokemon para la especie Vaporeon
+[INFO] 23:42:04:433 gameCard/(31796:31798): se informó la recepcion del mensaje al broker
+[INFO] 23:42:04:435 gameCard/(31796:31991): validando si existe el pokemon: Squirtle
+[INFO] 23:42:04:437 gameCard/(31796:31991): existe el pokemon Squirtle
+[INFO] 23:42:04:437 gameCard/(31796:31991): validando si el archivo se encuentra abierto
+[INFO] 23:42:04:439 gameCard/(31796:31991): se va a activar el semaforo del pokemon
+[INFO] 23:42:04:440 gameCard/(31796:31991): El estado del archivo es N
+[INFO] 23:42:04:441 gameCard/(31796:31991): se intentará capturar un pokemon
+[INFO] 23:42:04:441 gameCard/(31796:31991): la posicion a buscar es (5,5) del pokemon Squirtle
+[INFO] 23:42:04:443 gameCard/(31796:31991): 2
+[INFO] 23:42:04:454 gameCard/(31796:31991): abriendo el bloque 2 para copiar pokemon en memoria
+[INFO] 23:42:04:455 gameCard/(31796:31991): verificando si la posicion existe en el archivo del pokemon
+[INFO] 23:42:04:455 gameCard/(31796:31991): se validó que la posicion existe en el archivo
+[INFO] 23:42:04:456 gameCard/(31796:31991): mostrame poke en memo: 5-2=1
 5-5=1
 
-[INFO] 21:19:23:503 gameCard/(17102:17599): cant de bloques ocupados: 1
-[INFO] 21:19:23:504 gameCard/(17102:17599): mostrame posicion : 5-2=1
-[INFO] 21:19:23:504 gameCard/(17102:17599): voy a copiar la pos : 5-2=1 en posAcopiar:
-[INFO] 21:19:23:504 gameCard/(17102:17599): mostrame posicion : 5-5=1
-[INFO] 21:19:23:505 gameCard/(17102:17599): la posicion 5-5=1 existe en el archivo
-[INFO] 21:19:23:505 gameCard/(17102:17599): La cantidad es: 1
-[INFO] 21:19:23:505 gameCard/(17102:17599): se decrementa en 1 unidad la cantidad del pokemon
-[INFO] 21:19:23:505 gameCard/(17102:17599): la cantidad pasa a: 0
-[INFO] 21:19:23:506 gameCard/(17102:17599): se va a eliminar la posicion: 5-5=1
-[INFO] 21:19:23:506 gameCard/(17102:17599): pos a copiar es: 5-2=1
+[INFO] 23:42:04:457 gameCard/(31796:31991): cant de bloques ocupados: 1
+[INFO] 23:42:04:458 gameCard/(31796:31991): mostrame posicion : 5-2=1
+[INFO] 23:42:04:459 gameCard/(31796:31991): voy a copiar la pos : 5-2=1 en posAcopiar:
+[INFO] 23:42:04:468 gameCard/(31796:31991): mostrame posicion : 5-5=1
+[INFO] 23:42:04:476 gameCard/(31796:31991): la posicion 5-5=1 existe en el archivo
+[INFO] 23:42:04:477 gameCard/(31796:31991): La cantidad es: 1
+[INFO] 23:42:04:478 gameCard/(31796:31991): se decrementa en 1 unidad la cantidad del pokemon
+[INFO] 23:42:04:479 gameCard/(31796:31991): la cantidad pasa a: 0
+[INFO] 23:42:04:479 gameCard/(31796:31991): se va a eliminar la posicion: 5-5=1
+[INFO] 23:42:04:480 gameCard/(31796:31991): pos a copiar es: 5-2=1
 
-[INFO] 21:19:23:506 gameCard/(17102:17599): cant de bloques sin posicion: 1
-[INFO] 21:19:23:506 gameCard/(17102:17599): la cantidad de bloques a liberar porque quedan vacios: 0
-[INFO] 21:19:23:506 gameCard/(17102:17599): mostrame cant bloque en metadata: 1
-[INFO] 21:19:23:507 gameCard/(17102:17599):  se va a actualizar el contenido del archivo
-[WARNING] 21:19:23:507 gameCard/(17102:17599): aca entro en persistir en bloques propios
-[WARNING] 21:19:23:507 gameCard/(17102:17599): aCopiar 6,copiado 0, desde 0
-[INFO] 21:19:23:508 gameCard/(17102:17599): se va a escribir en bloques del pokemon
-[INFO] 21:19:23:508 gameCard/(17102:17599): accediendo al bloque 2.bin
-[INFO] 21:19:23:508 gameCard/(17102:17599): se va a copiar: 5-2=1
+[INFO] 23:42:04:480 gameCard/(31796:31991): cant de bloques sin posicion: 1
+[INFO] 23:42:04:481 gameCard/(31796:31991): la cantidad de bloques a liberar porque quedan vacios: 0
+[INFO] 23:42:04:482 gameCard/(31796:31991): mostrame cant bloque en metadata: 1
+[INFO] 23:42:04:482 gameCard/(31796:31991):  se va a actualizar el contenido del archivo
+[WARNING] 23:42:04:483 gameCard/(31796:31991): aca entro en persistir en bloques propios
+[WARNING] 23:42:04:484 gameCard/(31796:31991): aCopiar 6,copiado 0, desde 0
+[INFO] 23:42:04:485 gameCard/(31796:31991): se va a escribir en bloques del pokemon
+[INFO] 23:42:04:486 gameCard/(31796:31991): accediendo al bloque 2.bin
+[INFO] 23:42:04:486 gameCard/(31796:31991): se va a copiar: 5-2=1
 
-[INFO] 21:19:23:508 gameCard/(17102:17599): se ha copiado correctamente
-[INFO] 21:19:23:509 gameCard/(17102:17599): se va a cerrar el archivo del pokemon Squirtle
-[INFO] 21:19:23:510 gameCard/(17102:17599): se ha cerrado el archivo del pokemon
-[INFO] 21:19:28:517 gameCard/(17102:17599): Enviado el status del caught pokemon para la especie Squirtle
-[INFO] 21:23:02:293 gameCard/(17102:17102): se intenta cerrar el proceso game card
-[INFO] 21:23:02:293 gameCard/(17102:17102): se va a liberar estructuras de la metadata...
-[INFO] 21:23:02:294 gameCard/(17102:17102): se ha liberado correctamente
-[INFO] 21:23:02:294 gameCard/(17102:17102): se va a liberar estructuras de las rutas del fs...
-[INFO] 21:23:02:295 gameCard/(17102:17102): se ha liberado correctamente
-[INFO] 21:23:02:295 gameCard/(17102:17102): se va a liberar memoria que se utilizo para el bitarray...
-[INFO] 21:23:02:296 gameCard/(17102:17102): se ha liberado correctamente
-[INFO] 21:23:02:296 gameCard/(17102:17102): se va a liberar memoria que se utilizo para el bitmap...
-[INFO] 21:23:02:297 gameCard/(17102:17102): se ha liberado correctamente
-[INFO] 21:23:02:297 gameCard/(17102:17102): finalizando GameCard
+[INFO] 23:42:04:488 gameCard/(31796:31991): se ha copiado correctamente
+[INFO] 23:42:04:488 gameCard/(31796:31991): se va a cerrar el archivo del pokemon Squirtle
+[INFO] 23:42:04:490 gameCard/(31796:31991): se ha cerrado el archivo del pokemon
+[INFO] 23:42:09:495 gameCard/(31796:31991): Enviado el status del caught pokemon para la especie Squirtle
+[INFO] 23:42:15:314 gameCard/(31796:31796): se intenta cerrar el proceso game card
+[INFO] 23:42:15:317 gameCard/(31796:31796): se va a liberar estructuras de la metadata...
+[INFO] 23:42:15:319 gameCard/(31796:31796): se ha liberado correctamente
+[INFO] 23:42:15:321 gameCard/(31796:31796): se va a liberar estructuras de las rutas del fs...
+[INFO] 23:42:15:325 gameCard/(31796:31796): se ha liberado correctamente
+[INFO] 23:42:15:327 gameCard/(31796:31796): se va a liberar memoria que se utilizo para el bitarray...
+[INFO] 23:42:15:333 gameCard/(31796:31796): se ha liberado correctamente
+[INFO] 23:42:15:334 gameCard/(31796:31796): se va a liberar memoria que se utilizo para el bitmap...
+[INFO] 23:42:15:337 gameCard/(31796:31796): se ha liberado correctamente
+[INFO] 23:42:15:339 gameCard/(31796:31796): finalizando GameCard
