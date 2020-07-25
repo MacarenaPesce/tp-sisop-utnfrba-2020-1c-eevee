@@ -54,6 +54,11 @@ extern int id;
 extern char* magicNumber;
 extern int tamanioDeBloque;
 extern int cantidadBloques;
+extern char* pokemonEnMemoria;
+extern t_list* bloquesMetadataPokemon;
+extern t_list* listaPosicionesParaLocalized;
+extern t_list * bloqMetadataPoke;
+extern t_list * bloquesMetadata;
 
 //estas dos arreglarlas para cada proceso ojo
 extern t_log* gameCard_logger;
@@ -63,5 +68,10 @@ typedef struct {
 	int cola;
 	void *(*operacion)(t_packed*);
 }t_suscripcion_a_broker;
+
+typedef struct {
+	t_coordenadas coordenadas;
+	uint32_t cant;
+}t_coordenadas_cantidad;
 
 #endif /* CONTEXTO_GAMECARD_H_ */

@@ -254,15 +254,5 @@ int main(int argc, char **argv){
 	inicializar_archivo_de_configuracion();
 	configurar_signals();
 
-	log_warning(gameboy_logger, "ATENCIOOOOOOOOOON");
-	log_warning(gameboy_logger, "Para permitir la verificación/validación del módulo se exigirá tener un archivo de log específico e independiente que contenga la información");
-	log_warning(gameboy_logger, "indicada en esta sección. ​ No se permite la inclusión de otros mensajes y exclusión de ninguno de los mismos (la falta o agregado de alguno puede");
-	log_warning(gameboy_logger, "implicar la desaprobación del grupo). Dado que el log será el medio de validación del trabajo práctico ​ se exige no utilizar la consola como medio");
-	log_warning(gameboy_logger, "de logueo ​ . Cada operación debe loguearse en una única línea indicando la misma y sus datos, en caso que el grupo desee loguear contenido extra ");
-	log_warning(gameboy_logger, "deberá realizarlo en un archivo independiente. Las acciones a loguear en este archivo son:");
-	log_warning(gameboy_logger, "1. Conexión a cualquier proceso.");
-	log_warning(gameboy_logger, "2. Suscripción a una cola de mensajes.");
-	log_warning(gameboy_logger, "3. Llegada de un nuevo mensaje a una cola de mensajes.\n");
-
 	ver_que_me_llego_por_argumento(argv[1],argv[2], argv[3], argv[4], argv[5], argv[6], argv[7]);
 }

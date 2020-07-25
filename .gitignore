@@ -1,8 +1,6 @@
 # Prerequisites
-*.d
 
 # Object files
-*.o
 *.ko
 *.obj
 *.elf
@@ -41,7 +39,6 @@
 *.su
 *.idb
 *.pdb
-*.log
 
 # Kernel Module Compile Results
 *.mod*
@@ -55,3 +52,12 @@ dkms.conf
 /Dist/bin
 .vscode/
 .settings/
+
+/Broker/Dist/
+/Broker/Debug/
+/TEAM/Dist/
+/TEAM/Debug/
+/GameBoy/Dist/
+/GameBoy/Debug/
+/GameCard/Dist/
+/GameCard/Debug/

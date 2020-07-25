@@ -16,6 +16,11 @@ void crearFileSystemVacio() {
 
 }
 
+int destruir_lista(char * bloques){
+       free(bloques);
+       return 0;
+}
+
 void crearMetadataFs() {
 
 int status= mkdir(rutas_fs->pathDirectorioMetadataFs, 0777);
@@ -26,36 +31,44 @@ int status= mkdir(rutas_fs->pathDirectorioMetadataFs, 0777);
 
 	FILE * archivoMetadata = fopen(rutas_fs->pathArchivoMetadataFs, "wb");
 
+	char* tamBloq=string_itoa(metadata_fs->tamanioBLoques);
 	char* lineaMetadataSize=string_new();
 	string_append(&lineaMetadataSize,"BLOCK_SIZE=");
-	string_append(&lineaMetadataSize,string_itoa(metadata_fs->tamanioBLoques));
+	string_append(&lineaMetadataSize,tamBloq);
 	string_append(&lineaMetadataSize,"\n");
+	free(tamBloq);
 
 	fwrite(lineaMetadataSize, string_length(lineaMetadataSize),1, archivoMetadata);
 
+	char* cantBloq=string_itoa(metadata_fs->cantidadBloques);
 	char* lineaMetadataBlock=string_new();
 	string_append(&lineaMetadataBlock,"BLOCKS=");
-	string_append(&lineaMetadataBlock,(string_itoa( metadata_fs->cantidadBloques)));
+	string_append(&lineaMetadataBlock,cantBloq);
 	string_append(&lineaMetadataBlock,"\n");
 
+	free(cantBloq);
 	fwrite(lineaMetadataBlock,string_length(lineaMetadataBlock), 1, archivoMetadata);
+
 
 	char* lineaMetadataMagicNumber=string_new();
 	string_append(&lineaMetadataMagicNumber,"MAGIC_NUMBER=");
 	string_append(&lineaMetadataMagicNumber,metadata_fs->magicNumber);
 	string_append(&lineaMetadataMagicNumber,"\0");
 
-
 	fwrite(lineaMetadataMagicNumber, string_length(lineaMetadataMagicNumber), 1,archivoMetadata);
 
 	fclose(archivoMetadata);
 
 	log_info(gameCard_logger, " Se ha creado el archivo metadata.bin de FileSystem");
+
+	free(lineaMetadataSize);
+	free(lineaMetadataBlock);
+	free(lineaMetadataMagicNumber);
 }
 
 void cargarRutasFs() {
 
-	log_info(gameCard_logger, "Carganado las rutas correspondientes al FileSystem");
+	//log_info(gameCard_logger, "Carganado las rutas correspondientes al FileSystem");
 
 	rutas_fs = malloc(sizeof(t_rutas_fs));
 	rutas_fs->puntoDeMontaje = string_new();
@@ -81,7 +94,7 @@ void cargarRutasFs() {
 	string_append(&(rutas_fs->pathDirectorioBloques), rutas_fs->puntoDeMontaje);
 	string_append(&(rutas_fs->pathDirectorioBloques), "/Blocks");
 
-	log_info(gameCard_logger, "Se han cargado todas las rutas correctamente");
+	//log_info(gameCard_logger, "Se han cargado todas las rutas correctamente");
 }
 
 int abrir_ruta(char *ruta) {
@@ -91,7 +104,7 @@ int abrir_ruta(char *ruta) {
 
 void cargarMetadataFs() {
 
-	log_info(gameCard_logger, "Cargando Metadata del FileSystem");
+	//log_info(gameCard_logger, "Cargando Metadata del FileSystem");
 
 	metadata_fs = malloc(sizeof(t_metadata_fs));
 
@@ -99,7 +112,7 @@ void cargarMetadataFs() {
 	metadata_fs->tamanioBLoques = tamanioDeBloque;
 	metadata_fs->magicNumber = magicNumber;
 
-	log_info(gameCard_logger,"Se ha cargado correctamente la metadata del FileSystem");
+	//log_info(gameCard_logger,"Se ha cargado correctamente la metadata del FileSystem");
 
 }
 
@@ -111,28 +124,26 @@ void crearBitmap() {
 
 	FILE* bitmapArch = fopen(rutas_fs->pathArchivoBitMap,"wb");
 
-	//int fdBitmap=fileno(bitmapArch);
-
 
 		int blocksChar = metadata_fs->cantidadBloques/8;
 
 		if (metadata_fs->cantidadBloques % 8 != 0) { blocksChar++;}
 
+		//char* bitmapDato = string_new();
 
-		bitmapData = string_new();
+		char* bitmapDato=string_repeat('0',blocksChar);
 
-		bitmapData=string_repeat('0',blocksChar);
-
-
-		write(fileno(bitmapArch),bitmapData,sizeof(char)*string_length(bitmapData));
-
-	 bitarray =	bitarray_create_with_mode(bitmapData, blocksChar, LSB_FIRST);
-
-	// msync(bitarray, sizeof(bitarray), MS_SYNC);
+		write(fileno(bitmapArch),bitmapDato,sizeof(char)*string_length(bitmapDato));
 
 		log_info(gameCard_logger," Se ha creado el archivo bitmap.bin");
 
-		//fclose(bitmapArch);
+		/*log_info(gameCard_logger,"Se va a cargar en memoria...");
+
+	 bitarray=bitarray_create_with_mode(bitmapDato, blocksChar, LSB_FIRST);*/
+
+	 free(bitmapDato);
+
+	 //log_info(gameCard_logger,"Se ha cargado correctamente el bitmap a memoria");
 
 }
 
@@ -165,6 +176,9 @@ void crearMetadataDirectorioFiles(){
 
 		fclose(archivoMetadata);
 
+		free(lineaDirectory);
+		free(rutaMetaFiles);
+
 		log_info(gameCard_logger, "Se ha creado el archivo metadata.bin del directorio Files");
 
 }
@@ -172,7 +186,9 @@ void crearMetadataDirectorioFiles(){
 
 bool existeDirectorio(char* ruta) {
 
-	return abrir_ruta(ruta) > -1;
+	int estaAbierto=abrir_ruta(ruta);
+	free(ruta);
+	return  estaAbierto>-1;
 }
 
 
@@ -185,20 +201,28 @@ void InicializarBloquesDeDatosFs() {
 		char* pathBloque = string_new();
 		char* nombreBloque= string_new();
 
+		char* bloq=string_itoa(numBloque);
+
 		string_append(&pathBloque, rutas_fs->pathDirectorioBloques);
 		string_append(&pathBloque,"/");
-		string_append(&nombreBloque,(string_itoa(numBloque)));
+		string_append(&nombreBloque,bloq);
 		string_append(&pathBloque,nombreBloque);
 		string_append(&pathBloque, ".bin");
 
 		FILE * nuevoBloque = fopen(pathBloque, "wb");
 		fclose(nuevoBloque);
 
+		free(bloq);
+		free(pathBloque);
+		free(nombreBloque);
+
 	}
 
 }
 
 void abrirBitmap() {
+
+	//if(bitarray==NULL){
 
 	log_info(gameCard_logger,"abriendo el bitmap...");
 
@@ -233,12 +257,9 @@ void abrirBitmap() {
 
 	log_info(gameCard_logger,"se ha abierto correctamente el bitmap");
 
+	//}
+
 }
 
-void desconectarFs(){
-
-	munmap(bmap, mystat.st_size);
-	bitarray_destroy(bitarray);
-}
 
 

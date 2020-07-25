@@ -1,7 +1,5 @@
 #include "ColaMensajes.h"
 
-extern t_cache_colas* cache_mensajes;
-
 /* Flujo de mensajes */
 int agregar_mensaje_a_cola(t_packed* paquete){	
 
@@ -19,7 +17,6 @@ int agregar_mensaje_a_cola(t_packed* paquete){
 	pthread_mutex_unlock(&mutex_queue_mensajes);
 
 	return mensaje->id_mensaje;
-
 }
 
 void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
@@ -33,13 +30,13 @@ void encolar_envio_a_suscriptores(int cola_de_mensajes,int id_mensaje){
     }
 
 	list_iterate(cola->suscriptores,enviar_mensaje_a_suscriptores);
-
 }
+
 
 /* Flujo de suscripciones */
 void agregar_suscriptor_a_cola(int cola_de_mensajes, uint32_t id_cliente, int socket_cliente){
 
-	if(debug_broker) log_debug(broker_logger, "Recibida suscripcion de cliente %d en socket %d", id_cliente,socket_cliente);
+	if(debug_broker) log_debug(broker_debug_logger, "Recibida suscripcion de cliente %d en socket %d", id_cliente,socket_cliente);
 	
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
@@ -71,14 +68,12 @@ void enviar_mensajes_cacheados_a_suscriptor(t_cola_mensajes* cola,int cliente){
 	list_iterate(mensajes,agregar_mensaje_pendiente);	
 
 	list_destroy(mensajes);
-
 }
+
 
 /* Flujo de ACK */
 
-void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente, int socket_cliente){
-
-	log_info(broker_logger, "El cliente %d envió confirmación del mensaje %d a través del socket %d ",id_cliente, id_mensaje, socket_cliente);
+void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente){
 
 	pthread_mutex_lock(&mutex_queue_mensajes);
 
@@ -91,13 +86,13 @@ void agregar_ack_a_mensaje(uint32_t id_mensaje, uint32_t id_cliente, int socket_
 
 	int* id_cliente_ptr = (int*)malloc(sizeof(int));
 
-	*id_cliente_ptr = id_cliente;
+	memcpy(id_cliente_ptr,&id_cliente,sizeof(int));
 
 	list_add(mensaje->suscriptores_ack,id_cliente_ptr);
 
 	pthread_mutex_unlock(&mutex_queue_mensajes);
-
 }
+
 
 /* Flujo de sender */
 
@@ -109,24 +104,34 @@ void* sender_suscriptores(void* cola_mensajes){
 
 	while(1){
 
-		sem_wait(cola->producciones);	
+		sem_wait(cola->producciones);		
+
+		pthread_mutex_lock(&mutex_server_status);
+
+		if(server_status == ENDING){
+			pthread_mutex_unlock(&mutex_server_status);
+			break;
+		} 
+
+		pthread_mutex_unlock(&mutex_server_status);
 
 		pthread_mutex_lock(&mutex_queue_mensajes);	
 
-		if(debug_broker) log_debug(broker_logger,"Los pendientes tienen %d mensajes",(cola->envios_pendientes)->elements_count);
+		if(debug_broker) log_debug(broker_debug_logger,"Los pendientes tienen %d mensajes",(cola->envios_pendientes)->elements_count);
 		
-		envio_pendiente = list_get(cola->envios_pendientes,0);
+		envio_pendiente = list_remove(cola->envios_pendientes,0);
 
 		t_mensaje_cola * mensaje = obtener_mensaje_por_id(envio_pendiente->id);
 
 		if(mensaje == NULL){
+			if(debug_broker) log_debug(broker_debug_logger,"El mensaje %d ya no se encuentra en la memoria y será descartado",envio_pendiente->id);
 			eliminar_mensaje_enviado(cola);
 			pthread_mutex_unlock(&mutex_queue_mensajes);
-			return;
+			continue;
 		}
 
 		t_cliente* cliente = obtener_cliente_por_id(envio_pendiente->cliente);
-
+		
 		t_socket_cliente* socket_cliente = obtener_socket_cliente_de_cola(cliente,cola->cola_de_mensajes);
 
 		int envio = enviar_mensaje_a_suscriptor(envio_pendiente->id,
@@ -136,22 +141,23 @@ void* sender_suscriptores(void* cola_mensajes){
 												mensaje->tamanio_mensaje,
 												mensaje->mensaje);
 
+		actualizar_lru_de_mensaje(mensaje);
 
-		agregar_cliente_a_enviados(mensaje,cliente);
+		agregar_cliente_a_enviados(mensaje,cliente->id);
 
 		if(envio != -1){			
-			log_info(broker_logger, "Se envió mensaje %d perteneciente a la cola %d al cliente %d", envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
-			eliminar_mensaje_enviado(cola);
-            if(debug_broker) log_debug(broker_logger,"Los pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
+			log_info(broker_logger, "Se envió mensaje %d perteneciente a la cola %s al cliente %d", envio_pendiente->id,obtener_nombre_cola(cola->cola_de_mensajes),envio_pendiente->cliente);
+            if(debug_broker) log_debug(broker_debug_logger,"Los pendientes quedaron con %d mensajes",(cola->envios_pendientes)->elements_count);
         }else{
-			log_error(broker_logger,"Falló el envío del mensaje %d perteneciente a la cola %d al cliente %d. Se reintentará cuando se vuelva a suscribir",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
-            eliminar_mensaje_enviado(cola);
+			log_error(broker_debug_logger,"Falló el envío del mensaje %d perteneciente a la cola %d al cliente %d. Se reintentará cuando se vuelva a suscribir",envio_pendiente->id,cola->cola_de_mensajes,envio_pendiente->cliente);
 		}
+		
+		eliminar_envio_pendiente(envio_pendiente);
 
 		pthread_mutex_unlock(&mutex_queue_mensajes);
-
-	
 	}
+
+	if(debug_broker) log_debug(broker_debug_logger, "Finalizando sender de la cola %d", cola->cola_de_mensajes);
 
 	return NULL;
 }
@@ -179,7 +185,6 @@ int enviar_mensaje_a_suscriptor(int id_mensaje,
 	free(paquete);
 
 	return send_status;
-
 }
 
 /* Genericas */
@@ -189,7 +194,7 @@ t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket, int cola)
 
 	if(cliente == NULL){
 		
-		if(debug_broker) log_debug(broker_logger,"Creando nuevo cliente %d para la cola %s en socket %d",id_cliente,obtener_nombre_cola(cola),socket);
+		if(debug_broker) log_debug(broker_debug_logger,"Creando nuevo cliente %d para la cola %s en socket %d",id_cliente,obtener_nombre_cola(cola),socket);
 		
 		cliente = crear_cliente(id_cliente, socket, cola);
 		
@@ -202,14 +207,14 @@ t_cliente* crear_o_actualizar_cliente(uint32_t id_cliente, int socket, int cola)
 
 	if(socket_cliente == NULL){
 
-		if(debug_broker) log_debug(broker_logger,"Agregado nuevo socket al cliente %d para la cola %s en socket %d",id_cliente,obtener_nombre_cola(cola),socket);
+		if(debug_broker) log_debug(broker_debug_logger,"Agregado nuevo socket al cliente %d para la cola %s en socket %d",id_cliente,obtener_nombre_cola(cola),socket);
 
 		agregar_socket_cliente(cliente,socket,cola);
 
 		return cliente;
 	}
 
-	if(debug_broker) log_debug(broker_logger,"Actualizando socket del cliente %d para la cola %s al socket %d",id_cliente,obtener_nombre_cola(cola),socket);
+	if(debug_broker) log_debug(broker_debug_logger,"Actualizando socket del cliente %d para la cola %s al socket %d",id_cliente,obtener_nombre_cola(cola),socket);
 
 	actualizar_socket_cliente(cliente,socket,cola);
 
@@ -232,7 +237,6 @@ t_cola_mensajes* crear_cola_mensajes(int cola_mensajes){
 	cola_mensaje->producciones = producciones;
 
 	return cola_mensaje;
-
 }
 
 t_cliente* crear_cliente(uint32_t id_cliente, int socket, int cola_de_mensajes){
@@ -246,7 +250,6 @@ t_cliente* crear_cliente(uint32_t id_cliente, int socket, int cola_de_mensajes){
 	list_add(cliente->sockets,socket_cliente);
 
 	return cliente;
-
 }
 
 t_socket_cliente* crear_socket_cliente(int socket, int cola_de_mensajes){
@@ -257,12 +260,14 @@ t_socket_cliente* crear_socket_cliente(int socket, int cola_de_mensajes){
 	socket_cliente->cola_de_mensajes = cola_de_mensajes;
 
 	return socket_cliente;
-
 }
 
-t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* mensaje_recibido){
+t_mensaje_cola* crear_mensaje(int cola_de_mensajes, int id_correlacional, uint32_t tamanio_payload, void* _mensaje_recibido){
 
     t_mensaje_cola* mensaje = (t_mensaje_cola*)malloc(sizeof(t_mensaje_cola));
+	void* mensaje_recibido = malloc(tamanio_payload);
+
+	memcpy(mensaje_recibido,_mensaje_recibido,tamanio_payload);
 
 	mensaje->id_mensaje = cache_mensajes->proximo_id_mensaje;
     cache_mensajes->proximo_id_mensaje++;
@@ -310,7 +315,6 @@ t_cliente* obtener_cliente_por_id(int id_cliente){
     }
 
     return list_find(cache_mensajes->clientes,es_cliente_buscado);
-
 }
 
 t_socket_cliente* obtener_socket_cliente_de_cola(t_cliente* cliente, int cola_de_mensajes){
@@ -345,7 +349,6 @@ t_list* obtener_mensajes_de_cola(t_cola_mensajes* cola){
 	list_iterate((cache_mensajes->memoria),listar_mensajes);
 
     return mensajes;
-
 }
 
 t_list* obtener_memoria_de_cola(t_cola_mensajes* cola){
@@ -360,7 +363,6 @@ t_list* obtener_memoria_de_cola(t_cola_mensajes* cola){
 	}
 
 	return list_filter(cache_mensajes->memoria, filtro_mensajes);
-
 }
 
 bool es_memoria_de_cola(t_bloque_memoria* bloque, t_cola_mensajes* cola){
@@ -376,7 +378,6 @@ bool es_suscriptor_de(int id_cliente, t_cola_mensajes* cola){
 	t_cliente* cliente = list_find(cola->suscriptores,es_cliente_buscado);
 
     return cliente != NULL;
-
 }
 
 bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente){
@@ -393,7 +394,6 @@ bool ack_recibido_de(t_mensaje_cola* mensaje, int id_cliente){
 void agregar_mensaje_a_cache(t_mensaje_cola* mensaje){
 
 	asignar_particion_memoria(mensaje);
-
 }
 
 void agregar_cliente_a_cache(t_cliente* cliente){
@@ -405,7 +405,6 @@ void agregar_socket_cliente(t_cliente* cliente, int socket, int cola_de_mensajes
 	t_socket_cliente* socket_cliente = crear_socket_cliente(socket,cola_de_mensajes);
 
 	list_add(cliente->sockets, (void*) socket_cliente);
-
 }
 
 void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, t_cliente* cliente){
@@ -417,7 +416,6 @@ void agregar_cliente_a_suscriptores(t_cola_mensajes* cola, t_cliente* cliente){
 	*id_cliente = cliente->id;
 
     list_add(cola->suscriptores,(void*)id_cliente);
-
 }
 
 void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cliente){
@@ -427,18 +425,20 @@ void agregar_pendiente_de_envio(t_cola_mensajes* cola, int id_mensaje, int id_cl
     envio_pendiente->id = id_mensaje;
     envio_pendiente->cliente = id_cliente;
 
-    if(debug_broker) log_debug(broker_logger,"Agregado mensaje %d pendiente de envio a %d",envio_pendiente->id,envio_pendiente->cliente);
+    if(debug_broker) log_debug(broker_debug_logger,"Agregado mensaje %d pendiente de envio a %d",envio_pendiente->id,envio_pendiente->cliente);
     
     list_add(cola->envios_pendientes,(void*)envio_pendiente);
 
     sem_post(cola->producciones);
-
 }
 
-void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, t_cliente* cliente){
+void agregar_cliente_a_enviados(t_mensaje_cola* mensaje, int _id_cliente){
 
-	list_add(mensaje->suscriptores_enviados,(void*)&cliente->id);
+	int* id_cliente = (int*)malloc(sizeof(int));
 
+	memcpy(id_cliente,&_id_cliente,sizeof(int));
+
+	list_add(mensaje->suscriptores_enviados,(void*)id_cliente);
 }
 
 void actualizar_socket_cliente(t_cliente* cliente, int socket, int cola){
@@ -446,7 +446,6 @@ void actualizar_socket_cliente(t_cliente* cliente, int socket, int cola){
 	t_socket_cliente* socket_cliente = obtener_socket_cliente_de_cola(cliente,cola);
 
 	socket_cliente->socket = socket;
-
 }
 
 void eliminar_mensaje_enviado(t_cola_mensajes* cola){
@@ -471,14 +470,14 @@ void eliminar_mensaje_cola(t_mensaje_cola* mensaje){
 
 void* print_operacion(void* mensaje){
 
-	if(debug_broker) log_debug(broker_logger,"Cola: %d",((t_mensaje_cola*)mensaje)->cola_de_mensajes);
+	if(debug_broker) log_debug(broker_debug_logger,"Cola: %d",((t_mensaje_cola*)mensaje)->cola_de_mensajes);
 
 	return NULL;
 }
 
 void* print_clientes(void* suscriptor){
 	
-	if(debug_broker) log_debug(broker_logger,"id_cliente: %d",*((int*)suscriptor) );
+	if(debug_broker) log_debug(broker_debug_logger,"id_cliente: %d",*((int*)suscriptor) );
 
 	return NULL;
 }

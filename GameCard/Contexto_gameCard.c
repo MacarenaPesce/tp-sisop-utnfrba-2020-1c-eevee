@@ -17,6 +17,12 @@ int id;
 char* magicNumber;
 int tamanioDeBloque;
 int cantidadBloques;
+t_list* bloquesMetadataPokemon;
+t_list* listaPosicionesParaLocalized;
+t_list* bloqMetadataPoke;
+t_list * bloquesMetadata;
+
+char* pokemonEnMemoria;
 
 t_log* gameCard_logger;
 t_config* config_game_card;

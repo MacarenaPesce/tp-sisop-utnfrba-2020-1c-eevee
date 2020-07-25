@@ -1,4 +1,5 @@
 Team : Contexto_team.c Herramientas_team.c Deadlock.c Algoritmos_de_planificacion.c Entrenador.c Funciones_de_conexion.c Funciones_para_listas.c Interaccion_con_broker.c Interaccion_con_gameboy.c Team.c
+	mkdir -p ./Debug ./Dist
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../Pokebola/Debug
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Contexto_team.d" -MT"./Contexto_team.o" -o "./Debug/Contexto_team.o" "./Contexto_team.c"
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Herramientas_team.d" -MT"Herramientas_team.o" -o "./Debug/Herramientas_team.o" "./Herramientas_team.c"
@@ -16,6 +17,7 @@ clean :
 	rm -f ./Dist/team ./Dist/log_team ./Dist/team.log ./Debug/*
 
 all : Contexto_team.c Herramientas_team.c Deadlock.c Algoritmos_de_planificacion.c Entrenador.c Funciones_de_conexion.c Funciones_para_listas.c Interaccion_con_broker.c Interaccion_con_gameboy.c Team.c
+	mkdir -p ./Debug ./Dist
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../Pokebola/Debug
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Contexto_team.d" -MT"./Contexto_team.o" -o "./Debug/Contexto_team.o" "./Contexto_team.c"
 	gcc -I"../Pokebola" -Icommons -IPokebola -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"./Debug/Herramientas_team.d" -MT"Herramientas_team.o" -o "./Debug/Herramientas_team.o" "./Herramientas_team.c"

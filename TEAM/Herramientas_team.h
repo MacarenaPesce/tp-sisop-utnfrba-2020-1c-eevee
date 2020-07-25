@@ -10,12 +10,14 @@
 
 #include "Contexto_team.h"
 
-t_pokemon * buscar_pokemon_por_especie_y_ubicacion(t_list *, t_pokemon *);
-t_mensaje_guardado * buscar_mensaje_por_id(uint32_t, t_list*);
+/*Destruccion de listas*/
 int destruir_pokemon(t_pokemon *);
-void destruir_semaforos_finalizar(void *);
-void destruir_semaforos_deadlock(void *);
-t_semaforo_deadlock * obtener_semaforo_deadlock_por_id(int);
+int destruir_entrenador(t_entrenador *);
+int destruir_objetivo(t_objetivo *);
+int destruir_objetivo_entrenador(t_objetivo_entrenador *);
+int destruir_mensaje(t_mensaje_guardado *);
+int destruir_mensaje_catch(t_mensaje_guardado_catch *);
+void liberar_lista_char(char**);
 
 /*SETEOS INICIALES*/
 void inicializar_logger();
@@ -41,22 +43,22 @@ void obtener_la_estimacion_inicial();
 void obtener_la_ip_del_broker();
 void obtener_el_puerto_del_broker();
 void obtener_el_log_file();
-
+void obtener_el_puerto_de_team();
 
 /*PARA FINALIZAR EL PROCESO CORRECTAMENTE*/
 void terminar_team_correctamente();
-int destruir_entrenador(t_entrenador *);
-int destruir_objetivo(t_objetivo *);
-int destruir_mensaje(t_mensaje_guardado *);
 
 
 /*BUSQUEDA*/
 t_objetivo * buscar_pokemon_por_especie(t_list*, char*);
 t_objetivo_entrenador * buscar_pokemon_objetivo_por_especie(t_list*, char*);
 t_entrenador * buscar_entrenador_por_id(t_list*, int);
-t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon*);
 t_entrenador * buscar_entrenador_por_ubicacion(t_list*, uint32_t, uint32_t);
-t_mensaje_guardado * buscar_mensaje(uint32_t id);
+t_pokemon * buscar_pokemon_por_especie_y_ubicacion(t_list *, t_pokemon *);
+t_entrenador * buscar_entrenador_por_objetivo_actual(t_catch_pokemon*);
+t_mensaje_guardado * buscar_mensaje(uint32_t);
+uint32_t * buscar_mensaje_por_id(uint32_t, t_list*);
+t_mensaje_guardado_catch * buscar_mensaje_por_id_catch(uint32_t, t_list*);
 t_mensaje_guardado * buscar_mensaje_appeared_por_especie(char*, t_list*);
 
 
@@ -65,5 +67,10 @@ bool objetivo_personal_cumplido(t_entrenador* entrenador);
 bool objetivo_global_cumplido();
 bool todos_bloqueados_por_cantidad_maxima();
 
+/* Agregar a listas */
+void agregar_a_historico_appeared(char* pokemon);
+
+/*MOSTRAR*/
+void mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(t_list *);
 
 #endif /* HERRAMIENTAS_TEAM_H_ */

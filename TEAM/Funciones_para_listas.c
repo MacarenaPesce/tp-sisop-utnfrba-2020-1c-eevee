@@ -29,7 +29,7 @@ void mostrar_lo_que_hay_en_lista_entrenadores(){
 		if(entrenador == NULL){
 			break;
 		}
-		log_info(team_logger,"Un entrenador tiene id = %i, pos x = %i, y = %i, y puede atrapar %i pokemones\n", entrenador->id, entrenador->posx, entrenador->posy, entrenador->cant_maxima_objetivos);
+		log_info(team_logger,"Un entrenador tiene id = %i, pos x = %i, y = %i, y puede atrapar %i pokemones", entrenador->id, entrenador->posx, entrenador->posy, entrenador->cant_maxima_objetivos);
 		l++;
 	}
 	//free(entrenador);
@@ -52,6 +52,8 @@ void inicializar_listas(){
 	mensajes_para_chequear_id = list_create();
 	lista_bloqueados_esperando_caught = list_create();
 	lista_asignados = list_create();
+	lista_historico_appeared_pokemon = list_create();
+	mensajes_para_chequear_id_catch = list_create();
 
 }
 
@@ -81,11 +83,10 @@ void separar_pokemones_de_entrenador(char* pokemones_de_entrenador, t_list* list
 	} else if(!(string_contains(pokemones_de_entrenador, un_char))) {
 		agregar_a_lista_pokemones(pokemones_de_entrenador, lista);
 	} else {
-		char**pokes = string_split(pokemones_de_entrenador, "|");
+		pokes = string_split(pokemones_de_entrenador, "|");
 		string_iterate_lines_with_list(pokes, lista, agregar_a_lista_pokemones);
 		free(pokes);
 	}
-
 }
 
 void agregar_a_lista_pokemones(char* especie, t_list* lista){
@@ -107,8 +108,6 @@ void agregar_objetivo(char* especie, uint32_t cantidad, t_list* lista){
 		objetivo->especie = especie;
 		objetivo->cantidad = cantidad;
 		list_add(lista, (void*)objetivo);
-		} else {
-			printf("El objetivo de este entrenador es nulo");
 		}
 	}
 }
@@ -168,6 +167,7 @@ t_list* obtener_pokemones(t_list* lista_global,t_list* lista, uint32_t posicion)
 	list_sort(lista_pokemones_objetivos_aux, (void*)ordenar);
 	cargar_objetivos(lista_pokemones_objetivos_aux, lista);
 	list_remove(lista, list_size(lista)-1);
+	list_clean(lista_pokemones_objetivos_aux);
 	list_destroy(lista_pokemones_objetivos_aux);
 	return lista;
 }

@@ -9,8 +9,13 @@
 
 void * planificar(){
 
-	while(GLOBAL_SEGUIR){
-
+	while(1){
+		pthread_mutex_lock(&global_seguir_mutex);
+		if(GLOBAL_SEGUIR == 0){
+			break;
+		}
+		pthread_mutex_unlock(&global_seguir_mutex);
+		
 		sem_wait(&orden_para_planificar);
 		obtener_proximo_ejecucion();
 	}
@@ -36,13 +41,17 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 
 	t_list* lista_aux;
 	lista_aux = list_duplicate(lista_entrenadores);
+
+	pthread_mutex_lock(&bloqueados_esperando_mutex);
 	list_add_all(lista_aux, lista_bloqueados_esperando);
+	pthread_mutex_unlock(&bloqueados_esperando_mutex);
 
 	int i = 0;
 	bool mas_cerca;
 	t_entrenador* entrenador_mas_cercano;
 	t_entrenador* otro_entrenador;
 	entrenador_mas_cercano = list_get(lista_aux, i);
+
 	int cantidad_entrenadores = list_size(lista_aux);
 
 	while(i < cantidad_entrenadores){
@@ -55,16 +64,6 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 				estimar_entrenador(entrenador_mas_cercano);
 			}
 
-			/*pthread_mutex_lock(&mapa_mutex);
-			t_pokemon * poke1 = buscar_pokemon_por_especie_y_ubicacion(lista_mapa, pokemon);
-			if(poke1 == pokemon){
-				pthread_mutex_lock(&pokemones_asignados);
-				pokemon->asignado = true;
-				log_error(team_logger, "EL POKEMON EN SELEC... POKEMON: %s, ASIGNADO: %d", pokemon->especie, pokemon->asignado);
-				pthread_mutex_unlock(&pokemones_asignados);	
-			}
-			pthread_mutex_unlock(&mapa_mutex);*/
-
 			entrenador_mas_cercano->objetivo_actual = pokemon;
 			list_add(lista_listos, (void*)entrenador_mas_cercano);
 			list_add(lista_asignados, pokemon);
@@ -76,6 +75,14 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 			pthread_mutex_lock(&lista_entrenadores_mutex);
 			sacar_entrenador_de_lista_pid(lista_entrenadores, entrenador_mas_cercano->id);
 			pthread_mutex_unlock(&lista_entrenadores_mutex);
+
+			t_entrenador * aux = buscar_entrenador_por_id(lista_bloqueados_esperando, entrenador_mas_cercano->id);
+			
+			if(aux != NULL){
+				pthread_mutex_lock(&bloqueados_esperando_mutex);
+				sacar_entrenador_de_lista_pid(lista_bloqueados_esperando, entrenador_mas_cercano->id);
+				pthread_mutex_unlock(&bloqueados_esperando_mutex);
+			}
 			
 			break;
 		}
@@ -91,18 +98,18 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 
 	list_destroy(lista_aux);
 	if(entrenador_mas_cercano == NULL){
-		log_info(team_logger, "No hay mas entrenadores disponibles");
+		//log_info(team_logger, "No hay mas entrenadores disponibles");
 	} else {
-		//log_info(team_logger, "La estimacion de %i es %f", entrenador_mas_cercano->id, entrenador_mas_cercano->estimacion_real);
-		log_info(team_logger_oficial, "El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
+		//log_info(team_logger_oficial, "La estimacion de %i es %f", entrenador_mas_cercano->id, entrenador_mas_cercano->estimacion_real);
+		log_info(team_logger_oficial, "El entrenador %d pasa a la cola de listos por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
 		log_info(team_logger,"El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, pokemon->especie);//entrenador_mas_cercano->objetivo_actual->especie);
 	}
 	if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
-		if(entrenador_en_ejecucion != NULL && nuevo_entrenador->estimacion_real < entrenador_en_ejecucion->estimacion_actual)
+		if(entrenador_en_ejecucion != NULL && entrenador_mas_cercano->nuevo && entrenador_mas_cercano->estimacion_real < entrenador_en_ejecucion->estimacion_actual)
 		{
-			log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",nuevo_entrenador->id);
+			log_info(team_logger,"El entrenador nuevo de id %d debe desalojar al entrenador en ejecucion!",entrenador_mas_cercano->id);
+			entrenador_mas_cercano->nuevo = false;
 			desalojo_en_ejecucion = true;
-			nuevo_entrenador == NULL;
 		}
 	}
 }
@@ -146,10 +153,8 @@ void desalojar_ejecucion(void){
 }
 
 int estimar_entrenador(t_entrenador * entrenador){
-	log_info(team_logger, "El alpha es %f", alpha/100);
 	entrenador->estimacion_anterior = entrenador->estimacion_real;
 	entrenador->estimacion_real = ((alpha/100)*entrenador->instruccion_actual) + ((1-(alpha/100))*entrenador->estimacion_real);
-	//log_info(team_logger, "La estimacion real de este entrenador es %f", entrenador->estimacion_real);
 	entrenador->estimacion_actual  = entrenador->estimacion_real;
 	entrenador->instruccion_actual = 0;
 
@@ -162,11 +167,11 @@ void obtener_proximo_ejecucion(void){
 	los entrenadores será la misma y deberá poder ser modificable por archivo de configuración */
 
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
+		pthread_mutex_lock(&lista_listos_mutex);
 		ordenar_lista_estimacion(lista_listos);
+		pthread_mutex_unlock(&lista_listos_mutex);
 	}
-
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
-
 	if(entrenador_en_ejecucion != NULL){
 		/* Hay un entrenador ejecutando */
 		return;

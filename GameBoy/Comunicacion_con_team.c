@@ -9,7 +9,6 @@
 
 void team_appeared_pokemon(char* pokemon, char* posx, char* posy){
 	validar_parametros_tres_argumentos(pokemon, posx, posy);
-	log_info(gameboy_logger,"Le voy a mandar a team las coordenadas del pokemon %s",pokemon);
 
 	t_appeared_pokemon* appeared_pokemon = malloc(sizeof(t_appeared_pokemon));
 	appeared_pokemon->pokemon = pokemon;
@@ -21,11 +20,11 @@ void team_appeared_pokemon(char* pokemon, char* posx, char* posy){
 	if(socket < 0){
 		log_info(gameboy_logger,"TEAM caído");
 	}else{
+		log_info(gameboy_logger,"Conectado a TEAM");
 		int status = distribuir_appeared_pokemon(socket, -1, -1, (uint32_t)id, appeared_pokemon);
 		if(status < 0){
-			log_info(gameboy_logger,"TEAM caído");
+			log_info(gameboy_logger,"TEAM se cayó");
 		}else{
-			log_info(gameboy_logger,"Pedido de appeared pokemon enviado correctamente");
 			close(socket);
 		}
 	}

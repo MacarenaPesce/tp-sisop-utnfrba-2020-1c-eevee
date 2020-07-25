@@ -36,7 +36,7 @@ int crear_listen_socket(char * puerto){
 }
 
 int iniciar_servidor(){
-	int server_socket = crear_listen_socket(PUERTO);
+	int server_socket = crear_listen_socket(puerto_team);
 
 	if(server_socket < 0){
 		log_info(team_logger, "\nFalló la creación del socket servidor");
@@ -44,7 +44,7 @@ int iniciar_servidor(){
 		exit(1);
 	}
 	else{
-		log_info(team_logger, "Team esta listo para recibir mensajes de gameboy en el socket servidor (%d)\n", server_socket);
+		//log_info(team_logger, "Team esta listo para recibir mensajes de gameboy en el socket servidor (%d)", server_socket);
 	}
 
 	return server_socket;

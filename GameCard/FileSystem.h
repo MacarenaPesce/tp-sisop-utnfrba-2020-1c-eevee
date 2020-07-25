@@ -2,6 +2,7 @@
 #define FILESYSTEM_H_
 
 #include "formatoFs.h"
+#include "Conexion_con_gameboy.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -10,6 +11,16 @@
 pthread_mutex_t mutexSemPokemones;
 t_dictionary* semaforosPokemones;
 pthread_mutex_t semMutexBitmap;
+
+char* lineaBloques;
+
+char* estadoArchivo;
+
+char* auxPokeEnMemo;
+
+char* unBloq;
+
+char* unPoke;
 
 void inicializarSemaforosParaPokemon();
 void agregarSemaforoPokemon(char* poke);
@@ -32,7 +43,7 @@ void agregarAstring(void* elem);
 char*  cargarPokemon(t_new_pokemon* pokemon);
 void marcarBloqueOcupado(int bloqueLibre);
 //void agregarBloqueParaMetadataArchivo(char* bloqueLibre);
-void crearMetadataArchPoke(char* pokemon, int tamanio);
+void crearMetadataArchPoke(char* pokemon, int tamanio, t_list* bloques);
 
 //manejo del ultimo elemento
 
@@ -61,9 +72,9 @@ char* pokeLinea;
 //modificar pokemon
 
 //t_list* obtenerBloquesPokemon(char* poke);
-void llenarListaBloquesPoke(char* pok);
+void llenarListaBloquesPoke(char*, t_list*);
 
-char* pokemonEnMemoria;
+extern char* pokemonEnMemoria;
 
 char* pokemonAguardar;
 
@@ -203,4 +214,10 @@ int obtenerEspacioMetadata(char* pokemon);
 void copiarPokemonEnMemoria(void* unBloque);
 
 void liberarMemoria();
+
+void liberarElem(void* elem);
+
+void destruirBloque(char*);
+
+void desconectarFs();
 #endif /* FILESYSTEM_H_ */

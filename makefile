@@ -5,6 +5,7 @@ all:
 	cd ./GameCard && $(MAKE) 
 	cd ./TEAM && $(MAKE)
 	mkdir -p ./Dist/bin
+	mkdir -p ./Dist/logs
 	cp ./Broker/Dist/broker ./Dist/bin/broker
 	cp ./GameBoy/Dist/gameboy ./Dist/bin/gameboy 
 	cp ./GameCard/Dist/gamecard ./Dist/bin/gamecard 
@@ -17,3 +18,7 @@ clean:
 	cd ./GameCard && $(MAKE) clean
 	cd ./TEAM && $(MAKE) clean
 	rm -Rf ./Dist/bin
+	rm -Rf ./Dist/logs
+
+cleanfs:
+	rm -Rf /home/utnso/desktop/tall-grass/

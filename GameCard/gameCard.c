@@ -1,6 +1,17 @@
 #include "gameCard.h"
+#include <signal.h>
 
 int main() {
+
+	/*se asocia con terminarCorrectamenteGameCard() para poder liberar memoria
+	 * correctamente cuando finaliza el procese game card*/
+
+	//interrupcion del programa ctrl+c
+	signal (SIGINT, terminarCorrectamenteGameCard);
+	//señal por comando kill desde consola: fin de proceso
+	signal (SIGTERM, terminarCorrectamenteGameCard);
+	//salir del programa con ctrl+barra (que no es el 7)
+	signal (SIGQUIT, terminarCorrectamenteGameCard);
 
 	inicializar_logger();
 	inicializar_archivo_de_configuracion();
@@ -17,7 +28,6 @@ int main() {
 	abrirBitmap();
 	inicializarSemaforosParaPokemon();
 
-
 	/*Esto es lo necesario para comunicarse con gameboy*/
 	int serv_socket = iniciar_servidor(PUERTO);
 
@@ -25,8 +35,14 @@ int main() {
 
 	crear_hilo_de_escucha_para_gameboy(serv_socket);
 
-	desconectarFs();
-	terminar_game_card();
+
 }
 
 
+void terminarCorrectamenteGameCard(){
+
+	log_info(gameCard_logger,"se intenta cerrar el proceso game card");
+
+	desconectarFs();
+	terminar_game_card();
+}
