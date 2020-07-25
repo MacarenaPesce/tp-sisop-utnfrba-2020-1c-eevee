@@ -30,8 +30,8 @@ extern t_config* config;
 /* Funcion que arranca con el funcionamiento del Buddy en si */
 void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 
-    if(debug_broker) log_debug(broker_logger,"Buddy System", NULL);
-    if(debug_broker) log_debug(broker_logger,"Alojar: %i", estructura_mensaje->tamanio_mensaje );
+    if(debug_broker) log_debug(broker_debug_logger,"Buddy System", NULL);
+    if(debug_broker) log_debug(broker_debug_logger,"Alojar: %i", estructura_mensaje->tamanio_mensaje );
 
 	/* Me fijo si cumple con el tamaño minimo de particion */
 	int bytes_a_alojar = tamanio_a_alojar(estructura_mensaje->tamanio_mensaje);
@@ -39,7 +39,7 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
 	/* Busco el numero potencia de 2 mas cercano */
 	int bytes_potencia_dos = numero_potencia_dos(bytes_a_alojar);
 
-    if(debug_broker) log_debug(broker_logger,"Particion a crear de: %i", bytes_potencia_dos);
+    if(debug_broker) log_debug(broker_debug_logger,"Particion a crear de: %i", bytes_potencia_dos);
 
     /* Me fijo si la particion puede alojarse a la primera */
     bool sePuedeAlojar = puede_alojarse(bytes_potencia_dos);
@@ -54,12 +54,12 @@ void buddy_funcionamiento(t_mensaje_cola* estructura_mensaje){
         /* Me fijo si puedo alojarla a la primera */
         if(sePuedeAlojar == true){ 
 
-			//if(debug_broker) log_debug(broker_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
+			//if(debug_broker) log_debug(broker_debug_logger,"Ejecutando Algoritmo de Particion Libre %s",algoritmo_particion_libre);
 
             /* 	Si puede alojarse a la primera: Alojo la partición según el funcionamiento de buddies  */
 			asignar_bloque_BS(estructura_mensaje, bytes_potencia_dos);
 
-            if(debug_broker) log_debug(broker_logger, "Aloje la nueva particion , BS");
+            if(debug_broker) log_debug(broker_debug_logger, "Aloje la nueva particion , BS");
 
             //seteo alojado en true, para salir del while
             alojado = true;
@@ -93,7 +93,7 @@ void asignar_bloque_BS(t_mensaje_cola* estructura_mensaje, int tamanio_de_partic
 	t_bloque_memoria* particion = encontrar_particion_libre(tamanio_de_particion); 
 
 	void* posicion_relativa = calcular_posicion_relativa(particion);
-	if(debug_broker) log_debug(broker_logger,"Encontre particion libre, posicion relativa %d", posicion_relativa);
+	if(debug_broker) log_debug(broker_debug_logger,"Encontre particion libre, posicion relativa %d", posicion_relativa);
 
 	/* Particionar el bloque y asignar datos*/
 	particionar_bloque_buddies( particion, estructura_mensaje, tamanio_de_particion);
@@ -112,7 +112,7 @@ t_bloque_memoria* encontrar_particion_libre(int tamanio_de_particion){
 	t_bloque_memoria* primer_bloque = list_get(cache_mensajes, 0);
     int tam_minimo= primer_bloque->tamanio_particion; 
 
-	if(debug_broker) log_debug(broker_logger,"Buscando particion libre");
+	if(debug_broker) log_debug(broker_debug_logger,"Buscando particion libre");
     
 	/* Recorro la lista para obtener el primer bloque donde quepa mi particion nueva */
 	for(int i=0; i<list_size(cache_mensajes->memoria); i++){
@@ -150,9 +150,9 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 	/* Obtengo el indice de la particion a particionar*/
 	int indice_nodo_particionar = obtener_indice_particion(particion_inicial);
 
-    if(debug_broker) log_debug(broker_logger,"Indice a particionar del nodo: %d",indice_nodo_particionar);
+    if(debug_broker) log_debug(broker_debug_logger,"Indice a particionar del nodo: %d",indice_nodo_particionar);
 
-	if(debug_broker) log_debug(broker_logger,"Puedo particionar el bloque y achicarlo: %d", puedo_particionar);
+	if(debug_broker) log_debug(broker_debug_logger,"Puedo particionar el bloque y achicarlo: %d", puedo_particionar);
 
 	/* Mientras pueda particionar
 		1- Tengo que crear una nueva particion del tamaño divido 2, 
@@ -172,7 +172,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 
 			/* Como me sobra espacio lo separo en un nuevo nodo */
     		void* particion_restante = ((char *)particion_inicial->estructura_mensaje) + tamanio_restante;
-			if(debug_broker) log_debug(broker_logger,"particion restante: %p", particion_restante);
+			if(debug_broker) log_debug(broker_debug_logger,"particion restante: %p", particion_restante);
 
 			/* Seteo el nuevo tamaño de la particion inicial donde quiero alojar*/
 			particion_inicial->tamanio_particion = tamanio_restante;
@@ -184,18 +184,16 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 			list_add_in_index(cache_mensajes->memoria, indice_nodo_particionar + 1, bloque_restante);  
 		
 			void* pos_relativa_buddie = calcular_posicion_relativa(bloque_restante);
-			if(debug_broker) log_debug(broker_logger,"Buddies particionados, nuevo buddie en: %d , de tamaño: %d", pos_relativa_buddie, tamanio_restante);
+			if(debug_broker) log_debug(broker_debug_logger,"Buddies particionados, nuevo buddie en: %d , de tamaño: %d", pos_relativa_buddie, tamanio_restante);
 		}
 
 		/* Me fijo de nuevo si puedo particionar para ver si sigo en el while o corto*/
 		puedo_particionar = (particion_inicial->tamanio_particion > tamanio_bytes_pot_dos);
-		if(debug_broker) log_debug(broker_logger,"Puedo particionar el bloque y achicarlo: %d", puedo_particionar);
+		if(debug_broker) log_debug(broker_debug_logger,"Puedo particionar el bloque y achicarlo: %d", puedo_particionar);
 	}
 
 	/* En caso de no poder particionar mas, porque el bloque es justo del tamaño que necesito */
 	if(!puedo_particionar && (tamanio_bytes_pot_dos == particion_inicial->tamanio_particion)){
-
-    	log_info(broker_logger, "Almacenado mensaje en la posicion real %p", particion_inicial->estructura_mensaje);
 
 		/* Seteo el nodo inicial como ocupado , y actualizo el tamaño */
     	particion_inicial->tamanio_particion = tamanio_bytes_pot_dos;
@@ -218,9 +216,9 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 
 		/* Calculo la posicion relativa */
     	void* posicion_relativa = calcular_posicion_relativa(particion_inicial);
-    	log_info(broker_logger, "Almacenado en la posicion relativa %d",posicion_relativa);
+		log_info(broker_logger, "Almacenado mensaje en la posicion %d (%p)", posicion_relativa, particion_inicial->estructura_mensaje->mensaje);
 
-		if(debug_broker) log_debug(broker_logger, "Bloque particionado...");
+		if(debug_broker) log_debug(broker_debug_logger, "Bloque particionado...");
 	}
     //muestro por pantalla antes de compactar como estaba la memoria
     if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
@@ -232,7 +230,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 	algoritmos de reemplazo*/
 t_bloque_memoria* reemplazar_bloque_BS(){
 
-    if(debug_broker) log_debug(broker_logger,"Por ejecutar algoritmo de reemplazo %s", algoritmo_reemplazo);
+    if(debug_broker) log_debug(broker_debug_logger,"Por ejecutar algoritmo de reemplazo %s", algoritmo_reemplazo);
 
 	t_bloque_memoria* bloque_eliminado;
 
@@ -244,7 +242,7 @@ t_bloque_memoria* reemplazar_bloque_BS(){
         bloque_eliminado = algoritmo_fifo();
     }
 
-    if(debug_broker) log_debug(broker_logger,"Termine de ejecutar el reemplazo");
+    if(debug_broker) log_debug(broker_debug_logger,"Termine de ejecutar el reemplazo");
 
 	return bloque_eliminado;
 }
@@ -260,18 +258,18 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 
 	// Obtengo la posicion relativa de mi bloque 
 	void* posicion_relativa_bloque = calcular_posicion_relativa(bloque_borrado);
-	if(debug_broker) log_debug(broker_logger, "posicion relativa del bloque actual %d", posicion_relativa_bloque);
+	if(debug_broker) log_debug(broker_debug_logger, "posicion relativa del bloque actual %d", posicion_relativa_bloque);
 	
 	// Me fijo si son buddies los bloques siguiente y anterior, si son buddies consolido 
 	if(bloque_siguiente != NULL && bloque_siguiente->esta_vacio == true && son_buddies(bloque_borrado,bloque_siguiente)){
 
-		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre, a derecha");
+		if(debug_broker) log_debug(broker_debug_logger,"Tiene buddie libre, a derecha");
 		
 		// Si cumple con las condiciones, consolido bloques
 		consolidar_bloques_buddies(bloque_borrado,bloque_siguiente);
 
-		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
-		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
+		if(debug_broker) log_debug(broker_debug_logger,"Ya consolide buddies.");
+		if(debug_broker) log_debug(broker_debug_logger,"Miro si tengo más buddies libres.");
 
 		//if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
@@ -281,13 +279,13 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 	
 	if(bloque_anterior != NULL && bloque_anterior->esta_vacio == true && son_buddies(bloque_anterior,bloque_borrado)){
 
-		if(debug_broker) log_debug(broker_logger,"Tiene buddie libre, a izquierda");
+		if(debug_broker) log_debug(broker_debug_logger,"Tiene buddie libre, a izquierda");
 
 		// Si cumple con las condiciones, consolido bloques
 		consolidar_bloques_buddies(bloque_anterior,bloque_borrado);
 
-		if(debug_broker) log_debug(broker_logger,"Ya consolide buddies.");
-		if(debug_broker) log_debug(broker_logger,"Miro si tengo más buddies libres.");
+		if(debug_broker) log_debug(broker_debug_logger,"Ya consolide buddies.");
+		if(debug_broker) log_debug(broker_debug_logger,"Miro si tengo más buddies libres.");
 
 		//if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
@@ -295,11 +293,11 @@ void consolidacion_BS(t_bloque_memoria* bloque_borrado){
 		consolidacion_BS(bloque_anterior);
 	}
     
-	if(debug_broker) log_debug(broker_logger,"No tengo más buddies libres.");
+	if(debug_broker) log_debug(broker_debug_logger,"No tengo más buddies libres.");
 
 	//if(warn_broker) list_iterate(cache_mensajes->memoria, print_memoria);
 
-	if(debug_broker) log_debug(broker_logger,"Ya consolide luego de vaciar una particion", NULL);
+	if(debug_broker) log_debug(broker_debug_logger,"Ya consolide luego de vaciar una particion", NULL);
 
 	return ;
 }
@@ -321,6 +319,11 @@ bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_sig
 
 /* Se encarga de realizar la consolidacion en si */
 void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
+
+	int posicion_relativa_anterior = calcular_posicion_relativa(bloque_anterior);
+	int posicion_relativa_siguiente = calcular_posicion_relativa(bloque_siguiente);
+
+	log_info(broker_logger, "Asociando bloques %d (%p) y %d (%p)",posicion_relativa_anterior,bloque_anterior->estructura_mensaje,posicion_relativa_siguiente,bloque_siguiente->estructura_mensaje);
 
 	consolidar_dos_bloques(bloque_anterior, bloque_siguiente);
 

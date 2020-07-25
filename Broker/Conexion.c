@@ -6,7 +6,7 @@ extern enum SERVER_STATUS server_status;
 
 void iniciar_servidor(void){
 
-	if(debug_broker) log_debug(broker_logger, "7) Iniciando servidor...", NULL);
+	if(debug_broker) log_debug(broker_debug_logger, "7) Iniciando servidor...", NULL);
 	
 	int socket_servidor;
 	int bind_status;
@@ -21,25 +21,25 @@ void iniciar_servidor(void){
     getaddrinfo("127.0.0.1", "5003", &hints, &servinfo);
 
     for (p=servinfo; p != NULL; p = p->ai_next){
-		if(debug_broker) log_debug(broker_logger, "8) Intentando bindear sever...", NULL);
+		if(debug_broker) log_debug(broker_debug_logger, "8) Intentando bindear sever...", NULL);
 
         if ((socket_servidor = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1){
-			log_error(broker_logger, "Error en socket broker", NULL);
+			log_error(broker_debug_logger, "Error en socket broker", NULL);
             continue;
 		}
 
 		int flag = 1;  
 		if (-1 == setsockopt(socket_servidor, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag))) {  
-			log_error(broker_logger, "Error al setear las opciones del socket", NULL);
+			log_error(broker_debug_logger, "Error al setear las opciones del socket", NULL);
 		}  
 
         if ((bind_status = bind(socket_servidor, p->ai_addr, p->ai_addrlen)) == -1) {
-			log_error(broker_logger, "Error en bind broker: %d", bind_status);
-			log_error(broker_logger, "Código de error: %d", errno);
+			log_error(broker_debug_logger, "Error en bind broker: %d", bind_status);
+			log_error(broker_debug_logger, "Código de error: %d", errno);
             close(socket_servidor);
             continue;
         }
-		if(debug_broker) log_debug(broker_logger, "9) Server bindeado correctamente!!!", NULL);
+		if(debug_broker) log_debug(broker_debug_logger, "9) Server bindeado correctamente!!!", NULL);
         break;
     }
 
@@ -58,7 +58,7 @@ void* esperar_cliente(void* socket){
 	server_status = RUNNING;
 	pthread_mutex_unlock(&mutex_server_status);
 
-	if(debug_broker) log_debug(broker_logger, "10) Hilo del servidor cargado correctamente!!!", NULL);
+	if(debug_broker) log_debug(broker_debug_logger, "10) Hilo del servidor cargado correctamente!!!", NULL);
 
 	while(server_status != ENDING){
 
@@ -69,6 +69,8 @@ void* esperar_cliente(void* socket){
 		int tam_direccion = sizeof(struct sockaddr_in);
 
 		int socket_cliente = accept(socket_servidor, (void*) &dir_cliente,(socklen_t*) &tam_direccion);
+
+		log_info(broker_logger, "Se acepto un nuevo cliente en el socket %d", socket_cliente);
 
 		int* soc_cliente = (int*)malloc(sizeof(int));
 
@@ -151,7 +153,7 @@ void* transaccionar_paquete_recibido(){
 		free(produccion);
 
 	 if(debug_broker) {
-			log_debug(broker_logger,"Mensaje Recibido en el socket %d:\noperacion: %d \ncola_de_mensajes: %s \nid_correlacional: %d \nid_mensaje: %d \nid_cliente: %d \ntamanio_payload: %d",
+			log_debug(broker_debug_logger,"Mensaje Recibido en el socket %d:\noperacion: %d \ncola_de_mensajes: %s \nid_correlacional: %d \nid_mensaje: %d \nid_cliente: %d \ntamanio_payload: %d",
 				socket_cliente,
 				paquete->operacion,
 				obtener_nombre_cola(paquete->cola_de_mensajes),
@@ -178,7 +180,7 @@ void* transaccionar_paquete_recibido(){
 				break;
 			
 			default:
-				log_error(broker_logger, "Error, operacion desconocida: %d", paquete->operacion);
+				log_error(broker_debug_logger, "Error, operacion desconocida: %d", paquete->operacion);
 				break;
 		}
 
@@ -190,7 +192,8 @@ void* transaccionar_paquete_recibido(){
 
 void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 
-	log_info(broker_logger, "El cliente %d envió un mensaje para la cola %d a través de socket %d", paquete->id_cliente, paquete->cola_de_mensajes,socket_cliente);
+	log_info(broker_logger, "El cliente %d envió un mensaje para la cola %s a través de socket %d", paquete->id_cliente, obtener_nombre_cola(paquete->cola_de_mensajes),socket_cliente);
+
 	int id_mensaje = agregar_mensaje_a_cola(paquete);
 	
 	distribuir_ack(socket_cliente,id_mensaje,-1);
@@ -203,7 +206,7 @@ void recibir_mensaje_de_colas(t_packed* paquete,int socket_cliente){
 
 void recibir_solicitud_suscripcion(t_packed *paquete,int socket_cliente){
 
-	log_info(broker_logger, "El cliente %d solicitó suscribirse a la cola %d a través del socket %d", paquete->id_cliente, paquete->cola_de_mensajes, socket_cliente);
+	log_info(broker_logger, "El cliente %d solicitó suscribirse a la cola %s a través del socket %d", paquete->id_cliente, obtener_nombre_cola(paquete->cola_de_mensajes), socket_cliente);
 
 	agregar_suscriptor_a_cola(paquete->cola_de_mensajes, paquete->id_cliente, socket_cliente);
 	

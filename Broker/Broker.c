@@ -21,24 +21,25 @@ int main(){
 	inicializar_logger();
 	//activo los logs de debug
 
-	debug_broker = false;
+	debug_broker = true;
 	warn_broker = true;
+	compactando_memoria = false;
 
-	if(debug_broker) log_debug(broker_logger, "1) Cache de mensajes lista!!!");
+	if(debug_broker) log_debug(broker_debug_logger, "1) Cache de mensajes lista!!!");
 	
-	if(debug_broker) log_debug(broker_logger, "2) Inicializando archivo de configuracion...");
+	if(debug_broker) log_debug(broker_debug_logger, "2) Inicializando archivo de configuracion...");
 
 	inicializar_archivo_de_configuracion();
 
-	if(debug_broker) log_debug(broker_logger, "3) Configuraciones cargadas correctamente!!!");
+	if(debug_broker) log_debug(broker_debug_logger, "3) Configuraciones cargadas correctamente!!!");
 
-	if(debug_broker) log_debug(broker_logger, "4) Configurando signals...");
+	if(debug_broker) log_debug(broker_debug_logger, "4) Configurando signals...");
 
 	configurar_signals();
 
-	if(debug_broker) log_debug(broker_logger, "5) Signals configuradas correctamente!!!");
+	if(debug_broker) log_debug(broker_debug_logger, "5) Signals configuradas correctamente!!!");
 
-	if(debug_broker) log_debug(broker_logger, "6) Inicializando cache de mensajes...");
+	if(debug_broker) log_debug(broker_debug_logger, "6) Inicializando cache de mensajes...");
 
 	pthread_mutex_lock(&mutex_recepcion_mensajes);
 	

@@ -1,0 +1,42 @@
+[INFO] 12:05:19:277 Broker/(13638:13638): Se acepto un nuevo cliente en el socket 16
+[INFO] 12:05:19:278 Broker/(13638:13639): El cliente 7 envió un mensaje para la cola CAUGHT_POKEMON a través de socket 16
+[INFO] 12:05:19:278 Broker/(13638:13639): Almacenado mensaje en la posicion 0 (0x97accc0)
+[INFO] 12:05:19:280 Broker/(13638:13638): Se acepto un nuevo cliente en el socket 20
+[INFO] 12:05:19:280 Broker/(13638:13639): El cliente 7 envió un mensaje para la cola CAUGHT_POKEMON a través de socket 20
+[INFO] 12:05:19:280 Broker/(13638:13639): Almacenado mensaje en la posicion 4 (0x97accc4)
+[INFO] 12:05:19:286 Broker/(13638:13638): Se acepto un nuevo cliente en el socket 21
+[INFO] 12:05:19:287 Broker/(13638:13639): El cliente 7 envió un mensaje para la cola CATCH_POKEMON a través de socket 21
+[INFO] 12:05:19:287 Broker/(13638:13639): Almacenado mensaje en la posicion 8 (0x97accc8)
+[INFO] 12:05:19:291 Broker/(13638:13638): Se acepto un nuevo cliente en el socket 22
+[INFO] 12:05:19:292 Broker/(13638:13639): El cliente 7 envió un mensaje para la cola CATCH_POKEMON a través de socket 22
+[INFO] 12:05:19:292 Broker/(13638:13639): Almacenado mensaje en la posicion 27 (0x97accdb)
+[INFO] 12:05:19:293 Broker/(13638:13638): Se acepto un nuevo cliente en el socket 23
+[INFO] 12:05:19:294 Broker/(13638:13639): El cliente 7 envió un mensaje para la cola CATCH_POKEMON a través de socket 23
+[INFO] 12:05:19:294 Broker/(13638:13639): Almacenado mensaje en la posicion 47 (0x97accef)
+[INFO] 12:05:19:760 Broker/(13638:13638): Se acepto un nuevo cliente en el socket 25
+[INFO] 12:05:19:762 Broker/(13638:13639): El cliente 7 solicitó suscribirse a la cola CAUGHT_POKEMON a través del socket 25
+[INFO] 12:05:19:762 Broker/(13638:13644): Se envió mensaje 0 perteneciente a la cola CAUGHT_POKEMON al cliente 7
+[INFO] 12:05:19:762 Broker/(13638:13644): Se envió mensaje 1 perteneciente a la cola CAUGHT_POKEMON al cliente 7
+[INFO] 12:05:19:779 Broker/(13638:13638): Se acepto un nuevo cliente en el socket 26
+[INFO] 12:05:19:780 Broker/(13638:13639): El cliente 7 envió confirmación del mensaje 0 a través del socket 26 
+[INFO] 12:05:19:781 Broker/(13638:13638): Se acepto un nuevo cliente en el socket 27
+[INFO] 12:05:19:781 Broker/(13638:13639): El cliente 7 envió confirmación del mensaje 1 a través del socket 27 
+[INFO] 12:05:29:828 Broker/(13638:13638): Se acepto un nuevo cliente en el socket 28
+[INFO] 12:05:29:829 Broker/(13638:13639): El cliente 7 envió un mensaje para la cola CATCH_POKEMON a través de socket 28
+[INFO] 12:05:29:829 Broker/(13638:13639): Eliminado de una particion en la posicion 0 (0x97accc0)
+[INFO] 12:05:29:829 Broker/(13638:13639): Ejecutando compactación de memoria
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 0 (0x97accc0)
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 4 (0x97accc4)
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 23 (0x97accd7)
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 43 (0x97acceb)
+[INFO] 12:05:29:829 Broker/(13638:13639): Eliminado de una particion en la posicion 0 (0x97accc0)
+[INFO] 12:05:29:829 Broker/(13638:13639): Ejecutando compactación de memoria
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 0 (0x97accc0)
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 19 (0x97accd3)
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 39 (0x97acce7)
+[INFO] 12:05:29:829 Broker/(13638:13639): Eliminado de una particion en la posicion 0 (0x97accc0)
+[INFO] 12:05:29:829 Broker/(13638:13639): Ejecutando compactación de memoria
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 0 (0x97accc0)
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 20 (0x97accd4)
+[INFO] 12:05:29:829 Broker/(13638:13639): Almacenado mensaje en la posicion 36 (0x97acce4)
+[INFO] 12:05:53:722 Broker/(13638:13638): Se acepto un nuevo cliente en el socket -1
