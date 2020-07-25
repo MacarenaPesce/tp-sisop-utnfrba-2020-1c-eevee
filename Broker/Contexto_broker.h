@@ -57,6 +57,7 @@ extern pthread_t hilo_transacciones;
 extern t_list* paquetes_pendientes;
 extern sem_t transaccionar_paquetes_pendientes; 
 extern t_log* broker_logger;
+extern t_log* broker_debug_logger;
 extern t_config* config;
 extern t_cache_colas* cache_mensajes;
 extern bool debug_broker;

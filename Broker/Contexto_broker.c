@@ -17,6 +17,7 @@ pthread_t hilo_transacciones;
 t_list* paquetes_pendientes;
 sem_t transaccionar_paquetes_pendientes; 
 t_log* broker_logger;
+t_log* broker_debug_logger;
 t_config* config;
 t_cache_colas* cache_mensajes;
 bool debug_broker;

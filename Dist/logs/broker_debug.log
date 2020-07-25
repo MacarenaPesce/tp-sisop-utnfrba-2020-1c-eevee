@@ -1,0 +1,330 @@
+[INFO] 11:15:23:24 Broker/(8343:8343): *************** INICIANDO EJECUCION DE BROKER ***************
+[DEBUG] 11:15:23:24 Broker/(8343:8343): 1) Cache de mensajes lista!!!
+[DEBUG] 11:15:23:24 Broker/(8343:8343): 2) Inicializando archivo de configuracion...
+[INFO] 11:15:23:24 Broker/(8343:8343): Cargando el archivo de configuracion...
+[DEBUG] 11:15:23:24 Broker/(8343:8343): El tamaño inicial de memoria: 64
+[DEBUG] 11:15:23:24 Broker/(8343:8343): El tamaño minimo de particion: 4
+[DEBUG] 11:15:23:24 Broker/(8343:8343): El algoritmo de memoria es: PARTICIONES
+[DEBUG] 11:15:23:24 Broker/(8343:8343): El algoritmo de reemplazo es: FIFO
+[DEBUG] 11:15:23:24 Broker/(8343:8343): El algoritmo para particiones libre es: FF
+[DEBUG] 11:15:23:24 Broker/(8343:8343): la ip del broker es: 127.0.0.1
+[DEBUG] 11:15:23:24 Broker/(8343:8343): el puerto del broker es: 5002
+[DEBUG] 11:15:23:24 Broker/(8343:8343): La frecuencia de compactacion es: 1
+[DEBUG] 11:15:23:24 Broker/(8343:8343): El log file es: Broker.log
+[INFO] 11:15:23:24 Broker/(8343:8343): Archivo de configuracion cargado...
+[DEBUG] 11:15:23:24 Broker/(8343:8343): 3) Configuraciones cargadas correctamente!!!
+[DEBUG] 11:15:23:24 Broker/(8343:8343): 4) Configurando signals...
+[DEBUG] 11:15:23:25 Broker/(8343:8343): 5) Signals configuradas correctamente!!!
+[DEBUG] 11:15:23:25 Broker/(8343:8343): 6) Inicializando cache de mensajes...
+[DEBUG] 11:15:23:25 Broker/(8343:8343): la direccion de memoria en memoria l51 es: 144048936 
+[INFO] 11:15:23:25 Broker/(8343:8343): Se asigno memoria inicial. La direccion inicial de memoria es: 0x8961cc0
+[INFO] 11:15:23:25 Broker/(8343:8343): Particion de memoria inicial creada con: 64
+[DEBUG] 11:15:23:25 Broker/(8343:8343): 7) Iniciando servidor...
+[DEBUG] 11:15:23:25 Broker/(8343:8343): 8) Intentando bindear sever...
+[DEBUG] 11:15:23:25 Broker/(8343:8343): 9) Server bindeado correctamente!!!
+[DEBUG] 11:15:23:25 Broker/(8343:8343): 10) Hilo del servidor cargado correctamente!!!
+[DEBUG] 11:15:29:354 Broker/(8343:8344): Mensaje Recibido en el socket 16:
+operacion: 0 
+cola_de_mensajes: CAUGHT_POKEMON 
+id_correlacional: -1 
+id_mensaje: -1 
+id_cliente: 7 
+tamanio_payload: 4
+[INFO] 11:15:29:354 Broker/(8343:8344): Nueva peticion de memoria de: 4
+[INFO] 11:15:29:354 Broker/(8343:8344): PARTICIONES DINAMICAS
+[DEBUG] 11:15:29:354 Broker/(8343:8344): Alojar: 4
+[INFO] 11:15:29:354 Broker/(8343:8344): Se hace una particion de: 4 
+[INFO] 11:15:29:354 Broker/(8343:8344): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 11:15:29:354 Broker/(8343:8344): FIRST FIT
+[DEBUG] 11:15:29:354 Broker/(8343:8344): El indice a particionar del bloque adecuado es: 0
+[DEBUG] 11:15:29:354 Broker/(8343:8344): Indice a particionar del nodo: 0
+[DEBUG] 11:15:29:354 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:29:354 Broker/(8343:8344): Ya ejecute el algoritmo fist fit
+[DEBUG] 11:15:29:354 Broker/(8343:8344): Algoritmo de particion libre ejecutado!
+[WARNING] 11:15:29:354 Broker/(8343:8344): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 11:15:29:355 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 60 
+
+[DEBUG] 11:15:29:355 Broker/(8343:8344): Aloje la nueva particion , PD
+[DEBUG] 11:15:29:360 Broker/(8343:8344): Mensaje Recibido en el socket 20:
+operacion: 0 
+cola_de_mensajes: CAUGHT_POKEMON 
+id_correlacional: -1 
+id_mensaje: -1 
+id_cliente: 7 
+tamanio_payload: 4
+[INFO] 11:15:29:360 Broker/(8343:8344): Nueva peticion de memoria de: 4
+[INFO] 11:15:29:360 Broker/(8343:8344): PARTICIONES DINAMICAS
+[DEBUG] 11:15:29:360 Broker/(8343:8344): Alojar: 4
+[INFO] 11:15:29:360 Broker/(8343:8344): Se hace una particion de: 4 
+[INFO] 11:15:29:360 Broker/(8343:8344): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 11:15:29:360 Broker/(8343:8344): FIRST FIT
+[DEBUG] 11:15:29:360 Broker/(8343:8344): El indice a particionar del bloque adecuado es: 1
+[DEBUG] 11:15:29:360 Broker/(8343:8344): Indice a particionar del nodo: 1
+[DEBUG] 11:15:29:360 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:29:360 Broker/(8343:8344): Ya ejecute el algoritmo fist fit
+[DEBUG] 11:15:29:360 Broker/(8343:8344): Algoritmo de particion libre ejecutado!
+[WARNING] 11:15:29:360 Broker/(8343:8344): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 11:15:29:360 Broker/(8343:8344): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 11:15:29:360 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 56 
+
+[DEBUG] 11:15:29:360 Broker/(8343:8344): Aloje la nueva particion , PD
+[DEBUG] 11:15:29:362 Broker/(8343:8344): Mensaje Recibido en el socket 21:
+operacion: 0 
+cola_de_mensajes: CATCH_POKEMON 
+id_correlacional: -1 
+id_mensaje: -1 
+id_cliente: 7 
+tamanio_payload: 19
+[INFO] 11:15:29:362 Broker/(8343:8344): Nueva peticion de memoria de: 19
+[INFO] 11:15:29:362 Broker/(8343:8344): PARTICIONES DINAMICAS
+[DEBUG] 11:15:29:362 Broker/(8343:8344): Alojar: 19
+[INFO] 11:15:29:362 Broker/(8343:8344): Se hace una particion de: 19 
+[INFO] 11:15:29:362 Broker/(8343:8344): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 11:15:29:362 Broker/(8343:8344): FIRST FIT
+[DEBUG] 11:15:29:362 Broker/(8343:8344): El indice a particionar del bloque adecuado es: 2
+[DEBUG] 11:15:29:362 Broker/(8343:8344): Indice a particionar del nodo: 2
+[DEBUG] 11:15:29:362 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:29:362 Broker/(8343:8344): Ya ejecute el algoritmo fist fit
+[DEBUG] 11:15:29:362 Broker/(8343:8344): Algoritmo de particion libre ejecutado!
+[WARNING] 11:15:29:362 Broker/(8343:8344): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 11:15:29:362 Broker/(8343:8344): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 11:15:29:362 Broker/(8343:8344): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 11:15:29:362 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 37 
+
+[DEBUG] 11:15:29:362 Broker/(8343:8344): Aloje la nueva particion , PD
+[DEBUG] 11:15:29:364 Broker/(8343:8344): Mensaje Recibido en el socket 22:
+operacion: 0 
+cola_de_mensajes: CATCH_POKEMON 
+id_correlacional: -1 
+id_mensaje: -1 
+id_cliente: 7 
+tamanio_payload: 20
+[INFO] 11:15:29:364 Broker/(8343:8344): Nueva peticion de memoria de: 20
+[INFO] 11:15:29:364 Broker/(8343:8344): PARTICIONES DINAMICAS
+[DEBUG] 11:15:29:364 Broker/(8343:8344): Alojar: 20
+[INFO] 11:15:29:364 Broker/(8343:8344): Se hace una particion de: 20 
+[INFO] 11:15:29:364 Broker/(8343:8344): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 11:15:29:364 Broker/(8343:8344): FIRST FIT
+[DEBUG] 11:15:29:364 Broker/(8343:8344): El indice a particionar del bloque adecuado es: 3
+[DEBUG] 11:15:29:364 Broker/(8343:8344): Indice a particionar del nodo: 3
+[DEBUG] 11:15:29:364 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:29:364 Broker/(8343:8344): Ya ejecute el algoritmo fist fit
+[DEBUG] 11:15:29:364 Broker/(8343:8344): Algoritmo de particion libre ejecutado!
+[WARNING] 11:15:29:364 Broker/(8343:8344): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 11:15:29:364 Broker/(8343:8344): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 11:15:29:364 Broker/(8343:8344): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 11:15:29:364 Broker/(8343:8344): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 11:15:29:364 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 17 
+
+[DEBUG] 11:15:29:364 Broker/(8343:8344): Aloje la nueva particion , PD
+[DEBUG] 11:15:29:366 Broker/(8343:8344): Mensaje Recibido en el socket 23:
+operacion: 0 
+cola_de_mensajes: CATCH_POKEMON 
+id_correlacional: -1 
+id_mensaje: -1 
+id_cliente: 7 
+tamanio_payload: 16
+[INFO] 11:15:29:366 Broker/(8343:8344): Nueva peticion de memoria de: 16
+[INFO] 11:15:29:366 Broker/(8343:8344): PARTICIONES DINAMICAS
+[DEBUG] 11:15:29:366 Broker/(8343:8344): Alojar: 16
+[INFO] 11:15:29:366 Broker/(8343:8344): Se hace una particion de: 16 
+[INFO] 11:15:29:366 Broker/(8343:8344): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 11:15:29:366 Broker/(8343:8344): FIRST FIT
+[DEBUG] 11:15:29:366 Broker/(8343:8344): El indice a particionar del bloque adecuado es: 4
+[DEBUG] 11:15:29:366 Broker/(8343:8344): Indice a particionar del nodo: 4
+[DEBUG] 11:15:29:366 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:29:366 Broker/(8343:8344): Ya ejecute el algoritmo fist fit
+[DEBUG] 11:15:29:366 Broker/(8343:8344): Algoritmo de particion libre ejecutado!
+[WARNING] 11:15:29:366 Broker/(8343:8344): contenido: mensaje 0 | Tamaño: 4 
+
+[WARNING] 11:15:29:366 Broker/(8343:8344): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 11:15:29:366 Broker/(8343:8344): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 11:15:29:366 Broker/(8343:8344): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 11:15:29:366 Broker/(8343:8344): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 11:15:29:366 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 1 
+
+[DEBUG] 11:15:29:366 Broker/(8343:8344): Aloje la nueva particion , PD
+[DEBUG] 11:15:29:887 Broker/(8343:8344): Mensaje Recibido en el socket 25:
+operacion: 1 
+cola_de_mensajes: CAUGHT_POKEMON 
+id_correlacional: -1 
+id_mensaje: -1 
+id_cliente: 7 
+tamanio_payload: 0
+[DEBUG] 11:15:29:887 Broker/(8343:8344): Recibida suscripcion de cliente 7 en socket 25
+[DEBUG] 11:15:29:887 Broker/(8343:8344): Creando nuevo cliente 7 para la cola CAUGHT_POKEMON en socket 25
+[DEBUG] 11:15:29:887 Broker/(8343:8344): Agregado mensaje 0 pendiente de envio a 7
+[DEBUG] 11:15:29:888 Broker/(8343:8344): Agregado mensaje 1 pendiente de envio a 7
+[DEBUG] 11:15:29:888 Broker/(8343:8349): Los pendientes tienen 2 mensajes
+[DEBUG] 11:15:29:888 Broker/(8343:8349): Los pendientes quedaron con 1 mensajes
+[DEBUG] 11:15:29:888 Broker/(8343:8349): Los pendientes tienen 1 mensajes
+[DEBUG] 11:15:29:888 Broker/(8343:8349): Los pendientes quedaron con 0 mensajes
+[DEBUG] 11:15:29:908 Broker/(8343:8344): Mensaje Recibido en el socket 26:
+operacion: 2 
+cola_de_mensajes:  
+id_correlacional: -1 
+id_mensaje: 0 
+id_cliente: 7 
+tamanio_payload: 0
+[DEBUG] 11:15:29:910 Broker/(8343:8344): Mensaje Recibido en el socket 27:
+operacion: 2 
+cola_de_mensajes:  
+id_correlacional: -1 
+id_mensaje: 1 
+id_cliente: 7 
+tamanio_payload: 0
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Mensaje Recibido en el socket 28:
+operacion: 0 
+cola_de_mensajes: CATCH_POKEMON 
+id_correlacional: -1 
+id_mensaje: -1 
+id_cliente: 7 
+tamanio_payload: 22
+[INFO] 11:15:39:949 Broker/(8343:8344): Nueva peticion de memoria de: 22
+[INFO] 11:15:39:949 Broker/(8343:8344): PARTICIONES DINAMICAS
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Alojar: 22
+[INFO] 11:15:39:949 Broker/(8343:8344): Se hace una particion de: 22 
+[INFO] 11:15:39:949 Broker/(8343:8344): Frecuencia de compactacion > 0...
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Por ejecutar algoritmo de reemplazo FIFO
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Ejecutando Algoritmo FIFO
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Espacio liberado..
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Algoritmo de reemplazo ejecutado!
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Ya consolide luego de vaciar una particion
+[INFO] 11:15:39:949 Broker/(8343:8344): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 11:15:39:949 Broker/(8343:8344): Por compactar... La frecuencia = 0
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Ejecutando compactación
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 4 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 1 
+
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a compactar: 0
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a particionar del nodo: 0
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a compactar: 1
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a particionar del nodo: 1
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a compactar: 2
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a particionar del nodo: 2
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a compactar: 3
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a particionar del nodo: 3
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a compactar: 4
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 1 | Tamaño: 4 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 5 
+
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Compactacion terminada
+[INFO] 11:15:39:949 Broker/(8343:8344): Frecuencia de compactacion > 0...
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Por ejecutar algoritmo de reemplazo FIFO
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Ejecutando Algoritmo FIFO
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Espacio liberado..
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Algoritmo de reemplazo ejecutado!
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Ya consolide luego de vaciar una particion
+[INFO] 11:15:39:949 Broker/(8343:8344): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 11:15:39:949 Broker/(8343:8344): Por compactar... La frecuencia = 0
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Ejecutando compactación
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 4 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 11:15:39:949 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 5 
+
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a compactar: 0
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a particionar del nodo: 0
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a compactar: 1
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a particionar del nodo: 1
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:949 Broker/(8343:8344): Indice a compactar: 2
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Indice a particionar del nodo: 2
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Indice a compactar: 3
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 2 | Tamaño: 19 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 9 
+
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Compactacion terminada
+[INFO] 11:15:39:950 Broker/(8343:8344): Frecuencia de compactacion > 0...
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Por ejecutar algoritmo de reemplazo FIFO
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Ejecutando Algoritmo FIFO
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Espacio liberado..
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Algoritmo de reemplazo ejecutado!
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Ya consolide luego de vaciar una particion
+[INFO] 11:15:39:950 Broker/(8343:8344): Frecuencia de compactacion, faltan vaciar 0 particiones para compactar
+[INFO] 11:15:39:950 Broker/(8343:8344): Por compactar... La frecuencia = 0
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Ejecutando compactación
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 19 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 9 
+
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Indice a compactar: 0
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Indice a particionar del nodo: 0
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Indice a compactar: 1
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Indice a particionar del nodo: 1
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Indice a compactar: 2
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 28 
+
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Compactacion terminada
+[INFO] 11:15:39:950 Broker/(8343:8344): Ejecutando Algoritmo de Particion Libre FF
+[DEBUG] 11:15:39:950 Broker/(8343:8344): FIRST FIT
+[DEBUG] 11:15:39:950 Broker/(8343:8344): El indice a particionar del bloque adecuado es: 2
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Indice a particionar del nodo: 2
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Bloque particionado...
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Ya ejecute el algoritmo fist fit
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Algoritmo de particion libre ejecutado!
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 3 | Tamaño: 20 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 4 | Tamaño: 16 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: mensaje 5 | Tamaño: 22 
+
+[WARNING] 11:15:39:950 Broker/(8343:8344): contenido: bloque_vacio | Tamaño: 6 
+
+[DEBUG] 11:15:39:950 Broker/(8343:8344): Aloje la nueva particion , PD

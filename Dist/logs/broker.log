@@ -1,0 +1,38 @@
+[INFO] 11:15:29:354 Broker/(8343:8343): Se acepto un nuevo cliente en el socket 16
+[INFO] 11:15:29:354 Broker/(8343:8344): El cliente 7 envió un mensaje para la cola CAUGHT_POKEMON a través de socket 16
+[INFO] 11:15:29:354 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb3200470, su posicion relativa es 0
+[INFO] 11:15:29:360 Broker/(8343:8343): Se acepto un nuevo cliente en el socket 20
+[INFO] 11:15:29:360 Broker/(8343:8344): El cliente 7 envió un mensaje para la cola CAUGHT_POKEMON a través de socket 20
+[INFO] 11:15:29:360 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb32004f0, su posicion relativa es 4
+[INFO] 11:15:29:362 Broker/(8343:8343): Se acepto un nuevo cliente en el socket 21
+[INFO] 11:15:29:362 Broker/(8343:8344): El cliente 7 envió un mensaje para la cola CATCH_POKEMON a través de socket 21
+[INFO] 11:15:29:362 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb3200560, su posicion relativa es 8
+[INFO] 11:15:29:363 Broker/(8343:8343): Se acepto un nuevo cliente en el socket 22
+[INFO] 11:15:29:364 Broker/(8343:8344): El cliente 7 envió un mensaje para la cola CATCH_POKEMON a través de socket 22
+[INFO] 11:15:29:364 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb32005d8, su posicion relativa es 27
+[INFO] 11:15:29:365 Broker/(8343:8343): Se acepto un nuevo cliente en el socket 23
+[INFO] 11:15:29:366 Broker/(8343:8344): El cliente 7 envió un mensaje para la cola CATCH_POKEMON a través de socket 23
+[INFO] 11:15:29:366 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb3200648, su posicion relativa es 47
+[INFO] 11:15:29:885 Broker/(8343:8343): Se acepto un nuevo cliente en el socket 25
+[INFO] 11:15:29:887 Broker/(8343:8344): El cliente 7 solicitó suscribirse a la cola CAUGHT_POKEMON a través del socket 25
+[INFO] 11:15:29:888 Broker/(8343:8349): Se envió mensaje 0 perteneciente a la cola CAUGHT_POKEMON al cliente 7
+[INFO] 11:15:29:888 Broker/(8343:8349): Se envió mensaje 1 perteneciente a la cola CAUGHT_POKEMON al cliente 7
+[INFO] 11:15:29:905 Broker/(8343:8343): Se acepto un nuevo cliente en el socket 26
+[INFO] 11:15:29:908 Broker/(8343:8344): El cliente 7 envió confirmación del mensaje 0 a través del socket 26 
+[INFO] 11:15:29:909 Broker/(8343:8343): Se acepto un nuevo cliente en el socket 27
+[INFO] 11:15:29:910 Broker/(8343:8344): El cliente 7 envió confirmación del mensaje 1 a través del socket 27 
+[INFO] 11:15:39:946 Broker/(8343:8343): Se acepto un nuevo cliente en el socket 28
+[INFO] 11:15:39:949 Broker/(8343:8344): El cliente 7 envió un mensaje para la cola CATCH_POKEMON a través de socket 28
+[INFO] 11:15:39:949 Broker/(8343:8344): Eliminado de una particion en la posicion 0x8961cc0, su posicion relativa 0
+[INFO] 11:15:39:949 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb32004f0, su posicion relativa es 0
+[INFO] 11:15:39:949 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb3200560, su posicion relativa es 4
+[INFO] 11:15:39:949 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb32005d8, su posicion relativa es 23
+[INFO] 11:15:39:949 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb3200648, su posicion relativa es 43
+[INFO] 11:15:39:949 Broker/(8343:8344): Eliminado de una particion en la posicion 0x8961cc0, su posicion relativa 0
+[INFO] 11:15:39:949 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb3200560, su posicion relativa es 0
+[INFO] 11:15:39:949 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb32005d8, su posicion relativa es 19
+[INFO] 11:15:39:950 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb3200648, su posicion relativa es 39
+[INFO] 11:15:39:950 Broker/(8343:8344): Eliminado de una particion en la posicion 0x8961cc0, su posicion relativa 0
+[INFO] 11:15:39:950 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb32005d8, su posicion relativa es 0
+[INFO] 11:15:39:950 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb3200648, su posicion relativa es 20
+[INFO] 11:15:39:950 Broker/(8343:8344): Almacenado mensaje en la posicion real 0xb3200758, su posicion relativa es 36
