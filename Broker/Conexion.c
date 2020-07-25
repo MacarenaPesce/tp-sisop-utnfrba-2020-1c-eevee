@@ -18,7 +18,7 @@ void iniciar_servidor(void){
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
 
-    getaddrinfo("127.0.0.1", "5003", &hints, &servinfo);
+    getaddrinfo(ip_broker, puerto_broker, &hints, &servinfo);
 
     for (p=servinfo; p != NULL; p = p->ai_next){
 		if(debug_broker) log_debug(broker_debug_logger, "8) Intentando bindear sever...", NULL);
