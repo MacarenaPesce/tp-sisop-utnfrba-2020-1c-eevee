@@ -321,12 +321,10 @@ t_bloque_memoria* algoritmo_fifo(){
     if(debug_broker) log_debug(broker_debug_logger, "Ejecutando Algoritmo FIFO");
 
     t_bloque_memoria* bloque = obtener_bloque_mas_viejo();
-    
-    
 
     /* Calculo la posicion relativa */
     void* posicion_relativa = calcular_posicion_relativa(bloque);
-    log_info(broker_logger, "Eliminado de una particion en la posicion %p, su posicion relativa %d", bloque->estructura_mensaje->mensaje, posicion_relativa);
+    log_info(broker_logger, "Eliminado de una particion en la posicion %d (%p)",posicion_relativa,bloque->estructura_mensaje->mensaje);
 
     //libero la memoria de un determinado bloque de mi lista , y me lo devuelve
     liberar_bloque_memoria(bloque);
@@ -378,11 +376,9 @@ t_bloque_memoria* algoritmo_lru(){
 
     t_bloque_memoria* bloque = obtener_bloque_menos_referenciado();
 
-    log_info(broker_logger, "Eliminado de una particion en la posicion %p", bloque->estructura_mensaje->mensaje);
-
     /* Calculo la posicion relativa */
     void* posicion_relativa = calcular_posicion_relativa(bloque);
-    log_info(broker_logger, "Eliminado de una particion en la posicion relativa %d",posicion_relativa);
+    log_info(broker_logger, "Eliminado de una particion en la posicion %d (%p)",posicion_relativa,bloque->estructura_mensaje->mensaje);
 
     //libero la memoria de un determinado bloque de mi lista , y me lo devuelve
     liberar_bloque_memoria(bloque);
@@ -472,7 +468,7 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 
     /* Calculo la posicion relativa */
     void* posicion_relativa = calcular_posicion_relativa(bloque_inicial);
-    log_info(broker_logger, "Almacenado mensaje en la posicion real %p, su posicion relativa es %d", bloque_inicial->estructura_mensaje,posicion_relativa);
+    log_info(broker_logger, "Almacenado mensaje en la posicion %d (%p)", posicion_relativa, bloque_inicial->estructura_mensaje->mensaje);
 
     if(debug_broker) log_debug(broker_debug_logger, "Bloque particionado...");
 
@@ -486,7 +482,7 @@ t_bloque_memoria* particionar_bloque(int tamanio_parti, int indice_nodo_particio
 /* Se encarga de realizar la compactacion en particiones dinamicas*/
 void compactar(){
 
-    if(debug_broker) log_debug(broker_debug_logger, "Ejecutando compactación");
+    log_info(broker_logger, "Ejecutando compactación de memoria");
 
     void compactar_bloque(void* _bloque){
 
@@ -525,10 +521,13 @@ void compactar(){
 
             /* liberar el siguiente bloque y consolida */
             liberar_bloque_memoria_sin_mensaje(bloque_siguiente);
+
             consolidar_dos_bloques(bloque, bloque_siguiente);
 
             /* particiona el bloque resultante de consolidar, reinsertando los datos a izq */
+            
             particionar_bloque(bloque_auxiliar->tamanio_particion,indice, aux_estructura_mensaje);
+            
             
             /* obtengo el nuevo bloque y seteo los viejos timestamp*/
             bloque = list_get(cache_mensajes->memoria,indice);

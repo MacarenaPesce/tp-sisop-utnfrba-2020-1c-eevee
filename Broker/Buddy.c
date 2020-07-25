@@ -216,7 +216,7 @@ void particionar_bloque_buddies(t_bloque_memoria* particion_inicial,t_mensaje_co
 
 		/* Calculo la posicion relativa */
     	void* posicion_relativa = calcular_posicion_relativa(particion_inicial);
-		log_info(broker_logger, "Almacenado mensaje en la posicion real %p, su posicion relativa es %d", particion_inicial->estructura_mensaje, posicion_relativa);
+		log_info(broker_logger, "Almacenado mensaje en la posicion %d (%p)", posicion_relativa, particion_inicial->estructura_mensaje->mensaje);
 
 		if(debug_broker) log_debug(broker_debug_logger, "Bloque particionado...");
 	}
@@ -319,6 +319,11 @@ bool son_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_sig
 
 /* Se encarga de realizar la consolidacion en si */
 void consolidar_bloques_buddies(t_bloque_memoria* bloque_anterior, t_bloque_memoria* bloque_siguiente){
+
+	int posicion_relativa_anterior = calcular_posicion_relativa(bloque_anterior);
+	int posicion_relativa_siguiente = calcular_posicion_relativa(bloque_siguiente);
+
+	log_info(broker_logger, "Asociando bloques %d (%p) y %d (%p)",posicion_relativa_anterior,bloque_anterior->estructura_mensaje,posicion_relativa_siguiente,bloque_siguiente->estructura_mensaje);
 
 	consolidar_dos_bloques(bloque_anterior, bloque_siguiente);
 

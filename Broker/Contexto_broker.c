@@ -22,4 +22,5 @@ t_config* config;
 t_cache_colas* cache_mensajes;
 bool debug_broker;
 bool warn_broker;
+bool compactando_memoria;
 void* memoria_inicial;

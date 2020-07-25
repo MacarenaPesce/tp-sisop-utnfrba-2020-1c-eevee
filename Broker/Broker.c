@@ -23,6 +23,7 @@ int main(){
 
 	debug_broker = true;
 	warn_broker = true;
+	compactando_memoria = false;
 
 	if(debug_broker) log_debug(broker_debug_logger, "1) Cache de mensajes lista!!!");
 	
