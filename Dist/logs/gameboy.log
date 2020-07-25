@@ -1,21 +1,21 @@
-[INFO] 12:02:34:837 Gameboy/(13016:13016): Conectado a Broker
-[INFO] 12:02:34:837 Gameboy/(13016:13016): Recibí ACK del mensaje con ID: 0
-[INFO] 12:02:34:840 Gameboy/(13018:13018): Conectado a Broker
-[INFO] 12:02:34:840 Gameboy/(13018:13018): Recibí ACK del mensaje con ID: 1
-[INFO] 12:02:34:843 Gameboy/(13020:13020): Conectado a Broker
-[INFO] 12:02:34:843 Gameboy/(13020:13020): Recibí ACK del mensaje con ID: 2
-[INFO] 12:02:34:847 Gameboy/(13022:13022): Conectado a Broker
-[INFO] 12:02:34:847 Gameboy/(13022:13022): Recibí ACK del mensaje con ID: 3
-[INFO] 12:02:34:849 Gameboy/(13024:13024): Conectado a Broker
-[INFO] 12:02:34:849 Gameboy/(13024:13024): Recibí ACK del mensaje con ID: 4
-[INFO] 12:02:35:349 Gameboy/(13026:13026):  Envio a broker la solicitud de suscripcion para la cola CAUGHT_POKEMON y estare suscripto por 10 segundos
-[INFO] 12:02:35:388 Gameboy/(13026:13028): Recibido ack de suscripcion
-[INFO] 12:02:35:392 Gameboy/(13026:13028): Recibido mensaje de id 0
-[INFO] 12:02:35:393 Gameboy/(13026:13028): Me llego un mensaje de caught pokemon
-[INFO] 12:02:35:394 Gameboy/(13026:13028): Status: 0
-[INFO] 12:02:35:396 Gameboy/(13026:13028): Recibido mensaje de id 1
-[INFO] 12:02:35:396 Gameboy/(13026:13028): Me llego un mensaje de caught pokemon
-[INFO] 12:02:35:396 Gameboy/(13026:13028): Status: 0
-[INFO] 12:02:45:386 Gameboy/(13026:13026): Se acabo el tiempo de suscripcion
-[INFO] 12:02:45:445 Gameboy/(13050:13050): Conectado a Broker
-[INFO] 12:02:45:445 Gameboy/(13050:13050): Recibí ACK del mensaje con ID: 5
+[INFO] 12:05:19:278 Gameboy/(13655:13655): Conectado a Broker
+[INFO] 12:05:19:278 Gameboy/(13655:13655): Recibí ACK del mensaje con ID: 0
+[INFO] 12:05:19:280 Gameboy/(13657:13657): Conectado a Broker
+[INFO] 12:05:19:281 Gameboy/(13657:13657): Recibí ACK del mensaje con ID: 1
+[INFO] 12:05:19:288 Gameboy/(13659:13659): Conectado a Broker
+[INFO] 12:05:19:289 Gameboy/(13659:13659): Recibí ACK del mensaje con ID: 2
+[INFO] 12:05:19:292 Gameboy/(13661:13661): Conectado a Broker
+[INFO] 12:05:19:292 Gameboy/(13661:13661): Recibí ACK del mensaje con ID: 3
+[INFO] 12:05:19:294 Gameboy/(13663:13663): Conectado a Broker
+[INFO] 12:05:19:294 Gameboy/(13663:13663): Recibí ACK del mensaje con ID: 4
+[INFO] 12:05:19:734 Gameboy/(13665:13665):  Envio a broker la solicitud de suscripcion para la cola CAUGHT_POKEMON y estare suscripto por 10 segundos
+[INFO] 12:05:19:773 Gameboy/(13665:13667): Recibido ack de suscripcion
+[INFO] 12:05:19:777 Gameboy/(13665:13667): Recibido mensaje de id 0
+[INFO] 12:05:19:778 Gameboy/(13665:13667): Me llego un mensaje de caught pokemon
+[INFO] 12:05:19:778 Gameboy/(13665:13667): Status: 0
+[INFO] 12:05:19:780 Gameboy/(13665:13667): Recibido mensaje de id 1
+[INFO] 12:05:19:780 Gameboy/(13665:13667): Me llego un mensaje de caught pokemon
+[INFO] 12:05:19:780 Gameboy/(13665:13667): Status: 0
+[INFO] 12:05:29:775 Gameboy/(13665:13665): Se acabo el tiempo de suscripcion
+[INFO] 12:05:29:830 Gameboy/(13678:13678): Conectado a Broker
+[INFO] 12:05:29:830 Gameboy/(13678:13678): Recibí ACK del mensaje con ID: 5

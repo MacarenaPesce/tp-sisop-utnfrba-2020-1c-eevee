@@ -599,7 +599,7 @@ void consolidar_dos_bloques(t_bloque_memoria* primerBloque, t_bloque_memoria* se
 
 void dump_memoria(){
     
-    FILE* dumpeo = fopen("../dump.log","a");
+    FILE* dumpeo = fopen("../logs/dump.log","a");
 
     char fecha[50];
     time_t hoy;
