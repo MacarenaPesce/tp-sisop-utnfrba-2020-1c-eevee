@@ -44,8 +44,7 @@ void * atender_get_pokemon(t_packed * paquete){
 			eliminar_mensaje(ack);
 		}
 		list_destroy(lista_coordenadas);
-	} 	
-	//free(get_pokemon->pokemon);
+	}
 
 	free(servidor);
 
