@@ -182,10 +182,20 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			log_info(gameCard_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
 			hacer_intento_de_reconexion();
 			suscribirse_a_cola(paquete_suscripcion);
+			break;
+		}
 
-		}else{
+		//Recibo ACK
+		 t_packed * paquete = recibir_mensaje(broker_socket);
+
+		        if(paquete == (t_packed*)-2){
+		            //El socket finalizó, esta suscripcion no sirve mas
+		            break;
+		        }
+
+		//}else{
 			//Recibo ACK
-			t_packed * paquete = recibir_mensaje(broker_socket);
+			//t_packed * paquete = recibir_mensaje(broker_socket);
 
 			if(paquete != (t_packed*)-1){
 
@@ -227,7 +237,6 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			}
 			
 		}
-	}
 
 	free(servidor);
 	free(paquete_suscripcion);
