@@ -18,7 +18,7 @@ void * atender_get_pokemon(t_packed * paquete){
 	t_get_pokemon * get_pokemon = (t_get_pokemon*)paquete->mensaje;
 	log_debug(gameCard_logger, "Recibi el pedido de get pokemon para esta especie: %s.", get_pokemon->pokemon);
 
-	t_list* listaPosicionesParaLocalized;
+	//t_list* listaPosicionesParaLocalized;
 	listaPosicionesParaLocalized=operar_con_get_pokemon(get_pokemon);
 
 	if (!list_is_empty(listaPosicionesParaLocalized)){
@@ -40,10 +40,11 @@ void * atender_get_pokemon(t_packed * paquete){
 		t_packed * ack = enviar_localized_pokemon(servidor,paquete->id_mensaje,localized_pokemon);
 
 		eliminar_localized_pokemon(localized_pokemon);
-
+		if(ack != (t_packed*) -1){
+			eliminar_mensaje(ack);
+		}
+		list_destroy(lista_coordenadas);
 	}
-
-	free(get_pokemon->pokemon);
 
 	free(servidor);
 
@@ -68,10 +69,11 @@ void * atender_catch_pokemon(t_packed * paquete){
 		log_info(gameCard_logger, "El broker esta caído, no se pudo enviar el caught pokemon para la especie %s", catch_pokemon->pokemon);
 	}else{
 		log_info(gameCard_logger, "Enviado el status del caught pokemon para la especie %s", catch_pokemon->pokemon);
+	eliminar_mensaje(ack);
 	}
 
 	free(servidor);
-	eliminar_mensaje(paquete);
+	//eliminar_mensaje(paquete);
 	free(caught_pokemon);
 
 	return NULL;
@@ -103,11 +105,13 @@ void * atender_new_pokemon(t_packed * paquete){
 	}else{
 		log_info(gameCard_logger, "Enviado appeared pokemon para la especie %s, en la posicion ( %d, %d).",
 				appeared_pokemon->pokemon, appeared_pokemon->coordenadas.posx, appeared_pokemon->coordenadas.posy);
+		eliminar_mensaje(ack);
 	}
 
 	free(servidor);
-	eliminar_mensaje(paquete);
-	eliminar_mensaje(ack);
+	/*free(new_pokemon->pokemon);
+	free(new_pokemon);
+	eliminar_mensaje(ack);*/
 	free(appeared_pokemon);
 
 	return NULL;
@@ -177,49 +181,63 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			log_info(gameCard_logger, "No se pudo mandar al broker la solicitud de suscripcion para la cola %s", obtener_nombre_cola(paquete_suscripcion->cola));
 			hacer_intento_de_reconexion();
 			suscribirse_a_cola(paquete_suscripcion);
-			break;			
-		}
-
-		//Recibo ACK
-		t_packed * paquete = recibir_mensaje(broker_socket);
-
-		if(paquete == (t_packed*)-2){
-			//El socket finalizó, esta suscripcion no sirve mas
 			break;
 		}
 
-		if(paquete != (t_packed*)-1){
+		//Recibo ACK
+		 t_packed * paquete = recibir_mensaje(broker_socket);
 
-			//Quedo a la espera de recibir notificaciones
-			if(paquete->operacion == ENVIAR_MENSAJE){
-				switch(paquete->cola_de_mensajes){
-					case COLA_NEW_POKEMON:
-						//se envia ack al broker que llego bien
-						enviar_ack(servidor,paquete->id_mensaje);
-						log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
-						recibir_new_pokemon_desde_broker(paquete);
-						break;
-					case COLA_CATCH_POKEMON:
-						//se envia ack al broker que llego bien
-						enviar_ack(servidor,paquete->id_mensaje);
-						log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
-						recibir_catch_pokemon_desde_broker(paquete);
-						break;
-					case COLA_GET_POKEMON:
-						//se envia ack al broker que llego bien
-						enviar_ack(servidor,paquete->id_mensaje);
-						log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
-						recibir_get_pokemon_desde_broker(paquete);
-						break;
-					default:
-						log_error(gameCard_logger, "RECIBI COLA INVALIDA");
-						log_error(gameCard_logger, "COLA DE MENSAJES:%d", paquete->cola_de_mensajes);
-						break;
+		        if(paquete == (t_packed*)-2){
+		            //El socket finalizó, esta suscripcion no sirve mas
+		            break;
+		        }
+
+		//}else{
+			//Recibo ACK
+			//t_packed * paquete = recibir_mensaje(broker_socket);
+
+			if(paquete != (t_packed*)-1){
+
+				//Quedo a la espera de recibir notificaciones
+				if(paquete->operacion == ENVIAR_MENSAJE){
+					switch(paquete->cola_de_mensajes){
+						case COLA_NEW_POKEMON:
+							//se envia ack al broker que llego bien
+							enviar_ack(servidor,paquete->id_mensaje);
+							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
+							recibir_new_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
+							break;
+						case COLA_CATCH_POKEMON:
+							//se envia ack al broker que llego bien
+							enviar_ack(servidor,paquete->id_mensaje);
+							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
+							recibir_catch_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
+							break;
+						case COLA_GET_POKEMON:
+							//se envia ack al broker que llego bien
+							enviar_ack(servidor,paquete->id_mensaje);
+							log_info(gameCard_logger,"se informó la recepcion del mensaje al broker");
+							recibir_get_pokemon_desde_broker(paquete);
+							eliminar_mensaje(paquete);
+							break;
+						default:
+							log_error(gameCard_logger, "RECIBI COLA INVALIDA");
+							log_error(gameCard_logger, "COLA DE MENSAJES:%d", paquete->cola_de_mensajes);
+							eliminar_mensaje(paquete);
+							break;
+					}
+				}
+			} else {
+				if(paquete->operacion == ACK){
+					eliminar_mensaje(paquete);
 				}
 			}
+			
 		}
-		
-	}
+
+
 
 	free(servidor);
 	free(paquete_suscripcion);
