@@ -20,6 +20,8 @@ char* auxPokeEnMemo;
 
 char* unBloq;
 
+char* unPoke;
+
 void inicializarSemaforosParaPokemon();
 void agregarSemaforoPokemon(char* poke);
 void eliminarSemaforoPokemon(char* poke);
@@ -70,7 +72,7 @@ char* pokeLinea;
 //modificar pokemon
 
 //t_list* obtenerBloquesPokemon(char* poke);
-void llenarListaBloquesPoke(char* pok);
+void llenarListaBloquesPoke(char*, t_list*);
 
 extern char* pokemonEnMemoria;
 
