@@ -16,7 +16,7 @@ void crear_hilo_para_deadlock(){
 void chequear_cantidad_de_deadlocks_producidos(){
 	hayDeadlock = true;
 	if(es_el_primer_deadlock){
-		log_info(team_logger_oficial, "Inicio del algoritmo de deteccion y resolucion de deadlock");	
+		log_warning(team_logger_oficial, "Inicio del algoritmo de detección y resolución de deadlock");	
 		pthread_mutex_lock(&lista_bloq_max_mutex);
 		t_list * aux_a_recorrer = list_duplicate(lista_bloqueados_cant_max_alcanzada);
 		pthread_mutex_unlock(&lista_bloq_max_mutex);
@@ -93,7 +93,7 @@ void chequear_cantidad_de_deadlocks_producidos(){
 		es_el_primer_deadlock = false;
 		deadlocks_producidos = espera_circular;
 		log_info(team_logger, "La cantidad de deadlocks producidos es %i", espera_circular);
-		log_info(team_logger_oficial, "Cantidad de deadlocks detectados: %i", espera_circular);
+		log_warning(team_logger_oficial, "Cantidad de deadlocks detectados: %i", espera_circular);
 		list_destroy(aux_a_recorrer);
 		list_destroy(lista_espera_circular);
 	}
@@ -125,11 +125,11 @@ void * chequear_deadlock(){
 			pthread_mutex_lock(&lista_bloq_max_mutex);
 			CANTIDAD_EN_DEADLOCK = list_size(lista_bloqueados_cant_max_alcanzada);
 			pthread_mutex_unlock(&lista_bloq_max_mutex);
+			
+			chequear_cantidad_de_deadlocks_producidos();
 
 			log_info(team_logger_oficial, "La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
 			log_info(team_logger,"La cantidad de entrenadores en deadlock es %d", CANTIDAD_EN_DEADLOCK);
-			
-			chequear_cantidad_de_deadlocks_producidos();
 			break;
 		}
 	}
@@ -145,12 +145,10 @@ void * chequear_deadlock(){
 	pthread_mutex_unlock(&lista_listos_mutex);
 	
 	log_info(team_logger, "El entrenador %d pasó a la lista de listos para resolucion de deadlock", entrenador1->id);
-	log_info(team_logger_oficial, "El entrenador %d pasó a la lista de listos para resolucion de deadlock", entrenador1->id);
+	log_info(team_logger_oficial, "El entrenador %d pasó a la cola de listos para resolucion de deadlock", entrenador1->id);
 	entrenador1->estado = EJECUTANDO;
 
-	//pthread_mutex_lock(&tocando_pokemones_objetivos);
 	ver_entre_quienes_hay_deadlock_y_resolverlo(entrenador1);
-	//pthread_mutex_unlock(&tocando_pokemones_objetivos);
 	printf("\n");
 
 	return NULL;
@@ -160,33 +158,19 @@ void ver_entre_quienes_hay_deadlock_y_resolverlo(t_entrenador * entrenador1){
 
 	t_entrenador* entrenador2;
 	t_objetivo_entrenador* pokemon1 = elegir_pokemon_innecesario(entrenador1);
-  
-	log_info(team_logger, "El pokemon innecesario del entrenador %i es  %s", entrenador1->id, pokemon1->especie);
 	
 	int cant;
 
 	for(int i = 0; i < list_size(lista_bloqueados_cant_max_alcanzada); i++){
-		if(pokemon1 == NULL){
-			log_info(team_logger, "El pokemon innecesario del entrenador %i es NULO", entrenador1->id);
-		}
+
 		pthread_mutex_lock(&lista_bloq_max_mutex);
 		entrenador2 = list_get(lista_bloqueados_cant_max_alcanzada, i);
 		pthread_mutex_unlock(&lista_bloq_max_mutex);
 
-		/*for(int i = 0; i<(list_size(entrenador2->objetivo));i++){
-			t_objetivo_entrenador* pokemonnn = list_get(entrenador2->objetivo, i);
-			log_error(team_logger, "POKEMON %s VUELTA %d", pokemonnn->especie, i);
-		}*/
-
-		//log_error(team_logger, "EL POKEMON INNECESARIO ES %s", pokemon1->especie);
-
 		t_objetivo_entrenador* pokemon2 = buscar_pokemon_objetivo_por_especie(entrenador2->objetivo, pokemon1->especie);
-		//log_info(team_logger, "La especie del pokemon2 es %s", pokemon2->especie);
+		
 		if(pokemon2 != NULL){
-			//pthread_mutex_lock(&tocando_pokemones_objetivos);
 			cant = (int)pokemon2->cantidad;
-			//log_info(team_logger, "La cantidad es %i", cant);
-			//pthread_mutex_unlock(&tocando_pokemones_objetivos);
 			if(cant > 0){
 				log_info(team_logger, "Hay deadlock entre el entrenador %d y el entrenador %d", entrenador1->id, entrenador2->id);
 				break;
@@ -214,12 +198,14 @@ void planificar_para_deadlock(t_entrenador* entrenador1, t_entrenador* entrenado
 	pthread_mutex_unlock(&lista_bloq_max_mutex);
 
 	log_info(team_logger, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
-	log_info(team_logger_oficial, "El entrenador %d pasó a la lista de bloqueados esperando resolucion de deadlock", entrenador2->id);
-	log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador1->id);
+	log_info(team_logger_oficial, "El entrenador %d pasó a la cola de bloqueados esperando resolucion de deadlock", entrenador2->id);
+	log_info(team_logger_oficial, "El entrenador %d pasó a exec", entrenador1->id);
+	log_info(team_logger, "El entrenador %d pasó a ejecutar", entrenador1->id);
 	log_info(team_logger, "Haciendo el intercambio");
 	
 	sem_post(&array_semaforos_deadlock[entrenador1->id]);
 	cambios_de_contexto++;
+	
 	//ESPERAR A ENTRENADOR
 	sem_wait(&aviso_entrenador_hizo_intercambio);
 	
@@ -247,7 +233,7 @@ void verificar_si_entrenador_sigue_bloqueado(t_entrenador* entrenador){
 		pthread_mutex_unlock(&lista_comun_deadlock);
 
 		log_info(team_logger, "Luego de hacer un intercambio el entrenador %d paso a la lista de bloqueados con cantidad maxima", entrenador->id);
-		log_info(team_logger_oficial, "Luego de hacer un intercambio el entrenador %d paso a la lista de bloqueados con cantidad maxima", entrenador->id);
+		log_info(team_logger_oficial, "Luego de hacer un intercambio el entrenador %d pasó a la cola de bloqueados con cantidad maxima", entrenador->id);
 
 	}
 
@@ -282,13 +268,9 @@ void verificar_si_sigue_habiendo_deadlock_luego_del_intercambio(){
 			sem_wait(&todos_los_entrenadores_finalizaron);
 		}
 
-		printf("************************************************************************************************************");
-		printf("\n");
 		log_info(team_logger, "Objetivo global cumplido!!!!! :D");
-		printf("************************************************************************************************************");
-		printf("\n");
-
 		log_info(team_logger,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
+		log_info(team_logger_oficial, "\nObjetivo global cumplido\n");
 		log_info(team_logger_oficial,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
 		log_info(team_logger,"La cantidad de cambios de contextos realizados es: %i", cambios_de_contexto);
 		log_info(team_logger_oficial,"La cantidad de cambios de contextos realizados es: %i", cambios_de_contexto);

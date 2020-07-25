@@ -237,9 +237,10 @@ void * suscribirse_a_cola(t_suscripcion_a_broker * paquete_suscripcion){
 			
 		}
 
+
+
 	free(servidor);
 	free(paquete_suscripcion);
-
 
 	return NULL;
 }

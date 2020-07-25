@@ -52,10 +52,6 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	t_entrenador* otro_entrenador;
 	entrenador_mas_cercano = list_get(lista_aux, i);
 
-	/*if((void*)entrenador_mas_cercano->objetivo_actual != NULL){
-		entrenador_mas_cercano = list_get(lista_aux, i+1);
-	}*/
-
 	int cantidad_entrenadores = list_size(lista_aux);
 
 	while(i < cantidad_entrenadores){
@@ -104,8 +100,8 @@ void seleccionar_el_entrenador_mas_cercano_al_pokemon(t_pokemon* pokemon){
 	if(entrenador_mas_cercano == NULL){
 		//log_info(team_logger, "No hay mas entrenadores disponibles");
 	} else {
-		//log_info(team_logger, "La estimacion de %i es %f", entrenador_mas_cercano->id, entrenador_mas_cercano->estimacion_real);
-		log_info(team_logger_oficial, "El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
+		//log_info(team_logger_oficial, "La estimacion de %i es %f", entrenador_mas_cercano->id, entrenador_mas_cercano->estimacion_real);
+		log_info(team_logger_oficial, "El entrenador %d pasa a la cola de listos por ser el mas cercano a %s", entrenador_mas_cercano->id, entrenador_mas_cercano->objetivo_actual->especie);
 		log_info(team_logger,"El entrenador %d pasa a Ready por ser el mas cercano a %s", entrenador_mas_cercano->id, pokemon->especie);//entrenador_mas_cercano->objetivo_actual->especie);
 	}
 	if((!strcmp(algoritmo_planificacion, "SJF-CD"))){
@@ -157,10 +153,8 @@ void desalojar_ejecucion(void){
 }
 
 int estimar_entrenador(t_entrenador * entrenador){
-	//log_info(team_logger, "El alpha es %f", alpha/100);
 	entrenador->estimacion_anterior = entrenador->estimacion_real;
-	entrenador->estimacion_real = (alpha*entrenador->instruccion_actual) + ((1-alpha)*entrenador->estimacion_real);
-	//log_info(team_logger, "La estimacion real de este entrenador es %f", entrenador->estimacion_real);
+	entrenador->estimacion_real = ((alpha/100)*entrenador->instruccion_actual) + ((1-(alpha/100))*entrenador->estimacion_real);
 	entrenador->estimacion_actual  = entrenador->estimacion_real;
 	entrenador->instruccion_actual = 0;
 
@@ -173,7 +167,9 @@ void obtener_proximo_ejecucion(void){
 	los entrenadores será la misma y deberá poder ser modificable por archivo de configuración */
 
 	if( (!strcmp(algoritmo_planificacion, "SJF-SD")) || (!strcmp(algoritmo_planificacion, "SJF-CD"))){
+		pthread_mutex_lock(&lista_listos_mutex);
 		ordenar_lista_estimacion(lista_listos);
+		pthread_mutex_unlock(&lista_listos_mutex);
 	}
 	/* FIFO: Directamente saca el primer elemento de la lista y lo pone en ejecucion. Por default hace fifo */
 	if(entrenador_en_ejecucion != NULL){
@@ -210,7 +206,6 @@ void obtener_proximo_ejecucion(void){
 	entrenador_en_ejecucion = sacar_entrenador_de_lista_pid(lista_listos, entrenador_en_ejecucion->id);
 	pthread_mutex_unlock(&lista_listos_mutex);
 
-	log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador_en_ejecucion->id);
 	entrenador_en_ejecucion->estado = EJECUTANDO;
 
 	sem_post(&array_semaforos[(int)entrenador_en_ejecucion->id]);

@@ -263,12 +263,8 @@ void chequear_si_fue_cumplido_el_objetivo_global(){
 			sem_wait(&todos_los_entrenadores_finalizaron);
 		}
 
-		printf("************************************************************************************************************");
-		printf("\n");
 		log_info(team_logger, "Objetivo global cumplido!!!!! :D");
-		printf("************************************************************************************************************");
-		printf("\n");
-
+		log_info(team_logger_oficial, "\nObjetivo global cumplido\n");
 		log_info(team_logger,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
 		log_info(team_logger_oficial,"La cantidad de ciclos de CPU totales es: %i", ciclos_de_cpu);
 		log_info(team_logger,"La cantidad de cambios de contextos realizados es: %i", cambios_de_contexto);
@@ -289,9 +285,8 @@ void chequear_si_fue_cumplido_el_objetivo_global(){
 
 void hacer_procedimiento_para_atrapar_default(t_catch_pokemon* catch_pokemon, t_entrenador * entrenador){
 
-	log_info(team_logger_oficial, "Falló la conexión con Broker; inicia la operación default");
 	log_debug(team_logger, "El pokemon %s ha sido atrapado con exito por el entrenador %d", catch_pokemon->pokemon, entrenador->id);
-	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion %d %d", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
+	log_info(team_logger_oficial, "Se ha atrapado el pokemon %s en la posicion (%d ,%d)", catch_pokemon->pokemon, catch_pokemon->coordenadas.posx, catch_pokemon->coordenadas.posy);
 	
 	actualizar_mapa_y_entrenador(catch_pokemon, entrenador);
 	sem_post(&mapa_y_entrenador);
@@ -339,7 +334,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			list_add(lista_bloqueados_esperando, (void*)entrenador);
 			pthread_mutex_unlock(&bloqueados_esperando_mutex);
 
-			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando pokemones", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador %d pasó a la cola de bloqueados esperando pokemones", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que aparezcan pokemones", entrenador->id);
 			//mostrar_lo_que_hay_en_la_lista_de_objetivos_del_entrenador(entrenador->objetivo);
 			chequeo_si_puedo_atrapar_otro();
@@ -350,7 +345,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 		case ESPERANDO_MENSAJE_CAUGHT:
 
 			list_add(lista_bloqueados_esperando_caught, (void*)entrenador);
-			log_info(team_logger_oficial, "El entrenador %d esta bloqueado esperando que llegue mensaje Caught", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador %d pasó a la cola de bloqueados esperando que llegue mensaje Caught", entrenador->id);
 			log_info(team_logger, "El entrenador %d esta bloqueado esperando que llegue mensaje caught", entrenador->id);
 
 			sem_post(&podes_sacar_entrenador);
@@ -367,7 +362,7 @@ void bloquear_entrenador(t_entrenador* entrenador){
 			pthread_mutex_unlock(&bloqueados_esperando_mutex);
 
 			log_info(team_logger,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
-			log_info(team_logger_oficial,"El entrenador %d está bloqueado por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
+			log_info(team_logger_oficial,"El entrenador %d pasó a la cola de bloqueados por haber alcanzado la cantidad máxima de pokemones que podía atrapar", entrenador->id);
 
 			sem_post(&me_bloquee);
 			sem_post(&orden_para_planificar);
@@ -414,10 +409,10 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 			list_add(lista_listos, entrenador);
 			pthread_mutex_unlock(&lista_listos_mutex);
 			log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
-			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y pasó a la cola de listos", entrenador->id);
 
 			sem_post(&orden_para_planificar);
-			log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
+			log_info(team_logger_oficial, "El entrenador %d pasó a exec", entrenador->id);
 		}
 	}
 
@@ -445,7 +440,7 @@ void consumir_un_ciclo_de_cpu(t_entrenador* entrenador){
 				pthread_mutex_unlock(&lista_listos_mutex);
 				//cambios_de_contexto++;
 				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
-				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y pasó a la cola de listos", entrenador->id);
 				sem_post(&orden_para_planificar);
 				log_info(team_logger_oficial, "El entrenador %d pasó a ejecutar", entrenador->id);
 		}
@@ -491,10 +486,11 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 				list_add(lista_listos, entrenador);
 				pthread_mutex_unlock(&lista_listos_mutex);
 				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
-				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y pasó a la cola de listos", entrenador->id);
 
 				sem_post(&orden_para_planificar);
 				sem_wait(&array_semaforos[entrenador->id]);
+				log_info(team_logger_oficial, "El entrenador %d pasó a exec", entrenador->id);
 			}
 			
 		}
@@ -525,9 +521,10 @@ void consumir_un_ciclo_de_cpu_mientras_planificamos(t_entrenador * entrenador){
 				pthread_mutex_unlock(&lista_listos_mutex);
 				//cambios_de_contexto++;
 				log_info(team_logger, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
-				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y paso a Ready", entrenador->id);
+				log_info(team_logger_oficial, "El entrenador de id %d fue desalojado y pasó a la cola de listos", entrenador->id);
 				sem_post(&orden_para_planificar);
 				sem_wait(&array_semaforos[entrenador->id]);
+				log_info(team_logger_oficial, "El entrenador %d pasó a exec", entrenador->id);
 			}
 		}
 	}
