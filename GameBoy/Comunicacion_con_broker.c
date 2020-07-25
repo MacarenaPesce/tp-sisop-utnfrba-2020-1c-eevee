@@ -26,6 +26,7 @@ void broker_new_pokemon(char * pokemon, char * posx, char * posy, char * cantida
 	t_packed* ack = enviar_new_pokemon(servidor,-1,new_pokemon);
 
 	if(ack != (t_packed*)-1){
+		log_info(gameboy_logger,"Conectado a Broker");
 		log_info(gameboy_logger,"Recibí ACK del mensaje con ID: %d",ack->id_mensaje);
 		eliminar_mensaje(ack);
 	}else{
@@ -51,6 +52,7 @@ void broker_appeared_pokemon(char* pokemon, char * posx, char * posy, char * id_
 	t_packed* ack = enviar_appeared_pokemon(servidor, -1, appeared_pokemon);
 
 	if(ack != (t_packed*)-1){
+		log_info(gameboy_logger,"Conectado a Broker");
 		log_info(gameboy_logger,"Recibí ACK del mensaje con ID: %d",ack->id_mensaje);
 		eliminar_mensaje(ack);
 	}else{
@@ -76,6 +78,7 @@ void broker_catch_pokemon(char * pokemon, char* posx, char* posy){
 	t_packed* ack = enviar_catch_pokemon(servidor, -1, catch_pokemon);
 
 	if(ack != (t_packed*)-1){
+		log_info(gameboy_logger,"Conectado a Broker");
 		log_info(gameboy_logger,"Recibí ACK del mensaje con ID: %d",ack->id_mensaje);
 		eliminar_mensaje(ack);
 	}else{
@@ -99,6 +102,7 @@ void broker_caught_pokemon(char * id_mensaje_correlativo, char *ok_or_fail){
 	t_packed* ack = enviar_caught_pokemon(servidor, -1, caught_pokemon);
 
 	if(ack != (t_packed*)-1){
+		log_info(gameboy_logger,"Conectado a Broker");
 		log_info(gameboy_logger,"Recibí ACK del mensaje con ID: %d",ack->id_mensaje);
 		eliminar_mensaje(ack);
 	}else{
@@ -118,14 +122,13 @@ void broker_get_pokemon(char * pokemon){
 		mostrar_mensaje_de_error();
 		terminar_gameboy_correctamente();
 	}else{
-		log_info(gameboy_logger," Envio a broker el pokemon %s", pokemon);
-
 		t_get_pokemon * get_pokemon = (t_get_pokemon*)malloc(sizeof(t_get_pokemon));
 		get_pokemon->pokemon = pokemon;
 
 		t_packed* ack = enviar_get_pokemon(servidor, -1, get_pokemon);
 
 		if(ack != (t_packed*)-1){
+			log_info(gameboy_logger,"Conectado a Broker");
 			log_info(gameboy_logger,"Recibí ACK del mensaje con ID: %d",ack->id_mensaje);
 			eliminar_mensaje(ack);
 		}else{
@@ -175,9 +178,7 @@ void* mostrar_contenido_del_mensaje(void* _socket){
 					eliminar_mensaje(paquete);
 
 					break;
-
 			}
-
 		}
 	}
 
